@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Uncertainty vs. Variability in prospective human predictions",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "Prospective human dose/exposure predictions are characterized by uncertainty (limited knowledge of the system, e.g., scaling errors) rather than just biological variability (system property). Uncertainty in PK parameters (CL, Vss) and PD targets propagates into dose prediction uncertainty, which must be quantified to assess feasibility and safety margins.",
+      "conditions": [
+        "Applicable to all prospective human simulations where no human PK data exists.",
+        "Relevant when communicating confidence intervals for predicted exposures to decision-makers.",
+        "Applies when distinguishing between inter-individual variability (which persists) and parameter uncertainty (which decreases with data)."
+      ],
+      "required_inputs": [
+        "Predicted PK parameters (CL, Vss, F) with associated uncertainty distributions (e.g., log-normal).",
+        "PD targets (MEC) with uncertainty ranges.",
+        "Model structure assumptions (e.g., one- vs. multi-compartment).",
+        "Sensitivity analysis results showing impact of parameter uncertainty on dose/exposure."
+      ],
+      "limitations": [
+        "Predictions are sensitive to model structure choice; a unique curve cannot be derived from CL and Vss alone without distribution parameters.",
+        "Uncertainty in PD parameters often dominates early-stage predictions if biomarkers are not accessible in preclinical species.",
+        "Simulated safety margins are prospective estimates, not observed safety data."
+      ],
+      "downstream_use": "Use uncertainty quantification to define the range of plausible human exposures and inform early clinical trial design (e.g., starting dose, safety monitoring). Do not treat point estimates as definitive human values.",
+      "evidence_chunk_ids": [
+        "SUP011:0002",
+        "SUP011:0003",
+        "SUP011:0030",
+        "IN_HUMAN_SIMULATION:0008"
+      ],
+      "id": "round3_H04:K02",
+      "origin_job": "round3_H04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_HUMAN_SIMULATION",
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "H04",
+      "retrieval_keywords": "Why prospective exposure or target attainment cannot establish human efficacy or safety",
+      "supersedes": [
+        "round2_H04:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

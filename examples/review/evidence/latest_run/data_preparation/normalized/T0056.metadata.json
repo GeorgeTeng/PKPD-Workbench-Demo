@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "T0056",
+  "role": "MIC",
+  "metadata": {
+    "role": "MIC",
+    "species": "K. pneumoniae",
+    "matrix": "NOT_FOUND",
+    "exposure_basis": "NOT_APPLICABLE",
+    "record_level": "aggregate MIC frequencies",
+    "drug": "NOT_FOUND",
+    "route": "NOT_APPLICABLE",
+    "endpoint_window": "NOT_FOUND",
+    "route_category": "NOT_APPLICABLE",
+    "matrix_category": "NOT_FOUND",
+    "record_category": "GROUP_SUMMARY",
+    "observation_source": "SOURCE_VALUES",
+    "dose_basis": "NOT_APPLICABLE",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "NOT_APPLICABLE",
+    "additional_roles": [],
+    "columns": [
+      {
+        "header": "MIC (mg/L)",
+        "meaning": "MIC",
+        "unit": "mg/L",
+        "qualifiers": [],
+        "column": "A",
+        "evidence": [
+          {
+            "source": "F0003:S5:T3:A98",
+            "quote": "MIC (mg/L)"
+          },
+          {
+            "source": "F0003:S5:T3:A108",
+            "quote": ">32"
+          }
+        ]
+      },
+      {
+        "header": "Percentage",
+        "meaning": "SUMMARY_STATISTIC",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "reported percentages"
+        ],
+        "column": "B",
+        "evidence": [
+          {
+            "source": "F0003:S5:T3:B98",
+            "quote": "Percentage"
+          },
+          {
+            "source": "F0003:S5:T3:A96",
+            "quote": "652 isolates; MIC50=MIC90=0.5 mg/L. Frequencies are reported percentages; retain without renormalization."
+          }
+        ]
+      }
+    ],
+    "permission": "DEVELOPMENT_CANDIDATE",
+    "source_table": {
+      "title": "K. pneumoniae surveillance MIC distribution",
+      "sheet": "In_vitro_MIC",
+      "region": {
+        "start_row": 94,
+        "end_row": 110,
+        "left": 1,
+        "right": 2,
+        "header_row": 98,
+        "title": "K. pneumoniae surveillance MIC distribution",
+        "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
+        "note_regions": []
+      },
+      "notes": "K. pneumoniae surveillance MIC distribution\nS14 | DOI 10.3389/fphar.2021.785893 | aggregate MIC frequencies\n652 isolates; MIC50=MIC90=0.5 mg/L. Frequencies are reported percentages; retain without renormalization.\nThe reported percentages sum to 99.57. The discrepancy remains unresolved.",
+      "column_map": {
+        "c001_mic_mg_l": "MIC (mg/L)",
+        "c002_percentage": "Percentage"
+      }
+    },
+    "source_item_id": "F0003:S5:T3",
+    "source_evidence": [
+      {
+        "source": "F0003:S5:T3:A94",
+        "quote": "K. pneumoniae surveillance MIC distribution"
+      },
+      {
+        "source": "F0003:S5:T3:A95",
+        "quote": "S14 | DOI 10.3389/fphar.2021.785893 | aggregate MIC frequencies"
+      },
+      {
+        "source": "F0003:S5:T3:A96",
+        "quote": "652 isolates; MIC50=MIC90=0.5 mg/L. Frequencies are reported percentages; retain without renormalization."
+      },
+      {
+        "source": "F0003:S5:T3:A97",
+        "quote": "The reported percentages sum to 99.57. The discrepancy remains unresolved."
+      },
+      {
+        "source": "F0003:S5:T3:A108",
+        "quote": ">32"
+      },
+      {
+        "source": "F0003:S5:T3:B108",
+        "quote": "0"
+      }
+    ],
+    "requirement_ids": [],
+    "independent_animal_count": "NOT_ESTABLISHED",
+    "dose": "NOT_FOUND",
+    "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
+    "normalized_fields": {},
+    "preparation_policy": "DATASET_ACTION_V1"
+  },
+  "data_file": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\normalized\\T0056.json",
+    "sha256": "53dc1600ee477e75749d12536ccb12d5747ad372e4a95f7742ecd6e97ad4f793"
+  },
+  "source_refs": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\files\\F0003.xlsx",
+      "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\parsed\\F0003.json",
+      "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\preparation_plan.json",
+      "sha256": "db2e58af367824a5a9fea3524390d433115d3f33370e8290d344df602da71b9a"
+    }
+  ],
+  "summary": {
+    "source_records": 10,
+    "retained_records": 10,
+    "quarantined_records": 0,
+    "independent_animals": "NOT_ESTABLISHED",
+    "quarantine_reasons": {}
+  },
+  "review_status": "PENDING",
+  "release_authority": "SEPARATE_SIGNED_HANDOFF",
+  "human_prediction_allowed": false
+}

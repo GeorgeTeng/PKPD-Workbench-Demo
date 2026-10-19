@@ -1,0 +1,57 @@
+{
+  "cards": [
+    {
+      "title": "Nonlinear PK and Exposure Equivalence in Dose Fractionation",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "Comparable total daily doses do not guarantee equal AUC or exposure profiles under nonlinear PK conditions. Nonlinear PK examples demonstrate that nonlinear PK behavior can confound interpretation if exposure is not directly measured or qualified. Therefore, dose fractionation comparisons must rely on qualified actual exposures (e.g., measured fAUC) rather than assuming equivalence based on total dose. Index conclusions are also dependent on treatment duration and response endpoint.",
+      "conditions": [
+        "Applicable when PK is nonlinear or when comparing regimens with different frequencies.",
+        "Requires direct measurement or qualified modeling of exposure (AUC, Cmax) for each regimen.",
+        "Project-specific: IN_EDA:0047 notes that human concentration-time outputs are prospective scenarios, not observations.",
+        "External evidence: SUP007 notes that nonlinear PK confounded interpretation in prior studies lacking PK data."
+      ],
+      "required_inputs": [
+        "Measured or modeled exposure parameters (AUC, Cmax) for each specific regimen.",
+        "Confirmation of PK linearity or explicit handling of nonlinearity.",
+        "Source-linked PK observations relevant to the specific PD regimens.",
+        "Project-specific: Retain scenario dose/basis and concentration basis without inserting typical values (IN_EDA:0047)."
+      ],
+      "limitations": [
+        "Total dose equivalence is insufficient for exposure equivalence in nonlinear PK.",
+        "Index superiority is context-dependent (e.g., site-specific differences in SUP007).",
+        "Project drafts do not authorize numerical fitting or model qualification in this stage; they only define data requirements.",
+        "Human IIV cannot be inferred from animal variability or parameter SEs."
+      ],
+      "downstream_use": "Guides the selection of exposure metrics for PD analysis. If exposure equivalence cannot be established due to nonlinear PK or lack of data, index ranking is marked unresolved, and only independent exposure summaries are retained.",
+      "evidence_chunk_ids": [
+        "SUP007:0022",
+        "IN_EDA:0047",
+        "IN_MAIN:0046",
+        "SUP008:0017"
+      ],
+      "id": "round3_P02:K02",
+      "origin_job": "round3_P02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA",
+        "IN_MAIN",
+        "SUP007",
+        "SUP008"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "P02",
+      "retrieval_keywords": "Dose fractionation: cross-index discrimination versus within-index target fitting",
+      "supersedes": [
+        "round2_P02:K01",
+        "round2_P02:K02",
+        "round2_P02:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

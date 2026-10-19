@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "Mechanism of Bias in Free Concentration Derivation",
+      "topics": [
+        "translation",
+        "human_simulation"
+      ],
+      "claim": "For low extraction ratio drugs, total plasma concentrations are more variable than free plasma concentrations because they reflect both clearance variability and binding variability (Bmax, Kd). Deriving free concentrations by scaling total concentrations with a scalar fu or an independent fu distribution transfers this excess binding variability to the free distribution, causing underestimation of low-quantile free exposures (e.g., Q10%) and biased PTA estimates. As a method inference, correct pairing/joint modeling avoids the specific added back-scaling error from ignoring total/fu dependence; assay error, model misspecification and target uncertainty can still affect overall PTA accuracy.",
+      "conditions": [
+        "Applies under the source low-extraction/back-scaling assumptions, including its free-clearance dependence on binding; applicability must be assessed for the target system.",
+        "Bias occurs when free concentrations are derived by scaling total measurements with a scalar fu or a fu distribution independent of the total concentration draw.",
+        "Does not apply if free concentrations are directly measured or if paired/joint modeling correctly accounts for the dependence between total and free concentrations."
+      ],
+      "required_inputs": [
+        "Total plasma concentration data.",
+        "fu value (scalar or distribution) used for scaling.",
+        "PK/PD index definition (e.g., fAUC/MIC).",
+        "Knowledge of whether fu is treated as independent or paired with total concentration."
+      ],
+      "limitations": [
+        "Bias magnitude depends on the specific fu value and its assumed variability.",
+        "The general principle applies to low extraction ratio drugs; high extraction drugs may have different clearance dependencies.",
+        "Abstract-only or partial text may not cover specific drug examples beyond the general principle."
+      ],
+      "downstream_use": "Guides the selection of PK/PD modeling strategies: prefer direct free concentration measurement or joint modeling of total/free concentrations. Warns against using scalar fu or independent fu distributions to derive free concentrations from total data, as this exacerbates bias in PTA calculations.",
+      "evidence_chunk_ids": [
+        "SUP013:0002",
+        "SUP013:0007",
+        "SUP013:0008",
+        "SUP013:0015"
+      ],
+      "id": "source_SUP013:K01",
+      "origin_job": "source_SUP013",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP013"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

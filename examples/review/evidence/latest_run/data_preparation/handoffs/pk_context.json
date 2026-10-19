@@ -1,0 +1,4538 @@
+{
+  "schema_version": "2.0",
+  "module": "pk",
+  "status": "RESTRICTED",
+  "scientific_release": false,
+  "fit_ready": false,
+  "files": [],
+  "task_requirements": [],
+  "unknowns": [
+    {
+      "code": "RAT_IDENTITY_VIEW_CONFLICT",
+      "affected_id": "T0037",
+      "reason": "Metadata says repeated measurements are identified by rat number, but every supplied rat observation has animal_id null and longitudinal_join_allowed false. The view and metadata must agree before repeated-animal analysis.",
+      "needed_material": "Source-supported rat identifier mapping and a corrected, version-bound observation view or corrected metadata statement.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "LONGITUDINAL_JOIN",
+        "PK_MODELING",
+        "NCA"
+      ]
+    },
+    {
+      "code": "MOUSE_PK_IDENTITY_UNVERIFIED",
+      "affected_id": "T0001",
+      "reason": "Mouse-numbered columns do not verify cross-time identity; the supplied observations have null animal_id.",
+      "needed_material": "Source evidence establishing whether mouse columns identify the same animals across times, or an explicit group-level modeling limitation.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "LONGITUDINAL_JOIN",
+        "PK_MODELING",
+        "NCA"
+      ]
+    },
+    {
+      "code": "ELF_SAMPLE_COUNT_AND_LLOQ",
+      "affected_id": "T0002",
+      "reason": "The caption reports n=3 while early rows have four slots; censored observations have no numeric LLOQ.",
+      "needed_material": "Source clarification of time-specific sample counts and assay LLOQ, or a documented limitation and censor-aware analysis plan.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "UNCERTAINTY_WEIGHTING",
+        "CENSORED_VALUE_CALCULATION",
+        "PK_MODELING"
+      ]
+    },
+    {
+      "code": "MOUSE_EFFICACY_PK_LINK_ABSENT",
+      "affected_id": "T0005",
+      "reason": "Terminal K. pneumoniae lung responses have a strain MIC and regimen label, but no matched measured PK for the efficacy regimen.",
+      "needed_material": "Supported regimen-specific PK exposure or an explicitly qualified model prediction and strain/window linkage.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "MOUSE_EFFICACY_PK_LINK_ABSENT",
+      "affected_id": "T0008",
+      "reason": "The second K. pneumoniae terminal lung-response series likewise lacks matched measured regimen PK.",
+      "needed_material": "Supported regimen-specific exposure and documented linkage to this strain, dose and 24-hour response.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "FRACTIONATION_RESPONSE_MAPPING_MISSING",
+      "affected_id": "T0012",
+      "reason": "Regimen labels are curator-assigned and the source notes say no individual CFU-to-regimen numeric mapping was located.",
+      "needed_material": "Source-supported numeric regimen-to-response mapping, or an explicit exclusion from matched index analysis.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "DOSE_RANGE_SOURCE_CONFLICT",
+      "affected_id": "T0014",
+      "reason": "Printed 2023 dose ranges conflict with the article's >64 mg/kg per-dose intolerance statement; the supplement does not resolve it.",
+      "needed_material": "Author/source reconciliation or a documented restriction that retains both dose statements without assigning scatter markers to doses.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "INDEX_PANELS_UNMATCHED",
+      "affected_id": "T0024",
+      "reason": "K. pneumoniae index panels contain incomplete visible markers without per-marker dose, animal or cross-panel IDs; left-axis and overlap locations are uncertain.",
+      "needed_material": "Source-supported common-record links and resolved point status, or exclusion from a matched three-index comparison.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "INDEX_PANELS_UNMATCHED",
+      "affected_id": "T0025",
+      "reason": "The fCmax/MIC panel has no verified correspondence to response records in the other index panels.",
+      "needed_material": "Source-supported per-marker identity and dose links, or panel-only descriptive use.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "INDEX_PANELS_UNMATCHED",
+      "affected_id": "T0026",
+      "reason": "The fAUC/MIC panel also lacks verified common-record membership and has unresolved left log-axis markers.",
+      "needed_material": "Source-supported per-marker identity and resolved exposure status, or panel-only descriptive use.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "DIGITIZED_TIME_CHOICE",
+      "affected_id": "T0016",
+      "reason": "Nominal and digitized pixel times coexist; neither is selected for a unique analysis axis. The same restriction applies to T0017–T0020.",
+      "needed_material": "A prespecified time-axis choice with source justification and sensitivity treatment for digitization.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "TIME_AXIS_SELECTION",
+        "NORMALIZED_TIME_CONCENTRATION_VIEW",
+        "NCA",
+        "PK_MODELING"
+      ]
+    },
+    {
+      "code": "RABBIT_TIME_AND_PEAK_CONFLICT",
+      "affected_id": "T0047",
+      "reason": "Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax.",
+      "needed_material": "Source reconciliation or an explicit exploratory analysis plan preserving plotted times and the peak discrepancy.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "TIME_AXIS_SELECTION",
+        "NORMALIZED_TIME_CONCENTRATION_VIEW",
+        "NCA",
+        "PK_MODELING"
+      ]
+    },
+    {
+      "code": "MATRIX_BRIDGE_UNSUPPORTED",
+      "affected_id": "T0038",
+      "reason": "Serum is reported in µg/mL and terminal tissue homogenates in µg/g; the tissue values cannot be interpreted as volume concentrations or free ELF exposure by unit conversion alone.",
+      "needed_material": "Matrix-specific physiological bridge, density/partition assumptions where applicable, and supporting evidence before any conversion.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "CROSS_MATRIX_CONVERSION",
+        "PK_MODELING"
+      ]
+    },
+    {
+      "code": "BINDING_ESTIMATES_CONFLICT",
+      "affected_id": "T0011",
+      "reason": "Mouse binding estimates use different assays and plasma material; T0015 and T0035 add distinct pooled sources. Averaging or cross-study borrowing would change free exposure.",
+      "needed_material": "Source-specific fu scenarios with analyte, matrix, assay and uncertainty definitions.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "CROSS_MATRIX_CONVERSION",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "RAT_BINDING_MATRIX_CONFLICT",
+      "affected_id": "T0039",
+      "reason": "Pooled polymyxin B1 serum binding is method-specific and conflicts with other rat binding context; it cannot be applied directly to rat plasma or tissue.",
+      "needed_material": "A justified rat fu sensitivity plan preserving source, analyte and matrix distinctions.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "CROSS_MATRIX_CONVERSION",
+        "PK_MODELING"
+      ]
+    },
+    {
+      "code": "CENSOR_LIMIT_OR_DIRECTION_UNRESOLVED",
+      "affected_id": "T0054",
+      "reason": "Three CENS=1 response values have unknown limits and unresolved censor direction; their raw zero placeholders are not measured zero responses.",
+      "needed_material": "Assay reporting limit and censor direction, or a method that retains censored status without numeric substitution.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "CENSORED_VALUE_CALCULATION",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "MIC_DISTRIBUTION_INCOMPLETE",
+      "affected_id": "T0056",
+      "reason": "The reported MIC percentages sum to 99.57, and the >32 bin is censored; neither missing mass nor denominator allocation has been resolved.",
+      "needed_material": "Distribution denominator, full bin/count coverage and a prespecified handling of missing mass and the censored upper bin.",
+      "required_by": "BEFORE_PTA",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "MIC_WEIGHTED_PTA"
+      ]
+    },
+    {
+      "code": "RABBIT_REGIMENS_DIFFER",
+      "affected_id": "T0040",
+      "reason": "The rabbit AUC/Cmax summaries concern 1 mg/kg IV q12h, whereas T0041 efficacy used a 2.5 mg/kg loading dose then 1.5 mg/kg q12h.",
+      "needed_material": "Matched efficacy-regimen exposure or a qualified model prediction; preserve both regimens.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP",
+      "affected_operations": [
+        "CROSS_TABLE_LINKAGE",
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "code": "PMB_REGIMEN_SOURCE_CONFLICT",
+      "affected_id": "T0036",
+      "reason": "Methods report SC q6h daily doses of 16, 32 and 64 mg/kg, while results mention 4, 8 and 16 mg/kg without reconciliation.",
+      "needed_material": "Source or author clarification of regimen quantities before dose-to-response or exposure assignment.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW",
+      "affected_operations": [
+        "DOSE_RESPONSE_LINKAGE"
+      ]
+    },
+    {
+      "affected_id": "MI001",
+      "needed_material": "Actual preparation retains the mouse panels and regimen inventory, but their metadata explicitly deny per-marker dose and cross-panel identity. This does not prevent separate source-series display. The dependent matching decision belongs before index analysis; MI001 remains open with its original scope and history.",
+      "code": "UNRESOLVED_ITEM_CARRIED",
+      "severity": "FOLLOW_UP",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "reason": "DEFERRED (mouse panel-to-regimen matching) carried to BEFORE_INDEX_ANALYSIS: Actual preparation retains the mouse panels and regimen inventory, but their metadata explicitly deny per-marker dose and cross-panel identity. This does not prevent separate source-series display. The dependent matching decision belongs before index analysis; MI001 remains open with its original scope and history."
+    }
+  ],
+  "unresolved_items": [
+    {
+      "id": "MI001",
+      "field": "mouse panel-to-regimen matching",
+      "status": "DEFERRED",
+      "needed_at": "prepare",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Eligibility and pairing of mouse exposure-response records cannot be established from the proposal.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI001",
+        "field": "mouse panel-to-regimen matching",
+        "status": "DEFERRED",
+        "needed_at": "prepare",
+        "impact": "Eligibility and pairing of mouse exposure-response records cannot be established from the proposal.",
+        "why_it_matters": "The proposal states that the separate digitized panels are not verified matched regimen records.",
+        "clarification": "Establish supported links among mouse panels, regimens, strain MICs and bacterial-burden responses from authorized data before using matched records.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "CARRIED",
+      "history": [
+        {
+          "step": "DH-handoff",
+          "phase": "BEFORE_EDA",
+          "outcome": "CARRIED",
+          "reason": "Actual preparation retains the mouse panels and regimen inventory, but their metadata explicitly deny per-marker dose and cross-panel identity. This does not prevent separate source-series display. The dependent matching decision belongs before index analysis; MI001 remains open with its original scope and history.",
+          "evidence": [
+            {
+              "source": "dataset:T0024 metadata",
+              "quote": "Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            },
+            {
+              "source": "dataset:T0012 metadata",
+              "quote": "No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+            }
+          ],
+          "limitation": "NONE",
+          "carried_to": "BEFORE_INDEX_ANALYSIS",
+          "bound_to": [
+            {
+              "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\inputs\\context.json",
+              "sha256": "37a5299829037be80ff51ac62f319fab0c92fb2c504f584acda75d0915b43676"
+            },
+            {
+              "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\preparation_execution.json",
+              "sha256": "6bdbea5295127ffafcd6cc53d659a3ab75ab687c843dcc7c9be82125b444c853"
+            },
+            {
+              "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\metadata_review.json",
+              "sha256": "63a81f5638b732bfc0dcdf4d8fd64329b80f37bca402179e277477d040bb6724"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MI002",
+      "field": "mouse and rat protein-binding conflict",
+      "status": "CONFLICT",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "Free-exposure conversion and translation remain uncertain.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI002",
+        "field": "mouse and rat protein-binding conflict",
+        "status": "CONFLICT",
+        "needed_at": "pk",
+        "impact": "Free-exposure conversion and translation remain uncertain.",
+        "why_it_matters": "The proposal reports incompatible binding sources for both species and requires fu sensitivity rather than averaging.",
+        "clarification": "Preserve source-specific binding estimates and determine justified sensitivity treatments for mouse and rat.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI003",
+      "field": "rabbit source consistency assessment",
+      "status": "DEFERRED",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "The presence and implications of rabbit source discrepancies remain to be assessed before finalizing their proposed use.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI003",
+        "field": "rabbit source consistency assessment",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "The presence and implications of rabbit source discrepancies remain to be assessed before finalizing their proposed use.",
+        "why_it_matters": "The proposal requires preservation of source discrepancies but does not identify a specific existing rabbit discrepancy.",
+        "clarification": "Assess the authorized rabbit sources and preserve any discrepancies found, with their implications for the proposed use.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI004",
+      "field": "rabbit model-component support",
+      "status": "DEFERRED",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "Rabbit evidence may support a model component, exploratory constraints or exclusion; the proposal does not determine which.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI004",
+        "field": "rabbit model-component support",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Rabbit evidence may support a model component, exploratory constraints or exclusion; the proposal does not determine which.",
+        "why_it_matters": "The rabbit material is described as mean profiles, summaries and outcomes, with use conditional on what it identifies.",
+        "clarification": "Assess rabbit evidence for identifiable systemic or pulmonary components and document any exploratory use or exclusion.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI005",
+      "field": "horse dose salt-or-base basis",
+      "status": "AMBIGUOUS",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "The reported horse doses cannot be converted or compared on a confirmed salt-or-base basis.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI005",
+        "field": "horse dose salt-or-base basis",
+        "status": "AMBIGUOUS",
+        "needed_at": "pk",
+        "impact": "The reported horse doses cannot be converted or compared on a confirmed salt-or-base basis.",
+        "why_it_matters": "Most horse doses are reported in IU without salt or base correction.",
+        "clarification": "Document the dose basis and any justified IU conversion separately for each held-out horse study; carry unresolved ambiguity into prediction comparison.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI006",
+      "field": "horse protein binding",
+      "status": "NOT_FOUND",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "A horse-specific free-exposure correction cannot be treated as measured.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI006",
+        "field": "horse protein binding",
+        "status": "NOT_FOUND",
+        "needed_at": "pk",
+        "impact": "A horse-specific free-exposure correction cannot be treated as measured.",
+        "why_it_matters": "The proposal explicitly says no horse binding is available.",
+        "clarification": "Document the absent horse binding information and its effect on the held-out translation check.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI007",
+      "field": "human validation file release",
+      "status": "DEFERRED",
+      "needed_at": "validation",
+      "phase": "FINAL_VALIDATION",
+      "impact": "Human outcome comparison must await the separately held file and the specified release stage.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI007",
+        "field": "human validation file release",
+        "status": "DEFERRED",
+        "needed_at": "validation",
+        "impact": "Human outcome comparison must await the separately held file and the specified release stage.",
+        "why_it_matters": "The human data and reference tables are outside the supplied package and are released only at task 5 after animal modeling, scaling and predictions are frozen.",
+        "clarification": "At task 5, obtain the authorized separate human file after the required freezes and preserve its validation-only role.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI008",
+      "field": "human prediction doses and routes",
+      "status": "NOT_FOUND",
+      "needed_at": "human_pk",
+      "phase": "BEFORE_TRANSLATION",
+      "impact": "The human concentration-time, AUC and Cmax predictions cannot be tied to defined dosing scenarios from the proposal alone.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI008",
+        "field": "human prediction doses and routes",
+        "status": "NOT_FOUND",
+        "needed_at": "human_pk",
+        "impact": "The human concentration-time, AUC and Cmax predictions cannot be tied to defined dosing scenarios from the proposal alone.",
+        "why_it_matters": "The proposal requires prediction under specified doses and routes but supplies no actual human dose or route values in the authorized text.",
+        "clarification": "Specify the human prediction dose amounts, dose basis, routes and administration schedules before simulation.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI009",
+      "field": "K. pneumoniae matched PD analysis records",
+      "status": "DEFERRED",
+      "needed_at": "index",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "The three indices cannot be compared fairly until response, strain MIC, free exposure, dosing history and window are matched.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI009",
+        "field": "K. pneumoniae matched PD analysis records",
+        "status": "DEFERRED",
+        "needed_at": "index",
+        "impact": "The three indices cannot be compared fairly until response, strain MIC, free exposure, dosing history and window are matched.",
+        "why_it_matters": "The mouse panels are not verified matched regimen records and the workbook has not been assessed.",
+        "clarification": "Establish eligible matched K. pneumoniae records and document exclusions for index comparison.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI010",
+      "field": "supported PK/PD index and exposure targets",
+      "status": "DEFERRED",
+      "needed_at": "index",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "No best index or target magnitude can yet be selected for dose simulation.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI010",
+        "field": "supported PK/PD index and exposure targets",
+        "status": "DEFERRED",
+        "needed_at": "index",
+        "impact": "No best index or target magnitude can yet be selected for dose simulation.",
+        "why_it_matters": "The proposal makes index and target determination contingent on eligible data and permits a finding that neither is determinable.",
+        "clarification": "Apply the prespecified comparison to eligible data and report supported index and endpoint-specific targets, or explain why they cannot be determined.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI011",
+      "field": "MIC distribution coverage for PTA weighting",
+      "status": "DEFERRED",
+      "needed_at": "clinical",
+      "phase": "BEFORE_PTA",
+      "impact": "Distribution-weighted attainment cannot be interpreted until coverage and denominators are assessed.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI011",
+        "field": "MIC distribution coverage for PTA weighting",
+        "status": "DEFERRED",
+        "needed_at": "clinical",
+        "impact": "Distribution-weighted attainment cannot be interpreted until coverage and denominators are assessed.",
+        "why_it_matters": "The proposal prohibits silent renormalization of incomplete MIC coverage; the supplied text does not assess the distribution.",
+        "clarification": "Assess MIC bins, counts or proportions, denominators, censored categories and coverage before weighting PTA.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI012",
+      "field": "human PTA population and dosing scenarios",
+      "status": "DEFERRED",
+      "needed_at": "clinical",
+      "phase": "BEFORE_PTA",
+      "impact": "PTA simulation cannot proceed with a defined population and regimens until these choices are prespecified.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI012",
+        "field": "human PTA population and dosing scenarios",
+        "status": "DEFERRED",
+        "needed_at": "clinical",
+        "impact": "PTA simulation cannot proceed with a defined population and regimens until these choices are prespecified.",
+        "why_it_matters": "The proposal requires a prespecified human population and dosing scenarios after PK validation and PD qualification, but does not provide those choices.",
+        "clarification": "Prespecify the human PTA population and dosing scenarios before PTA simulation.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI013",
+      "field": "defensible individual PK variability for PTA",
+      "status": "DEFERRED",
+      "needed_at": "clinical",
+      "phase": "BEFORE_PTA",
+      "impact": "Population attainment uncertainty may be unsupported if individual variability cannot be established.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI013",
+        "field": "defensible individual PK variability for PTA",
+        "status": "DEFERRED",
+        "needed_at": "clinical",
+        "impact": "Population attainment uncertainty may be unsupported if individual variability cannot be established.",
+        "why_it_matters": "The proposal requires supported PK variability and forbids inventing interindividual variability from group summaries; support has not been assessed.",
+        "clarification": "Assess whether authorized individual data or other justified evidence support the variability model used for PTA; otherwise report the limitation.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI014",
+      "field": "prespecified human validation criteria",
+      "status": "NOT_FOUND",
+      "needed_at": "validation",
+      "phase": "FINAL_VALIDATION",
+      "impact": "Human prediction performance cannot be judged against fixed acceptance criteria from the proposal alone.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI014",
+        "field": "prespecified human validation criteria",
+        "status": "NOT_FOUND",
+        "needed_at": "validation",
+        "impact": "Human prediction performance cannot be judged against fixed acceptance criteria from the proposal alone.",
+        "why_it_matters": "The proposal requires criteria fixed before validation but gives no criterion definitions or thresholds in the authorized text.",
+        "clarification": "Define and freeze human PK validation criteria before opening or comparing human outcomes.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "MI015",
+      "field": "human ELF validation compatibility",
+      "status": "DEFERRED",
+      "needed_at": "validation",
+      "phase": "FINAL_VALIDATION",
+      "impact": "ELF comparison may be unavailable or scientifically incompatible with the predicted endpoint.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+          "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+        }
+      },
+      "record": {
+        "id": "MI015",
+        "field": "human ELF validation compatibility",
+        "status": "DEFERRED",
+        "needed_at": "validation",
+        "impact": "ELF comparison may be unavailable or scientifically incompatible with the predicted endpoint.",
+        "why_it_matters": "The proposal allows separate ELF assessment only when compatible data exist, and the separate validation file has not been released.",
+        "clarification": "At validation, determine whether compatible human ELF observations exist and document the basis for any comparison.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U001",
+      "field": "T0037",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "Metadata says repeated measurements are identified by rat number, but every supplied rat observation has animal_id null and longitudinal_join_allowed false. The view and metadata must agree before repeated-animal analysis.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "RAT_IDENTITY_VIEW_CONFLICT",
+        "affected_id": "T0037",
+        "reason": "Metadata says repeated measurements are identified by rat number, but every supplied rat observation has animal_id null and longitudinal_join_allowed false. The view and metadata must agree before repeated-animal analysis.",
+        "needed_material": "Source-supported rat identifier mapping and a corrected, version-bound observation view or corrected metadata statement.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "LONGITUDINAL_JOIN",
+          "PK_MODELING",
+          "NCA"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U002",
+      "field": "T0001",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "Mouse-numbered columns do not verify cross-time identity; the supplied observations have null animal_id.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "MOUSE_PK_IDENTITY_UNVERIFIED",
+        "affected_id": "T0001",
+        "reason": "Mouse-numbered columns do not verify cross-time identity; the supplied observations have null animal_id.",
+        "needed_material": "Source evidence establishing whether mouse columns identify the same animals across times, or an explicit group-level modeling limitation.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "LONGITUDINAL_JOIN",
+          "PK_MODELING",
+          "NCA"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U003",
+      "field": "T0002",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "The caption reports n=3 while early rows have four slots; censored observations have no numeric LLOQ.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "ELF_SAMPLE_COUNT_AND_LLOQ",
+        "affected_id": "T0002",
+        "reason": "The caption reports n=3 while early rows have four slots; censored observations have no numeric LLOQ.",
+        "needed_material": "Source clarification of time-specific sample counts and assay LLOQ, or a documented limitation and censor-aware analysis plan.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "UNCERTAINTY_WEIGHTING",
+          "CENSORED_VALUE_CALCULATION",
+          "PK_MODELING"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U004",
+      "field": "T0005",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Terminal K. pneumoniae lung responses have a strain MIC and regimen label, but no matched measured PK for the efficacy regimen.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "MOUSE_EFFICACY_PK_LINK_ABSENT",
+        "affected_id": "T0005",
+        "reason": "Terminal K. pneumoniae lung responses have a strain MIC and regimen label, but no matched measured PK for the efficacy regimen.",
+        "needed_material": "Supported regimen-specific PK exposure or an explicitly qualified model prediction and strain/window linkage.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U005",
+      "field": "T0008",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "The second K. pneumoniae terminal lung-response series likewise lacks matched measured regimen PK.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "MOUSE_EFFICACY_PK_LINK_ABSENT",
+        "affected_id": "T0008",
+        "reason": "The second K. pneumoniae terminal lung-response series likewise lacks matched measured regimen PK.",
+        "needed_material": "Supported regimen-specific exposure and documented linkage to this strain, dose and 24-hour response.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U006",
+      "field": "T0012",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Regimen labels are curator-assigned and the source notes say no individual CFU-to-regimen numeric mapping was located.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "FRACTIONATION_RESPONSE_MAPPING_MISSING",
+        "affected_id": "T0012",
+        "reason": "Regimen labels are curator-assigned and the source notes say no individual CFU-to-regimen numeric mapping was located.",
+        "needed_material": "Source-supported numeric regimen-to-response mapping, or an explicit exclusion from matched index analysis.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U007",
+      "field": "T0014",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Printed 2023 dose ranges conflict with the article's >64 mg/kg per-dose intolerance statement; the supplement does not resolve it.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "DOSE_RANGE_SOURCE_CONFLICT",
+        "affected_id": "T0014",
+        "reason": "Printed 2023 dose ranges conflict with the article's >64 mg/kg per-dose intolerance statement; the supplement does not resolve it.",
+        "needed_material": "Author/source reconciliation or a documented restriction that retains both dose statements without assigning scatter markers to doses.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U008",
+      "field": "T0024",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "K. pneumoniae index panels contain incomplete visible markers without per-marker dose, animal or cross-panel IDs; left-axis and overlap locations are uncertain.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "INDEX_PANELS_UNMATCHED",
+        "affected_id": "T0024",
+        "reason": "K. pneumoniae index panels contain incomplete visible markers without per-marker dose, animal or cross-panel IDs; left-axis and overlap locations are uncertain.",
+        "needed_material": "Source-supported common-record links and resolved point status, or exclusion from a matched three-index comparison.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U009",
+      "field": "T0025",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "The fCmax/MIC panel has no verified correspondence to response records in the other index panels.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "INDEX_PANELS_UNMATCHED",
+        "affected_id": "T0025",
+        "reason": "The fCmax/MIC panel has no verified correspondence to response records in the other index panels.",
+        "needed_material": "Source-supported per-marker identity and dose links, or panel-only descriptive use.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U010",
+      "field": "T0026",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "The fAUC/MIC panel also lacks verified common-record membership and has unresolved left log-axis markers.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "INDEX_PANELS_UNMATCHED",
+        "affected_id": "T0026",
+        "reason": "The fAUC/MIC panel also lacks verified common-record membership and has unresolved left log-axis markers.",
+        "needed_material": "Source-supported per-marker identity and resolved exposure status, or panel-only descriptive use.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U011",
+      "field": "T0016",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "Nominal and digitized pixel times coexist; neither is selected for a unique analysis axis. The same restriction applies to T0017–T0020.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "DIGITIZED_TIME_CHOICE",
+        "affected_id": "T0016",
+        "reason": "Nominal and digitized pixel times coexist; neither is selected for a unique analysis axis. The same restriction applies to T0017–T0020.",
+        "needed_material": "A prespecified time-axis choice with source justification and sensitivity treatment for digitization.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "TIME_AXIS_SELECTION",
+          "NORMALIZED_TIME_CONCENTRATION_VIEW",
+          "NCA",
+          "PK_MODELING"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U012",
+      "field": "T0047",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "RABBIT_TIME_AND_PEAK_CONFLICT",
+        "affected_id": "T0047",
+        "reason": "Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax.",
+        "needed_material": "Source reconciliation or an explicit exploratory analysis plan preserving plotted times and the peak discrepancy.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "TIME_AXIS_SELECTION",
+          "NORMALIZED_TIME_CONCENTRATION_VIEW",
+          "NCA",
+          "PK_MODELING"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U013",
+      "field": "T0038",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "Serum is reported in µg/mL and terminal tissue homogenates in µg/g; the tissue values cannot be interpreted as volume concentrations or free ELF exposure by unit conversion alone.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "MATRIX_BRIDGE_UNSUPPORTED",
+        "affected_id": "T0038",
+        "reason": "Serum is reported in µg/mL and terminal tissue homogenates in µg/g; the tissue values cannot be interpreted as volume concentrations or free ELF exposure by unit conversion alone.",
+        "needed_material": "Matrix-specific physiological bridge, density/partition assumptions where applicable, and supporting evidence before any conversion.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "CROSS_MATRIX_CONVERSION",
+          "PK_MODELING"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U014",
+      "field": "T0011",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Mouse binding estimates use different assays and plasma material; T0015 and T0035 add distinct pooled sources. Averaging or cross-study borrowing would change free exposure.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "BINDING_ESTIMATES_CONFLICT",
+        "affected_id": "T0011",
+        "reason": "Mouse binding estimates use different assays and plasma material; T0015 and T0035 add distinct pooled sources. Averaging or cross-study borrowing would change free exposure.",
+        "needed_material": "Source-specific fu scenarios with analyte, matrix, assay and uncertainty definitions.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "CROSS_MATRIX_CONVERSION",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U015",
+      "field": "T0039",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_MODELING",
+      "phase": "BEFORE_MODELING",
+      "impact": "Pooled polymyxin B1 serum binding is method-specific and conflicts with other rat binding context; it cannot be applied directly to rat plasma or tissue.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "RAT_BINDING_MATRIX_CONFLICT",
+        "affected_id": "T0039",
+        "reason": "Pooled polymyxin B1 serum binding is method-specific and conflicts with other rat binding context; it cannot be applied directly to rat plasma or tissue.",
+        "needed_material": "A justified rat fu sensitivity plan preserving source, analyte and matrix distinctions.",
+        "required_by": "BEFORE_MODELING",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "CROSS_MATRIX_CONVERSION",
+          "PK_MODELING"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U016",
+      "field": "T0054",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Three CENS=1 response values have unknown limits and unresolved censor direction; their raw zero placeholders are not measured zero responses.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "CENSOR_LIMIT_OR_DIRECTION_UNRESOLVED",
+        "affected_id": "T0054",
+        "reason": "Three CENS=1 response values have unknown limits and unresolved censor direction; their raw zero placeholders are not measured zero responses.",
+        "needed_material": "Assay reporting limit and censor direction, or a method that retains censored status without numeric substitution.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "CENSORED_VALUE_CALCULATION",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U017",
+      "field": "T0056",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_PTA",
+      "phase": "BEFORE_PTA",
+      "impact": "The reported MIC percentages sum to 99.57, and the >32 bin is censored; neither missing mass nor denominator allocation has been resolved.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "MIC_DISTRIBUTION_INCOMPLETE",
+        "affected_id": "T0056",
+        "reason": "The reported MIC percentages sum to 99.57, and the >32 bin is censored; neither missing mass nor denominator allocation has been resolved.",
+        "needed_material": "Distribution denominator, full bin/count coverage and a prespecified handling of missing mass and the censored upper bin.",
+        "required_by": "BEFORE_PTA",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "MIC_WEIGHTED_PTA"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U018",
+      "field": "T0040",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "The rabbit AUC/Cmax summaries concern 1 mg/kg IV q12h, whereas T0041 efficacy used a 2.5 mg/kg loading dose then 1.5 mg/kg q12h.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "RABBIT_REGIMENS_DIFFER",
+        "affected_id": "T0040",
+        "reason": "The rabbit AUC/Cmax summaries concern 1 mg/kg IV q12h, whereas T0041 efficacy used a 2.5 mg/kg loading dose then 1.5 mg/kg q12h.",
+        "needed_material": "Matched efficacy-regimen exposure or a qualified model prediction; preserve both regimens.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "FOLLOW_UP",
+        "affected_operations": [
+          "CROSS_TABLE_LINKAGE",
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DH-U019",
+      "field": "T0036",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_INDEX_ANALYSIS",
+      "phase": "BEFORE_INDEX_ANALYSIS",
+      "impact": "Methods report SC q6h daily doses of 16, 32 and 64 mg/kg, while results mention 4, 8 and 16 mg/kg without reconciliation.",
+      "origin": {
+        "step": "DH",
+        "artifact": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_report.json"
+      },
+      "record": {
+        "code": "PMB_REGIMEN_SOURCE_CONFLICT",
+        "affected_id": "T0036",
+        "reason": "Methods report SC q6h daily doses of 16, 32 and 64 mg/kg, while results mention 4, 8 and 16 mg/kg without reconciliation.",
+        "needed_material": "Source or author clarification of regimen quantities before dose-to-response or exposure assignment.",
+        "required_by": "BEFORE_INDEX_ANALYSIS",
+        "severity": "HUMAN_REVIEW",
+        "affected_operations": [
+          "DOSE_RESPONSE_LINKAGE"
+        ]
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    }
+  ],
+  "accepted_limitations": [],
+  "unresolved_ledger": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\unresolved_ledger.json",
+    "sha256": "21deb0b8e09ccabb10a5374a5ceb5875b05d0a582158a234e71b973b677dbb7f"
+  },
+  "rules_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\rules\\published02\\project_rules.json",
+    "sha256": "29a5e6f1b1035087a4b916ea167ce006f7cb5f525a91a4077434b086bfe3cbc1"
+  },
+  "preparation_evidence": {
+    "plan": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\preparation_plan.json",
+      "sha256": "db2e58af367824a5a9fea3524390d433115d3f33370e8290d344df602da71b9a"
+    },
+    "cleaning_log": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\cleaning_log.json",
+      "sha256": "cabc8491a9fc71d7b4dab9bc1f8eb103ab6bf47bec0963a5afd17d675d432ebc"
+    },
+    "program_qc": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\program_qc.json",
+      "sha256": "c937e306b03a179e3886a80a96acbc88e99161b851307442ccce4f14d07dcefa"
+    },
+    "data_dictionary": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\data_dictionary.json",
+      "sha256": "11a6ce3792032774261a447b83142ac5761a724a64403dafebc2261505f09ea8"
+    },
+    "qc_findings": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\qc_findings.json",
+      "sha256": "c0d5305e2f729d463b1a236e8350be3631fb9e6644d8d56a44da1862cac8238a"
+    }
+  },
+  "metadata_validation": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\metadata_review.json",
+    "sha256": "63a81f5638b732bfc0dcdf4d8fd64329b80f37bca402179e277477d040bb6724"
+  },
+  "upstream_data": {
+    "coverage": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\assessment\\coverage\\coverage.json",
+      "sha256": "9cab878c752c510e9b2bbf5715108939c8e1e82136600e62b49e6bf9aee496e9"
+    },
+    "necessity": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\assessment09\\necessity\\necessity.json",
+      "sha256": "ec2b3c818adc58b2cc5869ef1c8050eab6b7cc549b67eef80db1020aa1cb7437"
+    },
+    "source_view": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\source_checkpoint\\source_view.json",
+      "sha256": "72637a6dc371ac9c07d20000dcd846e0aeb01f23f268eefd92a01f25d3712a44"
+    },
+    "plan": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\requirements\\plan.json",
+      "sha256": "39348b10081f019a492ff8e7716d1fd3539614d421d6113851326875006995e2"
+    },
+    "approval_signature": "6b4c5aedfe7591334949f90995d042c4e06ca37d99067f9698fa973482016c12"
+  },
+  "upstream_assessment": {
+    "opinion": {
+      "decision": "CONDITIONAL_PASS",
+      "scope": "Data support for the next animal PK and K. pneumoniae PK/PD analyses",
+      "opinion": "Source-specific animal PK fitting can begin conditionally; common-record index ranking remains blocked, while panel-specific target work needs defined effects."
+    },
+    "analyses": [
+      {
+        "gap_ids": [
+          "RQ001:F2",
+          "RQ001:F3",
+          "RQ001:F6",
+          "RQ001:F7",
+          "RQ001:C1"
+        ],
+        "affected_scope": "S02 mouse, S07 rat, S05 mouse, S22 rabbit",
+        "next_action": "Fit source-specific animal PK curves",
+        "impact": "LIMITS_ANALYSIS",
+        "impact_summary": "Unjustified analyte, dose, free-fraction or matrix bridges restrict pooling.",
+        "can_continue": [
+          "Fit separately on each reported basis."
+        ],
+        "recommendation_kind": "SEARCH_EXISTING",
+        "recommendation": "Resolve component and formulation definitions in existing sources.",
+        "conditions_to_verify": [
+          "Document each proposed conversion or physiological bridge."
+        ],
+        "local_method_profile_ids": [
+          "MP004",
+          "MP007"
+        ],
+        "importance": "ANALYSIS_SPECIFIC",
+        "id": "NA001",
+        "requirement_ids": [
+          "RQ001"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ002:F6",
+          "RQ002:F9",
+          "RQ002:C1"
+        ],
+        "affected_scope": "S21 mouse plasma/ELF; S21 rat plasma; S22 rabbit means",
+        "next_action": "Fit censored PK observations",
+        "impact": "LIMITS_ANALYSIS",
+        "impact_summary": "Mouse identities and numerical censor bounds remain unverified.",
+        "can_continue": [
+          "Use verified rat IDs and quantifiable observations."
+        ],
+        "recommendation_kind": "SEARCH_EXISTING",
+        "recommendation": "Locate assay bounds and mouse sampling identifiers.",
+        "conditions_to_verify": [
+          "Retain BLQ separately from unsampled records."
+        ],
+        "local_method_profile_ids": [
+          "MP004"
+        ],
+        "importance": "ANALYSIS_SPECIFIC",
+        "id": "NA002",
+        "requirement_ids": [
+          "RQ002"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ003:F5",
+          "RQ003:F8",
+          "RQ003:F9",
+          "RQ003:F13",
+          "RQ003:C1",
+          "RQ003:C2"
+        ],
+        "affected_scope": "S21 rat IV; S05 mouse IV; S02 mouse SC; S22 rabbit",
+        "next_action": "Fit source-specific animal time courses",
+        "impact": "LIMITS_ANALYSIS",
+        "impact_summary": "Rat time origin and dose basis; rabbit timing differ.",
+        "can_continue": [
+          "Fit S05 or S02 group curves conditionally."
+        ],
+        "recommendation_kind": "SEARCH_EXISTING",
+        "recommendation": "Resolve rat timing and rabbit plotted-protocol discrepancies.",
+        "conditions_to_verify": [
+          "Preserve S05 base versus S02 sulphate dosing."
+        ],
+        "local_method_profile_ids": [
+          "MP004"
+        ],
+        "importance": "REQUIRED_NOW",
+        "id": "NA003",
+        "requirement_ids": [
+          "RQ003"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ004:F1",
+          "RQ004:F3",
+          "RQ004:F4",
+          "RQ004:F5",
+          "RQ004:F7",
+          "RQ004:F8",
+          "RQ004:C1"
+        ],
+        "affected_scope": "S21 rat individuals; S02 mouse and S22 rabbit means",
+        "next_action": "Fit animal PK models",
+        "impact": "LIMITS_ANALYSIS",
+        "impact_summary": "Only rat columns establish repeated individuals; group uncertainty varies.",
+        "can_continue": [
+          "Fit qualified group-level mouse curves."
+        ],
+        "recommendation_kind": "CLARIFY",
+        "recommendation": "Specify outputs and whether individual variability is requested.",
+        "conditions_to_verify": [
+          "Reconcile S22 counts and error-bar meaning."
+        ],
+        "local_method_profile_ids": [
+          "MP004"
+        ],
+        "importance": "REQUIRED_NOW",
+        "id": "NA004",
+        "requirement_ids": [
+          "RQ004"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ005:F1",
+          "RQ005:F2",
+          "RQ005:F3",
+          "RQ005:F4",
+          "RQ005:F6",
+          "RQ005:F7",
+          "RQ005:C1"
+        ],
+        "affected_scope": "S05/S02 mouse means; S21 rat; S22 rabbit",
+        "next_action": "Calculate observed NCA endpoints",
+        "impact": "PENDING_CONFIRMATION",
+        "impact_summary": "Optional endpoint and AUC window lack definitions.",
+        "can_continue": [
+          "Describe peaks of sampled mean curves."
+        ],
+        "recommendation_kind": "CLARIFY",
+        "recommendation": "Select endpoint, use and exact AUC boundaries.",
+        "conditions_to_verify": [
+          "Identify unobserved boundaries and concentration basis."
+        ],
+        "local_method_profile_ids": [
+          "MP001"
+        ],
+        "importance": "NEEDS_CONFIRMATION",
+        "id": "NA005",
+        "requirement_ids": [
+          "RQ005"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ006:F1",
+          "RQ006:F4",
+          "RQ006:F5",
+          "RQ006:F6",
+          "RQ006:F7",
+          "RQ006:C1",
+          "RQ007:F1",
+          "RQ007:F2",
+          "RQ007:F3",
+          "RQ007:F5",
+          "RQ007:F7",
+          "RQ007:F8",
+          "RQ007:C1"
+        ],
+        "affected_scope": "S21 rat IV; S02 mouse SC; S22 rabbit SC; S09 summary",
+        "next_action": "Estimate terminal-dependent NCA parameters",
+        "impact": "PENDING_CONFIRMATION",
+        "impact_summary": "Endpoint, tail, exposure window and apparent status remain unresolved.",
+        "can_continue": [
+          "Retain independently eligible finite-window endpoints."
+        ],
+        "recommendation_kind": "CLARIFY",
+        "recommendation": "Specify estimand; examine existing late observations.",
+        "conditions_to_verify": [
+          "Require F for absolute SC clearance."
+        ],
+        "local_method_profile_ids": [
+          "MP002",
+          "MP003"
+        ],
+        "importance": "NEEDS_CONFIRMATION",
+        "id": "NA006",
+        "requirement_ids": [
+          "RQ006",
+          "RQ007"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ008:F7",
+          "RQ008:F8",
+          "RQ008:C1"
+        ],
+        "affected_scope": "S01/S02/S21 mouse plasma; S24 mouse/rat B1 serum",
+        "next_action": "Calculate study-specific free exposures",
+        "impact": "LIMITS_ANALYSIS",
+        "impact_summary": "Assays, analytes, concentrations and fractions differ.",
+        "can_continue": [
+          "Use S01 published coordinates without reapplying fu."
+        ],
+        "recommendation_kind": "CLARIFY",
+        "recommendation": "Define eligible source-specific binding sensitivity scenarios.",
+        "conditions_to_verify": [
+          "Check range, analyte, matrix and scale."
+        ],
+        "local_method_profile_ids": [
+          "MP007",
+          "MP009"
+        ],
+        "importance": "ANALYSIS_SPECIFIC",
+        "id": "NA007",
+        "requirement_ids": [
+          "RQ008"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ009:F6"
+        ],
+        "affected_scope": "S01/S02/S13 K. pneumoniae; S25 MIC table",
+        "next_action": "Calculate MIC-normalized exposure indices",
+        "impact": "LIMITS_ANALYSIS",
+        "impact_summary": "S25 assay context is unverified; matched strain MICs exist.",
+        "can_continue": [
+          "Use source-matched S01/S02 strain MICs."
+        ],
+        "recommendation_kind": "SEARCH_EXISTING",
+        "recommendation": "Check S25 susceptibility methods if used.",
+        "conditions_to_verify": [
+          "Retain right-censored MIC inequalities."
+        ],
+        "local_method_profile_ids": [
+          "MP009"
+        ],
+        "importance": "ANALYSIS_SPECIFIC",
+        "id": "NA008",
+        "requirement_ids": [
+          "RQ009"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ010:F2",
+          "RQ010:F3",
+          "RQ010:F4",
+          "RQ010:F5",
+          "RQ010:F6",
+          "RQ010:F7",
+          "RQ010:F9",
+          "RQ010:C1",
+          "RQ010:C2"
+        ],
+        "affected_scope": "S01 Kp-T/Kp-C/Kp-A; S02 Table 3; S09 rabbit",
+        "next_action": "Compare common-record PD indices",
+        "impact": "BLOCKS_ACTION",
+        "impact_summary": "S01 panels lack cross-panel identities and marker regimens.",
+        "can_continue": [
+          "Assess eligible within-panel pairs for targets."
+        ],
+        "recommendation_kind": "SEARCH_EXISTING",
+        "recommendation": "Seek original cross-panel and dose mappings.",
+        "conditions_to_verify": [
+          "Resolve S01 dose-range conflict and overlap."
+        ],
+        "local_method_profile_ids": [
+          "MP009",
+          "MP012"
+        ],
+        "importance": "REQUIRED_NOW",
+        "id": "NA009",
+        "requirement_ids": [
+          "RQ010"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ011:F1",
+          "RQ011:F2",
+          "RQ011:F5",
+          "RQ011:F7",
+          "RQ011:F9",
+          "RQ011:C1"
+        ],
+        "affected_scope": "S01 K. pneumoniae 104 free-exposure panels",
+        "next_action": "Rank three PD indices",
+        "impact": "BLOCKS_ACTION",
+        "impact_summary": "Published coordinates cannot establish matched comparison records.",
+        "can_continue": [
+          "Retain each panel's reported index definition."
+        ],
+        "recommendation_kind": "CONTINUE_WITH_LIMITS",
+        "recommendation": "Hold ranking pending supported common-record linkage.",
+        "conditions_to_verify": [
+          "Align windows, dosing histories and likelihood."
+        ],
+        "local_method_profile_ids": [
+          "MP009"
+        ],
+        "importance": "REQUIRED_NOW",
+        "id": "NA010",
+        "requirement_ids": [
+          "RQ011"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ012:F1",
+          "RQ012:F3",
+          "RQ012:F6",
+          "RQ012:C1",
+          "RQ013:F3",
+          "RQ013:F4",
+          "RQ013:F5",
+          "RQ013:F7",
+          "RQ013:F9",
+          "RQ013:C1"
+        ],
+        "affected_scope": "S01/S02 mouse thigh; S13/S25/S27 in vitro; S09 rabbit",
+        "next_action": "Estimate panel-specific PD targets",
+        "impact": "PENDING_CONFIRMATION",
+        "impact_summary": "Target effects and compatible baseline definitions need confirmation.",
+        "can_continue": [
+          "Use eligible S01 within-panel pairs conditionally."
+        ],
+        "recommendation_kind": "CLARIFY",
+        "recommendation": "Define three effects against each panel's baseline.",
+        "conditions_to_verify": [
+          "Exclude obscured markers; preserve independent replicates."
+        ],
+        "local_method_profile_ids": [
+          "MP009",
+          "MP012"
+        ],
+        "importance": "REQUIRED_NOW",
+        "id": "NA011",
+        "requirement_ids": [
+          "RQ012",
+          "RQ013"
+        ]
+      },
+      {
+        "gap_ids": [
+          "RQ014:F1",
+          "RQ014:F2",
+          "RQ014:F3",
+          "RQ014:F4",
+          "RQ014:F5",
+          "RQ014:F6",
+          "RQ014:F7",
+          "RQ014:F8",
+          "RQ014:F9",
+          "RQ014:C1"
+        ],
+        "affected_scope": "Current animal model; S01 published simulation; S02 regimens",
+        "next_action": "Predict regimen-specific PD exposures",
+        "impact": "FUTURE_DEPENDENCY",
+        "impact_summary": "Current-model exposure awaits animal PK outputs and regimen links.",
+        "can_continue": [
+          "Analyze independent animal PK sources."
+        ],
+        "recommendation_kind": "WAIT_FOR_UPSTREAM",
+        "recommendation": "Match reviewed predictions to eligible regimens.",
+        "conditions_to_verify": [
+          "Confirm index, units, matrix, basis and window."
+        ],
+        "local_method_profile_ids": [
+          "MP004",
+          "MP009",
+          "MP012"
+        ],
+        "importance": "FUTURE_DEPENDENCY",
+        "id": "NA012",
+        "requirement_ids": [
+          "RQ014"
+        ]
+      }
+    ]
+  },
+  "preparation_policy": "DATASET_ACTION_V1",
+  "operation_policy": "OPERATION_SCOPED_V1",
+  "operation_catalog": {
+    "DESCRIPTIVE_EDA": "Display each source series separately with reported units, flags and time alternatives; no inferred joins or quantitative substitutions.",
+    "NORMALIZED_TIME_CONCENTRATION_VIEW": "Use a unique supported time axis and compatible concentration units; never select alternatives or convert tissue mass to volume implicitly.",
+    "TIME_AXIS_SELECTION": "Choose or reconcile one time axis for dependent calculations.",
+    "LONGITUDINAL_JOIN": "Link measurements as repeated observations of the same animal.",
+    "CROSS_TABLE_LINKAGE": "Link records across source tables or experiments.",
+    "CROSS_MATRIX_CONVERSION": "Convert or pool different biological matrices.",
+    "CENSORED_VALUE_CALCULATION": "Perform limit- or direction-dependent calculations on censored observations.",
+    "UNCERTAINTY_WEIGHTING": "Use dispersion or replicate counts for statistical weighting.",
+    "DOSE_RESPONSE_LINKAGE": "Assign exposure or response records to a dose/regimen.",
+    "MIC_WEIGHTED_PTA": "Use MIC frequencies as weights in PTA.",
+    "NCA": "Compute curve-specific noncompartmental endpoints.",
+    "PK_MODELING": "Construct or fit a PK model."
+  },
+  "dataset_action_readiness": [
+    {
+      "dataset_id": "T0001",
+      "source_item_id": "F0003:S1:T1",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0002",
+      "source_item_id": "F0003:S1:T2",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CENSORED_VALUE_CALCULATION",
+          "reasons": [
+            "CENSORED_LIMIT_UNRESOLVED",
+            "ELF_SAMPLE_COUNT_AND_LLOQ: The caption reports n=3 while early rows have four slots; censored observations have no numeric LLOQ."
+          ]
+        },
+        {
+          "operation": "PK_MODELING",
+          "reasons": [
+            "ELF_SAMPLE_COUNT_AND_LLOQ: The caption reports n=3 while early rows have four slots; censored observations have no numeric LLOQ."
+          ]
+        },
+        {
+          "operation": "UNCERTAINTY_WEIGHTING",
+          "reasons": [
+            "ELF_SAMPLE_COUNT_AND_LLOQ: The caption reports n=3 while early rows have four slots; censored observations have no numeric LLOQ."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0003",
+      "source_item_id": "F0003:S1:T3",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0004",
+      "source_item_id": "F0003:S1:T4",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0005",
+      "source_item_id": "F0003:S1:T5",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CROSS_TABLE_LINKAGE",
+          "reasons": [
+            "MOUSE_EFFICACY_PK_LINK_ABSENT: Terminal K. pneumoniae lung responses have a strain MIC and regimen label, but no matched measured PK for the efficacy regimen."
+          ]
+        },
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "MOUSE_EFFICACY_PK_LINK_ABSENT: Terminal K. pneumoniae lung responses have a strain MIC and regimen label, but no matched measured PK for the efficacy regimen."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0006",
+      "source_item_id": "F0003:S1:T6",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0007",
+      "source_item_id": "F0003:S1:T7",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0008",
+      "source_item_id": "F0003:S1:T8",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CROSS_TABLE_LINKAGE",
+          "reasons": [
+            "MOUSE_EFFICACY_PK_LINK_ABSENT: The second K. pneumoniae terminal lung-response series likewise lacks matched measured regimen PK."
+          ]
+        },
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "MOUSE_EFFICACY_PK_LINK_ABSENT: The second K. pneumoniae terminal lung-response series likewise lacks matched measured regimen PK."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0009",
+      "source_item_id": "F0003:S1:T9",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0010",
+      "source_item_id": "F0003:S1:T10",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0011",
+      "source_item_id": "F0003:S1:T11",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0012",
+      "source_item_id": "F0003:S1:T12",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CROSS_TABLE_LINKAGE",
+          "reasons": [
+            "FRACTIONATION_RESPONSE_MAPPING_MISSING: Regimen labels are curator-assigned and the source notes say no individual CFU-to-regimen numeric mapping was located."
+          ]
+        },
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "FRACTIONATION_RESPONSE_MAPPING_MISSING: Regimen labels are curator-assigned and the source notes say no individual CFU-to-regimen numeric mapping was located."
+          ]
+        },
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0013",
+      "source_item_id": "F0003:S1:T13",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0014",
+      "source_item_id": "F0003:S1:T14",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "DOSE_RANGE_SOURCE_CONFLICT: Printed 2023 dose ranges conflict with the article's >64 mg/kg per-dose intolerance statement; the supplement does not resolve it."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0015",
+      "source_item_id": "F0003:S1:T15",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0016",
+      "source_item_id": "F0003:S1:T16",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0017",
+      "source_item_id": "F0003:S1:T17",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0018",
+      "source_item_id": "F0003:S1:T18",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0019",
+      "source_item_id": "F0003:S1:T19",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0020",
+      "source_item_id": "F0003:S1:T20",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0021",
+      "source_item_id": "F0003:S1:T21",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0022",
+      "source_item_id": "F0003:S1:T22",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0023",
+      "source_item_id": "F0003:S1:T23",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0024",
+      "source_item_id": "F0003:S1:T24",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CROSS_TABLE_LINKAGE",
+          "reasons": [
+            "INDEX_PANELS_UNMATCHED: K. pneumoniae index panels contain incomplete visible markers without per-marker dose, animal or cross-panel IDs; left-axis and overlap locations are uncertain."
+          ]
+        },
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "INDEX_PANELS_UNMATCHED: K. pneumoniae index panels contain incomplete visible markers without per-marker dose, animal or cross-panel IDs; left-axis and overlap locations are uncertain."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0025",
+      "source_item_id": "F0003:S1:T25",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CROSS_TABLE_LINKAGE",
+          "reasons": [
+            "INDEX_PANELS_UNMATCHED: The fCmax/MIC panel has no verified correspondence to response records in the other index panels."
+          ]
+        },
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "INDEX_PANELS_UNMATCHED: The fCmax/MIC panel has no verified correspondence to response records in the other index panels."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0026",
+      "source_item_id": "F0003:S1:T26",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CROSS_TABLE_LINKAGE",
+          "reasons": [
+            "INDEX_PANELS_UNMATCHED: The fAUC/MIC panel also lacks verified common-record membership and has unresolved left log-axis markers."
+          ]
+        },
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "INDEX_PANELS_UNMATCHED: The fAUC/MIC panel also lacks verified common-record membership and has unresolved left log-axis markers."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0027",
+      "source_item_id": "F0003:S1:T27",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0028",
+      "source_item_id": "F0003:S1:T28",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0029",
+      "source_item_id": "F0003:S1:T29",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0030",
+      "source_item_id": "F0003:S1:T30",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0031",
+      "source_item_id": "F0003:S1:T31",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0032",
+      "source_item_id": "F0003:S1:T32",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0033",
+      "source_item_id": "F0003:S1:T33",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0034",
+      "source_item_id": "F0003:S1:T34",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0035",
+      "source_item_id": "F0003:S1:T35",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0036",
+      "source_item_id": "F0003:S1:T36",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "DOSE_RESPONSE_LINKAGE",
+          "reasons": [
+            "PMB_REGIMEN_SOURCE_CONFLICT: Methods report SC q6h daily doses of 16, 32 and 64 mg/kg, while results mention 4, 8 and 16 mg/kg without reconciliation."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0037",
+      "source_item_id": "F0003:S2:T1",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CENSORED_VALUE_CALCULATION",
+          "reasons": [
+            "CENSORED_LIMIT_UNRESOLVED"
+          ]
+        },
+        {
+          "operation": "LONGITUDINAL_JOIN",
+          "reasons": [
+            "RAT_IDENTITY_VIEW_CONFLICT: Metadata says repeated measurements are identified by rat number, but every supplied rat observation has animal_id null and longitudinal_join_allowed false. The view and metadata must agree before repeated-animal analysis."
+          ]
+        },
+        {
+          "operation": "NCA",
+          "reasons": [
+            "RAT_IDENTITY_VIEW_CONFLICT: Metadata says repeated measurements are identified by rat number, but every supplied rat observation has animal_id null and longitudinal_join_allowed false. The view and metadata must agree before repeated-animal analysis."
+          ]
+        },
+        {
+          "operation": "PK_MODELING",
+          "reasons": [
+            "RAT_IDENTITY_VIEW_CONFLICT: Metadata says repeated measurements are identified by rat number, but every supplied rat observation has animal_id null and longitudinal_join_allowed false. The view and metadata must agree before repeated-animal analysis."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0038",
+      "source_item_id": "F0003:S2:T2",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "VOLUME_CONCENTRATION_NORMALIZATION_NOT_APPLICABLE_TO_ALL_SERIES"
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CENSORED_VALUE_CALCULATION",
+          "reasons": [
+            "CENSORED_LIMIT_UNRESOLVED"
+          ]
+        },
+        {
+          "operation": "CROSS_MATRIX_CONVERSION",
+          "reasons": [
+            "VOLUME_CONCENTRATION_NORMALIZATION_NOT_APPLICABLE_TO_ALL_SERIES"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0039",
+      "source_item_id": "F0003:S2:T3",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0040",
+      "source_item_id": "F0003:S3:T1",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0041",
+      "source_item_id": "F0003:S3:T2",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0042",
+      "source_item_id": "F0003:S3:T3",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0043",
+      "source_item_id": "F0003:S3:T4",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0044",
+      "source_item_id": "F0003:S3:T5",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0045",
+      "source_item_id": "F0003:S3:T6",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0046",
+      "source_item_id": "F0003:S3:T7",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0047",
+      "source_item_id": "F0003:S3:T8",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "RABBIT_TIME_AND_PEAK_CONFLICT: Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax.",
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "NCA",
+          "reasons": [
+            "RABBIT_TIME_AND_PEAK_CONFLICT: Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax."
+          ]
+        },
+        {
+          "operation": "NORMALIZED_TIME_CONCENTRATION_VIEW",
+          "reasons": [
+            "RABBIT_TIME_AND_PEAK_CONFLICT: Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax."
+          ]
+        },
+        {
+          "operation": "PK_MODELING",
+          "reasons": [
+            "RABBIT_TIME_AND_PEAK_CONFLICT: Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax."
+          ]
+        },
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "RABBIT_TIME_AND_PEAK_CONFLICT: Rabbit plotted plasma times/count differ from the nominal blood protocol, and the SC whole-lung Figure 2 peak conflicts with Table S5 Cmax."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0048",
+      "source_item_id": "F0003:S3:T9",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0049",
+      "source_item_id": "F0003:S3:T10",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0050",
+      "source_item_id": "F0003:S3:T11",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0051",
+      "source_item_id": "F0003:S3:T12",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0052",
+      "source_item_id": "F0003:S3:T13",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "TIME_AXIS_SELECTION",
+          "reasons": [
+            "TIME_AXIS_SELECTION_REQUIRED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0053",
+      "source_item_id": "F0003:S3:T14",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0054",
+      "source_item_id": "F0003:S5:T1",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "CENSORED_VALUE_CALCULATION",
+          "reasons": [
+            "CENSORED_LIMIT_UNRESOLVED",
+            "CENSORING_DIRECTION_UNRESOLVED"
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0055",
+      "source_item_id": "F0003:S5:T2",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0056",
+      "source_item_id": "F0003:S5:T3",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [
+        {
+          "operation": "MIC_WEIGHTED_PTA",
+          "reasons": [
+            "MIC_DISTRIBUTION_INCOMPLETE: The reported MIC percentages sum to 99.57, and the >32 bin is censored; neither missing mass nor denominator allocation has been resolved."
+          ]
+        }
+      ],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0057",
+      "source_item_id": "F0003:S5:T4",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    },
+    {
+      "dataset_id": "T0058",
+      "source_item_id": "F0003:S5:T5",
+      "actions": {
+        "SOURCE_INSPECTION": {
+          "status": "READY",
+          "reasons": []
+        },
+        "DESCRIPTIVE_EDA": {
+          "status": "READY",
+          "reasons": [],
+          "conditions": [
+            "Keep source series, matrices, units and alternative times separate.",
+            "Show censoring/missingness and source conflicts; do not substitute censored values.",
+            "No inferred animal IDs, longitudinal joins, dose assignment, pooling, weighting or fitting."
+          ]
+        },
+        "NORMALIZED_TIME_CONCENTRATION_VIEW": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Not a PK observation dataset.",
+            "No typed observation cells.",
+            "No unique source-supported scalar time mapping."
+          ],
+          "conditions": [
+            "Keep source series and units separate; no inferred longitudinal joins."
+          ]
+        },
+        "NCA": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires curve-specific sampling, time-axis, censoring and endpoint assessment."
+          ]
+        },
+        "PK_MODELING": {
+          "status": "RESTRICTED",
+          "reasons": [
+            "Requires independent scientific adequacy and model-specific inputs."
+          ]
+        }
+      },
+      "operation_restrictions": [],
+      "operation_policy": "OPERATION_SCOPED_V1",
+      "authorized_action": "DESCRIPTIVE_EDA",
+      "other_operations_authorized": false
+    }
+  ],
+  "allowed_action": null,
+  "full_manifest": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\normalization_manifest.json",
+    "sha256": "a8d2eec8bb726bd681ad8228ff4c8b608854ccb30e8d3ceda19781622464cc16"
+  }
+}

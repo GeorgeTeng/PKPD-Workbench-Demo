@@ -1,0 +1,117 @@
+{
+  "cards": [
+    {
+      "title": "Binding Assay and Depletion-Time Exploratory Plots",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Binding and depletion data require separate conditional display contracts. Binding plots require explicit concentration stage and fraction definitions; depletion plots require incubation time and measured concentration or established remaining fraction. Display choices are engineering conventions, not scientific mandates.",
+      "conditions": [
+        "Binding and depletion branches are independent; one may be shown without the other.",
+        "Unknown metadata is labeled unknown, not silently filled.",
+        "Technical repeats are nested and do not increase independent experimental-run or other documented design-unit n."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Binding: Concentration (nominal-added vs. measured stage), bound/unbound fraction or percent, species/matrix/assay conditions, sample/run identities.",
+        "Depletion: Incubation time, measured parent concentration or established remaining fraction, documented reference relation, assay-series/run/replicate identities.",
+        "Assay-specific analytical_series_id, experimental-run ID and specimen/aliquot/technical-repeat linkage; no animal-subject identity required unless that assay design actually uses it."
+      ],
+      "limitations": [
+        "Plasma/serum binding data does not automatically supply incubation binding context.",
+        "The display itself does not fit depletion slopes or estimate CLint; this is a downstream qualified method.",
+        "Unknown assay validation documentation means qualification is unestablished, not that plotting is prohibited.",
+        "No source drug values transfer to the current target."
+      ],
+      "downstream_use": "Visual inspection of documented binding measurements or depletion time courses, with assay context and uncertainty; subsequent estimation requires a separate qualified method.",
+      "evidence_chunk_ids": [
+        "REF_018:0014",
+        "REF_025:0006",
+        "REF_026:0009",
+        "REF_026:0013"
+      ],
+      "plot_recipe": {
+        "input_contract": "Choose independent branches, never require both: binding needs concentration with nominal-added versus measured stage, named bound/unbound fraction or percent, species/matrix/assay conditions and sample/run identities. Depletion needs incubation time, measured parent concentration or established remaining fraction, documented reference relation and assay-series/run/replicate identities. Preserve independent experimental-run ID separately from analytical series, specimen/aliquot and technical-repeat IDs. Numeric measured values are required only for quantified records; status-only records can have null numeric value. Optional summaries/errors need their own defined inputs.",
+        "plot_type": "Separate conditional binding scatter and depletion-time plot; either may be shown independently.",
+        "axes_and_units": "Binding: X = clearly defined assay concentration and unit, Y = explicitly bound or unbound fraction (0-1) or percent (0-100), without silently rescaling out-of-range observations. Depletion: X = incubation time/unit; Y = measured parent concentration/unit or established percent remaining. Label assay/species/matrix and known conditions.",
+        "grouping_and_connections": "Separate assay series, experimental run, species/matrix, binding method and reference definitions. Use verified analytical_series_id and specimen/aliquot linkage, not an animal-subject ID by default. A same-series depletion guide may link documented successive observations; destructive aliquots must be labelled as a series/group guide, not a repeated specimen trajectory. Technical repeats are nested and do not create independent experimental runs.",
+        "point_and_summary_layers": "Preserve observed values as points at their actual record level. Keep raw observations separate from optional source-reported or explicitly defined descriptive summaries. A labelled group-summary guide is not an individual trajectory. Do not reconstruct individuals from a mean and SD.",
+        "censoring_and_missingness": "Binding: preserve bound versus unbound fraction/percent, the actual concentration-stage definition and assay-specific qualification/status; an out-of-range fraction is flagged, not clipped or relabelled concentration BLQ. Depletion: retain measured parent concentration status and its actual assay limits. A bound on C_t can be converted to a percent bound only with a documented positive compatible C_ref and inequality propagation. Missing reference blocks normalization only; no zero/half-limit substitution or silent deletion. A censored or uncertain reference is not an exact denominator: retain its status/interval and use normalization only with a qualified uncertainty/interval propagation method. Positivity alone does not qualify a reference as exact.",
+        "transformations_and_formula": "Bound and unbound fractions are distinct assay-defined quantities, not interchangeable labels. Only with established numerator/denominator definitions convert fraction to percent by multiplying by 100. For a documented compatible reference qualified for quantitative normalization, percent remaining = 100*C_t/C_ref. Direct pointwise division requires a qualified positive quantified reference, with no unhandled uncertainty or censoring; an uncertain/censored reference requires a qualified uncertainty/interval propagation method instead of silently treating it as exact. C_ref need not be a newly invented t=0 measurement. Retain reference linkage, assay recovery/mass-balance qualifications and raw values.",
+        "uncertainty_and_n": "Label displayed record counts separately from known independent experimental-unit n. Preserve supplied statistic, calculation scale and exact SD, SE or CI meaning, including asymmetric interval endpoints. Technical repeats do not increase independent experimental-run or other documented design-unit n; cell-free assays do not require an animal/biological n label. Unknown n or variability stays unknown; no automatic CI or zero-width bar.",
+        "interpretation_limits": "Plasma/serum binding does not automatically supply incubation binding. The display does not itself fit a depletion slope or estimate CLint; a separate qualified downstream method may do so. No source drug values transfer to the current target.",
+        "stop_or_fallback": "Unknown or nonpositive C_ref blocks percent normalization only: show qualified raw concentration versus incubation time. Unknown assay validation documentation means qualification unestablished, not automatic plotting prohibition. A separately valid binding branch remains available. Unresolved series/run linkage blocks connections or independent-run summaries only, not labelled observed assay records. If reference uncertainty/censoring has no qualified propagation method, retain raw concentration and reference status, omit the dependent normalized value/bound, and state why.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "The cited source reports concentration- and matrix-labeled binding measurements with assay-method and uncertainty metadata. These illustrate the data fields needed for the display, not a generic binding value.",
+          "evidence_chunk_ids": [
+            "REF_025:0006"
+          ],
+          "scope": "Source assay example across serum species and separation methods; the plotting convention is a separate host design choice.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Metabolic stability curves are established by plotting percent remaining against time, with linear range selection for log-linear slope calculation; this supports the axis pairing but not a universal prohibition on downstream CLint estimation.",
+          "evidence_chunk_ids": [
+            "REF_026:0009",
+            "REF_026:0013"
+          ],
+          "scope": "Source microsomal depletion example illustrates exploratory plotting and downstream qualification; no compound-specific parameter or protocol is adopted.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Bioanalytical method validation requires defined elements including calibration curve, range (LLOQ to ULOQ), accuracy, precision, and stability, which underpin the handling of quantified vs. BLQ/above-range states.",
+          "evidence_chunk_ids": [
+            "REF_018:0014"
+          ],
+          "scope": "General bioanalytical validation principles for clinical and nonclinical studies.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v5_E08:K01",
+      "origin_job": "round5_E08",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_018",
+        "REF_025",
+        "REF_026"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E08",
+      "retrieval_keywords": "Binding assay and depletion-time exploratory plots",
+      "supersedes": [
+        "round5_E08:K01",
+        "round4_E08:K01",
+        "round5_reviewed_E08:K01",
+        "round5_reviewed_v2_E08:K01",
+        "round5_reviewed_v4_E08:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "binding assay and depletion-time exploratory plots",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "REF_018",
+        "REF_025",
+        "REF_026"
+      ],
+      "review_revision": {
+        "version": "local_review_v5",
+        "parent_card_id": "round5_E08:K01",
+        "parent_card_sha256": "e26fd4b653d35d9c2236c502788adabece16d0e66281b96c76a7855529690d3b",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "3f74dd5daae54ec4bada9f34b003bbabffe24cd7cd7691322b1d75dfafd10ca9"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

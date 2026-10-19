@@ -1,0 +1,171 @@
+{
+  "request_sha256": "39257a3b4c1467759c7babced05e4bd76a537fca679dae40db66113cb13fd342",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T14",
+      "role": "SUPPORTING_EVIDENCE",
+      "additional_roles": [],
+      "requirement_ids": [
+        "REQ_PREP_SOURCE",
+        "REQ_MODEL_DESIGN",
+        "REQ_RABBIT_SCOPE"
+      ],
+      "species": "rabbit",
+      "matrix": "plasma; lung",
+      "exposure_basis": "NOT_FOUND",
+      "record_level": "context/missingness records; article/supplement support group-mean digitization only",
+      "drug": "NOT_FOUND",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "The S22 rabbit rows document source discrepancies and input gaps. The note says these are not additional concentration observations. The source supports group-mean digitization only and does not establish a supported rabbit model component.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T14:A189",
+          "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
+        },
+        {
+          "source": "F0003:S3:T14:A192",
+          "quote": "S22"
+        },
+        {
+          "source": "F0003:S3:T14:B192",
+          "quote": "rabbit"
+        },
+        {
+          "source": "F0003:S3:T14:C192",
+          "quote": "Plasma protocol vs figure"
+        },
+        {
+          "source": "F0003:S3:T14:E192",
+          "quote": "Plotted times/count inconsistent with seven nominal blood times"
+        },
+        {
+          "source": "F0003:S3:T14:C193",
+          "quote": "SC lung Fig.2 vs S5 Cmax"
+        },
+        {
+          "source": "F0003:S3:T14:E193",
+          "quote": "Figure approx 0.78 mg/L vs reported 0.41 mg/L; do not rescale"
+        },
+        {
+          "source": "F0003:S3:T14:E194",
+          "quote": "Model uses borrowed value; not observed rabbit binding"
+        },
+        {
+          "source": "F0003:S3:T14:E195",
+          "quote": "Article/supplement support group-mean digitization only"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "MIXED",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "NOT_APPLICABLE",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "NOT_FOUND",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Study",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T14:A191",
+              "quote": "Study"
+            }
+          ]
+        },
+        {
+          "header": "Species",
+          "meaning": "COVARIATE",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T14:B191",
+              "quote": "Species"
+            }
+          ]
+        },
+        {
+          "header": "Item",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T14:C191",
+              "quote": "Item"
+            }
+          ]
+        },
+        {
+          "header": "Value",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [
+            "ND/BLQ remain nonnumeric."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T14:D191",
+              "quote": "Value"
+            },
+            {
+              "source": "F0003:S3:T14:A189",
+              "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
+            }
+          ]
+        },
+        {
+          "header": "Meaning",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T14:E191",
+              "quote": "Meaning"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "REQ_RABBIT_SCOPE",
+      "reason": "S22 plasma plotted times/count are inconsistent with seven nominal blood times; the row marks the issue UNRESOLVED.",
+      "needed_material": "Authorized S22 protocol, figure and sampling records to identify the affected times, counts and modeling consequence.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "REQ_RABBIT_SCOPE",
+      "reason": "The S22 SC lung row reports Figure approx 0.78 mg/L versus reported 0.41 mg/L, marks the discrepancy UNRESOLVED, and says not to rescale.",
+      "needed_material": "Authorized figure, reported Cmax source and study context for a reviewed discrepancy assessment and use decision.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "INPUT_GAP",
+      "affected_id": "REQ_MODEL_DESIGN",
+      "reason": "Individual rabbit concentration data are marked NOT_FOUND; the article/supplement supports group-mean digitization only. This qualification table supplies no concentration observations or dose history.",
+      "needed_material": "Permitted concentration-time and dosing records, sampling design, summary definitions, counts, variability and digitization provenance for the proposed rabbit component.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNASSIGNED_BINDING_GAP",
+      "affected_id": "F0003:S3:T14",
+      "reason": "Measured rabbit plasma fu is marked NOT_FOUND; the row says the model uses a borrowed value rather than observed rabbit binding. No assigned requirement addresses binding measurement here.",
+      "needed_material": "Route the binding gap for independent review and obtain the source and justification for any borrowed value before using it in an unbound exposure bridge.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

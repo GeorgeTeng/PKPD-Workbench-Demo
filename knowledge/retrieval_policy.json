@@ -1,0 +1,68 @@
+{
+  "version": "PKPD_KB_DRAFT_1.1",
+  "activation": "OFFLINE_REVIEW_ONLY",
+  "default_allow_draft": false,
+  "source_access": "Explicit permitted source IDs; metadata similarity never grants access",
+  "language": "English canonical content; bilingual query aliases only",
+  "categories": [
+    "project",
+    "methods",
+    "evidence",
+    "decisions",
+    "artifacts"
+  ],
+  "topics": [
+    "data_eda",
+    "animal_pk",
+    "pkpd",
+    "translation",
+    "human_simulation",
+    "pta"
+  ],
+  "max_cards": 6,
+  "background_character_budget": 18000,
+  "routes": {
+    "data.requirements": {
+      "candidate_field": "method_knowledge",
+      "mode": "explicit_selected_profiles_then_optional_background",
+      "new_library_opt_in": true
+    },
+    "data.coverage": {
+      "retrieval": false,
+      "reason": "Preserve complete permitted evidence; top-k must not replace coverage inputs"
+    },
+    "data.necessity": {
+      "candidate_field": "local_method_knowledge",
+      "mode": "within_existing_permitted_method_scope",
+      "new_library_opt_in": true
+    },
+    "data.human_summary": {
+      "retrieval": false,
+      "reason": "Accepted assessment and decisions only"
+    },
+    "compression.review": {
+      "retrieval": false,
+      "reason": "Preserve independent complete-source review"
+    },
+    "animal_pk": {
+      "mode": "future_adapter_contract_required"
+    },
+    "pkpd": {
+      "mode": "future_adapter_contract_required"
+    },
+    "translation": {
+      "mode": "future_adapter_contract_required"
+    },
+    "human_simulation": {
+      "mode": "future_adapter_contract_required"
+    },
+    "pta": {
+      "mode": "future_adapter_contract_required"
+    }
+  },
+  "mandatory_inputs": "Current project objective, relevant approved Rules, current task state, method dependencies and unresolved issues are loaded deterministically outside retrieval.",
+  "provenance": "Freeze selection and source/config hashes before request hash; verify before dispatch and after response. Reject changed bindings.",
+  "approval": "Source/hash/schema checks do not approve scientific meaning or activate a workflow.",
+  "retrieval_method": "lexical_weighted_diversity_v2",
+  "quality_boundary": "Relevance preference does not grant scientific approval; source and stage permissions unchanged"
+}

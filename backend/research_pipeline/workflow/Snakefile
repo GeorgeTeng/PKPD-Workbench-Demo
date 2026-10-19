@@ -1,0 +1,12 @@
+"""File DAG only. Human review cannot be synthesized by a rule."""
+import json
+import subprocess
+import sys
+from pathlib import Path
+PLAN = json.loads(Path(config['plan']).read_text(encoding='utf-8'))
+STEPS = PLAN['steps']
+# Relative outputs keep Snakemake's encoded metadata filenames short on Windows.
+RECEIPTS = 'receipts'
+rule all:
+    input: RECEIPTS + '/' + config['target'] + '.json'
+include: 'rules/blocks.smk'

@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "title": "Bias in Free-Concentration Scaling for PTA",
+      "topics": [
+        "pta",
+        "translation"
+      ],
+      "claim": "In the low-extraction binding scenarios studied in SUP013, back-calculating free exposure distributions from total concentrations with an average fu can misrepresent the free-exposure variance and bias extreme-quantile PTA/cutoff estimates; incorrectly adding fu variability can increase that bias. This is not a universal prohibition on modeling binding or a guaranteed bias direction for every drug.",
+      "conditions": [
+        "Applies when PK/PD index is based on free drug (e.g., fAUC/MIC, fT>MIC).",
+        "Relevant when total concentration data is scaled by fu.",
+        "Bias magnitude depends on the true distribution of fu and the target PTA level."
+      ],
+      "required_inputs": [
+        "Total concentration data.",
+        "fu distribution or scalar value.",
+        "PK/PD index definition."
+      ],
+      "limitations": [
+        "In SUP013's specified binding/low-extraction simulations, scalar-fu back-calculation from total exposure misrepresented free-exposure variance and extreme-quantile PTA. Test applicability before transferring this limitation.",
+        "Incorrectly adding fu variability in the source's back-calculation scenarios increased bias; preserve any justified covariance instead of assuming independent binding draws."
+      ],
+      "downstream_use": "Method qualification for PTA simulations; correction of historical PTA analyses.",
+      "evidence_chunk_ids": [
+        "SUP013:0003",
+        "SUP013:0006",
+        "SUP013:0013",
+        "SUP013:0014"
+      ],
+      "id": "module_pta:K02",
+      "origin_job": "module_pta",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP013"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

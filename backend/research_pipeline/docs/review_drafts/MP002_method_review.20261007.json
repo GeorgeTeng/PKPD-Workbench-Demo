@@ -1,0 +1,68 @@
+{
+  "profile_id": "MP002",
+  "library_version": "1.0.0-draft.3",
+  "review_date": "2026-10-07",
+  "status": "USER_APPROVED_METHOD_DESIGN",
+  "user_decision": "looks good next one",
+  "scope": "The complete English MP002 draft immediately preceding this approval. Method planning only; numerical execution and scientific qualification of any dataset remain downstream.",
+  "scientific_release": false,
+  "profile_sha256": "8a25e85942cb24cbacfdab913d10b3fe349e33e9ae154c5aed4c462dc121bb45",
+  "approved_profile": {
+    "id": "MP002",
+    "name": "Terminal-phase estimation and extrapolation",
+    "family": "NCA",
+    "outputs": [
+      "lambda_z",
+      "terminal half-life",
+      "AUCinf",
+      "terminal extrapolated area within a specified finite window"
+    ],
+    "applies_when": "Apply when a requested endpoint requires terminal-phase estimation or terminal extrapolation. Inherit MP001 requirements. The listed outputs are downstream numerical endpoints; this planning step only proposes methods, identifies missing inputs and specifies reporting requirements.",
+    "required_inputs": [
+      "Endpoint definition, time origin and data-level metadata established under MP001, with unresolved prerequisites retained.",
+      "Concentration-time observations potentially supporting a terminal interval, including quantifiability and BLQ information.",
+      "Dosing and infusion timing needed to distinguish terminal decline from ongoing or subsequent drug input."
+    ],
+    "conditional_inputs": [
+      "Relevant absorption information when an extravascular terminal phase may remain absorption-limited.",
+      "Replicate, variance or covariance information required by a proposed uncertainty method."
+    ],
+    "acceptable_alternatives": [
+      "Propose either justified manual interval selection or a documented automatic selection procedure. Both require downstream assessment of the selected interval.",
+      "Retain independently supported MP001 endpoints when terminal-dependent endpoints remain unsupported; do not silently substitute them for the requested endpoint."
+    ],
+    "preflight_checks": [
+      "Specify candidate terminal-interval selection principles, inclusion and exclusion reasons, and treatment of BLQ or other unusable observations. Do not assume that the last few observations necessarily represent the terminal phase.",
+      "Propose the regression scale, weighting and selection procedure. For standard log-linear terminal estimation, use ln(C) = intercept - lambda_z * time and require a negative fitted slope.",
+      "Specify the extrapolation anchor: the last observed quantifiable concentration or its regression-predicted counterpart. Preserve this distinction in the endpoint definition and reporting.",
+      "Define the requested extrapolation interval and confirm that its decay assumptions are compatible with dosing and absorption. A finite-window tail must end at the requested boundary.",
+      "Identify method-specific acceptance criteria and their evidence for review before numerical use. Do not infer adequacy from point count, adjusted R-squared or software defaults alone.",
+      "At this stage, report proposed methods, unresolved conditions and required approvals. Do not report numerical diagnostics as completed."
+    ],
+    "post_analysis_checks": [
+      "Downstream: report the selected observations and time range, exclusions, regression method, lambda_z, terminal half-life and available uncertainty estimates.",
+      "Downstream: assess fitted decline, residual patterns, time span and sensitivity to reasonable changes in terminal-interval selection.",
+      "Downstream: report the extrapolation anchor, extrapolated area and its proportion of the requested total area, together with assumptions and limitations.",
+      "Downstream: evaluate results against the reviewed criteria and record the method-review reference. If suitability remains unresolved, withhold the affected endpoint from downstream use."
+    ],
+    "missing_effect": "Keep unsupported terminal-dependent endpoints and their missing prerequisites explicit. Unresolved terminal adequacy blocks release of those numerical endpoints, while independently supported MP001 endpoints may continue. Changing the requested AUC window requires proposal clarification or an approved revision.",
+    "not_established": [
+      "A universal minimum sampling count, fit-statistic threshold or extrapolated-area cutoff.",
+      "Reliable terminal estimation merely because software returns a numerical result.",
+      "An elimination mechanism or elimination half-life solely from an observed terminal slope.",
+      "Individual parameter distributions from group-mean terminal curves.",
+      "Human predictive validity from an acceptable animal terminal estimate."
+    ],
+    "needed_at": "BEFORE_TERMINAL_DEPENDENT_ANALYSIS",
+    "source_ids": [
+      "S02",
+      "S03"
+    ]
+  },
+  "previous_library_snapshot": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.2.json",
+  "other_profile_states": {
+    "MP001": "METHOD_DESIGN_ACCEPTED_IN_PRINCIPLE",
+    "MP003-MP010": "PENDING_INDIVIDUAL_REVIEW"
+  },
+  "verification_scope": "Existing library schema and saved approval binding only. No numerical analysis or empirical method test."
+}

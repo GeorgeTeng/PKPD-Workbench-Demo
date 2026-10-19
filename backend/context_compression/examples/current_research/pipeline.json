@@ -1,0 +1,964 @@
+{
+  "blocks": [
+    {
+      "id": "B1",
+      "title": "Context and evidence handoff",
+      "purpose": "Fix the research question and preserve source-bound facts and missing information.",
+      "category": "PLANNING",
+      "method": {
+        "name": "Question-dependent extraction and checked workflow planning",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "CTX2026",
+          "RECOMP",
+          "MODULO",
+          "CWL"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "S1",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "CONTEXT"
+      ],
+      "instructions": [
+        "Review the compact context against the proposal; keep evidence in the audit sidecar.",
+        "Record required data and unresolved choices without treating literature access as ownership of observations."
+      ],
+      "completion_criteria": [
+        "Context and pipeline reviews complete; source bindings valid; human review recorded before downstream analysis."
+      ],
+      "constraints": [],
+      "when": "ALWAYS"
+    },
+    {
+      "id": "B2",
+      "title": "Data preparation and QC",
+      "purpose": "Establish what animal data can support parameter estimation.",
+      "category": "PREPARATION",
+      "method": {
+        "name": "Study-aware PK data preparation",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "CTX2026",
+          "PMB2012"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "CONTEXT",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "ANIMAL_RAW",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "ANIMAL_QC",
+        "QC_REPORT"
+      ],
+      "instructions": [
+        "Preserve subject and study grouping, route, dose/time definitions, matrix, units and total/free basis.",
+        "Distinguish individual longitudinal records, sparse terminal observations, group means and duplicated file representations.",
+        "Document missingness and measurement limits; do not infer animal count from file or concentration count."
+      ],
+      "completion_criteria": [
+        "Data dictionary and QC report match the actual data; unsupported conversions remain unresolved."
+      ],
+      "constraints": [],
+      "when": "ALWAYS"
+    },
+    {
+      "id": "B3",
+      "title": "Animal PK estimation",
+      "purpose": "Estimate species PK parameters and uncertainty using models supported by the available observations.",
+      "category": "ANALYSIS",
+      "method": {
+        "name": "Compartmental or population PK estimation",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "PMB2012",
+          "APR2021"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "ANIMAL_QC",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "QC_REPORT",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "ANIMAL_MODEL",
+        "ANIMAL_PARAMS"
+      ],
+      "instructions": [
+        "Choose model complexity supported by sampling and distinguish CL from CL/F.",
+        "Evaluate parameter identifiability, residual patterns, uncertainty and study-level variability.",
+        "Keep model files, covariance and units together; do not copy apramycin parameters to another drug."
+      ],
+      "completion_criteria": [
+        "Model diagnostics, uncertainty and limitations reviewed; every species estimate has a clear estimand."
+      ],
+      "constraints": [],
+      "when": "ALWAYS"
+    },
+    {
+      "id": "B4",
+      "title": "Species and sample-size adequacy",
+      "purpose": "Determine precision achievable under specified variability and sampling designs.",
+      "category": "ANALYSIS",
+      "method": {
+        "name": "Simulation-based confidence-interval precision planning",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "PRECISION2008"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "ANIMAL_MODEL",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "ANIMAL_PARAMS",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "PRECISION_PLAN"
+      ],
+      "instructions": [
+        "Prespecify estimand, confidence level, allowable CI width and width-assurance probability.",
+        "Simulate and refit candidate sampling designs using sensitivity ranges for pilot variability.",
+        "Report bias, coverage, failed fits and precision; distinguish independent animals from repeated samples.",
+        "For sparse terminal sampling use a suitable population model; do not apply the individual-CL mean formula blindly."
+      ],
+      "completion_criteria": [
+        "Sample-size conclusions are conditional on documented assumptions; no universal species count is asserted."
+      ],
+      "constraints": [],
+      "when": "ALWAYS"
+    },
+    {
+      "id": "B5",
+      "title": "Human PK translation",
+      "purpose": "Predict human PK using suitable animal scaling methods and an explicit target population.",
+      "category": "ANALYSIS",
+      "method": {
+        "name": "Compartmental PK with interspecies scaling comparators",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "APR2021",
+          "TANG2007",
+          "MAHMOOD2009"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "ANIMAL_MODEL",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "ANIMAL_PARAMS",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "TARGET_SPEC",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "HUMAN_PK",
+        "SCALING_REPORT"
+      ],
+      "instructions": [
+        "Check disposition, species combinations, body-weight leverage and compatible parameter definitions before selecting scaling candidates.",
+        "Compare justified free-exponent, fixed-exponent or historically calibrated methods; record historical human calibration separately.",
+        "Predict human CL and other supported parameters; a CL estimate alone does not determine a full concentration-time curve.",
+        "Keep drug-specific human observations unavailable to model development and freeze candidate assumptions before validation."
+      ],
+      "completion_criteria": [
+        "Predictions retain method assumptions, parameter uncertainty and applicability limits."
+      ],
+      "constraints": [
+        "No PBPK.",
+        "No drug-specific human PK fitting or tuning."
+      ],
+      "when": "ALWAYS"
+    },
+    {
+      "id": "B6",
+      "title": "PD evidence applicability",
+      "purpose": "Determine whether existing drug-effect evidence can support response translation.",
+      "category": "ANALYSIS",
+      "method": {
+        "name": "Published exposure-response evidence mapping",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "APR2021"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "CONTEXT",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "PD_EVIDENCE",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "PD_MAP"
+      ],
+      "instructions": [
+        "Match drug, endpoint, exposure basis, matrix and relevant experimental system.",
+        "Choose reuse of published evidence or an explicitly justified model-development branch; do not assume a new PD fit is always required.",
+        "Record uncertainty and cross-system assumptions; request missing evidence before producing response predictions."
+      ],
+      "completion_criteria": [
+        "Evidence scope and transfer assumptions are explicit and reviewed."
+      ],
+      "constraints": [],
+      "when": "PD_REQUESTED"
+    },
+    {
+      "id": "B7",
+      "title": "Conditional response prediction",
+      "purpose": "Connect predicted human exposure with applicable drug-effect evidence.",
+      "category": "ANALYSIS",
+      "method": {
+        "name": "Exposure-response integration",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "APR2021"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "HUMAN_PK",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "PD_MAP",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "RESPONSE"
+      ],
+      "instructions": [
+        "Verify exposure definitions and units agree before connecting the models.",
+        "Propagate uncertainty from both PK and the PD mapping; label outputs as conditional predictions.",
+        "Do not claim patient efficacy has been validated by animal fit or healthy-volunteer PK."
+      ],
+      "completion_criteria": [
+        "PK-to-PD interface reviewed and response limitations reported."
+      ],
+      "constraints": [],
+      "when": "PD_REQUESTED"
+    },
+    {
+      "id": "B8",
+      "title": "Uncertainty and prediction freeze",
+      "purpose": "Prepare a reproducible prediction package before any external human comparison.",
+      "category": "ANALYSIS",
+      "method": {
+        "name": "Sensitivity analysis and versioned prediction freeze",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "APR2021",
+          "BWC2024",
+          "MODULO"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "HUMAN_PK",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "SCALING_REPORT",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "ANIMAL_PARAMS",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "PREDICTION_FREEZE",
+        "UNCERTAINTY"
+      ],
+      "instructions": [
+        "Propagate animal parameter covariance, scaling uncertainty and justified structural alternatives.",
+        "Keep confidence intervals for typical parameters separate from individual predictive intervals.",
+        "Freeze model files, parameters, target-population assumptions, outputs and evaluation criteria with content hashes."
+      ],
+      "completion_criteria": [
+        "Prediction package is reproducible and no human holdout observations were used for selection."
+      ],
+      "constraints": [],
+      "when": "ALWAYS"
+    },
+    {
+      "id": "B9",
+      "title": "Future human PK validation",
+      "purpose": "Evaluate the frozen prediction when independent human PK data become available.",
+      "category": "VALIDATION",
+      "method": {
+        "name": "External prediction comparison",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "BWC2024"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "PREDICTION_FREEZE",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "HUMAN_HOLDOUT",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "HUMAN_VALIDATION"
+      ],
+      "instructions": [
+        "Match population, dose, route, matrix and endpoints before comparing predicted and observed PK.",
+        "Report bias, prediction error and interval calibration against prespecified criteria.",
+        "Any later model tuning creates a new development version; the same data cannot remain an untouched test set."
+      ],
+      "completion_criteria": [
+        "Data separation and endpoint matching documented; no clinical efficacy claim from PK agreement."
+      ],
+      "constraints": [],
+      "when": "HUMAN_VALIDATION_AVAILABLE"
+    },
+    {
+      "id": "B10",
+      "title": "Research answers and next steps",
+      "purpose": "Summarize what is supported and which data would reduce remaining uncertainty.",
+      "category": "SYNTHESIS",
+      "method": {
+        "name": "Evidence-qualified synthesis",
+        "origin": "SUGGESTED",
+        "reference_ids": [
+          "CTX2026",
+          "MODULO"
+        ]
+      },
+      "inputs": [
+        {
+          "file_id": "PREDICTION_FREEZE",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "UNCERTAINTY",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "PRECISION_PLAN",
+          "required": true,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "RESPONSE",
+          "required": false,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        },
+        {
+          "file_id": "HUMAN_VALIDATION",
+          "required": false,
+          "expects": {
+            "species": "ANY",
+            "matrix": "ANY",
+            "basis": "ANY",
+            "time_window": "ANY",
+            "units": "ANY",
+            "record_level": "ANY"
+          }
+        }
+      ],
+      "outputs": [
+        "FINAL_REPORT"
+      ],
+      "instructions": [
+        "Answer species and sample-size questions conditionally, separating parameter precision, animal fit and human accuracy.",
+        "State explicitly when response prediction or human validation remains unavailable.",
+        "List unresolved assumptions and prioritize further data by their effect on the intended prediction."
+      ],
+      "completion_criteria": [
+        "Every conclusion is tied to an available result or an explicit limitation; pending branches remain visible."
+      ],
+      "constraints": [],
+      "when": "ALWAYS"
+    }
+  ],
+  "data_files": [
+    {
+      "id": "S1",
+      "description": "Demonstration proposal; no research observations",
+      "kind": "DOCUMENT",
+      "availability": "LOCAL_DOCUMENT",
+      "path": "NOT_FOUND",
+      "producer": "EXTERNAL",
+      "role": "CONTEXT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "ANIMAL_RAW",
+      "description": "Animal individual PK observations or explicitly labelled study summaries",
+      "kind": "DATASET",
+      "availability": "MISSING",
+      "path": "NOT_FOUND",
+      "producer": "EXTERNAL",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "animal",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": [
+        "subject_id",
+        "species",
+        "body_weight",
+        "dose",
+        "route",
+        "sampling_time",
+        "concentration",
+        "units",
+        "total_or_free",
+        "study_id",
+        "record_level"
+      ]
+    },
+    {
+      "id": "TARGET_SPEC",
+      "description": "Target population and hypothetical prediction scenario specification",
+      "kind": "DOCUMENT",
+      "availability": "MISSING",
+      "path": "NOT_FOUND",
+      "producer": "EXTERNAL",
+      "role": "CONTEXT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": [
+        "population",
+        "body_weight_distribution",
+        "route",
+        "prediction_endpoints"
+      ]
+    },
+    {
+      "id": "PD_EVIDENCE",
+      "description": "Applicable published exposure-response evidence, with source and transfer limitations",
+      "kind": "DOCUMENT",
+      "availability": "MISSING",
+      "path": "NOT_FOUND",
+      "producer": "EXTERNAL",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": [
+        "endpoint",
+        "experimental_system",
+        "exposure_basis",
+        "uncertainty",
+        "applicability"
+      ]
+    },
+    {
+      "id": "HUMAN_HOLDOUT",
+      "description": "Future independent human PK observations reserved for validation",
+      "kind": "DATASET",
+      "availability": "MISSING",
+      "path": "NOT_FOUND",
+      "producer": "EXTERNAL",
+      "role": "VALIDATION",
+      "attributes": {
+        "species": "human",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": [
+        "subject_id",
+        "dose_history",
+        "sampling_time",
+        "concentration",
+        "population",
+        "units"
+      ]
+    },
+    {
+      "id": "CONTEXT",
+      "description": "Reviewed compressed context and planning assumptions",
+      "kind": "DOCUMENT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B1/CONTEXT.json",
+      "producer": "B1",
+      "role": "CONTEXT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "ANIMAL_QC",
+      "description": "Prepared animal PK data with provenance and study-level grouping",
+      "kind": "DATASET",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B2/ANIMAL_QC.json",
+      "producer": "B2",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "animal",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "QC_REPORT",
+      "description": "QC limitations, exclusions and preserved measurement definitions",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B2/QC_REPORT.json",
+      "producer": "B2",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "ANIMAL_MODEL",
+      "description": "Animal compartmental model definitions and estimation objects",
+      "kind": "MODEL",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B3/ANIMAL_MODEL.json",
+      "producer": "B3",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "ANIMAL_PARAMS",
+      "description": "Species parameters, covariance and estimand definitions",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B3/ANIMAL_PARAMS.json",
+      "producer": "B3",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "PRECISION_PLAN",
+      "description": "Conditional species/design sample-size analysis",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B4/PRECISION_PLAN.json",
+      "producer": "B4",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "HUMAN_PK",
+      "description": "Predicted human PK scenarios with uncertainty and scaling assumptions",
+      "kind": "MODEL",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B5/HUMAN_PK.json",
+      "producer": "B5",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "SCALING_REPORT",
+      "description": "Scaling alternatives, applicability, historical calibration and sensitivity",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B5/SCALING_REPORT.json",
+      "producer": "B5",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "PD_MAP",
+      "description": "Applicable PD evidence and explicit exposure-response translation assumptions",
+      "kind": "MODEL",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B6/PD_MAP.json",
+      "producer": "B6",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "RESPONSE",
+      "description": "Conditional human exposure-response predictions with transfer limitations",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B7/RESPONSE.json",
+      "producer": "B7",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "PREDICTION_FREEZE",
+      "description": "Versioned prediction package, candidate model definitions and content hashes",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B8/PREDICTION_FREEZE.json",
+      "producer": "B8",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "UNCERTAINTY",
+      "description": "Parameter and structural sensitivity results; no external accuracy claim",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B8/UNCERTAINTY.json",
+      "producer": "B8",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "HUMAN_VALIDATION",
+      "description": "Comparison of frozen predictions with held-out human PK",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B9/HUMAN_VALIDATION.json",
+      "producer": "B9",
+      "role": "VALIDATION",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    },
+    {
+      "id": "FINAL_REPORT",
+      "description": "Answers, evidence boundaries, data gaps and next-study priorities",
+      "kind": "REPORT",
+      "availability": "TO_GENERATE",
+      "path": "analysis/B10/FINAL_REPORT.json",
+      "producer": "B10",
+      "role": "DEVELOPMENT",
+      "attributes": {
+        "species": "NOT_FOUND",
+        "matrix": "NOT_FOUND",
+        "basis": "NOT_FOUND",
+        "time_window": "NOT_FOUND",
+        "units": "NOT_FOUND",
+        "record_level": "NOT_FOUND"
+      },
+      "required_fields": []
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "cards": [
+    {
+      "title": "Urea Dilution Correction for Lavage-Derived Epithelial Lining Fluid Concentrations",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Under the urea dilution method, apparent ELF volume is V_ELF = V_BALF × U_BALF / U_plasma and apparent analyte concentration is C_ELF = C_BALF × U_plasma / U_BALF. Urea concentrations must use the same units; the corrected analyte concentration retains the units of C_BALF. The result is a dilution-corrected concentration, not a direct measurement of unbound or active exposure.",
+      "conditions": [
+        "Bronchoalveolar lavage fluid and the blood reference are paired to the same animal and sampling occasion.",
+        "The protocol qualifies urea as a dilution marker under its collection conditions.",
+        "The urea denominator is measured and quantifiable; an absent or invalid denominator prevents numerical correction."
+      ],
+      "required_inputs": [
+        "Measured analyte concentration in BALF with calibration, assay limits and analyte basis.",
+        "Paired BALF and plasma urea concentrations with matching units and assay provenance.",
+        "Recovered lavage volume when V_ELF is needed; sample identifiers and collection times."
+      ],
+      "limitations": [
+        "Marker equilibration and collection conditions affect interpretation.",
+        "The formula does not identify binding, intracellular exposure or pharmacological activity.",
+        "Do not substitute zero for BLQ values or import a universal assay limit/outlier threshold from the cited study."
+      ],
+      "downstream_use": "Produce a traceable apparent ELF concentration for site-exposure analysis while retaining the raw BALF and urea measurements.",
+      "evidence_chunk_ids": [
+        "ARTICLE_S05:0028",
+        "ARTICLE_S05:0029",
+        "ARTICLE_S05:0030"
+      ],
+      "id": "source_ARTICLE_S05:K04",
+      "origin_job": "source_ARTICLE_S05",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S05"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review",
+      "method_keywords": [
+        "BALF",
+        "ELF",
+        "urea dilution",
+        "lavage correction",
+        "V_ELF",
+        "C_ELF",
+        "paired samples",
+        "site exposure"
+      ]
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

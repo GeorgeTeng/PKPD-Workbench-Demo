@@ -1,0 +1,53 @@
+{
+  "cards": [
+    {
+      "title": "CFR Calculation Methodology and Denominator Specificity",
+      "topics": [
+        "pta"
+      ],
+      "claim": "CFR = sum_i PTA_i * p_i, with PTA_i and p_i both expressed as fractions and p_i = n_i/N for the defined isolate population and time period. The denominator must match the scenario (e.g., all isolates versus a specified species) and time interval used to assess resistance trends. Sum_i p_i = 1 only when the bins exhaust that population and every bin has a matched PTA; otherwise report uncovered or off-scale mass and withhold a complete CFR or provide explicit bounds. A 90% CFR was a study-specific empiric-therapy convention, not a universal regulatory threshold.",
+      "conditions": [
+        "Applicable when Monte Carlo simulation is used to predict microbiological performance.",
+        "Requires specific MIC frequency distributions for the target organism population and time period.",
+        "PTA must be derived from PK/PD models using appropriate indices (e.g., %fT>MIC for beta-lactams)."
+      ],
+      "required_inputs": [
+        "Monte Carlo simulation output: PTA values for each MIC dilution.",
+        "MIC frequency distribution: Percentage of isolates at each MIC dilution for the specific organism and time period.",
+        "Qualified exposure model parameters and a PD target with explicit index, exposure basis and time window; no universal target magnitude is supplied."
+      ],
+      "limitations": [
+        "CFR represents microbiological success (target attainment), not clinical cure or safety.",
+        "Aggregated reference MIC distributions (e.g., EUCAST) cannot be used as weights for specific clinical populations as they do not represent local resistance rates.",
+        "Truncated MIC distributions (lower/upper end) in reference databases are excluded from aggregation, limiting their use for specific scenario weighting if the local distribution differs.",
+        "Source-specific thresholds (e.g., 90% CFR) are not universal project policy."
+      ],
+      "downstream_use": "Use CFR to assess trends in microbiological activity over time for specific regimens. Do not use CFR to predict clinical outcomes directly without further clinical correlation. Ensure the MIC distribution used for weighting matches the specific clinical scenario and time period being analyzed.",
+      "evidence_chunk_ids": [
+        "REF_021:0008",
+        "REF_021:0006",
+        "REF_021:0003",
+        "REF_027:0001"
+      ],
+      "id": "round3_Q02:K01",
+      "origin_job": "round3_Q02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_021",
+        "REF_027"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "Q02",
+      "retrieval_keywords": "CFR and weighted attainment: MIC weights, population and denominator",
+      "supersedes": [
+        "round2_Q02:K01",
+        "round2_Q02:K02",
+        "round2_Q02:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

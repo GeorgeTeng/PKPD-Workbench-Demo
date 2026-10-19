@@ -1,0 +1,213 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>PK model options</title>
+
+ <meta content="Structure tab" name="search-keywords" />
+ <link rel="stylesheet" href="../Phoenix_UserDocs.css" type="text/css" />
+
+
+ <script type="text/javascript" language="JavaScript">
+//<![CDATA[
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//]]>
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+-->
+</style>
+ <meta name="generator" content="Adobe FrameMaker 2017" />
+<script type="text/javascript" src="../template/scripts/rh.min.js"></script>
+<script type="text/javascript" src="../template/scripts/common.min.js"></script>
+<script type="text/javascript" src="../template/scripts/topic.min.js"></script>
+<script type="text/javascript" src="../template/scripts/constants.js"></script>
+<script type="text/javascript" src="../template/scripts/utils.js"></script>
+<script type="text/javascript" src="../template/scripts/mhutils.js"></script>
+<script type="text/javascript" src="../template/scripts/mhlang.js"></script>
+<script type="text/javascript" src="../template/scripts/mhver.js"></script>
+<script type="text/javascript" src="../template/scripts/settings.js"></script>
+<script type="text/javascript" src="../template/scripts/XmlJsReader.js"></script>
+<script type="text/javascript" src="../template/scripts/loadparentdata.js"></script>
+<script type="text/javascript" src="../template/scripts/loadscreen.js"></script>
+<script type="text/javascript" src="../template/scripts/loadprojdata.js"></script>
+<script type="text/javascript" src="../template/scripts/mhtopic.js"></script>
+ <link rel="stylesheet" type="text/css" href="../template/styles/topic.min.css">
+<script type="text/javascript" >
+gRootRelPath = "..";
+gCommonRootRelPath = "..";
+gTopicId = "26.1.2.0_1";
+</script>
+ <meta name="brsprev" value="topics/Maximum_Likelihood_Structure_tab.htm">
+ <meta name="brsnext" value="topics/Emax_model_options.htm">
+ <meta name="topic-breadcrumbs" content="Maximum Likelihood Models > Object and built-in model interface > Structure tab" />
+</head>
+
+<body dir="ltr">
+<script type="text/javascript" src="../ehlpdhtm.js"></script>
+
+    <!-- Breadcrumb --> 
+    <div><script type="text/javascript" language="javascript">//<![CDATA[
+document.write("<p>");
+AddMasterBreadcrumbs("../index.html", "", ">", "Home", "content.htm");
+document.write("<a href=\"phoenixmodel.htm\">Maximum Likelihood Models<\/a> > <a href=\"Maximum_Likelihood_object_and_built-in_model_interface.htm\">Object and built-in model interface<\/a> > <a href=\"Maximum_Likelihood_Structure_tab.htm\">Structure tab<\/a> > PK model options<\/p>");
+//]]></script>
+    </div>
+    <div dir="ltr">
+  <p dir="ltr" class="Heading3_WWPageBreak"><a name="XREF_28071_PK_model_options"></a>PK model options</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">In the <span class="Mouse_Click">Parameterization</span>&#160;menu, select the type of parameterization to use in the model. Each parameterization option changes the parameters and statements listed in the Structural tab.</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span><span class="Mouse_Click">Micro</span>: Model is expressed as differential equations having mass transfer rate constants associated with a compartmental model. Adds the mass transfer rate parameters, such as Ke, the rate of elimination, and writes the derivatives in terms of compartmental masses.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span><span class="Mouse_Click">Clearance</span>: Model is expressed as differential equations having clearances associated with a compartmental model. Adds the inter-compartmental clearance parameters, such as Cl, the clearance rate. If <span class="Mouse_Click">Clearance</span>&#160;is selected, the <span class="Mouse_Click">Saturating</span>&#160;checkbox becomes available. Check the <span class="Mouse_Click">Saturating</span>&#160;checkbox to convert the model to a saturable elimination (Michaelis-Menten kinetics) model. A saturable model uses two parameters:<br /><span class="Mouse_Click">Km</span>: Concentration to achieve half of maximal metabolic rate.<br /><span class="Mouse_Click">Vmax</span>: The maximum metabolic rate.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span><span class="Mouse_Click">Macro</span>: Model is expressed as a closed-form sum of exponentials. This option directly models <span class="Emphasis">concentration</span>&#160;in the central compartment. Primary parameters are the sum of exponential terms that model concentration in the central compartment. Volume is not in the model but can be derived as a secondary parameter. Since Macro models use concentration, an assumption must be made about the size of a reference initial dose, called a “stripping dose”. The user can enter the dose (A1) as well as a stripping dose (A1Strip). If no stripping dose is mapped on the Main or Dosing panels, the stripping dose is assumed equal to the dose.<br /><br />A note about stripping dose: The Macro model has a sum of exponentials that are fitted to the original observed value of C, using some original dose. If the model is again fitted against data obtained at another time with a higher or lower dose, then the question is how to make the model predict higher or lower values of C. This is done by multiplying the model's pre&#173;dicted value of C by a ratio of the current dose and the original dose. The value used for the original dose is called the “stripping dose”, and it allows the model to be used with dose val&#173;ues and sequences different from the original.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span><span class="Mouse_Click">Macro1</span>: Model is expressed as a closed-form sum of exponentials. This option models the <span class="Emphasis">amount</span> in the central compartment (A) and Volume is a primary parameter. Primary parame&#173;ters are the sum of exponential terms plus the parameter Volume. The amount in the central compartment is modeled as a sum of exponentials and then the Volume parameter is used to convert that amount to a concentration. Note that, because both macro options are closed-form models, the <span class="Mouse_Click">Closed form?</span> option is removed.</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">Turn on the <span class="Mouse_Click">tlag</span> checkbox to add a time delay parameter to the model.<br /><br />Adding a time lag assumes that there is a fixed amount of time between drug delivery (dose time) and when the drug is introduced into the blood.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">Turn on the <span class="Mouse_Click">Elim. Cpt.</span>&#160;checkbox if urine is being analyzed or data is available for any type of elimination compartment. <br /><br />Selecting this option adds a differential equation for A0, the amount of a drug excreted from the body. An elimination compartment is added to the model and included in the model code as a <span class="Enter">urinecpt</span>&#160;statement. Basically, the <span class="Enter">urinecpt</span>&#160;statement is like the <span class="Enter">deriv</span>&#160;statement, except in a steady-state dosing situation, where <span class="Enter">urinecpt</span> is ignored.</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>Adding an elimination compartment to a Clearance model removes the <span class="Mouse_Click">Closed form?</span>&#160;option and adds the <span class="Mouse_Click">Fe.?</span> option for toggling the inclusion of the fraction excreted parameter.</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">Check the <span class="Mouse_Click">Closed form?</span>&#160;checkbox to convert the model from a differential equation model to a closed-form algebraic model. <br /><br />The closed-form model runs faster, but has some disadvantages:</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>There can only be one observed variable, such as central compartment amount or concentra&#173;tion.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>The differential system being converted must be linear (no nonlinear kinetics).</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>Any covariates used in the model must be constant for the duration of the observations. For example, no change in subject's weight as samples are collected.</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">Check the <span class="Mouse_Click">Infusions possible?</span> checkbox if the model uses a constant rate of drug delivery.<br /><br />Infusions can be selected for intravenous and extravascular input. Selecting this option adds an extra context for the rate of drug delivery to the Main Mappings panel. For intravenous absorption, the new mapping context is <span class="Mouse_Click">A1 Rate</span>. For extravascular absorption, the mapping context is <span class="Mouse_Click">Aa Rate</span>. A <span class="Mouse_Click">Duration?</span>&#160;checkbox is also added in the Structure tab. Checking this box causes the context <span class="Mouse_Click">A1 </span>or <span class="Mouse_Click">Aa Rate</span>&#160;to change to <span class="Mouse_Click">A1 </span>or <span class="Mouse_Click">Aa Duration</span>.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">In the <span class="Mouse_Click">Absorption</span> menu, select the method of drug delivery.</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Body_Indented"><span class="Mouse_Click">Intravenous</span>: The drug is introduced directly into the blood.<br /><span class="Mouse_Click">Extravascular</span>: The drug is introduced indirectly into the blood. </p>
+  <p dir="ltr" class="Body_Indented">Selecting the <span class="Mouse_Click">Extravascular</span>&#160;option adds an extra parameter, <span class="Mouse_Click">Ka</span>, which is the rate of absorption and adds an extra checkbox that allows users to set the rate of absorption equal to the rate of elimination.</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">Check the <span class="Mouse_Click">Ka = Ke</span>&#160;checkbox (available when <span class="Mouse_Click">Micro</span>&#160;is chosen under the <span class="Mouse_Click">Parameterization</span>&#160;menu) to set the absorption rate equal to the elimination rate (the Ke parameter is removed from the model).</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">In the <span class="Mouse_Click">Num Compartments</span> menu, select the number of compartments.<br /><br />The default is one central compartment, and up to two peripheral compartments can be added. For each peripheral compartment added, two parameters are added to the model to account for the flow between the compartments. If macro parameterization is selected, the <span class="Mouse_Click">Num Compart&#173;ments</span>&#160;menu changes to the <span class="Mouse_Click">Num Terms</span> menu.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">In the <span class="Mouse_Click">Num Terms</span> menu, select the number of exponential terms to use in the model.<br /><br />The following lists the parameters that are added to the model for each extra compartment or term that is selected.</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Body_Indented">1 Comp./Term: V, Ke (Micro); V, Cl (Clearance); A, Alpha (Macro); V, Alpha (Macro1)<br />2 Comp./Terms: K12, K21 (Micro); V2, Cl2 (Clearance); B, Beta (Macro); B, Beta (Macro1)<br />3 Comp./Terms: K13, K31 (Micro); V3, Cl3 (Clearance); C, Gamma (Macro); C, Gamma (Macro1)</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">Select the <span class="Mouse_Click">Sequential PK/PD?</span>&#160;checkbox if the PK model is part of a PK/PD model that is being fitted sequentially. This will freeze the PK portion of the model and turn its random effects into covariates. See <a href="Sequential_PK_PD_population_model_fitting.htm#XREF_51106_Sequential_PK_PD"><span class="zzCrossRef">“Sequential PK/PD population model fitting”</span></a> for more information.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">I<a name="HT_residual_error_types"></a>n the <span class="Mouse_Click">Residual Error</span> fields, define the equation used to determine the error model.<br /><span class="Mouse_Click"><br />C</span>&#160;in the residual error model represents the central compartment. Changes made in the Residual Error field are shown in the <span class="Mouse_Click">observe</span> statement.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">In the first field, type the name of the observed quantity variable or use the default (<span class="Mouse_Click">CObs</span>).</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">In the second field, type the name of the epsilon variable or use the default name (<span class="Mouse_Click">CEps</span>).<br /><br />The epsilon variable represents a normal error with standard deviation as specified in the <span class="Mouse_Click">Stdev</span>&#160;field.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">In the <span class="Mouse_Click">error model type</span> menu, select the type of error model.<br /><br />The <span class="Mouse_Click">Additive</span>&#160;error model assumes error magnitudes are constant, regardless of concentration. The error bars in the residual plots are set to CEps. <br />The <span class="Mouse_Click">Multiplicative</span>&#160;error model assumes error magnitudes are proportional to concentration. The error bars are scaled by C*CEps. <br />The <span class="Mouse_Click">Power</span>&#160;error model assumes the error magnitude is proportional to the concentration raised to the given power (i.e., CObs = C + CEps * C^p, where p is the value entered in the <span class="Mouse_Click">Power</span> field).</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>If <span class="Mouse_Click">Add+Mult</span>&#160;is selected, type a name for the parameter in the <span class="Mouse_Click">Mult Stdev</span>&#160;field or accept the default name.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>If <span class="Mouse_Click">Mix Ratio</span>&#160;is selected, type a name for the mixed ratio parameter in the <span class="Mouse_Click">mix Ratio</span>&#160;field or accept the default name. </p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>If <span class="Mouse_Click">Power</span>&#160;is selected, type a value for the exponent in the <span class="Mouse_Click">Power</span> field.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>If <span class="Mouse_Click">Custom</span>&#160;is selected, type a custom error model definition in the <span class="Mouse_Click">Defn</span> field.</p>
+  <p dir="ltr" class="Body_Indented">For PK models, <span class="Mouse_Click">Multiplicative</span>&#160;followed by <span class="Mouse_Click">Power</span>&#160;are the preferred error models over <span class="Mouse_Click">Additive</span>. This is because PK model types usually have concentrations spanning several orders of magni&#173;tude and, on a log scale, <span class="Mouse_Click">Additive</span>&#160;has large errors at low concentrations. </p>
+  <p dir="ltr" class="Body_Indented">For PD model types, with effect ranges usually less than an order of magnitude, <span class="Mouse_Click">Additive</span>&#160;is the first choice.</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">In the <span class="Mouse_Click">Stdev</span> field, type a value for the standard deviation or accept the default.<br /><br />The residual error cannot be less than 0.001 for all engines except Naive Pooled and QRPEM.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet"><a name="HT_bqloption"></a>Select the <span class="Mouse_Click">BQL?</span>&#160;checkbox if the dataset contains BQL values for the observation data. (The <span class="Mouse_Click">BQL?</span>&#160;option is available for <span class="zzCrossRef"><a href="Emax_model_options.htm#HT_emaxoptions">Emax models</a></span>&#160;as well.) When checked, the engine automatically reverts to the Laplacian method.<br /><br />A resulting worksheet of a BQL object with a censored column <span class="Mouse_Click">CObsBQL</span>&#160;can be used as the input for Maximum Likelihood Models with the option <span class="Mouse_Click">BQL?</span>. If <span class="Mouse_Click">BQL?</span>&#160;is selected, a column can be mapped to the <span class="Mouse_Click">CObsBQL</span>&#160;context in the Main Mappings panel. This column can contain two categories of values: non-zero number (censored) or zero/blank (non-censored). A concentration value marked as censored (<span class="Mouse_Click">CObsBQL</span>&lt;&gt;0 and it is not empty) means that the true value of the observation is unknown, but it is not greater than the observed value (e.g., LLOQ, which is pro&#173;vided in the CObs cell for that row) and then the cumulative distribution function for the normally distributed error is used to calculate the likelihood. (The likelihood is the probability of falling into the interval between minus infinity and LLOQ, where LLOQ is given the value of the CObs or EObs column on that row.) If a concentration value is flagged as non-censored, then the probabil&#173;ity density function is used to calculate the likelihood.<br /><br />The context name <span class="Mouse_Click">CObsBQL</span>&#160;changes based on what is typed in the observed quantity variable field. For example, instead of CObsBQL it could be ConcBQL.</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>Maximum Likelihood Models with censored data (<span class="Mouse_Click">BQL?</span>&#160;option) use the log of the probabilities between 0 and the censored number in the log likelihoods. If the censoring numbers are very small, the loglikelihood might overflow, resulting in a Fortran error. This seems to be more often the case when using multiplicative error models. If the error occurs, try increasing the BQL value if possible or change error types.</p>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>For a quick and easy way to create an observation column and its associated BQL flag column, use the Phoenix BQL object.</p>
+  <ul type="disc" dir="ltr">
+   <li>
+   <p dir="ltr" class="Bullet">Turn on the <span class="Mouse_Click">Use Static LLOQ?</span> checkbox to enter a numeric value of LLOQ (&gt;0). <br /><br />In the event that <span class="Mouse_Click">CObsBQL</span>&#160;is not mapped to a column in the dataset, then the static value of LLOQ will be used, so any observed value less than or equal to that LLOQ value is treated as censored. Only turn on the <span class="Mouse_Click">Use Static LLOQ?</span>&#160;box to specify a static LLOQ value. However, even if a value is specified, if the CObsBQL column (or other column with a BQL flag) is mapped, the value in the observation column will be used as the LLOQ and will override the static LLOQ.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">Check the <span class="Mouse_Click">Freeze</span>&#160;checkbox to freeze the standard deviation to the value shown in the <span class="Mouse_Click">Stdev</span>&#160;field and prevent estimation of this part of the model.</p>
+</li>
+   <li>
+   <p dir="ltr" class="Bullet">Click <span class="Mouse_Click">Set WNL Model</span> to run Least-Squares Regression model structures using Phoenix NLME.</p>
+</li>
+  </ul>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>In the first unlabeled menu, select one of the 19 PK models, or one of the four Michaelis-Menten models, or one of the 19 PK/PD simultaneous link models. The PK/PD simultaneous link models are labeled 401 to 419 and link PK models 1 through 19 with PD model 105 (e.g., PK/PD model 407 is a linked model of PK model 7 with PD model 105). For more on PK/PD simultaneous link models, see <a href="NLME_computations.htm#XREF_58546_Differential"><span class="zzCrossRef">“Differential equations in NLME”</span></a>.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>If the model specified in the first unlabeled menu is <span class="Emphasis">not</span>&#160;a macro-parameterization model, the <span class="Mouse_Click">CL/V</span>&#160;checkbox is made available. Check this box to add clearance and volume parameters to the model.</p>
+  <p dir="ltr" class="Insert_table_or_figure"><img alt="Set_WNL_model_Cl_V.png" id="image595" src="../assets/Set_WNL_model_Cl_V.png" style="max-width: 100% ;height: auto" />&nbsp;</p>
+  <p dir="ltr" class="Figure_Title">Least-squares regression model setup with additional parameters option</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>If a linked model is specified in the first unlabeled menu, a second unlabeled menu is made available. Select one of eight PD models, or one of four Indirect Response models to link.</p>
+  <p dir="ltr" class="Insert_table_or_figure"><img alt="Set_WNL_model_2menus.png" id="image596" src="../assets/Set_WNL_model_2menus.png" style="max-width: 100% ;height: auto" />&nbsp;</p>
+  <p dir="ltr" class="Figure_Title">Least-squares regression linked model setup</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>Each Least-Squares Regression model has a set of secondary parameters that available for loading when that model is selected. Use the radio buttons to indicate what should be done with secondary parameters that are already defined in the interface when the model is loaded. Choose to <span class="Mouse_Click">Replace</span>&#160;currently defined parameters with those and load the ones from the model, <span class="Mouse_Click">Keep</span>&#160;currently defined parameters and ignore those from the selected model, or <span class="Mouse_Click">Combine</span>&#160;them by keeping the existing parameters and adding those from the selected model to the list.</p>
+  <p dir="ltr" class="Bullet_Indented">•<span style="padding-left: 11pt;" class="FMAutoNumber_1"></span>Click <span class="Mouse_Click">Apply</span>&#160;to apply the selected model or models or click <span class="Mouse_Click">Cancel</span>&#160;to exit the model selection menus without applying any changes.</p>
+  <p dir="ltr" class="Body"><span class="Emphasis"><a name="XREF_45832_Additional_details"></a>Additional details on residual error models</span>&#160;</p>
+  <p dir="ltr" class="Body">The <span class="Mouse_Click">Log-additive option</span>&#160;corresponds to a form like <span class="EquationVariables">C*exp(epsilon)</span>. If the <span class="Mouse_Click">Log-additive</span>&#160;error model is specified, and if there is only one error model, such as one observe statement, then the pre&#173;dictions and observations are log-transformed and are fit in that space. This is because the error model becomes additive in log-space, which allows for higher performance and accuracy. This affects all the plots results and residuals, because they are in log-space. The simulation tables are trans&#173;formed back so they are not in log-space. </p>
+  <p dir="ltr" class="Body">Because the logs of zero or negative numbers are not allowed, they are truncated to a value which is ¼ (0.25) of the smallest positive observation value. If the model is <span class="Mouse_Click">Log-additive</span>, but the conditions have not been met for log-transforming to take place, the model behaves the same as <span class="Mouse_Click">Multiplicative</span>. </p>
+  <p dir="ltr" class="Body">The residual model that is displayed in the model text is:</p>
+  <p dir="ltr" class="Equation">observe(<span class="EquationVariables">CObs</span>=<span class="EquationVariables">C</span>*exp(<span class="EquationVariables">CEps</span>))<br />or<br />observe(<span class="EquationVariables">CObs</span>=exp(log(<span class="EquationVariables">C</span>)+<span class="EquationVariables">CEps</span>))</p>
+  <p dir="ltr" class="Body">The engines implement the model by log-transforming both sides and see if the derivative of the right-hand side with respect to CEps is 1. If so, and if there is only one observe statement, then it does log-transformation. </p>
+  <p dir="ltr" class="Equation">observe(log(<span class="EquationVariables">CObs</span>)=log(<span class="EquationVariables">C</span>)+<span class="EquationVariables">CEps</span>)</p>
+  <p dir="ltr" class="Body">This check is accomplished by examining the text of the model, so it can be applied to models other than built-in models.</p>
+  <p dir="ltr" class="Body">The main advantages of <span class="Mouse_Click">Log-additive</span>&#160;are that the engines, particularly the Lindstrom-Bates FOCE engine, can run faster when a simple additive error model is used, and the FOCE approximation can be more accurate.</p>
+  <p dir="ltr" class="Body">Since the modeling engines in NLME can only handle a single error variable (or epsilon), and some error models are best specified as having an additive component and a multiplicative component, some complexities are needed. The <span class="Mouse_Click">Mix Ratio</span> uses the following formula:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">C</span>+<span class="EquationVariables">eps</span>*(1+<span class="EquationVariables">C</span>*<span class="EquationVariables">mixRatio</span>)</p>
+  <p dir="ltr" class="Body_Indented">where <span class="EquationVariables">mixRatio</span>&#160;is a fixed effect and is understood to be the multiplicative sigma (i.e., standard deviation of the multiplicative error variable) divided by additive sigma (i.e., standard deviation of the additive error model).</p>
+  <p dir="ltr" class="Body">Another way to specify a mixed error model having a fixed effect, but with the fixed effect signifying the multiplicative sigma, rather than the ratio of multiplicative to additive sigma is <span class="Mouse_Click">Add+Multi</span>. It makes use of a built-in function called “sigma()” that can only be used in this context, and its value is the cur&#173;rent estimate of the standard deviation of eps. The formula is:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">C</span>+<span class="EquationVariables">eps</span>*sqrt(1+(<span class="EquationVariables">C</span>*<span class="EquationVariables">multStdev</span>/<span class="EquationVariables">sigma</span>())^2)</p>
+  <p dir="ltr" class="Body_Indented">where <span class="EquationVariables">multStdev</span>&#160;is the multiplicative sigma. </p>
+  <p dir="ltr" class="Body">So when this error model is used, the additive sigma is called <span class="EquationVariables">stdev</span>, and the multiplicative sigma is called <span class="EquationVariables">multStdev</span>. Since <span class="EquationVariables">multStdev</span> is a fixed effect, its name can be changed as desire.</p>
+  <p dir="ltr" class="Body">To justify the above formula, look at the variance. Suppose the additive standard deviation is called <span class="EquationVariables">sigma1</span>, the multiplicative standard deviation is called <span class="EquationVariables">sigma2</span>, and suppose the corresponding epsi&#173;lons <span class="EquationVariables">eps1</span>&#160;and <span class="EquationVariables">eps2</span> are drawn from a unit normal distribution. Then the formula would be:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">C</span>+<span class="EquationVariables">eps1</span>*<span class="EquationVariables">sigma1</span>+<span class="EquationVariables">C</span>*<span class="EquationVariables">eps2</span>*<span class="EquationVariables">sigma2</span></p>
+  <p dir="ltr" class="Body">The variance of this is the sum of the variances from each term, or:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">sigma1</span><sup><span class="Superscript">2</span></sup>+(<span class="EquationVariables">C</span>*<span class="EquationVariables">sigma2</span>)<sup><span class="Superscript">2</span></sup></p>
+  <p dir="ltr" class="Body">Now let <span class="EquationVariables">r</span>&#160;be the ratio: <span class="EquationVariables">r</span>=<span class="EquationVariables">sigma2</span>/<span class="EquationVariables">sigma1</span>, then the variance is:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">sigma1</span><sup><span class="Superscript">2</span></sup>+(<span class="EquationVariables">C</span>*<span class="EquationVariables">r</span>*<span class="EquationVariables">sigma1</span>)<sup><span class="Superscript">2</span></sup>&#160;<br />or <span class="EquationVariables">sigma1</span><sup><span class="Superscript">2</span></sup> *(1+(<span class="EquationVariables">C</span>*<span class="EquationVariables">r</span>)<sup><span class="Superscript">2</span></sup>) </p>
+  <p dir="ltr" class="Body_Indented">which is the variance of:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">C</span>+<span class="EquationVariables">eps</span>*sqrt(1+(<span class="EquationVariables">C</span>*<span class="EquationVariables">r</span>)<sup><span class="Superscript">2</span></sup>)</p>
+  <p dir="ltr" class="Body">Then replace <span class="EquationVariables">r</span>&#160;with <span class="EquationVariables">sigma2</span>/<span class="EquationVariables">sigma1</span> to obtain:</p>
+  <p dir="ltr" class="Equation"><span class="EquationVariables">C</span>+<span class="EquationVariables">eps</span>*sqrt(1+(<span class="EquationVariables">C</span>*<span class="EquationVariables">sigma2</span>/<span class="EquationVariables">sigma1</span>)<sup><span class="Superscript">2</span></sup>)</p>
+  <p dir="ltr" class="Body_Indented">where <span class="EquationVariables">sigma1</span>&#160;is represented by the <span class="EquationVariables">sigma()</span>&#160;function, and <span class="EquationVariables">sigma2</span>&#160;is represented by <span class="EquationVariables">multStdev</span>.</p>
+  <p dir="ltr" class="Body">So, by choosing the option <span class="Mouse_Click">Add+Mult</span>, this formula will be used to estimate both <span class="EquationVariables">stdev</span>&#160;(the additive standard deviation) and <span class="EquationVariables">multStdev</span> (the multiplicative standard deviation).</p>
+  </div>
+<!-- Footer using FM variable --> 
+    <div>
+      <hr>
+      <p style="font-size:small">Last modified date:7/9/20<br> 
+	  <img alt="Certara USA, Inc." style=" width:10%max-width: 100% ;height: automax-width: 100% ;height: auto" src="../responsive_html5_!MasterPage!/certara.png"><br>
+      <a target="_blank" href="../responsive_html5_!MasterPage!/legal_notice.htm">Legal Notice</a> | <a target="_blank" href="../responsive_html5_!MasterPage!/contact_info.htm">Contact Certara</a><br>
+      &#169; 2020 Certara USA, Inc. All rights reserved.</p>
+    </div>
+  </body>
+</html>

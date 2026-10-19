@@ -1,0 +1,120 @@
+{
+  "cards": [
+    {
+      "title": "Route-qualified clearance and distribution-volume interpretation",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Distinguish systemic CL from apparent CL/F, and terminal Vz, steady-state distribution Vss and structural central Vc. This card covers linear time-invariant single-dose NCA and a separately qualified steady-state clearance branch; it does not identify all parameters from isolated extravascular data.",
+      "conditions": [
+        "Choose the explicitly qualified branch; scientific scope and assumptions are specified in method_recipe."
+      ],
+      "required_inputs": [
+        "Use the branch-specific input contract below; unknown inputs remain unknown."
+      ],
+      "limitations": [
+        "Offline candidate pending source and operational review; no target-human facts, fitting or production use."
+      ],
+      "downstream_use": "Plan an evidence-bounded method and identify blocked dependent outputs; ContextBuilder supplies project objective separately.",
+      "evidence_chunk_ids": [
+        "ADD002:0130",
+        "ADD002:0132",
+        "REF_003:0003",
+        "REF_003:0004",
+        "REF_003:0005",
+        "REF_003:IMG2073"
+      ],
+      "method_recipe": {
+        "estimand_and_scope": "Distinguish systemic CL from apparent CL/F, and terminal Vz, steady-state distribution Vss and structural central Vc. This card covers linear time-invariant single-dose NCA and a separately qualified steady-state clearance branch; it does not identify all parameters from isolated extravascular data.",
+        "input_contract": "Require dose amount/unit, route and infusion duration where relevant; analyte/matrix/free-total basis; dose-relative time; observed/censored status; AUC integration and terminal-tail qualification. Vz additionally needs qualified lambda_z; single-dose Vss needs AUMCinf and correct input-time treatment. Absolute extravascular CL additionally requires independently qualified F or jointly informative data/model. Vc requires a specified structural model with informative observations, not an NCA volume label.",
+        "applicability_and_prerequisites": "Establish single dose versus verified periodic steady state, linearity/time invariance and compatible dose/concentration basis. The isolated oral Phoenix model cannot estimate F. Known F resolves the CL/F scaling algebra, but does not by itself remove absorption/input time from oral MRT. More informative joint designs need their own identifiability assessment.",
+        "definitions_units_basis_window": "Dose: mass; C: mass/volume; AUC: mass*time/volume; AUMC: mass*time^2/volume; lambda_z: 1/time; CL: volume/time; V: volume; F dimensionless in (0,1]. Keep absolute and per-body-mass quantities distinct. Use AUC0inf for qualified single-dose total exposure; AUC over one dosing interval tau for the separately established steady-state branch.",
+        "procedure": "Check basis/route and endpoint eligibility first. Compute only qualified denominators. Label CL/F or Vz/F when F is unidentified. For single-dose IV infusion verify whether software MRT has already subtracted Tinf/2; do not correct twice. Record Vc as a model parameter with its parameterization; do not rename Vz or Vss as Vc.",
+        "formula_and_parameterization": "Single-dose IV: CL=Dose/AUC0inf; Vz=CL/lambda_z. Isolated extravascular data give CL/F=Dose/AUC0inf and Vz/F=(CL/F)/lambda_z. IV bolus MRT=AUMCinf/AUCinf; constant-rate IV infusion MRT=AUMCinf/AUCinf-Tinf/2; Vss=CL*MRT under these qualifications. Steady-state IV CLss=Dose_per_interval/AUC_tau (REF_003:IMG2073). Do not reuse the single-dose MRT formula for steady-state data. If F is independently qualified, CL=F*(CL/F), an algebraic conversion.",
+        "uncertainty_and_identifiability": "Tail uncertainty propagates into CL, Vz and especially moment-based Vss. A mean-profile quantity is not an individual-parameter distribution. Unknown F confounds absolute clearance/volume; known F does not establish absorption-time or structural identifiability. No CI or terminal quality threshold is generated without a justified estimation method.",
+        "diagnostics_and_failure_modes": "Reject dimension mismatches and double infusion correction. A missing or nonpositive qualified terminal slope blocks dependent Vz/tail moments. Terminal contamination, absorption-limited terminal phase and inadequate sampling require qualification rather than automatic physiological interpretation. For 0<F<1, using CL/F as CL overestimates CL, not underestimates it.",
+        "missing_input_and_partial_fallback": "If the tail is unqualified, retain observed peak/timing and a clearly bounded finite AUC if otherwise supported; do not compute CL by substituting AUClast for AUCinf. Unknown F retains apparent CL/F. Missing absorption/input-time knowledge blocks oral-MRT-to-Vss even if F is known; unknown Vc remains unknown. This tail restriction concerns single-dose extrapolated quantities; separately qualified steady-state IV CLss may use a fully supported AUC_tau without estimating a terminal slope.",
+        "output_and_interpretation": "Report route, dose, AUC/window, basis, absolute/apparent status and eligible versus blocked parameters with reasons. These are conditional kinetic estimates, not human efficacy, validated transfer or proof that Vc=Vss=Vz. Operational gates are reviewer synthesis of source definitions.",
+        "worked_example_and_counterexample": "SYNTHETIC arithmetic only: single IV bolus 10 mg, qualified AUCinf=5 mg*h/L and AUMCinf=20 mg*h^2/L give CL=2 L/h, MRT=4 h and Vss=8 L. In a distinct oral case the same dose/AUC gives CL/F=2 L/h; independently supplied F=0.5 gives CL=1 L/h. Counterexample: unknown oral input time still blocks Vss; an AUClast of 5 with unknown tail does not establish CL=2."
+      },
+      "claim_support": [
+        {
+          "claim": "REF_003:0003 and REF_003:0005 explicitly define CL and Vz as apparent parameters (CL/F, Vz/F) for extravascular models because F cannot be estimated from isolated data, supporting the distinction between systemic and apparent estimands.",
+          "evidence_chunk_ids": [
+            "REF_003:0003",
+            "REF_003:0005"
+          ],
+          "scope": "NCA parameter definitions for extravascular vs IV routes.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "REF_003:0004 states Vss is computed for IV Bolus and Infusion dosing only and is not computed for extravascular dosing because MRTINF includes Mean Input Time, supporting the restriction of Vss calculation to IV routes in this context.",
+          "evidence_chunk_ids": [
+            "REF_003:0004"
+          ],
+          "scope": "Vss calculation constraints.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "ADD002:0130 and ADD002:0132 describe structural model parameters (central compartment volume V, concentration C, bioavailability F as a parameter) distinct from NCA labels, supporting the requirement for a specified structural model to define Vc.",
+          "evidence_chunk_ids": [
+            "ADD002:0130",
+            "ADD002:0132"
+          ],
+          "scope": "Structural model parameterization vs NCA.",
+          "support_type": "qualified_method_synthesis"
+        },
+        {
+          "claim": "REF_003:IMG2073 and REF_003:0005 define steady-state clearance (CLss) as Dose/AUC_tau, supporting the separate steady-state clearance branch.",
+          "evidence_chunk_ids": [
+            "REF_003:IMG2073",
+            "REF_003:0005"
+          ],
+          "scope": "Steady-state clearance definition.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round7_reviewed_v1_G02:K01",
+      "origin_job": "round7_G02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD002",
+        "REF_003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "G02",
+      "retrieval_keywords": "Clearance and distribution volume estimands route bioavailability CL CL/F Vc Vss Vz Vz/F AUCinf CLss",
+      "supersedes": [
+        "round7_G02:K01",
+        "round4_G02:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "clearance and distribution volume estimands route bioavailability",
+        "CL",
+        "CL/F",
+        "Vc",
+        "Vss",
+        "Vz",
+        "Vz/F",
+        "AUCinf",
+        "CLss"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "ADD002",
+        "REF_003"
+      ],
+      "review_amendment": {
+        "version": "round7_reviewed_v1",
+        "parent_card_id": "round7_G02:K01",
+        "status": "PENDING_FINAL_LOCAL_RECHECK",
+        "original_raw_output_retained": true
+      }
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

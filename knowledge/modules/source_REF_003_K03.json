@@ -1,0 +1,40 @@
+{
+  "cards": [
+    {
+      "title": "Steady-State NCA Metrics",
+      "topics": [
+        "animal_pk",
+        "pkpd"
+      ],
+      "claim": "Steady-state analysis requires a defined dosing interval (Tau). Key parameters include Cavg (AUC_TAU/Tau), Ctau (concentration at end of interval), and Accumulation Index. Fluctuation% and Swing are calculated based on Cmax and Cmin/Ctau within the interval.",
+      "conditions": [
+        "Multiple dosing regimen",
+        "Defined Tau"
+      ],
+      "required_inputs": [
+        "Tau (dosing interval)",
+        "Concentration-time data within interval"
+      ],
+      "limitations": [
+        "Cmin and Ctau may differ depending on regulatory definitions; both are output.",
+        "AUC_TAU calculation handles small sampling deviations by estimating concentration at Tau."
+      ],
+      "downstream_use": "Exposure-response analysis for multiple-dose regimens; PK/PD index calculation (e.g., AUC/MIC, Cmax/MIC).",
+      "evidence_chunk_ids": [
+        "REF_003:0005",
+        "REF_003:0006"
+      ],
+      "id": "source_REF_003:K03",
+      "origin_job": "source_REF_003",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

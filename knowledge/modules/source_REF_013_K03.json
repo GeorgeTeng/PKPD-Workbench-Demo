@@ -1,0 +1,39 @@
+{
+  "cards": [
+    {
+      "title": "Interpretation of SE_AUClast vs SE_AUCall in Sparse Data",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "SE_AUClast and SE_AUCall provide measurements of uncertainty for AUClast and AUCall, respectively. They are usually the same. Differences between these parameter values are only observed if some measurements were flagged as BQL (below the quantitation limit).",
+      "conditions": [
+        "Sparse sampling data processing.",
+        "Presence of BQL data points may cause divergence between SE_AUClast and SE_AUCall."
+      ],
+      "required_inputs": [
+        "Data with potential BQL flags.",
+        "Sparse sampling NCA model configuration."
+      ],
+      "limitations": [
+        "The distinction relies on BQL handling; if no BQLs exist, the SEs are identical.",
+        "Does not address the underlying statistical validity of the SE method itself, only the software output behavior."
+      ],
+      "downstream_use": "Use the difference (or lack thereof) between SE_AUClast and SE_AUCall to diagnose the impact of BQL data on the mean curve uncertainty estimates.",
+      "evidence_chunk_ids": [
+        "REF_013:0001"
+      ],
+      "id": "source_REF_013:K03",
+      "origin_job": "source_REF_013",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_013"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

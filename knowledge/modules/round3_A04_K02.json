@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "pcVPC Methodology and Censored Data Handling",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Prediction-Corrected VPCs (pcVPC) normalize observed and simulated data by the median typical population prediction within bins to remove variability caused by independent variables (e.g., dose, covariates), enhancing the diagnosis of random effects misspecification. For censored data (BLQ), pcVPCs cannot use standard censoring methods because rank order is lost after correction. Instead, censored observations must be omitted from both observed and simulated datasets before calculating statistics, making the pcVPC interpretation heavily dependent on the model's accurate prediction of censoring frequency (e.g., %BLQ vs. time).",
+      "conditions": [
+        "Applicable when independent variables vary within bins, making traditional VPCs uninformative.",
+        "Requires accurate modeling of the censoring mechanism (e.g., M3 method) to ensure the pcVPC reflects true model performance.",
+        "Log-transformed dependent variables require specific adjustment in the prediction correction formula."
+      ],
+      "required_inputs": [
+        "Typical population predictions (PRED) for each observation.",
+        "Median PRED for each bin of independent variables.",
+        "Simulated datasets reflecting the original design.",
+        "Censoring model parameters (if BLQ present)."
+      ],
+      "limitations": [
+        "pcVPC interpretation is invalid if the model poorly predicts the censoring frequency.",
+        "Variability-corrected VPCs (pvcVPC) showed no significant advantage over pcVPCs in source examples.",
+        "This is a diagnostic method, not proof of external predictive validity."
+      ],
+      "downstream_use": "Use pcVPC to diagnose structural and random effect misspecification in complex designs; separately assess censoring model adequacy via BLQ frequency plots before trusting pcVPC results.",
+      "evidence_chunk_ids": [
+        "SUP002:0007",
+        "SUP002:0021",
+        "SUP002:0005",
+        "SUP002:0002"
+      ],
+      "id": "round3_A04:K02",
+      "origin_job": "round3_A04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A04",
+      "retrieval_keywords": "Residuals, VPC/pcVPC, convergence, uncertainty and external prediction diagnose different issues",
+      "supersedes": [
+        "round2_A04:K01",
+        "round2_A04:K02",
+        "round2_A04:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

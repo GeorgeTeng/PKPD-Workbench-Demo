@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按检查稿改 DC005，允许条件引用同一需求下其他数据集的证据吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC005)"
+  },
+  "gaps_found": [
+    "Conditional inputs needing another dataset (IV reference, binding) could never be MET because evidence was limited to the same dataset.",
+    "Rule said unused data go to human review; code reports a non-blocking follow-up.",
+    "Non-blocking status of unmet conditions and MIXED/NOT_FOUND handling unstated.",
+    "Free-text regimen and qualifiers do not drive triggers (kept; review decides)."
+  ],
+  "changes": [
+    "dc_coverage.json 1.9.0: DC005 rewritten.",
+    "data_agents.py: check_conditions accepts evidence from permitted datasets assigned to the same requirement; instruction updated.",
+    "tests: linked-dataset condition evidence."
+  ]
+}

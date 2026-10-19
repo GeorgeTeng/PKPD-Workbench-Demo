@@ -1,0 +1,2170 @@
+{
+  "schema_version": "DIRECT_DP_INPUT_1.0",
+  "requirements": [
+    {
+      "description": "Identify PMB and preserve distinct analytes, formulations, routes, concentration bases and biological matrices for each nonhuman record.",
+      "method_uses": [
+        "MODEL_BASED",
+        "NCA",
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "drug_identity",
+        "analyte",
+        "formulation",
+        "route",
+        "matrix",
+        "total_or_unbound_basis",
+        "conversion_or_bridge_justification"
+      ],
+      "conditions": [
+        "A conversion or physiological bridge needs recorded justification."
+      ],
+      "required_by": "BEFORE_QC",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/rules/0/text",
+        "main:/rules/9/text"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK",
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ001",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/0/text",
+          "conditions": [],
+          "exceptions": []
+        },
+        {
+          "source": "main:/rules/9/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/rules/0/text",
+          "quote": "Use PMB as the sole test drug; do not substitute colistin or another antibiotic."
+        },
+        {
+          "source": "main:/rules/9/text",
+          "quote": "Keep PMB routes, formulations, analytes, total and unbound drug, and plasma, serum, whole-lung tissue, BAL and ELF distinct. Record justification for each conversion or physiological bridge; do not force unsupported pulmonary or multi-species models."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Preserve source identity, units, observation origin, missing values and BLQ limits without assigning individual animals or cross-time links to summaries.",
+      "method_uses": [
+        "MODEL_BASED",
+        "NCA",
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "source_identifier",
+        "source_location",
+        "measurement_units",
+        "observation_origin",
+        "record_level",
+        "experimental_unit_identifier_if_supported",
+        "missing_value_status",
+        "BLQ_flag",
+        "LLOQ_bound"
+      ],
+      "conditions": [
+        "Group means and digitized observations retain their reported data level.",
+        "An unspecified identifier or censoring bound remains unresolved."
+      ],
+      "required_by": "BEFORE_QC",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/scientific_context/items/17/statement",
+        "main:/rules/1/text"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK",
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ002",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/1/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/17/statement",
+          "quote": "Preserve source identifiers, units, missing values and BLQ limits. Group means and digitized observations are not individual animals; do not invent IDs, variability, exposure-response links or missing measurements."
+        },
+        {
+          "source": "main:/rules/1/text",
+          "quote": "Treat the separate mouse digitized index-response panels as unmatched until supported regimen-to-response links are established. Do not invent exposure-response links or individual animals from digitized observations or group means."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Define each animal PK observation's time and concentration, dosing events and study or regimen membership at its actual data level.",
+      "method_uses": [
+        "MODEL_BASED",
+        "NCA"
+      ],
+      "input_fields": [
+        "concentration",
+        "concentration_unit",
+        "sample_time",
+        "time_unit",
+        "time_origin",
+        "dose_amount",
+        "dose_unit",
+        "dose_basis",
+        "dose_time",
+        "route",
+        "study_membership",
+        "regimen_membership",
+        "sampling_design"
+      ],
+      "conditions": [
+        "Retain actual versus nominal sampling times where relevant.",
+        "Record infusion or repeated-dose input history when it affects the requested time course or exposure window.",
+        "An optional NCA analysis does not precede animal model preparation."
+      ],
+      "required_by": "BEFORE_EDA",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective",
+        "main:/scientific_context/items/10/statement"
+      ],
+      "method_profile_ids": [
+        "MP001",
+        "MP004"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK"
+        ]
+      },
+      "id": "RQ003",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "main:/scientific_context/items/10/statement",
+          "quote": "Animal PK work will select eligible systemic and, where supported, pulmonary models for mouse, rat and rabbit; evaluate fit, parameter identifiability and held-out prediction where the design permits; and limit rabbit use to evidence that identifies a model component, documenting exclusion or exploratory use otherwise (MI003, MI004). The rabbit source-preservation requirement is SC32."
+        },
+        {
+          "source": "method:MP001",
+          "quote": "{\"id\": \"MP001\", \"name\": \"Data requirements for observed peaks and finite-window NCA\", \"family\": \"NCA\", \"target_endpoints\": [\"observed Cmax\", \"observed Tmax\", \"finite-window AUC\"], \"applies_when\": \"The project requests observed peak summaries or finite-window exposure. Check input definitions, permitted source data and sampling coverage separately for each endpoint. Numerical NCA methods and result evaluation belong to the later analysis module.\", \"required_inputs\": [\"Each requested endpoint and intended use; proposal-defined AUC window and time origin, with analyte, matrix and total/free concentration basis.\", \"Permitted concentration-time data with units, study/profile membership and dosing context.\", \"Source origin, data level and sampling design: original versus digitized data; individual versus group summary; serial, destructive or mixed sampling.\"], \"conditional_inputs\": [\"Dose amount and dose basis when the objective requires normalization or comparison; dosing times and single-dose, repeated-dose or verified steady-state context where they define the window.\", \"For digitized observations: the source figure, panel/curve, axes and transformations, units, extraction provenance and any existing reconstruction review. Distinguish measured points from fitted or predicted curves.\", \"For group summaries: arithmetic/geometric mean or median, contributing sample counts and reported SD/SE/CI definitions; variance/covariance information if uncertainty is requested. Missing uncertainty information is distinct from missing point-estimate inputs.\", \"BLQ/LLOQ, missing-value flags and actual versus nominal time definitions where relevant. If these are unspecified, retain the ambiguity.\", \"Bioanalytical context where reported: assay method, measured matrix (plasma, serum or blood), calibration range and LLOQ, validation status, and any reported stability, recovery or adsorption problem. Record whether this information exists; do not grade the assay.\", \"For site-of-infection or tissue matrices: sampling method, any dilution correction (for example urea-based correction of lavage fluid), tissue mass or volume basis and units. Keep these concentrations separate from plasma or serum concentrations.\"], \"acceptable_alternatives\": [\"Digitized measured group means may be candidate data for group-level NCA. Preserve their provenance and limitations; do not manufacture individual observations.\", \"Record available evidence or an existing reviewed plan for unobserved boundaries. If resolution requires an analytical method, mark it for the NCA module rather than selecting or testing that method here.\"], \"data_checks\": [\"Match available data to every requested endpoint. Do not infer coverage from filenames, headers, row count or the availability of another endpoint.\", \"Require the proposal to define each AUC window by intended use, including AUCtau when relevant. Retain an undefined window as an unresolved definition; do not choose 0-24 h, infinity or a shorter observed interval by default.\", \"List observed times, window boundaries and internal unsampled intervals. Distinguish observed, source-reported estimated and unobserved boundary values. Do not fill gaps or select integration or boundary-treatment methods.\", \"Keep studies, regimens, matrices, individual records and group-summary curves distinct. Do not interchange arithmetic means, geometric means and medians.\", \"Observed Cmax/Tmax refer to sampled concentrations. A group-mean curve does not establish the unobserved true peak or the mean of individual peaks.\", \"Retain BLQ and missingness without substitution. Report unavailable uncertainty inputs separately from unavailable inputs for a point estimate.\", \"Check that the dose basis and the measured analyte correspond: salt versus free base, mass versus activity units, and, for multi-component substances, which components the dose and the assay each refer to. A conversion factor needs a cited source; retain an unresolved basis rather than converting.\", \"Identify the time-zero condition implied by route and input: an unobserved initial concentration after bolus dosing, the end of infusion for infusions, and pre-dose concentrations for repeated dosing. Record whether each boundary value is observed, source-assumed or unknown; leave any back-extrapolation to the NCA module.\"], \"missing_effect\": \"Report input coverage and gaps for each requested endpoint. A missing definition or unresolved coverage prevents declaring its input requirements met; retain independent supported input matches and route method-dependent questions to NCA analysis.\", \"not_established\": [\"Completed NCA, reliable numerical exposure or an approved integration/boundary method.\", \"Individual trajectories, individual variability or uncertainty reconstructed from group means.\", \"A universal sampling-count threshold or permission to replace the requested endpoint.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\", \"REPORTED_PARAMETERS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"], \"observation_source\": [\"DIGITIZED_FROM_FIGURE\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"REPORTED_PARAMETERS\"], \"record_category\": [\"GROUP_SUMMARY\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"], \"matrix_category\": [\"INFECTION_SITE\", \"OTHER_TISSUE\"]}, \"review\": \"NONE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"REPORTED_PARAMETERS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S03\", \"S04\", \"S10\", \"S12\", \"S13\", \"S17\", \"S18\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        },
+        {
+          "source": "method:MP004",
+          "quote": "{\"id\": \"MP004\", \"name\": \"Data requirements for animal PK modeling\", \"family\": \"COMPARTMENTAL_PK\", \"target_endpoints\": [\"animal concentration-time model\", \"animal PK parameters requested by the project\"], \"applies_when\": \"The objective requests an animal time-course model. Check the available modeling inputs and unresolved design information. Model selection, fitting and result evaluation belong to the animal PK module.\", \"required_inputs\": [\"Requested modeling objective, parameter or curve outputs and intended use.\", \"Permitted concentration-time observations, dosing events, route, analyte, matrix, concentration basis and units.\", \"Study/regimen membership, sampling design, data level and available experimental-unit identifiers; identify unverifiable IDs rather than inventing them.\"], \"conditional_inputs\": [\"Infusion duration/input history, extravascular dosing information, or covariates such as body weight when required by the stated objective.\", \"Verified individual-level records and sampling structure when individual or population variability is requested. Do not impose dense repeated sampling for every animal as a universal input rule.\", \"Summary definition, counts and reported variability for group-summary curves; source extraction details for digitized observations; BLQ/LLOQ and missingness metadata where relevant.\", \"Concentration-time data at more than one dose level when the objective includes characterizing dose-dependent (nonlinear) kinetics. Do not impose a number of dose levels.\"], \"acceptable_alternatives\": [\"Measured group-mean curves may be candidate inputs for exploratory group-level modeling with stated limitations, without inferred animal random effects.\", \"Keep data potentially supporting a separate NCA objective available when modeling inputs are incomplete; do not replace the requested modeling objective silently.\"], \"data_checks\": [\"Map available concentration, timing, dose, route and grouping information to the stated modeling objective. Report actual coverage and missing phases or dose levels without a universal row-count threshold.\", \"Distinguish individual records, destructive sampling and group summaries. Unverified cross-time IDs do not establish individual trajectories.\", \"Keep study and regimen identities. Identify compatibility questions for later model design; do not pool incompatible sources or treat every source curve as a separate mandatory model.\", \"If input sufficiency depends on a structural model or numerical assessment, retain the uncertainty for the animal PK module. Do not choose compartments, error models, estimation engines or diagnostic thresholds here.\"], \"missing_effect\": \"Report available modeling inputs, task-specific gaps and the data or clarification needed. A positive input assessment permits the next preparation/design step only and does not approve fitting or its results.\", \"not_established\": [\"An accepted structural model, convergence, parameter identifiability, uncertainty or a valid human prediction.\", \"Animal IIV from group means or unverified IDs.\", \"Automatic preference for additional compartments or a completed model comparison.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\", \"ANIMAL_CHARACTERISTICS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S01\", \"S09\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Define animal model outputs and retain the sampling structure and covariate information needed for the intended model level.",
+      "method_uses": [
+        "MODEL_BASED"
+      ],
+      "input_fields": [
+        "requested_animal_PK_outputs",
+        "study_and_regimen_identifiers",
+        "individual_identifiers_if_verified",
+        "sampling_structure",
+        "available_covariates",
+        "group_summary_definition",
+        "group_sample_counts",
+        "reported_dispersion_definition"
+      ],
+      "conditions": [
+        "Individual or population variability requires verified individual-level information or another justified source.",
+        "Group-mean curves can support only a qualified group-level input assessment.",
+        "Covariates are required only when the stated model objective uses them."
+      ],
+      "required_by": "BEFORE_MODELING",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective",
+        "main:/scientific_context/items/10/statement"
+      ],
+      "method_profile_ids": [
+        "MP004"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK"
+        ]
+      },
+      "id": "RQ004",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "main:/scientific_context/items/10/statement",
+          "quote": "Animal PK work will select eligible systemic and, where supported, pulmonary models for mouse, rat and rabbit; evaluate fit, parameter identifiability and held-out prediction where the design permits; and limit rabbit use to evidence that identifies a model component, documenting exclusion or exploratory use otherwise (MI003, MI004). The rabbit source-preservation requirement is SC32."
+        },
+        {
+          "source": "method:MP004",
+          "quote": "{\"id\": \"MP004\", \"name\": \"Data requirements for animal PK modeling\", \"family\": \"COMPARTMENTAL_PK\", \"target_endpoints\": [\"animal concentration-time model\", \"animal PK parameters requested by the project\"], \"applies_when\": \"The objective requests an animal time-course model. Check the available modeling inputs and unresolved design information. Model selection, fitting and result evaluation belong to the animal PK module.\", \"required_inputs\": [\"Requested modeling objective, parameter or curve outputs and intended use.\", \"Permitted concentration-time observations, dosing events, route, analyte, matrix, concentration basis and units.\", \"Study/regimen membership, sampling design, data level and available experimental-unit identifiers; identify unverifiable IDs rather than inventing them.\"], \"conditional_inputs\": [\"Infusion duration/input history, extravascular dosing information, or covariates such as body weight when required by the stated objective.\", \"Verified individual-level records and sampling structure when individual or population variability is requested. Do not impose dense repeated sampling for every animal as a universal input rule.\", \"Summary definition, counts and reported variability for group-summary curves; source extraction details for digitized observations; BLQ/LLOQ and missingness metadata where relevant.\", \"Concentration-time data at more than one dose level when the objective includes characterizing dose-dependent (nonlinear) kinetics. Do not impose a number of dose levels.\"], \"acceptable_alternatives\": [\"Measured group-mean curves may be candidate inputs for exploratory group-level modeling with stated limitations, without inferred animal random effects.\", \"Keep data potentially supporting a separate NCA objective available when modeling inputs are incomplete; do not replace the requested modeling objective silently.\"], \"data_checks\": [\"Map available concentration, timing, dose, route and grouping information to the stated modeling objective. Report actual coverage and missing phases or dose levels without a universal row-count threshold.\", \"Distinguish individual records, destructive sampling and group summaries. Unverified cross-time IDs do not establish individual trajectories.\", \"Keep study and regimen identities. Identify compatibility questions for later model design; do not pool incompatible sources or treat every source curve as a separate mandatory model.\", \"If input sufficiency depends on a structural model or numerical assessment, retain the uncertainty for the animal PK module. Do not choose compartments, error models, estimation engines or diagnostic thresholds here.\"], \"missing_effect\": \"Report available modeling inputs, task-specific gaps and the data or clarification needed. A positive input assessment permits the next preparation/design step only and does not approve fitting or its results.\", \"not_established\": [\"An accepted structural model, convergence, parameter identifiability, uncertainty or a valid human prediction.\", \"Animal IIV from group means or unverified IDs.\", \"Automatic preference for additional compartments or a completed model comparison.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\", \"ANIMAL_CHARACTERISTICS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S01\", \"S09\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Define each requested observed peak or finite-window NCA endpoint and its source observation boundaries.",
+      "method_uses": [
+        "NCA"
+      ],
+      "input_fields": [
+        "requested_endpoint",
+        "intended_use",
+        "AUC_window_if_requested",
+        "time_origin",
+        "observed_sample_times",
+        "boundary_observation_status",
+        "concentration_basis",
+        "data_level"
+      ],
+      "conditions": [
+        "Apply only when optional observed Cmax, Tmax or finite-window AUC is requested.",
+        "A group-mean curve describes its sampled mean profile and does not establish individual peaks.",
+        "Leave unobserved boundaries and method-dependent numerical treatment for NCA analysis."
+      ],
+      "required_by": "BEFORE_EDA",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective"
+      ],
+      "method_profile_ids": [
+        "MP001"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK"
+        ]
+      },
+      "id": "RQ005",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "method:MP001",
+          "quote": "{\"id\": \"MP001\", \"name\": \"Data requirements for observed peaks and finite-window NCA\", \"family\": \"NCA\", \"target_endpoints\": [\"observed Cmax\", \"observed Tmax\", \"finite-window AUC\"], \"applies_when\": \"The project requests observed peak summaries or finite-window exposure. Check input definitions, permitted source data and sampling coverage separately for each endpoint. Numerical NCA methods and result evaluation belong to the later analysis module.\", \"required_inputs\": [\"Each requested endpoint and intended use; proposal-defined AUC window and time origin, with analyte, matrix and total/free concentration basis.\", \"Permitted concentration-time data with units, study/profile membership and dosing context.\", \"Source origin, data level and sampling design: original versus digitized data; individual versus group summary; serial, destructive or mixed sampling.\"], \"conditional_inputs\": [\"Dose amount and dose basis when the objective requires normalization or comparison; dosing times and single-dose, repeated-dose or verified steady-state context where they define the window.\", \"For digitized observations: the source figure, panel/curve, axes and transformations, units, extraction provenance and any existing reconstruction review. Distinguish measured points from fitted or predicted curves.\", \"For group summaries: arithmetic/geometric mean or median, contributing sample counts and reported SD/SE/CI definitions; variance/covariance information if uncertainty is requested. Missing uncertainty information is distinct from missing point-estimate inputs.\", \"BLQ/LLOQ, missing-value flags and actual versus nominal time definitions where relevant. If these are unspecified, retain the ambiguity.\", \"Bioanalytical context where reported: assay method, measured matrix (plasma, serum or blood), calibration range and LLOQ, validation status, and any reported stability, recovery or adsorption problem. Record whether this information exists; do not grade the assay.\", \"For site-of-infection or tissue matrices: sampling method, any dilution correction (for example urea-based correction of lavage fluid), tissue mass or volume basis and units. Keep these concentrations separate from plasma or serum concentrations.\"], \"acceptable_alternatives\": [\"Digitized measured group means may be candidate data for group-level NCA. Preserve their provenance and limitations; do not manufacture individual observations.\", \"Record available evidence or an existing reviewed plan for unobserved boundaries. If resolution requires an analytical method, mark it for the NCA module rather than selecting or testing that method here.\"], \"data_checks\": [\"Match available data to every requested endpoint. Do not infer coverage from filenames, headers, row count or the availability of another endpoint.\", \"Require the proposal to define each AUC window by intended use, including AUCtau when relevant. Retain an undefined window as an unresolved definition; do not choose 0-24 h, infinity or a shorter observed interval by default.\", \"List observed times, window boundaries and internal unsampled intervals. Distinguish observed, source-reported estimated and unobserved boundary values. Do not fill gaps or select integration or boundary-treatment methods.\", \"Keep studies, regimens, matrices, individual records and group-summary curves distinct. Do not interchange arithmetic means, geometric means and medians.\", \"Observed Cmax/Tmax refer to sampled concentrations. A group-mean curve does not establish the unobserved true peak or the mean of individual peaks.\", \"Retain BLQ and missingness without substitution. Report unavailable uncertainty inputs separately from unavailable inputs for a point estimate.\", \"Check that the dose basis and the measured analyte correspond: salt versus free base, mass versus activity units, and, for multi-component substances, which components the dose and the assay each refer to. A conversion factor needs a cited source; retain an unresolved basis rather than converting.\", \"Identify the time-zero condition implied by route and input: an unobserved initial concentration after bolus dosing, the end of infusion for infusions, and pre-dose concentrations for repeated dosing. Record whether each boundary value is observed, source-assumed or unknown; leave any back-extrapolation to the NCA module.\"], \"missing_effect\": \"Report input coverage and gaps for each requested endpoint. A missing definition or unresolved coverage prevents declaring its input requirements met; retain independent supported input matches and route method-dependent questions to NCA analysis.\", \"not_established\": [\"Completed NCA, reliable numerical exposure or an approved integration/boundary method.\", \"Individual trajectories, individual variability or uncertainty reconstructed from group means.\", \"A universal sampling-count threshold or permission to replace the requested endpoint.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\", \"REPORTED_PARAMETERS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"], \"observation_source\": [\"DIGITIZED_FROM_FIGURE\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"REPORTED_PARAMETERS\"], \"record_category\": [\"GROUP_SUMMARY\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"], \"matrix_category\": [\"INFECTION_SITE\", \"OTHER_TISSUE\"]}, \"review\": \"NONE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"REPORTED_PARAMETERS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S03\", \"S04\", \"S10\", \"S12\", \"S13\", \"S17\", \"S18\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Retain late concentration observations and relevant dosing history for requested terminal-dependent NCA endpoints.",
+      "method_uses": [
+        "NCA"
+      ],
+      "input_fields": [
+        "terminal_dependent_endpoint",
+        "late_sample_times",
+        "late_concentrations",
+        "late_BLQ_flags_and_bounds",
+        "late_sampling_gaps",
+        "dosing_and_input_history",
+        "extrapolation_extent_if_defined"
+      ],
+      "conditions": [
+        "Apply only to requested terminal-dependent quantities such as half-life, AUCinf, Vz or tail-dependent moments.",
+        "Input inventory does not establish a terminal phase or accepted slope.",
+        "Incomplete terminal inputs do not remove independently supported finite-window input matches."
+      ],
+      "required_by": "BEFORE_MODELING",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective"
+      ],
+      "method_profile_ids": [
+        "MP002"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK"
+        ]
+      },
+      "id": "RQ006",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "method:MP002",
+          "quote": "{\"id\": \"MP002\", \"name\": \"Data requirements for terminal-dependent NCA endpoints\", \"family\": \"NCA\", \"target_endpoints\": [\"lambda_z\", \"terminal half-life\", \"AUCinf\", \"terminal extrapolated area within a specified finite window\", \"AUMC and MRT when explicitly requested\"], \"applies_when\": \"A requested endpoint needs terminal-phase information. Inherit the relevant MP001 input requirements and inspect available late-time data. Terminal-interval selection, regression and extrapolation are deferred to NCA analysis.\", \"required_inputs\": [\"The requested endpoint, window or extrapolation extent, time origin and data-level definitions, retaining unresolved MP001 inputs.\", \"Late concentration-time observations with source membership, units, quantifiability and reported BLQ/LLOQ information.\", \"Dosing times and infusion duration or history needed to interpret the late observations in relation to ongoing or subsequent input.\"], \"conditional_inputs\": [\"Available absorption/input information for extravascular dosing when needed to interpret late observations.\", \"Replicate counts and reported uncertainty, variance or covariance information if uncertainty is a requested output.\", \"For MRT or Vss, retain the additional time/input information required by MP003. Data available for AUC alone do not establish all moment-dependent input requirements.\"], \"acceptable_alternatives\": [\"Original numerical data or traceable digitized measured observations may be candidates at their actual data level.\", \"Keep independently supported MP001 input matches when terminal-dependent inputs are incomplete; do not substitute their endpoints for the original target.\"], \"data_checks\": [\"Inventory late sample times, concentrations, quantifiable observations, gaps and known dosing/input events. Do not declare the last few observations a valid terminal phase merely because they are last.\", \"Check whether endpoint and timing definitions are explicit and compatible with the source records. Do not silently change the requested exposure window.\", \"Identify absent late data or unresolved absorption, dosing and quantifiability information. If sufficiency requires a fitted slope or extrapolation diagnostic, report it as unresolved for downstream analysis.\", \"Assess available inputs separately for each terminal-dependent endpoint without imposing a universal point count or calculating regression, residuals or tail fractions.\"], \"missing_effect\": \"Identify affected terminal-dependent endpoints and the missing data or definition. Input availability permits further assessment only; the current step cannot certify a usable terminal estimate. Preserve independent finite-window data matches.\", \"not_established\": [\"A selected terminal interval, fitted lambda_z, calculated tail contribution or accepted terminal estimate.\", \"An elimination mechanism, individual parameter distribution or human predictive validity.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"], \"route_category\": [\"EXTRAVASCULAR\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S02\", \"S03\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Define the requested animal clearance or volume estimand with its route, exposure, input-history and bioavailability basis.",
+      "method_uses": [
+        "NCA"
+      ],
+      "input_fields": [
+        "requested_CL_or_volume_estimand",
+        "absolute_or_apparent_status",
+        "dose_and_analyte_basis",
+        "route",
+        "exposure_window",
+        "single_dose_or_steady_state_context",
+        "infusion_or_input_history_if_applicable",
+        "bioavailability_source_if_required"
+      ],
+      "conditions": [
+        "Apply when optional NCA-derived CL, Vss, Vz or an apparent parameter is requested.",
+        "Absolute clearance from isolated extravascular evidence needs applicable bioavailability information.",
+        "A finite AUC alone does not define single-dose total-exposure clearance; Vss and Vz have distinct inputs."
+      ],
+      "required_by": "BEFORE_MODELING",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective",
+        "main:/scientific_context/items/10/statement"
+      ],
+      "method_profile_ids": [
+        "MP002",
+        "MP003"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "ANIMAL_PK"
+        ]
+      },
+      "id": "RQ007",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "main:/scientific_context/items/10/statement",
+          "quote": "Animal PK work will select eligible systemic and, where supported, pulmonary models for mouse, rat and rabbit; evaluate fit, parameter identifiability and held-out prediction where the design permits; and limit rabbit use to evidence that identifies a model component, documenting exclusion or exploratory use otherwise (MI003, MI004). The rabbit source-preservation requirement is SC32."
+        },
+        {
+          "source": "method:MP002",
+          "quote": "{\"id\": \"MP002\", \"name\": \"Data requirements for terminal-dependent NCA endpoints\", \"family\": \"NCA\", \"target_endpoints\": [\"lambda_z\", \"terminal half-life\", \"AUCinf\", \"terminal extrapolated area within a specified finite window\", \"AUMC and MRT when explicitly requested\"], \"applies_when\": \"A requested endpoint needs terminal-phase information. Inherit the relevant MP001 input requirements and inspect available late-time data. Terminal-interval selection, regression and extrapolation are deferred to NCA analysis.\", \"required_inputs\": [\"The requested endpoint, window or extrapolation extent, time origin and data-level definitions, retaining unresolved MP001 inputs.\", \"Late concentration-time observations with source membership, units, quantifiability and reported BLQ/LLOQ information.\", \"Dosing times and infusion duration or history needed to interpret the late observations in relation to ongoing or subsequent input.\"], \"conditional_inputs\": [\"Available absorption/input information for extravascular dosing when needed to interpret late observations.\", \"Replicate counts and reported uncertainty, variance or covariance information if uncertainty is a requested output.\", \"For MRT or Vss, retain the additional time/input information required by MP003. Data available for AUC alone do not establish all moment-dependent input requirements.\"], \"acceptable_alternatives\": [\"Original numerical data or traceable digitized measured observations may be candidates at their actual data level.\", \"Keep independently supported MP001 input matches when terminal-dependent inputs are incomplete; do not substitute their endpoints for the original target.\"], \"data_checks\": [\"Inventory late sample times, concentrations, quantifiable observations, gaps and known dosing/input events. Do not declare the last few observations a valid terminal phase merely because they are last.\", \"Check whether endpoint and timing definitions are explicit and compatible with the source records. Do not silently change the requested exposure window.\", \"Identify absent late data or unresolved absorption, dosing and quantifiability information. If sufficiency requires a fitted slope or extrapolation diagnostic, report it as unresolved for downstream analysis.\", \"Assess available inputs separately for each terminal-dependent endpoint without imposing a universal point count or calculating regression, residuals or tail fractions.\"], \"missing_effect\": \"Identify affected terminal-dependent endpoints and the missing data or definition. Input availability permits further assessment only; the current step cannot certify a usable terminal estimate. Preserve independent finite-window data matches.\", \"not_established\": [\"A selected terminal interval, fitted lambda_z, calculated tail contribution or accepted terminal estimate.\", \"An elimination mechanism, individual parameter distribution or human predictive validity.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"], \"route_category\": [\"EXTRAVASCULAR\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S02\", \"S03\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        },
+        {
+          "source": "method:MP003",
+          "quote": "{\"id\": \"MP003\", \"name\": \"Data requirements for animal CL and Vss\", \"family\": \"NCA\", \"target_endpoints\": [\"CL\", \"Vss\", \"explicitly requested apparent parameters such as CL/F\", \"Vz when explicitly requested\"], \"applies_when\": \"The objective requests animal disposition parameters. Inspect the data or permitted reported estimates available for each parameter. Do not calculate parameters, qualify results or count qualified species in this step.\", \"required_inputs\": [\"The exact requested parameter and intended use, distinguishing CL from CL/F and Vss from Vz, Vc and apparent volumes.\", \"Permitted concentration-time data and applicable MP001/MP002 input metadata, or a traceable permitted same-drug published estimate retained as a literature candidate.\", \"Route, analyte-specific dose and dose basis, dosing times, regimen, units, biological matrix, total/free basis and actual data level.\"], \"conditional_inputs\": [\"For single-dose IV clearance, data covering the exposure course including late observations relevant to AUCinf. For a steady-state interval approach, evidence of steady state and a proposal-defined interval with matching dose and exposure data.\", \"For Vss, time-course data potentially supporting the required exposure/moment information and the dosing-input history; infusion duration and whether input was constant, varying or interrupted. Single-dose data are not excluded solely because the parameter name contains steady state.\", \"A source-supported applicable bioavailability estimate if absolute CL is requested from extravascular evidence; otherwise retain the distinction from CL/F.\", \"Formation/systemic-input information and active-moiety or molecular-weight basis when the measured analyte is formed from the administered parent/prodrug.\", \"Body weight when dose/parameter normalization or later scaling requires it; relevant dose-dependence information and reported uncertainty where available or required by the objective.\", \"Characteristics of the contributing animals as reported: species, strain, sex, actual body weight, and health, infection or renal-function state. Record unreported characteristics as gaps; do not assume healthy or typical animals.\"], \"acceptable_alternatives\": [\"NCA input data or published estimates may be candidates without a compartmental fit. This does not qualify the resulting parameter for extrapolation.\", \"When project permissions allow, same-drug published CL/Vss without original curves may enter as LITERATURE_REPORTED, NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED. Retain citation/page/table, parameter definition, study/dose context, estimation method, reported uncertainty and missing information.\", \"A group-summary point estimate without reliable uncertainty remains a candidate with an explicit uncertainty gap. Preserve the required later human use review; do not count it as a qualified species here.\"], \"data_checks\": [\"Map inputs separately to CL and Vss; availability for one does not establish availability for the other. An available finite-window AUC does not automatically meet a request requiring exposure to infinity.\", \"Check route, analyte input, matrix, free/total basis, weight normalization and units against the requested parameter. Do not merge incompatible definitions.\", \"Check whether dose refers to the measured analyte or its parent/prodrug. Missing formation information may leave absolute analyte clearance unresolved while exposure data remain usable.\", \"Preserve group-level parameter meaning, reported dose dependence and unresolved input-history information. Do not choose or test a clearance, moment or infusion-correction formula.\", \"For a literature-only candidate, identify what is actually reported and what cannot be independently checked without underlying data. Candidate registration is not parameter validation or species qualification.\", \"Apply the MP001 dose-basis and analyte-composition check to every dose used for a requested parameter. An unresolved basis leaves the dose-dependent inputs for that parameter unresolved.\", \"Map Vz separately from CL and Vss: it depends on the terminal-phase inputs assessed under MP002.\"], \"missing_effect\": \"Record which input or definition is missing for each parameter, its intended use and the required next action. Retain available candidates and independent input matches; parameter qualification and the project-specific species minimum are assessed later.\", \"not_established\": [\"Calculated or accepted CL/Vss, a compartmental curve shape, or qualification for human extrapolation.\", \"Absolute clearance from an extravascular dose without applicable F, or interchangeability of Vss, Vz and Vc.\", \"A known uncertainty distribution merely because a candidate was registered or reviewed.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\", \"REPORTED_PARAMETERS\", \"ANIMAL_CHARACTERISTICS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"DATA\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"route_category\": [\"EXTRAVASCULAR\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"NONE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\", \"REPORTED_PARAMETERS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"record_category\": [\"REPORTED_PARAMETER\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\", \"REPORTED_PARAMETERS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}]}, \"source_ids\": [\"S03\", \"S13\", \"S14\", \"S15\", \"S16\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Preserve the distinct mouse and rat binding estimates and define the unbound-fraction sensitivity inputs used for eligible free-exposure work.",
+      "method_uses": [
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "species",
+        "binding_source",
+        "reported_bound_or_unbound_fraction",
+        "percent_or_fraction_scale",
+        "measured_matrix",
+        "measurement_conditions_if_reported",
+        "concentration_range_if_reported",
+        "sensitivity_scenarios"
+      ],
+      "conditions": [
+        "Apply when an index or target uses free exposure.",
+        "Keep conflicting estimates separate rather than averaging them.",
+        "Directly measured unbound concentrations have their own stated basis."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/rules/8/text",
+        "main:/scientific_context/items/19/statement"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ008",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/8/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/rules/8/text",
+          "quote": "Preserve the conflicting mouse binding estimates of about 91% versus 97–99% bound and rat estimates of 80% versus 92–99%. Do not average them; carry unbound fraction as a sensitivity parameter."
+        },
+        {
+          "source": "main:/scientific_context/items/19/statement",
+          "quote": "The proposal reports conflicting protein-binding sources: mouse approximately 91% versus 97–99% bound, and rat 80% versus 92–99%. Do not average them; carry unbound fraction (fu) as a sensitivity parameter (MI002)."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Identify K. pneumoniae strain-specific MIC inputs for MIC-normalized indices and target work, retaining susceptibility context.",
+      "method_uses": [
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "organism_identity",
+        "strain_identity",
+        "strain_MIC_value",
+        "MIC_unit",
+        "MIC_source",
+        "MIC_measurement_context"
+      ],
+      "conditions": [
+        "Apply to MIC-normalized indices or an MIC threshold.",
+        "The surveillance MIC distribution cannot replace matched strain MICs.",
+        "Other organisms cannot define K. pneumoniae targets."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/rules/5/text",
+        "main:/rules/11/text",
+        "main:/rules/12/text"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ009",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/5/text",
+          "conditions": [],
+          "exceptions": []
+        },
+        {
+          "source": "main:/rules/11/text",
+          "conditions": [],
+          "exceptions": []
+        },
+        {
+          "source": "main:/rules/12/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/rules/5/text",
+          "quote": "Use eligible K. pneumoniae time-kill data for PD and the surveillance MIC distribution for population-weighted attainment; the distribution cannot replace matched strain MICs."
+        },
+        {
+          "source": "main:/rules/11/text",
+          "quote": "Give fAUC/MIC, fCmax/MIC and fT>MIC equal eligibility and compare ordinary Emax and sigmoid Emax/Hill models on the same matched K. pneumoniae response records, strain MICs, free-exposure basis, dosing histories, windows and likelihood. Register selection criteria before fitting; report R², AIC/BIC, stability and identifiability, count the extra Hill parameter, and do not select by R² alone or force a winner."
+        },
+        {
+          "source": "main:/rules/12/text",
+          "quote": "Keep K. pneumoniae stasis, 1-log kill and 2-log kill targets separate; do not use other pathogens to set those targets."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Establish supported links among each eligible K. pneumoniae response record, regimen, strain MIC, exposure basis and observation window.",
+      "method_uses": [
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "panel_identity",
+        "response_record_identity",
+        "regimen_link",
+        "strain_link",
+        "MIC_link",
+        "exposure_link",
+        "dose_history_link",
+        "response_window",
+        "experimental_unit_or_replicate_identity_if_supported"
+      ],
+      "conditions": [
+        "Separate digitized mouse index-response panels remain unmatched until links are supported.",
+        "Within-panel target inputs and common-record cross-index comparison have distinct pairing requirements.",
+        "Do not create pairs by row order or infer individuals from group summaries."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/rules/1/text",
+        "main:/rules/11/text",
+        "main:/scientific_context/items/20/statement"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ010",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/1/text",
+          "conditions": [],
+          "exceptions": []
+        },
+        {
+          "source": "main:/rules/11/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/rules/1/text",
+          "quote": "Treat the separate mouse digitized index-response panels as unmatched until supported regimen-to-response links are established. Do not invent exposure-response links or individual animals from digitized observations or group means."
+        },
+        {
+          "source": "main:/rules/11/text",
+          "quote": "Give fAUC/MIC, fCmax/MIC and fT>MIC equal eligibility and compare ordinary Emax and sigmoid Emax/Hill models on the same matched K. pneumoniae response records, strain MICs, free-exposure basis, dosing histories, windows and likelihood. Register selection criteria before fitting; report R², AIC/BIC, stability and identifiability, count the extra Hill parameter, and do not select by R² alone or force a winner."
+        },
+        {
+          "source": "main:/scientific_context/items/20/statement",
+          "quote": "Give all three indices equal eligibility and use both regression families. Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Define the candidate free-exposure indices and the common comparison basis for eligible K. pneumoniae response records.",
+      "method_uses": [
+        "PD_INDEX"
+      ],
+      "input_fields": [
+        "fAUC_over_MIC_definition",
+        "fCmax_over_MIC_definition",
+        "fT_above_MIC_definition",
+        "exposure_window",
+        "free_concentration_basis",
+        "MIC_threshold_basis",
+        "dosing_history",
+        "response_endpoint_and_window",
+        "common_record_membership"
+      ],
+      "conditions": [
+        "Give all three specified indices equal eligibility.",
+        "Define whether fT>MIC is a duration or percentage.",
+        "A common comparison requires compatible records, windows and likelihood definitions."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/rules/11/text",
+        "main:/scientific_context/items/20/statement"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ011",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/11/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/rules/11/text",
+          "quote": "Give fAUC/MIC, fCmax/MIC and fT>MIC equal eligibility and compare ordinary Emax and sigmoid Emax/Hill models on the same matched K. pneumoniae response records, strain MICs, free-exposure basis, dosing histories, windows and likelihood. Register selection criteria before fitting; report R², AIC/BIC, stability and identifiability, count the extra Hill parameter, and do not select by R² alone or force a winner."
+        },
+        {
+          "source": "main:/scientific_context/items/20/statement",
+          "quote": "Give all three indices equal eligibility and use both regression families. Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Define each K. pneumoniae target effect separately through its bacterial-burden endpoint, reference and observation time.",
+      "method_uses": [
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "target_effect_stasis_or_1_log_or_2_log_kill",
+        "measured_bacterial_burden_endpoint",
+        "baseline_or_control_reference",
+        "endpoint_observation_time",
+        "organism_and_strain",
+        "candidate_index_and_exposure_window"
+      ],
+      "conditions": [
+        "Retain separate definitions for stasis, 1-log kill and 2-log kill.",
+        "An endpoint definition is an input to target estimation, not an estimated target value."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "PROJECT_EXPLICIT",
+      "project_source_ids": [
+        "main:/rules/12/text",
+        "main:/scientific_context/items/22/statement"
+      ],
+      "method_profile_ids": [],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ012",
+      "inherited_rule_constraints": [
+        {
+          "source": "main:/rules/12/text",
+          "conditions": [],
+          "exceptions": []
+        }
+      ],
+      "evidence": [
+        {
+          "source": "main:/rules/12/text",
+          "quote": "Keep K. pneumoniae stasis, 1-log kill and 2-log kill targets separate; do not use other pathogens to set those targets."
+        },
+        {
+          "source": "main:/scientific_context/items/22/statement",
+          "quote": "Keep stasis, 1-log kill and 2-log kill targets separate; other pathogens cannot set K. pneumoniae targets."
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Retain the infection or in-vitro experiment context and response observations needed to interpret a matched index comparison or target estimate.",
+      "method_uses": [
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "experimental_system",
+        "infection_site_if_applicable",
+        "inoculum_if_reported",
+        "host_immune_status_if_applicable",
+        "treatment_start_and_duration",
+        "treated_response",
+        "baseline_or_control_response",
+        "response_unit",
+        "independent_replicate_information_if_reported"
+      ],
+      "conditions": [
+        "Apply to response-linked index comparison or new target estimation.",
+        "Preserve separate experimental contexts and response windows.",
+        "A reported target considered for use has a separate source and applicability definition; raw response data are not automatically required solely to register it."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective",
+        "main:/scientific_context/items/14/statement"
+      ],
+      "method_profile_ids": [
+        "MP009",
+        "MP012"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "INPUT_DEFINITION",
+        "producer_method_use": null,
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ013",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "main:/scientific_context/items/14/statement",
+          "quote": "For eligible K. pneumoniae data, the project will compare fAUC/MIC, fCmax/MIC and fT>MIC using ordinary Emax and sigmoid Emax/Hill regression, then estimate supported exposure targets or report that the available data cannot determine a best index or target (MI009, MI010)."
+        },
+        {
+          "source": "method:MP009",
+          "quote": "{\"id\": \"MP009\", \"name\": \"Data requirements for PK/PD indices and PD targets\", \"family\": \"PKPD\", \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"target_endpoints\": [\"Project-defined exposure indices\", \"Project-requested exposure-response index comparison\", \"Project-requested PD target estimation or use\"], \"outputs\": [\"Task-specific index input coverage\", \"Exposure-response matching and definition gaps\", \"Conditional MIC, threshold and PD-target input coverage and gaps\"], \"applies_when\": \"The project requests exposure indices, response-linked index comparison, PD target estimation or a target for later PTA. Distinguish exposure summaries, index ranking and PD target tasks. Reuse existing PK, unit, provenance and MP007 binding assessments rather than repeating them.\", \"required_inputs\": [\"The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended.\", \"For exposure calculations or response-linked fits: source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites.\"], \"conditional_inputs\": [\"For exposure-response analysis, index ranking or estimation of a new PD target: the measured PD endpoint, baseline/comparator, response observation time/window and source, plus traceable mapping among regimen, exposure and response.\", \"If PD target estimation or PTA is requested, specify the desired effect and endpoint window. Identify either a source-supported same-drug target or the matched exposure-response data intended for downstream target estimation. For a reported target, retain its value, index definition, units, free/total basis, exposure window, source and applicability context. A target awaiting estimation is a planned upstream output, not automatically missing data.\", \"For a time-above-threshold index: the threshold and its definition, exposure profile input, analysis window and whether the output is a duration or percentage. A bare fT label is incomplete.\", \"Strain-matched MIC only when an index is MIC-normalized or uses MIC as its threshold, with its units, source and measurement context: method, medium, testing standard, number of replicates and the summary value used (for example the modal value).\", \"For free-exposure indices: use the relevant direct free-concentration or binding-input assessment under MP007.\", \"For in vivo infection-model response data used for index ranking or target estimation: organism and strain identity, inoculum and infection site, host immune status, the interval between infection and treatment start, treatment duration, the response endpoint and its reference point (for example change from treatment start or from an untreated control, or survival), and untreated growth-control data. Keep each combination of treatment duration and endpoint distinct.\"], \"acceptable_alternatives\": [\"Explicitly requested non-MIC-normalized exposure summaries do not require MIC merely because this is a PK/PD task.\", \"When response data or matching are unavailable, retain independently supported exposure-summary tasks and the unresolved ranking objective.\", \"In vitro response data may be registered for their own stated analysis context, without relabeling them as animal efficacy.\"], \"data_checks\": [\"Identify whether the task is exposure calculation, index ranking, PD target estimation or use of an existing target. Require matched response data for ranking or new target estimation; do not automatically require raw response data when only a source-supported target is requested.\", \"Check each index definition and window. Do not infer MIC normalization, an fT threshold or duration-versus-percentage meaning from an abbreviated label.\", \"For response-linked tasks, map regimen, exposure and PD observations using source-supported relationships. Preserve ambiguity rather than inventing pairs.\", \"For MIC-dependent tasks, verify that the susceptibility input refers to the relevant strain and measurement context. Do not borrow another drug's MIC or PD target to fill gaps.\", \"For target tasks, distinguish the measured PD endpoint, desired effect and required index value. Record source-supported target inputs separately from planned estimation outputs. Map a documented later target output to DEFERRED with its producing task and required phase; report missing source data or undefined effects/windows separately. This step does not estimate or qualify the target or establish its applicability to human PTA.\", \"For index ranking, record whether the regimens vary dosing frequency or interval in addition to total dose, so that the candidate indices do not change only together. If the design does not separate them, keep the ranking unresolved. Do not impose a numeric count of regimens or dose levels.\", \"When exposure for the PD regimens comes from separate PK data, check whether those data match the PD experiment in species, strain, infection or health state, route and dose range. Record any mismatch as an applicability question; do not assume exposure transfers between animal states.\", \"Report available, absent and unresolved inputs separately by task. Do not fit Emax/Hill models, compute fit statistics or select a winning index in this stage.\"], \"missing_effect\": \"Report which index input or exposure-response mapping is missing through the general data-gap policy. Missing PD matching does not block independent PK or exposure-summary work, but exposure values alone do not establish a best index. An uncomputed target with a documented estimation plan is a deferred output. Preserve any missing target definition or estimation inputs as task-specific gaps; do not make them blockers for independent animal PK or exposure-summary tasks.\", \"not_established\": [\"A fitted exposure-response relationship, best index, PD target or evidence of clinical efficacy.\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\", \"data_roles\": [\"PD_OBSERVATIONS\", \"MIC\", \"PK_OBSERVATIONS\", \"DOSING\", \"IN_VITRO_TIME_KILL\", \"REPORTED_PARAMETERS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PD_OBSERVATIONS\", \"IN_VITRO_TIME_KILL\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"MIC\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PD_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PD_OBSERVATIONS\", \"IN_VITRO_TIME_KILL\", \"DOSING\", \"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"MIC\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"DOSING\", \"PD_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S07\", \"S08\"]}"
+        },
+        {
+          "source": "method:MP012",
+          "quote": "{\"id\": \"MP012\", \"name\": \"Data requirements for PD target estimation and target use\", \"family\": \"PKPD\", \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"target_endpoints\": [\"A project-defined index magnitude associated with a specified effect\", \"Use of a reported target with traceable context\"], \"outputs\": [\"Task-specific input coverage, material gaps and upstream output dependencies\"], \"applies_when\": \"A target is requested for a defined endpoint or later attainment task. Exposure summary, index comparison and target estimation are distinct tasks. MP009 covers index inputs; this profile details the target subtask and does not require a winning index first.\", \"required_inputs\": [\"The desired effect, measured endpoint, reference baseline/comparator and observation time/window. Stasis, 1-log and 2-log reductions are examples to select only when requested, not mandatory effects for every project.\", \"Candidate index definition, units, exposure window, free/total concentration basis, organism/strain and infection or experimental context. Reuse MP009 MIC and MP007 binding evidence when relevant.\"], \"conditional_inputs\": [\"For new target estimation: source-supported paired exposure-response observations within each panel, retaining regimen links, baseline/endpoint values, record level and independent experimental-unit/replicate identity. A compatible reported exposure may be used without demanding raw PK solely to reconstruct it.\", \"For a reported target: value and source, effect/reference, index/units/basis/window and applicable drug, organism, strain and experimental context; retain reported uncertainty and applicability limits. Original raw response observations are not automatically required for target use.\", \"For target uncertainty: preserve available independent replicate information, group size and dispersion definitions, or reported parameter uncertainty. Group means and technical replicates are not independent individual responses; missing variance limits the uncertainty claim, not automatically every descriptive target task.\", \"For animal infection data: reuse the species, infection site, inoculum, immune status, treatment timing/duration and control assessments selected under MP009. For in vitro data retain the corresponding system and treatment context.\"], \"acceptable_alternatives\": [\"Each compatible panel can support its own target estimation even when cross-index common-record comparison is unavailable; do not fabricate common rows by rank-matching.\", \"A numeric target awaiting fitting is a PLANNED_MODEL_OUTPUT, with a producing task and required phase. Assess the underlying definitions and paired inputs separately.\", \"A reported same-drug target may be a candidate for use with an explicit applicability assessment, without recreating its source experiment.\"], \"data_checks\": [\"Assess coverage of the requested effect and exposure range. Distinguish interpolation from extrapolation or a target not reached in the observed range; leave fitted asymptotes, attainable targets and uncertainty to downstream analysis.\", \"Within-panel pairing supports that panel target task. Fair cross-index comparison additionally needs common compatible response records and aligned endpoints/windows/bases, or an explicitly justified comparison design. Failure of the latter does not erase the former.\", \"Keep individual observations, group summaries, pooled observations and independent biological replicates separate. Record how baseline/control summaries relate to treated groups without inventing individual pairs.\", \"Different effects, strains, infection contexts and durations define distinct target candidates. Do not transplant another drug target or silently pool incompatible targets.\", \"Missing target definitions are DESIGN_DEFINITION; unresolved source links are EXISTING_SOURCE_REVIEW; an uncomputed numeric target with a documented producer is PLANNED_MODEL_OUTPUT. None alone authorizes a new experiment.\"], \"missing_effect\": \"State whether the gap affects effect definition, panel target inputs, reported-target applicability, uncertainty or comparison. Keep supported exposure summaries and panel tasks available; an upstream plan does not establish a qualified target.\", \"not_established\": [\"Estimated target values, a selected best index, target qualification, clinical efficacy or permission to fit.\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\", \"data_roles\": [\"PD_OBSERVATIONS\", \"IN_VITRO_TIME_KILL\", \"PK_OBSERVATIONS\", \"DOSING\", \"MIC\", \"BINDING\", \"REPORTED_PARAMETERS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}]}, \"source_ids\": [\"S07\", \"S08\"]}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    },
+    {
+      "description": "Provide model-derived nonhuman exposure inputs for eligible PD regimens when the PD analysis uses animal model predictions.",
+      "method_uses": [
+        "PD_INDEX",
+        "PD_TARGET"
+      ],
+      "input_fields": [
+        "producing_animal_model",
+        "predicted_regimen_exposure",
+        "exposure_index_or_profile",
+        "exposure_unit",
+        "exposure_window",
+        "matrix",
+        "total_or_unbound_basis",
+        "regimen_identity",
+        "prediction_uncertainty_if_supported"
+      ],
+      "conditions": [
+        "Apply only when model-derived exposure is selected for the PD task.",
+        "The model output remains planned until produced and reviewed in the animal PK stage.",
+        "Compatible source-reported exposure or observations may provide an alternative input without making NCA a prerequisite."
+      ],
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "origin": "METHOD_CANDIDATE",
+      "project_source_ids": [
+        "main:/objective",
+        "main:/scientific_context/items/14/statement"
+      ],
+      "method_profile_ids": [
+        "MP004",
+        "MP009",
+        "MP012"
+      ],
+      "task_scope": {
+        "population": "NONHUMAN",
+        "input_role": "PLANNED_NONHUMAN_OUTPUT",
+        "producer_method_use": "MODEL_BASED",
+        "application_stages": [
+          "NONHUMAN_PD"
+        ]
+      },
+      "id": "RQ014",
+      "inherited_rule_constraints": [],
+      "evidence": [
+        {
+          "source": "main:/objective",
+          "quote": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility."
+        },
+        {
+          "source": "main:/scientific_context/items/14/statement",
+          "quote": "For eligible K. pneumoniae data, the project will compare fAUC/MIC, fCmax/MIC and fT>MIC using ordinary Emax and sigmoid Emax/Hill regression, then estimate supported exposure targets or report that the available data cannot determine a best index or target (MI009, MI010)."
+        },
+        {
+          "source": "method:MP004",
+          "quote": "{\"id\": \"MP004\", \"name\": \"Data requirements for animal PK modeling\", \"family\": \"COMPARTMENTAL_PK\", \"target_endpoints\": [\"animal concentration-time model\", \"animal PK parameters requested by the project\"], \"applies_when\": \"The objective requests an animal time-course model. Check the available modeling inputs and unresolved design information. Model selection, fitting and result evaluation belong to the animal PK module.\", \"required_inputs\": [\"Requested modeling objective, parameter or curve outputs and intended use.\", \"Permitted concentration-time observations, dosing events, route, analyte, matrix, concentration basis and units.\", \"Study/regimen membership, sampling design, data level and available experimental-unit identifiers; identify unverifiable IDs rather than inventing them.\"], \"conditional_inputs\": [\"Infusion duration/input history, extravascular dosing information, or covariates such as body weight when required by the stated objective.\", \"Verified individual-level records and sampling structure when individual or population variability is requested. Do not impose dense repeated sampling for every animal as a universal input rule.\", \"Summary definition, counts and reported variability for group-summary curves; source extraction details for digitized observations; BLQ/LLOQ and missingness metadata where relevant.\", \"Concentration-time data at more than one dose level when the objective includes characterizing dose-dependent (nonlinear) kinetics. Do not impose a number of dose levels.\"], \"acceptable_alternatives\": [\"Measured group-mean curves may be candidate inputs for exploratory group-level modeling with stated limitations, without inferred animal random effects.\", \"Keep data potentially supporting a separate NCA objective available when modeling inputs are incomplete; do not replace the requested modeling objective silently.\"], \"data_checks\": [\"Map available concentration, timing, dose, route and grouping information to the stated modeling objective. Report actual coverage and missing phases or dose levels without a universal row-count threshold.\", \"Distinguish individual records, destructive sampling and group summaries. Unverified cross-time IDs do not establish individual trajectories.\", \"Keep study and regimen identities. Identify compatibility questions for later model design; do not pool incompatible sources or treat every source curve as a separate mandatory model.\", \"If input sufficiency depends on a structural model or numerical assessment, retain the uncertainty for the animal PK module. Do not choose compartments, error models, estimation engines or diagnostic thresholds here.\"], \"missing_effect\": \"Report available modeling inputs, task-specific gaps and the data or clarification needed. A positive input assessment permits the next preparation/design step only and does not approve fitting or its results.\", \"not_established\": [\"An accepted structural model, convergence, parameter identifiability, uncertainty or a valid human prediction.\", \"Animal IIV from group means or unverified IDs.\", \"Automatic preference for additional compartments or a completed model comparison.\"], \"data_roles\": [\"PK_OBSERVATIONS\", \"DOSING\", \"ANIMAL_CHARACTERISTICS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S01\", \"S09\"], \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"outputs\": [\"Endpoint-specific input requirement and matched source evidence\", \"Input availability status, limitations and unresolved definitions\", \"Missing material, affected task or endpoint, required phase and next action\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\"}"
+        },
+        {
+          "source": "method:MP009",
+          "quote": "{\"id\": \"MP009\", \"name\": \"Data requirements for PK/PD indices and PD targets\", \"family\": \"PKPD\", \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"target_endpoints\": [\"Project-defined exposure indices\", \"Project-requested exposure-response index comparison\", \"Project-requested PD target estimation or use\"], \"outputs\": [\"Task-specific index input coverage\", \"Exposure-response matching and definition gaps\", \"Conditional MIC, threshold and PD-target input coverage and gaps\"], \"applies_when\": \"The project requests exposure indices, response-linked index comparison, PD target estimation or a target for later PTA. Distinguish exposure summaries, index ranking and PD target tasks. Reuse existing PK, unit, provenance and MP007 binding assessments rather than repeating them.\", \"required_inputs\": [\"The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended.\", \"For exposure calculations or response-linked fits: source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites.\"], \"conditional_inputs\": [\"For exposure-response analysis, index ranking or estimation of a new PD target: the measured PD endpoint, baseline/comparator, response observation time/window and source, plus traceable mapping among regimen, exposure and response.\", \"If PD target estimation or PTA is requested, specify the desired effect and endpoint window. Identify either a source-supported same-drug target or the matched exposure-response data intended for downstream target estimation. For a reported target, retain its value, index definition, units, free/total basis, exposure window, source and applicability context. A target awaiting estimation is a planned upstream output, not automatically missing data.\", \"For a time-above-threshold index: the threshold and its definition, exposure profile input, analysis window and whether the output is a duration or percentage. A bare fT label is incomplete.\", \"Strain-matched MIC only when an index is MIC-normalized or uses MIC as its threshold, with its units, source and measurement context: method, medium, testing standard, number of replicates and the summary value used (for example the modal value).\", \"For free-exposure indices: use the relevant direct free-concentration or binding-input assessment under MP007.\", \"For in vivo infection-model response data used for index ranking or target estimation: organism and strain identity, inoculum and infection site, host immune status, the interval between infection and treatment start, treatment duration, the response endpoint and its reference point (for example change from treatment start or from an untreated control, or survival), and untreated growth-control data. Keep each combination of treatment duration and endpoint distinct.\"], \"acceptable_alternatives\": [\"Explicitly requested non-MIC-normalized exposure summaries do not require MIC merely because this is a PK/PD task.\", \"When response data or matching are unavailable, retain independently supported exposure-summary tasks and the unresolved ranking objective.\", \"In vitro response data may be registered for their own stated analysis context, without relabeling them as animal efficacy.\"], \"data_checks\": [\"Identify whether the task is exposure calculation, index ranking, PD target estimation or use of an existing target. Require matched response data for ranking or new target estimation; do not automatically require raw response data when only a source-supported target is requested.\", \"Check each index definition and window. Do not infer MIC normalization, an fT threshold or duration-versus-percentage meaning from an abbreviated label.\", \"For response-linked tasks, map regimen, exposure and PD observations using source-supported relationships. Preserve ambiguity rather than inventing pairs.\", \"For MIC-dependent tasks, verify that the susceptibility input refers to the relevant strain and measurement context. Do not borrow another drug's MIC or PD target to fill gaps.\", \"For target tasks, distinguish the measured PD endpoint, desired effect and required index value. Record source-supported target inputs separately from planned estimation outputs. Map a documented later target output to DEFERRED with its producing task and required phase; report missing source data or undefined effects/windows separately. This step does not estimate or qualify the target or establish its applicability to human PTA.\", \"For index ranking, record whether the regimens vary dosing frequency or interval in addition to total dose, so that the candidate indices do not change only together. If the design does not separate them, keep the ranking unresolved. Do not impose a numeric count of regimens or dose levels.\", \"When exposure for the PD regimens comes from separate PK data, check whether those data match the PD experiment in species, strain, infection or health state, route and dose range. Record any mismatch as an applicability question; do not assume exposure transfers between animal states.\", \"Report available, absent and unresolved inputs separately by task. Do not fit Emax/Hill models, compute fit statistics or select a winning index in this stage.\"], \"missing_effect\": \"Report which index input or exposure-response mapping is missing through the general data-gap policy. Missing PD matching does not block independent PK or exposure-summary work, but exposure values alone do not establish a best index. An uncomputed target with a documented estimation plan is a deferred output. Preserve any missing target definition or estimation inputs as task-specific gaps; do not make them blockers for independent animal PK or exposure-summary tasks.\", \"not_established\": [\"A fitted exposure-response relationship, best index, PD target or evidence of clinical efficacy.\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\", \"data_roles\": [\"PD_OBSERVATIONS\", \"MIC\", \"PK_OBSERVATIONS\", \"DOSING\", \"IN_VITRO_TIME_KILL\", \"REPORTED_PARAMETERS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {\"role\": [\"PD_OBSERVATIONS\", \"IN_VITRO_TIME_KILL\", \"DOSING\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"MIC\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PD_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"NONE\"}, {\"labels\": {\"role\": [\"PD_OBSERVATIONS\", \"IN_VITRO_TIME_KILL\", \"DOSING\", \"PK_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"MIC\"]}, \"review\": \"NONE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"DOSING\", \"PD_OBSERVATIONS\"]}, \"review\": \"OBJECTIVE\"}, {\"labels\": {\"role\": [\"PK_OBSERVATIONS\"]}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"NONE\"}]}, \"source_ids\": [\"S07\", \"S08\"]}"
+        },
+        {
+          "source": "method:MP012",
+          "quote": "{\"id\": \"MP012\", \"name\": \"Data requirements for PD target estimation and target use\", \"family\": \"PKPD\", \"assessment_scope\": \"DATA_REQUIREMENTS_ONLY\", \"target_endpoints\": [\"A project-defined index magnitude associated with a specified effect\", \"Use of a reported target with traceable context\"], \"outputs\": [\"Task-specific input coverage, material gaps and upstream output dependencies\"], \"applies_when\": \"A target is requested for a defined endpoint or later attainment task. Exposure summary, index comparison and target estimation are distinct tasks. MP009 covers index inputs; this profile details the target subtask and does not require a winning index first.\", \"required_inputs\": [\"The desired effect, measured endpoint, reference baseline/comparator and observation time/window. Stasis, 1-log and 2-log reductions are examples to select only when requested, not mandatory effects for every project.\", \"Candidate index definition, units, exposure window, free/total concentration basis, organism/strain and infection or experimental context. Reuse MP009 MIC and MP007 binding evidence when relevant.\"], \"conditional_inputs\": [\"For new target estimation: source-supported paired exposure-response observations within each panel, retaining regimen links, baseline/endpoint values, record level and independent experimental-unit/replicate identity. A compatible reported exposure may be used without demanding raw PK solely to reconstruct it.\", \"For a reported target: value and source, effect/reference, index/units/basis/window and applicable drug, organism, strain and experimental context; retain reported uncertainty and applicability limits. Original raw response observations are not automatically required for target use.\", \"For target uncertainty: preserve available independent replicate information, group size and dispersion definitions, or reported parameter uncertainty. Group means and technical replicates are not independent individual responses; missing variance limits the uncertainty claim, not automatically every descriptive target task.\", \"For animal infection data: reuse the species, infection site, inoculum, immune status, treatment timing/duration and control assessments selected under MP009. For in vitro data retain the corresponding system and treatment context.\"], \"acceptable_alternatives\": [\"Each compatible panel can support its own target estimation even when cross-index common-record comparison is unavailable; do not fabricate common rows by rank-matching.\", \"A numeric target awaiting fitting is a PLANNED_MODEL_OUTPUT, with a producing task and required phase. Assess the underlying definitions and paired inputs separately.\", \"A reported same-drug target may be a candidate for use with an explicit applicability assessment, without recreating its source experiment.\"], \"data_checks\": [\"Assess coverage of the requested effect and exposure range. Distinguish interpolation from extrapolation or a target not reached in the observed range; leave fitted asymptotes, attainable targets and uncertainty to downstream analysis.\", \"Within-panel pairing supports that panel target task. Fair cross-index comparison additionally needs common compatible response records and aligned endpoints/windows/bases, or an explicitly justified comparison design. Failure of the latter does not erase the former.\", \"Keep individual observations, group summaries, pooled observations and independent biological replicates separate. Record how baseline/control summaries relate to treated groups without inventing individual pairs.\", \"Different effects, strains, infection contexts and durations define distinct target candidates. Do not transplant another drug target or silently pool incompatible targets.\", \"Missing target definitions are DESIGN_DEFINITION; unresolved source links are EXISTING_SOURCE_REVIEW; an uncomputed numeric target with a documented producer is PLANNED_MODEL_OUTPUT. None alone authorizes a new experiment.\"], \"missing_effect\": \"State whether the gap affects effect definition, panel target inputs, reported-target applicability, uncertainty or comparison. Keep supported exposure summaries and panel tasks available; an upstream plan does not establish a qualified target.\", \"not_established\": [\"Estimated target values, a selected best index, target qualification, clinical efficacy or permission to fit.\"], \"needed_at\": \"DATA_REQUIREMENTS_ASSESSMENT\", \"data_roles\": [\"PD_OBSERVATIONS\", \"IN_VITRO_TIME_KILL\", \"PK_OBSERVATIONS\", \"DOSING\", \"MIC\", \"BINDING\", \"REPORTED_PARAMETERS\"], \"condition_triggers\": {\"conditional_inputs\": [{\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}, {\"labels\": {}, \"review\": \"OBJECTIVE\"}], \"data_checks\": [{\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}, {\"labels\": {}, \"review\": \"DATA\"}]}, \"source_ids\": [\"S07\", \"S08\"]}"
+        }
+      ],
+      "task_id": "APPROVED_SOURCE_PREPARATION"
+    }
+  ],
+  "access": [
+    {
+      "item_id": "F0001:document",
+      "disposition": "REFERENCE_ONLY",
+      "reason": "Registered supporting document; use for package context, not as concentration or response data.",
+      "rule_ids": [],
+      "requirement_ids": [
+        "REQ01",
+        "REQ22"
+      ],
+      "context_paths": [
+        "/scientific_context/items/8/statement",
+        "/scientific_context/items/28/statement"
+      ]
+    },
+    {
+      "item_id": "F0002:document",
+      "disposition": "REFERENCE_ONLY",
+      "reason": "Registered proposal with extracted-text-only scope; use for objective and requirements, not as observations.",
+      "rule_ids": [
+        "R001",
+        "R007",
+        "R008",
+        "R018"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ17",
+        "REQ22"
+      ],
+      "context_paths": [
+        "/objective",
+        "/scientific_context/items/8/statement",
+        "/scientific_context/items/28/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T1",
+      "disposition": "REVIEW_DATA",
+      "reason": "Mouse IP plasma PK candidate; dose basis and cross-time animal linkage require review.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T2",
+      "disposition": "REVIEW_DATA",
+      "reason": "Mouse SC ELF PK candidate; four early slots versus caption n=3 and numeric LLOQ need review.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/18/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T3",
+      "disposition": "REVIEW_DATA",
+      "reason": "P. aeruginosa terminal lung-response candidate; no matched regimen PK and cannot set K. pneumoniae targets.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T4",
+      "disposition": "REVIEW_DATA",
+      "reason": "A. baumannii terminal lung-response candidate; no matched regimen PK and cannot set K. pneumoniae targets.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T5",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae terminal lung-response candidate with strain MIC; matched efficacy-regimen PK is absent.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ15",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/14/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T6",
+      "disposition": "REVIEW_DATA",
+      "reason": "P. aeruginosa terminal lung-response candidate; no matched regimen PK and cannot set K. pneumoniae targets.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T7",
+      "disposition": "REVIEW_DATA",
+      "reason": "A. baumannii terminal lung-response candidate; no matched regimen PK and cannot set K. pneumoniae targets.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T8",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae terminal lung-response candidate with strain MIC; matched efficacy-regimen PK is absent.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ15",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/14/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T9",
+      "disposition": "REVIEW_DATA",
+      "reason": "Study-specific strain MIC candidate; E. coli 107 and 71 are not established aliases.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R006",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/missing_information/items/0/clarification",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T10",
+      "disposition": "REVIEW_DATA",
+      "reason": "2018 study strain MIC candidate; retain assay and strain context for possible supported links.",
+      "rule_ids": [
+        "R001",
+        "R002",
+        "R006",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/missing_information/items/0/clarification",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T11",
+      "disposition": "REVIEW_DATA",
+      "reason": "Study-specific mouse plasma binding candidates; assay differences prevent borrowing fu across studies or matrices.",
+      "rule_ids": [
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ02",
+        "REQ06",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/19/statement",
+        "/missing_information/items/1/status",
+        "/missing_information/items/1/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T12",
+      "disposition": "REVIEW_DATA",
+      "reason": "2018 dose-fractionation schedules; regimen labels are curator-assigned and no numeric CFU-to-regimen mapping is established.",
+      "rule_ids": [
+        "R002",
+        "R010",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ14",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/missing_information/items/0/clarification",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T13",
+      "disposition": "REVIEW_DATA",
+      "reason": "2018 thigh endpoint group summaries; keep their own baseline cohort and ND values distinct.",
+      "rule_ids": [
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ15",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/17/statement",
+        "/missing_information/items/8/clarification",
+        "/missing_information/items/9/impact"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T14",
+      "disposition": "REVIEW_DATA",
+      "reason": "Published 2023 regimen ranges conflict with intolerance text; preserve printed values pending reconciliation.",
+      "rule_ids": [
+        "R002",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/missing_information/items/0/clarification",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T15",
+      "disposition": "REVIEW_DATA",
+      "reason": "S21 pooled mouse plasma binding candidate; percent bound is neither independent PK-animal variability nor ELF binding.",
+      "rule_ids": [
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ02",
+        "REQ06",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/19/statement",
+        "/missing_information/items/1/status",
+        "/missing_information/items/1/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T16",
+      "disposition": "REVIEW_DATA",
+      "reason": "Digitized S05 IT 4.12 mg/kg ELF means; retain matrix, base-dose basis, terminal design and digitization limits.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/18/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T17",
+      "disposition": "REVIEW_DATA",
+      "reason": "Digitized S05 IT 8.24 mg/kg ELF means; terminal group means and plasma fu must not become ELF individual or free values.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/18/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T18",
+      "disposition": "REVIEW_DATA",
+      "reason": "Digitized S05 IT 4.12 mg/kg total-plasma means; calculated unbound plot is not a second observation set.",
+      "rule_ids": [
+        "R001",
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/19/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T19",
+      "disposition": "REVIEW_DATA",
+      "reason": "Digitized S05 IT 8.24 mg/kg total-plasma means; retain observed points and separate calculated unbound copy.",
+      "rule_ids": [
+        "R001",
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/19/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T20",
+      "disposition": "REVIEW_DATA",
+      "reason": "Digitized S05 IV 4.12 mg/kg total-plasma means; retain potential outlier and terminal sampling context.",
+      "rule_ids": [
+        "R001",
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/19/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T21",
+      "disposition": "REVIEW_DATA",
+      "reason": "E. coli fT>MIC scatter is incomplete and unmatched; descriptive candidate only, not a K. pneumoniae target source.",
+      "rule_ids": [
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ14"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T22",
+      "disposition": "REVIEW_DATA",
+      "reason": "E. coli fCmax/MIC scatter is incomplete and unmatched; descriptive candidate only, not a K. pneumoniae target source.",
+      "rule_ids": [
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ14"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T23",
+      "disposition": "REVIEW_DATA",
+      "reason": "E. coli fAUC/MIC scatter is incomplete and unmatched; descriptive candidate only, not a K. pneumoniae target source.",
+      "rule_ids": [
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ14"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T24",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae fT>MIC scatter has no per-marker dose or cross-panel IDs; cannot establish matched three-index comparison.",
+      "rule_ids": [
+        "R002",
+        "R009",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ14"
+      ],
+      "context_paths": [
+        "/scientific_context/items/20/statement",
+        "/missing_information/items/8/status",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T25",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae fCmax/MIC scatter has no per-marker dose or cross-panel IDs; cannot establish matched three-index comparison.",
+      "rule_ids": [
+        "R002",
+        "R009",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ14"
+      ],
+      "context_paths": [
+        "/scientific_context/items/20/statement",
+        "/missing_information/items/8/status",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T26",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae fAUC/MIC scatter has no per-marker dose or cross-panel IDs; cannot establish matched three-index comparison.",
+      "rule_ids": [
+        "R002",
+        "R009",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ14"
+      ],
+      "context_paths": [
+        "/scientific_context/items/20/statement",
+        "/missing_information/items/8/status",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T27",
+      "disposition": "REVIEW_DATA",
+      "reason": "Mouse pulmonary assay and qualification context, not additional concentration observations.",
+      "rule_ids": [
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/18/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T28",
+      "disposition": "REVIEW_DATA",
+      "reason": "S02 SC 2 mg/kg digitized plasma means; preserve sulphate dose basis, calibration and group-level uncertainty.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T29",
+      "disposition": "REVIEW_DATA",
+      "reason": "S02 SC 4 mg/kg digitized plasma means; preserve sulphate dose basis, calibration and group-level uncertainty.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T30",
+      "disposition": "REVIEW_DATA",
+      "reason": "S02 SC 8 mg/kg digitized plasma means; preserve sulphate dose basis, calibration and group-level uncertainty.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T31",
+      "disposition": "REVIEW_DATA",
+      "reason": "S02 SC 16 mg/kg digitized plasma means; preserve sulphate dose basis, calibration and group-level uncertainty.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T32",
+      "disposition": "REVIEW_DATA",
+      "reason": "S02 SC 32 mg/kg digitized plasma means; preserve sulphate dose basis, calibration and group-level uncertainty.",
+      "rule_ids": [
+        "R001",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/2/statement",
+        "/scientific_context/items/17/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T33",
+      "disposition": "REVIEW_DATA",
+      "reason": "S02 pretreatment thigh means; cohort joins and untreated 24-hour controls are not established.",
+      "rule_ids": [
+        "R002",
+        "R012",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ15",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/17/statement",
+        "/missing_information/items/0/clarification",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T34",
+      "disposition": "REVIEW_DATA",
+      "reason": "S05 P. aeruginosa susceptibility context; neither K. pneumoniae MICs nor PK sample-to-strain links.",
+      "rule_ids": [
+        "R002",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03"
+      ],
+      "context_paths": [
+        "/scientific_context/items/22/statement",
+        "/missing_information/items/0/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T35",
+      "disposition": "REVIEW_DATA",
+      "reason": "In-vitro mouse serum polymyxin B1 binding; distinguish analyte, assay and matrix from plasma and ELF.",
+      "rule_ids": [
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ02",
+        "REQ06",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/19/statement",
+        "/missing_information/items/1/status",
+        "/missing_information/items/1/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S1:T36",
+      "disposition": "REVIEW_DATA",
+      "reason": "2025 strain MIC context; regimen doses conflict, CFU are figure-only and borrowed exposure is not measured study PK.",
+      "rule_ids": [
+        "R002",
+        "R006",
+        "R008",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ03",
+        "REQ13",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/6/statement",
+        "/scientific_context/items/23/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S2:T1",
+      "disposition": "REVIEW_DATA",
+      "reason": "Individual rat IV plasma PK candidate; retain cannula-blockage missingness and censor flags.",
+      "rule_ids": [
+        "R001",
+        "R003",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05",
+        "REQ08",
+        "REQ09"
+      ],
+      "context_paths": [
+        "/scientific_context/items/3/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/18/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S2:T2",
+      "disposition": "REVIEW_DATA",
+      "reason": "Terminal rat serum and tissue group means; tissue homogenate units and salt/base ambiguity limit pulmonary bridges.",
+      "rule_ids": [
+        "R001",
+        "R003",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/3/statement",
+        "/scientific_context/items/17/statement",
+        "/scientific_context/items/18/statement"
+      ]
+    },
+    {
+      "item_id": "F0003:S2:T3",
+      "disposition": "REVIEW_DATA",
+      "reason": "In-vitro rat serum polymyxin B1 binding; preserve method-specific conflict and do not apply serum fu to tissue.",
+      "rule_ids": [
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ02",
+        "REQ06",
+        "REQ07"
+      ],
+      "context_paths": [
+        "/scientific_context/items/19/statement",
+        "/missing_information/items/1/status",
+        "/missing_information/items/1/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T1",
+      "disposition": "REVIEW_DATA",
+      "reason": "Rabbit exposure summaries belong to a different regimen from efficacy outcomes; not serial PK samples.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05",
+        "REQ08",
+        "REQ09"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T2",
+      "disposition": "REVIEW_DATA",
+      "reason": "Rabbit pulmonary infection group outcomes; strain allocation is unresolved and regimen differs from older PK summaries.",
+      "rule_ids": [
+        "R004",
+        "R010",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ15",
+        "REQ16"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T3",
+      "disposition": "REVIEW_DATA",
+      "reason": "Neonatal rabbit relative efficacy endpoint with surfactant coadministration; no serial PMB concentration records.",
+      "rule_ids": [
+        "R004",
+        "R010",
+        "R013"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/scientific_context/items/18/statement",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T4",
+      "disposition": "REVIEW_DATA",
+      "reason": "Older rabbit S09 source-gap context, not concentration observations; assess separately from S22 curves.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T5",
+      "disposition": "REVIEW_DATA",
+      "reason": "Older rabbit S10 source-gap context, not concentration observations; assess separately from S22 curves.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T6",
+      "disposition": "REVIEW_DATA",
+      "reason": "Older rabbit S11 source-gap context, not concentration observations; assess separately from S22 curves.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T7",
+      "disposition": "REVIEW_DATA",
+      "reason": "Older rabbit S12 source-gap context, not concentration observations; assess separately from S22 curves.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T8",
+      "disposition": "REVIEW_DATA",
+      "reason": "S22 SC plasma digitized means are exploratory; plotted sampling conflicts with protocol and rabbit fu is unmeasured.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05",
+        "REQ08",
+        "REQ09"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/status",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T9",
+      "disposition": "REVIEW_DATA",
+      "reason": "S22 IT plasma digitized means are exploratory; retain plotted times and group-level status.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T10",
+      "disposition": "REVIEW_DATA",
+      "reason": "S22 SC ELF digitized means are exploratory; do not infer tissue or plasma free concentrations.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T11",
+      "disposition": "REVIEW_DATA",
+      "reason": "S22 IT ELF digitized means are exploratory; retain terminal group sampling and plotted times.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T12",
+      "disposition": "REVIEW_DATA",
+      "reason": "S22 SC whole-lung means are exploratory; Figure 2 peak conflicts with Table S5 Cmax.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/scientific_context/items/31/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T13",
+      "disposition": "REVIEW_DATA",
+      "reason": "S22 IT whole-lung digitized means are exploratory; whole-lung and ELF remain distinct.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S3:T14",
+      "disposition": "REVIEW_DATA",
+      "reason": "Rabbit pulmonary assay and qualification context, not additional concentration observations.",
+      "rule_ids": [
+        "R004",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ04",
+        "REQ05"
+      ],
+      "context_paths": [
+        "/scientific_context/items/4/statement",
+        "/missing_information/items/2/clarification",
+        "/missing_information/items/3/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S4:T1",
+      "disposition": "DEFERRED",
+      "reason": "Held-out hospitalized-horse observations; open only after animal scaling is frozen for translation validation.",
+      "rule_ids": [
+        "R005",
+        "R009",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ10"
+      ],
+      "context_paths": [
+        "/scientific_context/items/5/statement",
+        "/scientific_context/items/29/statement",
+        "/missing_information/items/4/status",
+        "/missing_information/items/4/clarification",
+        "/missing_information/items/5/status",
+        "/missing_information/items/5/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S4:T2",
+      "disposition": "DEFERRED",
+      "reason": "Held-out hospitalized-horse text summary; retain text-versus-figure discrepancies at later comparison.",
+      "rule_ids": [
+        "R005",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ10"
+      ],
+      "context_paths": [
+        "/scientific_context/items/5/statement",
+        "/scientific_context/items/29/statement",
+        "/missing_information/items/4/clarification",
+        "/missing_information/items/5/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S4:T3",
+      "disposition": "DEFERRED",
+      "reason": "Held-out healthy-horse peak and trough summaries; medians and ranges are not individual profiles.",
+      "rule_ids": [
+        "R005",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ10"
+      ],
+      "context_paths": [
+        "/scientific_context/items/5/statement",
+        "/scientific_context/items/29/statement",
+        "/missing_information/items/4/clarification",
+        "/missing_information/items/5/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S4:T4",
+      "disposition": "DEFERRED",
+      "reason": "Held-out healthy-horse serum and CSF summaries; retain matrices separately for later translation check.",
+      "rule_ids": [
+        "R005",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ10"
+      ],
+      "context_paths": [
+        "/scientific_context/items/5/statement",
+        "/scientific_context/items/29/statement",
+        "/missing_information/items/4/clarification",
+        "/missing_information/items/5/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S4:T5",
+      "disposition": "DEFERRED",
+      "reason": "Held-out horse printed summaries and author-fitted values; assay and schedule differences require later review.",
+      "rule_ids": [
+        "R005",
+        "R008",
+        "R010"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ10"
+      ],
+      "context_paths": [
+        "/scientific_context/items/5/statement",
+        "/scientific_context/items/23/statement",
+        "/scientific_context/items/29/statement",
+        "/missing_information/items/4/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S5:T1",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae static time-kill candidate; preserve exposure rows, censoring and unavailable replicate IDs.",
+      "rule_ids": [
+        "R001",
+        "R006",
+        "R010",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ13",
+        "REQ15"
+      ],
+      "context_paths": [
+        "/scientific_context/items/6/statement",
+        "/scientific_context/items/17/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S5:T2",
+      "disposition": "REVIEW_DATA",
+      "reason": "Resistant K. pneumoniae static time-kill candidate; preserve high strain MIC and censoring.",
+      "rule_ids": [
+        "R001",
+        "R006",
+        "R010",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ13",
+        "REQ15"
+      ],
+      "context_paths": [
+        "/scientific_context/items/6/statement",
+        "/scientific_context/items/17/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S5:T3",
+      "disposition": "REVIEW_DATA",
+      "reason": "Surveillance MIC distribution candidate for PTA weighting; percentages total 99.57 and require coverage review.",
+      "rule_ids": [
+        "R006",
+        "R015"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ20"
+      ],
+      "context_paths": [
+        "/scientific_context/items/6/statement",
+        "/scientific_context/items/25/statement",
+        "/missing_information/items/10/status",
+        "/missing_information/items/10/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S5:T4",
+      "disposition": "REVIEW_DATA",
+      "reason": "KPC-2 K. pneumoniae monotherapy time-kill summaries; duplicate-experiment means are not individual records.",
+      "rule_ids": [
+        "R001",
+        "R006",
+        "R010",
+        "R012"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ02",
+        "REQ13",
+        "REQ15"
+      ],
+      "context_paths": [
+        "/scientific_context/items/6/statement",
+        "/scientific_context/items/17/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    },
+    {
+      "item_id": "F0003:S5:T5",
+      "disposition": "REVIEW_DATA",
+      "reason": "K. pneumoniae genotype and MIC context; per-time CFU supplement was not retrieved and published model parameters stay benchmark-only.",
+      "rule_ids": [
+        "R006",
+        "R008",
+        "R012",
+        "R015"
+      ],
+      "requirement_ids": [
+        "REQ01",
+        "REQ13",
+        "REQ20"
+      ],
+      "context_paths": [
+        "/scientific_context/items/6/statement",
+        "/scientific_context/items/23/statement",
+        "/missing_information/items/8/clarification"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "APPROVED_SOURCE_PREPARATION",
+      "destination": "eda",
+      "objective": "Preserve reviewed source records and definitions for technical preparation only."
+    }
+  ],
+  "upstream_plan": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\requirements\\plan.json",
+    "sha256": "39348b10081f019a492ff8e7716d1fd3539614d421d6113851326875006995e2"
+  },
+  "association_policy": "EXPLICIT_COVERAGE_SOURCE_SCOPES_ONLY"
+}

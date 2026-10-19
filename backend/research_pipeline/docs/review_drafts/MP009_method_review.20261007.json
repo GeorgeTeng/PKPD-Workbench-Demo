@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_INPUT_SCOPE_AND_PRIORITY",
+  "date": "2026-10-07",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "没问题 但是优先级应该往上放",
+    "accepted_proposal": "MP009 distinguishes exposure summaries from response-linked ranking, uses conditional PD/MIC/threshold inputs and defers numerical fitting. Increase its review priority while retaining independently applicable PK/index branches."
+  },
+  "library_version": "1.0.0-draft.11",
+  "library_sha256": "bee8bd513697d3dba16df8ca4f43aeb0b10c8ff5c7560351b9b0944ef1c0fb2a",
+  "profile_sha256": "5f61ca77003bdccd5eeb05de5b4cef4192df713f5ac5ab09ae7eeefc7cdf8948",
+  "profile": {
+    "id": "MP009",
+    "name": "Data requirements for PK/PD index analysis",
+    "family": "PKPD",
+    "assessment_scope": "DATA_REQUIREMENTS_ONLY",
+    "target_endpoints": [
+      "Project-defined exposure indices",
+      "Project-requested exposure-response index comparison"
+    ],
+    "outputs": [
+      "Task-specific index input coverage",
+      "Exposure-response matching and definition gaps",
+      "Missing conditional MIC, threshold or PD inputs"
+    ],
+    "applies_when": "The project requests exposure indices or comparison of their relationship to a measured response. Distinguish exposure-summary tasks from response-linked index ranking. Reuse existing PK, unit, provenance and MP007 binding assessments rather than repeating them.",
+    "required_inputs": [
+      "The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended.",
+      "Source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites."
+    ],
+    "conditional_inputs": [
+      "For exposure-response analysis or index ranking: the measured PD endpoint, baseline/comparator, response observation time/window and source, plus traceable mapping among regimen, exposure and response.",
+      "For a time-above-threshold index: the threshold and its definition, exposure profile input, analysis window and whether the output is a duration or percentage. A bare fT label is incomplete.",
+      "Strain-matched MIC with its measurement context, units and source only when an index is MIC-normalized or uses MIC as its threshold.",
+      "For free-exposure indices: use the relevant direct free-concentration or binding-input assessment under MP007."
+    ],
+    "acceptable_alternatives": [
+      "Explicitly requested non-MIC-normalized exposure summaries do not require MIC merely because this is a PK/PD task.",
+      "When response data or matching are unavailable, retain independently supported exposure-summary tasks and the unresolved ranking objective.",
+      "In vitro response data may be registered for their own stated analysis context, without relabeling them as animal efficacy."
+    ],
+    "data_checks": [
+      "Determine whether the request is exposure calculation alone or response-linked index comparison. Require PD response/matching inputs only for the latter.",
+      "Check each index definition and window. Do not infer MIC normalization, an fT threshold or duration-versus-percentage meaning from an abbreviated label.",
+      "For response-linked tasks, map regimen, exposure and PD observations using source-supported relationships. Preserve ambiguity rather than inventing pairs.",
+      "For MIC-dependent tasks, verify that the susceptibility input refers to the relevant strain and measurement context. Do not borrow another drug's MIC or PD target to fill gaps.",
+      "Report available, absent and unresolved inputs separately by task. Do not fit Emax/Hill models, compute fit statistics or select a winning index in this stage."
+    ],
+    "missing_effect": "Report which index input or exposure-response mapping is missing through the general data-gap policy. Missing PD matching does not block independent PK or exposure-summary work, but exposure values alone do not establish a best index.",
+    "not_established": [
+      "A fitted exposure-response relationship, best index, PD target or evidence of clinical efficacy."
+    ],
+    "needed_at": "DATA_REQUIREMENTS_ASSESSMENT",
+    "source_ids": [
+      "S07",
+      "S08"
+    ]
+  },
+  "priority": {
+    "after": "MP004",
+    "before": "MP005",
+    "review_order": [
+      "MP001",
+      "MP002",
+      "MP003",
+      "MP004",
+      "MP009",
+      "MP005",
+      "MP006",
+      "MP007",
+      "MP008",
+      "MP010"
+    ],
+    "ids_renumbered": false,
+    "creates_execution_dependency": false
+  },
+  "deferred_reference": {
+    "path": "research_pipeline/research_pipeline/resources/pkpd_index_analysis_followup.json",
+    "sha256": "5704cac405eb5ddc9a5b4faff9364b4c88d00d45c7728878f8178cce3c165ab9"
+  },
+  "unchanged_profile_contents": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP005",
+    "MP006",
+    "MP007",
+    "MP008",
+    "MP010"
+  ],
+  "scientific_release": false,
+  "historical_runs_modified": false
+}

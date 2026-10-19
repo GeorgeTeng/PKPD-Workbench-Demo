@@ -1,0 +1,76 @@
+{
+  "version": "1.2.0",
+  "status": "USER_CONFIRMED_SOURCE_FIRST_ORDER_EXISTING_SCIENTIFIC_BOUNDARIES_RETAINED",
+  "general_rules": "Apply the canonical G001-G008 pack, which ctxcomp.governance attaches to every call before these rules. These rules add only what is specific to this agent.",
+  "agent": {
+    "id": "DR",
+    "name": "Define data requirements",
+    "order": 2
+  },
+  "calls": [
+    {
+      "id": "DR",
+      "operation": "DEFINE_REQUIREMENTS",
+      "description": "Runs after permitted source labeling and extraction: organize tasks and requirements from the reviewed objectives, project rules, actual data profiles and exact original source notes (DR001). Retain required inputs that are missing from the supplied data."
+    },
+    {
+      "id": "DR-access",
+      "operation": "ASSIGN_ACCESS",
+      "description": "Runs before labeling: give every inventory item an access disposition using published permissions and source metadata (DR002), without requiring a prior Data Requirement definition. Requirement associations are added after DR and never restrict the initial reading scope."
+    }
+  ],
+  "rules": [
+    {
+      "id": "DR001",
+      "text": "After permitted sources have been labeled and extracted, organize data requirements from the reviewed objective, context, published project rules, actual data profiles and original source notes. Preserve exact provenance and distinguish observed, reported and reconstructed data. State the inputs each endpoint needs and when each is needed; retain project-required inputs even when no supplied data meet them. Source notes and the frozen method library may motivate METHOD_CANDIDATE entries, with applicability conditions, separate from PROJECT_EXPLICIT requirements. Candidate methods describe preliminary feasibility, not an accepted analytical method, calculation, fit or scientific qualification. DC independently checks criterion-level availability and gaps after this organization. Do not invent a drug, species, index list, threshold or universal sample size; unresolved questions remain explicit.",
+      "derived_from": [
+        "DA001",
+        "USER_REQUESTED_2026-10-09_PARALLEL_DR",
+        "USER_REQUESTED_2026-10-10_SOURCE_FIRST_DATA"
+      ],
+      "calls": [
+        "DR"
+      ]
+    },
+    {
+      "id": "DR002",
+      "text": "Before labeling, account for every registered file with an access disposition based on published source permissions and inventory metadata, without waiting for a Data Requirement definition. Protected files remain registered without reading their bodies; ambiguous access requires review. All permitted content is in scope for initial labeling, including notes and regimen; prior requirement IDs must not restrict reading. After DR, associate requirements with source items without rewriting accepted source facts or treating a candidate link as coverage evidence.",
+      "derived_from": [
+        "DA002",
+        "DA003",
+        "USER_REQUESTED_2026-10-09_PARALLEL_DR",
+        "USER_REQUESTED_2026-10-10_SOURCE_FIRST_DATA"
+      ],
+      "calls": [
+        "DR-access"
+      ]
+    }
+  ],
+  "notes": {
+    "method_profiles": "pkpd_method_profiles.json; the current menu contains MP001-MP009 and MP011 data requirements only. MP009 includes conditional PD-target inputs; MP010 is retained solely in the deferred PTA reference. Candidate knowledge is not a formal project requirement or automatic release gate.",
+    "deferred_analysis": "pk_analysis_followup.json preserves prior NCA/animal PK calculation and evaluation guidance for later review. It is not loaded into D01/D02 and is not enabled as an execution policy. translation_analysis_followup.json separately retains original translation guidance under the same deferred boundary. human_simulation_followup.json retains original human simulation guidance under the same deferred boundary. binding_analysis_followup.json retains original binding/free-exposure guidance under the same deferred boundary. ivive_analysis_followup.json retains original hepatic IVIVE guidance under the same deferred boundary. pkpd_index_analysis_followup.json retains original index-analysis guidance under the same deferred boundary. pta_analysis_followup.json retains original PTA guidance under the same deferred boundary.",
+    "requirements": "Organize only after source understanding. Separate PROJECT_EXPLICIT from METHOD_CANDIDATE; bind method IDs, exact original notes/body evidence, applicability conditions and the frozen library. Preserve objective-required gaps even when current data do not support a candidate method.",
+    "project_decisions": "User-confirmed project policies are reconciled and published by Project Rules Agent, never imported as universal method defaults.",
+    "profile_priority": "The library presents index data requirements immediately after animal PK data requirements and before translation. IDs stay stable. This is review/context priority, not execution order; PK and index branches remain independently applicable and actual file dependencies still govern execution.",
+    "reuse": "Reuse source-bound accepted labels after unchanged source/hash, original validation, field/notes coverage and unresolved-finding checks. Keep original model identity and old requirement associations as historical metadata only. Missing content needs a scoped supplement, not whole-source regeneration."
+  },
+  "runtime": {
+    "fresh_call_per_agent": true,
+    "timeout_seconds": null,
+    "heartbeat_seconds": 300,
+    "human_review": "ON_UNRESOLVED_FINDINGS_OR_PROJECT_REQUIREMENT",
+    "model_release": false
+  },
+  "source": {
+    "split_from": "data_agents.json 2.9.1 (DA001-DA009)",
+    "confirmed": "2026-10-08, project thread",
+    "parallel_dr": "2026-10-09, project thread: George asked for the DC inventory and DR to run in parallel, with DR joining at the access step.",
+    "source_first_order": "2026-10-10, project thread: user approved inventory/access, label/extract/understand actual permitted sources, then organize Data Requirements using objectives and original notes, then audit data against requirements. This supersedes the 2026-10-09 parallel DR procedure only.",
+    "reuse_completed_work": "2026-10-10, project thread: completed work must not be repeated. Reuse accepted results after source integrity and coverage checks, retain original executor/model identity, and supplement only demonstrated gaps or invalid results.",
+    "previous_policy": {
+      "path": "backend/rules/data/history/dr_requirements.1.1.0.json",
+      "sha256": "9522e585c81263111fd52fb4076ccde8b9cbefd2dca6009c2779b911dc30d90c",
+      "version": "1.1.0"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "cards": [
+    {
+      "title": "Structural vs. Practical Identifiability and FIM Diagnostics",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Global structural identifiability means unique parameter solutions given ideal input-output data; local structural identifiability can allow finitely many alternatives. The source examines continuity and limiting behavior of the FIM determinant as diagnostic conditions in its fixed- and mixed-effects examples. A full-rank local FIM or these diagnostic conditions do not by themselves prove global structural uniqueness. Practical identifiability depends on imperfect data and study design. When the information-matrix approximation is applicable and the FIM is nonsingular, diagonal elements of its inverse provide approximate parameter variances and their square roots provide approximate standard errors; these are not guaranteed achieved precision.",
+      "conditions": [
+        "Applicable to fixed- and mixed-effects PK/PD models.",
+        "Requires a defined design (time points) and parameter set.",
+        "Assumes the model structure is fixed during assessment."
+      ],
+      "required_inputs": [
+        "Model structure (fixed and random effects).",
+        "Design variables (sampling times).",
+        "Residual error model specification.",
+        "Software capable of computing FIM or optimal design metrics (e.g., PFIM, PopED)."
+      ],
+      "limitations": [
+        "FIM diagnostics are local and design-specific; they do not prove global identifiability across all possible designs.",
+        "Numerical accuracy issues can cause unidentifiable models to show small positive determinants instead of zero.",
+        "Random effects identifiability does not always mirror fixed effects identifiability.",
+        "This is a diagnostic tool, not a proof of scientific validity or model correctness."
+      ],
+      "downstream_use": "Use to screen candidate models for structural identifiability before data collection. Use to evaluate if a proposed sampling schedule provides sufficient information (practical identifiability) to estimate parameters with acceptable precision.",
+      "evidence_chunk_ids": [
+        "SUP003:0005",
+        "SUP003:0008",
+        "SUP003:0013",
+        "SUP003:0014",
+        "SUP003:0015"
+      ],
+      "id": "round3_A03:K01",
+      "origin_job": "round3_A03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A03",
+      "retrieval_keywords": "Residual and censored observation models and structural/practical identifiability",
+      "supersedes": [
+        "round2_A03:K01",
+        "round2_A03:K02",
+        "round2_A03:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

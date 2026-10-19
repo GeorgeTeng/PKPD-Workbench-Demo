@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Human Simulation Input Definitions and Scenario Constraints",
+      "topics": [
+        "human_simulation",
+        "data_eda"
+      ],
+      "claim": "Prospective human IV PK curve simulations require explicit definitions of the regimen (dose, basis, bolus/infusion, interval), concentration basis (total/free), and time horizon. Inputs must distinguish existing data from predicted parameters. Vss must not be silently treated as Vc; multi-compartment profiles require distribution parameters beyond total CL and Vss.",
+      "conditions": [
+        "Applies when the project requests a prospective human IV profile.",
+        "Prospective predictions use qualified predicted parameters with stated applicability and assumptions."
+      ],
+      "required_inputs": [
+        "Proposed human IV regimen details.",
+        "Qualified predicted parameters from translation branch.",
+        "Explicit uncertainty/assumption treatment for inputs."
+      ],
+      "limitations": [
+        "A unique multi-compartment curve cannot be derived from CL and Vss alone.",
+        "Measured human variability or clinical validation is not established by this process."
+      ],
+      "downstream_use": "Defines the boundary conditions for simulation execution and identifies missing scientific scenario definitions.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0051",
+        "IN_MAIN:0052",
+        "IN_HUMAN_SIMULATION:0008"
+      ],
+      "id": "module_human_simulation:K04",
+      "origin_job": "module_human_simulation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_HUMAN_SIMULATION",
+        "IN_MAIN"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

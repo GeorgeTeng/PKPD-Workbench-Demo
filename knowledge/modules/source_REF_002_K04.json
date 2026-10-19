@@ -1,0 +1,39 @@
+{
+  "cards": [
+    {
+      "title": "Drug Effect Model Slope Estimation",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "For NCA drug effect models, Phoenix estimates two slopes: Slope 1 (beginning of data) and Slope 2 (end of data). It uses the same adjusted R² selection logic as Lambda Z (min 3 points) but allows linear or log regression and does not negate the slope (can be positive or negative). If only one range is specified, the other is automatically determined.",
+      "conditions": [
+        "Applicable to drug effect (PD) models, not just concentration PK.",
+        "Regression can be linear or log-transformed.",
+        "Slope sign is not constrained."
+      ],
+      "required_inputs": [
+        "Effect-time data",
+        "Optional user-specified ranges for Slope 1 or 2"
+      ],
+      "limitations": [
+        "Same point-count and data validity constraints as Lambda Z (min 3 points for automatic selection)."
+      ],
+      "downstream_use": "Quantifies onset and offset kinetics of pharmacodynamic effects.",
+      "evidence_chunk_ids": [
+        "REF_002:0002",
+        "REF_002:0003"
+      ],
+      "id": "source_REF_002:K04",
+      "origin_job": "source_REF_002",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

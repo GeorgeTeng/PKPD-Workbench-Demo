@@ -1,0 +1,362 @@
+{
+  "document_type": "PROJECT_REQUIREMENT_EXTRACTION_METHODOLOGY",
+  "version": "1.0.0",
+  "review_date": "2026-10-07",
+  "status": "REVIEW_ADDITION_NOT_RUNTIME_ACTIVATED",
+  "enabled": false,
+  "scope": "Methodological companion to PRC extraction and independent review. Literature methods are supporting evidence, not scientific project rules.",
+  "purpose": "Help a fresh model identify consequential source-stated requirements, preserve their normative force and fill source-supported fields without inventing obligations.",
+  "attribution": "The category labels, PK examples, source-adoption decisions and integrated workflow below are project-specific design. The cited studies support individual techniques; none validates this PK proposal-to-rules pipeline.",
+  "references": [
+    {
+      "id": "M01",
+      "title": "GoLLIE: Annotation Guidelines Improve Zero-Shot Information-Extraction",
+      "authors": "Oscar Sainz et al.",
+      "year": 2024,
+      "venue": "ICLR",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/cda04d7ea67ea1376bf8c6962d8541e0-Abstract-Conference.html",
+      "full_text_url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/cda04d7ea67ea1376bf8c6962d8541e0-Paper-Conference.pdf",
+      "inspected": "Full-text sections 3.1-3.3, 5.3 and 6.",
+      "method": "Guideline-conditioned structured extraction with label definitions, examples and argument descriptions. The model was fine-tuned to use these guidelines.",
+      "use_here": "Provide precise extraction categories, slot definitions and illustrative boundary cases.",
+      "limit": "This is not evidence that prompting any off-the-shelf API with the same material reproduces GoLLIE's accuracy."
+    },
+    {
+      "id": "M02",
+      "title": "Extraction of Information Provision Activity Requirements from EU Acquis",
+      "authors": "Jakub Piskorski and Dominik Skotarczak",
+      "year": 2025,
+      "venue": "EMNLP Industry Track",
+      "doi": "10.18653/v1/2025.emnlp-industry.102",
+      "url": "https://aclanthology.org/2025.emnlp-industry.102/",
+      "full_text_url": "https://aclanthology.org/2025.emnlp-industry.102.pdf",
+      "inspected": "Full-text sections 3, 5.1-5.2, 6-7 and Table 1 text.",
+      "method": "Separates requirement detection from structured slot extraction; compares lexical patterns, classifiers and LLM prompts with examples and JSON outputs.",
+      "use_here": "Separate candidate identification from field filling and assess their errors separately.",
+      "limit": "The task concerns information-provision duties; it excludes nondisclosure requirements and does not validate our broader PK requirement taxonomy. Its modality expansion is future work."
+    },
+    {
+      "id": "M03",
+      "title": "LLM-assisted Extraction of Regulatory Requirements: A Case Study on the GDPR",
+      "authors": "Sallam Abualhaija et al.",
+      "year": 2025,
+      "venue": "IEEE Requirements Engineering Conference",
+      "doi": "10.1109/RE63999.2025.00023",
+      "url": "https://orbilu.uni.lu/handle/10993/65265",
+      "full_text_url": "https://orbilu.uni.lu/bitstream/10993/65265/1/2025-RE-ACSBLSVS.pdf",
+      "inspected": "Institutional metadata/abstract and indexed primary-PDF methods excerpts. Full-PDF download was not completed.",
+      "method": "XTRAREG uses predefined legal sources, LLM prompting and retrieval augmentation; its study created 108 expert requirements.",
+      "use_here": "Fix the admitted source set, supply relevant source context and inspect completeness separately from whether extracted items look correct.",
+      "limit": "Legal-to-software requirement derivation is broader than faithful extraction here. Do not derive new PK obligations, rely on model memory, or treat retrieval results as proof of complete coverage."
+    },
+    {
+      "id": "M04",
+      "title": "Easy Approach to Requirements Syntax (EARS)",
+      "authors": "Alistair Mavin, Philip Wilkinson, Adrian Harwood and Mark Novak",
+      "year": 2009,
+      "venue": "IEEE Requirements Engineering Conference",
+      "doi": "10.1109/RE.2009.9",
+      "url": "https://doi.org/10.1109/RE.2009.9",
+      "full_text_url": "https://www.researchgate.net/profile/Alistair_Mavin/publication/224079416_Easy_approach_to_requirements_syntax_EARS/links/568ce3bf08aeb488ea311990/Easy-approach-to-requirements-syntax-EARS.pdf",
+      "inspected": "Author-posted full-text sections 4.1-4.7 and 6.",
+      "method": "Lightweight requirement patterns separate triggering events, relevant states, conditions and required behavior.",
+      "use_here": "Use optional semantic slots when representing conditional project requirements.",
+      "limit": "This is a foundational representation method, not a modern LLM extractor. Do not force every clause into a template, promote suggestions to SHALL, infer unstated requirements, or claim templates prove completeness."
+    },
+    {
+      "id": "M05",
+      "title": "Approaching the AI Act... with AI: LLMs and knowledge graphs to extract and analyse obligations",
+      "year": 2026,
+      "year_note": "Journal issue: Volume 60, April 2026; DOI and copyright contain 2025.",
+      "venue": "Computer Law & Security Review",
+      "doi": "10.1016/j.clsr.2025.106230",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2212473X25001026",
+      "code_url": "https://github.com/thiagordp/obligation_extraction_for_compliance",
+      "inspected": "Publisher abstract and data-availability statement via indexed publisher page; full text and repository contents not inspected.",
+      "method": "A modular pipeline identifies obligations, filters deontic statements, analyzes them and builds knowledge graphs. It uses Llama 3.3 70B with NLP tools.",
+      "use_here": "Distinguish normative statements from surrounding descriptive text before assembling rule records.",
+      "limit": "The abstract reports selected-stage expert evaluation. It does not establish end-to-end completeness, PK validity or that a knowledge graph is necessary here."
+    },
+    {
+      "id": "M06",
+      "title": "Trustworthy Regulatory Requirements Extraction using Local LLM: A Multi-Agent vs. Single-Prompt Benchmark on the EU AI Act and GDPR",
+      "authors": "Mishaal Ahmed and Muhammad Ajmal Naz",
+      "year": 2026,
+      "venue": "IEEE 2nd International Conference on AI and Emerging Technology for Sustainable Future; institutional record",
+      "url": "https://iris.polito.it/handle/11583/3015996",
+      "inspected": "Institutional repository abstract only; full manuscript not inspected.",
+      "method": "Compares matched-content structured prompting with a sequential Analyst-Engineer-QA workflow using one local Llama 3 8B.",
+      "use_here": "Treat additional calls as a cost/quality hypothesis rather than an automatic improvement.",
+      "limit": "The abstract reports better F1 for its single-call baseline than the multi-agent variant. One model and two legal corpora do not establish a universal rule or justify removing our existing independent audit."
+    }
+  ],
+  "method_steps": [
+    {
+      "id": "E01",
+      "name": "Define the annotation task",
+      "owners": [
+        "PRC002"
+      ],
+      "basis": [
+        "M01"
+      ],
+      "procedure": "Supply category meanings, inclusion/exclusion boundaries and a few relevant contrast examples before extraction. Use the project's input schema rather than relying on label names or model-specific keyword conventions."
+    },
+    {
+      "id": "E02",
+      "name": "Find candidate obligations",
+      "owners": [
+        "PRC001",
+        "PRC002"
+      ],
+      "basis": [
+        "M02",
+        "M05"
+      ],
+      "procedure": "Inspect each admitted source unit with its parent context. Identify directive intent, scope and adoption separately; retain non-rule and ambiguous dispositions. Cue terms aid attention but must not be the only inclusion filter."
+    },
+    {
+      "id": "E03",
+      "name": "Fill requirement slots",
+      "owners": [
+        "PRC003",
+        "PRC007"
+      ],
+      "basis": [
+        "M02",
+        "M04"
+      ],
+      "procedure": "Extract the action and its source-stated actor/target, force, conditions, exceptions and use timing. Keep related alternatives and qualifiers connected. An unspecified field stays unspecified."
+    },
+    {
+      "id": "E04",
+      "name": "Bind context and evidence",
+      "owners": [
+        "PRC004"
+      ],
+      "basis": [
+        "M03"
+      ],
+      "procedure": "Link original clauses and any needed definitions, tables or cross-references from admitted sources. Distinguish evidence for meaning from evidence for project adoption. Inaccessible material becomes a targeted finding, not an inferred rule."
+    },
+    {
+      "id": "E05",
+      "name": "Organize and review the final collection",
+      "owners": [
+        "PRC008",
+        "PRC011"
+      ],
+      "basis": [
+        "M02",
+        "M03"
+      ],
+      "procedure": "Use shared deduplication rules, retain source/candidate/final mappings and check missed requirements separately from unsupported additions, wrong slots and altered conditions. Use the existing final independent review."
+    }
+  ],
+  "annotation_guide": {
+    "status": "PROJECT_DESIGN_FOR_REVIEW; illustrative labels require schema mapping before runtime use",
+    "classification": [
+      {
+        "label": "REQUIRED_ACTION",
+        "definition": "The effective project specification commits the analysis or workflow to an action, deliverable or choice.",
+        "include": "Explicit directives or unambiguous adopted project commitments, even without must/shall.",
+        "exclude": "Predicted future events, descriptive study methods and optional suggestions."
+      },
+      {
+        "label": "PROHIBITION",
+        "definition": "The project forbids a stated action or use within a stated scope.",
+        "include": "Explicit exclusions, access/use restrictions and negative obligations.",
+        "exclude": "Statements that a result was not observed or a method was not used in a cited study."
+      },
+      {
+        "label": "PERMITTED_USE_BOUNDARY",
+        "definition": "The project explicitly defines what use is allowed and under which limits.",
+        "include": "Restrictions such as use only for initialization or use only after approval.",
+        "exclude": "Do not turn permission to do something into a duty to do it."
+      },
+      {
+        "label": "RECOMMENDATION_OR_OPTION",
+        "definition": "A suggested or optional action that has not been adopted as a binding constraint.",
+        "include": "Consider, could and preference language when context is genuinely optional.",
+        "exclude": "Do not discard a conditional mandatory instruction merely because it contains if or may."
+      },
+      {
+        "label": "NON_RULE",
+        "definition": "A pure objective, descriptive fact, result, assumption or explanatory statement.",
+        "include": "Refer to the compression-owned context and record the non-rule disposition.",
+        "exclude": "An explicit instruction to use an assumption is a rule even though the assumption itself is not a verified fact."
+      },
+      {
+        "label": "UNRESOLVED_REQUIREMENT",
+        "definition": "A potentially consequential obligation whose meaning, force, adoption or scope cannot be settled from the admitted evidence.",
+        "include": "Source-linked question and affected decision.",
+        "exclude": "A later-stage data gap with clear rule meaning is not automatically an extraction failure."
+      }
+    ],
+    "cue_terms": {
+      "purpose": "Non-exhaustive reading aids; no regex-only filter or keyword-based proof of obligation.",
+      "directive": [
+        "must",
+        "shall",
+        "is required to",
+        "is to",
+        "will [project commitment only]"
+      ],
+      "negative_or_exclusive": [
+        "must not",
+        "shall not",
+        "exclude",
+        "only",
+        "restricted to",
+        "reserved for"
+      ],
+      "conditional": [
+        "if",
+        "when",
+        "while",
+        "provided that",
+        "only if",
+        "unless",
+        "except",
+        "subject to"
+      ],
+      "optional_or_ambiguous": [
+        "may",
+        "should",
+        "could",
+        "consider",
+        "prefer"
+      ],
+      "interpretation": "Use sentence and document context. Preserve SHOULD/MAY strength, distinguish possibility from permission, and do not normalize ambiguous may not to a prohibition without evidence."
+    },
+    "slot_guide": {
+      "action": "What must be done, avoided or limited.",
+      "actor_or_target": "Who acts or what analysis, dataset, parameter or output is constrained.",
+      "normative_force": "Source-stated obligation, prohibition, conditional permission or recommendation; never upgraded for formatting.",
+      "condition_and_trigger": "When the requirement becomes applicable.",
+      "exceptions_and_alternatives": "Retain exclusions, AND/OR structure and linked options.",
+      "scientific_scope": "Use the canonical scientific preservation profile for relevant PK details.",
+      "usage_timing": "Separate consuming stage and required phase from the scientific observation window.",
+      "evidence_and_adoption": "Original source spans and project adoption references; they may be the same source.",
+      "missing_slots": "Record the existing contract's explicit missingness state and raise a question only if the missing item changes interpretation or publication."
+    }
+  },
+  "synthetic_examples": {
+    "status": "ILLUSTRATIVE_AUTHOR_WRITTEN_CASES; not study data, project instructions or a validated benchmark",
+    "cases": [
+      {
+        "id": "EX01",
+        "source": "Use free-drug exposure for all PK/PD index comparisons.",
+        "source_context": "Adopted project protocol",
+        "expected": "REQUIRED_ACTION",
+        "retain": [
+          "free-drug exposure",
+          "all index comparisons"
+        ],
+        "avoid": "Do not apply the requirement to unrelated total-concentration PK fitting."
+      },
+      {
+        "id": "EX02",
+        "source": "The cited study used a two-compartment model.",
+        "source_context": "Literature summary",
+        "expected": "NON_RULE",
+        "avoid": "A reported model choice is not a project mandate."
+      },
+      {
+        "id": "EX03",
+        "source": "For this project, use the cited two-compartment structure, but do not import its parameter values.",
+        "source_context": "Adopted project decision",
+        "expected": "REQUIRED_ACTION plus linked PROHIBITION",
+        "retain": [
+          "structure adoption",
+          "parameter-import prohibition"
+        ],
+        "avoid": "Do not infer permission to reuse parameters from adoption of a structure."
+      },
+      {
+        "id": "EX04",
+        "source": "Consider adding a third compartment.",
+        "source_context": "Unadopted suggestion",
+        "expected": "RECOMMENDATION_OR_OPTION",
+        "avoid": "Do not require a third compartment or turn the suggestion into a release gate."
+      },
+      {
+        "id": "EX05",
+        "source": "If verified individual-animal data are available, estimate animal random effects.",
+        "source_context": "Adopted project protocol",
+        "expected": "REQUIRED_ACTION",
+        "retain": [
+          "verified individual-animal data condition"
+        ],
+        "avoid": "Do not invent individual IDs from group means or make the instruction unconditional."
+      },
+      {
+        "id": "EX06",
+        "source": "Literature parameters may be used only as starting values.",
+        "source_context": "Adopted project decision",
+        "expected": "PERMITTED_USE_BOUNDARY",
+        "retain": [
+          "starting values only"
+        ],
+        "avoid": "Do not mandate literature initialization or permit fixed final parameter adoption."
+      },
+      {
+        "id": "EX07",
+        "source": "Use either candidate A or candidate B.",
+        "source_context": "Adopted project protocol",
+        "expected": "REQUIRED_ACTION",
+        "retain": [
+          "either/or alternative group"
+        ],
+        "avoid": "Splitting must not create two simultaneous mandatory actions."
+      },
+      {
+        "id": "EX08",
+        "source": "Human binding data are reserved for final validation and must not be used during initial extrapolation.",
+        "source_context": "Synthetic adopted protocol; existence of such data is not assumed",
+        "expected": "PERMITTED_USE_BOUNDARY plus linked PROHIBITION",
+        "retain": [
+          "final validation use",
+          "initial extrapolation exclusion"
+        ],
+        "avoid": "Do not require those data now or claim they have been supplied."
+      },
+      {
+        "id": "EX09",
+        "source": "Produce a scientifically acceptable fit.",
+        "source_context": "Adopted project protocol without a definition of acceptable",
+        "expected": "UNRESOLVED_REQUIREMENT",
+        "retain": [
+          "the stated requirement",
+          "missing acceptance definition"
+        ],
+        "avoid": "Do not invent an RSE, AIC, sample-size or convergence threshold."
+      }
+    ]
+  },
+  "quality_assessment": {
+    "separate_dimensions": [
+      "Requirement detection and omissions",
+      "Unsupported additions and obligation-strength changes",
+      "Correct field/relationship extraction",
+      "Source support and project adoption",
+      "Condition, exception and alternative preservation",
+      "Final package consistency"
+    ],
+    "proposed_metrics": "With sufficient labelled material, evaluate precision/recall of requirements, slot correctness, grounding and critical semantic failures separately. Text similarity, valid JSON or a plausible explanation alone is insufficient.",
+    "current_limit": "These references and synthetic examples do not establish performance on real project documents. The full labelled blind benchmark remains deferred under the existing qualification decision."
+  },
+  "execution_design": {
+    "model_independence": "Definitions, evidence references and JSON fields are portable across models/APIs; per-model accuracy is not assumed.",
+    "calls": "Detection and slot filling are logical phases inside the existing extractor. Retain the existing independent reviewer; no extra mandatory agent or model call per method step.",
+    "retrieval": "Use source-aware retrieval only where the assigned materials require it; maintain source coverage. Top-k retrieval is not a completeness certificate.",
+    "host_checks": "Validate schema, IDs, source-span locations, allowed references and mapping integrity deterministically. These checks do not replace semantic review.",
+    "not_added": [
+      "Fine-tuning GoLLIE",
+      "Training an SVM or lexical classifier without a suitable dataset",
+      "A mandatory knowledge graph",
+      "Web browsing from inside the extraction agent",
+      "New scientific PK requirements from these papers"
+    ]
+  }
+}

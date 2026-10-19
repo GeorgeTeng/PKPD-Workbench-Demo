@@ -1,0 +1,54 @@
+{
+  "cards": [
+    {
+      "title": "IVIVE: Well-Stirred Model, Binding Corrections, and Interlaboratory Variability",
+      "topics": [
+        "translation"
+      ],
+      "claim": "IVIVE predicts hepatic clearance (CLH) using the well-stirred model: CLH = [QH * (fu,B / fu,inc) * CLint] / [QH + (fu,B / fu,inc) * CLint]. Here, QH is liver blood flow, fu,B is fraction unbound in blood, and fu,inc is fraction unbound in incubation. In vitro CLint must be scaled to in vivo CLint using physiological factors (e.g., microsomal protein content, hepatocellularity) before applying the model. Interlaboratory variability in CLint measurements is significant (CVs up to 99.8%), and compounds with lower lipophilicity, lower intrinsic clearance, and lower protein binding tend to have more accurate predictions.",
+      "conditions": [
+        "Applicable when in vitro intrinsic clearance (CLint) data is available from microsomes or hepatocytes.",
+        "Requires specific binding data (fu,B and fu,inc) and physiological scaling factors.",
+        "Method bias and uncertainty must be assessed for the intended chemical/mechanistic domain.",
+        "Human in vitro input permission is distinct from human PK holdout permission."
+      ],
+      "required_inputs": [
+        "In vitro intrinsic clearance (CLint) with units and assay conditions.",
+        "Fraction unbound in blood (fu,B) and fraction unbound in incubation (fu,inc).",
+        "Physiological scaling factors (liver weight, microsomal protein content, hepatocellularity).",
+        "Liver blood flow (QH) value for the target species (human)."
+      ],
+      "limitations": [
+        "Systematic underprediction is common, particularly for high extraction ratio (ER) drugs.",
+        "Interlaboratory variability in CLint measurements propagates to prediction error.",
+        "Total systemic clearance cannot be derived solely from a hepatic component without evidence of other elimination pathways.",
+        "Assay conditions (e.g., shaking during incubation) can affect results; consistency is critical."
+      ],
+      "downstream_use": "Use to generate candidate hepatic clearance predictions. Flag high-ER compounds as high uncertainty due to known underprediction bias. Do not use if binding data or scaling factors are missing or unqualified.",
+      "evidence_chunk_ids": [
+        "SUP012:MATH01",
+        "SUP012:0002",
+        "SUP012:0005",
+        "SUP009:0002",
+        "SUP009:0012",
+        "IN_IVIVE:0007"
+      ],
+      "id": "round2_T01:K02",
+      "origin_job": "round2_T01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_IVIVE",
+        "SUP009",
+        "SUP012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "T01",
+      "retrieval_keywords": "Allometry versus IVIVE: inputs, qualification and species limitations",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

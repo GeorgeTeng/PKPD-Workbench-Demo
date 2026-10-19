@@ -1,0 +1,121 @@
+{
+  "cards": [
+    {
+      "title": "Destructive Sampling and Pooled Specimen EDA Display Conventions",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Experimental unit definition and raw data visibility are critical for valid EDA of destructive sampling and pooled specimen data. The experimental unit is the entity independently assigned to treatment; pooling does not automatically create an experimental unit. Displays must show raw observations and technical repeats separately from summaries, preserving quantification status (e.g., BLQ) without imputation. Uncertainty metrics must reflect the true independent unit count, not subsample or technical repeat counts.",
+      "conditions": [
+        "Applicable when the documented design uses destructive sampling or physical pooling; sparse sampling alone does not prove destructive design.",
+        "Pooled specimens where multiple sources contribute to a single analytical measurement.",
+        "Small-sample exploratory analysis requiring distribution visibility.",
+        "Data containing BLQ, above-ULOQ, or missing values."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Record-level data with explicit experimental_unit_id (nullable if unknown).",
+        "Specimen/pool_id and technical_repeat_id.",
+        "Measured concentration values with units and quantification status (Quantified, BLQ, Above ULOQ, Missing).",
+        "Time values with origin and units.",
+        "Treatment/group assignment labels.",
+        "Nullable serial_observation_subject_id, distinct from experimental_unit_id (e.g. an animal within its randomized cage); required for individual serial lines or paired loops."
+      ],
+      "limitations": [
+        "This is an engineering display contract, not a statistical analysis plan or regulatory requirement.",
+        "Does not define imputation methods or statistical estimators.",
+        "Cannot reconstruct unknown pool membership or experimental unit identities.",
+        "Does not support model fitting or mechanism inference."
+      ],
+      "downstream_use": "Guides the creation of transparent EDA plots that accurately reflect data structure, censoring, and unit hierarchy. Prevents pseudoreplication in visual summaries and ensures raw data visibility for distribution assessment.",
+      "evidence_chunk_ids": [
+        "ADD001:0012",
+        "ADD001:0013",
+        "ADD005:0012",
+        "EDA001:0001",
+        "EDA001:0004"
+      ],
+      "plot_recipe": {
+        "input_contract": "Preserve record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID, regimen and dose occasion, route/formulation, analyte, matrix, free/total basis, time value/unit/origin, measured value/unit and quantification status. Map only available applicable fields; never invent missing identities. Preserve nullable serial_observation_subject_id separately from experimental_unit_id, with its source linkage. Numeric measured value is required only for quantified records; censoring/missing statuses may have a null numeric value. Optional summary/error inputs are needed only when that layer is displayed.",
+        "plot_type": "Destructive-sampling point display grouped by documented time and treatment; no individual time trajectory.",
+        "axes_and_units": "Label the actual X and Y variables, units and time origin. Keep incompatible quantities in separate labelled panels. A log-scaled concentration axis retains original concentration-unit ticks and admits positive quantitative values only; this differs from plotting a numeric log-transformed variable.",
+        "grouping_and_connections": "Use separate experimental_unit_id and measured_pool_id. Intervention assignment defines the experimental unit; physical pooling does not automatically create it. Preserve known group assignment when pool membership is unknown. Never connect raw points from different units; a labelled group-summary guide is optional when its inputs and meaning are established. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "A pool point is the measured pool concentration, not a reconstructed arithmetic mean of donor concentrations. Preserve technical repeats as nested observations; do not automatically average them. Optional summaries must state formula/weights, unit level and source.",
+        "censoring_and_missingness": "Preserve quantified observations and endpoint-specific censored/missing/not-sampled/technical-failure states. For concentration records only, confirmed BLQ means C<LLOQ and above range means C>ULOQ. For other measured endpoints use the actual endpoint symbol, unit, assay definition and inequality; do not transfer a concentration limit or microbial counting limit to another endpoint. No default substitution or silent deletion; unknown limits permit categorical status display only.",
+        "transformations_and_formula": "Retain original values, units, formula, input linkage and calculation order. Perform only the explicitly stated descriptive transformation with complete compatible inputs. No model fitting, integration, unsampled-peak interpolation or arbitrary log offsets.",
+        "uncertainty_and_n": "Report observed samples/pools and known independent-unit n separately. One physical pool supplies no recoverable between-animal SD. Unknown pool membership or unit identity remains unresolved; rows cannot be counted as independent units. SD, SE and CI are not interchangeable.",
+        "interpretation_limits": "Descriptive patterns identify questions for later qualified analysis; they do not select a model, prove mechanism, dose proportionality, clinical efficacy or safety. Quantifiable-only summaries, if supplied, describe that subset, not the full censored sample.",
+        "stop_or_fallback": "Block only the operation that needs an unresolved input. Unknown serial-subject IDs block individual connections; unknown experimental-unit IDs block independent-unit summaries. Neither blocks labelled observed record/group displays. Unknown limits block numeric boundary placement, not status display. Unknown time origin permits a source timestamp only if documented; otherwise use a record table. Missing validation documentation means qualification unestablished, not automatically invalid. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "The experimental unit is the biological entity subjected to an intervention independently of all other units; conflating it with subsamples leads to pseudoreplication.",
+          "evidence_chunk_ids": [
+            "ADD001:0012",
+            "ADD001:0013"
+          ],
+          "scope": "Animal research reporting guidelines.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Multiple measurements from a single source sample or sub-samples provide information on measurement error or within-unit variability, not between-unit variability.",
+          "evidence_chunk_ids": [
+            "ADD005:0012"
+          ],
+          "scope": "Laboratory-based research unit of analysis issues.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Bar graphs of continuous data can conceal distributional differences and paired/nonindependent structures, whereas scatterplots allow readers to evaluate the full data distribution.",
+          "evidence_chunk_ids": [
+            "EDA001:0001",
+            "EDA001:0004"
+          ],
+          "scope": "Small-sample biomedical continuous-outcome displays.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v2_E02:K01",
+      "origin_job": "round5_E02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD001",
+        "ADD005",
+        "EDA001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E02",
+      "retrieval_keywords": "Destructive sampling and pooled specimen displays",
+      "supersedes": [
+        "round5_E02:K01",
+        "round4_E02:K01",
+        "round5_reviewed_E02:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "destructive sampling and pooled specimen displays",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "ADD001",
+        "ADD005",
+        "EDA001"
+      ],
+      "review_revision": {
+        "version": "local_review_v2",
+        "parent_card_id": "round5_E02:K01",
+        "parent_card_sha256": "9e2c050c331d54655be383c74aa5dd72bfc9f9579d2670913b0023c7038a8cb5",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "cb8abe35263651d772b93e4d5209aa0f3e44b8714d97d87fb42a77befee3f740"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

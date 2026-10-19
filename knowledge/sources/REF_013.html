@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>Sparse sampling (pre-clinical) data</title>
+
+ <meta content="NCA parameter formulas" name="search-keywords" />
+ <link rel="stylesheet" href="../Phoenix_UserDocs.css" type="text/css" />
+
+
+ <script type="text/javascript" language="JavaScript">
+//<![CDATA[
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//]]>
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+-->
+</style>
+ <meta name="generator" content="Adobe FrameMaker 2017" />
+<script type="text/javascript" src="../template/scripts/rh.min.js"></script>
+<script type="text/javascript" src="../template/scripts/common.min.js"></script>
+<script type="text/javascript" src="../template/scripts/topic.min.js"></script>
+<script type="text/javascript" src="../template/scripts/constants.js"></script>
+<script type="text/javascript" src="../template/scripts/utils.js"></script>
+<script type="text/javascript" src="../template/scripts/mhutils.js"></script>
+<script type="text/javascript" src="../template/scripts/mhlang.js"></script>
+<script type="text/javascript" src="../template/scripts/mhver.js"></script>
+<script type="text/javascript" src="../template/scripts/settings.js"></script>
+<script type="text/javascript" src="../template/scripts/XmlJsReader.js"></script>
+<script type="text/javascript" src="../template/scripts/loadparentdata.js"></script>
+<script type="text/javascript" src="../template/scripts/loadscreen.js"></script>
+<script type="text/javascript" src="../template/scripts/loadprojdata.js"></script>
+<script type="text/javascript" src="../template/scripts/mhtopic.js"></script>
+ <link rel="stylesheet" type="text/css" href="../template/styles/topic.min.css">
+<script type="text/javascript" >
+gRootRelPath = "..";
+gCommonRootRelPath = "..";
+gTopicId = "29.6.4.0_3";
+</script>
+ <meta name="brsprev" value="topics/Urine_data.htm">
+ <meta name="brsnext" value="topics/Drug_effect_data_model_220.htm">
+ <meta name="topic-breadcrumbs" content="Phoenix WinNonlin > NCA > NCA parameter formulas" />
+</head>
+
+<body dir="ltr">
+<script type="text/javascript" src="../ehlpdhtm.js"></script>
+
+    <!-- Breadcrumb --> 
+    <div><script type="text/javascript" language="javascript">//<![CDATA[
+document.write("<p>");
+AddMasterBreadcrumbs("../index.html", "", ">", "Home", "content.htm");
+document.write("<a href=\"intrownl.htm\">Phoenix WinNonlin<\/a> > <a href=\"NCA_user_interface.htm\">NCA<\/a> > <a href=\"NCA_parameter_formulas.htm\">NCA parameter formulas<\/a> > Sparse sampling (pre-clinical) data<\/p>");
+//]]></script>
+    </div>
+    <div dir="ltr">
+  <p dir="ltr" class="Heading3_WWPageBreak"><a name="IX_Sparse_data_in_NCA"></a><a name="IX_Pre_clinical_data_in_NCA"></a><a name="XREF_35321_Sparse_sampling"></a>Sparse sampling (pre-clinical) data</p>
+  <p dir="ltr" class="Body">When an NCA model is loaded with the Sparse Sampling option (see <a href="Options_tab1.htm#XREF_31900_Options_tab"><span class="zzCrossRef">“Options tab”</span></a>), the data are treated as a special case of plasma or urine concentration data. The NCA engine computes the mean concentration or rate at each unique time value or interval. Using the mean concentration curve across subjects, it estimates the same parameters normally calculated for plasma or urine data, plus those listed below. See <a href="Sparse_sampling_calculation.htm#XREF_27281_Sparse_sampling"><span class="zzCrossRef">“Sparse sampling calculation”</span></a>&#160;for additional details of NCA computations with sparse data. </p>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>The names of some of the output worksheets change when the data is sparse: Final Parameters becomes Mean Curve Final Parameters, and Summary Table becomes Mean Curve Summary Table.</p>
+  <p dir="ltr" class="Heading4">Plasma or serum concentration parameters</p>
+  <p dir="ltr" class="Body">Sparse sampling methods for plasma data (models 200–202) compute the following parameters in addition to those listed in <a href="NCA_parameter_formulas.htm#XREF_26292_Plasma_or_serum"><span class="zzCrossRef">“Plasma or serum data”</span></a>.</p>
+  <p dir="ltr" class="Body"><span class="Mouse_Click">SE_Cmax</span>: Standard error of data at Tmax (time of maximum mean concentration).</p>
+  <p dir="ltr" class="Body"><span class="Mouse_Click">SE_AUClast</span>: It is the standard error of the area under the mean concentration curve from dose time to Tlast, where Tlast is the time of last measurable (positive) mean concentration.</p>
+  <p dir="ltr" class="Body"><span class="Mouse_Click">SE_AUCall</span>: Standard error of the area under the mean concentration curve from dose time to the final observation time.</p>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>SE_AUClast and SE_AUCall provide a measurement of the uncertainty for AUClast and AUCall, respectively, and are usually the same. Differences between these parameter values will only be observed if some of the measurements were flagged as BQL (below the quantitation limit).</p>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>With Sparse Sampling, since SE for AUC computations depend on AUC being a linear combina&#173;tion of the mean concentrations, SE_AUClast and SE_AUCall are not included in the output when the output when log trapezoidal rules are specified as the method for computing AUC.</p>
+  <p dir="ltr" class="Heading4">Urine excretion rate parameters</p>
+  <p dir="ltr" class="Body">Sparse sampling methods for urine data (models 210–212) compute the following parameters in addi&#173;tion to those listed under <a href="Urine_data.htm#XREF_21194_Urine_data"><span class="zzCrossRef">“Urine data”</span></a>.</p>
+  <p dir="ltr" class="Body"><span class="Mouse_Click">SE_Max_Rate</span>: Standard error of the data at the time of maximum mean rate.</p>
+  <p dir="ltr" class="Body"><span class="Mouse_Click">SE_AURC_last</span>: Standard error of the area under the mean urinary excretion rate curve from dose time through the last interval that has a measurable (positive) mean rate.</p>
+  <p dir="ltr" class="Body"><span class="Mouse_Click">SE_AURC_all</span>: Standard error of the area under the mean urinary excretion rate curve from dose time through the final interval.</p>
+  <p dir="ltr" class="Heading4">Individuals by time</p>
+  <p dir="ltr" class="Body">This sheet includes the individual subject data, along with N (number of non-missing observations), the mean and standard error for each unique time value (plasma data) or unique midpoint value (urine data).</p>
+  <p dir="ltr" class="Heading4">References</p>
+  <p dir="ltr" class="Body">Holder (2001). Comments on Nedelman and Jia's extension of Satterthwaite's approximation applied to pharmacokinetics. <span class="Book_Title">J Biopharm Stat</span> 11(1-2):75–9.</p>
+  <p dir="ltr" class="Body">Nedelman, Gibiansky and Lau (1995). Applying Bailer's method for AUC intervals to sparse sampling. <span class="Book_Title">Pharm Res</span> 12:124–8.</p>
+  <p dir="ltr" class="Body">Nedelman and Jia (1998). An extension of Satterthwaite's approximation applied to pharmacokinet&#173;ics.<span class="Book_Title"> J Biopharm Stat</span> 8(2):317–28.</p>
+  <p dir="ltr" class="Body">Yeh (1990). Estimation and Significant Tests of Area Under the Curve Derived from Incomplete Blood Sampling. <span class="Book_Title">ASA Proceedings of the Biopharmaceutical Section</span> 74–81.</p>
+  </div>
+<!-- Footer using FM variable --> 
+    <div>
+      <hr>
+      <p style="font-size:small">Last modified date:7/9/20<br> 
+	  <img alt="Certara USA, Inc." style=" width:10%max-width: 100% ;height: automax-width: 100% ;height: auto" src="../responsive_html5_!MasterPage!/certara.png"><br>
+      <a target="_blank" href="../responsive_html5_!MasterPage!/legal_notice.htm">Legal Notice</a> | <a target="_blank" href="../responsive_html5_!MasterPage!/contact_info.htm">Contact Certara</a><br>
+      &#169; 2020 Certara USA, Inc. All rights reserved.</p>
+    </div>
+  </body>
+</html>

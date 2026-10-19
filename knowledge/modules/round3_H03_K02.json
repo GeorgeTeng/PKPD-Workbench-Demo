@@ -1,0 +1,54 @@
+{
+  "cards": [
+    {
+      "title": "Route-Conditional Feasibility and Assumption Labeling",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "Feasibility of regimen and formulation parameters is route- and model-conditional. The relevance of fed/fasted state, particle size and other formulation inputs depends on the specific formulation, model structure and intended use. Scenarios should explicitly label assumptions, their basis and uncertainty; unsupported assumptions must not be treated as established facts. Sensitivity analysis should address uncertain parameters relevant to the selected model structure.",
+      "conditions": [
+        "IV simulations: Focus sensitivity on CL, Vss/Vc, and infusion duration; exclude absorption parameters.",
+        "Oral simulations: Include GI pH, particle size, and absorption rate in sensitivity analysis if modeled.",
+        "All simulations: Must distinguish between measured inputs and assumed/prospective inputs."
+      ],
+      "required_inputs": [
+        "Route of administration (IV vs. Oral).",
+        "Explicit list of assumed parameters (e.g., F, Ka, particle size) with provenance marked as 'assumed' or 'literature-derived'.",
+        "Output time grid and dose basis (mg/kg vs. absolute dose)."
+      ],
+      "limitations": [
+        "A unique multi-compartment curve cannot be derived from CL and Vss alone without additional distribution parameters.",
+        "Human variability and clinical validation data are not established for the target drug; simulations are prospective scenarios.",
+        "Technical replicates do not increase biological n; group means are not individual trajectories."
+      ],
+      "downstream_use": "Generate a sensitivity analysis plan that perturbs only the parameters relevant to the specific route and model structure. Label all outputs as 'prospective scenario' and flag any parameter lacking experimental or high-quality literature support as an assumption.",
+      "evidence_chunk_ids": [
+        "IN_HUMAN_SIMULATION:0008",
+        "SUP015:0009",
+        "SUP015:0010",
+        "SUP016:0018",
+        "SUP016:0021"
+      ],
+      "id": "round3_H03:K02",
+      "origin_job": "round3_H03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_HUMAN_SIMULATION",
+        "SUP015",
+        "SUP016"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "H03",
+      "retrieval_keywords": "Sensitivity analyses and evidence-supported regimen/formulation feasibility",
+      "supersedes": [
+        "round2_H03:K01",
+        "round2_H03:K02",
+        "round2_H03:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

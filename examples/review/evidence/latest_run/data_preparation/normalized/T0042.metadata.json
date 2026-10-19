@@ -1,0 +1,215 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "T0042",
+  "role": "PD_OBSERVATIONS",
+  "metadata": {
+    "role": "PD_OBSERVATIONS",
+    "species": "Neonatal rabbit",
+    "matrix": "Lung",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "reported relative endpoint",
+    "drug": "PMB",
+    "route": "intratracheal",
+    "endpoint_window": "four-hour ventilation experiment",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "NOT_FOUND",
+    "observation_source": "SOURCE_VALUES",
+    "dose_basis": "NOT_FOUND",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "intratracheal surfactant 200 mg/kg plus PMB 1% w/w before inoculation",
+    "additional_roles": [
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
+    ],
+    "columns": [
+      {
+        "header": "Measure",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "A",
+        "evidence": [
+          {
+            "source": "F0003:S3:T3:A34",
+            "quote": "Measure"
+          },
+          {
+            "source": "F0003:S3:T3:A35",
+            "quote": "Lung bacterial-load reduction"
+          }
+        ]
+      },
+      {
+        "header": "Value",
+        "meaning": "RESPONSE",
+        "unit": "fold",
+        "qualifiers": [
+          "reported relative endpoint"
+        ],
+        "column": "B",
+        "evidence": [
+          {
+            "source": "F0003:S3:T3:B34",
+            "quote": "Value"
+          },
+          {
+            "source": "F0003:S3:T3:B35",
+            "quote": "20"
+          },
+          {
+            "source": "F0003:S3:T3:C35",
+            "quote": "fold"
+          },
+          {
+            "source": "F0003:S3:T3:A33",
+            "quote": "This is a reported relative endpoint; no serial PMB concentration data are present in the local archive."
+          }
+        ]
+      },
+      {
+        "header": "Unit",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "C",
+        "evidence": [
+          {
+            "source": "F0003:S3:T3:C34",
+            "quote": "Unit"
+          },
+          {
+            "source": "F0003:S3:T3:C35",
+            "quote": "fold"
+          }
+        ]
+      },
+      {
+        "header": "Comparator",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "D",
+        "evidence": [
+          {
+            "source": "F0003:S3:T3:D34",
+            "quote": "Comparator"
+          },
+          {
+            "source": "F0003:S3:T3:D35",
+            "quote": "surfactant without PMB"
+          }
+        ]
+      }
+    ],
+    "permission": "DEVELOPMENT_CANDIDATE",
+    "source_table": {
+      "title": "Neonatal rabbit pulmonary PMB",
+      "sheet": "Rabbit",
+      "region": {
+        "start_row": 30,
+        "end_row": 37,
+        "left": 1,
+        "right": 4,
+        "header_row": 34,
+        "title": "Neonatal rabbit pulmonary PMB",
+        "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
+        "note_regions": []
+      },
+      "notes": "Neonatal rabbit pulmonary PMB\nS10 | DOI 10.1159/000475877 | Results: bacterial proliferation\nE. coli 25922; intratracheal surfactant 200 mg/kg plus PMB 1% w/w before inoculation; four-hour ventilation experiment.\nThis is a reported relative endpoint; no serial PMB concentration data are present in the local archive.",
+      "column_map": {
+        "c001_measure": "Measure",
+        "c002_value": "Value",
+        "c003_unit": "Unit",
+        "c004_comparator": "Comparator"
+      }
+    },
+    "source_item_id": "F0003:S3:T3",
+    "source_evidence": [
+      {
+        "source": "F0003:S3:T3:A30",
+        "quote": "Neonatal rabbit pulmonary PMB"
+      },
+      {
+        "source": "F0003:S3:T3:A31",
+        "quote": "S10 | DOI 10.1159/000475877 | Results: bacterial proliferation"
+      },
+      {
+        "source": "F0003:S3:T3:A32",
+        "quote": "E. coli 25922; intratracheal surfactant 200 mg/kg plus PMB 1% w/w before inoculation; four-hour ventilation experiment."
+      },
+      {
+        "source": "F0003:S3:T3:A33",
+        "quote": "This is a reported relative endpoint; no serial PMB concentration data are present in the local archive."
+      },
+      {
+        "source": "F0003:S3:T3:A35",
+        "quote": "Lung bacterial-load reduction"
+      },
+      {
+        "source": "F0003:S3:T3:B35",
+        "quote": "20"
+      },
+      {
+        "source": "F0003:S3:T3:C35",
+        "quote": "fold"
+      },
+      {
+        "source": "F0003:S3:T3:D35",
+        "quote": "surfactant without PMB"
+      }
+    ],
+    "requirement_ids": [],
+    "independent_animal_count": "NOT_ESTABLISHED",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "200",
+          "unit": "mg/kg",
+          "subject": "surfactant",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T3:A32",
+              "quote": "E. coli 25922; intratracheal surfactant 200 mg/kg plus PMB 1% w/w before inoculation; four-hour ventilation experiment."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
+    "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
+    "normalized_fields": {},
+    "preparation_policy": "DATASET_ACTION_V1"
+  },
+  "data_file": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\normalized\\T0042.json",
+    "sha256": "8115f8b900e4bf70e9a20198103fee5b37b83f05cad13311060d20bb0ce3c513"
+  },
+  "source_refs": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\files\\F0003.xlsx",
+      "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\parsed\\F0003.json",
+      "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\preparation_plan.json",
+      "sha256": "db2e58af367824a5a9fea3524390d433115d3f33370e8290d344df602da71b9a"
+    }
+  ],
+  "summary": {
+    "source_records": 1,
+    "retained_records": 1,
+    "quarantined_records": 0,
+    "independent_animals": "NOT_ESTABLISHED",
+    "quarantine_reasons": {}
+  },
+  "review_status": "PENDING",
+  "release_authority": "SEPARATE_SIGNED_HANDOFF",
+  "human_prediction_allowed": false
+}

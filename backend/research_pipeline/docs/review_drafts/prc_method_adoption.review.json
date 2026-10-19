@@ -1,0 +1,107 @@
+{
+  "review_date": "2026-10-07",
+  "scope": "M01-M03 integration into focused PRC rules and agent contract 1.2",
+  "status": "OFFLINE_IMPLEMENTATION_REVIEW_COMPLETE; HUMAN_WORDING_REVIEW_PENDING",
+  "approved_methods": [
+    "GoLLIE annotation guidelines",
+    "EMNLP 2025 requirement detection and slot extraction",
+    "XTRAREG source-bounded context"
+  ],
+  "rule_summary": [
+    {
+      "id": "PRC001",
+      "instruction": "Extract candidate requirements from the effective project specification, including requirements intended for later stages.",
+      "human_review": "APPROVED"
+    },
+    {
+      "id": "PRC002",
+      "instruction": "Extract the source-supported requirements that govern how this project must be carried out, including constraints that limit the intended result.",
+      "human_review": "PENDING_UPDATED_WORDING_REVIEW"
+    },
+    {
+      "id": "PRC003",
+      "instruction": "Represent each obligation together with the source-stated actor or target, required or prohibited action, applicability, conditions and exceptions.",
+      "human_review": "PENDING_UPDATED_WORDING_REVIEW"
+    },
+    {
+      "id": "PRC004",
+      "instruction": "For every candidate rule, identify the original evidence that supports its full meaning and the project evidence that adopts it.",
+      "human_review": "PENDING_UPDATED_WORDING_REVIEW"
+    },
+    {
+      "id": "PRC007",
+      "instruction": "Give each extracted rule source-grounded applicability and usage timing so downstream tasks receive the requirements they need.",
+      "human_review": "PENDING_REORGANIZED_WORDING"
+    },
+    {
+      "id": "PRC008",
+      "instruction": "Identify unresolved authority, obligation meaning, contradictions or applicability that prevent a faithful rule package.",
+      "human_review": "PENDING_REORGANIZED_WORDING"
+    },
+    {
+      "id": "PRC011",
+      "instruction": "Independently review the organized candidate collection against the original project materials and reviewed context before publication.",
+      "human_review": "PENDING_UPDATED_WORDING_REVIEW"
+    }
+  ],
+  "review_findings": [
+    {
+      "area": "Rule ownership",
+      "result": "Shared G001-G007 supplied once; seven PRC instructions focus on extraction. PRC001 exact approved record retained."
+    },
+    {
+      "area": "Detection and fields",
+      "result": "Classification definitions and illustrative boundaries precede source-supported slot filling within one call."
+    },
+    {
+      "area": "Grounding",
+      "result": "All admitted units remain available; exact field spans and bidirectional mappings are checked before independent review."
+    },
+    {
+      "area": "Final review",
+      "result": "Reviewer receives actual organized final records, checks all final IDs and binds their hash. Publication reproduces the same records."
+    },
+    {
+      "area": "Compatibility",
+      "result": "Legacy 1.0/1.1 extraction requests match the saved preceding implementation; both publication contracts pass fixtures."
+    },
+    {
+      "area": "Orchestration",
+      "result": "LangGraph/Prefect/Snakemake path retained; resource packaged and included in saved plan code dependencies."
+    }
+  ],
+  "verification": {
+    "tests": 92,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "type": "OFFLINE_SYNTHETIC_CONTRACT_AND_REGRESSION_TESTS",
+    "junit": "outputs/PRC_Methodology_20261007/verification/tests.junit.xml",
+    "real_llm_calls": 0,
+    "real_project_runs": 0
+  },
+  "limits": [
+    "Real-model extraction accuracy and formal blind qualification remain unestablished.",
+    "Literal citations and complete field coverage do not prove semantic support; independent review remains necessary.",
+    "Human approval of the updated PRC002/003/004/007/008/011 wording remains pending.",
+    "Downstream compliance execution and full amendment-lineage migration remain deferred."
+  ],
+  "file_hashes": [
+    {
+      "path": "research_pipeline/research_pipeline/project_rule_agent.py",
+      "sha256": "761d55cef463957f756df994d82fc4f128c19f6028277b60fe14ff30e8c35544"
+    },
+    {
+      "path": "research_pipeline/research_pipeline/resources/project_rules/extraction_policy.1.2.json",
+      "sha256": "40c6e291318014177cd36c4175f57b8fa6e2180e5624a70671683d1cd04c41dc"
+    },
+    {
+      "path": "research_pipeline/research_pipeline/workflow_runtime.py",
+      "sha256": "b9673ab79ba4f0ee834292a1d053ac2b422759c34c3a2789033ed0e76e1af5e8"
+    },
+    {
+      "path": "research_pipeline/tests/test_prc_methodology.py",
+      "sha256": "aa249a56499dbee39115f39d029b3a61b3dedf991ad4a1bb4d67be170ab62813"
+    }
+  ]
+}

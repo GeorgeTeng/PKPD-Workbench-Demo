@@ -1,0 +1,1053 @@
+{
+  "schema_version": "1.0",
+  "name": "PK modeling rules grounded in FDA, ICH and EMA guidance",
+  "created_at": "2026-09-24",
+  "status": "DRAFT_PENDING_USER_REVIEW",
+  "enabled": false,
+  "principle": "Guidance recommendations are nonbinding; numeric thresholds are project parameters, not regulatory certification.",
+  "activation_policy": "Review each rule; route only the rules whose applies_to_stages match an agent. Do not append the whole pack to every agent.",
+  "status_legend": {
+    "MET": "implemented and exercised",
+    "PARTIAL": "present in part, or declared but not enforced",
+    "MISSING": "not implemented"
+  },
+  "counts": {
+    "MET": 4,
+    "PARTIAL": 17,
+    "MISSING": 8
+  },
+  "sources": {
+    "FDA_POPPK_2022": {
+      "title": "FDA Guidance for Industry: Population Pharmacokinetics",
+      "version": "Final, February 2022",
+      "url": "https://www.fda.gov/media/128793/download"
+    },
+    "ICH_M15_2026": {
+      "title": "ICH M15 General Principles for Model-Informed Drug Development",
+      "version": "ICH Step 4, 29 January 2026; FDA final guidance, June 2026",
+      "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+    },
+    "EMA_POPPK_REPORT_2007": {
+      "title": "EMA Guideline on reporting the results of population pharmacokinetic analyses",
+      "version": "CHMP/EWP/185990/06; adopted June 2007, effective 1 January 2008",
+      "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-reporting-results-population-pharmacokinetic-analyses_en.pdf"
+    },
+    "EMA_AM_PKPD_2016": {
+      "title": "EMA Guideline on the use of PK and PD in the development of antimicrobial medicinal products",
+      "version": "EMA/CHMP/594085/2015; effective 1 February 2017",
+      "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf"
+    },
+    "ICH_M10_2022": {
+      "title": "ICH M10 Bioanalytical Method Validation and Study Sample Analysis",
+      "version": "FDA final, November 2022",
+      "url": "https://www.fda.gov/media/162903/download"
+    },
+    "FDA_MRSD_2005": {
+      "title": "FDA Guidance: Estimating the Maximum Safe Starting Dose in Initial Clinical Trials for Therapeutics in Adult Healthy Volunteers",
+      "version": "Final, July 2005",
+      "url": "https://www.fda.gov/files/drugs/published/Estimating-the-Maximum-Safe-Starting-Dose-in-Initial-Clinical-Trials-for-Therapeutics-in-Adult-Healthy-Volunteers.pdf"
+    },
+    "FDA_AI_2025": {
+      "title": "FDA Draft Guidance: Considerations for the Use of Artificial Intelligence to Support Regulatory Decision-Making for Drug and Biological Products",
+      "version": "Draft, January 2025 (docket FDA-2024-D-4689)",
+      "url": "https://www.fda.gov/media/184830/download"
+    },
+    "FDA_EMA_GAIP_2026": {
+      "title": "FDA-EMA Guiding Principles of Good AI Practice in Drug Development",
+      "version": "January 2026",
+      "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+    }
+  },
+  "rules": [
+    {
+      "id": "PKMR-01",
+      "area": "Question, context of use and plan",
+      "title": "Assessment table for every model use",
+      "requirement": "Record the question of interest, context of use, model influence, consequence of a wrong decision and model risk (low/medium/high, justified) for each model output.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "2.1.1-2.1.5; Appendix 1",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "dispatch",
+        "animal_pk",
+        "human_pk",
+        "index",
+        "clinical"
+      ],
+      "computable_check": "Context JSON contains an assessment_table entry with all five fields for each requested model output; agents stop when it is absent.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Proposal v2.1 states the objective and prespecified criteria, but the context JSON has no assessment table or model-risk rating, so evaluation depth is not tied to risk.",
+      "proposed_action": "Add an assessment_table block to main.json at extraction; route the relevant row to each agent.",
+      "links_to_existing_rules": [
+        "GEN-PKPD-001",
+        "PK-AUDIT-001"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "每个模型用途的评估表（M15）",
+      "area_zh": "问题、使用情境与计划"
+    },
+    {
+      "id": "PKMR-02",
+      "area": "Question, context of use and plan",
+      "title": "Model analysis plan before fitting",
+      "requirement": "Predefine data handling, model candidates, evaluation activities and technical criteria; document deviations in the report.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "3; 4.1",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        },
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.B; VII",
+          "url": "https://www.fda.gov/media/128793/download"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk",
+        "index"
+      ],
+      "computable_check": "A versioned MAP object exists and is hash-bound to each fit request; the report lists deviations.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Pre-fit authorization and catalog criteria exist (e.g. structural correlation 0.95), but there is no MAP object and deviations are not tracked.",
+      "proposed_action": "Generate a MAP per analysis from the assessment table and catalog; require review of the MAP, not only of the run.",
+      "links_to_existing_rules": [
+        "R020",
+        "R029",
+        "PK-AUDIT-001"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "拟合前的模型分析计划",
+      "area_zh": "问题、使用情境与计划"
+    },
+    {
+      "id": "PKMR-03",
+      "area": "Data and censoring",
+      "title": "Censored data in the likelihood",
+      "requirement": "Handle BLQ data with an appropriate method (e.g. censored likelihood) and justify it with sensitivity analysis; never substitute zero or LLOQ/2.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.B (missing data and LOQ)",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "EMA_POPPK_REPORT_2007",
+          "section": "Data: handling of BLQ",
+          "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-reporting-results-population-pharmacokinetic-analyses_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "prepare",
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "Fit request declares censoring method; when BLQ exist, a censored fit and a quantified-only fit are both reported.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "BLQ records are preserved, not imputed, but the nlmixr2 adapter rejects censoring and the S21 LLOQ is unknown, so 2 BLQ values at 6 h sit outside the likelihood.",
+      "proposed_action": "Obtain the S21 LLOQ; pass CENS/LIMIT columns to nlmixr2 and report the sensitivity of CL and Vss.",
+      "links_to_existing_rules": [
+        "PKPD09",
+        "PK-AUDIT-003"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "删失数据进入似然",
+      "area_zh": "数据与删失"
+    },
+    {
+      "id": "PKMR-04",
+      "area": "Data and censoring",
+      "title": "Exclusions and outliers prespecified",
+      "requirement": "Prespecify how outliers are identified; keep exclusions minimal and documented; refit the final model on the complete data to show their influence.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.B",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "ICH_M15_2026",
+          "section": "3 (rationale for exclusion, potential bias)",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "prepare",
+        "animal_pk"
+      ],
+      "computable_check": "Exclusion ledger attached to every fit; influence refit present when any record is excluded.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "The 8 non-quantified rat records are quarantined with reasons. No outlier rule or influence analysis exists; rat 2 was the failed leave-one-out fold and has the longest half-life (2.5 h).",
+      "proposed_action": "Add an influence check (leave-one-animal-out parameter change) to the evaluation step.",
+      "links_to_existing_rules": [
+        "R002",
+        "R018"
+      ],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "预先规定排除与离群值",
+      "area_zh": "数据与删失"
+    },
+    {
+      "id": "PKMR-05",
+      "area": "Data and censoring",
+      "title": "Assay qualification evidence",
+      "requirement": "Carry analyte, matrix, LLOQ and validation status into model qualification; unknown is not failed.",
+      "sources": [
+        {
+          "id": "ICH_M10_2022",
+          "section": "2.2; 3-4",
+          "url": "https://www.fda.gov/media/162903/download"
+        }
+      ],
+      "applies_to_stages": [
+        "prepare",
+        "eda",
+        "animal_pk"
+      ],
+      "computable_check": "Each dataset has an assay card with LLOQ, analyte definition and validation status (VALIDATED/UNKNOWN).",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "EDA rules cover assay limits, but fit requests carry no structured assay card.",
+      "proposed_action": "Adopt the assay card proposed in PK-AUDIT-002.",
+      "links_to_existing_rules": [
+        "PKPD09",
+        "PKPD10",
+        "PK-AUDIT-002"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "检测方法资质证据",
+      "area_zh": "数据与删失"
+    },
+    {
+      "id": "PKMR-06",
+      "area": "Estimation diagnostics",
+      "title": "Converged minimum and covariance step",
+      "requirement": "A model used for inference must reach a converged minimum with a successful covariance step and identifiable parameters.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1 (identifiable parameters)",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "ICH_M15_2026",
+          "section": "3",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "Screen fails when the engine reports gradient/covariance problems or a non-minimum objective.",
+      "current_software_status": "MET",
+      "finding_24_sep_2026": "The screen correctly flags all 6 rat candidates (engine messages: gradient problems with covariance; objective not at minimum). Numerical eligibility is kept separate from scientific acceptance.",
+      "proposed_action": "Keep. Add the checks in PKMR-07 and PKMR-08 to the same screen.",
+      "links_to_existing_rules": [
+        "R020"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "收敛到最小值且协方差步骤成功",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-07",
+      "area": "Estimation diagnostics",
+      "title": "Condition number on a declared matrix",
+      "requirement": "Report the condition number (largest/smallest eigenvalue); values above about 1000 indicate the data cannot support one or more parameters.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "Screen records the condition number of the correlation matrix of estimates and states which matrix was used.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "Not computed by the screen. For the rat 2C combined fit: 3,555 on the covariance matrix, 308 on the correlation matrix, 30 on the structural block.",
+      "proposed_action": "Record the correlation-matrix condition number in candidate_result.json; treat the threshold as a project parameter.",
+      "links_to_existing_rules": [
+        "GEN-PKPD-009"
+      ],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": {
+        "parameter": "condition_number_correlation",
+        "guidance_indicator": 1000,
+        "project_value": null
+      },
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "在明确矩阵上计算条件数",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-08",
+      "area": "Estimation diagnostics",
+      "title": "Correlations across all estimated parameters",
+      "requirement": "Assess identifiability from correlations among all estimates, including variance components, not only structural parameters.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1 (mathematically identifiable parameters)",
+          "url": "https://www.fda.gov/media/128793/download"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "Maximum absolute correlation over the full estimate vector is reported with the parameter pair.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Only structural pairs are checked (max 0.86). The full matrix has Q vs omega^2(VC) = -0.93 and VP vs omega^2(VC) = -0.86, so the VC variability trades off against the distribution phase.",
+      "proposed_action": "Compute correlations on the full covariance matrix; report the top pairs.",
+      "links_to_existing_rules": [
+        "R020"
+      ],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "所有估计参数间的相关性",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-09",
+      "area": "Estimation diagnostics",
+      "title": "Random-effect correlation",
+      "requirement": "Inspect correlations between random effects; simulations must account for them to avoid unrealistic parameter combinations.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1 (GOF list); V.D.3",
+          "url": "https://www.fda.gov/media/128793/download"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "Report the EBE correlation matrix; when |r| is material and shrinkage is low, fit a block omega as a candidate.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "The rat plan fixes a diagonal omega. EBE correlation eta_CL vs eta_VC = 0.71 (p = 0.014) with near-zero shrinkage. Simulating with that correlation moves the NPC from 0% to 2.9% of observations below the 5th percentile.",
+      "proposed_action": "Add a block-omega candidate (CL-VC) to the rat model plan and compare on the same data.",
+      "links_to_existing_rules": [
+        "GEN-PKPD-009"
+      ],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "随机效应之间的相关性",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-10",
+      "area": "Estimation diagnostics",
+      "title": "Shrinkage reported with its consequence",
+      "requirement": "Report ETA and EPS shrinkage; above roughly 20-30% (SD-based), EBE-based diagnostics and exposures become unreliable. Shrinkage alone is not a model-selection criterion.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C; V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk",
+        "index"
+      ],
+      "computable_check": "candidate_result.json carries shrinkage values; EBE-based downstream use is blocked above the project threshold.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "R writes shrinkage.csv but the value is not passed downstream. Rat 2C combined: eta SD shrinkage -3.6% (CL), -1.9% (VC); IWRES 10%.",
+      "proposed_action": "Pass shrinkage into the candidate row and the reviewer payload.",
+      "links_to_existing_rules": [
+        "PK-AUDIT-006"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": {
+        "parameter": "eta_sd_shrinkage_percent",
+        "guidance_indicator": "20-30",
+        "project_value": null
+      },
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "报告收缩率及其后果",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-11",
+      "area": "Estimation diagnostics",
+      "title": "Standard goodness-of-fit set, stratified",
+      "requirement": "Provide DV vs PRED and IPRED, CWRES vs time and PRED, |IWRES| vs IPRED, QQ of random effects and individual plots, stratified by design factors.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "EMA_POPPK_REPORT_2007",
+          "section": "Model evaluation: GOF plots",
+          "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-reporting-results-population-pharmacokinetic-analyses_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "All listed plots exist for the candidate and are referenced in the review payload.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Individual and residual plots are produced in R, but reviewers receive only numeric summaries and plots are not stratified by dose or study.",
+      "proposed_action": "Include compact residual summaries by time bin in the reviewer payload (PK-AUDIT-004).",
+      "links_to_existing_rules": [
+        "PK-AUDIT-004"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "标准拟合优度图，按设计分层",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-12",
+      "area": "Estimation diagnostics",
+      "title": "Physiological plausibility",
+      "requirement": "Check point estimates for physiological plausibility and, after the freeze, against previous analyses.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "ICH_M15_2026",
+          "section": "3",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk"
+      ],
+      "computable_check": "A plausibility record compares CL and Vss with species physiology and a model-independent NCA.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Not a computed check. Independent NCA agrees: geometric-mean CL 0.211 (NCA) vs 0.195 L/h/kg (NLME); Vss 0.43 vs 0.36 L/kg. Published-value comparison is correctly deferred to after the freeze.",
+      "proposed_action": "Add an NCA cross-check step before comparison; keep literature values blinded until the freeze.",
+      "links_to_existing_rules": [
+        "R006"
+      ],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "生理合理性",
+      "area_zh": "估计诊断"
+    },
+    {
+      "id": "PKMR-13",
+      "area": "Model evaluation",
+      "title": "Simulation-based predictive check",
+      "requirement": "Evaluate the model with VPC, pcVPC, NPC or NPDE; several methods together, chosen for the purpose.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "EMA_POPPK_REPORT_2007",
+          "section": "Model evaluation: VPC",
+          "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-reporting-results-population-pharmacokinetic-analyses_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "A predictive-check receipt exists with the percentage of observations outside the 90% PI and the binomial range expected.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "Not implemented in any adapter. An independent NPC of the rat 2C combined fit: 97.1% within the 90% PI and 0 of 102 below the 5th percentile (about 5 expected; P = 0.005 if calibrated).",
+      "proposed_action": "Add an evaluation node that runs VPC/NPC with a fixed seed; the attached rat_model_checks.py is a reference implementation.",
+      "links_to_existing_rules": [
+        "GEN-PKPD-010",
+        "PK-AUDIT-005"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "基于模拟的预测检查（VPC/NPC/NPDE）",
+      "area_zh": "模型评价"
+    },
+    {
+      "id": "PKMR-14",
+      "area": "Model evaluation",
+      "title": "Uncertainty beyond asymptotic standard errors",
+      "requirement": "Estimate parameter uncertainty with bootstrap, SIR or likelihood profiling where asymptotic SEs are unreliable; account for failed replicates.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "EMA_POPPK_REPORT_2007",
+          "section": "Parameter precision",
+          "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-reporting-results-population-pharmacokinetic-analyses_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "A resampling or profile result exists for each structural parameter used downstream.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "Only sandwich (r,s) standard errors, which are conditional on the unresolved numerical warnings.",
+      "proposed_action": "Add an animal-level bootstrap (11 rats) or profile likelihood for CL and Vss; report failed replicates.",
+      "links_to_existing_rules": [
+        "PK-AUDIT-007",
+        "UNC_BOOTSTRAP"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "超越渐近标准误的不确定性",
+      "area_zh": "模型评价"
+    },
+    {
+      "id": "PKMR-15",
+      "area": "Model evaluation",
+      "title": "Internal and external validation kept distinct",
+      "requirement": "Label validation on model-building data as internal; use independent data for external validation; keep every failed fold.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "ICH_M15_2026",
+          "section": "3 (external validation)",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "human_pk"
+      ],
+      "computable_check": "Evaluation record lists data lineage and overlap with development data.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "The 19 Sep leave-one-rat-out run passed 10 of 11 folds (rat 2 failed to converge); the current run records CV_status NOT_PERFORMED.",
+      "proposed_action": "Re-run leave-one-rat-out on the revised model with identical settings per fold.",
+      "links_to_existing_rules": [
+        "R021",
+        "PK-AUDIT-008"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "内部验证与外部验证分开",
+      "area_zh": "模型评价"
+    },
+    {
+      "id": "PKMR-16",
+      "area": "Model evaluation",
+      "title": "Sensitivity analysis for extrapolation",
+      "requirement": "When simulating beyond studied conditions, run sensitivity analysis of the parameters on the decision metric.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.C.1 (final paragraph)",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "ICH_M15_2026",
+          "section": "3 (robustness)",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "human_pk",
+        "clinical"
+      ],
+      "computable_check": "Each human prediction carries a tornado or scenario table for CL, Vss, fu and the allometric exponent.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "No sensitivity step exists; the human branch is not built.",
+      "proposed_action": "Specify sensitivity outputs in the human_pk contract.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "外推时的敏感性分析",
+      "area_zh": "模型评价"
+    },
+    {
+      "id": "PKMR-17",
+      "area": "Translation, targets and PTA",
+      "title": "Human prediction with a complete, justified parameter set",
+      "requirement": "Record every scaled or assumed parameter, the scaling method and its uncertainty; revalidate a model when its purpose changes.",
+      "sources": [
+        {
+          "id": "FDA_POPPK_2022",
+          "section": "V.D",
+          "url": "https://www.fda.gov/media/128793/download"
+        },
+        {
+          "id": "ICH_M15_2026",
+          "section": "3",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        },
+        {
+          "id": "FDA_MRSD_2005",
+          "section": "dose conversion uses BSA (W^0.67); PK scaling is not prescribed",
+          "url": "https://www.fda.gov/files/drugs/published/Estimating-the-Maximum-Safe-Starting-Dose-in-Initial-Clinical-Trials-for-Therapeutics-in-Adult-Healthy-Volunteers.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "human_pk"
+      ],
+      "computable_check": "human_pk output lists CL, Vc, Q, Vp, fu and exponents with source and uncertainty.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "The translation module is not implemented. No FDA guidance prescribes an exponent for scaling clearance; the 0.75/1.0 catalog choice is a project choice and must be labelled as one.",
+      "proposed_action": "Build the human_pk module against PK-AUDIT-009.",
+      "links_to_existing_rules": [
+        "R003",
+        "PK-AUDIT-009"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "人体预测使用完整且有依据的参数集",
+      "area_zh": "外推、靶值与 PTA"
+    },
+    {
+      "id": "PKMR-18",
+      "area": "Translation, targets and PTA",
+      "title": "Frozen prediction and prespecified acceptance",
+      "requirement": "Freeze predictions before opening human data; apply prespecified acceptance criteria; keep failures visible.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "3; 4.1",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "human_pk",
+        "clinical"
+      ],
+      "computable_check": "Prediction files are hash-frozen before the holdout is opened; criteria come from the MAP.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Proposal v2.1 fixes the Hanafin 2021 criteria and the holdout is enforced by routing, but no freeze-then-validate step exists yet.",
+      "proposed_action": "Implement the freeze receipt and the validation step.",
+      "links_to_existing_rules": [
+        "R007",
+        "R009"
+      ],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "冻结预测与预设接受标准",
+      "area_zh": "外推、靶值与 PTA"
+    },
+    {
+      "id": "PKMR-19",
+      "area": "Translation, targets and PTA",
+      "title": "Hold-out integrity and leakage control",
+      "requirement": "Keep test data independent of development; published fitted results cannot drive primary modeling.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "3",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        },
+        {
+          "id": "FDA_AI_2025",
+          "section": "credibility plan: independent test data",
+          "url": "https://www.fda.gov/media/184830/download"
+        }
+      ],
+      "applies_to_stages": [
+        "all"
+      ],
+      "computable_check": "Routing rejects human and benchmark files from animal development; initial estimates come from the data.",
+      "current_software_status": "MET",
+      "finding_24_sep_2026": "Human data are routed out of animal development; rat initial estimates are data-derived (published_fitted_parameters_used = false).",
+      "proposed_action": "Keep.",
+      "links_to_existing_rules": [
+        "R006",
+        "R007"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "保留集独立与防泄漏",
+      "area_zh": "外推、靶值与 PTA"
+    },
+    {
+      "id": "PKMR-20",
+      "area": "Translation, targets and PTA",
+      "title": "PK/PD target definition",
+      "requirement": "Express indices on free drug; report stasis, 1-log and 2-log targets; use dose fractionation to separate indices.",
+      "sources": [
+        {
+          "id": "EMA_AM_PKPD_2016",
+          "section": "4.2",
+          "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "index"
+      ],
+      "computable_check": "Index comparison requires matched regimen-response records and returns INCONCLUSIVE otherwise.",
+      "current_software_status": "MET",
+      "finding_24_sep_2026": "EDA rules PKPD15-PKPD20 encode this, and the pipeline correctly reports the index as not estimable (0 matched regimen-response rows).",
+      "proposed_action": "Keep.",
+      "links_to_existing_rules": [
+        "PKPD19",
+        "PKPD20",
+        "PK-AUDIT-010"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "PK/PD 靶值定义",
+      "area_zh": "外推、靶值与 PTA"
+    },
+    {
+      "id": "PKMR-21",
+      "area": "Translation, targets and PTA",
+      "title": "Probability of target attainment",
+      "requirement": "Use Monte Carlo simulation with justified n and distributions; report PTA per MIC in tables and graphs with 95% CIs; include MICs at the upper end of the distribution; the expected PTA is above 90%.",
+      "sources": [
+        {
+          "id": "EMA_AM_PKPD_2016",
+          "section": "4.4.1-4.4.2",
+          "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "clinical"
+      ],
+      "computable_check": "PTA output has per-MIC PTA, 95% CI, MIC range and the simulated-n justification.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "No PTA module. Proposal v2.1 already specifies 10,000 subjects, seed 20260922 and a 90% cutoff. EMA expects PTA inputs from a patient popPK model where possible.",
+      "proposed_action": "Build the PTA module against these outputs.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "达标概率（PTA）",
+      "area_zh": "外推、靶值与 PTA"
+    },
+    {
+      "id": "PKMR-22",
+      "area": "Software verification",
+      "title": "Verification of code and equations",
+      "requirement": "Verify user-written code, equations and calculations; keep the evidence reviewable.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "3 (verification)",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "all"
+      ],
+      "computable_check": "Independent re-derivation of predictions matches the engine within tolerance.",
+      "current_software_status": "MET",
+      "finding_24_sep_2026": "An independent matrix-exponential solution reproduced all 102 IPRED values of the rat 2C fit (max relative difference 2.2e-14). 288 Python and 37 R tests exist.",
+      "proposed_action": "Add the re-derivation to the automated evaluation step.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "代码与方程验证",
+      "area_zh": "软件验证"
+    },
+    {
+      "id": "PKMR-23",
+      "area": "Software verification",
+      "title": "Reliable, reproducible computerized system",
+      "requirement": "Modeling uses a validated computerized system that is reliable, reproducible and traceable, with documented software testing.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "3 (verification)",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "all"
+      ],
+      "computable_check": "CI runs the test suites on each commit; R and Python environments are pinned in the repository.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "SHA-256 receipts and audit trails are strong. There is no CI, R packages are not pinned (no renv lock), and many paths are absolute Windows paths.",
+      "proposed_action": "Add CI, an renv.lock and path configuration.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "可靠、可复现的计算机化系统",
+      "area_zh": "软件验证"
+    },
+    {
+      "id": "PKMR-24",
+      "area": "AI and LLM credibility",
+      "title": "Context of use and risk for each LLM role",
+      "requirement": "For each AI component, define the question, context of use and model risk (influence x consequence).",
+      "sources": [
+        {
+          "id": "FDA_AI_2025",
+          "section": "Steps 1-3",
+          "url": "https://www.fda.gov/media/184830/download"
+        },
+        {
+          "id": "FDA_EMA_GAIP_2026",
+          "section": "Principles 2 and 4",
+          "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "all"
+      ],
+      "computable_check": "Each agent contract names its COU and risk rating.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "The design keeps LLMs out of numerical estimation and acceptance, which keeps influence low, but no contract records a COU or risk rating.",
+      "proposed_action": "Add cou and model_risk fields to every agent contract (extraction, review, planning).",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "每个 LLM 角色的使用情境与风险",
+      "area_zh": "AI 与 LLM 可信度"
+    },
+    {
+      "id": "PKMR-25",
+      "area": "AI and LLM credibility",
+      "title": "Evidence that the LLM steps perform",
+      "requirement": "Evaluate AI outputs on representative, independent test data with predefined metrics and repeated runs; document deviations.",
+      "sources": [
+        {
+          "id": "FDA_AI_2025",
+          "section": "Steps 4-6",
+          "url": "https://www.fda.gov/media/184830/download"
+        },
+        {
+          "id": "FDA_EMA_GAIP_2026",
+          "section": "Principle 8",
+          "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "context",
+        "review"
+      ],
+      "computable_check": "A benchmark report with per-case results across repeats and at least one non-PMB proposal.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Only 3 of 7 synthetic cases were run live, once each; 4 were never run; one parallel review failed on an engineering error. No accuracy is measured on real proposals.",
+      "proposed_action": "Run all 7 cases 3 times each, add two non-PMB proposals, and record miss and false-alarm counts.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "LLM 步骤的性能证据",
+      "area_zh": "AI 与 LLM 可信度"
+    },
+    {
+      "id": "PKMR-26",
+      "area": "AI and LLM credibility",
+      "title": "Pinned and recorded model identity",
+      "requirement": "Record the AI model version used for every output; model changes trigger re-evaluation.",
+      "sources": [
+        {
+          "id": "FDA_AI_2025",
+          "section": "Lifecycle maintenance",
+          "url": "https://www.fda.gov/media/184830/download"
+        },
+        {
+          "id": "FDA_EMA_GAIP_2026",
+          "section": "Principle 9",
+          "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "all"
+      ],
+      "computable_check": "Every call record contains the resolved model ID; a change invalidates dependent approvals.",
+      "current_software_status": "MISSING",
+      "finding_24_sep_2026": "Calls record requested_model = CLI_DEFAULT and no resolved model ID, so results cannot be tied to a model version.",
+      "proposed_action": "Pass an explicit model to codex exec and store the resolved ID in call.json and the review receipt.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "固定并记录模型版本",
+      "area_zh": "AI 与 LLM 可信度"
+    },
+    {
+      "id": "PKMR-27",
+      "area": "AI and LLM credibility",
+      "title": "Reviewers see the evidence they judge",
+      "requirement": "Assess the full human-AI system; a reviewer can only judge evidence it received.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "3",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        },
+        {
+          "id": "FDA_EMA_GAIP_2026",
+          "section": "Principle 8",
+          "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk",
+        "index"
+      ],
+      "computable_check": "Reviewer payload lists the evidence supplied; unsupplied checks return NOT_ASSESSED.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "Rat reviewers receive numeric summaries only; the reviewer itself noted that no residual plots were supplied.",
+      "proposed_action": "Adopt PK-AUDIT-004.",
+      "links_to_existing_rules": [
+        "PK-AUDIT-004"
+      ],
+      "new_relative_to_24_sep_audit": false,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "审阅者看到其所判断的证据",
+      "area_zh": "AI 与 LLM 可信度"
+    },
+    {
+      "id": "PKMR-28",
+      "area": "Context engineering",
+      "title": "Rule routing that generalizes to a new drug",
+      "requirement": "Rules reach agents through structured tags assigned and reviewed at extraction, not through drug-specific text matching.",
+      "sources": [
+        {
+          "id": "ICH_M15_2026",
+          "section": "4.1 (traceable planning)",
+          "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf"
+        },
+        {
+          "id": "FDA_EMA_GAIP_2026",
+          "section": "Principles 6 and 7",
+          "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "dispatch"
+      ],
+      "computable_check": "task_rules.py contains no proposal-specific sentences; a non-PMB proposal routes without code changes.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "task_rules.py matches and rewrites exact PMB proposal sentences. Unknown clauses stop the agent (safe), but a new drug will stall until code is edited.",
+      "proposed_action": "Have the extraction step emit stage tags per rule clause, reviewed once by a person; keep regex routing only as a fallback suggestion.",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "可推广到新药的规则路由",
+      "area_zh": "Context engineering"
+    },
+    {
+      "id": "PKMR-29",
+      "area": "Context engineering",
+      "title": "Unambiguous status labels in agent context",
+      "requirement": "Status and reason fields must read the same way to people and to LLM reviewers.",
+      "sources": [
+        {
+          "id": "FDA_EMA_GAIP_2026",
+          "section": "Principle 10",
+          "url": "https://www.ema.europa.eu/en/documents/other/guiding-principles-good-ai-practice-drug-development_en.pdf"
+        }
+      ],
+      "applies_to_stages": [
+        "animal_pk"
+      ],
+      "computable_check": "Failed checks are reported as failure statements.",
+      "current_software_status": "PARTIAL",
+      "finding_24_sep_2026": "candidate_result.json lists a failed check as reasons: [\"no_critical_engine_messages\"], which reads as a pass.",
+      "proposed_action": "Emit failed checks as e.g. \"critical_engine_messages_present\".",
+      "links_to_existing_rules": [],
+      "new_relative_to_24_sep_audit": true,
+      "numeric_threshold": null,
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "user_decision": null,
+      "title_zh": "代理上下文中无歧义的状态标签",
+      "area_zh": "Context engineering"
+    }
+  ]
+}

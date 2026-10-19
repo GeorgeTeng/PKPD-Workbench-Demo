@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Implementation of Likelihood-Based BQL Methods (M2/M3)",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "The M3 method is implemented in NONMEM VI using the F_FLAG functionality, where F_FLAG=0 indicates a prediction (above LOQ) and F_FLAG=1 indicates a likelihood (below LOQ). The M2 method uses YLO functionality. M3 consistently outperforms M2 in reducing bias across tested models.",
+      "conditions": [
+        "Use of NONMEM VI or equivalent software supporting simultaneous continuous/categorical likelihood modeling.",
+        "Log-transformation of the dependent variable is applied to avoid negative predictions.",
+        "Residual error models must be specified to handle the log-scale or combined error structures appropriately."
+      ],
+      "required_inputs": [
+        "NONMEM VI software.",
+        "Data file with F_FLAG or YLO columns.",
+        "Model code specifying the likelihood contribution for BQL observations."
+      ],
+      "limitations": [
+        "Specific to NONMEM VI implementation details (F_FLAG/YLO).",
+        "Requires careful specification of residual error models (e.g., additive component on normal scale for log-transformed data).",
+        "Higher computational burden and convergence issues compared to FOCE."
+      ],
+      "downstream_use": "Implement M3 using F_FLAG for population PK/PD modeling. Ensure residual error models are compatible with the log-transformation and censoring mechanism.",
+      "evidence_chunk_ids": [
+        "SUP001:0003",
+        "SUP001:0007",
+        "SUP001:0008"
+      ],
+      "id": "source_SUP001:K03",
+      "origin_job": "source_SUP001",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

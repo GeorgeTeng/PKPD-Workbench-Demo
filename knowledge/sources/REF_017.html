@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>Sparse sampling calculation</title>
+
+ <meta content="NCA computatino rules" name="search-keywords" />
+ <link rel="stylesheet" href="../Phoenix_UserDocs.css" type="text/css" />
+
+
+ <script type="text/javascript" language="JavaScript">
+//<![CDATA[
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//]]>
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+-->
+</style>
+ <meta name="generator" content="Adobe FrameMaker 2017" />
+<script type="text/javascript" src="../template/scripts/rh.min.js"></script>
+<script type="text/javascript" src="../template/scripts/common.min.js"></script>
+<script type="text/javascript" src="../template/scripts/topic.min.js"></script>
+<script type="text/javascript" src="../template/scripts/constants.js"></script>
+<script type="text/javascript" src="../template/scripts/utils.js"></script>
+<script type="text/javascript" src="../template/scripts/mhutils.js"></script>
+<script type="text/javascript" src="../template/scripts/mhlang.js"></script>
+<script type="text/javascript" src="../template/scripts/mhver.js"></script>
+<script type="text/javascript" src="../template/scripts/settings.js"></script>
+<script type="text/javascript" src="../template/scripts/XmlJsReader.js"></script>
+<script type="text/javascript" src="../template/scripts/loadparentdata.js"></script>
+<script type="text/javascript" src="../template/scripts/loadscreen.js"></script>
+<script type="text/javascript" src="../template/scripts/loadprojdata.js"></script>
+<script type="text/javascript" src="../template/scripts/mhtopic.js"></script>
+ <link rel="stylesheet" type="text/css" href="../template/styles/topic.min.css">
+<script type="text/javascript" >
+gRootRelPath = "..";
+gCommonRootRelPath = "..";
+gTopicId = "29.6.3.0_6";
+</script>
+ <meta name="brsprev" value="topics/Partial_area_calculation.htm">
+ <meta name="brsnext" value="topics/Drug_effect_calculation.htm">
+ <meta name="topic-breadcrumbs" content="Phoenix WinNonlin > NCA > NCA computation rules" />
+</head>
+
+<body dir="ltr">
+<script type="text/javascript" src="../ehlpdhtm.js"></script>
+
+    <!-- Breadcrumb --> 
+    <div><script type="text/javascript" language="javascript">//<![CDATA[
+document.write("<p>");
+AddMasterBreadcrumbs("../index.html", "", ">", "Home", "content.htm");
+document.write("<a href=\"intrownl.htm\">Phoenix WinNonlin<\/a> > <a href=\"NCA_user_interface.htm\">NCA<\/a> > <a href=\"NCA_computation_rules.htm\">NCA computation rules<\/a> > Sparse sampling calculation<\/p>");
+//]]></script>
+    </div>
+    <div dir="ltr">
+  <p dir="ltr" class="Heading3_WWPageBreak"><a name="IX_computations_2"></a><a name="XREF_27281_Sparse_sampling"></a>Sparse sampling calculation</p>
+  <p dir="ltr" class="Body">The NCA object provides special methods to analyze concentration data with few observations per subject. The NCA object treats this sparse data as a special case of plasma or urine concentration data. It first calculates the mean concentration curve of the data, by taking the mean concentration value for each unique time value for plasma data, or the mean rate value for each unique midpoint for urine data. For this reason, it is recommended to use nominal time, rather than actual time, for these analyses. The standard error of the data is also calculated for each unique time or midpoint value.</p>
+  <p dir="ltr" class="Body">Using the mean concentration curve, the NCA object calculates all of the usual plasma or urine final parameters listed under <a href="NCA_parameter_formulas.htm#XREF_31105_NCA_parameter"><span class="zzCrossRef">“NCA parameter formulas”</span></a>. In addition, it uses the subject information to cal&#173;culate standard errors that will account for any correlations in the data resulting from repeated sam&#173;pling of individual animals. </p>
+  <p dir="ltr" class="Body">The NCA sparse methodology calculates PK parameters based on the mean profile for all the sub&#173;jects in the dataset. For batch designs, where multiple time points are measured for each subject, this methodology only generates unbiased estimates if equal sample sizes per time point are present. If this is not the case, then bias in the parameter estimates is introduced.</p>
+  <p dir="ltr" class="Note"><span class="zzNote">Note:<span style="padding-left: 12pt;" class="FMAutoNumber_1"></span></span>In order to create unbiased estimates, the sparse sampling routines used in the NCA object require that the dataset does not contain missing data. </p>
+  <p dir="ltr" class="Body">For plasma data (models 200–202), the NCA object calculates the standard error for the mean con&#173;centration curve’s maximum value (Cmax), and for the area under the mean concentration curve from dose time through the final observed time (AUCall). Standard error of the mean Cmax will be calcu&#173;lated as the sample standard deviation of the y-values at time Tmax divided by the square root of the number of observations at Tmax, or equivalently, the sample standard error of the <span class="EquationVariables">y</span>-values at Tmax. Standard error of the mean AUC will be calculated as described in <span class="WebJump"><a>Nedelman and Jia (1998)</a></span>, using a modification in <span class="WebJump"><a>Holder (2001)</a></span>, and will account for any correlations in the data resulting from repeated sampling of individual animals. Specifically:</p>
+  <p dir="ltr" class="Equation">&#160;<img alt="ncacomprules00486.png" id="image1025" src="../assets/ncacomprules00486.png" style="max-width: 100% ;height: auto" /></p>
+  <p dir="ltr" class="Body">Since AUC is calculated by the linear trapezoidal rule as a linear combination of the mean concentra&#173;tion values, </p>
+  <p dir="ltr" class="Insert_table_or_figure">&#160;<span style="font-size  : 10.0pt; "><img alt="ncacomprules00488.png" id="image1026" src="../assets/ncacomprules00488.png" style="max-width: 100% ;height: auto" /></span></p>
+  <p dir="ltr" class="Body">where:</p>
+  <p dir="ltr" class="Body_Indented"><img alt="ncacomprules00490.png" id="image1027" src="../assets/ncacomprules00490.png" style="max-width: 100% ;height: auto" />&nbsp;</p>
+  <p dir="ltr" class="Body_Indented"><span class="EquationVariables">m</span>=last observation time for AUCall, or time of last measurable (positive) mean concentration for AUClast</p>
+  <p dir="ltr" class="Body">it follows that:</p>
+  <p dir="ltr" class="Insert_table_or_figure">&#160;<span style="font-size  : 10.0pt; "><img alt="ncacomprules00492.png" id="image1028" src="../assets/ncacomprules00492.png" style="max-width: 100% ;height: auto" /></span></p>
+  <p dir="ltr" class="Body">where:</p>
+  <p dir="ltr" class="Body_Indented"><span class="EquationVariables">r</span><sub><span class="Subscript">ij</span></sub>&#160;= number of animals sampled at both times <span class="EquationVariables">i</span>&#160;and <span class="EquationVariables">j</span>&#160;<br /><span class="EquationVariables">r</span><sub><span class="Subscript">i</span></sub>&#160;= number of animals sampled at time <span class="EquationVariables">i</span>&#160;<br /><span class="EquationVariables">s</span><sub><span class="Subscript">i</span></sub><sup><span class="Superscript">2</span></sup>&#160;= sample variance of concentrations at time <span class="EquationVariables">i</span>&#160;<br /><span class="EquationVariables">s</span><sub><span class="Subscript">ij</span></sub>&#160;= sample covariance between concentrations <span class="EquationVariables">c</span><sub><span class="Subscript">ik</span></sub>&#160;and <span class="EquationVariables">c</span><sub><span class="Subscript">jk</span></sub>&#160;for all animals <span class="EquationVariables">k</span>&#160;that are sampled at both times <span class="EquationVariables">i</span>&#160;and <span class="EquationVariables">j</span>&#160;</p>
+  <p dir="ltr" class="Body">The above equations can be computed from basic statistics, and appear as equation (7.vii) in Nedel&#173;man and Jia (1998). When computing the sample covariances in the above, NCA uses the unbiased sample covariance estimator, which can be found as equation (A3) in Holder (2001):</p>
+  <p dir="ltr" class="Equation">&#160;<img alt="ncacomprules00494.png" id="image1029" src="../assets/ncacomprules00494.png" style="max-width: 100% ;height: auto" /></p>
+  <p dir="ltr" class="Body">For urine models (models 210–212), the standard errors are computed for Max_Rate, the maximum observed excretion rate, and for AURC_all, the area under the mean rate curve through the final observed rate.</p>
+  <p dir="ltr" class="Body">For cases where a non-zero value <span class="EquationVariables">C</span>0 must be inserted at dose time <span class="EquationVariables">t</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">0</span></sub>&#160;to obtain better AUC estimates (see <a href="NCA_computation_rules.htm#XREF_62158_Data_checking_and"><span class="zzCrossRef">“Data checking and pre-treatment”</span></a>), the AUC estimate contains an additional constant term: <span class="EquationVariables">C*</span>=<span class="EquationVariables">C</span>0(<span class="EquationVariables">t</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">1</span></sub>&#160;– <span class="EquationVariables">t</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">0</span></sub>)/2. In other words, <span class="EquationVariables">w</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">0</span></sub>&#160;is multiplied by <span class="EquationVariables">C</span>0, instead of being multiplied by zero as occurs when the point (0,0) is inserted. An added constant in AÛC will not change <span class="EquationVariables">Var(AÛC)</span>, so <span class="EquationVariables">SE_AU&#173;Clast</span>&#160;and <span class="EquationVariables">SE_AUCall</span>&#160;also will not change. Note that the inserted C0 is treated as a constant even when it must be estimated from other points in the dataset, so that the variances and covariances of those other data points are not duplicated in the <span class="EquationVariables">Var(AÛC)</span> computation.</p>
+  <p dir="ltr" class="Body">For the case in which <span class="EquationVariables">r</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">ij</span></sub>=1, and <span class="EquationVariables">r</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">i</span></sub>=1 or <span class="EquationVariables">r</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">j</span></sub>=1, then <span class="EquationVariables">s</span><sub><span class="Subscript" style="font-size  : 9.0pt; ">ij</span></sub> is set to 0 (zero).</p>
+  <p dir="ltr" class="Body">The AUCs must be calculated using one of the linear trapezoidal rules. Select a rule using the instruc&#173;tions listed under <a href="Options_tab1.htm#XREF_31900_Options_tab"><span class="zzCrossRef">“Options tab”</span></a>. </p>
+  </div>
+<!-- Footer using FM variable --> 
+    <div>
+      <hr>
+      <p style="font-size:small">Last modified date:7/9/20<br> 
+	  <img alt="Certara USA, Inc." style=" width:10%max-width: 100% ;height: automax-width: 100% ;height: auto" src="../responsive_html5_!MasterPage!/certara.png"><br>
+      <a target="_blank" href="../responsive_html5_!MasterPage!/legal_notice.htm">Legal Notice</a> | <a target="_blank" href="../responsive_html5_!MasterPage!/contact_info.htm">Contact Certara</a><br>
+      &#169; 2020 Certara USA, Inc. All rights reserved.</p>
+    </div>
+  </body>
+</html>

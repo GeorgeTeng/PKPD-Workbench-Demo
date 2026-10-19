@@ -1,0 +1,508 @@
+{
+  "document_type": "MODERN_LLM_SCIENTIFIC_EXTRACTION_REVIEW",
+  "version": "0.1-draft",
+  "review_date": "2026-10-06",
+  "status": "PROPOSED_PENDING_USER_REVIEW",
+  "enabled": false,
+  "owner": "CONTEXT_COMPRESSION",
+  "purpose": "Use a current general-purpose LLM to identify source-stated facts, results, hypotheses, methods, implications and assumptions before compression. Do not build or train a separate discourse tagger unless project-specific evaluation later justifies it.",
+  "boundaries": [
+    "This is a research-informed design proposal, not a measured PK/PD extraction system or activated runtime rule pack.",
+    "The label definitions and prompts below are our proposed adaptation, not a verbatim prompt from any cited paper.",
+    "Compression preserves project facts, assumptions, objectives and original requirements; Project Rules Agent owns formal rule interpretation and publication.",
+    "External research justifies extraction design. It does not silently supply facts, assumptions, model parameters or requirements to the user's proposal.",
+    "All prior scientific-preservation requirements remain applicable; this file does not replace the complete CC005 detail profile or prior rule-by-rule review decisions."
+  ],
+  "existing_artifacts": {
+    "recognition_rules": "research_pipeline/docs/review_drafts/compression_fact_assumption_rules.review.json",
+    "scientific_preservation": "context_compression/ctxcomp/resources/cc005_details.json",
+    "shared_governance": "context_compression/ctxcomp/resources/workflow_governance.json"
+  },
+  "citation_method": {
+    "provider": "OpenAlex",
+    "queried_on": "2026-10-06",
+    "measure": "cited_by_count for the explicitly identified work record",
+    "limitations": [
+      "Counts are database-specific snapshots, not Google Scholar or Scopus totals.",
+      "Conference, journal and preprint records may be split; counts were not added across versions.",
+      "A count of zero means zero citations indexed on this record, not proof of no citations anywhere.",
+      "Citation count measures uptake, not extraction accuracy or fitness for this task.",
+      "Semantic Scholar requests were rate-limited; no cross-database citation total is claimed."
+    ]
+  },
+  "sources": [
+    {
+      "id": "MOD01",
+      "title": "Structured information extraction from scientific text with large language models",
+      "year": 2024,
+      "venue": "Nature Communications",
+      "url": "https://www.nature.com/articles/s41467-024-45563-x",
+      "full_text": "https://perssongroup.lbl.gov/papers/dagdelen_structured_information_extraction_2024.pdf",
+      "read_scope": "Introduction and approach sections of the full paper.",
+      "cited_by_count": 733,
+      "citation_record": "https://openalex.org/W4391836235",
+      "useful_component": "Joint extraction of entities and their relations into a defined structured representation.",
+      "transfer_limit": "The original study fine-tunes models for materials-science extraction. It does not validate a prompt-only classifier for our scientific discourse labels."
+    },
+    {
+      "id": "MOD02",
+      "title": "Extracting accurate materials data from research papers with conversational language models and prompt engineering",
+      "method_name": "ChatExtract",
+      "year": 2024,
+      "venue": "Nature Communications",
+      "url": "https://www.nature.com/articles/s41467-024-45914-8",
+      "read_scope": "Results and methods, including extraction stages, follow-up questions and Table 1.",
+      "cited_by_count": 359,
+      "citation_record": "https://openalex.org/W4392002118",
+      "useful_component": "Relevance screening, structured extraction, explicit missing answers and targeted follow-up verification.",
+      "observed_result": "For the paper's GPT-4 bulk-modulus extraction setting, reported precision was 90.8% and recall was 87.7%. These are not expected accuracies for our project.",
+      "transfer_limit": "Its number-based sentence filter, materials-specific task and retained conversation design should not be copied wholesale. Qualitative assumptions and requirements may contain no numbers."
+    },
+    {
+      "id": "MOD03",
+      "title": "GoLLIE: Annotation Guidelines Improve Zero-Shot Information-Extraction",
+      "year": 2024,
+      "preprint_year": 2023,
+      "venue": "ICLR",
+      "url": "https://arxiv.org/html/2310.03668",
+      "project_url": "https://github.com/hitz-zentroa/GoLLIE",
+      "read_scope": "Guidelines representation, training, ablation and limitations.",
+      "cited_by_count": 17,
+      "citation_record": "https://openalex.org/W4387430794",
+      "citation_scope": "Only the located preprint record; a consolidated conference citation total was not verified.",
+      "useful_component": "Provide label definitions, scope, exceptions, argument definitions and representative examples rather than only category names.",
+      "transfer_limit": "GoLLIE is fine-tuned to follow annotation guidelines. Its results do not prove that arbitrary current LLMs will follow our guidelines without testing."
+    },
+    {
+      "id": "MOD04",
+      "title": "Chain-of-Verification Reduces Hallucination in Large Language Models",
+      "year": 2024,
+      "venue": "Findings of ACL",
+      "url": "https://aclanthology.org/2024.findings-acl.212/",
+      "read_scope": "Verification procedure and factored-check design.",
+      "cited_by_count": 247,
+      "citation_record": "https://openalex.org/W4402670429",
+      "useful_component": "Separate drafting from verification questions and independently answered checks before revision.",
+      "transfer_limit": "The paper is not a scientific-role classifier. Our checks must be bounded to supplied evidence, not answered from model memory. Separate calls can still share systematic errors."
+    },
+    {
+      "id": "MOD05",
+      "title": "Can AI Validate Science? Benchmarking LLMs on Claim → Evidence Reasoning in AI Papers",
+      "method_name": "CLAIM-BENCH",
+      "year": 2025,
+      "venue": "IJCNLP-AACL",
+      "url": "https://aclanthology.org/2025.ijcnlp-long.127/",
+      "project_url": "https://github.com/shashidharjavaji/CLAIM_BENCH",
+      "read_scope": "Task, prompting strategies in Figure 2, and long-context/error analyses.",
+      "cited_by_count": 0,
+      "citation_record": "https://openalex.org/W7138017924",
+      "citation_scope": "Conference record only.",
+      "useful_component": "Compare joint extraction against claim-first, evidence-linking and claim-by-claim processing; inspect links across distant passages.",
+      "transfer_limit": "Three-pass and one-by-one processing trade additional cost for task-dependent gains. Claim-evidence extraction is not the same as certifying scientific truth or classifying all our roles."
+    },
+    {
+      "id": "MOD06",
+      "title": "SciGraph-LLM: Automatic Knowledge Graph Construction from Scientific Papers",
+      "year": 2026,
+      "venue": "WSDM Companion",
+      "url": "https://doi.org/10.1145/3779211.3793169",
+      "read_scope": "Publisher abstract only; full implementation and prompts were not inspected.",
+      "cited_by_count": 0,
+      "citation_record": "https://openalex.org/W7160313645",
+      "useful_component": "The abstract describes overlapping windows and schema-constrained GPT-5 extraction of atomic claims, evidence spans, methods, datasets, metrics and numerical results.",
+      "transfer_limit": "A recent candidate, not established high-citation evidence. The reported evaluation uses ten LLM-KG papers; no validated PK/PD role-classifier claim is supported."
+    },
+    {
+      "id": "MOD07",
+      "title": "Diagnosing Structural Failures in LLM-Based Evidence Extraction for Meta-Analysis",
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "url": "https://arxiv.org/html/2602.10881",
+      "project_url": "https://github.com/zhiyintan/LLM-Meta-Analysis",
+      "read_scope": "Task formulation and results/error analysis, including Table 6.",
+      "cited_by_count": null,
+      "citation_status": "NOT_QUERIED",
+      "useful_component": "Evaluate whether variables, roles, methods and numerical effects remain correctly bound, rather than checking isolated extracted terms alone.",
+      "transfer_limit": "Its GPT-5.2 and Qwen3-VL results diagnose this benchmark; they are not universal performance bounds for those models."
+    },
+    {
+      "id": "MOD08",
+      "title": "Synthesizing scientific literature with retrieval-augmented language models",
+      "method_name": "OpenScholar",
+      "year": 2026,
+      "venue": "Nature",
+      "url": "https://www.nature.com/articles/s41586-025-10072-4",
+      "read_scope": "System overview and self-feedback, retrieval and citation-verification methods.",
+      "cited_by_count": 31,
+      "citation_record": "https://openalex.org/W7127589252",
+      "useful_component": "Retrieval, reranking, cited synthesis and feedback-driven source checking for an external literature agent.",
+      "transfer_limit": "Best located in the literature-support branch. It is not a source-only proposal compressor or a validated classifier for the proposed roles."
+    }
+  ],
+  "engineering_reference": {
+    "name": "Google LangExtract",
+    "url": "https://github.com/google/langextract",
+    "read_scope": "Official README capabilities and usage.",
+    "borrow": [
+      "User-defined instructions",
+      "Few-shot examples",
+      "Source-span alignment",
+      "Structured output",
+      "Chunked and multi-pass extraction"
+    ],
+    "limitation": "Source alignment checks where text came from; they do not prove that a paraphrase is entailed or that a source claim is scientifically true. GitHub stars are not paper citations."
+  },
+  "recommendation": {
+    "minimum_useful_design": "Annotation guidelines plus contrastive examples, schema-constrained atomic extraction, source-bound verification, then compression.",
+    "components": {
+      "guidelines": "MOD03",
+      "structured_relations": "MOD01",
+      "missingness_and_targeted_checks": "MOD02",
+      "independent_verification": "MOD04",
+      "claim_evidence_linking": "MOD05",
+      "modern_failure_tests": "MOD07"
+    },
+    "not_required_now": [
+      "Training a new discourse model",
+      "Building a knowledge graph database",
+      "A separate agent for every sentence",
+      "Replacing LangGraph, Prefect or Snakemake"
+    ],
+    "newer_research_to_watch": [
+      "MOD06"
+    ],
+    "separate_literature_branch": [
+      "MOD08"
+    ]
+  },
+  "proposed_label_guide": [
+    {
+      "role": "FACT",
+      "definition": "A source presents an existing project state, background property or event as established. This label records how the source states it; it does not certify truth.",
+      "positive_cues": [
+        "is available",
+        "contains",
+        "was collected",
+        "is known",
+        "has been reported"
+      ],
+      "exclusions": [
+        "A merely planned event",
+        "A model premise",
+        "A specific analysis outcome better labeled RESULT",
+        "An externally asserted fact silently adopted as a project fact"
+      ],
+      "disambiguation": "Retain origin and source support. A literature fact remains literature-attributed."
+    },
+    {
+      "role": "RESULT",
+      "definition": "A reported outcome of an identified experiment, observation, estimation or simulation.",
+      "positive_cues": [
+        "observed",
+        "measured",
+        "estimated",
+        "predicted",
+        "increased",
+        "no difference",
+        "yielded"
+      ],
+      "exclusions": [
+        "An intended endpoint",
+        "An expected outcome without a completed analysis",
+        "An interpretation that goes beyond the reported observation"
+      ],
+      "disambiguation": "Preserve OBSERVED, ESTIMATED, PREDICTED or SIMULATED basis as stated; a predicted human curve is not observed human PK. Do not infer simulation merely from the word predicted."
+    },
+    {
+      "role": "HYPOTHESIS",
+      "definition": "A proposition explicitly proposed for testing or explanation, with acceptance not presumed.",
+      "positive_cues": [
+        "we hypothesize",
+        "we predict",
+        "may explain",
+        "whether",
+        "test the possibility"
+      ],
+      "exclusions": [
+        "An adopted modeling premise",
+        "A procedure",
+        "Any sentence containing may regardless of context"
+      ],
+      "disambiguation": "Keep proposed, supported, rejected or unresolved source status. Separate a hypothesis from the later result testing it."
+    },
+    {
+      "role": "ASSUMPTION",
+      "definition": "A premise or simplification adopted or proposed to make an analysis or model possible.",
+      "positive_cues": [
+        "assume",
+        "under the assumption",
+        "taken as",
+        "fixed at",
+        "treated as",
+        "considered constant"
+      ],
+      "exclusions": [
+        "A measured constant",
+        "A rejected or prohibited premise represented as active",
+        "Speculation that is not adopted for analysis"
+      ],
+      "disambiguation": "A method's adoption can be factual while its substantive premise remains an assumption. Link them rather than upgrading the premise to truth."
+    },
+    {
+      "role": "METHOD",
+      "definition": "A procedure, study design, analytical operation or implementation choice.",
+      "positive_cues": [
+        "using",
+        "fitted with",
+        "estimated by",
+        "sampled at",
+        "will be analyzed",
+        "bootstrap"
+      ],
+      "exclusions": [
+        "The resulting fitted parameter",
+        "A scientific conclusion",
+        "A requirement silently treated as a performed procedure"
+      ],
+      "disambiguation": "Keep PLANNED versus PERFORMED; preserve algorithm, inputs and applicable conditions."
+    },
+    {
+      "role": "IMPLICATION",
+      "definition": "An interpretation, consequence, recommendation or generalization drawn from stated findings.",
+      "positive_cues": [
+        "suggests",
+        "implies",
+        "therefore",
+        "is consistent with",
+        "may support",
+        "could inform"
+      ],
+      "exclusions": [
+        "The underlying observed result itself",
+        "A confirmed causal claim inferred only from association",
+        "A new inference invented by the extractor"
+      ],
+      "disambiguation": "Extract only implications present in the source and link their supporting findings where explicitly identifiable."
+    }
+  ],
+  "auxiliary_roles": {
+    "OBJECTIVE": "The research question, purpose or intended decision; preserve as the organizing project objective.",
+    "REQUIREMENT": "Source wording that directs or constrains the project; retain wording and provenance for Project Rules Agent without publishing a formal rule here.",
+    "OTHER": "Material text that cannot reasonably be classified by the main labels.",
+    "UNRESOLVED": "Role or meaning cannot be determined from the available context; preserve alternatives and raise a material gap."
+  },
+  "classification_principles": [
+    "A keyword is a clue, not a necessary condition, sufficient condition or retrieval-only exclusion gate.",
+    "Classify atomic propositions, not whole paragraphs. One sentence may contain multiple linked propositions.",
+    "Use the most specific primary role. RESULT is preferred over generic FACT for a particular experiment or analysis outcome.",
+    "Separate discourse role from evidence basis, assertion, source attribution and planned/performed/active/rejected status.",
+    "Use neighboring sentences, headings and referenced tables where permitted; headings alone do not determine the label.",
+    "No closed-world assumption: NOT_FOUND after a scoped search does not establish that evidence does not exist.",
+    "Retain project objectives first, but do not discard consequential restrictions, exceptions or negative results as low relevance.",
+    "Preserve all scientific details required by the existing CC005 profile; this label guide does not shorten that profile.",
+    "Never replace an ambiguous clause with a stronger, simpler claim merely to reduce output length."
+  ],
+  "proposed_internal_item_contract": {
+    "note": "Review-level example of fields; not a deployed JSON Schema or a replacement main.json contract.",
+    "fields": {
+      "id": "Stable item identifier within the candidate version.",
+      "statement": "Concise source-supported proposition preserving qualifiers.",
+      "role": "FACT | RESULT | HYPOTHESIS | ASSUMPTION | METHOD | IMPLICATION | OBJECTIVE | REQUIREMENT | OTHER | UNRESOLVED",
+      "origin": "PROJECT_SOURCE | SUPPORTING_MATERIAL | EXTERNAL_LITERATURE; identify actual document via source_refs.",
+      "evidence_basis": "OBSERVED | ESTIMATED | PREDICTED | SIMULATED | SOURCE_ASSERTION | ADOPTED_PREMISE | UNSPECIFIED",
+      "assertion": "AFFIRMED | NEGATED | CONDITIONAL | UNCERTAIN | UNSPECIFIED",
+      "lifecycle": "PLANNED | PERFORMED | ACTIVE | PROPOSED | SUPPORTED | NOT_SUPPORTED | REJECTED | HISTORICAL | UNSPECIFIED; use NOT_SUPPORTED rather than REJECTED when the source only reports lack of supporting evidence.",
+      "scope": "Relevant population/species, matrix, dose, time, conditions and exceptions from the source; do not infer omitted values.",
+      "source_refs": "Exact source ID/version and span identifiers; quotes and locations are kept once in the audit record.",
+      "relations": "Only supported links such as TESTS, SUPPORTS, CONTRADICTS, USES or INTERPRETS, with target item IDs."
+    },
+    "source_audit": "Each span has a source file ID/version, exact quotation and supplied paragraph/page/table/cell locator. Programmatic character offsets should be computed and checked, not guessed by an LLM.",
+    "gap_contract": [
+      "id",
+      "field",
+      "status",
+      "needed_at",
+      "impact"
+    ],
+    "main_json_policy": "Publish concise facts/assumptions/objective and necessary subtype/status information with audit references; do not repeat all audit quotes or formal rules in main.json."
+  },
+  "contrastive_examples": [
+    {
+      "text": "Plasma samples were collected at 0.5, 1 and 2 h.",
+      "expected": [
+        {
+          "role": "METHOD",
+          "lifecycle": "PERFORMED",
+          "must_preserve": "0.5, 1 and 2 h"
+        }
+      ]
+    },
+    {
+      "text": "Plasma samples will be collected at 0.5, 1 and 2 h.",
+      "expected": [
+        {
+          "role": "METHOD",
+          "lifecycle": "PLANNED",
+          "must_not_claim": "Samples already exist."
+        }
+      ]
+    },
+    {
+      "text": "Human clearance was predicted to be 4 L/h under the selected scaling model.",
+      "expected": [
+        {
+          "role": "RESULT",
+          "evidence_basis": "PREDICTED",
+          "must_preserve": "4 L/h and selected scaling model",
+          "must_not_claim": "Observed or clinically validated human clearance."
+        }
+      ]
+    },
+    {
+      "text": "For the primary analysis, the unbound fraction is assumed constant across doses.",
+      "expected": [
+        {
+          "role": "ASSUMPTION",
+          "evidence_basis": "ADOPTED_PREMISE",
+          "lifecycle": "ACTIVE",
+          "scope": "Primary analysis; across doses."
+        }
+      ]
+    },
+    {
+      "text": "Do not assume that the unbound fraction is constant across doses.",
+      "expected": [
+        {
+          "role": "REQUIREMENT",
+          "assertion": "NEGATED",
+          "must_not_claim": "An active constant-unbound-fraction assumption."
+        }
+      ]
+    },
+    {
+      "text": "We hypothesized that clearance would decrease with dose, but the analysis did not support this hypothesis.",
+      "expected": [
+        {
+          "role": "HYPOTHESIS",
+          "lifecycle": "NOT_SUPPORTED",
+          "statement": "Clearance decreases with dose; the source reports this hypothesis was not supported."
+        },
+        {
+          "role": "RESULT",
+          "assertion": "NEGATED",
+          "statement": "The analysis did not support the proposed decrease.",
+          "relation": "TESTS the hypothesis; no claim that the opposite is proven."
+        }
+      ]
+    },
+    {
+      "text": "AUC increased more than dose proportionally, suggesting saturable elimination.",
+      "expected": [
+        {
+          "role": "RESULT",
+          "statement": "AUC increased more than dose proportionally."
+        },
+        {
+          "role": "IMPLICATION",
+          "assertion": "UNCERTAIN",
+          "statement": "The source interprets this finding as suggesting saturable elimination.",
+          "must_not_claim": "Saturable elimination is proven."
+        }
+      ]
+    },
+    {
+      "text": "The target drug has no human PK observations in this project.",
+      "expected": [
+        {
+          "role": "FACT",
+          "evidence_basis": "SOURCE_ASSERTION",
+          "scope": "This project",
+          "must_not_claim": "No human PK data exist anywhere."
+        }
+      ]
+    },
+    {
+      "text": "Human exposure is the primary prediction objective; literature assumptions require review before use.",
+      "expected": [
+        {
+          "role": "OBJECTIVE",
+          "statement": "Predict human exposure as the primary objective."
+        },
+        {
+          "role": "REQUIREMENT",
+          "statement": "Review literature assumptions before use.",
+          "owner_for_formal_publication": "PROJECT_RULES_AGENT"
+        }
+      ]
+    }
+  ],
+  "english_extraction_prompt": [
+    "Extract source-grounded scientific propositions before summarizing. Use only the supplied and permitted source material.",
+    "Organize the extraction around the project's stated research question and intended decision. Do not invent a project objective when it is missing.",
+    "Apply the attached label guide. Keyword lists are non-exhaustive clues, never automatic classifiers or filters that exclude uncued content.",
+    "Split compound sentences into atomic propositions while preserving explicit causal, conditional, evidential and contrastive links.",
+    "For each proposition, assign its primary role separately from its evidence basis, assertion, lifecycle and source attribution. Use the most specific supported role.",
+    "FACT means source-stated fact, not independently verified truth. Keep measured, estimated, simulated, planned, hypothesized and assumed content distinguishable.",
+    "Retain every consequential quantity, unit, analyte, biological context, dosing/time definition, endpoint, experimental unit, statistical summary, parameter definition, transformation, information status, matching relationship, condition, negation, scope and exception required by the attached scientific-preservation profile.",
+    "Attach exact evidence-span references from the supplied source registry. Do not invent quotes, file IDs, page numbers, spreadsheet cells or character offsets.",
+    "Use neighboring context and permitted cross-references to resolve ambiguity. If the meaning remains ambiguous, use UNRESOLVED and describe the material gap using id, field, status, needed_at and impact.",
+    "Retain the original wording of project requirements for the separate Project Rules Agent. Do not turn a paper's reported method into a binding project rule.",
+    "Do not generate new scientific hypotheses, fill missing parameters from memory, infer that absent information does not exist, or resolve source conflicts silently.",
+    "Return only the requested structured object. Keep statements concise; keep full quotations and source locations in the audit records. Do not shorten away scientific qualifiers."
+  ],
+  "english_verification_prompt": [
+    "Review the candidate against the supplied original evidence and attached label guide. The candidate is a hypothesis about the source, not an authority.",
+    "For each item, check whether its source spans support the proposition, role, evidence basis, attribution, scope, conditions, negation and lifecycle.",
+    "Check that observed results have not been confused with planned methods, predictions, hypotheses, assumptions or implications.",
+    "Check numerical and relational binding: a correct value assigned to the wrong species, drug, endpoint, analysis or time window is an extraction error.",
+    "Search the supplied source coverage for missing objectives, findings, premises and consequential requirements; candidate-only checks cannot establish completeness.",
+    "Return item-level findings with evidence references and precise corrections. If evidence is insufficient, report that limitation instead of guessing.",
+    "A PASS certifies the reviewed extraction within its scope; it does not certify scientific truth, data adequacy or human predictive validity."
+  ],
+  "algorithm_proposal": [
+    {
+      "step": 1,
+      "action": "Prepare permitted source text with stable locations, document type/version and source-coverage records.",
+      "checks": "Retain SOURCE_INCOMPLETE for unreadable or missing material; source ingestion does not prove scientific adequacy."
+    },
+    {
+      "step": 2,
+      "action": "Extract atomic propositions with the label guide and contrastive examples, keeping neighboring context.",
+      "checks": "Schema validation, label enums, evidence existence and duplicate span detection can be deterministic."
+    },
+    {
+      "step": 3,
+      "action": "Review fidelity and completeness in the existing dedicated review branches; inspect global conflicts after their outputs are available.",
+      "checks": "Routine items may be batched. Ambiguous or high-impact items can receive focused source retrieval and separate checks; all material items remain in the review coverage."
+    },
+    {
+      "step": 4,
+      "action": "Compress reviewed propositions and preserve role/status distinctions in the existing main.json and audit layout.",
+      "checks": "Do not rename an uncertain implication as a fact during shortening. No formal rule publication occurs in this step."
+    }
+  ],
+  "efficiency_and_evaluation": {
+    "proposal": [
+      "Keep one shared label guide and a small, diverse set of contrastive examples rather than long repetitive keyword lists.",
+      "Retain source coverage for every relevant section; use retrieval to expand ambiguous cross-references, not as the only recall gate.",
+      "Use code for output syntax, locators, unit tokens and relationship references; reserve LLM review for semantic decisions.",
+      "Benchmark a one-call extraction plus existing reviewers before adding separate classification agents or sentence-by-sentence loops.",
+      "During explicit repair reruns, re-examine the changed items and their affected relations, then retain the required global review. This is a proposed local repair strategy, not implementation of deferred project-wide rerun invalidation.",
+      "No rule in this proposal introduces a default model-call timeout or output truncation limit."
+    ],
+    "evaluation_set": "Human-annotated held-out proposals and permitted attachments; split by document/project, not random adjacent sentences.",
+    "metrics": [
+      "Per-role precision, recall and confusion matrix",
+      "Assumption/hypothesis/implication incorrectly promoted to fact",
+      "Predicted or planned content incorrectly promoted to observed or performed",
+      "Objective and consequential-requirement omission",
+      "Numeric/unit/qualifier preservation",
+      "Evidence-span correctness and evidence-to-claim support",
+      "Relationship binding accuracy",
+      "UNRESOLVED frequency and correctness",
+      "Latency and token cost measured with the same test set"
+    ],
+    "acceptance": "Thresholds need project review before deployment. No model benchmark or prompt A/B experiment was run for this draft.",
+    "model_change": "Repeat the reviewed acceptance test when the model, API behavior, schema, annotation guide or source parser materially changes."
+  }
+}

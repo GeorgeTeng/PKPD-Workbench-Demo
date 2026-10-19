@@ -1,0 +1,74 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_INPUT_REQUIREMENTS_SCOPE",
+  "date": "2026-10-07",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "没问题",
+    "accepted_proposal": "MP008 is conditional on project-considered in vitro clearance translation. Check system/result type, normalization, relevant assay conditions, method-dependent supporting inputs and elimination-component coverage. Leave equations, defaults and prediction evaluation downstream; do not require PBPK or block independent animal work."
+  },
+  "library_version": "1.0.0-draft.10",
+  "library_sha256": "a8339996993da0da5efce0e93ba6e1401bc9c4fb07b6dcd92eda850afb6b5d0a",
+  "profile_sha256": "d5345c81a7bb186041abe3593f0e0642bacaea45bbb3a92d00dd2d1714167416",
+  "profile": {
+    "id": "MP008",
+    "name": "Data requirements for in vitro clearance translation",
+    "family": "IN_VITRO_PK",
+    "assessment_scope": "DATA_REQUIREMENTS_ONLY",
+    "target_endpoints": [
+      "Project-requested clearance predictions supported by in vitro hepatic metabolism evidence"
+    ],
+    "outputs": [
+      "In vitro clearance-input coverage",
+      "Normalization and experimental-condition gaps",
+      "Method-dependent additional inputs and evidence scope"
+    ],
+    "applies_when": "Enable only when the project considers and permits in vitro metabolism evidence for clearance prediction. Reuse the existing biological-context, provenance and access metadata. This profile checks inputs for the hepatic IVIVE branch; it does not predict clearance.",
+    "required_inputs": [
+      "The experimental system, such as microsomes or hepatocytes, and the reported result type: original time-series observations, metabolic stability, half-life or reported intrinsic clearance (CLint).",
+      "The reported units and normalization basis, including protein amount or cell count where applicable, linked to the result definition.",
+      "Recorded concentration range, incubation timing and experimental conditions relevant to the intended use, with unspecified information retained as a gap."
+    ],
+    "conditional_inputs": [
+      "Scaling factors or physiological inputs only when required by an approach explicitly considered in the project; retain their source and unresolved applicability without selecting an equation or inserting defaults.",
+      "Incubation or plasma/blood binding inputs only when required by that approach. Reference MP007 for binding-specific checks rather than repeating them."
+    ],
+    "acceptable_alternatives": [
+      "Original observations and reported in vitro estimates may be registered at their actual evidence level; neither is automatically an accepted clearance-prediction input.",
+      "An independently supported animal-based branch may continue when the optional hepatic-IVIVE inputs are unavailable."
+    ],
+    "data_checks": [
+      "Identify what was measured or reported and in which experimental system. Do not interchange stability, half-life and intrinsic-clearance results without preserving their definitions.",
+      "Check that the result units and protein/cell normalization basis are explicit. Flag incompatible or unspecified bases rather than directly combining or converting them here.",
+      "Record available assay conditions and their relevance to the proposed use; list missing conditions or uncertainty about applicability.",
+      "Check only the additional inputs required by the project-considered approach. Do not choose an extrapolation equation, fill physiological constants or test prediction accuracy in this stage.",
+      "Label the elimination component represented by the evidence. Evidence limited to hepatic metabolism does not by itself establish complete input coverage for total systemic clearance."
+    ],
+    "missing_effect": "Report the affected IVIVE candidate and its missing material through the general data-gap policy. Missing optional in vitro inputs do not block independent animal PK analysis.",
+    "not_established": [
+      "A calculated or validated clearance prediction, complete total-clearance evidence from a hepatic component alone, or a requirement to build PBPK."
+    ],
+    "needed_at": "DATA_REQUIREMENTS_ASSESSMENT",
+    "source_ids": [
+      "S06"
+    ]
+  },
+  "deferred_reference": {
+    "path": "research_pipeline/research_pipeline/resources/ivive_analysis_followup.json",
+    "sha256": "9bfe5a5c088a84a63da1f3f18bfa9cca336ec022bae05e5e5f4ff1e5505080ab"
+  },
+  "unchanged_profiles": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP005",
+    "MP006",
+    "MP007",
+    "MP009",
+    "MP010"
+  ],
+  "scientific_release": false,
+  "historical_runs_modified": false,
+  "context_scope_note": "Removed unrelated profile IDs and review-progress lists from the shared interpretation text. Profile selection and scientific contents are unchanged; progress remains in the interface/review records."
+}

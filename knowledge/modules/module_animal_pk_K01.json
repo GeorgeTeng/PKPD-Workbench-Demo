@@ -1,0 +1,45 @@
+{
+  "cards": [
+    {
+      "title": "NCA Terminal Phase Data Requirements and Validity",
+      "topics": [
+        "data_eda",
+        "animal_pk"
+      ],
+      "claim": "Terminal-dependent NCA endpoints (lambda_z, t1/2, AUCinf) require explicit verification of terminal phase validity. The last few observations do not automatically constitute a valid terminal phase. Inputs must include quantifiable observations, BLQ status, and dosing/infusion timing to distinguish terminal decline from ongoing input. A universal minimum sampling count or fit-statistic threshold is not established; adequacy is assessed per endpoint.",
+      "conditions": [
+        "Terminal phase estimation requested",
+        "Extrapolation required"
+      ],
+      "required_inputs": [
+        "Concentration-time observations with quantifiability/BLQ flags",
+        "Dosing and infusion timing",
+        "Endpoint definition and time origin"
+      ],
+      "limitations": [
+        "Cannot certify usable terminal estimate if inputs are incomplete",
+        "Software default acceptance criteria are not sufficient evidence of adequacy",
+        "Group-mean terminal curves do not yield individual parameter distributions"
+      ],
+      "downstream_use": "NCA endpoint calculation, model qualification",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0031",
+        "IN_PK:0023",
+        "IN_PK:0024",
+        "IN_PK:0025"
+      ],
+      "id": "module_animal_pk:K01",
+      "origin_job": "module_animal_pk",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_MAIN",
+        "IN_PK"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,2489 @@
+{
+  "demo_profile": "SOURCE_PRESERVING_DEMO_1.0",
+  "executor": "HOST_PROGRAM",
+  "technical_decision": "PASS",
+  "scientific_decision": "NOT_RUN_IN_DEMO",
+  "scope": "SOURCE_ORGANIZATION_AND_TECHNICAL_QC_ONLY",
+  "findings": [
+    {
+      "code": "DOCUMENT_FIGURES_NOT_INSPECTED",
+      "affected_id": "F0002:document",
+      "reason": "Only the extracted text of this document was read; images, figures and charts were not inspected.",
+      "needed_material": "Digitized values or a table for any figure the requirements depend on.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "FOOTNOTE_MARKER_UNRESOLVED",
+      "affected_id": "F0003:S2:T1",
+      "reason": "Cells E15, E18, E19 end with a footnote marker that matches no single note in the workbook.",
+      "needed_material": "The footnote these markers refer to, or a note block linked to this table.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI001",
+      "affected_id": "DRQ004",
+      "reason": "OPEN; status NOT_FOUND; needed_at prepare. Original source provenance for SC014 remains unresolved. Origin: main:/missing_information/items/0. main:/missing_information/items/0/why_it_matters states that the original Roffey et al. paper was unavailable and attachment registration supplies no additional verification. This is not proof that the source does not exist.",
+      "needed_material": "Provide authorized original-source evidence if available, or retain the provenance limitation under SC015.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI002",
+      "affected_id": "DRQ004",
+      "reason": "OPEN; status AMBIGUOUS; needed_at prepare. Column-to-species mapping in SC014 remains unverified. Origin: main:/missing_information/items/1. main:/missing_information/items/1/impact states that secondary-table values cannot be assigned confidently to species. The affected species assignment remains pending.",
+      "needed_material": "Verify the mapping from authorized evidence before assigning values to species; otherwise preserve the uncertainty and SC015 restrictions.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "MI003",
+      "affected_id": "DRQ020",
+      "reason": "OPEN; status DEFERRED; needed_at validation. Access to human validation data awaits authorized release. Origin: main:/missing_information/items/2. main:/missing_information/items/2/why_it_matters specifies release only at task 5 after the animal model, scaling and predictions are frozen. This restriction applies to upstream access immediately.",
+      "needed_material": "Release the separate human reference file only at the specified stage after the required freezes; do not access its outcomes earlier.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI004",
+      "affected_id": "DRQ010",
+      "reason": "OPEN; status CONFLICT; needed_at pk. Conflicting mouse binding sources and percentage interpretation remain unresolved. Origin: main:/missing_information/items/3. main:/missing_information/items/3/why_it_matters identifies serum, plasma and secondary-table descriptions whose concentration bases must remain distinct. A single accepted mouse free-exposure conversion is not established.",
+      "needed_material": "Resolve source-specific binding definitions and applicability, retaining unresolved alternatives under SC031 rather than averaging them.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MI005",
+      "affected_id": "DRQ002",
+      "reason": "OPEN; status DEFERRED; needed_at prepare. Source-block preparation and record eligibility have not been established. Origin: main:/missing_information/items/4. main:/missing_information/items/4/why_it_matters states that only the proposal was supplied and attachment bodies were not searched or assessed. This response plans requirements without claiming input availability or coverage.",
+      "needed_material": "Perform the authorized SC021 assessment and document eligible records and independently identified gaps without assuming completeness.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI006",
+      "affected_id": "DRQ006",
+      "reason": "OPEN; status DEFERRED; needed_at pk. Animal PK model support and design-permitted evaluation remain unassessed. Origin: main:/missing_information/items/5. main:/missing_information/items/5/why_it_matters makes model choices and evaluation conditional on data and design support. Structure selection and numerical adequacy are reserved for T002.",
+      "needed_material": "Assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI007",
+      "affected_id": "DRQ009",
+      "reason": "OPEN; status DEFERRED; needed_at pk. Support for individual PK variability remains unassessed. Origin: main:/missing_information/items/6. main:/missing_information/items/6/why_it_matters distinguishes summaries and predictions from individual observations and prohibits invented variability. Individual variability cannot be inferred from group summaries for modeling or human simulation.",
+      "needed_material": "Determine whether authorized individual-level evidence supports variability estimation; otherwise preserve the limitation without constructing variability from summaries.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MI008",
+      "affected_id": "DRQ012",
+      "reason": "OPEN; status DEFERRED; needed_at human_pk. Supported human translation inputs and relationships remain to be established. Origin: main:/missing_information/items/7. main:/missing_information/items/7/why_it_matters leaves implementation of SC023 to later assessment. Neither a justified scaling approach nor permissions for an optional human in-vitro branch are established by the method library.",
+      "needed_material": "Establish and document the supported inputs and physiological relationships for SC023, including how nonlinearity and autoinduction are addressed.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI009",
+      "affected_id": "DRQ014",
+      "reason": "OPEN; status NOT_FOUND; needed_at human_pk. Numerical prospective human prediction regimens were not located in the reviewed proposal scope. Origin: main:/missing_information/items/8. main:/missing_information/items/8/why_it_matters identifies missing numerical doses, intervals, loading schedules and treatment durations. Reproducible prospective scenarios remain undefined.",
+      "needed_material": "Specify the complete prospective dosing histories, preserving the distinct routes and loading components already stated in SC023.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "MI010",
+      "affected_id": "DRQ021",
+      "reason": "OPEN; status DEFERRED; needed_at index. Eligible matched PK/PD records remain unestablished. Origin: main:/missing_information/items/9. main:/missing_information/items/9/why_it_matters states that record-level matching and adequacy were not assessed. Comparable regressions and targets depend on this assessment; independent PK work remains separately assessable.",
+      "needed_material": "Establish eligible matched records for each organism and endpoint under SC017, SC032 and SC033, or document why an index or target is not determinable.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI011",
+      "affected_id": "DRQ026",
+      "reason": "OPEN; status NOT_FOUND; needed_at index. The prespecified PK/PD index selection rule was not located. Origin: main:/missing_information/items/10. main:/missing_information/items/10/why_it_matters states that SC032 requires registration before fitting but the proposal does not state the rule. Index fitting awaits registration.",
+      "needed_material": "Register the selection rule before index fitting while preserving the comparison requirements and no-forced-winner condition in SC032.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "MI012",
+      "affected_id": "DRQ030",
+      "reason": "OPEN; status NOT_FOUND; needed_at validation. Prespecified human prediction-validation criteria were not located. Origin: main:/missing_information/items/11. main:/missing_information/items/11/why_it_matters states that SC025 names evaluation outputs and timing but supplies no criteria. A prespecified acceptance judgment remains pending.",
+      "needed_material": "Specify and freeze the validation criteria before evaluating human outcomes; do not derive them from validation results.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "MI013",
+      "affected_id": "DRQ031",
+      "reason": "OPEN; status DEFERRED; needed_at prepare. MIC distribution preparation and probability support remain unassessed. Origin: main:/missing_information/items/12. main:/missing_information/items/12/why_it_matters identifies unassessed bins, denominators and censored-category handling. The limitation affects later weighted attainment separately from per-MIC PTA.",
+      "needed_material": "Assess the authorized MIC tables and document how probabilities preserve the source categories and truncation, without silent renormalization.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MI014",
+      "affected_id": "DRQ032",
+      "reason": "OPEN; status NOT_FOUND; needed_at clinical. The prespecified human PTA population was not located. Origin: main:/missing_information/items/13. main:/missing_information/items/13/why_it_matters states that SC026 requires the population but the proposal does not define it. Population-dependent PTA simulation remains pending.",
+      "needed_material": "Specify the human PTA population before simulation, with variability and uncertainty supported under SC038.",
+      "required_by": "BEFORE_PTA",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "MI015",
+      "affected_id": "DRQ033",
+      "reason": "OPEN; status NOT_FOUND; needed_at clinical. Prespecified numerical human PTA dosing scenarios were not located. Origin: main:/missing_information/items/14. main:/missing_information/items/14/why_it_matters distinguishes these scenarios from the prospective prediction regimens in MI009. Reproducible PTA scenarios remain undefined.",
+      "needed_material": "Prespecify the complete PTA dosing scenarios before simulation and document their relationship to the validated PK predictions.",
+      "required_by": "BEFORE_PTA",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "TABLE_PLAN_REQUIRED",
+      "affected_id": "F0003:S4:unassigned",
+      "reason": "UNASSIGNED cells cannot be admitted for body review or assigned to a distribution from adjacent notes.",
+      "needed_material": "Authorized table boundaries, source association, headers and access classification for the listed cells; retain NEEDS_REVIEW until established.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "MIXED_CONTENT_ROUTING",
+      "affected_id": "F0003:S1:T5",
+      "reason": "The metadata describe candidate isolate MIC inputs alongside comparator MICs and published ED50/exposure-index outputs. REVIEW_DATA does not make every field a primary-analysis input.",
+      "needed_material": "File-review separation of MIC/design inputs from reference results, with explicit R012 use restrictions and disclosure of relevant content outside the assigned task.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "HUMAN_TARGET_DEPENDENCY",
+      "affected_id": "F0003:S2:T2",
+      "reason": "The published model design includes escalating regimens, and the associated schedule identifies a human-exposure-target purpose. Permission to review animal model metadata does not qualify these inputs for independent scaling.",
+      "needed_material": "Source-supported account of model/regimen dependencies and the restriction preventing the escalating regimen from tuning scaling; keep removed human-target evidence deferred.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MATRIX_GROUP_ASSIGNMENT_UNVERIFIED",
+      "affected_id": "F0003:S2:T5",
+      "reason": "The supplied metadata explicitly mark plasma/brain and healthy/infected AUC assignment as NOT_VERIFIED.",
+      "needed_material": "Authorized source evidence supporting each matrix/group assignment, or preserve unassigned values as unresolved and exclude dependent assignments.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OUTSIDE_TASK_CONTENT_ROUTING",
+      "affected_id": "F0003:S2:T4",
+      "reason": "Free-brain measurements accompany systemic plasma evidence. They must remain distinct and cannot establish human plasma exposure coverage.",
+      "needed_material": "File-review routing finding for relevant brain-specific content, preserving matrix, analyte basis and healthy/meningitis distinctions.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI001",
+      "reason": "NOT_FOUND; resolution_status OPEN; needed_at prepare. Original-source provenance for SC014 remains unestablished from the supplied proposal and registration.",
+      "needed_material": "Provide authorized original-source evidence if available, or retain the provenance limitation under SC015. Preserve the original item at /missing_information/items/0.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI002",
+      "reason": "AMBIGUOUS; resolution_status OPEN; needed_at prepare. Secondary-table values cannot be confidently assigned to species because the column mapping is unverified.",
+      "needed_material": "Verify mapping from authorized evidence before assigning species; otherwise preserve uncertainty and SC015 restrictions. Preserve the original item at /missing_information/items/1.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI003",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at validation. The separate human reference evidence is not supplied and is released only at task 5 after animal-model, scaling and prediction freezes.",
+      "needed_material": "Authorized task-5 release and required freeze records; do not access outcomes earlier. Preserve the original item at /missing_information/items/2.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI004",
+      "reason": "CONFLICT; resolution_status OPEN; needed_at pk. Mouse binding sources and percentage interpretations do not establish a single defensible free-exposure conversion.",
+      "needed_material": "Source-specific binding definitions and applicability review; retain unresolved alternatives under SC031 without averaging. Preserve the original item at /missing_information/items/3.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI005",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at prepare. Source-block preparation, eligible records and record-level limitations remain unassessed; access labeling does not perform that assessment.",
+      "needed_material": "Authorized SC021 preparation assessment documenting eligible records and independently identified gaps without assuming completeness. Preserve the original item at /missing_information/items/4.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI006",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at pk. Supported animal model structures and design-permitted evaluation have not been determined.",
+      "needed_material": "Downstream assessment of prepared evidence under SC022, retaining unsupported or unassessable components as limitations. Preserve the original item at /missing_information/items/5.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI007",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at pk. The evidential basis for individual PK variability remains unassessed; summaries cannot establish individual variability.",
+      "needed_material": "Authorized individual-level evidence or a documented limitation without constructing variability from summaries. Preserve the original item at /missing_information/items/6.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI008",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at human_pk. Supported inputs and physiological relationships for human translation remain to be established.",
+      "needed_material": "Document supported SC023 inputs and relationships, including handling of nonlinearity and autoinduction. Preserve the original item at /missing_information/items/7.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI009",
+      "reason": "NOT_FOUND; resolution_status OPEN; needed_at human_pk. Numerical prospective prediction doses, intervals, loading schedules and treatment durations are unspecified in the reviewed proposal scope.",
+      "needed_material": "Complete prospective IV and oral dosing histories, preserving distinct routes and loading components without opening protected outcomes. Preserve the original item at /missing_information/items/8.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI010",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at index. Eligible matched response, exposure and isolate-MIC records have not been established separately by organism and endpoint.",
+      "needed_material": "Establish matched records under SC017, SC032 and SC033, or document why an index or target cannot be determined. Preserve the original item at /missing_information/items/9.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI011",
+      "reason": "NOT_FOUND; resolution_status OPEN; needed_at index. The prespecified PK/PD index selection rule is not supplied.",
+      "needed_material": "Register the selection rule before fitting, retaining all comparison requirements and the no-forced-winner condition in SC032. Preserve the original item at /missing_information/items/10.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI012",
+      "reason": "NOT_FOUND; resolution_status OPEN; needed_at validation. Human prediction-validation acceptance criteria are unspecified.",
+      "needed_material": "Specify and freeze criteria before evaluating human outcomes; do not derive criteria from validation results. Preserve the original item at /missing_information/items/11.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI013",
+      "reason": "DEFERRED; resolution_status OPEN; needed_at prepare. Underlying MIC bins, denominators and censored-category handling have not been assessed for transparent probability preparation.",
+      "needed_material": "Assess authorized MIC tables after resolving table assignment and document probability support, source categories and truncation without silent renormalization. Preserve the original item at /missing_information/items/12.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI014",
+      "reason": "NOT_FOUND; resolution_status OPEN; needed_at clinical. A prespecified human PTA population is not defined.",
+      "needed_material": "Specify the population before simulation with variability and uncertainty supported under SC038. Preserve the original item at /missing_information/items/13.",
+      "required_by": "BEFORE_PTA",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CARRIED_OPEN_ITEM",
+      "affected_id": "MI015",
+      "reason": "NOT_FOUND; resolution_status OPEN; needed_at clinical. Numerical PTA dosing scenarios are unspecified and remain a separate decision from MI009 prospective prediction regimens.",
+      "needed_material": "Prespecify complete PTA scenarios and their relationship to validated PK predictions before simulation. Preserve the original item at /missing_information/items/14.",
+      "required_by": "BEFORE_PTA",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "F0003:S1:T1",
+      "reason": "F0003:S1:T1:A4 states that the caption uses geometric mean and standard deviation, whereas the methods calculated arithmetic means. The meaning of the mean columns and associated error bars remains CONFLICT; neither definition was adopted.",
+      "needed_material": "Source-supported reconciliation of the caption and methods, including which summary definition applies to Fig. 2 and what the displayed error bars represent.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "DRQ003",
+      "reason": "F0003:S1:T1:A3 reports predose sampling and 0, 0.5, 1, 2, 4, 6, 9 and 24 h postdosing, with text stating 8 time points. A4 describes plotted times of 0, 0.5, 1, 2, 4, 8 and 12 h. The table retains its supplied times; actual versus nominal timing and the relation between predose and 0 h are unresolved.",
+      "needed_material": "Reconciliation of methods, figure timing and digitized row assignments, retaining the original coordinates and both reported schedules.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "AMBIGUOUS_DIGITIZED_ZERO",
+      "affected_id": "DRQ007",
+      "reason": "F0003:S1:T1:B13 and B14 contain 0. A7 explicitly identifies these as near-axis digitized readings at 8 and 12 h and also reports Table 2 Cmin 0.36 mg/liter for 10 mg/kg. A5 gives reading uncertainty about ±0.2 mg/L; A3 gives LLOQ 0.01 mg/liter for low concentrations. The readings do not establish measured biological zeros or BLQ classifications, and the relationship to the reported Cmin is unresolved.",
+      "needed_material": "Independent review of the low-dose markers and the reported Cmin definition and window. Preserve the supplied zeros, reported Cmin and LLOQ separately without replacement, conversion or imputed censoring flags.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_INPUT_DEFINITIONS",
+      "affected_id": "DRQ002",
+      "reason": "AVAILABLE_CANDIDATE inputs include source identity, oral dosing, treatment day, plasma matrix, HPLC-fluorescence assay, units, group summaries, extraction provenance and an LLOQ. Overall record eligibility remains UNRESOLVED. Total versus unbound basis, salt versus free-base dose basis, complete administered dose history, individual identifiers and actual versus nominal timing are NOT_FOUND. Meningitis, grapefruit-juice exposure and comedication are unspecified rather than established absent. Missing error-bar cells mean hidden endpoints according to A6, not zero SD.",
+      "needed_material": "Preparation assessment retaining these unknowns and the source conflicts; obtain source-backed definitions where required for the intended use. Do not infer absent treatments or manufacture identifiers, uncertainty values or dose events.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_SUMMARY_AND_SAMPLING_INPUTS",
+      "affected_id": "DRQ007",
+      "reason": "The concentration rows are digitized group means with three mice per time point, not individual records. A6 says 0 h markers were not digitized and continuations beyond 12 h lack markers. Error-bar columns contain endpoints only where visible; they are not standalone SD values. Individual sampling relationships and complete uncertainty information are NOT_FOUND. Input sufficiency and design-permitted evaluation remain downstream questions.",
+      "needed_material": "Preserve the plotted observation coverage, missing-marker explanations, digitization uncertainty and partial error-bar endpoints. Resolve summary and timing conflicts before preparing affected records; assess sampling design and uncertainty support before modeling.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_TREATMENT_HISTORY",
+      "affected_id": "DRQ008",
+      "reason": "AVAILABLE_CANDIDATE dose-level contrasts are 10, 40 and 80 mg/kg in the stated once-daily, treatment-day-2 context. This item does not supply complete prior administered events or separate single-dose and repeated-day concentration profiles. It therefore does not establish a longitudinal treatment-day contrast, time-dependent clearance or a nonlinear mechanism.",
+      "needed_material": "Complete source-linked dose histories and any eligible treatment-day or single-versus-repeat contrasts needed by the later animal PK assessment. Keep current dose groups and treatment day separate without transferring parameters.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_UNRESOLVED_ITEM",
+      "affected_id": "MI005",
+      "reason": "Forwarded unchanged in status and scope from main:/missing_information/items/4: field Source-block preparation and record eligibility; status DEFERRED; needed_at prepare; resolution_status OPEN. SC021 requires a later preparation assessment. Only the proposal was supplied; attachment bodies were not searched or assessed in the originating record. A usable modeling dataset and its unresolved record-level limitations have not been established by this transformation. This item-level label does not close MI005.",
+      "needed_material": "Perform the authorized SC021 assessment and document eligible records and independently identified gaps without assuming completeness.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_UNRESOLVED_ITEM",
+      "affected_id": "MI006",
+      "reason": "Forwarded unchanged in status and scope from main:/missing_information/items/5: field Animal PK model support and design-permitted evaluation; status DEFERRED; needed_at pk; resolution_status OPEN. SC022 makes model choices and evaluation conditional on data and design support; the proposal does not supply that assessment. Supported mouse and rat model structures and permitted predictive checks cannot yet be determined. For DRQ006, this source supplies mouse study context but does not establish rat coverage, structural support, holdout units or model evaluation.",
+      "needed_material": "Assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_UNRESOLVED_ITEM",
+      "affected_id": "MI007",
+      "reason": "Forwarded unchanged in status and scope from main:/missing_information/items/6: field Support for individual PK variability; status DEFERRED; needed_at pk; resolution_status OPEN. The proposal distinguishes summaries and predictions from individual observations and prohibits invented variability in SC027 and SC038; attachment-level support remains unassessed in the originating record. Individual variability cannot be used defensibly in animal modeling or carried into human simulations until its evidential basis is established. For DRQ009, A7 explicitly identifies these records as digitized means, not individual mice; the sample count and error bars do not establish individual trajectories or animal random effects.",
+      "needed_material": "Determine whether authorized individual-level evidence supports variability estimation; otherwise preserve the limitation without constructing variability from summaries.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_TRANSLATION_INPUTS",
+      "affected_id": "DRQ013",
+      "reason": "A3 provides a source-linked mouse study body-weight range of 20-22 g and explicit sex, age, immune and infection context. This is candidate mouse coverage only. The item does not provide a cross-species parameter inventory, individual weights, or approach-specific translation corrections and calibration inputs. Reported Cmax and Cmin values do not qualify a species model or human extrapolation.",
+      "needed_material": "Reuse the study-specific weight range and biological context in the later translation inventory; assess additional body-size or correction inputs only for explicitly considered approaches, preserving parameter definitions, dose and treatment day.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_UNRESOLVED_ITEM",
+      "affected_id": "MI010",
+      "reason": "Forwarded unchanged in status and scope from main:/missing_information/items/9: field Eligible matched PK/PD records; status DEFERRED; needed_at index; resolution_status OPEN. SC024 and SC032 depend on eligibility and matched inputs. The proposal describes relevant resources but does not establish record-level matching or adequacy; attachment bodies were not assessed in the originating record. Comparable index regressions and supported targets cannot yet be established. This item supplies PK context but no measured PD response or matched isolate MIC.",
+      "needed_material": "Establish eligible matched records for each organism and endpoint under SC017, SC032 and SC033, or document why an index or target is not determinable.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MISSING_MATCHED_INPUTS",
+      "affected_id": "DRQ021",
+      "reason": "A3 identifies A. fumigatus AZN 8196 and the infection and dosing context, but measured PD responses, matched isolate MIC values, response identifiers, endpoint windows and a source-supported exposure-response relationship are NOT_FOUND in this item. Strain identity alone does not establish MIC or response matching. No DRQ021 match is claimed.",
+      "needed_material": "Source-linked response records, isolate MICs and measurement context, endpoint windows, free-exposure basis and documented matching to the relevant dosing and PK records. Retain this gap without blocking independent PK input assessment.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MISSING_INDEX_INPUTS",
+      "affected_id": "DRQ023",
+      "reason": "No AUC value, free-AUC definition, AUC integration window or matched isolate MIC is provided in this item. The digitized concentration curves are candidate PK inputs, but they do not establish an available fAUC/MIC input or a completed derivation. Response matching is also NOT_FOUND.",
+      "needed_material": "A source-supported free-AUC input or documented later derivation from eligible PK inputs, with its window, time origin, units, binding basis, matched isolate MIC and response endpoint.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_INDEX_INPUTS",
+      "affected_id": "DRQ024",
+      "reason": "A5 reports Table 2 Cmax values of 1.61, 11.81 and 35.86 mg/liter as digitization checks. The note does not explicitly assign each value to a dose, define the peak window or establish a free-concentration basis. These reported values remain distinct from the digitized concentration rows. Matched isolate MICs and response records are NOT_FOUND, so fCmax/MIC matching is not established.",
+      "needed_material": "Confirmation of the reported Cmax dose associations, peak definition and window, free-exposure basis, matched isolate MIC and response endpoint. Do not assign the listed values to doses solely from their order.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_INDEX_INPUTS",
+      "affected_id": "DRQ025",
+      "reason": "Digitized plasma profiles are available, but free-concentration status, the matched isolate MIC threshold, analysis-window boundaries, duration-versus-percentage definition and any percentage denominator are NOT_FOUND in this item. The missing 0 h digitization and conflicting sampling schedules also limit profile-window definition. No fT>MIC input or result is established.",
+      "needed_material": "A defined free-concentration profile input, matched isolate MIC and measurement context, analysis window and time origin, output definition, and source-supported regimen-response matching. Resolve relevant timing and digitization limitations before downstream index calculation.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"quantity\": \"PK blood sampled\", \"subject\": \"Voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T1",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood sampled\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "PRINTED_EXPOSURE_UNIT_AND_NORMALIZATION_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "A20 explicitly preserves the fAUC unit mg·h/liter·kg, also printed for Dose-normalized AUC. A20 describes normalization to 10 mg/kg and calls 0.31, 1.75 and 3.68 ratios, while C23:C25 repeat those numbers under a unit-bearing header. The definitions and normalization denominator remain unresolved; no unit or value has been corrected.",
+      "needed_material": "Source-supported definitions of fAUC and dose-normalized AUC, their normalization denominator, printed-unit interpretation and any documented correction. Review the repeated note/table values without selecting an interpretation.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SAMPLING_SCHEDULE_AMBIGUOUS",
+      "affected_id": "DRQ003",
+      "reason": "A19 quotes immediately before administration and a postdosing schedule including 0 h, while separately quoting 8 time points. The relationship between predose and 0 h and the intended sampling count are not resolved. Three mice per time point does not establish serial animal identity.",
+      "needed_material": "Clarification of the predose/0 h relationship and source sampling schedule; preserve both descriptions and avoid inventing animals or sampling events.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "BINDING_SUMMARY_CONFLICT",
+      "affected_id": "F0003:S1:T2",
+      "reason": "A21 reports a combined geometric mean unbound fraction of 29.97% with a 95% confidence interval, then quotes Discussion: 29.87% with standard deviation 2.9%. Their statistical definitions differ and the relationship between the two central values is unresolved. Neither is adopted or averaged.",
+      "needed_material": "Source-supported clarification of the Discussion value, its population and statistic, and its relationship to the combined geometric mean. Retain both original statements for review.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONFLICT_CARRIED",
+      "affected_id": "MI004",
+      "reason": "MI004 remains OPEN with status CONFLICT, needed_at pk: conflicting mouse binding sources and percentage interpretation prevent selection of a single defensible mouse free-exposure conversion. A21 provides source-specific plasma unbound percentages measured by ultrafiltration; it does not resolve the inherited serum/plasma/secondary-table conflict or establish interchangeability across contexts.",
+      "needed_material": "At the animal PK phase, resolve source-specific binding definitions and applicability, retaining unresolved alternatives under SC031 rather than averaging them. Preserve the original MI004 record and its origin.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "BINDING_INPUT_PARTIALLY_AVAILABLE",
+      "affected_id": "DRQ011",
+      "reason": "UNRESOLVED: A21 supplies mouse plasma unbound percentages, ultrafiltration, pooled 1, 2 and 4 h samples, arm-specific results and sample counts. Measurement temperature, pH, tested concentration range, recovery, nonspecific binding and mass balance are NOT_FOUND. Direct measured unbound concentration records are not present on this page. Binding conversion applicability is unestablished.",
+      "needed_material": "Source-linked binding conditions and concentration range, any reported recovery/nonspecific-binding/mass-balance information, and an applicability assessment for the intended free-exposure inputs. Blood/plasma partition information is conditional on an intended basis change.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "PK_MODEL_INPUT_COVERAGE_PARTIAL",
+      "affected_id": "DRQ008",
+      "reason": "UNRESOLVED: A19 and A23:A25 establish three dose groups, once-daily oral dosing, treatment initiation relative to infection and day-2 sampling; the table supplies dose-specific reported parameters. Actual concentration-time records, complete prior dosing events, individual identifiers, single-versus-repeat-dose contrasts and parameter-estimation methods are NOT_FOUND on this page. The source statement that clearance decreased with dose is a reported conclusion, not a completed model assessment.",
+      "needed_material": "Retain these dose/day-specific parameters as candidate evidence. Obtain authorized concentration-time records and dosing/design metadata before assessing nonlinear or time-dependent model support; do not transfer parameters across doses or days.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_DEFERRED_ITEM_CARRIED",
+      "affected_id": "MI006",
+      "reason": "MI006 remains OPEN with status DEFERRED, needed_at pk: animal PK model support and design-permitted evaluation have not been assessed. This page supplies reported parameters and design notes but cannot determine supported mouse or rat model structures, identifiability or permitted predictive checks.",
+      "needed_material": "At the animal PK phase, assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations. Preserve the original MI006 record and its origin.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "TRANSLATION_CANDIDATE_COVERAGE_ONLY",
+      "affected_id": "DRQ012",
+      "reason": "UNRESOLVED: This page supplies mouse dose/day-specific reported parameters, a study weight range, infection state and binding evidence relevant to DRQ012 and DRQ013. It supplies no qualified animal model outputs, individual study weights, metabolic-clearance evidence, physiological translation relationships or species-inclusion comparison. It cannot qualify a parameter, species or human prediction.",
+      "needed_material": "Reuse these source-linked candidate definitions and review statuses. Obtain supported upstream model outputs and only the additional body-size, binding, clearance and physiological inputs needed by explicitly considered translation approaches.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "FREE_AUC_INPUT_UNRESOLVED",
+      "affected_id": "DRQ023",
+      "reason": "UNRESOLVED: B23:B25 and D23:D25 supply reported AUC and fAUC values by dose. The AUC integration window and origin, explicit fAUC definition and derivation, applicable free-exposure conversion, matched isolate MIC and response records are NOT_FOUND. Printed fAUC units also require review.",
+      "needed_material": "Source-supported exposure definitions and windows, resolved unit interpretation, binding applicability, and matched isolate MIC/response evidence before fAUC/MIC comparison.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "FREE_CMAX_INPUT_UNRESOLVED",
+      "affected_id": "DRQ024",
+      "reason": "UNRESOLVED: G23:G25 supply source-reported dose-group Cmax values in mg/liter and H23:H25 supply Tmax. Whether the peaks are sampled or fitted, their explicit concentration basis and estimation window, a free-Cmax derivation, and matched isolate MIC/response records are NOT_FOUND. These reported group parameters do not establish individual peak variability.",
+      "needed_material": "Source-supported peak definition, concentration basis and window, justified free-exposure inputs, and matched isolate MIC and endpoint-specific response evidence.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_DEFERRED_ITEM_CARRIED",
+      "affected_id": "MI010",
+      "reason": "MI010 remains OPEN with status DEFERRED, needed_at index: eligible matched PK/PD records are not established. A19 identifies A. fumigatus AZN 8196 as the infection organism/isolate, but this page contains no isolate MIC values, PD response records or explicit exposure-response matching. DRQ021 is therefore not matched by this page.",
+      "needed_material": "At index analysis, establish eligible matched records separately by organism and endpoint under SC017, SC032 and SC033, or document why an index or target is not determinable. Preserve the original MI010 record and its origin.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "TEXT_ONLY_INPUTS_REQUIRE_PREPARATION_CONFIRMATION",
+      "affected_id": "DRQ002",
+      "reason": "Binding measurements, sample counts, assay limit, study characteristics and sampling/regimen details occur in A19:A21 rather than table-body columns. They are retained as stated values and context; they must not be treated as additional individual animal observations. Dose and normalized-exposure numbers also recur in notes and table rows.",
+      "needed_material": "Carry the separate stated-values list to preparation for confirmation, duplicate/context review and source-linked handling of text-only data.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"PK blood\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S1:T2",
+      "reason": "Model metadata was not copied literally: {\"subject\": \"voriconazole\"}. Unsupported fields remain NOT_FOUND; original evidence and raw model response are retained.",
+      "needed_material": "Review the source wording and confirm the unresolved stated-value fields before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ001",
+      "reason": "The supplied item does not explicitly name the test drug or analyte. Candida kefyr identifies the bioassay organism, and cyclophosphamide is the neutropenia-inducing co-medication; neither establishes the assayed test-drug identity.",
+      "needed_material": "Source-backed confirmation linking this item's PK and binding records to voriconazole and identifying the assayed analyte.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ007",
+      "reason": "A41 supplies sampling design and assay information, but A42 explicitly states that concentration-time points are in Fig. 1 only and are not digitized. The table contains reported parameters, not concentration-time observations or verified individual trajectories.",
+      "needed_material": "Authorized source-linked concentration-time values or separately documented figure extraction, preserving group-summary status, sampling times, units, uncertainty and detection-limit metadata.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ002",
+      "reason": "The ± values in B45:D47 have no explicitly stated statistic. A42 defines geometric mean ± SD for figure concentration-time points, without explicitly extending that definition to the legend parameter estimates. The detection limit is stated, but an LLOQ and record-level censoring flags are not.",
+      "needed_material": "Definitions of the table estimates and their ± terms, associated sample counts, and any source-reported quantification limits or censoring metadata. Preserve the stated detection limit without relabeling it as an LLOQ.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "F0003:S1:T4",
+      "reason": "A43 reports a Results elimination half-life range of 0.72 to 2.9 h while also stating that the legend gives 0.68 h at 10 mg/kg. B47 reports 0.68 ± 0.04 h for that dose. The repeated legend value agrees with B47, but the Results lower bound remains conflicting.",
+      "needed_material": "Independent review of the source-specific half-life statements and a recorded disposition preserving both the Results range and legend estimate.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONFLICT",
+      "affected_id": "MI004",
+      "reason": "MI004 remains OPEN, status CONFLICT, needed_at pk. A43 supports 78% protein binding in mouse serum at 10 and 100 μg/ml. This page does not resolve the supplied conflicting plasma and secondary-table descriptions or their applicability. A single defensible mouse free-exposure conversion cannot be selected from this evidence.",
+      "needed_material": "Resolve source-specific binding definitions and applicability, retaining unresolved alternatives under SC031 rather than averaging them; carry fu as a sensitivity parameter.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ011",
+      "reason": "Serum binding percentage and two tested concentrations are available in A43. Binding measurement method, temperature, pH, recovery, nonspecific binding and mass balance are NOT_FOUND. Direct unbound concentrations and applicability of this binding evidence to the reported serum PK estimates are not established.",
+      "needed_material": "Source-specific binding methodology, reported experimental conditions and quality information, and a justified applicability link to the intended free-exposure inputs.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ008",
+      "reason": "Three single oral dose levels have reported PK parameters, but their concentration-time records are not supplied. Repeat-dose or treatment-day contrasts are not established. This page cannot establish support for nonlinear mechanisms or time-dependent clearance.",
+      "needed_material": "Source-linked concentration-time records at the stated dose levels and any relevant repeated-dose histories, treatment days and comparable biological contexts.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI006",
+      "reason": "MI006 remains OPEN, status DEFERRED, needed_at pk. This item provides reported parameters and a sampling description, but supported mouse and rat model structures and design-permitted predictive checks remain unassessed. No model fitting or numerical adequacy assessment is performed here.",
+      "needed_material": "Assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ013",
+      "reason": "A41 supplies a study body-weight range and immune/infection context. It does not supply animal-specific weights, parameter-estimate weight associations or complete concentration-basis definitions. The range must not be replaced by an invented representative weight.",
+      "needed_material": "Review the reported weight range and parameter definitions against the translation approach considered; obtain additional study-specific weight associations only where that approach requires them.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ023",
+      "reason": "C45:C47 provide reported AUC estimates and units. Their integration window, time origin and total/unbound definition are NOT_FOUND. Matched isolate MICs, response records and endpoint windows are absent from this page.",
+      "needed_material": "Source-supported AUC window and basis, binding applicability, and explicit regimen-specific links to isolate MICs and response records before fAUC/MIC comparison.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ024",
+      "reason": "D45:D47 provide reported maximum serum concentration estimates and units. Sampled versus fitted peak definition, peak window and total/unbound basis are NOT_FOUND. These values do not establish individual peak variability or matched exposure-response records.",
+      "needed_material": "Source-supported peak definition and window, free-exposure applicability, and matched isolate MIC and response records before fCmax/MIC comparison.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI010",
+      "reason": "MI010 remains OPEN, status DEFERRED, needed_at index. This page supplies no efficacy response records or matched isolate MICs and does not establish record-level PK/PD matching. Candida kefyr is named as the bioassay organism, not as an efficacy isolate or matched susceptibility record.",
+      "needed_material": "Establish eligible matched records for each organism and endpoint under SC017, SC032 and SC033, or document why an index or target is not determinable.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "PARTIAL_SOURCE_INPUT_COVERAGE",
+      "affected_id": "DRQ002",
+      "reason": "UNRESOLVED: F0003:S1:T5 provides source provenance, isolate-level MICs and reported parameters, and group-size and regimen notes. It does not provide individual-animal observations, transcribed per-regimen CFU records, an exposure assay, exposure matrix or complete dose and sampling histories. These gaps do not establish absence elsewhere. MI005 remains DEFERRED until the authorized preparation assessment, as specified in this requirement.",
+      "needed_material": "Authorized preparation assessment of source-linked records, retaining reported-parameter and summary status, missing fields and the stated kidney CFU detection limit.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "EXPERIMENTAL_CONTEXT_UNRESOLVED",
+      "affected_id": "DRQ003",
+      "reason": "UNRESOLVED: F0003:S1:T5:A53 explicitly leaves the PD dosing route unstated; oral gavage describes PK only. The lateral tail vein in A52 is the inoculation route. Total and Free drug ratios are separate, but exposure matrix, assay, free-exposure derivation and treatment-day linkage are not stated. The K-1 section has no explicit duration.",
+      "needed_material": "Source-supported PD administration route, exposure provenance and treatment-day context; preserve unknown fields and avoid transferring the PK route or duration to PD without evidence.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_MATCHING_ITEM_RETAINED",
+      "affected_id": "MI010",
+      "reason": "MI010, Eligible matched PK/PD records, remains DEFERRED with resolution_status OPEN and needed_at index, originating in main:/missing_information/items/9. Comparable index regressions and supported targets cannot yet be established. F0003:S1:T5 has row-associated isolate MICs and reported ED50/AUC/MIC values, but A54 states that per-regimen CFU values are in figures only and not transcribed. DRQ021 therefore remains UNRESOLVED; this page does not establish regimen-specific matched exposures and responses or a common comparison record set.",
+      "needed_material": "Establish eligible matched records for each organism and endpoint under SC017, SC032 and SC033, or document why an index or target is not determinable. Preserve response identifiers, isolate MICs, exposure provenance, free basis, histories and windows. This does not block independent animal PK work.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "INFECTION_AND_MIC_METADATA_PARTIAL",
+      "affected_id": "DRQ022",
+      "reason": "UNRESOLVED: A52-A54 supply neutropenia, inoculum, intravenous inoculation timing, kidney endpoint, dose/interval contrasts and NCCLS M27-A MICs at 48 h with geometric mean of 3. Mouse strain, MIC medium and inhibition endpoint, the nature of the three MIC measurements, response reference point, untreated growth controls and full separate-PK compatibility are not established. Frequency variation is described for K-1; other isolates use every 6 h. The effect of this design on index distinguishability remains unassessed.",
+      "needed_material": "Source-supported missing infection-model, susceptibility-test and PK-to-PD compatibility metadata; retain isolate-specific design differences for downstream assessment without imposing a regimen-count threshold.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "FREE_AUC_INPUT_PARTIAL",
+      "affected_id": "DRQ023",
+      "reason": "UNRESOLVED: E55:F65 report total and free 24-h AUC/MIC ratios by isolate. They do not establish raw free AUC inputs, AUC units, time origin, binding derivation, exposure matrix, treatment day or per-regimen exposure-response links. The 24-h label does not resolve the explicit lack of a K-1 treatment duration.",
+      "needed_material": "Source-supported free AUC inputs or a documented planned derivation from eligible PK records, with units, window origin, regimen/day and matched response linkage.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "PEAK_INPUT_NOT_LOCATED_ON_PAGE",
+      "affected_id": "DRQ024",
+      "reason": "MISSING within this reviewed item: no free Cmax input, peak definition or peak-response linkage is supplied. Reported AUC/MIC ratios do not establish these inputs.",
+      "needed_material": "Assess authorized sources for free Cmax inputs or a planned derivation, preserving peak definition, concentration units, window, regimen and matched response records.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "TIME_ABOVE_MIC_INPUT_NOT_LOCATED_ON_PAGE",
+      "affected_id": "DRQ025",
+      "reason": "UNRESOLVED: isolate MICs are available, but this page contains no free concentration-time input, time-above-MIC window, duration-versus-percentage definition or denominator. AUC/MIC ratios alone cannot establish fT>MIC inputs.",
+      "needed_material": "Source-linked free profiles or eligible planned derivations, matched MIC thresholds, analysis-window origins and the specified duration or percentage definition.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_SELECTION_RULE_ITEM_RETAINED",
+      "affected_id": "MI011",
+      "reason": "MI011, Prespecified PK/PD index selection rule, remains NOT_FOUND with resolution_status OPEN and needed_at index, originating in main:/missing_information/items/10. Index comparison cannot proceed with a fully registered selection procedure. This page supplies reported ED50s and AUC/MIC ratios, not the prespecified procedure required by DRQ026.",
+      "needed_material": "Register the selection rule before index fitting while preserving SC032: equal eligibility for all three indices and both regression families, common matched inputs and likelihood, extra Hill parameter accounting, planned R²/AIC/BIC/stability/identifiability reporting, and no forced winner or selection by R² alone.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "PUBLISHED_PARAMETER_USE_RESTRICTION",
+      "affected_id": "DRQ026",
+      "reason": "D56:F66 contain published ED50s and exposure-index parameters, including a summary Free drug AUC/MIC ratio. Their availability does not authorize primary-analysis starting values, bounds, priors, index rankings or target adoption under R012 and SC035.",
+      "needed_material": "Independent review of downstream parameter-use provenance and human review before fitting; retain these values as source-reported parameters.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CFU_TARGET_DEFINITION_PARTIAL",
+      "affected_id": "DRQ027",
+      "reason": "UNRESOLVED: A53 defines change in log10 CFU per pair of kidneys and its detection limit, but the desired effect, change reference, untreated controls and matched response inputs are not supplied. Other isolates have a stated 24-h study period; K-1 has no explicit duration. A reported ED50 does not define the project's desired CFU effect. Numerical target estimation remains a planned T004 output rather than automatically missing data.",
+      "needed_material": "Specify the desired organism-specific CFU effect, baseline/control reference, treatment and observation window, and matched estimation inputs. Keep CFU targets separate from survival targets and other organisms.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "ISOLATE_IDENTIFIER_LINK_REVIEW",
+      "affected_id": "DRQ021",
+      "reason": "A52 uses Isolate K-1 while A56 uses K1. Both original spellings are preserved; their equivalence has not been independently established by an explicit identifier mapping on this page.",
+      "needed_material": "Confirm the source-supported identifier mapping before attaching the K-1 regimen description to the K1 table row.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_IDENTITY_UNRESOLVED",
+      "affected_id": "DRQ001",
+      "reason": "The supplied item identifies S04, the study population and plasma HPLC-UV, but does not explicitly name the administered drug or measured analyte. Project-wide voriconazole identity does not establish this item's identity.",
+      "needed_material": "Source-backed confirmation of the administered drug, measured analyte and salt/free-base or other dose basis, linked to S04 Table 2.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MODELING_INPUT_COVERAGE_UNRESOLVED",
+      "affected_id": "DRQ007",
+      "reason": "UNRESOLVED: F0003:S1:T6:A71 supplies the day-2 sampling schedule, counts, matrix, assay and LLOQ; A72 states that concentrations are in Fig. 2 only and are not digitized. Table body values are reported parameters, not concentration observations or individual animals. Parameter summary definitions, variability, experimental-unit identifiers, actual versus nominal timing and numerical time origin are unspecified.",
+      "needed_material": "Authorized concentration-time source values or separately documented figure extraction; sampling and summary definitions, available variability, missingness metadata, identifiers where available, and explicit time origin. Retain reported parameters separately.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DOSE_HISTORY_COVERAGE_UNRESOLVED",
+      "affected_id": "DRQ008",
+      "reason": "UNRESOLVED: four dose groups and a once-daily seven-day schedule are stated, with PK on treatment day 2. Actual prior administration times and concentration-time contrasts across treatment days are not supplied. This page does not establish time-dependent clearance or permit parameter transfer between doses or days.",
+      "needed_material": "Source-supported dosing-event histories, sampling-time origin and eligible concentration-time records for the dose/day contrasts intended for downstream assessment.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "MI004",
+      "reason": "MI004 remains CONFLICT, resolution_status OPEN, needed_at pk: conflicting mouse binding sources and percentage interpretation prevent selecting a single defensible free-exposure conversion. F0003:S1:T6:A72 explicitly reports an unmeasured, borrowed unbound fraction of 29.87% from S03. Supplied SC030 instead describes 29.97% unbound in plasma, alongside 78% bound in serum and an unspecified-basis 67% secondary-table description; the rat 64-66% basis also remains unspecified. The discrepancy is retained without averaging, correction or conversion under SC031.",
+      "needed_material": "Source-specific confirmation of the S03 value, percentage definition, binding species and matrix, experimental context and applicability to S04. Carry unresolved alternatives and fu sensitivity forward.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "BINDING_APPLICABILITY_UNRESOLVED",
+      "affected_id": "DRQ011",
+      "reason": "UNRESOLVED: A72 provides a borrowed unbound percentage and explicitly says it was not measured here. Binding measurement method, measurement species and matrix, temperature, pH, concentration range, recovery, nonspecific binding and mass balance are not supplied. The plasma PK matrix does not establish the borrowed binding measurement's matrix; the table's total/unbound basis is unstated.",
+      "needed_material": "Source-specific binding metadata and the concentration basis of the reported PK parameters before any free-exposure derivation. Blood/plasma partition is conditional on an intended basis change.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_ITEM_CARRIED",
+      "affected_id": "MI006",
+      "reason": "MI006 remains DEFERRED, resolution_status OPEN, needed_at pk: animal PK model support and design-permitted evaluation are unresolved. This item contributes dose-specific reported parameters and day-2 design context, but cannot establish supported mouse and rat structures, saturable elimination, time-dependent clearance, identifiability or permitted held-out prediction. SC022's conditional choices remain for the downstream PK assessment.",
+      "needed_material": "Prepared eligible observations and study-design evidence for downstream assessment of SC022; retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "TRANSLATION_INPUT_COVERAGE_UNRESOLVED",
+      "affected_id": "DRQ013",
+      "reason": "UNRESOLVED: source-reported mouse parameters, health/infection state and a 20-25 g study range are available candidates. Individual study weights, complete parameter definitions and concentration basis are not established here. This single mouse study does not establish cross-species coverage or qualify a parameter for human extrapolation.",
+      "needed_material": "Reuse these candidate definitions and study context; obtain actual study body-weight inputs if required by a considered scaling approach and resolve parameter comparability in the translation inventory.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "FREE_AUC_INPUT_UNRESOLVED",
+      "affected_id": "DRQ023",
+      "reason": "UNRESOLVED: dose-specific AUC∞_pred values are available, explicitly extrapolated using the last predicted concentration. They are not established as free AUC; their lower integration limit and time origin are unspecified. No matched isolate MIC, response record, endpoint window or source-supported exposure-response link is provided.",
+      "needed_material": "A source-supported AUC definition and window, justified free-exposure basis, matched isolate MIC and eligible response/regimen linkage before fAUC/MIC comparison.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "FREE_CMAX_INPUT_UNRESOLVED",
+      "affected_id": "DRQ024",
+      "reason": "UNRESOLVED: source-reported dose-specific Cmax values are available. Sampled versus model-predicted peak definition, peak window, total/unbound basis and parameter variability are unspecified. No matched isolate MIC or response linkage is supplied.",
+      "needed_material": "Peak definition and window, justified free-exposure basis, matched isolate MIC and eligible response/regimen linkage before fCmax/MIC comparison.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_ITEM_CARRIED",
+      "affected_id": "MI010",
+      "reason": "MI010 remains DEFERRED, resolution_status OPEN, needed_at index: eligible matched PK/PD records remain unresolved. This page contains infected-mouse PK parameters but no response records or matched isolate MICs. Organism context alone cannot establish matching, comparable index regressions or supported targets under SC017, SC032 and SC033.",
+      "needed_material": "Source-supported matched exposure, dosing-history, isolate MIC and response records separately by organism and endpoint, or a documented determination that an index or target cannot be established.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "STATED_VALUE_DUPLICATES",
+      "affected_id": "F0003:S1:T6",
+      "reason": "The 5, 10, 20 and 40 mg/kg doses in A71 repeat the dose-group values in A74:A77. They are note/table duplicates, not additional administrations or independent records.",
+      "needed_material": "Carry the stated-value list separately to preparation for confirmation while preserving its relationship to the existing dose-group rows.",
+      "required_by": "BEFORE_EDA",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "PARTIAL_INPUT_COVERAGE",
+      "affected_id": "DRQ002",
+      "reason": "UNRESOLVED. F0003:S1:T8 supplies source attribution, four regimen rows, serum concentration means and SDs, sample counts, infection context and bioassay information. Chemical dose basis, complete administration-event histories, individual experimental-unit identifiers, explicit missingness definitions and detection limits are NOT_FOUND in this item. Source-backed availability does not establish record eligibility.",
+      "needed_material": "During preparation, retain the source coordinates and group-summary level, confirm eligibility and obtain or explicitly retain unresolved dose-basis, dosing-history, experimental-unit and assay-limit metadata.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SAMPLING_TIME_ORIGIN_AMBIGUOUS",
+      "affected_id": "DRQ003",
+      "reason": "UNRESOLVED. A95 states dosing from day 5 after infection for 21 days; A96 describes day 11 as midtreatment and day 23 as 2 days after treatment stopped without explicitly defining the sampling-day origin. A96 also gives approximately 4 h after dosing with an approximately 24 h exception for the three-times-weekly group. These statements must remain separate and must not be reconciled by inference.",
+      "needed_material": "Source-supported clarification of sampling-day origins, treatment start and stop references, and group-specific last-dose timing before constructing elapsed-time or treatment-day fields.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "EXPOSURE_AND_ASSAY_DEFINITIONS_UNRESOLVED",
+      "affected_id": "DRQ003",
+      "reason": "UNRESOLVED. A94-A96 establish infected mice receiving grapefruit juice, oral gavage, serum bioassay measurements, midtreatment sampling and post-treatment sampling. Total versus unbound basis, immune status, meningitis status and other medication exposure are NOT_FOUND. The 0.6125-10 μg/ml standard curve is not explicitly identified as a detection or quantification limit.",
+      "needed_material": "Preserve the stated biological and assay context; obtain source-backed exposure-basis and relevant animal-state definitions and explicit assay limits where available. Do not substitute plasma, chromatographic measurements or an inferred LLOQ.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MODELING_INPUT_COVERAGE_UNRESOLVED",
+      "affected_id": "DRQ007",
+      "reason": "UNRESOLVED. The item provides concentration units, two nominal sampling days, four dose/regimen groups, means ± standard deviations and six mice at each time point. Actual sampling times, verified animal identifiers, cross-time sampling structure and complete dosing events are NOT_FOUND; weight is explicitly not reported. Whether these group-summary inputs support the requested animal time-course model requires later assessment.",
+      "needed_material": "Retain candidate group-level inputs and their distinct timing contexts. Obtain available sampling-design and dosing-event metadata; leave model-dependent input sufficiency to the animal PK module.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DOSE_HISTORY_CONTRASTS_UNRESOLVED",
+      "affected_id": "DRQ008",
+      "reason": "UNRESOLVED. Rows 98-101 provide different daily doses and a three-times-weekly regimen, but A96 identifies different day-11 post-dose intervals and post-treatment day-23 measurements. Complete prior dosing events and comparable elapsed-time sampling are not established. These contrasts do not establish nonlinear or time-dependent clearance.",
+      "needed_material": "Preserve each dose/regimen and sampling context separately; obtain source-supported administration histories and timing definitions for downstream assessment of dose dependence and time dependence.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "TRANSLATION_INPUTS_UNRESOLVED",
+      "affected_id": "DRQ013",
+      "reason": "UNRESOLVED. This item contributes one mouse-study context with infected, grapefruit-juice-exposed animals and body-weight-normalized doses. A94 explicitly states weight not reported. It provides group-summary concentrations rather than qualified model outputs or parameter estimates. These records do not establish cross-species comparability or translation readiness.",
+      "needed_material": "If body-size scaling is considered, obtain actual study body weights with provenance or retain the limitation. Reuse the source-linked candidate inventory and review infection, grapefruit juice, assay, dose and treatment-day comparability before translation.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_ESCALATED",
+      "affected_id": "MI005",
+      "reason": "MI005 remains status DEFERRED, resolution_status OPEN, needed_at prepare: Source-block preparation and record eligibility. The inherited proposal-only coverage limitation is retained in provenance; this operation assesses F0003:S1:T8 only. It does not establish a usable modeling dataset or resolve workbook-wide record limitations. Outcome: ESCALATED to preparation review; the dependent eligibility decision remains pending.",
+      "needed_material": "Perform the authorized SC021 assessment and document eligible records and independently identified gaps without assuming completeness, using this candidate label and the other authorized source assessments.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED_OPEN_ITEM",
+      "affected_id": "MI006",
+      "reason": "MI006 remains status DEFERRED, resolution_status OPEN, needed_at pk: Animal PK model support and design-permitted evaluation. This item supplies limited mouse group-summary inputs, not an assessment of supported mouse or rat structures, identifiability or permitted predictive checks. No DRQ006 model-support conclusion is established.",
+      "needed_material": "At the animal PK stage, assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_OPEN_ITEM",
+      "affected_id": "MI007",
+      "reason": "MI007 remains status DEFERRED, resolution_status OPEN, needed_at pk: Support for individual PK variability. DRQ009 is UNRESOLVED. A96 defines means ± standard deviations from six mice at each time point; individual observations and verified cross-time identifiers are NOT_FOUND in this item. Reported group SDs do not establish an individual PK variability model or parameter uncertainty. Independently supported group-level preparation remains available.",
+      "needed_material": "Determine whether authorized individual-level evidence supports variability estimation; otherwise preserve the limitation without constructing variability from summaries or carrying unsupported individual variability into human simulations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_SOURCE_DEFINITIONS",
+      "affected_id": "DRQ002",
+      "reason": "F0003:S2:T1 provides source-linked reported parameter summaries, study weights, assay, dosing and sampling context. Individual records, detection limits, AUC integration limits, detailed parameter-estimation definitions and explanations for unpopulated cells were not located on this page. The note explicitly states that LLOQ was not stated in the text read.",
+      "needed_material": "During authorized preparation, retain the summaries at their reported level and obtain source-backed parameter definitions, missing-cell explanations and assay limits where available; preserve remaining unknowns without inventing values.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_EXPERIMENTAL_DISTINCTIONS",
+      "affected_id": "DRQ003",
+      "reason": "Single IV and oral routes, plasma assay and tofacitinib conditions are available. Total versus unbound basis, salt/free-base dose basis, health/infection and immune state, meningitis status, grapefruit-juice exposure, actual versus nominal times and precise sampling-time origin are NOT_FOUND. No day-2 or escalating-regimen identity is established.",
+      "needed_material": "Preserve route and co-medication groups separately. Seek authorized source clarification for consequential unknowns and record any later conversion justification; do not assign unstated treatment contexts.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SOURCE_CONFLICT_SAMPLE_COUNT",
+      "affected_id": "F0003:S2:T1",
+      "reason": "A5 reports IV with-TFC n as 6 in the methods and 5 in the table; C7 states n = 5. Both counts are retained and neither is adopted as a resolved count.",
+      "needed_material": "Human review of the source count discrepancy and a recorded decision before using the affected count for interpretation or uncertainty assessment.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_CONFLICT_VSS_SIGNIFICANCE",
+      "affected_id": "F0003:S2:T1",
+      "reason": "A6 reports Vss with tofacitinib as significantly greater (127%) while noting no table asterisk on Vss. B17 and C17 contain the reported Vss summaries without a significance marker. The text statement and table annotation difference remain unresolved.",
+      "needed_material": "Human review of the original Vss statement, comparison definition and table annotation; retain the reported values and text without adding an asterisk or recomputing the percentage.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_F_DEFINITION",
+      "affected_id": "F0003:S2:T1",
+      "reason": "A6 defines F as AUC oral / AUC IV and repeats printed values 106 and 122, matching D20 and E20. A3 states different IV and oral doses. Dose normalization and the precise interpretation of these F values are not established by the supplied definition.",
+      "needed_material": "Source-backed clarification of the F calculation and dose normalization before using these values as bioavailability inputs. Preserve the printed values without recalculation.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_CONCENTRATION_TIME_INPUTS",
+      "affected_id": "DRQ007",
+      "reason": "Doses, routes, group counts, sampling schedules, mean/SD definition and body-weight summaries are available candidate metadata. Concentration-time body values are absent from this item; A4 states curves are in Fig. 3 only and not digitized. Experimental-unit identifiers, sampling structure, extraction provenance, BLQ/LLOQ metadata and exact time origin are not established.",
+      "needed_material": "Authorized concentration-time evidence with source/extraction provenance and available sampling-unit definitions before assessing time-course modeling inputs. Do not reconstruct curves or individual trajectories from reported parameters.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_ANIMAL_MODEL_SUPPORT",
+      "affected_id": "MI006",
+      "reason": "MI006 remains DEFERRED, resolution_status OPEN, needed_at pk. For DRQ006, this item supports single-dose rat design context and reported parameters only. It does not establish eligible structures, saturable elimination, time-dependent clearance, identifiability or design-permitted held-out prediction. Mouse evidence is outside this item. No model-support decision is closed.",
+      "needed_material": "At the animal PK step, assess the prepared authorized evidence for SC022, document supported evaluations and retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_INDIVIDUAL_VARIABILITY_SUPPORT",
+      "affected_id": "MI007",
+      "reason": "MI007 remains DEFERRED, resolution_status OPEN, needed_at pk. For DRQ009, mean ± SD parameter summaries and group counts are available, but individual identifiers, individual concentration records and sampling structure are not supplied. These summaries do not establish animal random effects or individual trajectories.",
+      "needed_material": "At the animal PK step, determine whether authorized individual-level evidence supports variability estimation; otherwise preserve the limitation without constructing variability from summaries.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_TRANSLATION_INPUT_SUPPORT",
+      "affected_id": "MI008",
+      "reason": "MI008 remains DEFERRED, resolution_status OPEN, needed_at human_pk. For DRQ012 and DRQ013, rat parameter summaries, row-specific units and study body-weight summaries are available candidates. Individual study weights, health/infection state, binding basis, metabolic-clearance evidence, justified physiological relationships, nonlinearity/autoinduction handling and approach-specific correction inputs are not established here. CLNR alone does not establish metabolic clearance. This page does not identify the rat escalating regimen or qualify a species/model for translation.",
+      "needed_material": "At human translation, establish supported inputs and relationships for SC023 using qualified upstream outputs and authorized evidence. Preserve source, route, dose and co-medication distinctions; do not substitute purchase weights for study weights or infer the escalating regimen.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "ROUTING_REVIEW",
+      "affected_id": "F0003:S2:T1",
+      "reason": "Ae0–24 h, GI24 h and renal-clearance summaries are relevant source content beyond the primary concentration-time input inventory. They describe reported recovery/parameter summaries, not raw urine concentrations, volumes or individual collection records.",
+      "needed_material": "Independent review should retain and route these reported summaries with their collection windows and treatment groups; any additional analytical use requires an applicable requirement rather than an invented requirement ID.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "STATED_LOCATION_UNRESOLVED",
+      "affected_id": "F0003:S2:T1",
+      "reason": "Stated-value fields rely on table-body evidence rather than a title or note: {\"unit\": \"%\"}. These annotation fields remain unresolved. Original source rows, all cited evidence and the raw model response are retained; no table-to-note relationship is inferred.",
+      "needed_material": "Review the note/table association and source units before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_LOCATION_UNRESOLVED",
+      "affected_id": "F0003:S2:T1",
+      "reason": "Stated-value fields rely on table-body evidence rather than a title or note: {\"unit\": \"%\"}. These annotation fields remain unresolved. Original source rows, all cited evidence and the raw model response are retained; no table-to-note relationship is inferred.",
+      "needed_material": "Review the note/table association and source units before using these annotations.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ002",
+      "reason": "F0003:S2:T2:A24-A26 provide provenance, reported parameters, regimens, sampling context, plasma matrix and bioassay information. A27 explicitly places measured concentrations in an undigitized figure outside the supplied table. Individual identifiers, concentration records, detection limits and missing-value definitions are not supplied. The assay standards range is not an explicitly stated LLOQ. Empty variability cells have no stated meaning.",
+      "needed_material": "During authorized preparation, retain this as a reported-parameter table, carry text-only values separately for confirmation, preserve empty cells and obtain source-backed observation and missingness metadata where available.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ003",
+      "reason": "F0003:S2:T2:A25 establishes intraperitoneal repeat dosing, uninfected neutropenic female RP strain albino rats, plasma and agar-diffusion bioassay. Total versus unbound basis, salt or free-base dose basis, sampling-time origin, grapefruit-juice exposure, co-medication and meningitis status are not stated. No day-2 designation is supported. A26 states that V and Vmax are per animal.",
+      "needed_material": "Preserve these distinctions and unknowns; clarify sampling-time origin and concentration and dose bases from authorized evidence before any dependent conversion or pooling. Record row-specific parameter units without assigning one unit to the entire Mean column.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI006",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at pk. Origin: main:/missing_information/items/5. Animal PK model support and design-permitted evaluation: SC022 makes model choices and evaluation conditional on data and design support; the proposal does not supply that assessment. Supported mouse and rat model structures and permitted predictive checks cannot yet be determined. For DRQ006, F0003:S2:T2:A26 supplies a published rat model description with Michaelis-Menten elimination and autoinduction, and A25 supplies sampling context; these do not establish fit, identifiability, held-out units or a supported new model.",
+      "needed_material": "Assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ007",
+      "reason": "F0003:S2:T2:A25 provides nominal regimens and sampling schedules, but A27 states that measured concentrations occur only in an undigitized figure with uncertain dot identity. The table supplies parameter estimates, not concentration-time modeling records. Verified experimental-unit identifiers, observed dosing events, actual sampling times, figure extraction provenance and observation-level censoring metadata are unavailable on this page.",
+      "needed_material": "Source-backed concentration-time records and their authorized extraction provenance, study and regimen membership, sampling-unit definitions and relevant missingness metadata before assessing model input sufficiency.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ008",
+      "reason": "F0003:S2:T2:A25 describes four dose histories and sampling days 0, 5 and 9, providing candidate dose and treatment-history contrasts. It does not supply concentration records linked to those contrasts or actual prior administration records. A27 describes only figure coverage for days 0 and 9 at 7.5 and 17.5 mg/kg; it does not establish a complete factorial design or identify a mechanism.",
+      "needed_material": "Maintain separate regimen histories and obtain source-backed concentration links, dose-event histories and sampling origins where authorized. Leave support for nonlinear or time-dependent mechanisms to the animal PK module.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI007",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at pk. Origin: main:/missing_information/items/6. Support for individual PK variability: the proposal distinguishes summaries and predictions from individual observations and prohibits invented variability in SC027 and SC038; attachment-level support remains unassessed. Individual variability cannot be used defensibly in animal modeling or carried into human simulations until its evidential basis is established. For DRQ009, C28/C30/C32/C33 report between-rat variability, and A26 reports an estimate-standard-error bound. The variability distribution and parameterization are unspecified, and A27 does not establish individual dot identity. Published variability and parameter uncertainty must remain distinct from supplied individual observations and residual variability.",
+      "needed_material": "Determine whether authorized individual-level evidence supports variability estimation; otherwise preserve the limitation without constructing variability from summaries.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI008",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at human_pk. Origin: main:/missing_information/items/7. Supported human translation inputs and relationships: the proposal specifies the translation considerations in SC023 but leaves their supported implementation to later assessment. A justified human scaling approach cannot yet be selected. For DRQ012, A26 supplies source-reported nonlinearity and autoinduction context, while A25 explicitly says weight is not reported and binding was not measured. This page does not supply justified human physiological relationships, qualified upstream model outputs or identification of the human-target-matched escalating regimen.",
+      "needed_material": "Establish and document the supported inputs and physiological relationships for SC023, including how nonlinearity and autoinduction are addressed. Obtain source-supported identification of the regimen excluded from scaling tuning without inferring it from escalation alone.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DRQ013",
+      "reason": "This page contributes candidate reported parameters for one species only. A25 identifies the rat strain, sex and immune and infection state but states that weight is not reported. A26 specifies per-animal V and Vmax. The table does not define all parameter mappings, including the meaning of k 12, or qualify parameters for cross-species transfer. Multiple regimens do not add species.",
+      "needed_material": "Reuse this source-linked rat inventory with its reported-parameter status. Before any size-based translation, obtain actual study body weights and clarify parameter definitions, normalization and approach-specific comparability; do not substitute typical weights.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI003",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at validation. Origin: main:/missing_information/items/2. Access to human validation data: human validation data are not in the supplied package. The separate reference file described in SC018 is released only at task 5, after the animal model, scaling and predictions are frozen. Independent human validation must await the authorized release. This rat parameter page supplies no evidence of the release or freeze records required by DRQ020 and is not matched to that requirement.",
+      "needed_material": "Release the separate human reference file only at the specified stage after the required freezes; do not access its outcomes earlier.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_DEFINITION",
+      "affected_id": "F0003:S2:T2",
+      "reason": "A26 gives a global footnote a stating that standard errors were <42%, but no supplied body cell carries the marker. C28 names between-rat variability (%) without defining whether it is CV or another parameterization. The reported enzyme increase is model context, not a separately measured enzyme time course.",
+      "needed_material": "Confirm the footnote scope and variability definition from authorized source evidence before using these estimates quantitatively; retain the original wording and do not infer a distribution or numerical standard error.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "REPEATED_CONTEXT_VALUES",
+      "affected_id": "F0003:S2:T2",
+      "reason": "A27 repeats days 0 and 9 and doses 7.5 and 17.5 mg/kg already appearing in the broader sampling and regimen description in A25. These are repeated contextual values with different textual scopes, not additional observations or independent animals. No conflicting numerical value was found in the supplied page.",
+      "needed_material": "Preserve both occurrences and their scopes in the stated-value ledger; confirm their relationships during preparation without manufacturing dose-day pairings or observation records.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "PARTIAL_INPUT_COVERAGE",
+      "affected_id": "DRQ002",
+      "reason": "UNRESOLVED. F0003:S2:T4:A68-A71 and the table body supply publication provenance, fitted parameters, dosing, animal context, assays, plasma LLOQ and binding summaries. Drug/analyte identity and dose chemical basis are NOT_FOUND in this item. Raw concentration records, animal identifiers and their missingness or censoring flags are not supplied. The contextual project drug does not independently establish the table's analyte.",
+      "needed_material": "Confirm source-specific drug/analyte identity and dose basis, and retain source-linked raw records and their metadata if required for preparation. Keep the reported parameter table and text-only stated values distinct.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "EXPERIMENTAL_CONTEXT_GAPS",
+      "affected_id": "DRQ003",
+      "reason": "UNRESOLVED. A69 distinguishes single IV bolus dosing, healthy versus infected animals, day 10 after infection, plasma LC-MS/MS and free brain microdialysate LC-UV. Plasma total-versus-unbound basis, explicit plasma sampling-time origin, brain sampling end time, immune status, grapefruit-juice exposure and comedication are NOT_FOUND. Infection day 10 does not establish treatment day 2. No conversion provenance is supplied.",
+      "needed_material": "Retain the stated matrix, assay, route and infection distinctions; obtain only the missing context needed for an intended pooling, transfer or conversion decision. Do not assume absent treatments or transfer the plasma LLOQ to brain microdialysate.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONCENTRATION_RECORDS_NOT_LOCATED",
+      "affected_id": "DRQ007",
+      "reason": "UNRESOLVED. A69 supplies dose, route, plasma sampling times, a brain sampling interval, assays and animal counts, but this item contains parameter estimates rather than concentration-time observations. Actual-versus-nominal time, verified sampling units, individual trajectories and concentration-summary definitions are NOT_FOUND. Table RSE values describe reported estimates, not observed concentration variability.",
+      "needed_material": "Source-linked concentration-time records, sampling design and experimental-unit metadata for any proposed time-course fitting; otherwise retain this item solely as reported-parameter and supporting-context evidence.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MODEL_SUPPORT_DEFERRED",
+      "affected_id": "MI006",
+      "reason": "MI006 remains OPEN with status DEFERRED and needed_at pk. The reported population model parameters provide partial DRQ006 evidence for later rat PK assessment. A70 states that kM was fixed from a previous study and that covariate, residual-error and AIC rows were not confirmed and are omitted. This item does not establish supported model selection, identifiability, time-dependent clearance or design-permitted held-out evaluation.",
+      "needed_material": "At the animal PK stage, assess the prepared design and authorized model documentation, including the fixed-parameter provenance and possible holdout units. Retain unsupported or unassessable SC022 components as limitations.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "PARAMETER_DEFINITIONS_UNRESOLVED",
+      "affected_id": "F0003:S2:T4",
+      "reason": "VM_healthy and VM_infected are explicitly printed in μg/ml, and A70 reiterates that printed unit. V1 and V2 are per animal in liters. Complete parameter equations and compartment mappings are NOT_FOUND. These definitions cannot be silently corrected, reinterpreted or transferred to another parameterization.",
+      "needed_material": "Source-supported parameter definitions and equations, including the intended meaning and units of VM and the V1/V2 mapping, before any use requiring those interpretations. Preserve all printed values and units pending review.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "INDIVIDUAL_VARIABILITY_SUPPORT_DEFERRED",
+      "affected_id": "MI007",
+      "reason": "MI007 remains OPEN with status DEFERRED and needed_at pk. For DRQ009, D74-D79 provide published interindividual-variability estimates with associated RSE entries in column E. Their scale, distribution and parameterization are NOT_FOUND, and no verified individual observations or sampling structure are supplied. Published variability estimates and parameter RSE do not establish permission or evidential support to estimate new animal variability or carry it into human simulations.",
+      "needed_material": "Authorized individual-level evidence with verified identifiers and sampling structure, plus definitions of the published variability estimates. Otherwise preserve the limitation without constructing individual variability from summaries.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "BINDING_CONFLICT_RETAINED",
+      "affected_id": "MI004",
+      "reason": "MI004 remains OPEN with status CONFLICT and needed_at pk. A71 adds source-specific rat plasma protein-binding percentages for healthy and infected animals, measured by ultrafiltration at three stated concentrations. It does not explicitly identify the percentages as bound or unbound, resolve the mouse serum/plasma/secondary-table conflict, or establish a single applicable fu. DRQ010 is therefore only partially supported.",
+      "needed_material": "Resolve source-specific percentage definitions and applicability while retaining the mouse alternatives and the distinct rat health-state records. Preserve SC031 and R006: do not average conflicting sources; carry fu as a sensitivity parameter at the appropriate downstream stage.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "BINDING_APPLICABILITY_GAPS",
+      "affected_id": "DRQ011",
+      "reason": "UNRESOLVED. A69 describes free brain concentration sampling but supplies no unbound concentration values. A71 supplies rat plasma binding method, concentrations and health-state summaries. Explicit bound/unbound percentage definition, the meaning of ±, temperature, pH, recovery, nonspecific binding, mass balance and concentration-specific binding results are NOT_FOUND. Plasma binding cannot automatically be applied to free brain dialysate or human exposure.",
+      "needed_material": "Source-supported binding definitions and relevant experimental conditions, uncertainty definition and applicability evidence for the intended free-exposure correction. Obtain blood/plasma partition information only if a blood-to-plasma basis change is intended. Retain independently supported total-concentration work.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "TRANSLATION_INPUTS_DEFERRED",
+      "affected_id": "MI008",
+      "reason": "MI008 remains OPEN with status DEFERRED and needed_at human_pk. For DRQ012 and DRQ013, this item supplies candidate rat parameter definitions, units, health states, single-dose context, a 150-350 g weight range and binding evidence. Actual model-linked study weights, justified physiological relationships, qualified clearance outputs, autoinduction handling and species-inclusion comparisons are not established. The single-dose record does not identify the rat escalating regimen or establish repeat-dose behavior.",
+      "needed_material": "At translation, use reviewed animal-model outputs and documented body-size, binding, metabolic-clearance and physiological inputs for the approaches actually considered. Resolve nonlinearity and autoinduction handling and independently identify the escalating regimen excluded from scaling calibration; do not substitute typical weights or infer a scaling method.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "COLUMN_METADATA_UNRESOLVED",
+      "affected_id": "F0003:S2:T4",
+      "reason": "Column Estimate has unsupported copied metadata: {\"unit\": \"liters; h−1; μg/ml\"}. The technical export retains source rows and evidence. No common unit or conversion is inferred; unsupported annotations are not adopted.",
+      "needed_material": "Review row-specific units and source qualifiers before using this column in analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_AUC_ASSIGNMENT",
+      "affected_id": "DRQ002",
+      "reason": "F0003:S2:T5:B87 supplies four reported AUC summaries, but A85 explicitly states that their individual matrix/group assignments are inferred and NOT_VERIFIED. The word respectively does not resolve the source-recorded uncertainty.",
+      "needed_material": "Source-backed identification of the matrix and healthy/infected group for each AUC value. Preserve the original order and values without assigning the inferred mapping.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_RECORD_CONTEXT",
+      "affected_id": "DRQ003",
+      "reason": "Available evidence distinguishes total plasma, free brain, free plasma and healthy/infected contexts. Drug/analyte identity, route, dose basis, dose history, treatment day, sampling origin, assay, immune state, meningitis status, grapefruit-juice exposure and comedication are NOT_FOUND on this page. Infection must not be relabelled as meningitis.",
+      "needed_material": "Source-linked study and regimen metadata sufficient to establish membership and preserve the required experimental distinctions before pooling or transfer.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_SUMMARY_DEFINITION",
+      "affected_id": "DRQ002",
+      "reason": "B87 and B88 contain ± summaries without defining the statistic, sample size or independent experimental units. Detection limits and missing-value definitions are also NOT_FOUND; their absence from this page does not establish that none exist.",
+      "needed_material": "Definitions of the reported central values and ± terms, sample sizes, experimental units and applicable missing-value or detection-limit metadata. Retain the entries as reported parameters.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CONCENTRATION_OBSERVATIONS_NOT_SUPPLIED",
+      "affected_id": "DRQ002",
+      "reason": "A85 states that concentration-time curves are in Fig. 1 only and are not digitized. This item supplies reported AUCs and penetration summaries, not concentration-time measurements.",
+      "needed_material": "If concentration-time inputs are required, obtain them through an authorized later source assessment and preserve their actual observation source and record level.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_FREE_EXPOSURE_INPUT",
+      "affected_id": "DRQ011",
+      "reason": "A88 defines fT as free brain/free plasma, not an unbound fraction, bound fraction or time above MIC. No directly measured unbound concentration records or binding measurements are supplied. Binding method, temperature, pH, concentration range, recovery and nonspecific-binding information are NOT_FOUND here.",
+      "needed_material": "Source-backed direct unbound measurements or applicable binding inputs and definitions for any requested free-exposure conversion. Preserve the penetration ratio separately and verify its derivation before reuse.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_TRANSLATION_COVERAGE",
+      "affected_id": "DRQ013",
+      "reason": "The item contributes rat reported-parameter candidate coverage with healthy/infected distinctions and AUC units. Actual study body weights, dose/day context and supported parameter comparability are NOT_FOUND. These summaries do not qualify a rat model or species for translation.",
+      "needed_material": "Study-linked body weights when required by a considered body-size approach, verified parameter/group definitions and upstream model-output review. Retain approach-dependent needs for translation assessment.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_CARRIED",
+      "affected_id": "MI005",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at prepare. Field: Source-block preparation and record eligibility. Origin: main:/missing_information/items/4. SC021 requires a later preparation assessment. Only the proposal was supplied; attachment bodies were not searched or assessed. A usable modeling dataset and its unresolved record-level limitations have not been established by this transformation.",
+      "needed_material": "Perform the authorized SC021 assessment and document eligible records and independently identified gaps without assuming completeness.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_CARRIED",
+      "affected_id": "MI008",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at human_pk. Field: Supported human translation inputs and relationships. Origin: main:/missing_information/items/7. The proposal specifies the translation considerations in SC023 but leaves their supported implementation to later assessment. A justified human scaling approach cannot yet be selected.",
+      "needed_material": "Establish and document the supported inputs and physiological relationships for SC023, including how nonlinearity and autoinduction are addressed.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_EXPOSURE_RESPONSE_MATCHING",
+      "affected_id": "MI010",
+      "reason": "MI010 remains DEFERRED, resolution_status OPEN, needed_at index. DRQ021 has available isolate identities and voriconazole MICs in F0003:S4:T1:A14:A17 and G14:G17, but this page supplies no response identifiers, dosing histories, exposure identifiers, free-exposure basis or exposure/response windows. Matching and eligibility remain UNRESOLVED; independent PK work is not blocked by this finding.",
+      "needed_material": "At the index-stage assessment, establish source-supported links among these isolates, organism-specific endpoint records, dosing histories and appropriate free exposures, or document why an index or target cannot be determined.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_SUSCEPTIBILITY_AND_MODEL_CONTEXT",
+      "affected_id": "DRQ022",
+      "reason": "F0003:S4:T1:A12 states CLSI M38A, and the table supplies isolate identity, origin, prior azole exposure and some substitutions. Testing medium, replicate count and summary-value definition are NOT_FOUND. The mouse-model title does not establish inoculum, infection site, immune status, infection-to-treatment interval, treatment duration, growth controls, response window, interval contrasts or compatibility with a separate PK experiment. Clinical origins must not be adopted as mouse infection conditions.",
+      "needed_material": "Source-linked susceptibility measurement context and infection-model/design metadata for the response records intended for ranking or target estimation; retain unspecified fields as unresolved.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_FAUC_INPUTS",
+      "affected_id": "DRQ023",
+      "reason": "Matched-isolate MIC candidates are available, but free AUC inputs or a source-linked planned derivation, AUC units and window, treatment history and endpoint-specific response links are NOT_FOUND on this page. The requirement remains partially supported and UNRESOLVED.",
+      "needed_material": "Identify eligible free AUC inputs or their planned derivation, exposure window and time origin, dosing history and matching response records.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_FCMAX_INPUTS",
+      "affected_id": "DRQ024",
+      "reason": "Matched-isolate MIC candidates are available, but free Cmax inputs or a source-linked planned derivation, peak definition and window, treatment history and endpoint-specific response links are NOT_FOUND on this page. The requirement remains partially supported and UNRESOLVED.",
+      "needed_material": "Identify eligible free Cmax inputs or their planned derivation, retaining sampled, reported or predicted status, peak window, dosing history and matching response records.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_TIME_ABOVE_MIC_INPUTS",
+      "affected_id": "DRQ025",
+      "reason": "Isolate MIC threshold candidates and units are available. Free concentration-time inputs, analysis-window bounds and time origin, duration-versus-percentage definition, any percentage denominator, dosing history and response links are NOT_FOUND on this page.",
+      "needed_material": "Source-linked free concentration-time inputs and matched endpoint records, with the intended analysis window and output definition established before index analysis.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SURVIVAL_DEFINITION_NOT_FOUND_ON_PAGE",
+      "affected_id": "DRQ028",
+      "reason": "This page supplies susceptibility records but no survival measurements, desired survival effect, control reference, treatment duration, survival follow-up or matched exposure-response links. A mouse aspergillosis title alone does not support a survival-target requirement match. This is a page-scoped evidence gap, not proof that survival data are absent elsewhere.",
+      "needed_material": "Assess the eligible organism-specific survival source records and effect/window definitions at the responsible downstream stage; retain target estimation as a planned T004 output.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_MIC_PROBABILITY_SUPPORT",
+      "affected_id": "MI013",
+      "reason": "MI013 remains DEFERRED, resolution_status OPEN, needed_at prepare. DRQ031 has linked source identity, population totals and truncation evidence in F0003:S4:T1:A1:A4. Distribution bin boundaries, per-bin counts, full censored-category definitions and population testing-standard details are NOT_FOUND in the supplied page; U5 is only an ECOFF header. The C. albicans total 13,630 and the separately reported 4149/4237 statement must retain their distinct source scopes. Neither a normalized probability vector nor a frozen distribution is established.",
+      "needed_material": "At preparation, assess the authorized distribution tables and reconcile bins, counts, denominators, methods, truncation and censored categories. Document probability derivation and any normalization explicitly, preserve the original categories, and freeze the supported input. Do not derive resistance rates or use these population summaries as matched isolate MICs.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "PRESERVE_SOURCE_MARKERS_AND_UNSPECIFIED_FIELDS",
+      "affected_id": "DRQ002",
+      "reason": "The supplied source preserves >16 values for comparator drugs, Unknown prior azole exposure for V59-73 and no supplied D14 substitution value for AZN 8196. The CAS footnote explicitly identifies minimum effective concentrations. These distinctions are material to preparation; no detection-limit policy or interpretation of the missing substitution is supplied.",
+      "needed_material": "Retain >16 as written, keep Unknown and the unspecified substitution distinct from negative findings, preserve clinical-origin text including (24), and retain CAS as minimum effective concentration rather than voriconazole MIC.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "MIC_REPLICATION_CONTEXT_AMBIGUOUS",
+      "affected_id": "DRQ022",
+      "reason": "F0003:S4:T2:A22 reports modal values from triplicate experiments and also states Single reading. Their relationship is unspecified. Medium and assay observation time are NOT_FOUND. EUCAST and CLSI results must remain distinct, including NCCPF 760690 values of 0.25 and 0.125 mg/liter respectively; these method-specific values are not silently reconciled.",
+      "needed_material": "Clarify the scope of Single reading and the relationship to triplicate experiments, and supply susceptibility medium and timing metadata before accepting MIC measurement context.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "PARTIAL_SOURCE_RECORD_CONTEXT",
+      "affected_id": "DRQ002",
+      "reason": "Strain-linked MIC body values and source provenance are available. The associated Diagnosis entries do not establish mouse host health or immune status. This page supplies no dosing history, treatment day, animal experimental units, detection limits or missing-value definitions. Their absence from this page does not establish absence elsewhere.",
+      "needed_material": "During preparation, retain the five source columns and both method-specific MIC series; assess applicable metadata against authorized study records and preserve unresolved fields without inventing animal identities or dose histories.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_MATCHED_RECORD_ASSESSMENT",
+      "affected_id": "MI010",
+      "reason": "MI010 remains status DEFERRED, resolution_status OPEN, needed_at index, originating in main:/missing_information/items/9. Its affected field remains Eligible matched PK/PD records: comparable index regressions and supported targets cannot yet be established. Four A. flavus isolate MIC pairs are available, but this page does not establish response-record matching, regimen-specific exposure identifiers, free-exposure basis, exposure windows, response windows or a common comparison set for DRQ021–DRQ025. The mouse-model title does not establish those relationships. Matching must remain separate by organism and endpoint under SC017, SC032 and SC033.",
+      "needed_material": "Establish source-supported links among organism/isolate MICs, response records, dosing histories and relevant free-exposure inputs, including AUC and peak definitions and fT>MIC window and duration-versus-percentage meaning; document applicability of separate PK experiments or why an index or target is not determinable. Keep independent animal PK work separately assessable.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SURVIVAL_TARGET_INPUT_NOT_ESTABLISHED",
+      "affected_id": "DRQ028",
+      "reason": "This page contains isolate MIC results, but no survival observations, desired survival effect, control reference, treatment duration, follow-up window or matched exposure-response links. The title alone cannot establish eligible survival data, and no survival-target match is assigned.",
+      "needed_material": "Assess authorized survival-response records and project effect/window definitions separately by organism. Retain the numerical target as a planned T004 output rather than treating its unestimated value as missing source data.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_MIC_PROBABILITY_SUPPORT",
+      "affected_id": "MI013",
+      "reason": "MI013 remains status DEFERRED, resolution_status OPEN, needed_at prepare, originating in main:/missing_information/items/12. Its affected field remains MIC distribution preparation and probability support: a transparent MIC probability input for later weighted attainment has not been established. For DRQ031, linked notes supply Section 3b totals, C. albicans truncation at 0.016 mg/L and the separately stated 98% (4149/4237) summary. Numeric distribution bins, per-bin counts, complete censored categories and probability derivation are not supplied. The relationship between 4237 and the Section 3b C. albicans total of 13,630 is not established here. These denominators must not be interchanged. A. flavus isolate MIC rows are not a population distribution, and the ECOFF header supplies no numeric ECOFF.",
+      "needed_material": "At preparation, assess the authorized complete MIC tables and document bins, original units, counts, denominator scope, censoring, truncation and test method. Carry the text-only numerical summaries separately for confirmation. Record probability derivation and any normalization explicitly, preserve source categories and truncation, and freeze the resulting distribution without silent renormalization. Keep per-MIC PTA separate from MIC-weighted attainment and do not interpret ECOFF distributions as resistance rates.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "ITEM_NOT_REVIEWED",
+      "affected_id": "F0003:S4:unassigned",
+      "reason": "Not read: Explicitly unassigned cells require an authorized table plan before body review. Nearby distribution notes provide a potential MIC-distribution match, not permission, table boundaries or confirmed content.",
+      "needed_material": "A layout plan or access decision for this item, or confirmation that it is not needed.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0033",
+      "reason": "F0003:S1:T1 states Cmax for Table 2 as 11.81; SV0032 gives 1.61.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0034",
+      "reason": "F0003:S1:T1 states Cmax for Table 2 as 35.86; SV0032 gives 1.61.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0034",
+      "reason": "F0003:S1:T1 states Cmax for Table 2 as 35.86; SV0033 gives 11.81.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0066",
+      "reason": "F0003:S1:T2 states ratios for The AUC normalized to a dose of 10 mg/kg as 1.75; SV0065 gives 0.31.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0067",
+      "reason": "F0003:S1:T2 states ratios for The AUC normalized to a dose of 10 mg/kg as 3.68; SV0065 gives 0.31.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0067",
+      "reason": "F0003:S1:T2 states ratios for The AUC normalized to a dose of 10 mg/kg as 3.68; SV0066 gives 1.75.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0088",
+      "reason": "F0003:S1:T4 states day for cyclophosphamide as -1; SV0086 gives -4.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0102",
+      "reason": "F0003:S1:T4 states concentrations for mouse serum as 100; SV0101 gives 10.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0110",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 0.3125; SV0109 gives 0.078.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0111",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 1.25; SV0109 gives 0.078.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0111",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 1.25; SV0110 gives 0.3125.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0112",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 5; SV0109 gives 0.078.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0112",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 5; SV0110 gives 0.3125.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0112",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 5; SV0111 gives 1.25.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0113",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 20; SV0109 gives 0.078.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0113",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 20; SV0110 gives 0.3125.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0113",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 20; SV0111 gives 1.25.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0113",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 20; SV0112 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0114",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 80; SV0109 gives 0.078.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0114",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 80; SV0110 gives 0.3125.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0114",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 80; SV0111 gives 1.25.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0114",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 80; SV0112 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0114",
+      "reason": "F0003:S1:T5 states total doses for Isolate K-1 as 80; SV0113 gives 20.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0131",
+      "reason": "F0003:S1:T6 states Dose group for Female Swiss albino mice as 10; SV0130 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0132",
+      "reason": "F0003:S1:T6 states Dose group for Female Swiss albino mice as 20; SV0130 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0132",
+      "reason": "F0003:S1:T6 states Dose group for Female Swiss albino mice as 20; SV0131 gives 10.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0133",
+      "reason": "F0003:S1:T6 states Dose group for Female Swiss albino mice as 40; SV0130 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0133",
+      "reason": "F0003:S1:T6 states Dose group for Female Swiss albino mice as 40; SV0131 gives 10.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0133",
+      "reason": "F0003:S1:T6 states Dose group for Female Swiss albino mice as 40; SV0132 gives 20.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0152",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 20; SV0151 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0153",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 40; SV0151 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0153",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 40; SV0152 gives 20.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0154",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 40; SV0151 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0154",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 40; SV0152 gives 20.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0162",
+      "reason": "F0003:S1:T8 states day for Blood as 23; SV0160 gives 11.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0164",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 40; SV0151 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0164",
+      "reason": "F0003:S1:T8 states Dose for voriconazole as 40; SV0152 gives 20.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0177",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 1; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0178",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 5; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0178",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 5; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0179",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 15; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0179",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 15; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0179",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 15; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0180",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 30; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0180",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 30; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0180",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 30; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0180",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 30; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0181",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 60; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0181",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 60; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0181",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 60; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0181",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 60; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0181",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 60; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0182",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 120; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0182",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 120; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0182",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 120; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0182",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 120; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0182",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 120; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0182",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 120; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0183",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 180; SV0182 gives 120.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0182 gives 120.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0184",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 240; SV0183 gives 180.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0182 gives 120.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0183 gives 180.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0185",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 360; SV0184 gives 240.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0182 gives 120.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0183 gives 180.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0184 gives 240.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0186",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 480; SV0185 gives 360.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0182 gives 120.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0183 gives 180.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0184 gives 240.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0185 gives 360.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0187",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 600; SV0186 gives 480.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0176 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0177 gives 1.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0178 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0179 gives 15.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0180 gives 30.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0181 gives 60.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0182 gives 120.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0183 gives 180.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0184 gives 240.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0185 gives 360.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0186 gives 480.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0188",
+      "reason": "F0003:S2:T1 states IV sampling for voriconazole as 720; SV0187 gives 600.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0222",
+      "reason": "F0003:S2:T2 states Sampling days for rat as 5; SV0221 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0223",
+      "reason": "F0003:S2:T2 states Sampling days for rat as 9; SV0221 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0223",
+      "reason": "F0003:S2:T2 states Sampling days for rat as 9; SV0222 gives 5.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0238",
+      "reason": "F0003:S2:T2 states days for Measured concentrations as 9; SV0237 gives 0.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "STATED_VALUE_CONFLICT",
+      "affected_id": "SV0268",
+      "reason": "F0003:S4:T2 states MICs for C. albicans as 0.125; SV0260 gives ≤0.125.",
+      "needed_material": "Decide which source is correct; neither value is adopted.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONTEXT_CANONICAL_PLACEMENT_DEFERRED",
+      "affected_id": "canonical_placement_no_duplicate_gaps",
+      "reason": "Gap ownership is preserved, but SC037 repeats the MIC-input freezing obligation already retained with its timing in SC035. Replace the repeated operation with a short SC035 reference.",
+      "needed_material": "Resolve the retained Context review finding before scientific analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONTEXT_CANONICAL_PLACEMENT_DEFERRED",
+      "affected_id": "SC037",
+      "reason": "Remove the repeated operation 'and freeze the MIC distribution' and substitute a short reference to SC035, which already owns MIC-input freezing with its complete timing condition. Preserve transparent probability derivation, the prohibition on silent renormalization and every other unique SC037 obligation.",
+      "needed_material": "Resolve the retained Context review finding before scientific analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SCIENTIFIC_ADEQUACY_DEFERRED",
+      "affected_id": "DATA",
+      "reason": "User selected technical demo scope. Scientific requirement coverage, model readiness and prediction validity were not assessed in this profile.",
+      "needed_material": "Review requirements and retained source issues before EDA and modeling.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "PK_MAPPING_REQUIRED",
+      "affected_id": "T0001",
+      "reason": "No complete supported time/concentration mapping. Raw columns were retained.",
+      "needed_material": "A source-qualified long-format table with explicit units, or an approved additional transformation adapter.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "PK_MAPPING_REQUIRED",
+      "affected_id": "T0006",
+      "reason": "No complete supported time/concentration mapping. Raw columns were retained.",
+      "needed_material": "A source-qualified long-format table with explicit units, or an approved additional transformation adapter.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "PREPARATION_HELD",
+      "affected_id": "F0003:S2:T4",
+      "reason": "Ambiguous headers require source review; table held without changing its source.",
+      "needed_material": "Correct the cited source definition or supported mapping.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    }
+  ],
+  "program_qc": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_120823_b983bb\\data_preparation\\program_qc.json",
+    "sha256": "b0fc008e7fb8885537a7c1d1a2bad13c77363e8b3f7fb0e22c20a32ae93d4935"
+  },
+  "metadata_validation": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_120823_b983bb\\data_agents\\metadata_review.json",
+    "sha256": "f26b8c8d5f0913a08eb34bb60bf76cc02ce932b5258689030617eef66467a440"
+  }
+}

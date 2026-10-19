@@ -1,0 +1,95 @@
+{
+  "cards": [
+    {
+      "title": "Experimental Unit Identification and Partial Evidence Qualification",
+      "claim": "The experimental unit is the smallest entity to which the treatment is independently applied. Subsamples (e.g., cells from one animal) and technical replicates (repeated assays on one sample) are not independent experimental units. Treating them as such causes pseudoreplication, underestimating variability and invalidating statistical inference. When unit identity or pool membership is unknown, individual trajectories cannot be inferred, but provenance-qualified descriptive evidence may be retained.",
+      "conditions": [
+        "Data contains hierarchical structures (e.g., cells within animals, cages within rooms).",
+        "Multiple measurements exist per subject or sample.",
+        "Provenance of pooled samples or individual assignments is partially or fully unknown."
+      ],
+      "required_inputs": [
+        "Raw measurement data with identifiers.",
+        "Metadata linking measurements to subjects, samples, or pools.",
+        "Treatment assignment records (if available)."
+      ],
+      "limitations": [
+        "Cannot reconstruct unknown pool membership or individual assignments from aggregate data.",
+        "Assay validation metrics do not establish biological independence.",
+        "Source guidance is general laboratory methodology, not specific to PK pooling algorithms."
+      ],
+      "downstream_use": "Use to determine valid n for statistical tests and to flag data suitable only for descriptive visualization.",
+      "method_keywords": [
+        "experimental unit",
+        "pseudoreplication",
+        "technical replicate",
+        "subsample",
+        "pool provenance",
+        "hierarchical design",
+        "unit of analysis"
+      ],
+      "retrieval_keywords": "experimental unit hierarchy pseudoreplication technical replicate pool provenance",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Identify the correct unit of analysis to prevent pseudoreplication and qualify data usability when provenance is incomplete.",
+        "input_contract": "Treatment-assignment unit ID and design level; serial-observation subject ID; specimen/sample ID; pool ID and membership; technical-replicate ID; occasion/time; raw measurements with provenance links. State which identifiers are known versus missing.",
+        "applicability_and_prerequisites": "Applicable to any hierarchical experimental design. Requires clear distinction between biological and technical factors.",
+        "definitions_units_basis_window": "None. Conceptual framework.",
+        "procedure": "1. Identify the independently assigned unit for this design and endpoint (animal, cage, litter, animal-part or animal-period). 2. Separately identify serial-observation subject, specimen, pool and technical repeats. 3. Determine which joins and denominators remain supported; do not treat subsamples as independent n. 4. With unresolved provenance, retain only the descriptive displays whose grouping and denominator remain known, and block unsupported subject trajectories or inference. 5. Use an analysis respecting the nesting/repeated measures when estimable.",
+        "formula_and_parameterization": "None. Conceptual framework.",
+        "uncertainty_and_identifiability": "High uncertainty in inferential validity if unit assignment is ambiguous.",
+        "diagnostics_and_failure_modes": "If independent assignment units or pool membership are unknown, block the specific individual-level joins and inferential n that depend on them. Retain aggregate or descriptive displays only when their source, grouping, units and denominator remain interpretable; otherwise mark that output unavailable.",
+        "missing_input_and_partial_fallback": "If independent assignment units or pool membership are unknown, block the specific individual-level joins and inferential n that depend on them. Retain aggregate or descriptive displays only when their source, grouping, units and denominator remain interpretable; otherwise mark that output unavailable.",
+        "output_and_interpretation": "Valid inferential n equals the number of independent experimental units. Subsamples may inform within-unit biological variation and/or measurement error but do not independently estimate between-unit variation or increase independent experimental-unit n.",
+        "worked_example_and_counterexample": "Synthetic: 50 cells measured from 1 mouse. Experimental unit = mouse (n=1). The 50 measurements are subsamples. Reporting n=50 is pseudoreplication. Correct analysis averages the 50 measurements or uses a nested model. Counterexample: Fifty cells from one independently treated mouse are not fifty independent experimental units."
+      },
+      "claim_support": [
+        {
+          "claim": "The experimental unit is the biological entity subjected to an intervention independently of all other units.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "ADD001:0012"
+          ]
+        },
+        {
+          "claim": "Measurements from subsamples (e.g., cells from one animal) do not increase the inferential n; treating them as independent causes pseudoreplication.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "ADD001:0013",
+            "ADD005:0012"
+          ]
+        },
+        {
+          "claim": "Repeated measures on the same unit are correlated and should not be treated as separate experimental units.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "ADD005:0013"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "ADD001:0012",
+        "ADD001:0013",
+        "ADD005:0012",
+        "ADD005:0013"
+      ],
+      "id": "round10_reviewed_v2_G01:K01",
+      "topics": [
+        "data_eda"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "ADD001",
+        "ADD005"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G01",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "source_vs_engineering_conventions": "Source-supported: Definition of experimental unit, pseudoreplication risk, distinction between subsamples and independent units. Engineering convention: Host-side blocking of unsupported joins and enforcement of descriptive-only status for unknown provenance.",
+      "example_is_synthetic": "True. The example illustrates the concept of subsampling vs. independent units without using specific project data."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

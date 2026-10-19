@@ -1,0 +1,106 @@
+{
+  "cards": [
+    {
+      "title": "Conditional well-stirred hepatic IVIVE input normalization",
+      "topics": [
+        "translation"
+      ],
+      "claim": "Conditional hepatic well-stirred IVIVE; keep intrinsic-clearance normalization distinct from blood binding and physiological scaling. This predicts hepatic clearance under model assumptions, not automatically total-body clearance or target-drug accuracy.",
+      "conditions": [
+        "Choose the explicitly qualified branch; scientific scope and assumptions are specified in method_recipe."
+      ],
+      "required_inputs": [
+        "Use the branch-specific input contract below; unknown inputs remain unknown."
+      ],
+      "limitations": [
+        "Offline candidate pending source and operational review; no target-human facts, fitting or production use."
+      ],
+      "downstream_use": "Plan an evidence-bounded method and identify blocked dependent outputs; ContextBuilder supplies project objective separately.",
+      "evidence_chunk_ids": [
+        "SUP012:0002",
+        "SUP012:MATH01"
+      ],
+      "method_recipe": {
+        "estimand_and_scope": "Conditional hepatic well-stirred IVIVE; keep intrinsic-clearance normalization distinct from blood binding and physiological scaling. This predicts hepatic clearance under model assumptions, not automatically total-body clearance or target-drug accuracy.",
+        "input_contract": "Common inputs: hepatic blood flow QH, fraction unbound in blood fuB and qualified physiological scaling with provenance. Choose exactly one intrinsic-clearance branch: A, scaled apparent CLint plus incubation unbound fraction fuinc; B, correctly scaled already incubation-unbound-normalized CLint,u. Branch B does not require dividing by fuinc again. Any blood/plasma conversion needs documented compatible binding and ratio information.",
+        "applicability_and_prerequisites": "Verify assay/model applicability, scaling factors, concentration range and the meaning of the intrinsic-clearance estimate. The basic well-stirred representation may be inadequate for transport or other limiting processes. This is a steady-state organ-disposition relationship, not a requirement to simulate one dosing interval.",
+        "definitions_units_basis_window": "QH and scaled CLint or CLint,u use compatible volume/time or volume/time/kg units. fuB and fuinc are dimensionless; QH>0, clearance>=0, 0<fuinc<=1 for branch A, and 0<=fuB<=1. Retain blood concentration basis; do not substitute plasma fu without a qualified conversion. Record any scaling from cell/protein units.",
+        "procedure": "Identify branch from original assay normalization, never from variable name alone. Reconcile scaling and units. Form active clearance term A, then compute QH*A/(QH+A). Check nonnegative output and the flow limit; this is an algebraic consistency check, not validation. Record model and assay limitations.",
+        "formula_and_parameterization": "Original SUP012:MATH01: CLH=QH*((fuB/fuinc)*CLint)/(QH+(fuB/fuinc)*CLint). Algebraic reparameterization: CLint,u=CLint/fuinc; hence A=fuB*CLint,u in branch B. fuB remains in both branches; fuinc must not be applied twice.",
+        "uncertainty_and_identifiability": "Binding, intrinsic-clearance assay, scaling-factor and model uncertainty remain distinct. No default binding fraction, distribution or correction factor. Equivalent parameterizations agree only when their provenance and normalization agree.",
+        "diagnostics_and_failure_modes": "Detect double unbound correction, dropped fuB, incompatible scaling bases and blood/plasma confusion. A plausible CLH below QH is not evidence of accurate IVIVE. Missing or incompatible physiological scaling prevents numerical use.",
+        "missing_input_and_partial_fallback": "Unknown fuinc blocks branch A only; a properly documented branch B can proceed without it. Unknown fuB blocks both numerical branches. Unknown normalization leaves both pending. Preserve measured assay values and explicit symbolic relationships; do not assume fu=1.",
+        "output_and_interpretation": "Report hepatic CL with unit/basis, chosen branch, original inputs and unresolved applicability/uncertainty. Do not equate it with whole-body clearance or claim clinical exposure support without other elimination and distribution information.",
+        "worked_example_and_counterexample": "SYNTHETIC arithmetic: QH=15, scaled CLint=100 mL/min/kg, fuB=0.1, fuinc=0.5 give A=20 and CLH=300/35=8.5714286 mL/min/kg. Documented CLint,u=200 with the same QH/fuB gives the same result without fuinc. Counterexample: absent fuinc blocks apparent CLint=100 but not documented CLint,u=200; omitting fuB would give a different, invalid result."
+      },
+      "claim_support": [
+        {
+          "claim": "The well-stirred model equation for hepatic clearance is CL_H = [ Q_H * (f_u,B / f_u,inc) * CL_int ] / [ Q_H + (f_u,B / f_u,inc) * CL_int ].",
+          "evidence_chunk_ids": [
+            "SUP012:MATH01"
+          ],
+          "scope": "Direct original support for the mathematical formulation of the well-stirred model.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "In vitro intrinsic clearance (CL_int) is scaled to in vivo CL_int using physiological factors (e.g., microsomal protein content, liver weight) before being input into the hepatic disposition model.",
+          "evidence_chunk_ids": [
+            "SUP012:0002"
+          ],
+          "scope": "Direct original support for the requirement of physiological scaling prior to model application.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "The model predicts hepatic clearance (CL_H) specifically, which is distinct from total-body clearance or clinical exposure accuracy without additional data.",
+          "evidence_chunk_ids": [
+            "SUP012:MATH01",
+            "SUP012:0002"
+          ],
+          "scope": "Qualified method synthesis: The text defines CL_H as the parameter estimated by the model, implying its scope is limited to hepatic disposition, but does not explicitly list 'total-body clearance' as a limitation.",
+          "support_type": "qualified_method_synthesis"
+        }
+      ],
+      "id": "round7_reviewed_v1_G04:K01",
+      "origin_job": "round7_G04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "G04",
+      "retrieval_keywords": "Well stirred hepatic intrinsic clearance unbound binding basis CLint CLint_u CLintu fuB fuinc QH blood plasma",
+      "supersedes": [
+        "round7_G04:K01",
+        "round4_G04:K01",
+        "round6_G04:K01"
+      ],
+      "knowledge_layer": "conditional_method",
+      "method_keywords": [
+        "well stirred hepatic intrinsic clearance unbound binding basis",
+        "CLint",
+        "CLint_u",
+        "CLintu",
+        "fuB",
+        "fuinc",
+        "QH",
+        "blood plasma"
+      ],
+      "required_branches": [
+        "hepatic_ivive"
+      ],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "SUP012"
+      ],
+      "review_amendment": {
+        "version": "round7_reviewed_v1",
+        "parent_card_id": "round7_G04:K01",
+        "status": "PENDING_FINAL_LOCAL_RECHECK",
+        "original_raw_output_retained": true
+      }
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

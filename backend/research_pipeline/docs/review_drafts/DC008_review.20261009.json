@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按检查稿改 DC008，列按位置合并并减少假冲突吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC008)"
+  },
+  "gaps_found": [
+    "Columns merged by header text, so repeated headers under grouped headers (Mean, SD) merged and conflicted, blocking QC; column summaries skipped them.",
+    "Copied fields compared as raw strings: case or spacing differences raised blocking conflicts.",
+    "A page leaving a column unit NOT_FOUND or omitting a qualifier conflicted with a page that stated it.",
+    "No check that every body column was labelled.",
+    "Merged reason kept only the first page's text.",
+    "Kept: category or role differences across pages stay blocking conflicts."
+  ],
+  "changes": [
+    "dc_coverage.json 1.12.0: DC008 rewritten.",
+    "data_agents.py: columns carry a position from the lowest cited header cell; merge by position; normalized comparison; NOT_FOUND units ignored; qualifiers combined; undescribed_columns with LABEL_COLUMN_MISSING; merged reasons; label instruction updated.",
+    "data_requirement_check.py 1.2.0: column summaries use the label column position.",
+    "tests: position-keyed columns, header-cell citation, missing columns, wording and unstated units across pages."
+  ]
+}

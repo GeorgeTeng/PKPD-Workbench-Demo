@@ -1,0 +1,66 @@
+{
+  "profile_id": "MP003",
+  "library_version": "1.0.0-draft.4",
+  "review_date": "2026-10-07",
+  "status": "USER_APPROVED_METHOD_DESIGN",
+  "user_decision": "looks good",
+  "scope": "The MP003 method summary, dosing-design table and parameter boundaries presented immediately before approval. The saved profile expresses these decisions in the existing library schema. Method planning only; numerical execution and dataset qualification remain downstream.",
+  "approved_rule_text": "Propose NCA methods for CL and Vss separately according to dosing design and parameter definition. Distinguish absolute from apparent parameters and require the appropriate exposure, moment and input-duration information. Reviewed NCA estimates may enter extrapolation review without a compartmental fit, while unsupported parameters remain explicit gaps.",
+  "scientific_release": false,
+  "profile_sha256": "1ceb9570d3318a750d560fc9c27a38a48c1000662e414863a9a8fe7139a57368",
+  "approved_profile": {
+    "id": "MP003",
+    "name": "NCA clearance and steady-state distribution volume",
+    "family": "NCA",
+    "outputs": [
+      "CL",
+      "Vss",
+      "CL/F when absolute clearance is not identified"
+    ],
+    "applies_when": "The objective needs animal disposition parameters, including parameters intended for later extrapolation. Inherit MP001 and applicable MP002 requirements. This step proposes methods and identifies missing inputs; numerical estimation and qualification of the resulting parameters remain downstream.",
+    "required_inputs": [
+      "Route, administered dose, analyte, concentration basis and parameter units, including whether quantities are absolute or body-weight-normalized.",
+      "Exposure and, for Vss, moment/residence-time information appropriate to the dosing design.",
+      "Dosing design and, for IV infusion, input-duration information needed by the proposed method."
+    ],
+    "conditional_inputs": [
+      "Confirmed steady state, dosing interval and matching interval exposure when proposing steady-state clearance estimation.",
+      "A justified independent bioavailability estimate applicable to the study if converting CL/F to CL."
+    ],
+    "acceptable_alternatives": [
+      "Reviewed NCA estimates may enter extrapolation review without a compartmental fit; qualify each parameter separately.",
+      "Report CL/F under its actual definition when an extravascular study does not identify absolute clearance."
+    ],
+    "preflight_checks": [
+      "Propose NCA methods for CL and Vss separately according to dosing design and parameter definition. Distinguish absolute from apparent parameters and require the appropriate exposure, moment and input-duration information.",
+      "For single-dose IV clearance, propose Dose/AUCinf when the method assumptions apply. Do not substitute AUC0-24 for AUCinf merely because the finite window is available.",
+      "For verified steady-state interval methods, match dose and AUC to the same dosing interval and retain the route-specific distinction between CL and CL/F.",
+      "For IV Vss, propose CL multiplied by the appropriate MRT, with the AUC/AUMC and infusion-input treatment specified. Suitable single-dose IV data may support Vss; its name does not require steady-state repeat dosing.",
+      "Distinguish Vss from Vz, Vc and apparent volumes. Knowing F alone does not justify using an oral MRT directly as the disposition MRT for Vss.",
+      "Preserve plasma versus blood, total versus free, and L/h versus L/h/kg or corresponding volume definitions; do not combine incompatible parameter definitions."
+    ],
+    "post_analysis_checks": [
+      "Downstream: review the supporting exposure and moment calculations, input-duration treatment, assumptions and available uncertainty separately for CL and Vss.",
+      "Downstream: submit each qualified parameter with its method, definitions, limitations and unresolved gaps for extrapolation review. Do not count a species for a parameter before that parameter is qualified."
+    ],
+    "missing_effect": "Keep unsupported parameters and their missing prerequisites explicit. A supported CL does not automatically establish Vss. Retain independently supported results without silently changing the proposal's requested exposure window or parameter definition.",
+    "not_established": [
+      "A compartmental curve shape from NCA CL and Vss alone.",
+      "Absolute clearance merely from an extravascular dose when F is unknown.",
+      "Interchangeability of Vss, Vz, Vc or apparent volumes.",
+      "Validity of every NCA parameter solely because another parameter is supported."
+    ],
+    "needed_at": "BEFORE_PARAMETER_USE",
+    "source_ids": [
+      "S03",
+      "S01"
+    ]
+  },
+  "previous_library_snapshot": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.3.json",
+  "other_profile_states": {
+    "MP001": "METHOD_DESIGN_ACCEPTED_IN_PRINCIPLE",
+    "MP002": "USER_APPROVED_METHOD_DESIGN",
+    "MP004-MP010": "PENDING_INDIVIDUAL_REVIEW"
+  },
+  "verification_scope": "Existing library schema and approval-record binding only; no numerical analysis or empirical method test."
+}

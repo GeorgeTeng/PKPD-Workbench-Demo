@@ -1,0 +1,109 @@
+{
+  "cards": [
+    {
+      "title": "Direct Concentration-Effect Modeling (Emax/Sigmoidal)",
+      "claim": "Direct effect models relate plasma concentration to response at a specific time point or steady state, assuming no significant hysteresis or delay. Two primary forms are used: Sigmoidal Emax for stimulatory effects and Inhibitory Emax for suppressive effects.",
+      "conditions": [
+        "For a direct time-course model, assess whether material delay is absent. A separately qualified steady-state or endpoint exposure-response analysis may remain informative when time-course hysteresis exists.",
+        "Requires a defined baseline (E0) and maximum effect (Emax) or baseline response (E0) for inhibition.",
+        "Exposure basis, concentration matrix, response endpoint and time/window must be justified and aligned; the response endpoint need not have an assay matrix.",
+        "Justify response/exposure time or endpoint-window alignment. Material time-course delay requires a qualified delay model; it does not automatically prohibit a separately qualified steady-state/endpoint analysis."
+      ],
+      "required_inputs": [
+        "Response endpoint definition (e.g., tail flick latency, behavioral score).",
+        "Baseline response (E0) in absence of drug.",
+        "For parameter estimation: data spanning a supported response range to estimate the Emax increment above E0. For prediction with fixed parameters: a qualified estimate of that increment. An inhibitory form requires its declared baseline and inhibition parameterization.",
+        "Concentration (C) at the time of response measurement.",
+        "Hill coefficient h is estimated when identifiable, or externally fixed with justification; h=1 is a declared model choice, not a missing-value default."
+      ],
+      "limitations": [
+        "A direct model may be inadequate for a time-resolved dataset with material hysteresis; assess delayed, turnover, active-metabolite, tolerance or endpoint-timing explanations. Steady-state or separately qualified endpoint exposure-response analyses may still be informative.",
+        "Parameters (EC50, Emax, E0) are study-specific and not transferable between drugs or endpoints.",
+        "Biomarkers used as endpoints are not automatically valid surrogate endpoints for clinical efficacy unless empirically validated."
+      ],
+      "downstream_use": "Used to estimate in vivo potency (EC50/IC50) and maximum effect magnitude to inform dose selection and translational scaling.",
+      "method_keywords": [
+        "sigmoidal Emax",
+        "inhibitory Emax",
+        "EC50",
+        "IC50",
+        "Hill coefficient",
+        "direct effect model",
+        "exposure-response",
+        "baseline E0",
+        "maximum effect Emax"
+      ],
+      "retrieval_keywords": "direct concentration effect Emax EC50 baseline endpoint exposure response sigmoidal inhibitory",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Estimate a defined concentration-response relationship using a qualified direct time-course or separate steady-state/endpoint analysis; do not force a direct time-course model when material delay is present.",
+        "input_contract": "1. Define the response endpoint and its unit. 2. Determine the baseline response (E0) from vehicle/control data. 3. Specify the exposure analyte, matrix and free/total basis; define the response endpoint/unit independently; justify their linkage and time/window alignment. The response need not have an assay matrix. 4. Identify if the effect is stimulatory (increase) or inhibitory (decrease).",
+        "applicability_and_prerequisites": "Define endpoint, baseline, exposure basis and observation window. Evaluate the time course where available; absence of material delay can support a direct time-course model, while a separate steady-state or endpoint exposure-response analysis can remain informative even when time-course hysteresis exists. Do not presume biomarker clinical surrogacy.",
+        "definitions_units_basis_window": "Source-case stimulatory sigmoidal Emax: E=E0+Emax*C^h/(EC50^h+C^h), where Emax is effect increment above E0 and the absolute plateau is E0+Emax. Source-case inhibitory form: E=E0*(1-C/(IC50+C)); this tends to zero for that model and is not the only inhibition form. E,E0,Emax have response units; C,EC50,IC50 have concentration units; h is dimensionless.",
+        "procedure": "1. Plot response vs. concentration to check for hysteresis. 2. If direct, select the appropriate model form (stimulatory vs. inhibitory). 3. Fit the model to the data using non-linear regression. 4. Estimate EC50/IC50, Emax, and E0. 5. Validate model fit and parameter uncertainty.",
+        "formula_and_parameterization": "Source-case stimulatory sigmoidal Emax: E=E0+Emax*C^h/(EC50^h+C^h), where Emax is effect increment above E0 and the absolute plateau is E0+Emax. Source-case inhibitory form: E=E0*(1-C/(IC50+C)); this tends to zero for that model and is not the only inhibition form. E,E0,Emax have response units; C,EC50,IC50 have concentration units; h is dimensionless.",
+        "uncertainty_and_identifiability": "Parameter estimates are sensitive to the range of concentrations tested. Lack of data at low or high concentrations can lead to poor estimation of E0 or Emax. Model misspecification (e.g., using direct model for delayed effect) leads to biased EC50.",
+        "diagnostics_and_failure_modes": "With material hysteresis, do not force a direct time-course model; compare evidence-supported delay mechanisms. If the concentration range does not identify a plateau, report Emax/EC50 uncertainty or nonidentifiability rather than fixing Emax without independent justification.",
+        "missing_input_and_partial_fallback": "With material hysteresis, do not force a direct time-course model; compare evidence-supported delay mechanisms. If the concentration range does not identify a plateau, report Emax/EC50 uncertainty or nonidentifiability rather than fixing Emax without independent justification.",
+        "output_and_interpretation": "For the stimulatory form, Emax is the maximal increment above E0; the absolute plateau is E0+Emax. EC50 is the concentration producing half of the Emax increment. For the inhibitory form, IC50 is the concentration producing 50% inhibition of E0. High Hill coefficient (h > 1) indicates steep concentration-response relationship.",
+        "worked_example_and_counterexample": "Synthetic arithmetic only: E0=5 s and an absolute tail-flick ceiling of 15 s imply an Emax increment of 10 s. With h=1, EC50=10 ng/mL and C=10 ng/mL, E=5+10*10/(10+10)=10 s. One point illustrates the equation but cannot identify EC50 and h; fitting needs a response series over informative concentrations. Counterexample: One response point at one concentration cannot jointly identify EC50 and Hill coefficient."
+      },
+      "claim_support": [
+        {
+          "claim": "Sigmoidal Emax model for stimulatory effects: E = E0 + (Emax * C^h) / (EC50^h + C^h).",
+          "scope": "Study-specific example for tail flick latency.",
+          "evidence_chunk_ids": [
+            "GEN003:MATH03",
+            "GEN003:0011"
+          ]
+        },
+        {
+          "claim": "Inhibitory Emax model for suppressive effects: E = E0 * (1 - C / (IC50 + C)).",
+          "scope": "Study-specific example for heat response score.",
+          "evidence_chunk_ids": [
+            "GEN003:0012"
+          ]
+        },
+        {
+          "claim": "A direct time-course relationship is one model choice; delayed/persistent responses can produce hysteresis while exposure-response analysis may remain informative.",
+          "scope": "General principle for model selection.",
+          "evidence_chunk_ids": [
+            "GEN001:0021",
+            "GEN001:0022"
+          ]
+        },
+        {
+          "claim": "Biomarkers are not valid surrogate endpoints unless empirically validated.",
+          "scope": "Regulatory context for endpoint validity.",
+          "evidence_chunk_ids": [
+            "GEN001:0038"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "GEN003:MATH03",
+        "GEN003:0011",
+        "GEN003:0012",
+        "GEN001:0021",
+        "GEN001:0022",
+        "GEN001:0038"
+      ],
+      "id": "round10_reviewed_v2_G05:K01",
+      "topics": [
+        "pkpd"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "GEN001",
+        "GEN003"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G05",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "example_is_synthetic": "The worked example uses hypothetical values for arithmetic illustration; it is not a measured compound dataset."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

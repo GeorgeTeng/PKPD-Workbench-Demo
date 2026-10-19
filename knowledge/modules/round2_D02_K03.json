@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Prohibition of Default Imputation and Silent Conversion",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "BLQ data must not be imputed with zero or half-LLOQ by default. Silent conversion of BLQ to missing is prohibited. Substitution of BQL with LOQ/2 has been shown to introduce bias in parameter estimates. Omission of BQL data is also associated with substantial bias. The correct handling (e.g., likelihood-based) is a modeling decision, not an EDA transformation.",
+      "conditions": [
+        "Applies to all EDA stages.",
+        "No pcVPC-driven deletion during EDA.",
+        "No covariate analysis activation in this assignment."
+      ],
+      "required_inputs": [
+        "Raw concentration values.",
+        "Explicit BLQ flags.",
+        "LLOQ values."
+      ],
+      "limitations": [
+        "Simulation results in source literature depend on tested model forms; do not impose a universal BQL method as project policy.",
+        "EDA does not fit models or determine the optimal likelihood method for BQL.",
+        "Target drug has NO human PK/PD observations; human methodological examples are not observations for the target drug."
+      ],
+      "downstream_use": "Ensures that downstream model fitting receives raw, unaltered data with explicit censoring flags, allowing the modeler to apply appropriate likelihood methods (e.g., M3/M4) rather than relying on biased imputation.",
+      "evidence_chunk_ids": [
+        "SUP001:0001",
+        "SUP001:0002",
+        "IN_EDA:0012",
+        "IN_MAIN:0017"
+      ],
+      "id": "round2_D02:K03",
+      "origin_job": "round2_D02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA",
+        "IN_MAIN",
+        "SUP001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D02",
+      "retrieval_keywords": "BLQ, missing, not sampled, technical failure, above-range and assay qualification",
+      "supersedes": [
+        "source_REF_018:K02"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

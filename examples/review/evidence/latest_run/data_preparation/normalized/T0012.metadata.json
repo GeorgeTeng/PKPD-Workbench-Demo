@@ -1,0 +1,292 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "T0012",
+  "role": "DOSING",
+  "metadata": {
+    "role": "DOSING",
+    "species": "Mouse",
+    "matrix": "thigh",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Regimen label",
+    "drug": "PMB",
+    "route": "SC",
+    "endpoint_window": "Window 0-24 h is relative to first treatment.",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "NOT_APPLICABLE",
+    "observation_source": "SOURCE_VALUES",
+    "dose_basis": "PMB sulphate",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "Repeated injections occur at 0, tau, ... strictly before 24 h.",
+    "additional_roles": [
+      "SUPPORTING_EVIDENCE"
+    ],
+    "columns": [
+      {
+        "header": "Regimen label",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "Regimen labels are curator-assigned."
+        ],
+        "column": "A",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:A145",
+            "quote": "Regimen label"
+          },
+          {
+            "source": "F0003:S1:T12:A143",
+            "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+          },
+          {
+            "source": "F0003:S1:T12:A146",
+            "quote": "KP032-0.5-q24"
+          }
+        ]
+      },
+      {
+        "header": "Dose (mg/kg)",
+        "meaning": "DOSE",
+        "unit": "mg/kg",
+        "qualifiers": [
+          "per injection as reported for PMB sulphate",
+          "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained."
+        ],
+        "column": "B",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:B145",
+            "quote": "Dose (mg/kg)"
+          },
+          {
+            "source": "F0003:S1:T12:A141",
+            "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
+          },
+          {
+            "source": "F0003:S1:T12:A144",
+            "quote": "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses."
+          },
+          {
+            "source": "F0003:S1:T12:B146",
+            "quote": "0.5"
+          }
+        ]
+      },
+      {
+        "header": "Interval (h)",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [],
+        "column": "C",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:C145",
+            "quote": "Interval (h)"
+          },
+          {
+            "source": "F0003:S1:T12:C146",
+            "quote": "24"
+          }
+        ]
+      },
+      {
+        "header": "Strain",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "D",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:D145",
+            "quote": "Strain"
+          },
+          {
+            "source": "F0003:S1:T12:D146",
+            "quote": "FADDI-KP032"
+          }
+        ]
+      },
+      {
+        "header": "Route",
+        "meaning": "ROUTE",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "E",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:E145",
+            "quote": "Route"
+          },
+          {
+            "source": "F0003:S1:T12:E146",
+            "quote": "SC"
+          }
+        ]
+      },
+      {
+        "header": "Window start (h)",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [
+          "relative to first treatment"
+        ],
+        "column": "F",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:F145",
+            "quote": "Window start (h)"
+          },
+          {
+            "source": "F0003:S1:T12:A142",
+            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+          },
+          {
+            "source": "F0003:S1:T12:F146",
+            "quote": "0"
+          }
+        ]
+      },
+      {
+        "header": "Window end (h)",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [
+          "relative to first treatment"
+        ],
+        "column": "G",
+        "evidence": [
+          {
+            "source": "F0003:S1:T12:G145",
+            "quote": "Window end (h)"
+          },
+          {
+            "source": "F0003:S1:T12:A142",
+            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+          },
+          {
+            "source": "F0003:S1:T12:G146",
+            "quote": "24"
+          }
+        ]
+      }
+    ],
+    "permission": "DEVELOPMENT_CANDIDATE",
+    "source_table": {
+      "title": "2018 thigh dose-fractionation regimens",
+      "sheet": "Mouse",
+      "region": {
+        "start_row": 139,
+        "end_row": 176,
+        "left": 1,
+        "right": 7,
+        "header_row": 145,
+        "title": "2018 thigh dose-fractionation regimens",
+        "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
+        "note_regions": []
+      },
+      "notes": "2018 thigh dose-fractionation regimens\nS02 | https://doi.org/10.1093/jac/dkx409 | Animal infection models and PK/PD studies\nDose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation.\nWindow 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h.\nRegimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots.\nSource rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses.",
+      "column_map": {
+        "c001_regimen_label": "Regimen label",
+        "c002_dose_mg_kg": "Dose (mg/kg)",
+        "c003_interval_h": "Interval (h)",
+        "c004_strain": "Strain",
+        "c005_route": "Route",
+        "c006_window_start_h": "Window start (h)",
+        "c007_window_end_h": "Window end (h)"
+      }
+    },
+    "source_item_id": "F0003:S1:T12",
+    "source_evidence": [
+      {
+        "source": "F0003:S1:T12",
+        "quote": "{\"sheet\": \"Mouse\", \"title\": \"2018 thigh dose-fractionation regimens\", \"headers\": [\"Regimen label\", \"Dose (mg/kg)\", \"Interval (h)\", \"Strain\", \"Route\", \"Window start (h)\", \"Window end (h)\"], \"source_notes\": \"2018 thigh dose-fractionation regimens\\nS02 | https://doi.org/10.1093/jac/dkx409 | Animal infection models and PK/PD studies\\nDose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation.\\nWindow 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h.\\nRegimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots.\\nSource rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses.\"}"
+      },
+      {
+        "source": "F0003:S1:T12:A139",
+        "quote": "2018 thigh dose-fractionation regimens"
+      },
+      {
+        "source": "F0003:S1:T12:A141",
+        "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
+      },
+      {
+        "source": "F0003:S1:T12:A142",
+        "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+      },
+      {
+        "source": "F0003:S1:T12:A143",
+        "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+      },
+      {
+        "source": "F0003:S1:T12:A144",
+        "quote": "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses."
+      },
+      {
+        "source": "F0003:S1:T12:A146",
+        "quote": "KP032-0.5-q24"
+      },
+      {
+        "source": "F0003:S1:T12:B146",
+        "quote": "0.5"
+      },
+      {
+        "source": "F0003:S1:T12:C146",
+        "quote": "24"
+      },
+      {
+        "source": "F0003:S1:T12:D146",
+        "quote": "FADDI-KP032"
+      },
+      {
+        "source": "F0003:S1:T12:E146",
+        "quote": "SC"
+      },
+      {
+        "source": "F0003:S1:T12:F146",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S1:T12:G146",
+        "quote": "24"
+      }
+    ],
+    "requirement_ids": [
+      "RQ013",
+      "RQ014"
+    ],
+    "independent_animal_count": "NOT_ESTABLISHED",
+    "dose": "NOT_FOUND",
+    "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
+    "normalized_fields": {},
+    "preparation_policy": "DATASET_ACTION_V1"
+  },
+  "data_file": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\normalized\\T0012.json",
+    "sha256": "5f5be0ad253e7659811e23ea732f0d33a71df1b6bb4217b6bd5b762c582e9e4e"
+  },
+  "source_refs": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\files\\F0003.xlsx",
+      "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\parsed\\F0003.json",
+      "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\preparation_plan.json",
+      "sha256": "db2e58af367824a5a9fea3524390d433115d3f33370e8290d344df602da71b9a"
+    }
+  ],
+  "summary": {
+    "source_records": 29,
+    "retained_records": 29,
+    "quarantined_records": 0,
+    "independent_animals": "NOT_ESTABLISHED",
+    "quarantine_reasons": {}
+  },
+  "review_status": "PENDING",
+  "release_authority": "SEPARATE_SIGNED_HANDOFF",
+  "human_prediction_allowed": false
+}

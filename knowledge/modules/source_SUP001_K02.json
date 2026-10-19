@@ -1,0 +1,48 @@
+{
+  "cards": [
+    {
+      "title": "Two-Panel VPC for Censored Data Diagnostics",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Standard VPCs are insufficient for models with BQL data. A two-panel VPC is recommended: the top panel displays prediction intervals for continuous data above LOQ, and the bottom panel displays the simulation-based confidence interval for the fraction of BQL observations over time. This diagnostic clearly identifies model misspecification caused by incorrect BQL handling.",
+      "conditions": [
+        "Model contains non-randomly censored data (BQL).",
+        "Sufficient data points above LOQ to calculate percentiles for the top panel.",
+        "Software capable of simulating censored data and calculating fraction of BQL."
+      ],
+      "required_inputs": [
+        "Final model parameter estimates.",
+        "Observed data with BQL flags.",
+        "Simulation engine capable of generating 500+ datasets for VPC.",
+        "Plotting tool capable of dual-panel visualization."
+      ],
+      "limitations": [
+        "Percentiles for observed data can only be calculated for percentiles where BQL data constitute a smaller fraction than the percentile in question.",
+        "Misspecification in the VPC could also result from incorrect structural models, not just BQL handling."
+      ],
+      "downstream_use": "Use the two-panel VPC to validate that the chosen BQL handling method (e.g., M3) correctly captures the distribution of both quantifiable and censored data. Use the BQL fraction panel to detect bias in absorption or effect parameters that might be invisible in standard VPCs.",
+      "evidence_chunk_ids": [
+        "SUP001:0008",
+        "SUP001:0009",
+        "SUP001:0010",
+        "SUP001:0011",
+        "SUP001:0014",
+        "SUP001:0015",
+        "SUP001:0016"
+      ],
+      "id": "source_SUP001:K02",
+      "origin_job": "source_SUP001",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

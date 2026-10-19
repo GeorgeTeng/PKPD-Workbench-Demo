@@ -1,0 +1,635 @@
+EDA: DATA, FIGURES, AND PURPOSE
+English Review Draft with Drawing Specifications
+Date: 2026-10-13 (America/Chicago)
+
+MAIN OBJECTIVE AND SCOPE
+
+Use animal PK and preclinical PK/PD evidence to support prospective human exposure prediction and assess potentially efficacious human doses/regimens, their feasibility, and uncertainty. EDA describes the observations, available analytical inputs, and interpretation limits supporting that chain.
+
+The target drug has no human PK, PD, efficacy, or safety observations in this project setting. Human outputs are prospective scenarios; a known-drug benchmark with held-out human data is a separate evaluation setting. EDA cannot establish human efficacy, safety, or a clinically acceptable dose. Later feasibility assessments must identify the constraints actually supported and retain unresolved safety limitations.
+
+Supported NCA results and permitted literature parameters may support later translation review without a mandatory compartmental fit. Displaying evidence does not qualify parameters, select a winning index, estimate a PD target, or validate human predictions.
+
+Combination therapy is excluded. Covariate and downstream-method background is retained, but covariate analysis and allometric/parameter-weight plots are deferred. Reuse Data's definitions, provenance, and known gaps; this review does not repeat Coverage, Necessity, or cleaning. A gap limits the affected description, not automatically all available evidence.
+
+This is a text review. It specifies future displays and permitted descriptive calculations; no data analysis, plotting, or workflow implementation is performed here. The numbered items use data -> drawing -> purpose/limits/main-objective link, followed by MP background and sources.
+
+DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE
+
+EDA may execute a descriptive formula when its definition is established, all required inputs and their relationships are available, and no new scientific assumption is needed. Preserve original values and units, the formula and its source/definition, input links, grouping, calculation scale/order, and missing/censored-value handling. Distinguish source-reported values from EDA-calculated values. These shared requirements apply throughout; local sections state only additional conditions.
+
+Allowed preparation includes:
+- Unit conversion and time alignment using documented factors and reference events; retain actual versus nominal time and the original origin. A change in analyte, matrix, salt/active-moiety basis, or total/free basis requires an established relation, not merely a unit label.
+- Dose normalization using a known, nonzero, compatible dose and an explicit per-administration or period basis. Zero-dose controls remain unnormalized. Normalization alone does not establish dose proportionality.
+- Established response transformations: for example, log10 of positive counts on a defined sample basis, an endpoint-minus-baseline response with a supported individual or group reference, or percentage remaining from a documented nonzero reference. Preserve the chosen response definition; group baselines do not create individual pairing. No arbitrary constant is added to zero or censored counts.
+- Ratios from source-reported or permitted descriptive inputs, such as fAUC/MIC or an explicitly observed-peak/MIC ratio with matched strain MIC, compatible units, concentration basis, and window. Computing a quotient does not authorize integrating exposure or estimating an unsampled peak. Likewise, a documented amount or collection total may be calculated from complete compatible measurements without assuming missing collections are zero or predicting unobserved excretion.
+- Maximum observed concentration within a defined profile and observation window, using verified quantitative measurements. State whether it is a maximum within a verified individual profile or the maximum of a defined group-summary series; neither estimates an unsampled true peak. Preserve sampling times and censoring, which may prevent an exact maximum for the complete profile. A maximum among quantified records is labeled as such. Use this quantity in a peak/MIC ratio only when it matches the established index definition and concentration basis.
+- Counts, means/medians, SD, ranges, quantiles, and frequencies at the verified unit/group level. State the statistic and denominator. Sample SD requires at least two contributing values and a stated formula; unavailable SD is not zero. Biological SD describes verified biological units; technical-repeat SD describes repeatability and is labeled separately. Technical repeats do not increase biological n, and pools remain pools. State any within-unit aggregation and quantile convention.
+
+Order of operations matters. Specify whether each transformation acts on records, experimental units, or existing summaries before aggregation. In general, mean(C_i/D_i) differs from mean(C_i)/mean(D_i), and mean(log10 C_i) differs from log10(mean C_i). Use the order required by the established quantity; retain source summaries without reconstructing unobserved individual values.
+
+Censoring is carried through an established formula as a bound or interval when mathematically supported, preserving inequality direction and denominator conditions. It is not an exact point or an SD/CI. If inputs or the relation are insufficient, retain a status/table entry. EDA introduces no limit substitution, imputation, invented pairing, or silent exclusion; any substitution in an existing source output stays labeled. A quantifiable-only summary identifies that subset and the omitted statuses/counts; unknown denominators or uncertainty remain unknown.
+
+Deferred analysis includes concentration-time AUC/AUMC integration, new integration of response-time curves, PK parameter estimation beyond the descriptive quantities explicitly allowed above, exposure reconstruction requiring interpolation, extrapolation or a model, terminal-slope selection, PD-target fitting, inferential uncertainty estimation, and human simulation. Estimating fT>MIC from incomplete concentration-time coverage, transferring binding between species, or selecting an IVIVE/renal-clearance model is not simple display arithmetic. Existing analytical outputs can be displayed with their provenance; new endpoint definitions or assumptions require separate analysis decisions.
+
+DISPLAY OVERVIEW
+
+Select displays for the question and available evidence, not one figure per data category. Reuse panels and annotations where possible.
+- Animal PK main figures: items 01/02/03/04/06/12; dose comparisons in 05. They describe the animal exposure evidence for later translation inputs.
+- PD effect range: item 08; add or use item 07 when response timing matters. They show how the observed effects relate to the requested effect.
+- Exposure/index-response: item 10, supported by regimen, linkage, and MIC information in 09/11/15. They inform later index and target analysis.
+- Conditional evidence: binding, stability, and urine in 13/14 only when relevant to the considered translation approach; population MIC distributions in 15 when weighted attainment is relevant.
+
+Supporting tables often suffice:
+- PK parameter evidence: exact parameter/units, species, route/regimen, analyte/matrix/basis, method, data level, source, uncertainty, and limitations. Preserve CL versus CL/F and Vss versus Vz/Vc. Parameter-only literature evidence does not require an invented curve. See B09 and MAIN.MP003/005, PK-REF/TRANSLATION-REF.
+- Regimen and PK-PD correspondence: dose/window/interval, treatment duration, PK source, PD experiment, matched MIC, exposure provenance, and linkage/transfer assumptions. See 09/11/15.
+- Existing PD targets: target/range, reported uncertainty, index/units, concentration basis/window, effect, endpoint/reference, strain/model context, method, and source. A reported target is not automatically applicable or independently verified. See B10, NEXT.MP012/PTA-REF.
+
+Retain supplied tolerability, formulation, administration, or exposure constraints in the relevant evidence table or figure note, with their study context and source. These inform later feasibility review; absent constraints remain unknown, and animal findings do not establish human safety.
+
+COMMON DRAWING CONVENTIONS
+
+Example labels below illustrate syntax, not assigned values or units for unexamined data. Axes and biological definitions follow the actual dataset. Layout choices are project proposals; WEB01-WEB13 distinguish methodological support from published examples and access limitations.
+- Label variables and units, with analyte/matrix/basis and endpoint/window in the axis or panel title. A log concentration axis retains concentration-unit ticks; an already log10-transformed response uses a linear axis. Signed response changes remain on a linear axis.
+- Keep raw observations visible when available. Identify whether each mark represents an animal, sample, pool, or summary. Lines connecting observations are visual guides, not fitted or continuously observed trajectories. Missing/censored observations and dosing discontinuities must remain visible; break lines where joining them would imply unsupported information. Source model curves, if relevant and permitted, are separately labeled.
+- Identify source SD/SE/CI versus EDA descriptive SD, the variability level, n, and scale. Preserve asymmetric bounds. A bound that cannot appear on a log axis remains available in the linear view/table, with its omission disclosed. No new fits, smoothers, inferential CIs, or model ribbons are part of these drawing instructions.
+- Use consistent regimen colors and complementary shapes/line types. Facets identify study/species/matrix/strain contexts, not estimated covariate effects. Comparable panels use common limits where practical; label exceptions. Avoid dual axes for different biological quantities.
+- Preserve zeros, inequality signs, and missingness categories. Log displays require positive quantitative values; status strips or labeled bound markers handle other records without invented positive offsets. Censoring markers are distinct from uncertainty bars.
+- Shared figure notes or companion tables may hold common source references, unit/summary definitions, formulas, grouping, and censoring conventions. Each caption identifies the variables/panels, exceptions, important omissions, and interpretation limits needed to read that figure. Full provenance need not be repeated beneath every panel.
+- If an image, caption, methods section, or table gives conflicting definitions, retain both statements and their exact locations. Do not silently harmonize them or pool the affected quantities as comparable until the conflict is resolved. Unaffected descriptive evidence remains usable. WEB11 provides a total/free-label example.
+
+DETAILED DATA, DISPLAY, PURPOSE, AND OBJECTIVE LINKS
+
+01 | CONCENTRATION-TIME OBSERVATIONS
+
+Data and details
+- Concentration, time, units, time origin, study and profile membership, species, dosing regimen, route, formulation, analyte, matrix, and total or unbound concentration basis.
+- Actual sampling time versus nominal scheduled time. Preserve which time definition the prepared data use; do not silently replace one with the other.
+- Original numerical observations versus digitized observations. For digitized data, retain the source figure, panel and curve, axis scale/transformation, units, extraction provenance, and any existing reconstruction review.
+- Measured points versus a fitted or predicted source curve. A line digitized from a model is not newly measured concentration data.
+- Reported assay method, measured matrix, calibration range, LLOQ/ULOQ, validation information, and reported stability, recovery, or adsorption concerns. Retain supplied dilution/reanalysis provenance and the applicable range for the final reported result. Use these as context; EDA does not certify the assay.
+
+Figure or table
+Observed concentration-time points on the scale suited to the question; add the complementary view when informative. Distinguish any permitted source-model curve from measurements.
+
+Drawing specification
+- X-axis: elapsed time relative to the documented origin, normally on a linear scale. Example label: Time after dose (h). For repeated input, state first dose or most recent dose; retain negative predose times when recorded. Minutes and hours must not share an unlabeled scale.
+- Y-axis: measured concentration with analyte, matrix, basis, and unit; for example, Total [analyte] plasma concentration (mg/L). Choose linear scaling for absolute concentration differences or a log concentration axis for patterns spanning orders of magnitude. Neither is universally the primary view. Add the complementary scale only when it reveals useful information. Log-axis ticks retain concentration values and units; zeros and censored records follow the common conventions.
+- Marks: observed points; thin connecting lines for verified serial units. Group-summary curves distinguish source-reported summaries from permitted EDA-calculated summaries and identify their error definition. Destructive or pooled observations follow item 02. Break connections at recorded missing or unresolved censored observations; do not bridge them as if measured.
+- Panels/legend: split incompatible studies, species, routes, matrices, or analytes; distinguish comparable doses/regimens within a panel. Do not overlay every context merely to reduce figure count.
+- Annotations: dose events as rug marks/arrows; infusion periods as labeled bands; relevant LLOQ and, where needed, ULOQ references on the displayed concentration basis. Distinguish assay ranges across panels/records, including applicable dilution factors already supported by the assay record. A valid dilution-reassayed concentration is quantitative and retains its provenance; an unresolved above-range result is censored. Requested windows and censoring status use items 03/04.
+- Evidence: WEB04 Figure 1 and WEB11 Figure 1 show semilog PK profiles with dose symbols and group means/SD; WEB02 supports assay-limit definitions.
+
+Purpose, limits, and main-objective link
+Show the magnitude, shape, spread, and sampling range supporting later animal PK inputs to human prediction. Interpret early observations, finite windows, and late/input-history evidence against the requested endpoint. The sampled maximum need not capture the true peak; visual shape does not establish compartment count, mechanism, model adequacy, or parameter qualification.
+
+Keywords: actual/nominal time; time origin; source figure/panel/curve; digitization; measured/fitted/predicted; assay range; LLOQ/ULOQ; dilution/reanalysis; observed peak.
+MP basis: MAIN.MP001.required_inputs, conditional_inputs, data_checks; MAIN.MP004.required_inputs, conditional_inputs. Background: B01-B03.
+
+02 | INDIVIDUAL, SPARSE, DESTRUCTIVE, POOLED, AND SUMMARY DATA
+
+Data and details
+- Verified experimental-unit identity and membership in a study, group, regimen, and time point. A source record identifier is not automatically an animal identifier.
+- Serial sampling, destructive/terminal sampling, sparse sampling, or a mixture. Sparse sampling does not by itself determine whether records are longitudinal or destructive.
+- Individual observations, pooled samples, or group summaries. Retain arithmetic mean, geometric mean, or median exactly as reported.
+- Contributing sample counts and independent biological units, where known. Report animal, tissue/sample, and technical-repeat counts separately. Four thighs do not automatically represent four independent animals; retain nesting within animals and the confirmed experimental unit. For in vitro studies, distinguish independent runs from samples or assay repeats within a run.
+- Reported SD, SE, or CI and the quantity it describes; retain supplied variance/covariance information. Missing dispersion is distinct from missing observations.
+
+Figure or table
+Reuse item 01 with marks appropriate to serial, destructive, pooled, or summary data.
+
+Drawing specification
+- X-axis and Y-axis: reuse the time and concentration axes from item 01; data structure changes the marks, not the biological variable.
+- Serial observations: one line per verified animal within its experiment; use small multiples if overlap obscures trajectories. Sparse serial records remain serial, but gaps must remain visible.
+- Destructive sampling: sample points at observed times, without animal-level lines; optional labeled group summaries. Compatible time-point summaries from the same study/regimen may be connected as a descriptive group series, explicitly not an individual trajectory. Disclosed horizontal displacement may separate overlapping points. Nominal-time grouping or display displacement does not overwrite actual times.
+- Pooled data: one symbol per measured pool, labeled as pooled. Summary-only data: one symbol per supplied group/time summary; show its reported n and error definition in the caption or companion table. Do not generate pseudo-individual points or distribution shapes from a mean and SD.
+- Evidence: MAIN.MP001/004 supports distinguishing individual and summary evidence.
+
+Purpose, limits, and main-objective link
+Identify whose data each curve represents so later translation preserves the correct exposure and variability level. Group-mean curves do not supply individual trajectories or animal IIV; their peak is not the mean of individual peaks. Unknown uncertainty remains unknown. Sampling sufficiency depends on the intended endpoint, not a universal animal or row count.
+
+Keywords: experimental unit; serial/sparse/destructive/mixed; pooled; biological/technical replicate; arithmetic/geometric mean; median; SD/SE/CI; variance/covariance; IIV.
+MP basis: MAIN.MP001.required_inputs and conditional_inputs; MAIN.MP004.conditional_inputs and data_checks; NEXT.MP012.conditional_inputs and data_checks. Background: B01.
+
+03 | QUANTIFICATION LIMITS, MISSINGNESS, UNSAMPLED TIMES, AND UNAVAILABLE ENDPOINTS
+
+Data and details
+- Original observation flags, associated unit/group and time, recorded reason, and applicable LLOQ/ULOQ or microbial detection/counting limits where supplied.
+- Separate BLQ, unresolved above-ULOQ, genuinely quantified zero, not sampled, technical failure, and an endpoint unavailable after death or early termination. A stored numeric zero may be a placeholder and is not automatically a measured zero.
+- For initially above-range samples, retain the final reported result and supplied dilution/reanalysis history. A valid quantitative result after appropriate dilution is distinct from a result that remains above range or unresolved; EDA does not perform assay reanalysis or certify dilution validity.
+- Position along the curve: before the first quantifiable sample, between quantifiable observations, or late in the course.
+- Planned sampling information, if available, and counts of records versus independent units. Unknown planned sampling is not evidence that a particular time was scheduled and missed.
+
+Figure or table
+Annotate the main plot; add a categorical observation map only when flags are otherwise unclear.
+
+Drawing specification
+- Main-figure status band: X = the observation time used in the main plot; Y = a categorical strip labeled Observation status, outside the concentration axis. Use distinct labeled symbols for BLQ, unresolved above-ULOQ, not sampled, technical failure, and other recorded categories. A genuinely quantified zero belongs on the quantitative linear panel; an unexplained stored zero retains its unresolved status.
+- Optional observation map: X = time (numeric actual time, or explicitly labeled nominal occasions); Y = verified animal/pool/group ID, categorical. If destructive sampling leaves one record per animal, group rows by time/regimen or use a labeled group-level map. Do not invent a longitudinal animal identity.
+- Marks: categorical colored/shaped cells or symbols, with a complete legend. If nominal-time cells summarize several records, state the aggregation and counts; mixed statuses must not be collapsed into one apparently pure category.
+- Unscheduled/unknown slots: a blank is not automatically missing or not sampled. Show planned-but-missing slots only when the schedule supports that distinction. No continuous color gradient, error bars, or connected lines are needed for this categorical map.
+- Evidence: WEB02 supports assay-range and dilution definitions; microbial endpoint limits require the experiment's own source.
+
+Purpose, limits, and main-objective link
+Show where unavailable or censored observations restrict an exposure endpoint or response contrast relevant to translation and target evidence. The map does not identify a missingness mechanism or justify imputation. Sampling proportions require a supported denominator; unaffected observations remain usable for their supported descriptions.
+
+Keywords: BLQ; above-ULOQ; dilution/reanalysis; LLOQ versus microbial detection limit; censoring; observed versus placeholder zero; not sampled; technical failure; unavailable endpoint; planned-sample denominator.
+MP basis: MAIN.MP001.conditional_inputs and data_checks; MAIN.MP002.required_inputs and data_checks. Additional project context: prior EDA PKPD09/17 and topic T14. Background: B01/B03.
+
+04 | REQUESTED EXPOSURE WINDOWS AND LATE-TIME OBSERVATIONS
+
+Data and details
+- The exact requested endpoint, exposure window, and time origin. Distinguish a finite window, a dosing interval (tau), and exposure extrapolated to infinity.
+- Observed window boundaries, internal unsampled intervals, the first and last quantifiable observations, and late BLQ records.
+- Whether a boundary is observed, estimated/reported by the source, assumed by the source, or unobserved. Preserve distinctions among interpolation, back-extrapolation, and forward extrapolation in existing source information.
+- IV bolus, infusion, or extravascular input; infusion end, subsequent doses, and relevant absorption information. For repeated dosing, retain predose measurements and the established time reference.
+- When MRT or Vss is a downstream objective, retain the additional moment/input-history context; AUC coverage alone does not establish AUMC coverage.
+
+Figure or table
+Annotate item 01 with the requested window and input events; add a late-time zoom only when it contributes information.
+
+Drawing specification
+- X-axis/Y-axis: the same time origin/unit and concentration definition as item 01. Mark a finite requested interval with two vertical boundaries and a light background band. For an infinity endpoint, label the last observation and the unobserved tail in text; do not place an infinity tick or extrapolated curve.
+- Window annotations: label the requested start/end, first/last quantifiable samples, relevant input events, and known unsampled gaps. Background shading marks a time window; it is not a filled area-under-the-curve calculation.
+- Optional late-time panel: restrict X to the displayed late interval, explicitly label its limits, and use a log concentration Y-axis only for positive quantifiable values. Retain BLQ status in a separate strip and show infusion end or later doses that occur in this interval.
+- Marks: preserve the same points and identity rules as the main plot. Do not select and color a putative terminal regression subset, fit a slope, or label the visually late interval as an established elimination phase.
+- Evidence: WEB09 distinguishes observed-window and extrapolated endpoint quantities.
+
+Purpose, limits, and main-objective link
+Show the observations supporting the endpoint needed for translation or index analysis. Finite-window and terminal/moment-based endpoints have different dependencies. Retain the requested interval rather than replacing it with 0-24 h, tau, infinity, or a shorter interval by default. Late points do not establish a terminal phase; lambda_z selection/regression, half-life, AUC/AUMC tails, and extrapolation acceptance remain downstream.
+
+Keywords: finite window; AUCtau; AUCinf; AUMC; MRT; first/last quantifiable; internal gap; bolus boundary; infusion end; predose; absorption-limited decline.
+MP basis: MAIN.MP001.data_checks; MAIN.MP002; MAIN.MP003.conditional_inputs; PK-REF.MP001/002.analysis_method_requirements and MP003. Background: B02/B09.
+
+05 | MULTIPLE DOSE LEVELS AND DOSE COMPARISONS
+
+Data and details
+- Explicit dose for each profile, dose unit and basis, route, formulation, dosing schedule, concentration basis, and sampling times.
+- Salt versus free base; active moiety; mass versus activity units; mg per animal versus mg/kg; administered mixture versus the components measured by the assay.
+- Whether the measured analyte is the administered compound, a metabolite, or a product formed from a prodrug. Retain any approved analyte/dose-basis conversion and its source. Routine unit conversion under the confirmed EDA boundary does not authorize inventing a new active-moiety, prodrug, or analyte conversion.
+- Differences in study, regimen, time origin, matrix, or analyte that affect comparability. Dose normalization needs an interpretable denominator for the relevant profile.
+- For an exposure-dose display, an existing permitted exposure endpoint or a maximum observed concentration calculated under the shared descriptive rule. Retain its exact definition, units, window, source/method, record level, and available uncertainty. Concentration records alone do not supply an integrated exposure endpoint.
+
+Figure or table
+Reuse dose-labeled PK panels. Add dose-normalized profiles or permitted exposure/observed-maximum values versus dose when the comparison is relevant.
+
+Drawing specification
+- Dose-labeled PK panels: X = time; Y = concentration, as in item 01; color identifies dose and the legend states its exact unit and basis. Different intervals or infusion durations must remain identifiable.
+- Optional dose-normalized panel: X = time; Y = concentration/dose, for example (mg/L)/(mg/kg). State whether dose is per administration or over a specified period. Apply record-level normalization before grouping when that defines the intended quantity. Transform LLOQ/ULOQ bounds onto the same scale; raw concentration limits cannot be drawn unchanged on this axis.
+- Optional exposure-dose panel: X = dose on its actual numeric scale and basis; Y = one defined quantity, for example an existing AUC over the specified window (mg*h/L) or maximum observed concentration (mg/L). Identify source-reported versus EDA-calculated values. Different quantities or windows have separate panels; do not combine AUC and peak concentration using dual axes.
+- Scales/marks: choose linear or positive-valued log axes for the comparison, disclosing the scale. Retain zero-dose controls separately if a log X-axis is used. One point per supplied estimate or permitted descriptive value at its actual record level, optionally with descriptive summaries/SD across verified unit-level values. Keep reported estimation uncertainty distinct from between-unit descriptive spread. No fitted proportionality line, slope test, or model confidence band.
+- Evidence: WEB09 supports exposure definitions and dimensions.
+
+Purpose, limits, and main-objective link
+Describe how profiles or existing exposures vary over studied doses and inform later review of dose-scaling assumptions for human scenarios. Similar normalized curves do not prove proportionality, linear disposition, or saturation. Extensions beyond the observed range require later evaluation; normalization cannot resolve incompatible analytes, matrices, or regimens.
+
+Keywords: dose basis; salt/base; active moiety; IU/activity units; mg/animal; mg/kg; measured component; parent/prodrug/metabolite; dose normalization; exposure-dose; dose dependence.
+MP basis: MAIN.MP001.data_checks; MAIN.MP003.required_inputs, conditional_inputs and data_checks; MAIN.MP004.conditional_inputs; PK-REF.MP003.analysis_method_requirements. Background: B02/B04/B09.
+
+06 | REPEATED DOSING AND INPUT HISTORY
+
+Data and details
+- Dose dates/times, intervals, amounts, sampling times, and known departures from the scheduled regimen.
+- Time since the first dose versus time since the most recent dose. Preserve actual versus nominal timing.
+- Infusion start/end and whether delivery was constant, varying, or interrupted where recorded.
+- Predose or trough definitions, treatment day/occasion, and any independently reported evidence of steady state. A scheduled predose sample is not automatically a verified trough at the intended time.
+
+Figure or table
+Reuse the PK figure by day/occasion; a trough panel or schedule table is optional when it clarifies repeated input.
+
+Drawing specification
+- Whole-course view: X = elapsed time since the first dose; Y = measured concentration. Show each known dose event and infusion start/end on that timeline.
+- Occasion panels: X = time since the documented dose for that occasion; Y = the same concentration quantity. Facet by day/occasion using common limits where meaningful. Do not superimpose repeated occasions without retaining their identity.
+- Optional trough panel: X = treatment day or actual occasion time; Y = measured, timing-verified trough concentration in the stated matrix/basis/unit. Individual lines connect only the same animal; compatible group summaries may form a labeled descriptive series under item 02. A mistimed predose sample is labeled predose at its actual time, not relabeled as a true trough.
+- Legend/caption: identify regimen, loading versus maintenance input if present, and actual versus nominal timing. Reported steady-state evidence may be noted with its source, but no steady-state threshold or accumulation curve is generated here.
+- Evidence: time/input distinctions follow MAIN.MP001-003 and WEB09.
+
+Purpose, limits, and main-objective link
+Relate observations to input history so animal exposure and later human regimen scenarios retain comparable timing. Repeated dosing alone does not establish steady state, and changing concentrations need not reflect accumulation. A timing description does not estimate between-occasion variability or require repeated-dose data for every PK endpoint.
+
+Keywords: predose; trough; tau; dose history; occasion; steady state; constant/varying/interrupted infusion; actual/nominal timing.
+MP basis: MAIN.MP001.data_checks; MAIN.MP002.required_inputs; MAIN.MP003.conditional_inputs; PK-REF.MP003.analysis_method_requirements. Background: B02/B07/B09.
+
+07 | LONGITUDINAL PD AND INFECTION-MODEL OBSERVATIONS
+
+Data and details
+- Measured response, units, observation times, treatment regimen, experimental unit/group, baseline, control, and response definition.
+- For infection models: organism and strain, inoculum, infection site, host immune status, time from infection to treatment start, treatment duration, and untreated growth-control observations where supplied.
+- The response reference: absolute burden, change from treatment start, difference from a concurrent untreated control, or a distinct outcome such as survival. Keep different endpoints and treatment durations distinct.
+- Known assay/detection limits, observed killing/regrowth, follow-up after withdrawal, and recorded reasons for endpoint unavailability. Retain the animal, group, or independent in vitro run represented by each series.
+
+Figure or table
+Plot response versus time when actual time-course data address the question. For a fixed-endpoint question, prioritize item 08.
+
+Drawing specification
+- X-axis: elapsed time from infection or treatment start, using the supplied origin and unit. Mark treatment start/stop; do not reset infection time to treatment time without a documented conversion.
+- Y-axis: the actual response. Examples: Bacterial burden (log10 CFU/thigh), Bacterial burden (log10 CFU/g), Bacterial density (log10 CFU/mL) for an in vitro system, or Change from treatment-start burden (log10 CFU/[basis]). An already log10-transformed value uses a linear axis; signed change values include negative values. Keep per-organ, per-gram, and per-volume bases distinct.
+- Marks: verified serial-unit points/lines, destructive-sampling points, or labeled group summaries. Keep untreated control visible; distinguish regimen and facet by strain, site, experiment, or incompatible endpoint.
+- Reference lines: a supplied microbial detection limit applies to absolute burden on its matching scale. It cannot automatically become one common threshold on a change-from-baseline scale. Carry response censoring into the display using the bound/status rules in item 08. Mark unavailable-after-death observations separately; never place them at zero CFU.
+- Survival-only data: retain supplied alive/total counts in a time table, or source-reported survival proportions versus follow-up time on a linear 0-1 or 0-100% axis in a separate panel. A simple proportion may be calculated from complete known-status counts with its denominator/formula recorded; it is not a censoring-adjusted survival estimate. State denominators and censoring definitions; do not calculate a new Kaplan-Meier curve or infer survival proportions from incomplete event records.
+- Evidence: WEB05 supports preserving response endpoint and duration. WEB13 Figure 1 shows strain-specific time-kill panels with growth controls and counting/quantification-limit context; late regrowth makes the time course informative beyond a final endpoint.
+
+Purpose, limits, and main-objective link
+Show the timing, duration, and range of observed effects relevant to the preclinical response a later human regimen aims to support. Preserve untreated trajectories and experimental context. Regrowth alone does not establish resistance; persistence does not identify a mechanism. Missing baseline/control information limits its corresponding contrast. Endpoint-only data cannot supply an invented longitudinal curve.
+
+Keywords: organism/strain; inoculum; infection site; immune status; infection-to-treatment interval; treatment duration; untreated growth; response reference; CFU; survival; regrowth.
+MP basis: MAIN.MP009.conditional_inputs and data_checks; NEXT.MP012.required_inputs and conditional_inputs. Additional project context: prior EDA PKPD16/17, MOD01/MOD02/MOD04. Background: B01/B03/B05/B06.
+
+08 | PD AT A FIXED ENDPOINT AND REQUESTED EFFECT LEVELS
+
+Data and details
+- Endpoint value, exact observation time/window, regimen, unit/group identity, baseline or comparator, and the definition of the response.
+- For summaries: arithmetic/geometric mean or median, biological replicate count, group size, and the reported dispersion or uncertainty. Technical repeats are not independent animals.
+- A project-defined desired effect, if relevant. Stasis, 1-log reduction, and 2-log reduction are possible requested effects, not mandatory targets for every task.
+- Distinguish the measured endpoint, desired effect, and the exposure/index magnitude that a later target analysis may estimate.
+- Highest studied dose/exposure and any supplied reason for limiting further dosing, including reported tolerability or administration constraints. Preserve the study context; the highest tested dose is not automatically the maximum tolerated dose.
+
+Figure or table
+Plot the fixed-time response against comparable numeric doses or categorical regimens, retaining controls and any requested effect reference.
+
+Drawing specification
+- X-axis: numeric dose with unit and per-administration/period basis, or categorical regimen when schedule matters. Regimen labels include dose/interval and treatment duration. Design order is the default; another useful descriptive order, including response order, is acceptable when disclosed.
+- Dose-fractionation use: X = total dose over the defined treatment period; Y = the same fixed-time response; color/shape = dosing interval, with facets for incompatible strains/experiments. This reuses the endpoint plot to show effects at comparable total doses; see item 09.
+- Y-axis: the defined endpoint/reference at the stated time. A linear axis displays log10 bacterial counts or signed changes. EDA may execute the established response formula with complete supported inputs, including the specified group or individual baseline; it does not select a new endpoint or manufacture pairing.
+- Marks: individual dots, controls, and optional labeled summaries/errors. Minimal horizontal displacement can reveal overlap. Keep independent animals unconnected across regimens and avoid summaries that obscure available raw observations.
+- Censored response: show a known bound using an open marker/directional arrow, distinct from observations and uncertainty bars; otherwise use a status band/table. For a transformed response, propagate the bound through its established formula with the actual supported baseline relationship. An absolute-burden limit is not unchanged on a change-from-baseline axis. Preserve inequality direction and any uncertainty in the reference; no exact-value substitution.
+- Effect lines: add only requested effects on the compatible response scale. For endpoint-minus-treatment-start log10 burden, stasis is 0 and 1-/2-log reductions are -1/-2; signs reverse for a positive-reduction convention. Absolute-burden references require the applicable baseline. Zero difference from untreated control is not automatically stasis.
+- Range annotations: state when the requested effect is not observed within the studied range, and preserve source-reported non-achievement or dose-limiting constraints separately from missing data. Do not replace an unestimated target with zero, infinity, or an assumed achievable higher dose.
+- Evidence: WEB03 distinguishes desired effect from PK/PD target; WEB05 supports endpoint/duration specificity. WEB04 Figure 4 and Table 2 retain limited effects and non-achievement; WEB11 Figure 2 demonstrates total-dose/response plotting by interval. Numeric signs follow the stated subtraction convention.
+
+Purpose, limits, and main-objective link
+Show whether the preclinical observations cover the requested effect and what limits later target interpretation. An effect outside that range may remain unestimable; extrapolation is not automatically justified. A reference line does not estimate a target or fitted asymptote, and an animal dose or tolerability limit is not a human efficacious or safe dose. One endpoint cannot establish response dynamics. Missing dispersion limits uncertainty claims separately from observed effect.
+
+Keywords: endpoint window; stasis; 1-log/2-log reduction; baseline/comparator; biological replicate; observed effect range; interpolation/extrapolation context; target effect versus index target.
+MP basis: MAIN.MP009.conditional_inputs and data_checks; NEXT.MP012.required_inputs, conditional_inputs, acceptable_alternatives and data_checks. Background: B01/B05/B10.
+
+09 | DOSE-FRACTIONATION AND REGIMEN DESIGN
+
+Data and details
+- Dose per administration, total dose over an explicitly defined period, dosing interval/frequency, route, infusion duration when relevant, treatment duration, and regimen identity.
+- The variables that change independently across regimens. Distinguish changing total dose from changing interval or frequency.
+- Experiment, strain, endpoint and response window associated with each regimen. Preserve links to the actual observations; a design label is not an observed exposure.
+
+Figure or table
+Retain regimen definitions in a table. When fractionation responses are available, prioritize the total-dose/response display in item 08. Add a total-dose versus interval/frequency map only when it clarifies the design beyond that display or when responses are unavailable.
+
+Drawing specification
+- Table first: one row per actual regimen, with source/experiment, dose per administration, total dose and its window, interval or frequency, infusion duration if applicable, treatment duration, strain, and linked endpoint records. A table has no X/Y axes.
+- Optional design map: X = total dose over the stated period (for example mg/kg over the actual 24 h design window); Y = interval (h) or frequency in that period. Any derived total/frequency uses the documented schedule, including loading doses or irregular intervals; a nominal interval alone may not determine the dose count.
+- Marks: one point per regimen; use labels or shapes for regimen ID. Facet by experiment/strain/response duration when these differ. Use linear axes unless an explicit spacing problem warrants another disclosed scale. No dose-response curve or error bars belong on a design-only map; point area does not encode efficacy.
+- Evidence: MAIN.MP009/INDEX-REF supplies dose-fractionation context; WEB11 Figure 2 directly shows total-dose/response by interval. WEB04 provides a further dose-fractionation study example.
+
+Purpose, limits, and main-objective link
+Explain which regimen dimensions were varied and which candidate-index comparisons the observed design can inform. This supports the exposure-to-effect link for later regimen assessment; a design map alone does not distinguish the index that should drive dosing or prescribe new regimens.
+
+Keywords: dose fractionation; dose per administration; total-dose window; interval/frequency; regimen identity; common response context; co-varying indices.
+MP basis: MAIN.MP009.data_checks; INDEX-REF.MP009.reference_profile.preflight_checks. Background: B02/B06.
+
+10 | EXPOSURE/INDEX VALUES LINKED TO RESPONSE
+
+Data and details
+- Permitted exposure/index inputs and their origin: source-reported, previously calculated, model-derived, or permitted descriptive values. An EDA quotient using matched MIC retains the numerator's provenance and definition, including an observed rather than estimated peak where applicable; the ratio is not a measured concentration.
+- Exact index definition, units, exposure window, total/unbound basis, and whether MIC normalization is intended.
+- For time above a threshold: the threshold and its meaning, relevant window, and whether the value is a duration or a percentage. The label fT alone is incomplete.
+- Matched strain MIC, when needed, with units and measurement context. Non-MIC-normalized exposure summaries do not require MIC solely because the task concerns PK/PD.
+- Traceable regimen-exposure-response relationships, endpoint/reference, observation time, experiment/panel identity, and shared records available for cross-index comparison.
+- For an existing integrated or other non-fixed-endpoint response, retain its formula, input scale, reference, analysis window, and source method. An area-based response is not interchangeable with endpoint-minus-baseline bacterial burden.
+
+Figure or table
+Plot each applicable exposure/index against its linked response. Add index-pair scatterplots only for a specific co-variation question.
+
+Drawing specification
+- X-axis, fAUC/MIC panel: unbound AUC over the specified window divided by matched MIC. If concentration units match, the quotient has time units (for example h when AUC is mg*h/L and MIC is mg/L). Label the window and unit; do not call every index dimensionless.
+- X-axis, fCmax/MIC panel: the specified unbound peak concentration divided by matched MIC; dimensionless when concentration units match. Identify a source-reported peak, model-derived peak, or maximum observed concentration calculated under the shared rule, and use it only when it matches the established index definition. Do not substitute a sampled maximum for a required model peak or label a total-concentration ratio as free.
+- X-axis, fT>MIC panel: explicitly distinguish percentage of the stated window, fraction of that window, and duration above MIC. Use linear 0-100%, 0-1, or duration units as appropriate. Name the window; fT alone is not a sufficient axis title.
+- Calculation boundary: fAUC/MIC or fCmax/MIC may use compatible source-reported or permitted descriptive inputs. This does not integrate AUC, estimate an unsampled peak, reconstruct a free-concentration curve, or calculate fT>MIC by assuming concentrations between samples.
+- Other permitted exposure endpoints use their own definition and units rather than forced MIC normalization. For positive AUC/MIC or Cmax/MIC spanning a wide range, a log X-axis may help; disclose it and keep zero-exposure/control observations in a separate aligned control panel or linear alternative. Do not add an arbitrary offset. Bounded fT panels remain linear.
+- Y-axis: the exact response linked to the exposure, including its reference and time/window. Fixed-time responses follow item 08; an existing integrated or other response retains its own formula, scale, and source definition. Do not relabel it as a fixed-time log reduction or recalculate its underlying integral. Use common response-axis limits for compatible candidate comparisons. Show traceably paired points at the supported record level. For several responses sharing one regimen exposure, retain the vertical stack or disclose display displacement; these are not independent exposure estimates.
+- Comparison: use common compatible response records, endpoints, windows, concentration bases, and response-axis limits for candidate comparison; preserve each index's own X units. Separate incompatible experiments. Individual panels may still be described when this common comparison set is unavailable.
+- Marks/uncertainty: consistent regimen symbols; response errors vertically and exposure errors horizontally at the matching record level. Descriptive SD does not create exposure-estimation uncertainty. Requested effect lines follow item 08; no fitted target or index-ranking statistic is added.
+- Censoring: carry exposure, MIC, and response bounds together. With a known positive exposure A and MIC > m > 0, A/MIC < A/m is a bound, not an exact index; this arithmetic is permitted when it matches the defined quantity. Propagate intervals only when their relations are supported. Otherwise retain a status/table entry. Source indices using limit substitution keep that assumption visible. CFU transformations follow item 08.
+- Optional index-pair panels: X = one candidate and Y = another, both exactly labeled; common compatible regimen/record set only. Plot pairs as points, with no identity line between quantities of different units. Three candidates permit three pairwise panels, but include only those needed for the specific co-variation question; this is not a general correlation-matrix request.
+- Evidence: WEB03 supports index/target definitions; WEB04 provides a site-specific exposure-response example. WEB12 Figure 1 shows candidate panels with common response axes and interval symbols; Figure 2 makes the MIC-method context visible. WEB13 provides an integrated-response definition; WEB11 records a source-label conflict. Axis units follow dimensional analysis.
+
+Purpose, limits, and main-objective link
+Describe the exposure-response evidence connecting animal experiments to later index/target analysis and human regimen assessment. A standalone panel can be informative without supporting fair cross-index comparison. Visual smoothness or strength cannot select a winning index or target. Missing exposure inputs await the relevant analysis; existing compatible values need not be reconstructed solely for display.
+
+Keywords: observed/reported/model-derived exposure; index definition; threshold; duration versus percentage; total/free basis; MIC normalization; within-panel pairing; common-record comparison.
+MP basis: MAIN.MP009.required_inputs, conditional_inputs, acceptable_alternatives and data_checks; NEXT.MP012.conditional_inputs and data_checks. Background: B05/B06/B10.
+
+11 | PK AND PD FROM DIFFERENT EXPERIMENTS
+
+Data and details
+- Explicit PK-source and PD-experiment identifiers and the documented basis of their relationship.
+- Species and strain, health/infection state, route, formulation, dose range, schedule, treatment duration, measurement matrix/basis, and time windows. Preserve relevant immune-state information as experimental context.
+- Whether exposure is individually paired, shared at regimen/group level, or predicted from another experiment. Retain any stated transfer assumption rather than treating it as an observation.
+
+Figure or table
+Use a PK-PD correspondence table; add a timing diagram only when it clarifies the documented relationship.
+
+Drawing specification
+- Table: rows represent documented PK-source/PD-experiment relationships, not presumed animal pairs. Columns retain identifiers, conditions, exposure origin/window, response endpoint/window, matched strain MIC if required, and the stated transfer assumption. No numeric X/Y axes are needed.
+- Optional timing diagram: X = elapsed time relative to a documented common origin; Y = categorical PK-study/PD-study or regimen lanes. If no defensible common origin exists, use separate time panels and label each origin rather than aligning them artificially.
+- Marks: dose ticks, infusion bars, PK sampling symbols, and PD endpoint symbols; treatment/exposure windows as labeled segments. Color distinguishes event type, not the magnitude of concentration or effect. Any arrow denotes only a documented evidence relationship and is labeled individual, group-level, or cross-study/model-derived as applicable.
+- Evidence: MAIN.MP009 supplies the transfer-context reasoning.
+
+Purpose, limits, and main-objective link
+Expose the assumptions connecting PK evidence to the response used for later target interpretation. A traceable relationship does not prove exposure transfer between experiments, including healthy and infected animals. A shared nominal dose or time does not establish individual pairing.
+
+Keywords: PK-to-PD transfer; species/strain; health/infection state; route/formulation; dose range; regimen-level relationship; individual pairing; model-derived exposure.
+MP basis: MAIN.MP009.data_checks, especially the separate-PK applicability check; MAIN.MP003.conditional_inputs. Additional project context: prior EDA PKPD15. Background: B04/B06/B07.
+
+12 | MULTIPLE MATRICES, LOCAL-SITE DATA, OR MULTIPLE ANALYTES
+
+Data and details
+- Plasma, serum, blood, tissue homogenate, lavage fluid, or another specifically identified matrix; concentration units and tissue mass/volume basis.
+- Sampling method, documented correction definitions and their required measurements, such as urea-based lavage correction. An established correction may be evaluated under the shared calculation rule; preserve measured versus corrected values and applicability.
+- Parent, metabolite, prodrug product, or individual components of a multi-component substance. Keep administered dose and measured analyte definitions distinct.
+- Actual pairing among matrices or analytes, sampling times, and study/regimen identity. Retain known sample stability, recovery or adsorption concerns in annotations where relevant.
+
+Figure or table
+Reuse item 01 with matrix/analyte panels. Use a definition table for quantities that cannot share a quantitative scale.
+
+Drawing specification
+- X-axis: documented sample time/origin. Y-axis: the matrix/analyte-specific concentration, with explicit mass/volume or mass/tissue-mass unit and total/free basis. Separate, for example, mg/L plasma and mass/g tissue rather than placing them on a shared quantitative axis.
+- Panels: matrix and analyte define panels; study/regimen identity remains visible. Use common Y limits only for genuinely compatible quantities. Corrected site concentrations and directly measured lavage concentrations have distinct labels/panels.
+- Marks: follow experimental-unit rules from item 02. Where the same animal has verified paired measurements, use consistent IDs/symbols across panels; do not connect unrelated matrices as a biological time trajectory. Keep assay-limit annotations matrix-specific.
+- Evidence: WEB02 supports matrix/analyte-specific assay context; MAIN.MP001/003 and the project EDA background supply measurement distinctions.
+
+Purpose, limits, and main-objective link
+Identify the analyte, concentration basis, and measured site relevant to later exposure-target comparison. Whole-lung homogenate is not automatically ELF. Unmatched samples cannot establish a tissue/plasma ratio; parent dose does not establish absolute formed-analyte clearance. Local-site measurements are useful when relevant, not a universal prerequisite.
+
+Keywords: matrix; tissue mass/volume; lavage; ELF; urea correction; measured/derived concentration; active component; parent/prodrug/metabolite; cross-matrix pairing.
+MP basis: MAIN.MP001.conditional_inputs and data_checks; MAIN.MP003.required_inputs and data_checks; PK-REF.MP003.analysis_method_requirements. Additional project context: prior EDA PKPD04/10/11. Background: B04/B09.
+
+13 | BINDING AND DIRECTLY MEASURED UNBOUND CONCENTRATIONS
+
+Data and details
+- Distinguish free concentration, unbound fraction (fu), and bound fraction. Preserve percentage versus fractional scale.
+- Assay concentration range, species, matrix, method, temperature and pH where reported, and replicate/summary definitions.
+- For ultrafiltration or equilibrium dialysis, retain reported nonspecific binding, recovery, or mass-balance information.
+- Blood/plasma partition information only when a considered use changes concentration basis. Directly measured unbound concentration may be available without a separate fu conversion.
+
+Figure or table
+Use a concentration-binding scatterplot for relevant multi-concentration evidence; a single value belongs in a contextual table. Free-concentration time courses reuse item 01.
+
+Drawing specification
+- X-axis: assay drug concentration with units, explicitly nominal added concentration or measured concentration at the stated assay stage. Do not treat them as interchangeable. Use linear scaling initially; a positive-valued log X-axis is optional for a broad range.
+- Y-axis: unbound fraction fu (0-1), unbound percentage (0-100%), or bound percentage (0-100%). State the definition and any established conversion, such as percent/100 or fu = 1 - bound fraction for the same defined total. If out-of-range estimates exist, retain and flag them rather than clipping them.
+- Marks/panels: assay points or labeled summaries; distinguish biological dispersion from technical-repeat SD. Separate species, matrix, method, and relevant assay conditions. A lone value is a contextual table row.
+- Direct free concentration uses the time/concentration axes of item 01. A contextual X-band uses a source-reported range or a descriptive range calculated from identified compatible observations; state which observations and concentration basis it represents.
+- A defined conversion using applicable binding inputs may be evaluated without fitting. Record its applicability and label the result as derived; a lone fu value does not justify assuming constant binding across an untested range or transferring animal binding to humans. If such an assumption is needed, leave the conversion to later analysis.
+- Evidence: WEB06 Table 1 reports binding by concentration, serum type, method, and mean/SD; it motivates the proposed scatterplot.
+
+Purpose, limits, and main-objective link
+Show binding over the tested range where it supports alignment of animal exposure, a free-drug target, and a prospective human scenario. One binding value does not establish constancy across concentrations or matrices; missing recovery information does not establish accuracy. Direct free measurements may remove the need for a binding-conversion plot. Human-source in vitro evidence remains distinct from human in vivo PK.
+
+Keywords: free concentration; fu; bound fraction; percent/fraction; ultrafiltration; equilibrium dialysis; pH; temperature; nonspecific binding; recovery; mass balance; blood/plasma partition.
+MP basis: MAIN.MP007; BINDING-REF.MP007.reference_profile. Background: B04/B08.
+
+14 | OPTIONAL IN VITRO STABILITY AND URINARY EXCRETION BRANCHES
+
+14a. In vitro stability or metabolism
+Data and details: microsomes/hepatocytes or another identified system; incubation times; concentration or an already defined remaining fraction; concentration range and conditions; protein amount/cell count and normalization units. Separate original observations, reported stability, half-life, and CLint. Retain incubation/plasma binding or physiological inputs only as background when a project-considered method needs them.
+Figure or table: plot concentration or the established remaining-fraction endpoint when relevant to the translation approach. Reported half-life/CLint without a time course stays tabular.
+Drawing specification
+- X-axis: incubation time, usually min when that is the supplied unit, with the actual incubation origin.
+- Y-axis: parent concentration or the defined fraction/percentage remaining. If the established formula is 100*C_t/C_ref, EDA may apply it using the correct nonzero measured reference and supported assay-series relationship. Use linear scaling initially; a positive semilog view may supplement it without slope regression.
+- Marks/panels: assay points or labeled summaries by system, species, initial concentration, and conditions. Keep technical-repeat SD distinct from biological variability. Connect verified series or group summaries; destructive aliquots do not imply repeat measurements of one sample.
+- Annotations: controls, assay limits, and the reference definition. Retain values above 100%. Normalization does not create a missing time-zero measurement, a depletion slope, or a half-life.
+- Evidence: WEB07's indexed text describes percent remaining on Y versus incubation time on X in Figure 4A; the image was not inspected.
+Purpose, limits, and main-objective link: describe the measured range for a considered mechanistic contribution to human clearance prediction. Depletion fitting, CLint estimation, physiological scaling, and IVIVE model selection remain downstream. A hepatic component does not establish total systemic clearance; an unused IVIVE branch does not block animal PK descriptions.
+Keywords: microsomes; hepatocytes; incubation; protein/cell normalization; remaining fraction; stability versus half-life versus CLint; hepatic component versus total clearance.
+MP basis: MAIN.MP008; IVIVE-REF.MP008.reference_profile. Background: B08/B09.
+
+14b. Urinary excretion
+Data and details: collection start/end relative to dosing, completeness, volume and analyte concentration with units, or an already reported excreted amount. Preserve interval versus cumulative quantity, unchanged drug versus metabolites/conjugates, individual animal versus pooled cage, and the dose basis. Retain matching plasma intervals if renal clearance is a later objective.
+Figure or table: use a collection table/timeline when renal handling is relevant; add interval or cumulative amount displays if their time pattern matters.
+Drawing specification
+- Collection timeline: X = time since the documented dose (h or actual supplied unit); Y = animal, pool, or cage ID as categorical lanes. Horizontal segments show collection start/end; color/pattern labels complete, incomplete, or unknown collection. A missing interval is not a zero-amount collection.
+- Interval-amount panel: X = labeled collection interval, or midpoint with a segment marking start/end; Y = amount during that interval (mass unit). Points or clearly labeled categorical bars are suitable. Avoid numeric-width bars whose geometry confuses amount with rate; retain unequal interval lengths.
+- Cumulative-amount panel: X = collection end time; Y = cumulative measured amount from the stated start. Endpoint dots or labeled guides do not imply continuous observation within intervals. Partial collection totals remain explicitly partial.
+- Calculation: an established amount = concentration*volume formula may use matched complete measurements; cumulative amounts may sum non-overlapping intervals with known coverage. Missing intervals are not zero, and totals are not extrapolated beyond collection. A documented interval-average rate uses amount/interval duration and is labeled as an average, not an instantaneous rate.
+- Panels/uncertainty: separate analytes/regimens and retain animal versus pooled-cage identity. Distinguish descriptive between-unit spread from uncertainty supplied for a calculated amount.
+- Evidence: WEB09 distinguishes cumulative amount and excretion rate; WEB10 documents urine/plasma interval matching for later renal-clearance calculation.
+Purpose, limits, and main-objective link: show the renal-elimination observations relevant to later clearance interpretation and translation. Measured collection totals are not complete lifetime excretion. Renal/nonrenal clearance estimation and assumptions about unobserved recovery remain downstream; missing urine data does not block supported plasma PK descriptions.
+Keywords: collection interval; completeness; volume; amount versus concentration; interval versus cumulative; pooled cage; unchanged drug; conjugates; Ae; fe; CLR; matched plasma window.
+MP basis: MAIN.MP011.required_inputs, conditional_inputs, acceptable_alternatives and data_checks. Background: B01/B02/B08/B09.
+
+15 | STRAIN-MATCHED MIC AND POPULATION MIC DISTRIBUTIONS
+
+Data and details
+- For response-linked MIC: organism/isolate identity, MIC and units, drug identity, method, medium, testing standard, incubation/endpoint information where supplied, replicates, and the reported summary (for example, a modal MIC).
+- Preserve the dilution grid and range-censored values such as greater-than or less-than results; do not replace them with exact values.
+- For population distributions: bins, source-reported or EDA-calculated counts/frequencies, denominator, organism population, collection context, open-ended bins, omitted isolates/bins, and rounding.
+- Distinguish a chosen MIC simulation grid from observed isolate counts. Distinguish a per-MIC task from a requested MIC-weighted summary.
+
+Figure or table
+Use a strain-linked MIC table for response analysis. Add a population frequency plot only for a relevant susceptibility-population question; small datasets may remain tabular.
+
+Drawing specification
+- Matched-MIC table: organism/strain, experiment, drug, reported MIC and unit, censoring sign, method/context, replicate/summary definition, and linked response records. No X/Y axes are required; this remains the preferred display for a few matched strains.
+- If a strain-point display is useful: X = strain/isolate ID (categorical); Y = MIC in its actual concentration unit, using positive dilution-step ticks where appropriate. Use labeled inequality markers for censored values, not exact-value dots at an invented MIC. This plot is optional and does not replace the relationship table.
+- Population distribution: X = ordered MIC dilution bins labeled in concentration units; equally spaced categories can represent successive two-fold steps without treating their raw numeric spacing as linear. Preserve open-ended bins as categories. Y = isolate count or frequency (%) with its stated denominator, source-reported or EDA-calculated from verified records. Label which; do not call a count plot a probability density.
+- Marks: discrete bars with a zero baseline and no smoothed density curve. Distinguish known zero-count bins from unreported bins. Record the binning rule, denominator, omitted mass, and population/method context. Partial frequencies retain their stated denominator; do not rescale them to imply complete coverage or pool incompatible populations.
+- Evidence: WEB08 provides MIC tables/histograms and cautions that its pooled database is not a resistance-rate sample; selecting representative population weights remains a later applicability decision. WEB12 Figure 2 illustrates why the MIC-testing medium belongs in the visible interpretation context when it changes index values.
+
+Purpose, limits, and main-objective link
+Preserve the potency denominator for preclinical index analysis and, separately, the susceptibility weights for a defined population assessment. A population distribution cannot replace matched strain MIC. A simulation grid is not observed frequency data. Per-MIC attainment does not inherently need population weights, and a pooled reference histogram is not automatically representative of the intended population.
+
+Keywords: strain-matched MIC; medium/method/standard; replicates; modal MIC; dilution grid; range censoring; open-ended bin; denominator; omitted mass; per-MIC versus weighted attainment.
+MP basis: MAIN.MP009.conditional_inputs and data_checks; NEXT.MP010.required_inputs, conditional_inputs and data_checks. Additional project context: prior EDA PKPD18. Background: B05/B06/B10.
+
+BACKGROUND KNOWLEDGE FOR READING AND INTERPRETATION
+
+B01 | Experimental unit, aggregation, and uncertainty
+An individual trajectory requires verified longitudinal identity. Terminal samples from different animals describe the groups observed at each time. A pooled sample represents the pool, not its individual contributors. Digitization identifies the extraction route, not the biological unit or aggregation level.
+Arithmetic means, geometric means, and medians are different summaries. SD describes dispersion, SE concerns precision of an estimate, and CI describes interval uncertainty for a defined quantity. Preserve the source definition and independent unit. Technical-repeat SD describes repeatability rather than between-animal variation; tissues from one animal are not automatically independent animals. Group-mean uncertainty is not an individual exposure distribution, and summary data cannot reconstruct individual records.
+MP locators: MAIN.MP001.conditional_inputs/data_checks; MAIN.MP004.conditional_inputs; NEXT.MP012.conditional_inputs/data_checks.
+
+B02 | Time origin, input history, and windows
+Two records labeled 2 h may refer to different dosing events. Actual and nominal times, predose samples, bolus input, infusion end, repeated doses, and treatment start must retain their meanings. AUC over a finite window, AUC over tau, and AUC extrapolated to infinity refer to different quantities. Observed endpoints do not establish that the intervening course was sampled adequately. A missing boundary is not permission to assign a concentration.
+MP locators: MAIN.MP001/002; MAIN.MP003.conditional_inputs; PK-REF.MP001/002.analysis_method_requirements.
+
+B03 | Quantification and assay context
+BLQ is not a measured zero. An unresolved above-ULOQ result is not an exact concentration at the upper limit. Missing, not sampled, technical failure, and unavailable response records remain distinct. Retain the reported calibration range, LLOQ/ULOQ or microbial detection/counting limits, assay matrix and method, supplied dilution/reanalysis history, and known stability/recovery/adsorption information. A valid dilution-reassayed quantitative result retains its provenance and is distinct from an unresolved censored record. The relevance of these details depends on where observations lie in the curve and what comparison is being made. A reported assay-validation status is a source fact; EDA does not independently validate the assay or infer a missingness mechanism.
+MP locators: MAIN.MP001.conditional_inputs/data_checks; MAIN.MP002.required_inputs/data_checks. Project EDA context supplies endpoint-unavailability distinctions.
+
+B04 | What was administered and what was measured
+Dose and concentration may describe different chemical or biological entities. Retain salt/base, active-moiety and activity/mass definitions, multi-component assay coverage, parent versus formed analyte, total versus unbound concentration, and matrix mass/volume basis. Established conversions may be evaluated under the shared calculation rule, but chemical, matrix, or binding conversions require evidence beyond unit labels. Dose normalization alone does not resolve these differences.
+MP locators: MAIN.MP001.data_checks and conditional_inputs; MAIN.MP003; MAIN.MP007.
+
+B05 | Response, reference, and desired effect
+Absolute burden, change from treatment-start baseline, difference from concurrent control, and survival are distinct endpoints. The observation time, treatment duration, strain, inoculum and host/experimental context delimit each response. A requested effect level is not an already known exposure target. CFU censoring is not proof of sterilization. Regrowth and persistent response provide descriptive patterns but do not identify resistance or another mechanism on their own.
+MP locators: MAIN.MP009.conditional_inputs/data_checks; NEXT.MP012. Additional project context: prior EDA PKPD16/17 and MOD01/MOD02/MOD04.
+
+B06 | Exposure-response relationships and comparisons
+An individual observed pair, a regimen-level correspondence, and a model-derived exposure are different evidence relationships. Retain the actual links. Free/total basis, index units, window, threshold and MIC determine whether values are comparable. Within-panel pairing can support that panel's description even if common records for cross-index comparison are unavailable. Source-supported reported exposures can be useful without recreating the source PK analysis. A documented later model output is not automatically missing raw data.
+Exposure, MIC, and response censoring remain visible throughout that relationship. An established formula may propagate a mathematically supported bound (item 10), but that bound remains distinct from an exact observation or statistical uncertainty. Preserve any source substitution as an explicit assumption.
+MP locators: MAIN.MP009; NEXT.MP012.conditional_inputs, acceptable_alternatives and data_checks; INDEX-REF.MP009.reference_profile.
+
+B07 | Covariates and cross-study differences: background only
+Body weight, sex, species/strain, health or infection state, renal state, and study/batch can matter to interpretation. Factors that occur together can limit attribution to any one factor. Preserve known labels and unknowns without assuming healthy or typical animals.
+For this review, there are no covariate distribution plots, correlation matrices, covariate-concentration/parameter plots, covariate screening, or effect estimation. Parameter-versus-body-weight plots and allometric fitting are also omitted. Keeping study/species/regimen labels visible identifies the observations; it does not constitute a covariate analysis.
+MP locators: MAIN.MP003.conditional_inputs; MAIN.MP004.conditional_inputs; MAIN.MP005.conditional_inputs/data_checks. The earlier source audit also identifies FDA preliminary-data-examination guidance as methodological background, not an animal-project plotting mandate.
+
+B08 | Binding, IVIVE, and urine: branch-specific meaning
+Free concentration, fu, and bound fraction are not interchangeable inputs. An isolated binding value has a concentration, matrix and assay context; direct free-concentration observations may require no total-to-free conversion. Nonspecific binding/recovery information describes limitations of the measurement process.
+For IVIVE, preserve system, units and protein/cell normalization. Stability, half-life and CLint describe different supplied outputs. Hepatic metabolic evidence is only the component represented by that system. For urine, preserve volume, collection intervals, completeness and analyte; a concentration alone is not an excreted amount.
+MP locators: MAIN.MP007/008/011; BINDING-REF and IVIVE-REF.
+
+B09 | Disposition parameters and translation: downstream background
+Keep the exact definitions of CL, CL/F, Vss, Vz and Vc. Absolute and apparent parameters are not interchangeable. Unknown applicable bioavailability leaves the distinction between CL and CL/F unresolved. Parent/prodrug dose divided by formed-analyte exposure does not by itself establish that analyte's absolute clearance.
+MRT and Vss require information beyond an exposure area alone. AUMC tail behavior requires separate consideration from AUC tail behavior. The familiar infusion-duration correction in the retained MP analysis reference assumes constant-rate input; interrupted or variable input needs its own later treatment. These concepts explain why input history and late observations matter; they are not EDA calculation instructions.
+A parameter derived from a group-summary curve is a parameter of that curve, not automatically the mean of individual parameters. Reported CL/Vss candidates retain their method, source, units, route, dose/regimen, data level and uncertainty. A literature-only value is not independently recalculated or validated by displaying it. Animal NCA results do not require a compartmental fit merely to exist, and Vss does not require repeated steady-state dosing merely because of its name.
+Cross-species background remains parameter-specific. Repeated publications, doses or curves from one species do not create extra species. Actual study body weights are distinct from textbook weights. Candidate inputs are not qualified parameters, and there is no universal species-count rule. Allometric and parameter-weight plots are outside the current scope.
+Project-specific decision: the user-confirmed record of 2026-10-07 requires at least three distinct qualified species for each parameter being predicted before human extrapolation, while permitting supported upstream NCA, data preparation, and animal modeling. This is a project decision, not an EDA figure threshold; displaying candidates does not qualify them. The record remains USER_CONFIRMED_PENDING_PROJECT_RULE_PUBLICATION with runtime_override=false; this review retains it as background.
+Project decision locator: backend/rules/data/data_project_decisions.20261007.json, version 1.1.0, the decisions entry keyed minimum_qualified_species and the publication object; see PROJECT-DECISION in the source key.
+MP locators: MAIN.MP002/003/005; PK-REF.MP003.analysis_method_requirements/result_evaluation_requirements; TRANSLATION-REF.MP005.reference_profile.
+
+B10 | PD targets and prospective human/attainment scenarios: downstream background
+Keep exposure description, index comparison, target estimation, and use of a reported target as separate tasks. A target specifies an effect, endpoint/reference, index, units, concentration basis, window and experimental context. A target awaiting fitting is a future analytical output. Displaying the observed effect range does not estimate it. A supplied target does not always require raw response data solely to recreate its source experiment.
+Human concentration-time outputs in this project's prospective setting are scenarios, not target-drug human observations. Retain scenario dose/basis, bolus versus infusion, interval, treatment horizon, concentration basis and intended population without inserting typical values. CL and Vss alone do not uniquely determine a multi-compartment curve or identify Vc. Animal variability and parameter SEs do not establish observed human IIV.
+Per-MIC PTA and MIC-weighted attainment have different input needs. Weighted results require the defined organism population, bins, frequencies and denominator; per-MIC calculations need not have those weights. Between-unit variability, parameter uncertainty and scenario assumptions remain separate. A typical-exposure/target comparison is not a population probability, and PTA is not clinical cure probability.
+MP locators: MAIN.MP006/009; NEXT.MP010/012; HUMAN-REF.MP006.reference_profile; PTA-REF.MP010.reference_profile.
+
+SOURCE KEY AND TRACEABILITY
+
+Repository root:
+C:/Users/georg/Documents/Codex/PMB-Translational-PKPD-code/
+
+MAIN = backend/rules/data/pkpd_method_profiles.json
+Version read: 1.0.0-draft.15. Input-planning profiles MP001-MP009 and MP011. The library is a project synthesis pending scientific review, not verbatim regulatory requirements.
+
+NEXT = backend/rules/data/pkpd_method_profiles.1.1.0-draft.1.json
+Version read: 1.1.0-draft.1. MP010 and MP012 are explicitly opted-in extensions. Reading their background here does not enable them in the current workflow.
+
+PK-REF = backend/rules/data/deferred/pk_analysis_followup.json
+INDEX-REF = backend/rules/data/deferred/pkpd_index_analysis_followup.json
+BINDING-REF = backend/rules/data/deferred/binding_analysis_followup.json
+IVIVE-REF = backend/rules/data/deferred/ivive_analysis_followup.json
+TRANSLATION-REF = backend/rules/data/deferred/translation_analysis_followup.json
+HUMAN-REF = backend/rules/data/deferred/human_simulation_followup.json
+PTA-REF = backend/rules/data/deferred/pta_analysis_followup.json
+These files preserve analytical background for later review; they are not executable EDA policy.
+
+PROJECT-DECISION = backend/rules/data/data_project_decisions.20261007.json
+Version checked: 1.1.0; status USER_CONFIRMED_PENDING_PROJECT_RULE_PUBLICATION; runtime_override=false. The source is the user's 2026-10-07 clarification, not an external methodological mandate. B09 retains its parameter-specific minimum-qualified-species decision and upstream-work exception without publishing or enforcing it.
+
+CURRENT EDA SCOPE DECISION = the user's approval in this review conversation on 2026-10-13.
+It permits descriptive formulas with established definitions, complete inputs, and no new assumptions, subject to the calculation and provenance rules at the start of this draft. This revision implements the approved scope in text only.
+
+Additional EDA context:
+C:/Users/georg/Documents/Transitioanl PKPD Context Engineering/deliverables/animal_pk_eda_review_20260922/animal_pkpd_eda_rules.json
+The earlier project EDA context supplies details such as unavailable CFU endpoints, ELF interpretation, and regrowth boundaries. Those additions are explicitly marked above rather than attributed solely to MP. Historical combination-therapy material is excluded from this review.
+
+Earlier source audit, including external URLs and plotting-support distinctions:
+C:/Users/georg/Documents/Transitioanl PKPD Context Engineering/deliverables/eda_rebuild_20261013/MP_to_EDA_plot_planning_draft.txt
+Use that file for provenance only; its earlier scope and priorities have been superseded by the user-reviewed scope in this document.
+
+MP source families retained for lookup
+- MP001: S03/S04/S10/S12/S13/S17/S18 — endpoint definitions, destructive/sparse sampling, BLQ, time handling, and assay context.
+- MP002: S02/S03 — terminal estimation and endpoint dependencies.
+- MP003: S03/S13/S14/S15/S16 — parameter definitions, group-level meaning, nonlinear moment interpretation, formed analytes, and infusion assumptions.
+- MP004: S01/S09 — intended-use context and PK model inputs.
+- MP005: S05/S06 — translation inputs and method-specific comparability.
+- MP006: S09/S01 — scenario definitions and structural input dependencies.
+- MP007: S06/S07 — binding and concentration-basis context.
+- MP008: S06 — IVIVE context and conventions.
+- MP009: S07/S08 — antimicrobial exposure/response definitions and endpoint/duration dependence.
+- MP011: S03/S19 — urine quantities and matching plasma intervals.
+- NEXT.MP012: S07/S08 — target definitions and exposure-response context.
+- NEXT.MP010: S07/S20 — per-MIC and population-weighted attainment inputs.
+The exact titles, URLs, locators and inherited support statements are in each source library's sources array. Source IDs are not used here to claim that the cited publication mandates a particular plot layout.
+
+EXTERNAL DRAWING REFERENCES
+
+Search/review date: 2026-10-13. The support statements and access notes below delimit the external evidence checked. Variable definitions and published examples do not mandate the proposed layouts. Published study results are not target-drug observations.
+
+WEB01 | FDA, Population Pharmacokinetics: Guidance for Industry (February 2022)
+URL: https://www.fda.gov/media/128793/download
+Locator checked: section V.A, Preliminary Examination of the Data, printed p. 9 (PDF p. 12); distinction from V.C model validation.
+Support: preliminary graphical examination of observations is part of understanding a dataset. This supports the general descriptive role of EDA, not a particular animal plotting template. Its post-fit diagnostics are not pre-fit figures for this review.
+Access: relevant text read in the official PDF. Used in the common drawing conventions. No covariate or model-validation work is activated.
+
+WEB02 | ICH M10, Bioanalytical Method Validation and Study Sample Analysis (24 May 2022)
+URL: https://database.ich.org/sites/default/files/M10_Guideline_Step4_2022_0524.pdf
+Locator checked: sections 2.2.1, 3.2.4 and 3.2.7, and glossary definitions of LLOQ/ULOQ.
+Support: assay quantification range, dilution integrity, and matrix/analyte context have defined meanings. The below-/above-range status strip and matrix panels are project adaptations, not ICH-mandated plots. Microbiological CFU detection limits require their own experiment-specific source; this guidance is not cited as a microbial assay standard.
+Access: official PDF text read. Used in items 01/03/12; corresponds to MAIN source S18.
+
+WEB03 | EMA, Guideline on the use of pharmacokinetics and pharmacodynamics in the development of antimicrobial medicinal products, EMA/CHMP/594085/2015
+Landing page: https://www.ema.europa.eu/en/scientific-guidelines/use-pharmacokinetics-pharmacodynamics-development-antibacterial-medicinal-products
+Document: https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-and-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf
+Locator checked: search-indexed text of section 4.2.1, defining exposure/MIC indices and targets associated with specified effects.
+Support: index definition, effect definition, and a target magnitude are distinct concepts. Used for items 08/10; axis units additionally follow the stated dimensions of the supplied quantities.
+Access limitation: official landing-page content and indexed section text were available; the full PDF was not verified. Corresponds to MAIN source S07.
+
+WEB04 | Landersdorfer et al. (2018), Pharmacokinetics/pharmacodynamics of systemically administered polymyxin B against Klebsiella pneumoniae in mouse thigh and lung infection models
+URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC5890666/
+Locators checked: relevant PK/PD methods, Figure 1 and Figure 4 images and captions, and Table 2 with its non-achievement footnote. The text also identifies candidate-index results in supplementary Figure S1.
+Drawing lessons: Figure 1 uses linear time (min) and log plasma concentration (mg/L), dose-specific symbols, and mean/SD at each sampling time. Figure 4 separates thigh and lung responses, retains individual tissue observations and treatment-start burden references, and shows limited response as well as exposure-response structure. Used in items 01/02/08/09/10; do not import the fitted curve, numerical targets, or an assumed transfer of PK between infection sites. Keep zero-exposure controls explicitly separate from positive log-axis coordinates rather than copying their placement at a plotting boundary.
+Access: relevant full-text methods/results and the two figure images were inspected in the browser on 2026-10-13, resolving the earlier main-figure access gap. Supplementary Figure S1 and Figure 3 diagnostic images were not visually inspected. This source supplies drawing examples, not mandatory EDA layouts.
+
+WEB05 | Bakker-Woudenberg et al. (2006), Effect of Treatment Duration on Pharmacokinetic/Pharmacodynamic Indices Correlating with Therapeutic Efficacy of Ceftazidime in Experimental Klebsiella pneumoniae Lung Infection
+Publisher URL: https://journals.asm.org/doi/10.1128/aac.00859-05
+PubMed URL: https://pubmed.ncbi.nlm.nih.gov/16940082/
+Locator checked: publisher-indexed abstract describing different treatment durations and microbiological versus survival endpoints.
+Support: retain endpoint and duration when interpreting a PK/PD relationship; a bacterial-response axis and a survival axis are different quantities. Used in items 07/08. The exact dot/line and panel choices in this draft are project proposals.
+Access limitation: abstract-level evidence used; full figures were not inspected. Corresponds to MAIN source S08.
+
+WEB06 | Abodakpi et al. (2015), Analytical and Functional Determination of Polymyxin B Protein Binding in Serum
+URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC4604353/
+DOI: https://doi.org/10.1128/AAC.01815-15
+Locator checked: Table 1, concentration versus percentage binding, organized by serum type and assay method, with mean and SD.
+Support: a direct example of the concentration, fraction definition, assay context, and reported error information needed for item 13. The paper's table motivates a possible concentration-binding scatterplot; it does not itself mandate that plot or establish the target drug's binding.
+Access: article text and table read. No paper-specific numerical binding values are incorporated into this review.
+
+WEB07 | Attwa et al. (2020), Metabolic Stability Assessment of Larotrectinib Using Liquid Chromatography Tandem Mass Spectrometry
+URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC6961173/
+DOI: https://doi.org/10.2147/DDDT.S235934
+Locator checked: indexed metabolic-stability text explicitly describing percentage remaining on Y and incubation time on X, Figure 4A.
+Support: a published axis pairing for the conditional stability display in item 14a. The paper's subsequent fitted depletion/clearance analysis is not adopted.
+Access limitation: indexed text was available; direct full-text access failed/returned browser verification, so the actual figure image was not visually inspected. Example only; no assumption about this drug's assay conditions or clearance is transferred.
+
+WEB08 | EUCAST, MIC and Zone Distributions, ECOFFs
+URL: https://www.eucast.org/bacteria/mic-and-zone-distributions-ecoffs/
+Locator checked: MIC distributions, Limitations, and FAQ on data sources.
+Support: MIC distributions are presented in tables/histograms, with attention to dilution ranges and population/source context. EUCAST cautions against using its pooled reference distributions as estimates of resistance rates. This limits automatic adoption of pooled data as target-population weights; it does not prevent displaying a clearly identified reference distribution.
+Access: official page text read. Used in item 15; the discrete bar layout, missing-bin labels, and denominator annotations are our proposed implementation details.
+
+WEB09 | Certara Phoenix 8.4 documentation, NCA parameter formulas
+URL: https://onlinehelp.certara.com/phoenix/8.4/Phoenix_UserDocs/NCA_Object/NCA_parameter_formulas.htm
+Locators checked: discrete plasma parameters, including Cmax, AUClast and dose-normalized definitions; interval (urine) parameters, including cumulative amount and excretion-rate quantities.
+Support: maintain distinct exposure definitions, dose/time bases, and amount-versus-rate quantities. Used in items 04/05/06/14b; corresponding MP source S03.
+Access: official documentation text read. This is software documentation of parameter definitions, not a universal EDA specification. Software default doses/times, numerical methods, or parameter calculations are not adopted here.
+
+WEB10 | PKNCA documentation, Secondary Parameters (Renal Clearance, Bioavailability, and Ratios)
+URL: https://humanpred.github.io/pknca/articles/v09-secondary-parameters.html
+Locator checked: Renal clearance, start to finish; linked plasma and urine interval example.
+Support: urine concentration, volume, collection interval, and linked plasma interval have distinct roles in later renal-clearance analysis. Used in item 14b to motivate explicit collection timing and source linkage, not to authorize calculations.
+Access: official software documentation text read. Corresponds to MAIN source S19. The proposed timeline/amount displays are project choices.
+
+WEB11 | Lepak, Wang and Andes (2020), Pharmacodynamic Evaluation of MRX-8, a Novel Polymyxin, in the Neutropenic Mouse Thigh and Lung Infection Models against Gram-Negative Pathogens
+URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC7577140/
+Locators checked: PK and dose-fractionation methods; Figures 1, 2 and 5 images and captions; relevant results and target-table definitions.
+Drawing lessons: Figure 1 shows semilog concentration-time profiles with dose symbols and group mean/SD; the caption identifies three animals per sampling time. Figure 2 uses total dose over the study period on X, change in log10 CFU/thigh on Y, interval-specific symbols, summary/SD, and a zero-change reference. This supports reusing item 08 for dose-fractionation effects instead of adding a design-only plot by default. Connecting group summaries describes a series, not repeated measurement of one animal. Four thigh replicates do not by themselves establish four independent animals. Keep computed PK parameters in a separate evidence table when their inclusion would overload the plot legend.
+Source conflict: Figure 5's image labels X as 24-h free-drug AUC/MIC, whereas its caption calls it total-drug AUC/MIC. Preserve these conflicting locations; the numerical basis was not independently adjudicated. Its layout can inform a display without adopting the unresolved quantity as harmonized evidence. Fits and index-ranking statistics are outside the current EDA calculations.
+Access: relevant full-text methods/results and all three listed figure images were inspected in the browser on 2026-10-13. Used in common conventions and items 01/02/08/09/10; study values are not target-drug inputs.
+
+WEB12 | Nakamura et al. (2019), In Vivo Pharmacodynamic Study of Cefiderocol, a Novel Parenteral Siderophore Cephalosporin, in Murine Thigh and Lung Infection Models
+URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC6709502/
+Locators checked: relevant PK/PD methods/results, MIC table, and Figures 1 and 2 images and captions.
+Drawing lessons: Figure 1 places candidate exposure indices in separate columns with the same response definition and Y range, retaining symbols for dosing interval and untreated controls. Each point represents a mouse, while exposure can be shared at regimen level. Figure 2 separates index-response displays by the medium used for MIC testing. When such method differences affect interpretation, make them visible in the panel or linked MIC table rather than hiding them in a general citation. These examples support items 10/15; they do not select an index or an MIC method for this project. Do not copy missing axis-unit detail, fitted curves, or R-squared annotations into EDA.
+Access: relevant article text and both figure images were inspected in the browser on 2026-10-13. Figure 3's image was not visually inspected. Published drug-specific findings are not transferred to the target drug.
+
+WEB13 | Bergen et al. (2010), Pharmacokinetic/Pharmacodynamic Investigation of Colistin against Pseudomonas aeruginosa Using an In Vitro Model
+URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC2934992/
+Locators checked: in vitro sampling, viable-counting and response-analysis methods; Figure 1 image/caption; Figure 2 caption and its integrated-response definition.
+Drawing lessons: Figure 1 uses time (h) on X and log10 CFU/mL on Y, separate strain panels, regimen-specific marks/lines, growth controls, and a quantification-limit reference. Its caption distinguishes the counting limit at the axis floor from the quantification limit. Retain those distinctions and use the common censoring rules rather than turning a plotting floor into an exact count. With many regimens, reuse smaller panels and consistent encoding to reduce overlap. The observed killing/regrowth sequence illustrates why a final endpoint may omit relevant response timing (item 07).
+Response boundary: the paper's log area-ratio effect compares the integrated bacterial-count courses for treatment and growth control. It is not a final-time change from treatment-start burden. An existing such response can be displayed under its exact definition (item 10); new response integration and model fitting remain downstream.
+Access: relevant full-text methods/results, Figure 1's image, and Figure 2's caption were inspected in the browser on 2026-10-13; Figure 2's image was not visually inspected. No simulated PK assumptions, numerical targets, or model fits are adopted.
+
+REVIEW BOUNDARY
+
+This is a text specification: no observations have been recalculated or plotted, and no implementation structure has been built. Figure selection depends on the actual data and objective. The full inherited bibliography has not been revalidated; external access limitations remain in the source notes.

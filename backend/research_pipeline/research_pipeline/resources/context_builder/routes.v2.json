@@ -1,0 +1,875 @@
+{
+  "version": "CONTEXT_ROUTES_3.6",
+  "mode": "PRESERVE_EXISTING",
+  "common_fields": [
+    "instructions",
+    "schema",
+    "governance",
+    "governance_sha256",
+    "context_selection",
+    "context_task_bindings",
+    "context_support"
+  ],
+  "max_request_chars": 700000,
+  "routes": {
+    "data.requirements": {
+      "identity": {
+        "stage": [
+          "DR"
+        ],
+        "operation": [
+          "REQUIREMENT_PLAN_4.0",
+          "REQUIREMENT_PLAN_5.0",
+          "REQUIREMENT_PLAN_5.1",
+          "REQUIREMENT_PLAN_6.0"
+        ]
+      },
+      "required": [
+        "project_context",
+        "project_rules",
+        "method_knowledge",
+        "data_overviews",
+        "overview_notes"
+      ],
+      "optional": [
+        "agent",
+        "policy",
+        "policy_version",
+        "processing_rules",
+        "direct_project_source_ids",
+        "project_context_source_ids",
+        "scientific_approval",
+        "source_scope",
+        "source_authority_contract",
+        "stage_output_contract",
+        "current_stage_contract",
+        "deferred_method_knowledge",
+        "deferred_stage_handoff_manifest",
+        "reviewed_method_background_v1"
+      ],
+      "rules": [
+        "project_rules",
+        "processing_rules",
+        "source_authority_contract",
+        "stage_output_contract",
+        "current_stage_contract",
+        "deferred_stage_handoff_manifest"
+      ],
+      "evidence": [
+        "project_context",
+        "method_knowledge",
+        "data_overviews",
+        "overview_notes",
+        "deferred_method_knowledge",
+        "reviewed_method_background_v1"
+      ],
+      "boundary": "Metadata, design and source notes only. Numeric-row selection stays in the existing DR adapter."
+    },
+    "data.coverage": {
+      "identity": {
+        "stage": [
+          "DIRECT_DR_COVERAGE"
+        ]
+      },
+      "required": [
+        "objective",
+        "requirements",
+        "rules",
+        "profiles",
+        "source_units"
+      ],
+      "optional": [
+        "source_id_ownership",
+        "excluded_items",
+        "scientific_approval",
+        "source_catalog",
+        "source_regions",
+        "coverage_contract_version"
+      ],
+      "rules": [
+        "rules"
+      ],
+      "evidence": [
+        "objective",
+        "requirements",
+        "profiles",
+        "source_units",
+        "source_catalog"
+      ],
+      "boundary": "Keep every permitted source fragment supplied by the current Coverage adapter; no evidence pruning."
+    },
+    "data.necessity": {
+      "identity": {
+        "stage": [
+          "NECESSITY_IMPACT_AND_ADVICE_ONLY",
+          "NECESSITY_SCOPED_ASSESSMENT"
+        ]
+      },
+      "required": [
+        "objective",
+        "requirements",
+        "rules",
+        "coverage_summary",
+        "recorded_shortages",
+        "local_method_knowledge"
+      ],
+      "optional": [
+        "source_profiles",
+        "available_scope_ids",
+        "project_context",
+        "deferred_stage_handoff_manifest",
+        "reviewed_method_background_v1"
+      ],
+      "rules": [
+        "rules",
+        "deferred_stage_handoff_manifest"
+      ],
+      "evidence": [
+        "objective",
+        "requirements",
+        "coverage_summary",
+        "recorded_shortages",
+        "local_method_knowledge",
+        "source_profiles",
+        "reviewed_method_background_v1"
+      ],
+      "boundary": "Existing accepted Coverage context and local MP only. Raw tables and repair prompts need a separate explicit contract."
+    },
+    "data.human_summary": {
+      "identity": {
+        "stage": [
+          "HUMAN_REVIEW_SUMMARY_ONLY"
+        ]
+      },
+      "required": [
+        "assessment",
+        "action_decisions"
+      ],
+      "optional": [],
+      "rules": [],
+      "evidence": [
+        "assessment",
+        "action_decisions"
+      ],
+      "boundary": "Accepted opinions only. Reject raw tables, MP, unrelated Rules and any unrecognized top-level input."
+    },
+    "data.human_summary_legacy": {
+      "identity": {
+        "stage": [
+          "HUMAN_REVIEW_SUMMARY_ONLY"
+        ]
+      },
+      "required": [
+        "assessment",
+        "analyses"
+      ],
+      "optional": [],
+      "rules": [],
+      "evidence": [
+        "assessment",
+        "analyses"
+      ],
+      "boundary": "Accepted assessment and analyses only. No raw tables, method library, new findings or changed recommendations."
+    },
+    "compression.extract": {
+      "required": [
+        "compression_profile",
+        "source_units",
+        "source_registry",
+        "processing_rules",
+        "processing_rules_sha256",
+        "effective_rule_binding",
+        "effective_rule_binding_sha256",
+        "compression_scope",
+        "host_input_checks"
+      ],
+      "optional": [
+        "revision_feedback",
+        "revision_policy"
+      ],
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "source_registry"
+      ],
+      "boundary": "Complete proposal and authorized clarification units; retain independent full-source review. No repair loop in the linear executor.",
+      "identity": {
+        "stage": [
+          "context"
+        ]
+      }
+    },
+    "compression.review": {
+      "required": [
+        "compression_profile",
+        "source_units",
+        "source_registry",
+        "processing_rules",
+        "processing_rules_sha256",
+        "effective_rule_binding",
+        "effective_rule_binding_sha256",
+        "compression_scope",
+        "host_input_checks",
+        "candidate",
+        "candidate_sha256",
+        "expected_record_ids",
+        "required_check_ids"
+      ],
+      "optional": [
+        "review_challenges",
+        "review_challenge_ids",
+        "challenge_ids",
+        "review_challenge_policy"
+      ],
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "source_registry",
+        "candidate"
+      ],
+      "boundary": "Complete proposal and authorized clarification units; retain independent full-source review. No repair loop in the linear executor.",
+      "identity": {
+        "stage": [
+          "context_review"
+        ]
+      }
+    },
+    "compression.adapter_requirements": {
+      "identity": {
+        "stage": [
+          "requirements"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_pipeline": {
+      "identity": {
+        "stage": [
+          "pipeline"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_context": {
+      "identity": {
+        "stage": [
+          "context"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_attachment_evidence": {
+      "identity": {
+        "stage": [
+          "attachment_evidence"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_context_review": {
+      "identity": {
+        "stage": [
+          "context_review"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_requirements_review": {
+      "identity": {
+        "stage": [
+          "requirements_review"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_pipeline_review": {
+      "identity": {
+        "stage": [
+          "pipeline_review"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_attachment_plan": {
+      "identity": {
+        "stage": [
+          "attachment_plan"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DIRECT_DR_COVERAGE": {
+      "identity": {
+        "stage": [
+          "DIRECT_DR_COVERAGE"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DR-access": {
+      "identity": {
+        "stage": [
+          "DR-access"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DC-split": {
+      "identity": {
+        "stage": [
+          "DC-split"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_HUMAN_REVIEW_SUMMARY_ONLY": {
+      "identity": {
+        "stage": [
+          "HUMAN_REVIEW_SUMMARY_ONLY"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_REQUIREMENT_PLANNING_ONLY": {
+      "identity": {
+        "stage": [
+          "REQUIREMENT_PLANNING_ONLY"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DH-handoff": {
+      "identity": {
+        "stage": [
+          "DH-handoff"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_NECESSITY_IMPACT_AND_ADVICE_ONLY": {
+      "identity": {
+        "stage": [
+          "NECESSITY_IMPACT_AND_ADVICE_ONLY"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DC-label": {
+      "identity": {
+        "stage": [
+          "DC-label"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DR": {
+      "identity": {
+        "stage": [
+          "DR"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DP": {
+      "identity": {
+        "stage": [
+          "DP"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_NECESSITY_SCOPED_ASSESSMENT": {
+      "identity": {
+        "stage": [
+          "NECESSITY_SCOPED_ASSESSMENT"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "data.adapter_DC-review": {
+      "identity": {
+        "stage": [
+          "DC-review"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules",
+        "rules",
+        "project_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources",
+        "data_overviews",
+        "project_context"
+      ],
+      "boundary": "Preserve every field selected by the existing authorized stage adapter. Compile only explicit frozen overrides. No automatic correction or retry."
+    },
+    "compression.adapter_context_faithfulness": {
+      "identity": {
+        "stage": [
+          "context_faithfulness"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources"
+      ],
+      "boundary": "Preserve authorized adapter inputs; no automatic repair."
+    },
+    "compression.adapter_context_completeness": {
+      "identity": {
+        "stage": [
+          "context_completeness"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources"
+      ],
+      "boundary": "Preserve authorized adapter inputs; no automatic repair."
+    },
+    "compression.adapter_context_conflicts": {
+      "identity": {
+        "stage": [
+          "context_conflicts"
+        ]
+      },
+      "required": [],
+      "optional": [],
+      "preserve_adapter_fields": true,
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "source_units",
+        "sources"
+      ],
+      "boundary": "Preserve authorized adapter inputs; no automatic repair."
+    },
+    "eda.plan": {
+      "identity": {
+        "stage": [
+          "EP-plan"
+        ],
+        "agent": [
+          "EP"
+        ],
+        "operation": [
+          "PLAN_ANALYSES"
+        ]
+      },
+      "required": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_scope",
+        "processing_rules",
+        "output_contract",
+        "transport_scope",
+        "eda_context_bindings"
+      ],
+      "optional": [],
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference"
+      ],
+      "boundary": "Admitted Data scope, definitions, restrictions, objective, implemented R registry and bound reference only. No generated results, findings or human approval."
+    },
+    "eda.findings": {
+      "identity": {
+        "stage": [
+          "EI-findings"
+        ],
+        "agent": [
+          "EI"
+        ],
+        "operation": [
+          "WRITE_FINDINGS"
+        ]
+      },
+      "required": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "eda_scope",
+        "processing_rules",
+        "output_contract",
+        "transport_scope",
+        "eda_context_bindings"
+      ],
+      "optional": [],
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle"
+      ],
+      "boundary": "Plan, supplied R results and plot evidence with their source identities; absent rows or images remain unreviewed. Quote host results only."
+    },
+    "eda.review": {
+      "identity": {
+        "stage": [
+          "ER-review"
+        ],
+        "agent": [
+          "ER"
+        ],
+        "operation": [
+          "INDEPENDENT_REVIEW"
+        ]
+      },
+      "required": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "eda_findings",
+        "eda_scope",
+        "processing_rules",
+        "output_contract",
+        "transport_scope",
+        "eda_context_bindings"
+      ],
+      "optional": [],
+      "rules": [
+        "processing_rules"
+      ],
+      "evidence": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "eda_findings"
+      ],
+      "boundary": "All supplied review evidence including counterevidence and open items. Paths alone are not inspected images or result rows. Human confirmation and handoff assembly remain host-only."
+    },
+    "context.sufficiency": {
+      "identity": {
+        "stage": [
+          "RAG-sufficiency"
+        ],
+        "operation": [
+          "ASSESS_CONTEXT_SUFFICIENCY"
+        ]
+      },
+      "required": [
+        "objective",
+        "needs",
+        "task_view",
+        "knowledge"
+      ],
+      "optional": [],
+      "rules": [],
+      "evidence": [
+        "task_view",
+        "knowledge"
+      ],
+      "boundary": "One bounded semantic assessment of declared output dependencies; no task execution, retrieval or project-fact invention."
+    }
+  },
+  "deferred": {
+    "eda": "Runtime disabled. No route or execution permission granted."
+  }
+}

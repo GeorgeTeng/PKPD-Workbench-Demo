@@ -1,0 +1,56 @@
+{
+  "cards": [
+    {
+      "title": "Compartmental Model Parameters: Central Volume (Vc) and Flows",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "In compartmental modeling (e.g., Phoenix NLME), the central compartment is defined by a volume parameter (V) and concentration (C). The default elimination flow from the central compartment is parameterized as Clearance (CL). Inter-compartmental flows between central and peripheral compartments are parameterized as inter-compartmental clearance (Q). Vc is the volume of the central compartment and is distinct from NCA Vz or Vss. In 'Macro' models, concentration is modeled directly using a 'stripping dose' to derive volume, whereas 'Clearance' models use differential equations with explicit CL and Q parameters.",
+      "conditions": [
+        "Vc is a structural parameter in compartmental models, not an NCA output.",
+        "In Clearance models, CL is a primary parameter; in Macro models, CL is derived.",
+        "Only one central compartment is allowed if microconstants are used.",
+        "Concentration parameters (C) are derived from Amount (A) and Volume (V) in amount-based models."
+      ],
+      "required_inputs": [
+        "Model structure definition (number of compartments)",
+        "Parameterization choice (Clearance vs. Macro/Micro)",
+        "Observed concentration data",
+        "Dosing events (amount and time)"
+      ],
+      "limitations": [
+        "Vc is model-dependent and not directly comparable to NCA Vz or Vss without conversion.",
+        "Software-specific conventions (e.g., Phoenix NLME) dictate parameter names (CL, Q, V) and default flows.",
+        "Identifiability of Vc depends on the richness of the data and model structure."
+      ],
+      "downstream_use": "Use Vc and CL/Q parameters for mechanistic PK modeling, simulation of concentration-time profiles, and covariate analysis. Do not use Vc as a substitute for Vss in steady-state interpretation without model validation.",
+      "evidence_chunk_ids": [
+        "ADD002:0052",
+        "ADD002:0053",
+        "ADD002:0128",
+        "ADD002:0130",
+        "ADD002:0134",
+        "ADD002:0135"
+      ],
+      "id": "round3_A02:K02",
+      "origin_job": "round3_A02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A02",
+      "retrieval_keywords": "CL, CL/F, Vss, Vz and Vc definitions and conditions",
+      "supersedes": [
+        "round2_A02:K01",
+        "round2_A02:K02",
+        "round2_A02:K03",
+        "round2_A02:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

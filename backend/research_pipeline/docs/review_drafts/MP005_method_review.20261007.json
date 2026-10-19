@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DATA_COVERAGE_SCOPE",
+  "date": "2026-10-07",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "合理 查看下一条",
+    "accepted_proposal": "Keep MP005 only for parameter-by-species candidate coverage, cross-species comparability questions, additional translation inputs and project-specific coverage gaps; reuse MP003 and general data rules."
+  },
+  "library_version": "1.0.0-draft.7",
+  "library_sha256": "6b7f1c885917ef1d135681c0b93dbe4d10fede2993d634e1722760df63f65d56",
+  "profile_sha256": "054a8bbc1c1b07b492f41647ec6818966c68680787f69c6a1416f14eadce4567",
+  "profile": {
+    "id": "MP005",
+    "name": "Cross-species data coverage",
+    "family": "TRANSLATION",
+    "assessment_scope": "DATA_REQUIREMENTS_ONLY",
+    "target_endpoints": [
+      "Project-requested human parameter predictions"
+    ],
+    "outputs": [
+      "Parameter-by-species candidate coverage",
+      "Cross-species comparability gaps",
+      "Translation-specific missing inputs and required phase"
+    ],
+    "applies_when": "The project requests animal-to-human parameter translation. Reuse the per-species input inventory and definitions assessed under MP003 and applicable profiles; assess only the additional cross-species coverage needs.",
+    "required_inputs": [
+      "The existing parameter-by-species input inventory with source and review status; reuse MP003 definitions and DA001/DA004/DA008 handling instead of re-extracting or repeating them.",
+      "The project-specific translation objective and any published species-coverage requirement, including the phase at which it applies."
+    ],
+    "conditional_inputs": [
+      "Additional correction factors, calibration evidence or other inputs required by a translation approach explicitly considered in the project. Refer binding and in vitro input details to their relevant profiles; do not select a method or require every possible method here."
+    ],
+    "acceptable_alternatives": [
+      "Retain the source and review statuses already assigned under MP003. Uncomputed source data and unqualified reported estimates may contribute to candidate coverage without becoming qualified parameters."
+    ],
+    "data_checks": [
+      "Summarize candidate coverage separately for each parameter and distinct species. Multiple studies, doses, curves or publications from one species do not create additional species.",
+      "Use the existing parameter definitions, units and study metadata to flag cross-species comparability questions. Do not repeat their extraction or silently treat incompatible definitions as interchangeable.",
+      "Identify only the extra inputs required by explicitly considered translation approaches; retain unresolved approach-dependent needs as questions for the translation module.",
+      "Report candidate coverage against any project-specific species requirement, keeping candidate counts separate from later confirmed qualified-species counts. Do not turn a before-translation requirement into a blocker for supported upstream data preparation or animal analysis."
+    ],
+    "missing_effect": "Report affected parameters, coverage gaps and translation-specific missing material through DA008. Retain supported upstream work; final parameter qualification and species-count acceptance occur before translation.",
+    "not_established": [
+      "A universal species minimum, qualified parameters, an approved extrapolation method or a validated human prediction."
+    ],
+    "needed_at": "DATA_REQUIREMENTS_ASSESSMENT",
+    "source_ids": [
+      "S05",
+      "S06"
+    ]
+  },
+  "deferred_reference": {
+    "path": "research_pipeline/research_pipeline/resources/translation_analysis_followup.json",
+    "sha256": "d95b5ad612f6d6697e8220dbc73449b3dfd986c1d83771baaf55c74e14de52cf"
+  },
+  "unchanged_profiles": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP006",
+    "MP007",
+    "MP008",
+    "MP009",
+    "MP010"
+  ],
+  "scientific_release": false,
+  "historical_runs_modified": false
+}

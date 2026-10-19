@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Unit Handling in Secondary Parameters",
+      "topics": [
+        "data_eda",
+        "translation"
+      ],
+      "claim": "Units for secondary parameters are a quotient of the units from the requesting and reference intervals. The result's units are determined by the specific groups involved (e.g., urinary amount units divided by plasma AUC units for renal clearance). If units are convertible, the result may be standardized to a fraction; otherwise, composite units are retained.",
+      "conditions": [
+        "Units are defined per group in the concentration/dose data.",
+        "The `units` table in `PKNCAdata` must contain rows for each group pair involved in the calculation.",
+        "If units are dimensionless (convertible), `PPSTRESU` becomes 'fraction' with a conversion factor."
+      ],
+      "required_inputs": [
+        "Concentration units (`concu`) and dose units (`doseu`) specified per group.",
+        "Correct unit definitions in the `units` argument of `PKNCAdata`."
+      ],
+      "limitations": [
+        "Units that cannot be reconciled (e.g., IU/mL vs mg/L) result in composite units rather than NA.",
+        "Molecular-weight adjustment for metabolite ratios is not currently available."
+      ],
+      "downstream_use": "Ensures correct dimensional analysis for renal clearance (e.g., mg/(hr*ng/mL)) and bioavailability (dimensionless fraction if units match).",
+      "evidence_chunk_ids": [
+        "REF_019:0014",
+        "REF_019:0015",
+        "REF_019:0016",
+        "REF_019:0017"
+      ],
+      "id": "source_REF_019:K02",
+      "origin_job": "source_REF_019",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_019"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

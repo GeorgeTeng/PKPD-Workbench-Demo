@@ -1,0 +1,2688 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+    <head >
+
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="320" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        
+        
+
+        
+        
+  <link  rel="stylesheet" href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/base_style-BxRs1iOp.css" />
+<script type="module" crossorigin="" src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/base_style-D-jH62-1.js"></script>
+
+  <link  rel="stylesheet" href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/article_style-B67IZFds.css" />
+<link  rel="stylesheet" href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/style-D77LS1kY.css" />
+<script type="module" crossorigin="" src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/article_style-CTAd1LmM.js"></script>
+
+  
+  
+    <style>
+  
+  
+  @media screen and (min-width: 64em) {
+    div.pmc-wm {
+      background: repeat-y;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='350' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cfilter x='-.02' y='0' width='1.05' height='1' id='c'%3E%3CfeFlood flood-color='%23FFF'/%3E%3CfeComposite in='SourceGraphic'/%3E%3C/filter%3E%3Ctext id='b' font-family='Helvetica' font-size='11pt' style='opacity:1;fill:%23005ea2;stroke:none;text-anchor:middle' x='175' y='14'%3E%3C/text%3E%3Cpath id='a' style='fill:%23005ea2' d='M0 8h350v3H0z'/%3E%3C/defs%3E%3Cuse xlink:href='%23a' transform='rotate(90 10 10)'/%3E%3Cuse xlink:href='%23b' transform='rotate(90 10 10)' filter='url(%23c)'/%3E%3C/svg%3E");
+      padding-left: 3rem;
+    }
+  }
+</style>
+
+  
+
+
+
+        
+            <link rel="apple-touch-icon"
+                  sizes="180x180"
+                  href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/apple-touch-icon.png" />
+            <link rel="icon"
+                  type="image/png"
+                  sizes="48x48"
+                  href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/favicon-48x48.png" />
+            <link rel="icon"
+                  type="image/png"
+                  sizes="32x32"
+                  href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/favicon-32x32.png" />
+            <link rel="icon"
+                  type="image/png"
+                  sizes="16x16"
+                  href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/favicon-16x16.png" />
+            <link rel="manifest" href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/site.webmanifest" />
+            <link rel="mask-icon"
+                  href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/safari-pinned-tab.svg"
+                  color="#0071bc" />
+            <meta name="msapplication-config"
+                  content="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/favicons/browserconfig.xml" />
+            <meta name="theme-color" content="#ffffff" />
+        
+
+        <title>
+            Handling Data Below the Limit of Quantification in Mixed Effect Models - PMC
+        </title>
+
+        
+        
+  
+  <!-- Logging params: Pinger defaults -->
+<meta name="ncbi_app" content="cloudpmc-viewer" />
+<meta name="ncbi_db" content="pmc" />
+<meta name="ncbi_phid" content="C1EDEABBACEF86730DEABB004144A619.m_1" />
+<meta name="ncbi_pinger_stat_url" content="https://pmc.ncbi.nlm.nih.gov/stat" />
+<!-- Logging params: Pinger custom -->
+<meta name="ncbi_pdid" content="article" />
+  
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+
+    
+        <link rel="preconnect" href="https://cdn.ncbi.nlm.nih.gov" />
+    
+
+    <!-- Include USWDS Init Script -->
+    <script src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/uswds-init.js"></script>
+
+
+    <meta name="ncbi_domain" content="aapsj">
+<meta name="ncbi_type" content="fulltext">
+<meta name="ncbi_pcid" content="journal">
+<link rel="canonical" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/">
+<meta name="robots" content="INDEX,NOFOLLOW,NOARCHIVE">
+<meta name="citation_journal_title" content="The AAPS Journal">
+<meta name="citation_title" content="Handling Data Below the Limit of Quantification in Mixed Effect Models">
+<meta name="citation_author" content="Martin Bergstrand">
+<meta name="citation_author_institution" content="Department of Pharmaceutical Biosciences, Uppsala University, P.O. Box 591, 751 24 Uppsala, Sweden">
+<meta name="citation_author" content="Mats O Karlsson">
+<meta name="citation_author_institution" content="Department of Pharmaceutical Biosciences, Uppsala University, P.O. Box 591, 751 24 Uppsala, Sweden">
+<meta name="citation_publication_date" content="2009 May 19">
+<meta name="citation_volume" content="11">
+<meta name="citation_issue" content="2">
+<meta name="citation_firstpage" content="371">
+<meta name="citation_doi" content="10.1208/s12248-009-9112-5">
+<meta name="citation_pmid" content="19452283">
+<meta name="citation_abstract_html_url" content="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/">
+<meta name="citation_fulltext_html_url" content="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/">
+<meta name="citation_pdf_url" content="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/pdf/12248_2009_Article_9112.pdf">
+<meta name="description" content="The purpose of this study is to investigate the impact of observations below the limit of quantification (BQL) occurring in three distinctly different ways and assess the best method for prevention of bias in parameter estimates and for illustrating ...">
+<meta name="og:title" content="Handling Data Below the Limit of Quantification in Mixed Effect Models">
+<meta name="og:type" content="article">
+<meta name="og:site_name" content="PubMed Central (PMC)">
+<meta name="og:description" content="The purpose of this study is to investigate the impact of observations below the limit of quantification (BQL) occurring in three distinctly different ways and assess the best method for prevention of bias in parameter estimates and for illustrating ...">
+<meta name="og:url" content="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/">
+<meta name="og:image" content="https://cdn.ncbi.nlm.nih.gov/pmc/cms/images/pmc-card-share.jpg?_=0">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ncbi">
+    
+    
+
+    </head>
+    <body >
+        
+    <a class="usa-skipnav " href="#main-content">
+      Skip to main content
+    </a>
+
+
+        
+            
+
+<section class="usa-banner " aria-label="Official website of the United States government" >
+    <div class="usa-accordion">
+        <header class="usa-banner__header">
+            <div class="usa-banner__inner">
+                <div class="grid-col-auto">
+                    <img aria-hidden="true"
+                         class="usa-banner__header-flag"
+                         src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/us_flag.svg"
+                         alt="" />
+                </div>
+
+                <div class="grid-col-fill tablet:grid-col-auto" aria-hidden="true">
+                    <p class="usa-banner__header-text">
+                        An official website of the United States government
+                    </p>
+                    <span class="usa-banner__header-action">Here's how you know</span>
+                </div>
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-accordion__button usa-banner__button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           
+           "
+    aria-expanded="false"
+    aria-controls="gov-banner-default"
+    
+    data-testid="storybook-django-banner"
+    
+    >
+    
+        
+
+        
+                    <span class="usa-banner__button-text">Here's how you know</span>
+                
+
+        
+    
+        
+            </button>
+        
+
+
+            </div>
+        </header>
+
+        <div class="usa-banner__content usa-accordion__content"
+             id="gov-banner-default"
+             hidden>
+            <div class="grid-row grid-gap-lg">
+                <div class="usa-banner__guidance tablet:grid-col-6">
+                    <img class="usa-banner__icon usa-media-block__img"
+                         src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/icon-dot-gov.svg"
+                         alt=""
+                         aria-hidden="true" />
+                    <div class="usa-media-block__body">
+                        <p>
+                            <strong>Official websites use .gov</strong>
+                            <br />
+                            A
+                            <strong>.gov</strong> website belongs to an official
+                            government organization in the United States.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="usa-banner__guidance tablet:grid-col-6">
+                    <img class="usa-banner__icon usa-media-block__img"
+                         src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/icon-https.svg"
+                         alt=""
+                         aria-hidden="true" />
+
+                    <div class="usa-media-block__body">
+                        <p>
+                            <strong>Secure .gov websites use HTTPS</strong>
+                            <br />
+                            A <strong>lock</strong> (
+                            <span class="icon-lock">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="52"
+                                     height="64"
+                                     viewBox="0 0 52 64"
+                                     class="usa-banner__lock-image"
+                                     role="graphics-symbol"
+                                     aria-labelledby="banner-lock-description"
+                                     focusable="false">
+                                    <title id="banner-lock-title">Lock</title>
+                                    <desc id="banner-lock-description">
+                                    Locked padlock icon
+                                    </desc>
+                                    <path fill="#000000"
+                                          fill-rule="evenodd"
+                                          d="M26 0c10.493 0 19 8.507 19 19v9h3a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4h3v-9C7 8.507 15.507 0 26 0zm0 8c-5.979 0-10.843 4.77-10.996 10.712L15 19v9h22v-9c0-6.075-4.925-11-11-11z" />
+                                </svg>
+</span>) or <strong>https://</strong> means you've safely
+                                connected to the .gov website. Share sensitive
+                                information only on official, secure websites.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        
+
+        
+    
+    
+    
+
+<div class="usa-overlay">
+</div>
+
+
+
+<header class="usa-header usa-header--extended usa-header--wide" data-header data-testid="header"    >
+    <div class="ncbi-header">
+        <div class="ncbi-header__container">
+            <a class="ncbi-header__logo-container"
+               href="https://www.ncbi.nlm.nih.gov/">
+                <img alt="NCBI home page"
+                     class="ncbi-header__logo-image"
+                     src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/ncbi-logos/nih-nlm-ncbi--white.svg"
+                     width="410"
+                     height="100" />
+            </a>
+
+            <!-- Mobile menu hamburger button -->
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-menu-btn ncbi-header__hamburger-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           
+           "
+    
+    
+    aria-label="Show menu"
+    data-testid="navMenuButton"
+    
+    >
+    
+        
+
+        
+                <svg aria-hidden="true"
+                     class="ncbi-hamburger-icon"
+                     fill="none"
+                     focusable="false"
+                     height="21"
+                     viewBox="0 0 31 21"
+                     width="31"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                          d="M0.125 20.75H30.875V17.3333H0.125V20.75ZM0.125 12.2083H30.875V8.79167H0.125V12.2083ZM0.125 0.25V3.66667H30.875V0.25H0.125Z"
+                          fill="#F1F1F1"
+                          fill-rule="evenodd" />
+                </svg>
+            
+
+        
+    
+        
+            </button>
+        
+
+
+
+            
+                <!-- Desktop buttons-->
+                <div class="ncbi-header__desktop-buttons">
+                    
+                        <!-- Desktop search button -->
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           usa-button--unstyled ncbi-header__desktop-button
+           "
+    aria-expanded="false"
+    aria-controls="search-field-desktop-navigation"
+    aria-label="Show search overlay"
+    data-testid="toggleSearchPanelButton"
+    data-toggle-search-panel-button
+    >
+    
+        
+
+        
+                            
+
+
+
+    <img
+        src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/search.svg"
+        class="usa-icon "
+        aria-hidden="true"
+        
+        
+    />
+
+
+                            Search
+                        
+
+        
+    
+        
+            </button>
+        
+
+
+                    
+
+                    <!-- Desktop login dropdown -->
+                    
+                        <div class="ncbi-header__login-dropdown">
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           usa-button--unstyled ncbi-header__desktop-button ncbi-header__login-dropdown-button
+           "
+    aria-expanded="false"
+    aria-controls="login-dropdown-menu"
+    aria-label="Show login menu"
+    data-testid="toggleLoginMenuDropdown"
+    data-desktop-login-button
+    >
+    
+        
+
+        
+                                
+
+
+
+    <img
+        src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/person.svg"
+        class="usa-icon "
+        aria-hidden="true"
+        
+        
+    />
+
+
+
+                                <span data-login-dropdown-text>Log in</span>
+
+                                <!-- Dropdown icon pointing up -->
+                                
+
+
+
+    <img
+        src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/expand_less.svg"
+        class="usa-icon ncbi-header__login-dropdown-icon ncbi-header__login-dropdown-icon--expand-less ncbi-header__login-dropdown-icon--hidden"
+        aria-hidden="true"
+        data-login-dropdown-up-arrow
+        
+    />
+
+
+
+                                <!-- Dropdown icon pointing down -->
+                                
+
+
+
+    <img
+        src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/expand_more.svg"
+        class="usa-icon ncbi-header__login-dropdown-icon ncbi-header__login-dropdown-icon--expand-more ncbi-header__login-dropdown-icon--hidden"
+        aria-hidden="true"
+        data-login-dropdown-down-arrow
+        
+    />
+
+
+                            
+
+        
+    
+        
+            </button>
+        
+
+
+
+                            <!-- Login dropdown menu -->
+                            <ul class="usa-nav__submenu ncbi-header__login-dropdown-menu"
+                                id="login-dropdown-menu"
+                                data-desktop-login-menu-dropdown
+                                hidden>
+                                
+                                    <li class="usa-nav__submenu-item">
+                                        <!-- Uses custom style overrides to render external and document links. -->
+                                        
+
+
+
+
+
+
+
+
+
+    <a href="https://www.ncbi.nlm.nih.gov/myncbi/" class="usa-link  "  >
+        
+
+        
+            Dashboard
+        
+
+        
+    </a>
+
+
+                                    </li>
+                                
+                                    <li class="usa-nav__submenu-item">
+                                        <!-- Uses custom style overrides to render external and document links. -->
+                                        
+
+
+
+
+
+
+
+
+
+    <a href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/" class="usa-link  "  >
+        
+
+        
+            Publications
+        
+
+        
+    </a>
+
+
+                                    </li>
+                                
+                                    <li class="usa-nav__submenu-item">
+                                        <!-- Uses custom style overrides to render external and document links. -->
+                                        
+
+
+
+
+
+
+
+
+
+    <a href="https://www.ncbi.nlm.nih.gov/account/settings/" class="usa-link  "  >
+        
+
+        
+            Account settings
+        
+
+        
+    </a>
+
+
+                                    </li>
+                                
+                                <li class="usa-nav__submenu-item">
+                                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           usa-button--outline ncbi-header__login-dropdown-logout-button
+           "
+    
+    
+    
+    data-testid="desktopLogoutButton"
+    data-desktop-logout-button
+    >
+    
+        
+
+        Log out
+
+        
+    
+        
+            </button>
+        
+
+
+                                </li>
+                            </ul>
+                        </div>
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <!-- Search panel -->
+    
+        <div class="ncbi-search-panel ncbi--show-only-at-desktop"
+             data-header-search-panel
+             hidden>
+            <div class="ncbi-search-panel__container">
+                <form action="https://www.ncbi.nlm.nih.gov/search/all/"
+                      
+                      autocomplete="off"
+                      class="usa-search usa-search--big ncbi-search-panel__form"
+                      data-testid="desktop-navigation-search-form"
+                      method="GET"
+                      role="search">
+                    <label class="usa-sr-only" for="search-field-desktop-navigation">
+                        Search…
+                    </label>
+                    <input class="usa-input"
+                           id="search-field-desktop-navigation"
+                           name="term"
+                           
+                               placeholder="Search NCBI"
+                           
+                           type="search"
+                           value="" />
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="submit"
+        
+    
+    class="usa-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           
+           "
+    
+    
+    
+    
+    
+    >
+    
+        
+
+        
+                        <span class="usa-search__submit-text">
+                            Search NCBI
+                        </span>
+                    
+
+        
+    
+        
+            </button>
+        
+
+
+                </form>
+
+                
+            </div>
+        </div>
+    
+
+    <nav aria-label="Primary navigation" class="usa-nav">
+        <p class="usa-sr-only" id="primary-navigation-sr-only-title">
+            Primary site navigation
+        </p>
+
+        <!-- Mobile menu close button -->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-nav__close ncbi-nav__close-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           
+           "
+    
+    
+    aria-label="Close navigation menu"
+    data-testid="navCloseButton"
+    
+    >
+    
+        
+
+        
+            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/close.svg" alt="Close" />
+        
+
+        
+    
+        
+            </button>
+        
+
+
+
+        
+            <!-- Mobile search component -->
+            <form class="usa-search usa-search--small ncbi--hide-at-desktop"
+                  action="https://www.ncbi.nlm.nih.gov/search/all/"
+                  
+                  autocomplete="off"
+                  data-testid="mobile-navigation-search-form"
+                  method="GET"
+                  role="search">
+                <label class="usa-sr-only" for="search-field-mobile-navigation">
+                    Search
+                </label>
+
+                <input class="usa-input"
+                       id="search-field-mobile-navigation"
+                       type="search"
+                       
+                           placeholder="Search NCBI"
+                       
+                       name="term" />
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="submit"
+        
+    
+    class="usa-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           
+           "
+    
+    
+    
+    
+    
+    >
+    
+        
+
+        
+                    <!-- This SVG should be kept inline and not replaced with a link to the icon as otherwise it will render in the wrong color -->
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE1LjUgMTRoLS43OWwtLjI4LS4yN0E2LjQ3MSA2LjQ3MSAwIDAgMCAxNiA5LjUgNi41IDYuNSAwIDEgMCA5LjUgMTZjMS42MSAwIDMuMDktLjU5IDQuMjMtMS41N2wuMjcuMjh2Ljc5bDUgNC45OUwyMC40OSAxOWwtNC45OS01em0tNiAwQzcuMDEgMTQgNSAxMS45OSA1IDkuNVM3LjAxIDUgOS41IDUgMTQgNy4wMSAxNCA5LjUgMTEuOTkgMTQgOS41IDE0eiIvPjwvc3ZnPg=="
+                         class="usa-search__submit-icon"
+                         alt="Search" />
+                
+
+        
+    
+        
+            </button>
+        
+
+
+            </form>
+
+            
+        
+
+        <!-- Primary navigation menu items -->
+        <!-- This usa-nav__inner wrapper is required to correctly style the navigation items on Desktop -->
+        
+
+        
+            <div class="ncbi-nav__mobile-login-menu ncbi--hide-at-desktop"
+                 data-mobile-login-menu
+                 hidden>
+                <p class="ncbi-nav__mobile-login-menu-status">
+                    Logged in as:
+                    <strong class="ncbi-nav__mobile-login-menu-email"
+                            data-mobile-login-email-text></strong>
+                </p>
+                <ul class="usa-nav__primary usa-accordion">
+                    
+                        <li class="usa-nav__primary-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.ncbi.nlm.nih.gov/myncbi/" class="usa-link  "  >
+        
+
+        
+            Dashboard
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="usa-nav__primary-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/" class="usa-link  "  >
+        
+
+        
+            Publications
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="usa-nav__primary-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.ncbi.nlm.nih.gov/account/settings/" class="usa-link  "  >
+        
+
+        
+            Account settings
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                </ul>
+            </div>
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <button
+            type="button"
+        
+    
+    class="usa-button
+           
+
+           
+               
+               
+               
+               
+            
+
+           
+           
+           ncbi-nav__mobile-login-button ncbi--hide-at-desktop
+           "
+    
+    
+    
+    data-testid="mobileLoginButton"
+    data-mobile-login-button
+    >
+    
+        
+
+        Log in
+
+        
+    
+        
+            </button>
+        
+
+
+    </nav>
+</header>
+
+    
+    
+        
+
+<section class="pmc-header pmc-header--basic" aria-label="PMC Header with search box">
+    <div class="pmc-nav-container">
+        <div class="pmc-header__bar">
+           <div class="pmc-header__logo">
+               <a href="/" title="Home" aria-label="PMC Home"></a>
+           </div>
+            <button
+                    type="button"
+                    class="usa-button usa-button--unstyled pmc-header__search__button"
+                    aria-label="Open search"
+                    data-ga-category="search"
+                    data-ga-action="PMC"
+                    data-ga-label="pmc_search_panel_mobile"
+            >
+                <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/search.svg" alt="PMC search open icon" aria-hidden="true" class="usa-icon usa-icon--size-4 pmc-icon__open" />
+                <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/close.svg" alt="PMC search close ison" aria-hidden="true" class="usa-icon usa-icon--size-4 pmc-icon__close" />
+            </button>
+        </div>
+        <div class="pmc-header__search">
+            
+
+
+<form class="usa-search usa-search--extra usa-search--article-right-column  pmc-header__search__form" id="pmc-search-form" autocomplete="off" role="search">
+<label class="usa-sr-only" for="pmc-search">Search PMC Full-Text Archive</label>
+<span class="autoComplete_wrapper flex-1">
+<input class="usa-input width-full maxw-none" required="required" placeholder="Search PMC Full-Text Archive" id="pmc-search"  type="search" name="term" data-autocomplete-url="https://pmc.ncbi.nlm.nih.gov/autocomp/search/autocomp/"/>
+</span>
+<button
+class="usa-button"
+type="submit"
+formaction="https://pmc.ncbi.nlm.nih.gov/search/"
+data-ga-category="search"
+data-ga-action="PMC"
+data-ga-label="PMC_search_button"
+>
+<span class="usa-search__submit-text">Search in PMC</span>
+<img
+src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons-bg/search--white.svg"
+class="usa-search__submit-icon"
+alt="Search"
+/>
+</button>
+</form>
+            <div class="display-flex flex-column tablet:flex-row tablet:flex-justify flex-justify-center flex-align-center width-full desktop:maxw-44">
+                <ul class="pmc-header__search__menu">
+                    <li>
+                        
+                            <a class="usa-link" href="/journals/" data-ga-action="featured_link" data-ga-label="journal list">
+                                Journal List
+                            </a>
+                        
+                    </li>
+                    <li>
+                        
+                            <a class="usa-link" href="/about/userguide/" data-ga-action="featured_link"
+                            data-ga-label="user guide">
+                                User Guide
+                            </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+
+
+        
+        
+
+       
+  <div class="usa-section padding-top-0 desktop:padding-top-6 pmc-article-section" data-article-db="pmc" data-article-id="2691472">
+
+    
+
+   
+
+
+
+<div class="grid-container pmc-actions-bar" aria-label="Actions bar" role="complementary">
+    <div class="grid-row">
+        <div class="grid-col-fill display-flex">
+             <div class="display-flex">
+                <ul class="usa-list usa-list--unstyled usa-list--horizontal">
+                    <li class="margin-right-2 mobile-lg:margin-right-4 display-flex mob">
+                        <button
+                                type="button"
+                                class="usa-button pmc-sidenav__container__open usa-button--unstyled width-auto display-flex"
+                                aria-label="Open resources"
+                                data-extra-class="is-visible-resources"
+                                data-ga-category="resources_accordion"
+                                data-ga-action="click"
+                                data-ga-label="mobile_icon"
+                        >
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/more_vert.svg" alt="Open resources icon" class="usa-icon usa-icon--size-4 usa-icon--link" />
+                        </button>
+                    </li>
+                    
+                    <li class="margin-right-2 mobile-lg:margin-right-4 display-flex mob">
+                        <a
+                                href="https://doi.org/10.1208/s12248-009-9112-5"
+                                class="usa-link display-flex usa-tooltip"
+                                role="button"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                title="View on publisher site"
+                                data-position="bottom"
+                                aria-label="View on publisher site"
+                                data-ga-category="actions"
+                                data-ga-action="click"
+                                data-ga-label="publisher_link_mobile"
+                        >
+                                <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/launch.svg" alt="View on publisher site icon" class="usa-icon usa-icon--size-4 usa-icon--link" />
+                        </a>
+                    </li>
+                    
+                    
+                        <li class="margin-right-2 mobile-lg:margin-right-4 display-flex">
+                             <a
+                                     href="pdf/12248_2009_Article_9112.pdf"
+                                     class="usa-link display-flex usa-tooltip"
+                                     role="button"
+                                     title="Download PDF"
+                                     data-position="bottom"
+                                     aria-label="Download PDF"
+                                     data-ga-category="actions"
+                                     data-ga-action="click"
+                                     data-ga-label="pdf_download_mobile"
+                             >
+
+                                 <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/file_download.svg" alt="Download PDF icon" aria-hidden="true" class="usa-icon usa-icon--size-4 usa-icon--link" />
+                            </a>
+                        </li>
+                    
+                    <li class="margin-right-2 mobile-lg:margin-right-4 display-flex">
+                        <button
+                            class="usa-button usa-button--unstyled  usa-tooltip collections-dialog-trigger collections-button display-flex collections-button-empty"
+                            title="Add to Collections"
+                            data-position="bottom"
+                            aria-label="Save article in MyNCBI collections."
+                            data-ga-category="actions"
+                            data-ga-action="click"
+                            data-ga-label="collections_button_mobile"
+                            data-collections-open-dialog-enabled="false"
+                            data-collections-open-dialog-url="https://account.ncbi.nlm.nih.gov/?back_url=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC2691472%2F%23open-collections-dialog"
+                            data-in-collections="false"
+                        >
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/action-bookmark-full.svg" alt="Collections icon" aria-hidden="true" class="usa-icon usa-icon--size-4 usa-icon--link usa-icon--bookmark-full" />
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/action-bookmark-empty.svg" alt="Collections icon" aria-hidden="true" class="usa-icon usa-icon--size-4 usa-icon--link usa-icon--bookmark-empty" />
+                        </button>
+                    </li>
+                    
+                    <li class="margin-right-2 mobile-lg:margin-right-4 display-flex">
+                        <button role="button" class="usa-button usa-button--unstyled usa-tooltip citation-dialog-trigger display-flex"
+                            aria-label="Open dialog with citation text in different styles"
+                            title="Cite"
+                            data-position="bottom"
+                            data-ga-category="actions"
+                            data-ga-action="open"
+                            data-ga-label="cite_mobile"
+                            data-all-citations-url="/resources/citations/2691472/"
+                            data-citation-style="nlm"
+                            data-download-format-link="/resources/citations/2691472/export/"
+                        >
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/format_quote.svg" alt="Cite icon" aria-hidden="true" class="usa-icon usa-icon--size-4 usa-icon--link" />
+                        </button>
+                    </li>
+                    
+                    <li class="pmc-permalink display-flex" >
+                         <button
+                                 type="button"
+                                 title="Permalink"
+                                 data-position="bottom"
+                                 class="usa-button usa-button--unstyled display-flex usa-tooltip"
+                                 aria-label="Show article permalink"
+                                 aria-expanded="false"
+                                 aria-haspopup="true"
+                                 data-ga-category="actions"
+                                 data-ga-action="open"
+                                 data-ga-label="permalink_mobile"
+                         >
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/share.svg" alt="Show article permalink icon" aria-hidden="true" class="usa-icon usa-icon--size-4 usa-icon--link" />
+                        </button>
+                        
+
+<div class="pmc-permalink__dropdown" hidden>
+    <div class="pmc-permalink__dropdown__container">
+          <h2 class="usa-modal__heading margin-top-0 margin-bottom-2 text-uppercase font-sans-xs">PERMALINK</h2>
+          <div class="pmc-permalink__dropdown__content">
+              <input type="text" class="usa-input" value="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/" aria-label="Article permalink">
+              <button class="usa-button display-inline-flex pmc-permalink__dropdown__copy__btn margin-right-0" title="Copy article permalink" data-ga-category="save_share" data-ga-action="link" data-ga-label="copy_link">
+                  <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/content_copy.svg" alt="Copy icon" aria-hidden="true" class="usa-icon usa-icon--white" />
+                  <span class="margin-left-1">Copy</span>
+              </button>
+          </div>
+    </div>
+</div>
+                    </li>
+                </ul>
+            </div>
+            <button
+                    type="button"
+                    class="usa-button pmc-sidenav__container__open usa-button--unstyled width-auto display-flex"
+                    aria-label="Open article navigation"
+                    data-extra-class="is-visible-in-page"
+                    data-ga-category="actions"
+                    data-ga-action="open"
+                    data-ga-label="article_nav_mobile"
+            >
+                <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/list.svg" alt="Open article navigation icon" aria-hidden="true" class="usa-icon usa-icon--size-4 usa-icon--link" />
+            </button>
+        </div>
+    </div>
+</div>
+    <div class="grid-container desktop:padding-left-6">
+      <div id="article-container" class="grid-row grid-gap">
+        <div class="grid-col-12 desktop:grid-col-8 order-2 pmc-layout__content">
+            <div class="grid-container padding-left-0 padding-right-0">
+                <div class="grid-row desktop:margin-left-neg-6">
+                    <div class="grid-col-12">
+                        <div class="pmc-layout__disclaimer" role="complementary" aria-label="Disclaimer note">
+    As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with,
+    the contents by NLM or the National Institutes of Health.<br/>
+    Learn more:
+    <a class="usa-link" data-ga-category="Link click" data-ga-action="Disclaimer" data-ga-label="New disclaimer box" href="/about/disclaimer/">PMC Disclaimer</a>
+    |
+    <a class="usa-link" data-ga-category="Link click" data-ga-action="PMC Copyright Notice" data-ga-label="New disclaimer box" href="/about/copyright/">
+        PMC Copyright Notice
+    </a>
+</div>
+                    </div>
+                </div>
+                <div class="grid-row pmc-wm desktop:margin-left-neg-6">
+                    <!-- Main content -->
+                    <main
+                      id="main-content"
+                      class="usa-layout-docs__main usa-layout-docs grid-col-12 pmc-layout pmc-prose padding-0"
+                    >
+
+                      
+                        <section class="pmc-journal-banner text-center line-height-none" aria-label="Journal banner"><img src="https://cdn.ncbi.nlm.nih.gov/pmc/banners/logo-aapsj.jpg" alt="The AAPS Journal logo" usemap="#pmc-banner-imagemap" width="500" height="75"><map name="pmc-banner-imagemap"><area alt="Link to The AAPS Journal" title="Link to The AAPS Journal" shape="default" href="https://link.springer.com/journal/12248" target="_blank" rel="noopener noreferrer"></map></section><article lang="en"><section aria-label="Article citation and metadata"><section class="pmc-layout__citation font-secondary font-xs"><div>
+<div class="display-inline-block"><button type="button" class="cursor-pointer text-no-underline bg-transparent border-0 padding-0 text-left margin-0 text-normal text-primary" aria-controls="journal_context_menu">AAPS J</button></div>. 2009 May 19;11(2):371–380. doi: <a href="https://doi.org/10.1208/s12248-009-9112-5" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">10.1208/s12248-009-9112-5</a>
+</div>
+<nav id="journal_context_menu" hidden="hidden"><ul class="menu-list font-family-ui" role="menu">
+<li role="presentation"><a href='https://pmc.ncbi.nlm.nih.gov/search/?term="AAPS%20J"[jour]' class="usa-link" role="menuitem">Search in PMC</a></li>
+<li role="presentation"><a href='https://pubmed.ncbi.nlm.nih.gov/?term="AAPS%20J"[jour]' lang="en" class="usa-link" role="menuitem">Search in PubMed</a></li>
+<li role="presentation"><a href='https://www.ncbi.nlm.nih.gov/nlmcatalog?term="AAPS%20J"[Title%20Abbreviation]' class="usa-link" role="menuitem">View in NLM Catalog</a></li>
+<li role="presentation"><a href='?term="AAPS%20J"[jour]' class="usa-link" role="menuitem" data-add-to-search="true">Add to search</a></li>
+</ul></nav></section><section class="front-matter"><div class="ameta p font-secondary font-xs">
+<hgroup><h1>Handling Data Below the Limit of Quantification in Mixed Effect Models</h1></hgroup><div class="cg p">
+<a href='https://pubmed.ncbi.nlm.nih.gov/?term="Bergstrand%20M"[Author]' class="usa-link" aria-describedby="id1"><span class="name western">Martin Bergstrand</span></a><div hidden="hidden" id="id1">
+<h3><span class="name western">Martin Bergstrand</span></h3>
+<div class="p">
+<sup>1</sup>Department of Pharmaceutical Biosciences, Uppsala University, P.O. Box 591, 751 24 Uppsala, Sweden</div>
+<div class="p">Find articles by <a href='https://pubmed.ncbi.nlm.nih.gov/?term="Bergstrand%20M"[Author]' class="usa-link"><span class="name western">Martin Bergstrand</span></a>
+</div>
+</div>
+<sup>1,</sup><sup>✉</sup>, <a href='https://pubmed.ncbi.nlm.nih.gov/?term="Karlsson%20MO"[Author]' class="usa-link" aria-describedby="id2"><span class="name western">Mats O Karlsson</span></a><div hidden="hidden" id="id2">
+<h3><span class="name western">Mats O Karlsson</span></h3>
+<div class="p">
+<sup>1</sup>Department of Pharmaceutical Biosciences, Uppsala University, P.O. Box 591, 751 24 Uppsala, Sweden</div>
+<div class="p">Find articles by <a href='https://pubmed.ncbi.nlm.nih.gov/?term="Karlsson%20MO"[Author]' class="usa-link"><span class="name western">Mats O Karlsson</span></a>
+</div>
+</div>
+<sup>1</sup>
+</div>
+<ul class="d-buttons inline-list">
+<li><button class="d-button" aria-controls="aip_a" aria-expanded="false">Author information</button></li>
+<li><button class="d-button" aria-controls="anp_a" aria-expanded="false">Article notes</button></li>
+<li><button class="d-button" aria-controls="clp_a" aria-expanded="false">Copyright and License information</button></li>
+</ul>
+<div class="d-panels font-secondary-light">
+<div id="aip_a" class="d-panel p" style="display: none">
+<div class="p" id="Aff1">
+<sup>1</sup>Department of Pharmaceutical Biosciences, Uppsala University, P.O. Box 591, 751 24 Uppsala, Sweden</div>
+<div class="author-notes p"><div class="fn" id="_fncrsp93pmc__">
+<sup>✉</sup><p class="display-inline">Corresponding author.</p>
+</div></div>
+</div>
+<div id="anp_a" class="d-panel p" style="display: none"><div class="notes p"><section id="historyarticle-meta1" class="history"><p>Received 2008 Nov 10; Accepted 2009 Apr 20; Collection date 2009 Jun.</p></section></div></div>
+<div id="clp_a" class="d-panel p" style="display: none">
+<div>© American Association of Pharmaceutical Scientists 2009</div>
+<div class="p"><a href="/about/copyright/" class="usa-link">PMC Copyright notice</a></div>
+</div>
+</div>
+<div>PMCID: PMC2691472  PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/19452283/" class="usa-link">19452283</a>
+</div>
+</div></section></section><section aria-label="Article content"><section class="body main-article-body"><section class="abstract" id="Abs1"><h2>Abstract</h2>
+<p>The purpose of this study is to investigate the impact of observations below the limit of quantification (BQL) occurring in three distinctly different ways and assess the best method for prevention of bias in parameter estimates and for illustrating model fit using visual predictive checks (VPCs). Three typical ways in which BQL can occur in a model was investigated with simulations from three different models and different levels of the limit of quantification (LOQ). Model A was used to represent a case with BQL observations in an absorption phase of a PK model whereas model B represented a case with BQL observations in the elimination phase. The third model, C, an indirect response model illustrated a case where the variable of interest in some cases decreases below the LOQ before returning towards baseline. Different approaches for handling of BQL data were compared with estimation of the full dataset for 100 simulated datasets following models A, B, and C. An improved standard for VPCs was suggested to better evaluate simulation properties both for data above and below LOQ. Omission of BQL data was associated with substantial bias in parameter estimates for all tested models even for seemingly small amounts of censored data. Best performance was seen when the likelihood of being below LOQ was incorporated into the model. In the tested examples this method generated overall unbiased parameter estimates. Results following substitution of BQL observations with LOQ/2 were in some cases shown to introduce bias and were always suboptimal to the best method. The new standard VPCs was found to identify model misfit more clearly than VPCs of data above LOQ only.</p>
+<section id="kwd-group1" lang="en" class="kwd-group"><p><strong>Key words:</strong> likelihood, limit-of-quantification, NONMEM, visual-predictive-check</p></section></section><section id="Sec1"><h2 class="pmc_sec_title">INTRODUCTION</h2>
+<p>Bioanalytical laboratories traditionally define the lower limit of quantification (LOQ) as the lowest concentration on the standard curve that is associated with a coefficient of variation (CV) of less than 20%. The limit of 20% CV originates primarily from the FDA Guidance for Industry Bioanalytical Method Validation (<a href="#CR1" class="usa-link" aria-describedby="CR1">1</a>). Samples associated with a signal less than LOQ are by this standard reported as below the quantification limit (BQL). Common approaches for handling of concentration measurements reported as BQL, such as discharging the information or substitution with the LOQ divided by two, have been shown to introduce bias in parameter estimates (<a href="#CR2" class="usa-link" aria-describedby="CR2">2</a>–<a href="#CR4" class="usa-link" aria-describedby="CR4">4</a>). In 2001, Stuart Beal published an overview of ways to fit a PK model in the presence of BQL data (<a href="#CR5" class="usa-link" aria-describedby="CR5">5</a>). The method referred to as M2 in the publication applies conditional likelihood estimation to the observations above LOQ and the likelihood for the data being above LOQ are maximized with respect to the model parameters. This approach can be implemented in NONMEM VI by utilization of the YLO functionality (<a href="#CR6" class="usa-link" aria-describedby="CR6">6</a>). The methods M3 and M4 also suggested by Beal are based on simultaneous modeling of continuous and categorical data where the BQL observations are treated as categorical data. The likelihood for BQL observations are maximized with respect to the model parameters and the likelihood for an observation is taken to be the likelihood that it is indeed below LOQ. M4 differs from M3 by the fact that it conditions on the observations being greater than zero. An alternative to using M4 is to log-transform the dependent variable and use the somewhat simpler M3 approach. The possibility for simultaneous modeling of continuous and categorical data is improved in NONMEM VI and easily implemented by the use of the indication variable F_FLAG. The use of this feature has been reported to improve the performance of the M3 method compared to the original implementation (<a href="#CR3" class="usa-link" aria-describedby="CR3">3</a>,<a href="#CR7" class="usa-link" aria-describedby="CR7">7</a>).</p>
+<p>The influence of BQL samples and the performance of the likelihood based methods have previously only been assessed for the case where BQL samples occur in the terminal elimination phase of a one- or two-compartment PK model (<a href="#CR5" class="usa-link" aria-describedby="CR5">5</a>,<a href="#CR7" class="usa-link" aria-describedby="CR7">7</a>,<a href="#CR8" class="usa-link" aria-describedby="CR8">8</a>). However BQL samples also frequently occur in the absorption phase of PK models and in various ways in PD models for continuous biomarkers.</p>
+<p>Visual predictive check (VPC) is a valuable tool in diagnosing the performance of mixed effect models (<a href="#CR9" class="usa-link" aria-describedby="CR9">9</a>). The presence of non-randomly censored data such as BQL samples should be taken into account when producing VPCs in order to not introduce bias in comparison of observations and model predictions. This publication includes a suggested extension to the traditional VPC to better diagnose models in the presence of BQL samples.</p></section><section id="Sec2"><h2 class="pmc_sec_title">MATERIALS AND METHODS</h2>
+<section id="Sec3"><h3 class="pmc_sec_title">Software</h3>
+<p>Simulation and estimation was carried out using a non-linear mixed effects approach as implemented in the NONMEM software version VI, level 1.0 (ICON Development Solutions, Ellicott City, MD) (<a href="#CR6" class="usa-link" aria-describedby="CR6">6</a>). Automation of NONMEM in terms of simulation, estimation, and data collection was performed with the software Perl-speaks-NONMEM (<a href="#CR10" class="usa-link" aria-describedby="CR10">10</a>,<a href="#CR11" class="usa-link" aria-describedby="CR11">11</a>). Post-processing of NONMEM simulations to create VPC plots was done using Xpose 4.0.1 as implemented in the statistical programming language R (<a href="#CR12" class="usa-link" aria-describedby="CR12">12</a>,<a href="#CR13" class="usa-link" aria-describedby="CR13">13</a>). All NONMEM code can be provided upon request.</p></section><section id="Sec4"><h3 class="pmc_sec_title">Simulation</h3>
+<p>Three distinctly different models were used for simulation. Model A was a one compartment model with oral dosing and absorption transit compartments (<a href="#CR14" class="usa-link" aria-describedby="CR14">14</a>). In the simulated datasets BQL observations were located with absolute predominance in the absorption phase. Model B was a two-compartment model with intravenous dosing. Model C was an indirect response model where <em>K</em><sub>out</sub> increased linearly with drug concentration (<a href="#CR15" class="usa-link" aria-describedby="CR15">15</a>). The effect driving drug concentration followed a fixed one-compartment model with oral absorption (not estimated). The typical parameter values and variability for all models are provided in Table <a href="#Tab1" class="usa-link">I</a>. Log-transformation of the dependent variable was applied for all models to avoid negative predictions. An exponential error model (Eq. <a href="#Equ1" class="usa-link">1</a>) was used for inter-individual variability (IIV). The residual unexplained variability (RUV) was simulated using an error model designed to mimic combined proportional/additive error within the relevant prediction range (Eqs. <a href="#Equ2" class="usa-link">2</a> and <a href="#Equ3" class="usa-link">3</a>). The additive component (proportional on normal scale) of the residual error model (<em>w</em><sub>1</sub>) was set to 0.1 (10%) in all simulations and the constant <em>w</em><sub>h</sub> was set to 0.5. Each model was simulated with three different values for <em>w</em><sub>2</sub>. The assumed LOQ levels were chosen so that the CV of RUV was equal to 20% at this typical prediction. Values for <em>w</em><sub>2</sub> and corresponding LOQ are presented in Table <a href="#Tab1" class="usa-link">I</a>. For each model and value for <em>w</em><sub>2</sub>, 100 datasets were simulated.
+</p>
+<table class="disp-formula p" id="Equ1"><tr>
+<td class="formula"><img class="graphic" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/d1c4ef6babbb/M1.gif" loading="lazy" id="M1" alt="graphic file with name M1.gif"></td>
+<td class="label">1</td>
+</tr></table>
+<table class="disp-formula p" id="Equ2"><tr>
+<td class="formula"><img class="graphic" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/37fa1b2c40c2/M2.gif" loading="lazy" id="M2" alt="graphic file with name M2.gif"></td>
+<td class="label">2</td>
+</tr></table>
+<table class="disp-formula p" id="Equ3"><tr>
+<td class="formula"><img class="graphic" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/8ee4988be654/M3.gif" loading="lazy" id="M3" alt="graphic file with name M3.gif"></td>
+<td class="label">3</td>
+</tr></table>
+<table class="disp-formula p" id="Equ4"><tr>
+<td class="formula"><img class="graphic" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/98ab1e577e65/M4.gif" loading="lazy" id="M4" alt="graphic file with name M4.gif"></td>
+<td class="label">4</td>
+</tr></table>
+<dl class="def-list">
+<dt>
+<em>p</em><sub><em>i</em></sub>
+</dt>
+<dd><p>Parameter for individual <em>i</em></p></dd>
+<dt><em>p</em></dt>
+<dd><p>Typical value of parameter</p></dd>
+<dt>
+<em>η</em><sub><em>i</em></sub>
+</dt>
+<dd><p>Inter-individual random effects</p></dd>
+<dt>
+<em>y</em><sub><em>ij</em></sub>
+</dt>
+<dd><p>j<sup>th</sup> observation in the <em>i</em><sup>th</sup> individual</p></dd>
+<dt>
+<em>f</em><sub><em>ij</em></sub>
+</dt>
+<dd><p>Model predicted value for <em>y</em><sub><em>ij</em></sub></p></dd>
+<dt>
+<em>ε</em><sub><em>ij</em></sub>
+</dt>
+<dd><p>Residual random effects</p></dd>
+<dt>
+<em>σ</em><sub><em>ij</em></sub>
+</dt>
+<dd><p>Variance of <em>ε</em><sub><em>ij</em></sub></p></dd>
+<dt>
+<em>w</em><sub>1</sub>
+</dt>
+<dd><p>Additive residual error term (0.1)</p></dd>
+<dt>
+<em>w</em><sub>2</sub>
+</dt>
+<dd><p>Second residual error term</p></dd>
+<dt>
+<em>w</em><sub>h</sub>
+</dt>
+<dd><p>Constant modulating <em>w</em><sub>2</sub></p></dd>
+</dl>
+<section class="tw xbox font-sm" id="Tab1"><h4 class="obj_head">Table I.</h4>
+<div class="caption p"><p>Experimental Set-up for Model A, B, and C Regarding Parameterization, Sample Size, and Sampling Schedule</p></div>
+<div class="tbl-box p" tabindex="0"><table class="content" frame="hsides" rules="groups">
+<thead>
+<tr>
+<th rowspan="2" colspan="1">Model</th>
+<th rowspan="2" colspan="1">Description</th>
+<th rowspan="2" colspan="1">Parameterization</th>
+<th rowspan="2" colspan="1">Design</th>
+<th colspan="3" rowspan="1">W<sub>2</sub>/LOQ/BQL</th>
+</tr>
+<tr>
+<th colspan="1" rowspan="1">I</th>
+<th colspan="1" rowspan="1">II</th>
+<th colspan="1" rowspan="1">III</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">A</td>
+<td colspan="1" rowspan="1">One compartment model with oral dosing and absorption transit compartments, BQL data in absorption phase</td>
+<td colspan="1" rowspan="1">Absorption rate constant (KA = 1), mean transit time (MTT = 1.5), number of transit compartments (NTC = 10), clearance (CL = 1), distribution volume (VC = 30). Log-normal intra individual variability of 30% for all typical parameters. Log transformed DV</td>
+<td colspan="1" rowspan="1">100 studies of 100 individuals with 7 samples: 1, 2, 3, 4, 6, 12 and 24 h post-dose</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.3, LOQ: 0.2, BQL: 12% of all; 28% of samples 1–3</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.45, LOQ: 0.4, BQL: 15% of all; 35% of samples 1–3</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.75, LOQ: 0.8, BQL: 19% of all; 44% of samples 1–3</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">B</td>
+<td colspan="1" rowspan="1">Two compartment model with iv dosing</td>
+<td colspan="1" rowspan="1">Clearance (CL = 5), central distribution volume (VC = 20), inter compartment clearance (Q = 5), peripheral distribution volume (VP = 100). Log-normal intra individual variability of 30% for all typical parameters. Log transformed DV</td>
+<td colspan="1" rowspan="1">100 studies of 100 individuals with 5 samples. Sampling intervals: 0–1, 1–2, 2–6, 8–12, and 12–24 h</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.55, LOQ: 1.25, BQL: 10% of all; 40% of last sample</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.7 LOQ: 1.75 BQL: 20% of all; 70% of last sample</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.9, LOQ: 2.5, BQL: 30% of all; 90% of last sample</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">C</td>
+<td colspan="1" rowspan="1">Indirect response model with drug concentration effect on <em>K</em>
+<sub>OUT</sub> drug concentration following fix one comp mod</td>
+<td colspan="1" rowspan="1">Baseline (BASE = 10), first order elimination constantan (<em>K</em>
+<sub>OUT</sub> = 0.015), linear drug concentration effect on <em>K</em>
+<sub>OUT</sub> (SLOP = 10). Log-normal intra individual variability of 30% for all typical parameters. Log transformed DV</td>
+<td colspan="1" rowspan="1">100 studies of 100 individuals with 5 samples: 0, 10, 20, 30, and 200 h</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.65, LOQ: 1.6, BQL: 10% of all; 17% of samples 2–4</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.75, LOQ: 2, BQL: 18% of all; 30% of samples 2–4</td>
+<td colspan="1" rowspan="1">W<sub>2</sub>: 0.9, LOQ: 2.5, BQL: 28% of all; 46% of samples 2–4</td>
+</tr>
+</tbody>
+</table></div>
+<div class="p text-right font-secondary"><a href="table/Tab1/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<div class="tw-foot p"><div class="fn" id="_fn_p41"><p>In the right hand end of the table parameter value <em>W</em>
+<sub>2</sub>, limit of quantification (LOQ) and approximate percentage of BQL samples associated with version I, II and III of each model</p></div></div></section></section><section id="Sec5"><h3 class="pmc_sec_title">Estimation</h3>
+<p>Eight different methods were used to fit the simulated data (Table <a href="#Tab2" class="usa-link">II</a>). Estimation with the entire datasets without any assumed BQL samples (a), with BQL samples omitted (b), and with BQL samples substituted with LOQ divided by two (LOQ/2) (c). For model B and C, the first in the time series of BQL measurements was substituted with LOQ/2. In the absorption case (model A) all BQL observations was substituted with LOQ/2. The estimation alternatives a, b, and c was performed both with the first order conditional estimation method with interaction (FOCE INTER) and with addition of the LAPLACIAN option. The LAPLACIAN option was necessary for the execution of the likelihood based methods M2 (d) and M3 (e) in NONMEM VI. The M2 method was implemented by setting the YLO parameter to the LOQ value. The M3 method was implemented with the built in NONMEM VI functionality F_FLAG. For the observations above the LOQ, F_FLAG was set to 0 (a prediction) whereas for the BQL observations, it was set to 1 (a likelihood). Coding and explicit likelihood expressions for the M2 and M3 method as implemented in NONMEM are presented in the paper by Ahn <em>et al</em>. (<a href="#CR7" class="usa-link" aria-describedby="CR7">7</a>).</p>
+<section class="tw xbox font-sm" id="Tab2"><h4 class="obj_head">Table II.</h4>
+<div class="caption p"><p>Description of the Applied Estimation Methods</p></div>
+<div class="tbl-box p" tabindex="0"><table class="content" frame="hsides" rules="groups">
+<thead><tr>
+<th colspan="1" rowspan="1">Annotation</th>
+<th colspan="1" rowspan="1">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">a<sub>F</sub>
+</td>
+<td colspan="1" rowspan="1">No data censored, FOCE INTER</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">a<sub>L</sub>
+</td>
+<td colspan="1" rowspan="1">No data censored, LAPLACIAN INTER</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">b<sub>F</sub>
+</td>
+<td colspan="1" rowspan="1">BQL omitted, FOCE INTER</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">b<sub>L</sub>
+</td>
+<td colspan="1" rowspan="1">BQL omitted, LAPLACIAN INTER</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">c<sub>F</sub>
+</td>
+<td colspan="1" rowspan="1">BQL substituted with LOQ/2, FOCE INTER</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">c<sub>L</sub>
+</td>
+<td colspan="1" rowspan="1">BQL substituted with LOQ/2, LAPLACIAN INTER</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">d</td>
+<td colspan="1" rowspan="1">M2 method implemented with YLO functionality</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">e</td>
+<td colspan="1" rowspan="1">M3 method implemented with F_FLAG functionality</td>
+</tr>
+</tbody>
+</table></div>
+<div class="p text-right font-secondary"><a href="table/Tab2/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div></section><p>On estimation, the residual error model used for simulations (Eq. <a href="#Equ3" class="usa-link">3</a>) was found to be unnecessarily complex. Instead a two-parameter residual error model (Eq. <a href="#Equ4" class="usa-link">4</a>) was used for model B and C. For model A, a simple additive error model described the data sufficiently well. An extra additive error model term was added for samples substituted with LOQ/2. All other fixed and random effects parameters and the model remained the same compared to the simulation model.</p></section><section id="Sec6"><h3 class="pmc_sec_title">Evaluation</h3>
+<p>The bias and precision in parameter estimates were assessed as a percent mean prediction error (mpe) and root mean squared prediction error (rmse), respectively. Judgment of significant bias was based on 99% confidence intervals for mpe excluding zero. The ratios of parameter estimates divided by the true parameter (pr) value are depicted in box-plots for graphical comparison of the different methods.</p></section><section id="Sec7"><h3 class="pmc_sec_title">Visual Predictive Check</h3>
+<p>VPC graphs were created for one example dataset for each model and estimation method. Each VPC was based on 500 datasets simulated with the obtained final parameter estimates. A two panel type of VPC was chosen to evaluate the model with respect to both data above and below LOQ. The top panel shows a comparison of the median and 95% prediction interval for the simulated data and the corresponding percentiles for the observed data over time. The bottom panel compares a simulation based 95% confidence interval for the fraction of BQL samples. Based on the 500 simulated datasets 95% non-parametric confidence intervals are calculated for the median and 95% prediction interval. When the corresponding percentile from the observed data falls outside the 95% confidence interval this is an indication of a misspecification. To ensure correctly calculated percentiles all BQL samples are retained in the dataset. Percentiles for observed data can only be adequately calculated and presented for percentiles where BQL data constitute a smaller fraction than the percentile in question. The bottom panel compares simulation-based 95% confidence intervals for the fraction of BQL samples to the observed fraction of BQL samples over time. For model B binning across the independent variable time was done for both plots so that one bin was created for each sampling window (0–1, 1–2, 2–6, 8–12, and 12–24 h).</p></section></section><section id="Sec8"><h2 class="pmc_sec_title">RESULTS</h2>
+<p>Figures <a href="#Fig1" class="usa-link">1</a>, <a href="#Fig2" class="usa-link">2</a>, and <a href="#Fig3" class="usa-link">3</a> include box-plots for a selection of model parameters from model A, B, and C. Only estimation alternatives with Laplacian estimation are presented. Similar but not identical results was seen for methods a<sub>f</sub>, b<sub>f</sub>, and c<sub>f</sub> with FOCE estimation. Although not shown separately, all reports below about bias were supported by evaluations of mpe being significantly (<em>p</em> &lt; 0.01) different from zero or not. Figures <a href="#Fig4" class="usa-link">4</a> and <a href="#Fig5" class="usa-link">5</a> contain examples of VPC plots for model B and C given estimation with BQL data omitted, substituted with LOQ/2 or with the M3 method applied. The rate of successful minimizations and covariance steps for each model and applied method are listed in Table <a href="#Tab3" class="usa-link">III</a>.
+</p>
+<figure class="fig xbox font-sm" id="Fig1"><h3 class="obj_head">Fig. 1.</h3>
+<p class="img-box line-height-none margin-x-neg-2 tablet:margin-x-0 text-center"><a class="tileshop" target="_blank" href="https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&amp;p=PMC3&amp;id=2691472_12248_2009_9112_Fig1_HTML.jpg"><img class="graphic zoom-in" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/05eaf4d6b60c/12248_2009_9112_Fig1_HTML.jpg" loading="lazy" id="MO1" height="1030" width="777" alt="Fig. 1"></a></p>
+<div class="p text-right font-secondary"><a href="figure/Fig1/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<figcaption><p>
+<em>Box-plots</em> depicting parameter estimates (<em>n</em> = 100 per box) divided by true parameter values for a selection of parameters from model A. Absorption rate constant (<em>KA</em>), mean transit time (<em>MTT</em>), number of transit compartments (<em>NTC</em>) and corresponding interindividual variability (<em>IIV</em>). Results presented for method a, b, c (Laplacian), d and e and for LOQ level I, II and III</p></figcaption></figure><figure class="fig xbox font-sm" id="Fig2"><h3 class="obj_head">Fig. 2.</h3>
+<p class="img-box line-height-none margin-x-neg-2 tablet:margin-x-0 text-center"><a class="tileshop" target="_blank" href="https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&amp;p=PMC3&amp;id=2691472_12248_2009_9112_Fig2_HTML.jpg"><img class="graphic zoom-in" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/fe57eb216f68/12248_2009_9112_Fig2_HTML.jpg" loading="lazy" id="MO2" height="1027" width="777" alt="Fig. 2"></a></p>
+<div class="p text-right font-secondary"><a href="figure/Fig2/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<figcaption><p>
+<em>Box-plots</em> depicting parameter estimates (<em>n</em> = 100 per box) divided by true parameter values for a selection of parameters from model B. Clearance (<em>CL</em>), inter-compartment clearance (<em>Q</em>), peripheral distribution volume (<em>VP</em>), and corresponding inter-individual variability (<em>IIV</em>). Results presented for method a, b, c (Laplacian), d and e and for LOQ level I, II and III</p></figcaption></figure><figure class="fig xbox font-sm" id="Fig3"><h3 class="obj_head">Fig. 3.</h3>
+<p class="img-box line-height-none margin-x-neg-2 tablet:margin-x-0 text-center"><a class="tileshop" target="_blank" href="https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&amp;p=PMC3&amp;id=2691472_12248_2009_9112_Fig3_HTML.jpg"><img class="graphic zoom-in" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/0093e1f8d44f/12248_2009_9112_Fig3_HTML.jpg" loading="lazy" id="MO3" height="1030" width="777" alt="Fig. 3"></a></p>
+<div class="p text-right font-secondary"><a href="figure/Fig3/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<figcaption><p>
+<em>Box-plots</em> depicting parameter estimates (<em>n</em> = 100 per box) divided by true parameter values for a selection of parameters from model C. Drug concentration effect on <em>K</em>
+<sub>out</sub> (SLOP), first order elimination constantan (KOUT), baseline (BASE), and corresponding inter-individual variability (IIV). Results presented for method a, b, c (Laplacian), d and e and for LOQ level I, II and III</p></figcaption></figure><figure class="fig xbox font-sm" id="Fig4"><h3 class="obj_head">Fig. 4.</h3>
+<p class="img-box line-height-none margin-x-neg-2 tablet:margin-x-0 text-center"><img class="graphic" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/f079bfa6992f/12248_2009_9112_Fig4_HTML.jpg" loading="lazy" id="MO4" height="378" width="741" alt="Fig. 4"></p>
+<div class="p text-right font-secondary"><a href="figure/Fig4/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<figcaption><p>Example of visual predictive check (VPC) for model B (LOQ level II) following estimation with BQL data omitted (<em>left</em>), BQL dataset to LOQ/2 (<em>middle</em>), and the M3 method (<em>right</em>). The <em>upper panels</em> show simulation-based 95% confidence intervals around the 97.5th, 50th, and 2.5th percentiles of the continuous data in the form of <em>blue areas</em>. The corresponding percentiles from the observed data are plotted in <em>red color</em> (can only be plotted for observations above LOQ). The <em>horizontal gray line</em> represents the LOQ. The <em>lower panels</em> show simulation based 95% confidence intervals (<em>dotted blue line</em>) around the median (<em>solid blue line</em>) for the fraction of BQL observations. The observed fraction BQL samples are represented with a <em>dashed red line</em>
+</p></figcaption></figure><figure class="fig xbox font-sm" id="Fig5"><h3 class="obj_head">Fig. 5.</h3>
+<p class="img-box line-height-none margin-x-neg-2 tablet:margin-x-0 text-center"><img class="graphic" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/185f9fe2c645/12248_2009_9112_Fig5_HTML.jpg" loading="lazy" id="MO5" height="377" width="741" alt="Fig. 5"></p>
+<div class="p text-right font-secondary"><a href="figure/Fig5/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<figcaption><p>Example of visual predictive check (VPC) for model C (LOQ level II) following estimation with BQL data omitted (<em>left</em>), BQL dataset to LOQ/2 (<em>middle</em>), and the M3 method (<em>right</em>). The <em>upper panels</em> show simulation-based 95% confidence intervals around the 97.5th, 50th, and 2.5th percentiles of the continuous data in the form of <em>blue areas</em>. The corresponding percentiles from the observed data are plotted in <em>red color</em> (can only be plotted for observations above LOQ). The <em>horizontal gray line</em> represents the LOQ. The <em>lower panels</em> show simulation based 95% confidence intervals (<em>dotted blue line</em>) around the median (<em>solid blue line</em>) for the fraction of BQL observations. The observed fraction BQL samples are represented with a <em>dashed red line</em>
+</p></figcaption></figure><section class="tw xbox font-sm" id="Tab3"><h3 class="obj_head">Table III.</h3>
+<div class="caption p"><p>Percentage of Successful Minimizations (Percentage of Successful Covariance Steps) with the Applied Methods for Respectively Model and LOQ Level</p></div>
+<div class="tbl-box p" tabindex="0"><table class="content" frame="hsides" rules="groups">
+<thead>
+<tr>
+<th rowspan="2" colspan="1">Method</th>
+<th colspan="3" rowspan="1">Model A</th>
+<th colspan="3" rowspan="1">Model B</th>
+<th colspan="3" rowspan="1">Model C</th>
+</tr>
+<tr>
+<th colspan="1" rowspan="1">I</th>
+<th colspan="1" rowspan="1">II</th>
+<th colspan="1" rowspan="1">III</th>
+<th colspan="1" rowspan="1">I</th>
+<th colspan="1" rowspan="1">II</th>
+<th colspan="1" rowspan="1">III</th>
+<th colspan="1" rowspan="1">I</th>
+<th colspan="1" rowspan="1">II</th>
+<th colspan="1" rowspan="1">III</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">All (a<sub>F</sub>)</td>
+<td align="center" colspan="1" rowspan="1">100 (93)</td>
+<td align="center" colspan="1" rowspan="1">100 (89)</td>
+<td align="center" colspan="1" rowspan="1">100 (85)</td>
+<td align="center" colspan="1" rowspan="1">99 (94)</td>
+<td align="center" colspan="1" rowspan="1">100 (94)</td>
+<td align="center" colspan="1" rowspan="1">100 (89)</td>
+<td align="center" colspan="1" rowspan="1">100 (99)</td>
+<td align="center" colspan="1" rowspan="1">100 (100)</td>
+<td align="center" colspan="1" rowspan="1">100 (100)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">All (a<sub>L</sub>)</td>
+<td align="center" colspan="1" rowspan="1">86 (20)</td>
+<td align="center" colspan="1" rowspan="1">90 (15)</td>
+<td align="center" colspan="1" rowspan="1">83 (18)</td>
+<td align="center" colspan="1" rowspan="1">95 (22)</td>
+<td align="center" colspan="1" rowspan="1">97 (39)</td>
+<td align="center" colspan="1" rowspan="1">96 (35)</td>
+<td align="center" colspan="1" rowspan="1">100 (90)</td>
+<td align="center" colspan="1" rowspan="1">99 (96)</td>
+<td align="center" colspan="1" rowspan="1">99 (92)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">Omit (b<sub>F</sub>)</td>
+<td align="center" colspan="1" rowspan="1">100 (66)</td>
+<td align="center" colspan="1" rowspan="1">99 (36)</td>
+<td align="center" colspan="1" rowspan="1">100 (32)</td>
+<td align="center" colspan="1" rowspan="1">100 (95)</td>
+<td align="center" colspan="1" rowspan="1">99 (71)</td>
+<td align="center" colspan="1" rowspan="1">100 (16)</td>
+<td align="center" colspan="1" rowspan="1">100 (99)</td>
+<td align="center" colspan="1" rowspan="1">100 (92)</td>
+<td align="center" colspan="1" rowspan="1">100 (88)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">Omit (b<sub>L</sub>)</td>
+<td align="center" colspan="1" rowspan="1">73 (19)</td>
+<td align="center" colspan="1" rowspan="1">72 (23)</td>
+<td align="center" colspan="1" rowspan="1">62 (24)</td>
+<td align="center" colspan="1" rowspan="1">87 (35)</td>
+<td align="center" colspan="1" rowspan="1">73 (25)</td>
+<td align="center" colspan="1" rowspan="1">33 (11)</td>
+<td align="center" colspan="1" rowspan="1">100 (80)</td>
+<td align="center" colspan="1" rowspan="1">100 (78)</td>
+<td align="center" colspan="1" rowspan="1">100 (60)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">LOQ/2 (c<sub>F</sub>)</td>
+<td align="center" colspan="1" rowspan="1">100 (43)</td>
+<td align="center" colspan="1" rowspan="1">99 (41)</td>
+<td align="center" colspan="1" rowspan="1">100 (16)</td>
+<td align="center" colspan="1" rowspan="1">99 (40)</td>
+<td align="center" colspan="1" rowspan="1">98 (23)</td>
+<td align="center" colspan="1" rowspan="1">98 (53)</td>
+<td align="center" colspan="1" rowspan="1">98 (83)</td>
+<td align="center" colspan="1" rowspan="1">96 (70)</td>
+<td align="center" colspan="1" rowspan="1">90 (66)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">LOQ/2 (c<sub>L</sub>)</td>
+<td align="center" colspan="1" rowspan="1">72 (14)</td>
+<td align="center" colspan="1" rowspan="1">69 (13)</td>
+<td align="center" colspan="1" rowspan="1">59 (5)</td>
+<td align="center" colspan="1" rowspan="1">95 (23)</td>
+<td align="center" colspan="1" rowspan="1">86 (18)</td>
+<td align="center" colspan="1" rowspan="1">70 (33)</td>
+<td align="center" colspan="1" rowspan="1">98 (84)</td>
+<td align="center" colspan="1" rowspan="1">98 (66)</td>
+<td align="center" colspan="1" rowspan="1">90 (59)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">M2 (d)</td>
+<td align="center" colspan="1" rowspan="1">79 (16)</td>
+<td align="center" colspan="1" rowspan="1">65 (18)</td>
+<td align="center" colspan="1" rowspan="1">50 (17)</td>
+<td align="center" colspan="1" rowspan="1">94 (31)</td>
+<td align="center" colspan="1" rowspan="1">95 (27)</td>
+<td align="center" colspan="1" rowspan="1">83 (26)</td>
+<td align="center" colspan="1" rowspan="1">99 (84)</td>
+<td align="center" colspan="1" rowspan="1">98 (80)</td>
+<td align="center" colspan="1" rowspan="1">99 (74)</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">M3 (e)</td>
+<td align="center" colspan="1" rowspan="1">65 (21)</td>
+<td align="center" colspan="1" rowspan="1">73 (22)</td>
+<td align="center" colspan="1" rowspan="1">75 (14)</td>
+<td align="center" colspan="1" rowspan="1">94 (33)</td>
+<td align="center" colspan="1" rowspan="1">91 (36)</td>
+<td align="center" colspan="1" rowspan="1">91 (26)</td>
+<td align="center" colspan="1" rowspan="1">94 (87)</td>
+<td align="center" colspan="1" rowspan="1">78 (93)</td>
+<td align="center" colspan="1" rowspan="1">70 (84)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="p text-right font-secondary"><a href="table/Tab3/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div></section><section id="Sec9"><h3 class="pmc_sec_title">Model A</h3>
+<p>Estimates of population mean and IIV for clearance (CL) and central distribution volume (VC) was not biased by the presence of BQL samples and similar for all investigated methods (results not presented). The absorption rate constant (KA), mean transit time (MTT), and number of transit compartments (NTC) parameters were all affected by omission of BQL data. A positive bias was introduced for KA and MTT whereas NTC was estimated with a negative bias. The same pattern and similar or worse performance was seen for substitution with LOQ/2. The M2 method did not generate unbiased parameter estimates but bias was less pronounced than for omission. Best performance was seen with the M3 method. Compared to the full dataset, an increased root mean squared prediction error but overall relatively unbiased mean parameter estimates were seen for the population mean parameters.</p>
+<p>The Laplacian method resulted more often than the FOCE method in non-successful terminations, in particular for model A (10–50%, see Table <a href="#Tab3" class="usa-link">III</a>). However, for model A (Fig. <a href="#Fig6" class="usa-link">6</a>) as well as models B and C (not shown), there was no apparent difference in parameter estimates between successful and non-successful terminations. It was therefore decided to present results for all runs independently of termination status.
+</p>
+<figure class="fig xbox font-sm" id="Fig6"><h4 class="obj_head">Fig. 6.</h4>
+<p class="img-box line-height-none margin-x-neg-2 tablet:margin-x-0 text-center"><a class="tileshop" target="_blank" href="https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click%20on%20image%20to%20zoom&amp;p=PMC3&amp;id=2691472_12248_2009_9112_Fig6_HTML.jpg"><img class="graphic zoom-in" src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f19a/2691472/d8586bdd29fa/12248_2009_9112_Fig6_HTML.jpg" loading="lazy" id="MO6" height="304" width="777" alt="Fig. 6"></a></p>
+<div class="p text-right font-secondary"><a href="figure/Fig6/" class="usa-link" target="_blank" rel="noopener noreferrer">Open in a new tab</a></div>
+<figcaption><p>Mean parameter estimates for estimations with successful <em>versus</em> non-successful minimization for model A and estimation alternatives using the Laplacian estimation method. Suspected outliers complemented with <em>error bars</em> representing a 95% confidence interval. Results are presented for each parameter and method. Typical parameter values are presented in the <em>right panel</em> and inter-individual variability (IIV) parameters to the <em>left</em>
+</p></figcaption></figure></section><section id="Sec10"><h3 class="pmc_sec_title">Model B</h3>
+<p>Omission of BQL samples led to substantial bias in CL, inter-compartment clearance (Q), and peripheral distribution volume (VP). Bias increased steeply with increasing LOQ level. Substitution with LOQ/2 was observed to overcompensate for the bias induced by omission. Compared to omission of BQL data, the M2 method showed a similar but less pronounced bias in parameters. The M3 method for handling BQL samples was found to result in the least biased parameter estimates. Even at the highest investigated LOQ there was an absence of pronounced bias. It is worth noting that IIV for VP was frequently estimated as negligible. This was most frequent in the case of substitution with LOQ/2. Independent of the method used, typical value and IIV for central distribution volume (VC) was not significantly affected by the presence of BQL samples (results not presented).</p></section><section id="Sec11"><h3 class="pmc_sec_title">Model C</h3>
+<p>The typical value and IIV for the first order elimination constantan (<em>K</em><sub><span class="font-variant-small-caps">out</span></sub>) of the indirect response model was similarly affected by omission, substitution with LOQ/2 and the M2 method: an increasing negative bias was seen as the LOQ level was increased. The most pronounced effect of BQL samples was seen for the drug effect parameter (SLOP) for which all methods except the M3 method resulted in significantly biased parameter estimates for both typical values and IIV. The typical value and IIV for baseline (BASE) was fairly well-estimated with all the investigated methods.</p></section><section id="Sec12"><h3 class="pmc_sec_title">VPC Plots</h3>
+<p>The VPC plots in Figs. <a href="#Fig4" class="usa-link">4</a> and <a href="#Fig5" class="usa-link">5</a> were constructed for a randomly selected dataset for model B and C respectively in order to demonstrate how this type of diagnostic can help diagnosing bias introduced by incorrect handling of BQL observations. In Fig. <a href="#Fig4" class="usa-link">4</a>, the VPC for omission of BQL data indicated a model misspecification both in the upper and lower panel. In the upper panel the observed median was outside of the simulation based confidence intervals at the fourth and fifth bin. In the fifth bin no value for the median can be calculate and plotted since more than 50% of the observations are below LOQ. Yet the VPC indicates a misspecification since the simulated confidence interval is entirely above LOQ. A sign of misspecification can also be seen for the 2.5 percentile in the third bin. The most obvious indication of a misspecification was however seen in the lower panel were the observed fraction of BQL samples clearly fell outside of the confidence interval both in the fourth and the fifth bin. For the estimation with BQL samples substituted with LOQ/2 there was no indication of a model misspecification in the lower VPC panel but a slight under prediction of the median can be seen in the upper panel of the third bin. Also in the fourth bin the observed median falls just at the upper border of the confidence interval. The VPC plot for the estimates from the M3 method indicates no signs of model misspecification in either the upper or lower panel.</p>
+<p>The VPC plot in Fig. <a href="#Fig5" class="usa-link">5</a> representing model C with BQL data omitted indicated an over prediction of the median and an under prediction of the fraction BQL for the samples around the trough of the curve. In the case of substitution with LOQ/2 there was no indication of model misspecification in the upper panel as the simulation-based confidence intervals covered the observed median and 95% prediction intervals were these could be calculated. The lower plot did however indicate a misspecification as the fraction of BQL samples was over estimated between 10 and 30 h. The observed fraction of BQL samples was below the confidence interval at 20 h and was close to the lower bound at 10 and 30 h. As expected, the relatively unbiased parameter estimates obtained with the M3 method resulted in no indications of model misspecification.</p></section></section><section id="Sec13"><h2 class="pmc_sec_title">DISCUSSION</h2>
+<p>The results of this study clearly demonstrated that omission of BQL samples can cause substantial bias to parameter estimates in mixed effect models. Substituting BQL observations with LOQ/2 resulted in an unpredictable pattern of sometimes reducing and sometimes inflating the bias observed with omission. The M2 method on the other hand consistently resulted in less bias than omitting BQL observations; however, the method in many cases resulted in unsatisfactory bias. The overall best of the investigated methods for handling BQL samples was the M3 method.</p>
+<p>Factors possibly limiting the use of the M3 method are the longer runtimes and the lower rate of successful minimizations and covariance steps. In all cases estimation using the Laplacian method in NONMEM VI resulted in a lower rate of successful terminations compared to the FOCE method. The highest number of non-successful terminations was seen for model A and estimation alternatives using the Laplacian estimation method in NONMEM (Table <a href="#Tab3" class="usa-link">III</a>). However, no general trend towards different parameter estimates following non-successful minimization compared to successful terminations was detected, as exemplified in Fig. <a href="#Fig6" class="usa-link">6</a>. This is in line with results from two other articles investigating the M2 and/or the M3 method (<a href="#CR7" class="usa-link" aria-describedby="CR7">7</a>,<a href="#CR8" class="usa-link" aria-describedby="CR8">8</a>).</p>
+<p>The estimates of the drug effect parameter SLOP in model C suffered from bias following all estimation methods except M3 in a way that could potentially alter a judgment of clinical efficacy. Omission of BQL data would result in an appreciable underestimation of drug effect, whereas substitution with LOQ/2 would result in an overestimation of drug effect of similar magnitude. Good diagnostic tools could help to identify models with misspecifications. Figures <a href="#Fig4" class="usa-link">4</a> and <a href="#Fig5" class="usa-link">5</a> demonstrated how VPCs can detect BQL-induced bias in parameter estimates. The inclusion of information about the predicted fraction of BQL samples was found to increase the power of detecting a model misspecification. This was most obvious for model C and substitution with LOQ/2 where no signals of misspecification were seen in the upper panel for the continuous predictions (Fig. <a href="#Fig5" class="usa-link">5</a>). It should be pointed out that we in these examples know that the indicated model misspecification is due to incorrect handling of BQL observations. In a real life example misspecifications could also be the result of for example an incorrect structural model.</p>
+<p>The double panel VPC plots can, independently of the estimation method, be a useful diagnostic tool. For example, the VPC plots may help in choosing a suitable value for BQL substitution in the cases where the likelihood based methods (M3 and M2) could not be applied due to unacceptable long runtimes. Substituting the BQL values with a fixed value will always be a crude and suboptimal approach but sometimes selected for practical reasons. In these cases a suitable value to use for these substitutions could be evaluated by comparison of VPCs for different substitutions. Furthermore, it can be useful to perform simulation and re-estimation to investigate any method applied to handle BQL samples. By simulating with the suggested model and applying a similar handling of data below LOQ when re-estimating the model parameters a good indication on the performance of the applied method can be obtained. This type of investigation could be performed both prospectively for a planned study and in retrospective with the realized design of a finalized study.</p></section><section id="Sec14"><h2 class="pmc_sec_title">CONCLUSIONS</h2>
+<p>The M3 method is currently the best option for handling BQL data in NONMEM. Acknowledging the presence of BQL observations strengthens the diagnostic value of visual predictive checks.</p></section><section id="App1" class="app"><section id="Sec15"><h3 class="pmc_sec_title">APPENDIX</h3></section></section><section id="Bib1" class="ref-list"><h2 class="pmc_sec_title">References</h2>
+<section id="Bib1_sec2"><ul class="ref-list font-sm" style="list-style-type:none">
+<li id="CR1">
+<span class="label">1.</span><cite>FDA guidance for industry bioanalytical method validation. <a href="http://www.fdagov/cder/guidance/4252fnl.pdf" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">http://www.fdagov/cder/guidance/4252fnl.pdf</a> (accessed 05/05/2007).</cite>
+</li>
+<li id="CR2">
+<span class="label">2.</span><cite>Duval V, Karlsson MO. Impact of omission or replacement of data below the limit of quantification on parameter estimates in a two-compartment model. Pharm Res. 2002;19(12):1835–1840. doi: 10.1023/A:1021441407898.</cite> [<a href="https://doi.org/10.1023/A:1021441407898" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/12523662/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=Pharm%20Res&amp;title=Impact%20of%20omission%20or%20replacement%20of%20data%20below%20the%20limit%20of%20quantification%20on%20parameter%20estimates%20in%20a%20two-compartment%20model&amp;author=V%20Duval&amp;author=MO%20Karlsson&amp;volume=19&amp;issue=12&amp;publication_year=2002&amp;pages=1835-1840&amp;pmid=12523662&amp;doi=10.1023/A:1021441407898&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR3">
+<span class="label">3.</span><cite>Bergstrand M, Plan E, Kjellsson M, Karlsson MO. A comparison of methods for handling of data below the limit of quantification in NONMEM VI. PAGE 16 (2007) Abstr 1201 [<a href="http://www.page-meeting.org/?abstract=1201" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">www.page-meeting.org/?abstract=1201</a>].</cite>
+</li>
+<li id="CR4">
+<span class="label">4.</span><cite>Hing JP, Woolfrey SG, Greenslade D, Wright PM. Analysis of toxicokinetic data using NONMEM: impact of quantification limit and replacement strategies for censored data. J Pharmacokinet Pharmacodyn. 2001;28(5):465–479. doi: 10.1023/A:1012247131190.</cite> [<a href="https://doi.org/10.1023/A:1012247131190" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/11768291/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=J%20Pharmacokinet%20Pharmacodyn&amp;title=Analysis%20of%20toxicokinetic%20data%20using%20NONMEM:%20impact%20of%20quantification%20limit%20and%20replacement%20strategies%20for%20censored%20data&amp;author=JP%20Hing&amp;author=SG%20Woolfrey&amp;author=D%20Greenslade&amp;author=PM%20Wright&amp;volume=28&amp;issue=5&amp;publication_year=2001&amp;pages=465-479&amp;pmid=11768291&amp;doi=10.1023/A:1012247131190&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR5">
+<span class="label">5.</span><cite>Beal SL. Ways to fit a PK model with some data below the quantification limit. J Pharmacokinet Pharmacodyn. 2001;28(5):481–504. doi: 10.1023/A:1012299115260.</cite> [<a href="https://doi.org/10.1023/A:1012299115260" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/11768292/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=J%20Pharmacokinet%20Pharmacodyn&amp;title=Ways%20to%20fit%20a%20PK%20model%20with%20some%20data%20below%20the%20quantification%20limit&amp;author=SL%20Beal&amp;volume=28&amp;issue=5&amp;publication_year=2001&amp;pages=481-504&amp;pmid=11768292&amp;doi=10.1023/A:1012299115260&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR6">
+<span class="label">6.</span><cite>Beal SL, Sheiner LB, Boeckmann AJ. NONMEM User's Guides. Ellicot City: MD: Icon Development Solutions; 1989–2006.</cite>
+</li>
+<li id="CR7">
+<span class="label">7.</span><cite>Ahn JE, Karlsson MO, Dunne A, Ludden TM. Likelihood based approaches to handling data below the quantification limit using NONMEM VI. J Pharmacokinet Pharmacodyn 2008 Aug 7.</cite> [<a href="https://doi.org/10.1007/s10928-008-9094-4" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/18686017/" class="usa-link">PubMed</a>]</li>
+<li id="CR8">
+<span class="label">8.</span><cite>Byon W, Fletcher CV, Brundage RC. Impact of censoring data below an arbitrary quantification limit on structural model misspecification. J Pharmacokinet Pharmacodyn. 2008;35(1):101–116. doi: 10.1007/s10928-007-9078-9.</cite> [<a href="https://doi.org/10.1007/s10928-007-9078-9" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/17963024/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=J%20Pharmacokinet%20Pharmacodyn&amp;title=Impact%20of%20censoring%20data%20below%20an%20arbitrary%20quantification%20limit%20on%20structural%20model%20misspecification&amp;author=W%20Byon&amp;author=CV%20Fletcher&amp;author=RC%20Brundage&amp;volume=35&amp;issue=1&amp;publication_year=2008&amp;pages=101-116&amp;pmid=17963024&amp;doi=10.1007/s10928-007-9078-9&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR9">
+<span class="label">9.</span><cite>Holford N. The Visual Predictive Check—Superiority to Standard Diagnostic (Rorschach) Plots. PAGE 14 (2005) Abstr 738 [<a href="http://www.page-meeting.org/?abstract=738" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">www.page-meeting.org/?abstract=738</a>].</cite>
+</li>
+<li id="CR10">
+<span class="label">10.</span><cite>Lindbom L, Pihlgren P, Jonsson EN. PsN-Toolkit—a collection of computer intensive statistical methods for non-linear mixed effect modeling using NONMEM. Comput Methods Programs Biomed. 2005;79(3):241–257. doi: 10.1016/j.cmpb.2005.04.005.</cite> [<a href="https://doi.org/10.1016/j.cmpb.2005.04.005" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/16023764/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=Comput%20Methods%20Programs%20Biomed&amp;title=PsN-Toolkit%E2%80%94a%20collection%20of%20computer%20intensive%20statistical%20methods%20for%20non-linear%20mixed%20effect%20modeling%20using%20NONMEM&amp;author=L%20Lindbom&amp;author=P%20Pihlgren&amp;author=EN%20Jonsson&amp;volume=79&amp;issue=3&amp;publication_year=2005&amp;pages=241-257&amp;pmid=16023764&amp;doi=10.1016/j.cmpb.2005.04.005&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR11">
+<span class="label">11.</span><cite>Lindbom L, Ribbing J, Jonsson EN. Perl-speaks-NONMEM (PsN)—a Perl module for NONMEM related programming. Comput Methods Programs Biomed. 2004;75(2):85–94. doi: 10.1016/j.cmpb.2003.11.003.</cite> [<a href="https://doi.org/10.1016/j.cmpb.2003.11.003" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/15212851/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=Comput%20Methods%20Programs%20Biomed&amp;title=Perl-speaks-NONMEM%20(PsN)%E2%80%94a%20Perl%20module%20for%20NONMEM%20related%20programming&amp;author=L%20Lindbom&amp;author=J%20Ribbing&amp;author=EN%20Jonsson&amp;volume=75&amp;issue=2&amp;publication_year=2004&amp;pages=85-94&amp;pmid=15212851&amp;doi=10.1016/j.cmpb.2003.11.003&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR12">
+<span class="label">12.</span><cite>Jonsson EN, Karlsson MO. Xpose–an S-PLUS based population pharmacokinetic/pharmacodynamic model building aid for NONMEM. Comput Methods Programs Biomed. 1999;58(1):51–64. doi: 10.1016/S0169-2607(98)00067-4.</cite> [<a href="https://doi.org/10.1016/S0169-2607(98)00067-4" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/10195646/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=Comput%20Methods%20Programs%20Biomed&amp;title=Xpose%E2%80%93an%20S-PLUS%20based%20population%20pharmacokinetic/pharmacodynamic%20model%20building%20aid%20for%20NONMEM&amp;author=EN%20Jonsson&amp;author=MO%20Karlsson&amp;volume=58&amp;issue=1&amp;publication_year=1999&amp;pages=51-64&amp;pmid=10195646&amp;doi=10.1016/S0169-2607(98)00067-4&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR13">
+<span class="label">13.</span><cite>R Development Core Team (2005). R: A language and environment for statistical computing, reference index version 2.7.0. R Foundation for Statistical Computing, Vienna, Austria. ISBN 3-900051-07-0, URL <a href="http://www.R-project.org" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">http://www.R-project.org</a>.</cite>
+</li>
+<li id="CR14">
+<span class="label">14.</span><cite>Wilkins JJ, Savic RM, Karlsson MO, Langdon G, McIlleron H, Pillai G, et al.  Population pharmacokinetics of rifampin in pulmonary tuberculosis patients, including a semimechanistic model to describe variable absorption. Antimicrob Agents Chemother. 2008;52(6):2138–2148. doi: 10.1128/AAC.00461-07.</cite> [<a href="https://doi.org/10.1128/AAC.00461-07" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="/articles/PMC2415769/" class="usa-link">PMC free article</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/18391026/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=Antimicrob%20Agents%20Chemother&amp;title=Population%20pharmacokinetics%20of%20rifampin%20in%20pulmonary%20tuberculosis%20patients,%20including%20a%20semimechanistic%20model%20to%20describe%20variable%20absorption&amp;author=JJ%20Wilkins&amp;author=RM%20Savic&amp;author=MO%20Karlsson&amp;author=G%20Langdon&amp;author=H%20McIlleron&amp;volume=52&amp;issue=6&amp;publication_year=2008&amp;pages=2138-2148&amp;pmid=18391026&amp;doi=10.1128/AAC.00461-07&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+<li id="CR15">
+<span class="label">15.</span><cite>Dayneka NL, Garg V, Jusko WJ. Comparison of four basic models of indirect pharmacodynamic responses. J Pharmacokinet Biopharm. 1993;21(4):457–478. doi: 10.1007/BF01061691.</cite> [<a href="https://doi.org/10.1007/BF01061691" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">DOI</a>] [<a href="/articles/PMC4207304/" class="usa-link">PMC free article</a>] [<a href="https://pubmed.ncbi.nlm.nih.gov/8133465/" class="usa-link">PubMed</a>] [<a href="https://scholar.google.com/scholar_lookup?journal=J%20Pharmacokinet%20Biopharm&amp;title=Comparison%20of%20four%20basic%20models%20of%20indirect%20pharmacodynamic%20responses&amp;author=NL%20Dayneka&amp;author=V%20Garg&amp;author=WJ%20Jusko&amp;volume=21&amp;issue=4&amp;publication_year=1993&amp;pages=457-478&amp;pmid=8133465&amp;doi=10.1007/BF01061691&amp;" class="usa-link usa-link--external" data-ga-action="click_feat_suppl" target="_blank" rel="noopener noreferrer">Google Scholar</a>]</li>
+</ul></section></section></section><footer class="p courtesy-note font-secondary font-sm text-center"><hr class="headless">
+<p>Articles from The AAPS Journal are provided here courtesy of <strong>American Association of Pharmaceutical Scientists</strong></p></footer></section></article>
+
+                      
+
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+
+<!-- Secondary navigation placeholder -->
+<div class="pmc-sidenav desktop:grid-col-4 display-flex">
+    <section class="pmc-sidenav__container" aria-label="Article resources and navigation">
+        <button type="button" class="pmc-sidenav__container__close">
+            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/close.svg" role="img" alt="Close" />
+        </button>
+    <div class="display-none desktop:display-block">
+       <section class="margin-top-4 desktop:margin-top-0">
+              <h2 class="margin-top-0">ACTIONS</h2>
+           <ul class="usa-list usa-list--unstyled usa-list--actions">
+               
+               <li>
+                     <a
+                             href="https://doi.org/10.1208/s12248-009-9112-5"
+                             class="usa-button usa-button--outline width-24 font-xs display-inline-flex flex-align-center flex-justify-start padding-left-1"
+                             target="_blank"
+                             rel="noreferrer noopener"
+                             data-ga-category="actions"
+                             data-ga-action="click"
+                             data-ga-label="publisher_link_desktop"
+                     >
+                         <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/launch.svg" alt="View on publisher site icon" class="usa-icon usa-icon--size-3 usa-icon--link"/>
+                         <span class="display-inline-flex flex-justify-center flex-1 padding-right-2">View on publisher site</span>
+                     </a>
+               </li>
+               
+               
+               <li>
+                    <a
+                            href="pdf/12248_2009_Article_9112.pdf"
+                            class="usa-button usa-button--outline width-24 display-inline-flex flex-align-center flex-justify-start padding-left-1"
+                            data-ga-category="actions"
+                            data-ga-action="click"
+                            data-ga-label="pdf_download_desktop"
+                    >
+                         <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/file_download.svg" alt="Download PDF icon" class="usa-icon usa-icon--size-3 usa-icon--link"/>
+                        <span class="display-inline-flex flex-justify-center flex-1">PDF (246.7 KB)</span>
+                    </a>
+               </li>
+               
+                
+               <li>
+                   <button role="button" class="usa-button width-24 citation-dialog-trigger display-inline-flex flex-align-center flex-justify-start padding-left-1"
+                        aria-label="Open dialog with citation text in different styles"
+                        data-ga-category="actions"
+                        data-ga-action="open"
+                        data-ga-label="cite_desktop"
+                        data-all-citations-url="/resources/citations/2691472/"
+                        data-citation-style="nlm"
+                        data-download-format-link="/resources/citations/2691472/export/"
+                    >
+                       <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/format_quote.svg" alt="Cite icon" class="usa-icon usa-icon--size-3 usa-icon--white"/>
+                       <span class="display-inline-flex flex-justify-center flex-1 button-label">Cite</span>
+                    </button>
+               </li>
+                
+               <li>
+
+                        <button class="usa-button width-24 collections-dialog-trigger collections-button display-inline-flex flex-align-center flex-justify-start padding-left-1 collections-button-empty"
+                              aria-label="Save article in MyNCBI collections."
+                              data-ga-category="actions"
+                              data-ga-action="click"
+                              data-ga-label="collections_button_desktop"
+                              data-collections-open-dialog-enabled="false"
+                              data-collections-open-dialog-url="https://account.ncbi.nlm.nih.gov/?back_url=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC2691472%2F%23open-collections-dialog"
+                              data-in-collections="false">
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/action-bookmark-full.svg" alt="Collections icon" class="usa-icon usa-icon--size-3 usa-icon--white usa-icon--bookmark-full" hidden />
+                            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/action-bookmark-empty.svg" alt="Collections icon" class="usa-icon usa-icon--size-3 usa-icon--white usa-icon--bookmark-empty" hidden />
+                            <span class="display-inline-flex flex-justify-center flex-1">Collections</span>
+                       </button>
+               </li>
+               <li class="pmc-permalink">
+                    <button
+                            type="button"
+                            class="usa-button width-24 display-inline-flex flex-align-center flex-justify padding-left-1 shadow-none"
+                            aria-label="Show article permalink"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            data-ga-category="actions"
+                            data-ga-action="open"
+                            data-ga-label="permalink_desktop"
+                    >
+                        <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/share.svg" alt="Permalink icon" class="usa-icon usa-icon--size-3 usa-icon--white"/>
+                        <span class="display-inline-flex flex-justify-center flex-1 button-label">Permalink</span>
+                    </button>
+                   
+
+<div class="pmc-permalink__dropdown" hidden>
+    <div class="pmc-permalink__dropdown__container">
+          <h2 class="usa-modal__heading margin-top-0 margin-bottom-2 text-uppercase font-sans-xs">PERMALINK</h2>
+          <div class="pmc-permalink__dropdown__content">
+              <input type="text" class="usa-input" value="https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/" aria-label="Article permalink">
+              <button class="usa-button display-inline-flex pmc-permalink__dropdown__copy__btn margin-right-0" title="Copy article permalink" data-ga-category="save_share" data-ga-action="link" data-ga-label="copy_link">
+                  <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/content_copy.svg" alt="Copy icon" aria-hidden="true" class="usa-icon usa-icon--white" />
+                  <span class="margin-left-1">Copy</span>
+              </button>
+          </div>
+    </div>
+</div>
+               </li>
+           </ul>
+       </section>
+     </div>
+
+        <section class="pmc-resources margin-top-6 desktop:margin-top-4" data-page-path="/articles/PMC2691472/">
+            <h2 class="margin-top-0">RESOURCES</h2>
+            
+                <div class="usa-accordion usa-accordion--multiselectable" data-allow-multiple>
+                    <h3 class="usa-accordion__heading">
+                        <button
+                        type="button"
+                        class="usa-accordion__button"
+                        aria-expanded="false"
+                        aria-controls="resources-similar-articles"
+                        data-ga-category="resources_accordion"
+                        data-ga-action="open_similar_articles"
+                        data-ga-label="/articles/PMC2691472/"
+                        data-action-open="open_similar_articles"
+                        data-action-close="close_similar_articles"
+                        >
+                            Similar articles
+                        </button>
+                    </h3>
+                    <div
+                            id="resources-similar-articles"
+                            class="usa-accordion__content usa-prose"
+                            
+                                data-source-url="/resources/similar-article-links/19452283/"
+                            
+                    >
+                        
+                    </div>
+                    <h3 class="usa-accordion__heading">
+                        <button
+                        type="button"
+                        class="usa-accordion__button"
+                        aria-expanded="false"
+                        aria-controls="resources-cited-by-other-articles"
+                        data-ga-category="resources_accordion"
+                        data-ga-action="open_cited_by"
+                        data-ga-label="/articles/PMC2691472/"
+                        data-action-open="open_cited_by"
+                        data-action-close="close_cited_by"
+                        >
+                             Cited by other articles
+                        </button>
+                    </h3>
+                    <div
+                            id="resources-cited-by-other-articles"
+                            class="usa-accordion__content usa-prose"
+                            
+                                data-source-url="/resources/cited-by-links/19452283/"
+                            
+                    >
+                          
+                    </div>
+                    
+                        <h3 class="usa-accordion__heading">
+                            <button
+                            type="button"
+                            class="usa-accordion__button"
+                            aria-expanded="false"
+                            aria-controls="resources-links-to-ncbi-databases"
+                            data-ga-category="resources_accordion"
+                            data-ga-action="open_NCBI_links"
+                            data-ga-label="/articles/PMC2691472/"
+                            data-action-open="open_NCBI_links"
+                            data-action-close="close_NCBI_link"
+                            >
+                                 Links to NCBI Databases
+                            </button>
+                        </h3>
+                        <div
+                                id="resources-links-to-ncbi-databases"
+                                class="usa-accordion__content usa-prose"
+                                data-source-url="/resources/db-links/2691472/"
+                        >
+                        </div>
+                    
+                    
+                </div>
+            
+        </section>
+
+
+        <section
+        class="usa-in-page-nav usa-in-page-nav--wide margin-top-6 desktop:margin-top-4"
+        data-title-text="On this page"
+        data-title-heading-level="h2"
+        data-scroll-offset="0"
+        data-root-margin="-10% 0px -80% 0px"
+        data-main-content-selector="main"
+        data-threshold="1"
+        hidden
+        ></section>
+    </section>
+</div>
+
+        
+
+<div class="overlay" role="dialog" aria-label="Citation Dialog" hidden>
+    <div class="dialog citation-dialog" aria-hidden="true">
+        <div class="display-inline-flex flex-align-center flex-justify width-full margin-bottom-2">
+            <h2 class="usa-modal__heading margin-0">Cite</h2>
+             <button type="button" class="usa-button usa-button--unstyled close-overlay text-black width-auto"  tabindex="1">
+                 <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/close.svg" alt="Close icon" class="usa-icon usa-icon--size-3 usa-icon--button" />
+             </button>
+        </div>
+
+        
+
+<div class="citation-text-block">
+  <div class="citation-text margin-bottom-2"></div>
+  <ul class="usa-list usa-list--unstyled display-inline-flex flex-justify width-full flex-align-center">
+      <li>
+        <button
+          class="usa-button usa-button--unstyled text-no-underline display-flex flex-align-center copy-button dialog-focus"
+          data-ga-category="save_share"
+          data-ga-action="cite"
+          data-ga-label="copy"
+          tabindex="2">
+            <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/content_copy.svg" alt="Copy icon" class="usa-icon usa-icon--size-3 usa-icon--link" />
+            <span>Copy</span>
+        </button>
+      </li>
+      <li>
+          <a
+              href="#"
+              role="button"
+              class="usa-button usa-button--unstyled text-no-underline display-flex flex-align-center export-button"
+              data-ga-category="save_share"
+              data-ga-action="cite"
+              data-ga-label="download"
+              title="Download a file for external citation management software"
+              tabindex="3">
+                <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/file_download.svg" alt="Download icon" aria-hidden="true" class="usa-icon usa-icon--size-3 usa-icon--link" />
+                <span class="display-none mobile-lg:display-inline">Download .nbib</span>
+                <span class="display-inline mobile-lg:display-none">.nbib</span>
+            </a>
+      </li>
+      <li>
+          
+
+<div class="display-inline-flex flex-align-center">
+  <label class="usa-label margin-top-0">Format:</label>
+  <select aria-label="Format" class="usa-select citation-style-selector padding-1 margin-top-0 border-0 padding-right-4" tabindex="4" >
+    
+      <option data-style-url-name="ama"
+              value="AMA"
+              >
+        AMA
+      </option>
+    
+      <option data-style-url-name="apa"
+              value="APA"
+              >
+        APA
+      </option>
+    
+      <option data-style-url-name="mla"
+              value="MLA"
+              >
+        MLA
+      </option>
+    
+      <option data-style-url-name="nlm"
+              value="NLM"
+              selected="selected">
+        NLM
+      </option>
+    
+  </select>
+</div>
+      </li>
+  </ul>
+</div>
+    </div>
+</div>
+
+        <div class="overlay" role="dialog" hidden>
+  <div id="collections-action-dialog" class="dialog collections-dialog" aria-hidden="true">
+   <div class="display-inline-flex flex-align-center flex-justify width-full margin-bottom-2">
+        <h2 class="usa-modal__heading margin-0">Add to Collections</h2>
+    </div>
+    <div class="collections-action-panel action-panel">
+      
+
+
+<form id="collections-action-dialog-form"
+      class="usa-form maxw-full collections-action-panel-form action-panel-content action-form action-panel-smaller-selectors"
+      data-existing-collections-url="/list-existing-collections/"
+      data-add-to-existing-collection-url="/add-to-existing-collection/"
+      data-create-and-add-to-new-collection-url="/create-and-add-to-new-collection/"
+      data-myncbi-max-collection-name-length="100"
+      data-collections-root-url="https://www.ncbi.nlm.nih.gov/myncbi/collections/">
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="cRBjUGMJzsGfnET6r0vzhxa6BfpfUPjh6F3ugyl1AQ93Y7jEEYwJZFTlcEqQQ2Rj">
+
+    <fieldset class="usa-fieldset margin-bottom-2">
+        <div class="usa-radio">
+            <input type="radio"
+            id="collections-action-dialog-new"
+            class="usa-radio__input usa-radio__input--tile collections-new  margin-top-0"
+            name="collections"
+            value="new"
+            data-ga-category="collections_button"
+            data-ga-action="click"
+            data-ga-label="collections_radio_new" />
+            <label class="usa-radio__label" for="collections-action-dialog-new">Create a new collection</label>
+        </div>
+        <div class="usa-radio">
+            <input type="radio"
+            id="collections-action-dialog-existing"
+            class="usa-radio__input usa-radio__input--tile collections-existing"
+            name="collections"
+            value="existing"
+            checked="true"
+            data-ga-category="collections_button"
+            data-ga-action="click"
+            data-ga-label="collections_radio_existing" />
+            <label class="usa-radio__label" for="collections-action-dialog-existing">Add to an existing collection</label>
+        </div>
+    </fieldset>
+
+    <fieldset class="usa-fieldset margin-bottom-2">
+        <div class="action-panel-control-wrap new-collections-controls">
+           <label for="collections-action-dialog-add-to-new" class="usa-label margin-top-0">
+                Name your collection
+               <abbr title="required" class="usa-hint usa-hint--required text-no-underline">*</abbr>
+          </label>
+          <input
+            type="text"
+            name="add-to-new-collection"
+            id="collections-action-dialog-add-to-new"
+            class="usa-input collections-action-add-to-new"
+            pattern="[^&quot;&amp;=&lt;&gt;/]*" title="The following characters are not allowed in the Name field: &quot;&amp;=&lt;&gt;/"
+            maxlength=""
+            data-ga-category="collections_button"
+            data-ga-action="create_collection"
+            data-ga-label="non_favorties_collection"
+            required
+          />
+        </div>
+        <div class="action-panel-control-wrap existing-collections-controls">
+             <label for="collections-action-dialog-add-to-existing" class="usa-label margin-top-0">
+                Choose a collection
+              </label>
+              <select id="collections-action-dialog-add-to-existing"
+                      class="usa-select collections-action-add-to-existing"
+                      data-ga-category="collections_button"
+                      data-ga-action="select_collection"
+                      data-ga-label="($('.collections-action-add-to-existing').val() === 'Favorites') ? 'Favorites' : 'non_favorites_collection'">
+              </select>
+              <div class="collections-retry-load-on-error usa-input-error-message selection-validation-message">
+                Unable to load your collection due to an error<br>
+                <a href="#">Please try again</a>
+              </div>
+        </div>
+    </fieldset>
+
+    <div class="display-inline-flex">
+        <button class="usa-button margin-top-0 action-panel-submit"
+            type="submit"
+            data-loading-label="Adding..."
+            data-pinger-ignore
+            data-ga-category="collections_button"
+            data-ga-action="click"
+            data-ga-label="add">
+          Add
+        </button>
+        <button class="usa-button usa-button--outline margin-top-0 action-panel-cancel"
+                aria-label="Close 'Add to Collections' panel"
+                ref="linksrc=close_collections_panel"
+                data-ga-category="collections_button"
+                data-ga-action="click"
+                data-ga-label="cancel">
+          Cancel
+        </button>
+    </div>
+</form>
+    </div>
+  </div>
+</div>
+
+        
+
+      </div>
+    </div>
+  </div>
+
+
+
+        
+    
+    
+
+<footer class="ncbi-footer ncbi-dark-background " >
+    
+        <div class="ncbi-footer__icon-section">
+            <div class="ncbi-footer__social-header">
+                Follow NCBI
+            </div>
+
+            <div class="grid-container ncbi-footer__ncbi-social-icons-container">
+                
+                    <a href="https://twitter.com/ncbi"
+                       class="ncbi-footer__social-icon ncbi-footer__social-icon--gray"
+                       target="_blank"
+                       rel="noreferrer noopener">
+                        <svg width="40"
+                             height="40"
+                             viewBox="0 0 40 40"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path d="m6.067 8 10.81 13.9L6 33.2h4.2l8.4-9.1 7.068 9.1H34L22.8 18.5 31.9 8h-3.5l-7.7 8.4L14.401 8H6.067Zm3.6 1.734h3.266l16.8 21.732H26.57L9.668 9.734Z">
+                            </path>
+                        </svg>
+                        <span class="usa-sr-only">NCBI on X (formerly known as Twitter)</span>
+                    </a>
+                
+
+                
+                    <a href="https://www.facebook.com/ncbi.nlm"
+                       class="ncbi-footer__social-icon ncbi-footer__social-icon--gray"
+                       target="_blank"
+                       rel="noreferrer noopener">
+                        <svg width="16"
+                             height="29"
+                             focusable="false"
+                             aria-hidden="true"
+                             viewBox="0 0 16 29"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.8809 21.4002C3.8809 19.0932 3.8809 16.7876 3.8809 14.478C3.8809 14.2117 3.80103 14.1452 3.54278 14.1492C2.53372 14.1638 1.52334 14.1492 0.514288 14.1598C0.302626 14.1598 0.248047 14.0972 0.248047 13.8936C0.256034 12.4585 0.256034 11.0239 0.248047 9.58978C0.248047 9.37013 0.302626 9.30224 0.528931 9.3049C1.53798 9.31688 2.54837 9.3049 3.55742 9.31555C3.80103 9.31555 3.8809 9.26097 3.87957 9.00272C3.87158 8.00565 3.85428 7.00592 3.90753 6.00884C3.97142 4.83339 4.31487 3.73115 5.04437 2.78467C5.93095 1.63318 7.15699 1.09005 8.56141 0.967577C10.5582 0.79319 12.555 0.982221 14.5518 0.927641C14.7102 0.927641 14.7462 0.99287 14.7449 1.13664C14.7449 2.581 14.7449 4.02668 14.7449 5.47104C14.7449 5.67604 14.6517 5.68669 14.4946 5.68669C13.4523 5.68669 12.4113 5.68669 11.3703 5.68669C10.3506 5.68669 9.92057 6.10868 9.90593 7.13904C9.89661 7.7647 9.91525 8.39303 9.89794 9.01869C9.88995 9.26364 9.96583 9.31822 10.2015 9.31688C11.7204 9.30623 13.2393 9.31688 14.7595 9.3049C15.0257 9.3049 15.0723 9.3728 15.0444 9.62439C14.89 10.9849 14.7515 12.3467 14.6144 13.7085C14.5691 14.1571 14.5785 14.1585 14.1458 14.1585C12.8386 14.1585 11.5313 14.1665 10.2254 14.1518C9.95119 14.1518 9.89794 14.2317 9.89794 14.4899C9.90593 19.0799 9.89794 23.6752 9.91125 28.2612C9.91125 28.5674 9.8407 28.646 9.53186 28.6433C7.77866 28.6273 6.02414 28.6366 4.27094 28.634C3.82499 28.634 3.87158 28.6992 3.87158 28.22C3.87602 25.9472 3.87913 23.6739 3.8809 21.4002Z">
+                            </path>
+                        </svg>
+                        <span class="usa-sr-only">NCBI on Facebook</span>
+                    </a>
+                
+
+                
+                    <a href="https://www.linkedin.com/company/ncbinlm"
+                       class="ncbi-footer__social-icon ncbi-footer__social-icon--gray"
+                       target="_blank"
+                       rel="noreferrer noopener">
+                        <svg width="25"
+                             height="23"
+                             viewBox="0 0 26 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path d="M14.6983 9.98423C15.6302 9.24808 16.5926 8.74754 17.6762 8.51991C19.673 8.09126 21.554 8.30824 23.1262 9.7526C24.2351 10.7723 24.7529 12.1115 25.0165 13.5612C25.1486 14.3363 25.2105 15.1218 25.2015 15.9081C25.2015 18.3043 25.2015 20.6898 25.2082 23.0806C25.2082 23.3468 25.1549 23.444 24.8621 23.4414C23.1297 23.4272 21.3992 23.4272 19.6704 23.4414C19.4041 23.4414 19.3429 23.3588 19.3442 23.1019C19.3535 20.5194 19.3442 17.9368 19.3442 15.3543C19.3442 14.0005 18.3258 12.9448 17.0266 12.9488C15.7273 12.9528 14.6983 14.0071 14.6983 15.361C14.6983 17.9328 14.6917 20.5047 14.6983 23.0753C14.6983 23.3708 14.6198 23.444 14.3296 23.4427C12.6185 23.4294 10.9079 23.4294 9.19779 23.4427C8.93155 23.4427 8.86099 23.3735 8.86232 23.1086C8.8783 19.7619 8.88628 16.4144 8.88628 13.066C8.88628 11.5688 8.87874 10.0708 8.86365 8.57182C8.86365 8.3575 8.90758 8.27896 9.14054 8.28029C10.9048 8.29094 12.6687 8.29094 14.4321 8.28029C14.6464 8.28029 14.6983 8.34818 14.6983 8.54653C14.6903 9.00047 14.6983 9.45441 14.6983 9.98423Z">
+                            </path>
+                            <path d="M6.55316 15.8443C6.55316 18.2564 6.55316 20.6699 6.55316 23.082C6.55316 23.3629 6.48127 23.4388 6.19906 23.4374C4.47737 23.4241 2.75568 23.4241 1.03399 23.4374C0.767751 23.4374 0.69986 23.3629 0.701191 23.1006C0.709178 18.2648 0.709178 13.4281 0.701191 8.59053C0.701191 8.34026 0.765089 8.27237 1.01669 8.2737C2.74991 8.28435 4.48048 8.28435 6.20838 8.2737C6.47462 8.2737 6.5465 8.33627 6.54517 8.6065C6.54783 11.0186 6.55316 13.4308 6.55316 15.8443Z">
+                            </path>
+                            <path d="M3.65878 0.243898C5.36804 0.243898 6.58743 1.45529 6.58743 3.1406C6.58743 4.75801 5.32145 5.95742 3.60819 5.96807C3.22177 5.97614 2.83768 5.90639 2.47877 5.76299C2.11985 5.61959 1.79344 5.40546 1.51897 5.13334C1.24449 4.86123 1.02755 4.53668 0.881058 4.17902C0.734563 3.82136 0.661505 3.43788 0.666231 3.05141C0.67555 1.42601 1.9362 0.242566 3.65878 0.243898Z">
+                            </path>
+                        </svg>
+                        <span class="usa-sr-only">NCBI on LinkedIn</span>
+                    </a>
+                
+
+                
+                    <a href="https://github.com/ncbi"
+                       class="ncbi-footer__social-icon ncbi-footer__social-icon--gray"
+                       target="_blank"
+                       rel="noreferrer noopener">
+                        <svg width="28"
+                             height="27"
+                             viewBox="0 0 28 28"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path d="M16.7228 20.6334C17.5057 20.5527 18.2786 20.3944 19.0301 20.1608C21.3108 19.4193 22.5822 17.8259 22.963 15.4909C23.1228 14.5112 23.1814 13.5287 22.9883 12.5437C22.8106 11.6423 22.4013 10.8028 21.8007 10.1076C21.7526 10.0605 21.7197 10 21.7064 9.934C21.6931 9.86799 21.7 9.79952 21.7262 9.73748C22.0856 8.6206 21.9711 7.51969 21.601 6.42677C21.582 6.3497 21.5345 6.2827 21.468 6.23923C21.4016 6.19577 21.3211 6.17906 21.2429 6.19248C20.7329 6.21649 20.2313 6.33051 19.7611 6.52928C19.1103 6.7908 18.4899 7.12198 17.9104 7.51703C17.84 7.56996 17.7581 7.60551 17.6713 7.62078C17.5846 7.63605 17.4954 7.6306 17.4112 7.60489C15.2596 7.05882 13.0054 7.06203 10.8554 7.61421C10.7806 7.63586 10.7018 7.63967 10.6253 7.62534C10.5487 7.611 10.4766 7.57892 10.4148 7.53167C9.64788 7.03247 8.85171 6.58918 7.96368 6.33359C7.65781 6.24338 7.34123 6.19458 7.02239 6.18849C6.94879 6.17986 6.87462 6.19893 6.81432 6.242C6.75402 6.28507 6.71191 6.34904 6.69621 6.42145C6.32342 7.51437 6.2209 8.61527 6.56307 9.73348C6.59635 9.84264 6.64694 9.93316 6.54177 10.0516C5.47666 11.2604 5.09988 12.6834 5.19574 14.2676C5.2663 15.4244 5.46201 16.5466 6.01454 17.5769C6.84399 19.1171 8.21664 19.9119 9.85158 20.3352C10.3938 20.4706 10.9444 20.5698 11.4998 20.632C11.5384 20.7492 11.4506 20.7798 11.408 20.8291C11.1734 21.1179 10.9894 21.4441 10.8634 21.7942C10.7622 22.0458 10.8315 22.4039 10.6065 22.5516C10.263 22.7766 9.83827 22.8485 9.42421 22.8871C8.17936 23.0056 7.26471 22.4877 6.6283 21.4348C6.25552 20.8184 5.76956 20.3325 5.08523 20.0663C4.76981 19.9325 4.42139 19.8967 4.08537 19.9638C3.7898 20.029 3.73788 20.1901 3.93891 20.4111C4.03639 20.5234 4.14989 20.6207 4.27575 20.6999C4.9796 21.1318 5.51717 21.7884 5.80152 22.5636C6.37002 23.9973 7.48039 24.5697 8.93825 24.6323C9.43741 24.6575 9.93768 24.615 10.4254 24.5058C10.5892 24.4672 10.6531 24.4872 10.6517 24.6762C10.6451 25.4936 10.6637 26.3123 10.6517 27.131C10.6517 27.6635 10.1684 27.9297 9.58663 27.7393C8.17396 27.2671 6.84977 26.5631 5.66838 25.656C2.59555 23.2891 0.720966 20.1861 0.217704 16.3376C-0.357453 11.9127 0.911353 8.00824 3.98551 4.73881C6.11909 2.42656 8.99932 0.939975 12.1203 0.540191C16.5351 -0.0601815 20.4347 1.14323 23.7232 4.16373C26.2449 6.47869 27.724 9.37672 28.1048 12.7726C28.5828 17.0325 27.3686 20.7945 24.4768 23.9827C22.9762 25.6323 21.0956 26.8908 18.9982 27.6488C18.8783 27.6927 18.7585 27.738 18.636 27.7726C18.0356 27.9404 17.6189 27.6395 17.6189 27.0098C17.6189 25.7452 17.6308 24.4806 17.6295 23.2159C17.6329 22.9506 17.6128 22.6856 17.5696 22.4238C17.4325 21.6664 17.3419 21.484 16.7228 20.6334Z">
+                            </path>
+                        </svg>
+                        <span class="usa-sr-only">NCBI on GitHub</span>
+                    </a>
+                
+
+                
+                    <a href="https://ncbiinsights.ncbi.nlm.nih.gov/"
+                       class="ncbi-footer__social-icon ncbi-footer__social-icon--gray"
+                       target="_blank"
+                       rel="noreferrer noopener">
+                        <svg width="26"
+                             height="26"
+                             viewBox="0 0 27 27"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path d="M23.7778 26.4574C23.1354 26.3913 22.0856 26.8024 21.636 26.3087C21.212 25.8444 21.4359 24.8111 21.324 24.0347C19.9933 14.8323 14.8727 8.80132 6.09057 5.85008C4.37689 5.28406 2.58381 4.99533 0.779072 4.99481C0.202773 4.99481 -0.0229751 4.83146 0.00455514 4.21479C0.0660406 3.08627 0.0660406 1.95525 0.00455514 0.826734C-0.0413285 0.0815827 0.259669 -0.0193618 0.896534 0.00266238C6.96236 0.222904 12.3693 2.24179 16.9889 6.16209C22.9794 11.2478 26.1271 17.7688 26.4372 25.648C26.4629 26.294 26.3179 26.5271 25.6609 26.4684C25.0827 26.417 24.4991 26.4574 23.7778 26.4574Z">
+                            </path>
+                            <path d="M14.8265 26.441C14.0924 26.441 13.2371 26.6795 12.6626 26.3786C12.0092 26.0372 12.3781 25.0644 12.246 24.378C11.1154 18.5324 6.6849 14.5497 0.74755 14.1001C0.217135 14.0615 -0.0104482 13.9422 0.0134113 13.3659C0.0519536 12.1454 0.0482829 10.9213 0.0134113 9.69524C-0.00127145 9.14464 0.196946 9.03268 0.703502 9.04736C9.21217 9.27128 16.5994 16.2511 17.2804 24.7231C17.418 26.4446 17.418 26.4446 15.6579 26.4446H14.832L14.8265 26.441Z">
+                            </path>
+                            <path d="M3.58928 26.4555C2.64447 26.4618 1.73584 26.0925 1.06329 25.4289C0.39073 24.7653 0.00933763 23.8617 0.0030097 22.9169C-0.00331824 21.9721 0.365937 21.0635 1.02954 20.3909C1.69315 19.7184 2.59675 19.337 3.54156 19.3306C4.48637 19.3243 5.39499 19.6936 6.06755 20.3572C6.7401 21.0208 7.1215 21.9244 7.12782 22.8692C7.13415 23.814 6.7649 24.7226 6.10129 25.3952C5.43768 26.0677 4.53409 26.4491 3.58928 26.4555Z">
+                            </path>
+                        </svg>
+                        <span class="usa-sr-only">NCBI RSS feed</span>
+                    </a>
+                
+            </div>
+        </div>
+    
+
+    <div data-testid="gridContainer"
+         class="grid-container ncbi-footer__container">
+        <div class="grid-row ncbi-footer__main-content-container"
+             data-testid="grid">
+            
+                <div class="ncbi-footer__column">
+                    
+                        <p class="ncbi-footer__circled-icons-heading">
+                            Connect with NLM
+                        </p>
+                    
+
+                    <div class="ncbi-footer__circled-icons-list">
+                        
+                            <a href=https://twitter.com/nlm_nih class="ncbi-footer__social-icon ncbi-footer__social-icon--circled" target="_blank" rel="noreferrer noopener">
+                                <svg width="32"
+                                     height="32"
+                                     viewBox="0 0 40 40"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
+                                     aria-hidden="true">
+                                    <path d="m6.067 8 10.81 13.9L6 33.2h4.2l8.4-9.1 7.068 9.1H34L22.8 18.5 31.9 8h-3.5l-7.7 8.4L14.401 8H6.067Zm3.6 1.734h3.266l16.8 21.732H26.57L9.668 9.734Z">
+                                    </path>
+                                </svg>
+                                <span class="usa-sr-only">NLM on X (formerly known as Twitter)</span>
+                            </a>
+                        
+
+                        
+                            <a href=https://www.facebook.com/nationallibraryofmedicine class="ncbi-footer__social-icon ncbi-footer__social-icon--circled" target="_blank" rel="noreferrer noopener">
+                                <svg width="13"
+                                     height="24"
+                                     viewBox="0 0 13 24"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
+                                     aria-hidden="true">
+                                    <path d="M4.11371 23.1369C4.11371 23.082 4.11371 23.0294 4.11371 22.9745V12.9411H0.817305C0.6709 12.9411 0.670898 12.9411 0.670898 12.8016C0.670898 11.564 0.670898 10.3287 0.670898 9.09341C0.670898 8.97903 0.705213 8.95158 0.815017 8.95158C1.8673 8.95158 2.91959 8.95158 3.97417 8.95158H4.12057V8.83263C4.12057 7.8055 4.12057 6.7738 4.12057 5.74897C4.1264 4.92595 4.31387 4.11437 4.66959 3.37217C5.12916 2.38246 5.94651 1.60353 6.95717 1.1921C7.64827 0.905008 8.3913 0.764035 9.13953 0.778051C10.0019 0.791777 10.8644 0.830666 11.7268 0.860404C11.8869 0.860404 12.047 0.894717 12.2072 0.90158C12.2964 0.90158 12.3261 0.940469 12.3261 1.02968C12.3261 1.5421 12.3261 2.05452 12.3261 2.56465C12.3261 3.16857 12.3261 3.7725 12.3261 4.37642C12.3261 4.48165 12.2964 4.51367 12.1912 4.51138C11.5369 4.51138 10.8804 4.51138 10.2261 4.51138C9.92772 4.51814 9.63058 4.5526 9.33855 4.61433C9.08125 4.6617 8.84537 4.78881 8.66431 4.97766C8.48326 5.16652 8.3662 5.40755 8.32972 5.66661C8.28476 5.89271 8.26027 6.1224 8.25652 6.35289C8.25652 7.19014 8.25652 8.02969 8.25652 8.86923C8.25652 8.89439 8.25652 8.91955 8.25652 8.95615H12.0219C12.1797 8.95615 12.182 8.95616 12.1614 9.10714C12.0768 9.76596 11.9876 10.4248 11.9029 11.0813C11.8312 11.6319 11.7626 12.1824 11.697 12.733C11.6719 12.9434 11.6787 12.9434 11.4683 12.9434H8.26338V22.899C8.26338 22.979 8.26338 23.0591 8.26338 23.1392L4.11371 23.1369Z">
+                                    </path>
+                                </svg>
+                                <span class="usa-sr-only">NLM on Facebook</span>
+                            </a>
+                        
+
+                        
+                            <a href=https://www.youtube.com/user/NLMNIH class="ncbi-footer__social-icon ncbi-footer__social-icon--circled" target="_blank" rel="noreferrer noopener">
+                                <svg width="21"
+                                     height="15"
+                                     viewBox="0 0 21 15"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
+                                     aria-hidden="true">
+                                    <path d="M19.2561 1.47914C18.9016 1.15888 18.5699 0.957569 17.2271 0.834039C15.5503 0.678484 13.2787 0.655608 11.563 0.65332H9.43556C7.71987 0.65332 5.4483 0.678484 3.77151 0.834039C2.43098 0.957569 2.097 1.15888 1.74242 1.47914C0.813665 2.32097 0.619221 4.62685 0.598633 6.89384C0.598633 7.31781 0.598633 7.74101 0.598633 8.16345C0.626084 10.4121 0.827391 12.686 1.74242 13.521C2.097 13.8412 2.4287 14.0425 3.77151 14.1661C5.4483 14.3216 7.71987 14.3445 9.43556 14.3468H11.563C13.2787 14.3468 15.5503 14.3216 17.2271 14.1661C18.5676 14.0425 18.9016 13.8412 19.2561 13.521C20.1712 12.6929 20.3725 10.451 20.3999 8.22064C20.3999 7.74025 20.3999 7.25986 20.3999 6.77946C20.3725 4.54907 20.1689 2.30724 19.2561 1.47914ZM8.55942 10.5311V4.65201L13.5601 7.50005L8.55942 10.5311Z"
+                                          fill="white" />
+                                </svg>
+                                <span class="usa-sr-only">NLM on YouTube</span>
+                            </a>
+                        
+                    </div>
+                </div>
+            
+
+            
+                <address class="ncbi-footer__address ncbi-footer__column">
+                    
+        <p>
+            <a class="usa-link usa-link--external"
+            href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/%4038.9959508,
+            -77.101021,17z/data%3D!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb%3A0x19156f88b27635b8!8m2!3d38.9959508!
+            4d-77.0988323"
+            rel="noopener noreferrer" target="_blank">National Library of Medicine
+            <br/> 8600 Rockville Pike<br/> Bethesda, MD 20894</a>
+        </p>
+    
+                </address>
+            
+
+            
+                <ul class="usa-list usa-list--unstyled ncbi-footer__vertical-list ncbi-footer__column">
+                    
+                        <li class="ncbi-footer__vertical-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.nlm.nih.gov/web_policies.html" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            Web Policies
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__vertical-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            FOIA
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__vertical-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" class="usa-link usa-link--external usa-link--alt ncbi-footer__link" rel="noreferrer noopener" target='_blank' >
+        
+
+        
+            HHS Vulnerability Disclosure
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <ul class="usa-list usa-list--unstyled ncbi-footer__vertical-list ncbi-footer__column">
+                    
+                        <li class="ncbi-footer__vertical-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://support.nlm.nih.gov/" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            Help
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__vertical-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.nlm.nih.gov/accessibility.html" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            Accessibility
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__vertical-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.nlm.nih.gov/careers/careers.html" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            Careers
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                </ul>
+            
+        </div>
+
+        
+            <div class="grid-row grid-col-12" data-testid="grid">
+                <ul class="ncbi-footer__bottom-links-list">
+                    
+                        <li class="ncbi-footer__bottom-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.nlm.nih.gov/" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            NLM
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__bottom-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.nih.gov/" class="usa-link  usa-link--alt ncbi-footer__link"  >
+        
+
+        
+            NIH
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__bottom-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.hhs.gov/" class="usa-link usa-link--external usa-link--alt ncbi-footer__link" rel="noreferrer noopener" target='_blank' >
+        
+
+        
+            HHS
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                        <li class="ncbi-footer__bottom-list-item">
+                            
+
+
+
+
+
+
+
+
+
+    <a href="https://www.usa.gov/" class="usa-link usa-link--external usa-link--alt ncbi-footer__link" rel="noreferrer noopener" target='_blank' >
+        
+
+        
+            USA.gov
+        
+
+        
+    </a>
+
+
+                        </li>
+                    
+                </ul>
+            </div>
+        
+    </div>
+</footer>
+
+    
+
+
+        
+        
+    
+  <script  type="text/javascript" src="https://cdn.ncbi.nlm.nih.gov/core/pinger/pinger.js"> </script>
+
+
+    
+        
+
+<button class="back-to-top" data-ga-category="pagination" data-ga-action="back_to_top">
+    <label>Back to Top</label>
+    <img src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/img/usa-icons/arrow_upward.svg" alt="back to top icon" class="usa-icon usa-icon--size-3 order-0 usa-icon--white" />
+</button>
+    
+
+
+        
+    
+    <div id="icon-container" style="display: none;"></div>
+    
+    
+        
+    <script type="application/javascript">
+    window.ncbi = window.ncbi || {};
+    window.ncbi.pmc = window.ncbi.pmc || {};
+    window.ncbi.pmc.options = {
+        logLevel: 'INFO',
+        
+        staticEndpoint: 'https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/',
+        
+        citeCookieName: 'pmc-cf',
+    };
+</script>
+    <script type="module" crossorigin="" src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/base-Cp_Il6gk.js"></script>
+<link href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/vendor-Co8Vdmw2.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+    
+    <script type="text/javascript" src="https://cdn.ncbi.nlm.nih.gov/core/jquery/jquery-3.6.0.min.js">&#xA0;</script>
+    <script type="text/javascript">
+        jQuery.getScript("https://cdn.ncbi.nlm.nih.gov/core/alerts/alerts.js", function () {
+            galert(['div.nav_and_browser', 'div.header', '#universal_header', '.usa-banner', 'body > *:nth-child(1)'])
+        });
+    </script>
+
+
+    <script type="text/javascript">var exports = {};</script>
+     <script src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/CACHE/js/output.4e25b6297b38.js"></script>
+
+    <script type="module" crossorigin="" src="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/article-D47MIn9n.js"></script>
+<link href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/vendor-Co8Vdmw2.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+<link href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/index-DXSA0fsx.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+<link href="https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/9b1d9d87/var/data/static/assets/secure-cookie-Br6x5jtB.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+    
+    
+
+    </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "rule_id": "IN001",
+  "detector_version": "1.0.0",
+  "status": "NO_GAPS_DETECTED",
+  "assessed_file_ids": [
+    "F0001",
+    "F0002",
+    "F0003"
+  ],
+  "not_assessed": [],
+  "gaps": [],
+  "limitations": [
+    "Detection finds known object types a text reader omits; it is not a relevance judgment.",
+    "Vector drawings, text drawn as outlines and content inside images are not interpreted.",
+    "Images smaller than 2500 pixels (for example spacer dots) are not reported.",
+    "Word headers and footers are not inspected; spreadsheet cell values and comments are read by the parser.",
+    "An IRRELEVANT_TO_TASK decision does not mean the omitted content was extracted."
+  ],
+  "resolution": {
+    "decisions": [
+      "IRRELEVANT_TO_TASK"
+    ],
+    "alternative": "Supply corrected or checked readable files in a new run; changed inputs require new intake checks."
+  }
+}

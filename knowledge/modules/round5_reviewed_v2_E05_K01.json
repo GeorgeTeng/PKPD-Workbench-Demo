@@ -1,0 +1,116 @@
+{
+  "cards": [
+    {
+      "title": "Dose-Normalized Concentration EDA Display Contract",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Dose-normalized concentration exploration requires separate aligned panels for raw concentration (C) and dose-normalized concentration (C/D), preserving individual record status and experimental unit identity without inferring mechanism from visual overlap.",
+      "conditions": [
+        "Applicable to observed concentration records with compatible dose, assay and sampling context; numerical normalization requires verified positive dose for the specific record.",
+        "Normalization applies only to records with verified positive compatible dose.",
+        "BLQ and above-range values are handled via status indicators, not substitution.",
+        "Visual similarity or divergence in C/D plots is descriptive and conditional on comparable study design."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID.",
+        "Regimen and dose occasion, route/formulation, analyte, matrix, free/total basis.",
+        "Time value/unit/origin, measured value/unit and quantification status.",
+        "Dose amount/basis/unit, exposure time origin, and whether denominator is per administration or period.",
+        "Nullable serial_observation_subject_id, distinct from experimental_unit_id (e.g. an animal within its randomized cage); required for individual serial lines or paired loops."
+      ],
+      "limitations": [
+        "Unknown, zero, incompatible or ambiguous dose blocks that record's normalization only; such records are shown unnormalized with status.",
+        "Technical repeats do not increase biological n; unknown n or variability stays unknown.",
+        "No automatic confidence intervals or zero-width bars are generated; supplied statistics must have defined method and n.",
+        "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law."
+      ],
+      "downstream_use": "Supports preliminary visual examination of population PK data to reveal patterns and features, serving as a diagnostic tool for confirming assumptions or suggesting corrective actions before model development.",
+      "evidence_chunk_ids": [
+        "REF_003:0001",
+        "REF_003:0002",
+        "REF_022:0024"
+      ],
+      "plot_recipe": {
+        "input_contract": "Preserve record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID, regimen and dose occasion, route/formulation, analyte, matrix, free/total basis, time value/unit/origin, measured value/unit and quantification status. Map only available applicable fields; never invent missing identities. Preserve nullable serial_observation_subject_id separately from experimental_unit_id, with its source linkage. Numeric measured value is required only for quantified records; censoring/missing statuses may have a null numeric value. Optional summary/error inputs are needed only when that layer is displayed.",
+        "plot_type": "Separate aligned panels for raw concentration and dose-normalized concentration; zero-dose controls and unknown-dose records remain visible in the raw panel/status table.",
+        "axes_and_units": "X = documented time, unit and dosing reference. Y1 = C in concentration units; Y2 in a separate panel = C/D with units (concentration unit)/(dose unit). State dose basis and whether denominator is per administration or period. Use only compatible route/formulation/analyte/matrix/basis and regimen context.",
+        "grouping_and_connections": "Separate study, regimen/dose occasion, route/formulation, analyte/matrix/basis and endpoint contexts. Connect only verified serial observations of the same unit in a compatible time reference, ordered by time. Break connections at recorded unresolved missing/censored statuses. No invented scheduled samples or cross-unit lines. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "Preserve observed values as points at their actual record level. Keep raw observations separate from optional source-reported or explicitly defined descriptive summaries. A labelled group-summary guide is not an individual trajectory. Do not reconstruct individuals from a mean and SD.",
+        "censoring_and_missingness": "Separate quantified, BLQ, confirmed above-range, missing, not sampled and technical-failure states. BLQ is not zero or negative. Confirmed BLQ implies C < LLOQ; confirmed above-range implies C > ULOQ. Default engineering convention: categorical status strip; optional boundary markers require known applicable limits and explicit inequality. No substitution or silent exclusion.",
+        "transformations_and_formula": "C_normalized = C/D only for verified positive compatible dose D. Preserve active-moiety basis and weight provenance for mass-per-body-weight conversion. Normalize individual records before summaries if dose varies: mean(C_i/D_i) generally differs from mean(C_i)/mean(D_i). For a valid numeric bound use LLOQ/D or ULOQ/D with its inequality; do not normalize zero or unknown dose.",
+        "uncertainty_and_n": "Label displayed record counts separately from known independent experimental-unit n. Preserve supplied statistic, calculation scale and exact SD, SE or CI meaning, including asymmetric interval endpoints. Technical repeats do not increase biological n. Unknown n or variability stays unknown; no automatic CI or zero-width bar.",
+        "interpretation_limits": "Overlap or divergence of C/D curves is descriptive conditional on comparable study design. It does not establish proportionality or choose a structural/covariate model; differences can involve schedule, formulation, sampling, binding, bioavailability or assay context.",
+        "stop_or_fallback": "Unknown, zero, incompatible or ambiguous dose blocks that record's normalization only. Show it unnormalized with status and exact counts/denominators; no invented 10% or other cutoff. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "Preliminary examination of data using graphical and statistical techniques reveals patterns and features, serving as diagnostic tools for confirming assumptions or suggesting corrective actions.",
+          "evidence_chunk_ids": [
+            "REF_022:0024"
+          ],
+          "scope": "General population PK analysis methodology.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "In the cited Phoenix NCA documentation, Cmax_D = Cmax/Dose and AUClast_D = AUClast/Dose. These are software-defined normalized NCA endpoints, not a mandate for the raw C(t)/D plotting layout.",
+          "evidence_chunk_ids": [
+            "REF_003:0001",
+            "REF_003:0002"
+          ],
+          "scope": "Software documentation for NCA parameter formulas.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "The cited Phoenix discrete-data NCA documentation requires sample time and concentration inputs. Its N_Samples parameter excludes missing or non-numeric observations; that software counting rule is not adopted as an EDA deletion policy.",
+          "evidence_chunk_ids": [
+            "REF_003:0001",
+            "REF_003:0002"
+          ],
+          "scope": "Software documentation for NCA parameter formulas.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v2_E05:K01",
+      "origin_job": "round5_E05",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003",
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E05",
+      "retrieval_keywords": "Dose-normalized concentration exploration",
+      "supersedes": [
+        "round4_E05:K01",
+        "round5_E05:K01",
+        "round5_reviewed_E05:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "dose-normalized concentration exploration",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "REF_003",
+        "REF_022"
+      ],
+      "review_revision": {
+        "version": "local_review_v2",
+        "parent_card_id": "round5_E05:K01",
+        "parent_card_sha256": "53b6ad6d03d1a67e24c119f2af20776629938f54b1f0d870a58926ae98497769",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "d1f988f6c91fa303f93e837e99b88ad7ffdb8cf562a65a30517902657c06160d"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

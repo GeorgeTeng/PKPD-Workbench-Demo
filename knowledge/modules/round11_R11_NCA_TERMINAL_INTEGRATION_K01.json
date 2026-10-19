@@ -1,0 +1,114 @@
+{
+  "cards": [
+    {
+      "title": "NCA Terminal Slope, Integration, and Sparse Design Protocol",
+      "claim": "NCA integrates observed concentration-time data over a declared window using a stated interpolation and BLQ rule. A selected terminal log-linear regression is required only for lambda_z and extrapolation-dependent endpoints. Destructive/sparse designs use a mean-curve estimand and design-aware uncertainty rather than reconstructed individual profiles.",
+      "conditions": [
+        "Concentration-time data and an explicit dosing/time origin are available for an observed-interval AUC; an individual serial profile and a destructive/sparse mean curve are different estimands.",
+        "A defensible terminal log-linear point set is needed only for lambda_z, half-life, AUCinf and endpoints depending on extrapolation; AUClast may remain eligible without it.",
+        "For sparse/destructive data, biological subjects and design-specific repeated sampling are identified before mean-curve uncertainty is assessed."
+      ],
+      "required_inputs": [
+        "Observed concentration-time records with assay status and actual dose/time origin; declare whether the first postdose point is at dosing time or whether pre-first-sample input needs an assumption.",
+        "LLOQ and retained BLQ/censor flags, with a prespecified analysis-context-specific handling rule.",
+        "Sampling-design and subject/pool identifiers sufficient to distinguish serial from destructive/sparse mean curves.",
+        "Dose, route and F only if dose-normalized clearance/volume endpoints are additionally requested."
+      ],
+      "limitations": [
+        "Do not impose universal adjusted-R2, point-count, or extrapolated-percent thresholds as pass/fail criteria; these are diagnostic aids.",
+        "NCA diagnostics do not imply a compartmental model or individual PK for sacrificial animals.",
+        "Phoenix software defaults (e.g., >=3 points for lambda-z) are implementation specifics, not universal scientific validity proofs."
+      ],
+      "downstream_use": "Use to compute an eligible observed-window AUC, and conditional lambda_z/half-life/AUCinf when the terminal phase is supported; document integration, censor and sparse-design uncertainty. CL, Vz and MRT require separate route, dose, F, AUMC or infusion/input information and are not automatically produced by this bounded card.",
+      "method_keywords": [
+        "NCA",
+        "lambda_z",
+        "AUC integration",
+        "sparse sampling",
+        "terminal slope",
+        "log-linear regression",
+        "trapezoidal rule",
+        "BLQ handling"
+      ],
+      "retrieval_keywords": "NCA terminal slope lambda_z estimation AUC integration linear log down sparse sampling destructive sampling mean curve",
+      "method_recipe": {
+        "estimand_and_scope": "Compute an observed concentration-time AUC on a declared interval; conditionally estimate terminal lambda_z, half-life and AUCinf. Keep individual serial and destructive/sparse mean-curve estimates separate. CL/Vz/MRT require further route, dose, F or AUMC inputs and are outside this bounded card.",
+        "input_contract": "Require time origin, measured concentration/time/status, units, integration window and interpolation rule. Preserve LLOQ/BLQ provenance. For mean-curve NCA identify experimental units and repeated-sampling covariance design. Dose/route/F are conditional for derived CL or volume, not AUClast inputs.",
+        "applicability_and_prerequisites": "Observed AUClast may be estimated without a terminal slope if the requested start/end interval is supported. Lambda_z and AUCinf require positive terminal concentrations, a justified log-linear region and compatible last observed or predicted concentration. Do not infer first-order elimination solely from a declining profile. Sparse SE handling follows the actual design and implementation.",
+        "definitions_units_basis_window": "Lambda_z is the positive magnitude of an apparent terminal log-linear ln(C)-versus-time slope over a qualified terminal window, with units 1/time. In multicompartment kinetics or flip-flop absorption it need not equal a single elimination-process rate constant. AUC has concentration*time units; keep time and concentration units consistent (e.g., h and ng/mL).",
+        "procedure": "1. Declare dose time, measured times, units, serial versus sparse design, censor flags and target AUC window. Do not create a pre-first-measurement segment without a stated observation or rule. 2. Select terminal positive quantified points and regress ln(C) on t; lambda_z=-slope only when slope<0 and terminal region is credible. Record point IDs, interval, fit and residuals; Phoenix automatic >=3-point/adjusted-R2 rules are software choices, not scientific proof. 3. For each observed AUC segment choose and report interpolation. Linear trapezoid: Delta t*(C_i+C_{i+1})/2. In the cited PKNCA lin-up/log-down rule, use logarithmic interpolation only for a decreasing pair with both concentrations positive; use linear for increasing or decreasing-to-zero before Tlast; both-zero contributes zero. Its lin-log option is linear up to Tmax and log after Tmax only with positive endpoints, otherwise linear. BLQ is an assay status, not a measured zero: preserve it and justify any rule; never default to LLOQ/2 or deletion. 4. Sum from the declared start through Tlast. Conditional AUCinf=AUClast+Clast/lambda_z; identify observed versus terminal-regression-predicted Clast and report extrapolated fraction. 5. For destructive sampling integrate a mean curve without labeling it individual PK; assess uncertainty with the actual covariance/design. Phoenix omits sparse-AUC SE for log trapezoids in its implementation, not as a mathematical impossibility.",
+        "formula_and_parameterization": "lambda_z=-slope[ln(C) versus t] (>0 if supported). Linear segment AUC=Delta t*(C_i+C_{i+1})/2. For a decreasing quantified positive pair, log segment AUC=Delta t*(C_i-C_{i+1})/ln(C_i/C_{i+1}); equal positive values use the continuous limit C_i*Delta t. AUCinf=AUClast+Clast/lambda_z only with a qualified terminal segment; t_half=ln(2)/lambda_z; extrapolated%=100*(AUCinf-AUClast)/AUCinf. AUClast's start time must be declared.",
+        "uncertainty_and_identifiability": "Terminal-window choice, assay censoring, unobserved initial interval and tail extrapolation affect AUCinf. Sparse mean-curve AUC uncertainty depends on sampling design and covariance, not only per-time mean variances. Phoenix does not output its sparse-AUC SE with log trapezoids because that built-in linear-combination calculation does not apply; other justified estimators require separate verification.",
+        "diagnostics_and_failure_modes": "Inspect terminal point set, slope sign, fit residuals, sampling span and extrapolated fraction together. A nonnegative or unstable tail does not support positive lambda_z; retain AUClast if eligible. No universal p-value, adjusted-R2, >=3-point scientific proof or 30-40% extrapolation pass threshold is supplied. Missing dose-time or initial segment must be labeled, not silently assigned zero.",
+        "missing_input_and_partial_fallback": "Without a defensible terminal slope, report the supported observed-window AUC but not AUCinf/half-life. Without a justified dose-time to first-sample segment, report AUC from the first observed time or explicitly conditional AUC0-last, never silently relabel. Retain BLQ status. For sparse log-trapezoid AUC, do not invent a Phoenix SE; record unavailable/conditional uncertainty.",
+        "output_and_interpretation": "Report start/end window, interpolation and censor rules, AUClast with units, retained/excluded terminal points and lambda_z if eligible, Clast basis, conditional half-life/AUCinf/extrapolated fraction, and serial versus sparse estimand. Do not report CL, Vz or MRT without their separate route/dose/F/AUMC requirements.",
+        "worked_example_and_counterexample": "Synthetic observed t=[0,1,2] h and C=[10,5,2.5] mg/L, with measured C at the stated start: linear AUC0-2=(10+5)/2+(5+2.5)/2=11.25 mg*h/L. With lambda_z=ln(2)/h, tail=2.5/ln(2)=3.60674 mg*h/L and linear-rule AUC0-inf=14.85674 mg*h/L. Under log-down for both positive falling pairs, AUC0-2=7.21348+3.60674=10.82021 and AUC0-inf=14.42695. If these same C values instead occur at t=[1,2,3], 11.25 is AUC1-3, not AUC0-last, absent a justified first-hour rule. A flat tail cannot supply lambda_z/AUCinf."
+      },
+      "claim_support": [
+        {
+          "claim": "Lambda_z is the negative slope of a qualified ln(C)-versus-time terminal regression; Phoenix automatic selection and point-count rules are implementation details.",
+          "scope": "Terminal NCA",
+          "evidence_chunk_ids": [
+            "REF_002:0002",
+            "REF_002:0004"
+          ]
+        },
+        {
+          "claim": "PKNCA distinguishes linear, lin-up/log-down and lin-log integration with explicit zero/end-point handling; BLQ handling changes the eligible profile.",
+          "scope": "PKNCA implementation",
+          "evidence_chunk_ids": [
+            "REF_011:0001",
+            "REF_011:0002"
+          ]
+        },
+        {
+          "claim": "Conditional AUCinf uses AUClast plus Clast/lambda_z, with observed or predicted Clast provenance.",
+          "scope": "Terminal extrapolation",
+          "evidence_chunk_ids": [
+            "REF_003:0003"
+          ]
+        },
+        {
+          "claim": "Phoenix sparse NCA integrates the mean curve and omits its built-in AUC SE with log-trapezoid rules.",
+          "scope": "Phoenix sparse implementation, not all statistical methods",
+          "evidence_chunk_ids": [
+            "REF_013:0001",
+            "REF_013:0002"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_002:0002",
+        "REF_002:0004",
+        "REF_003:0003",
+        "REF_003:0004",
+        "REF_011:0001",
+        "REF_011:0002",
+        "REF_011:0003",
+        "REF_013:0001",
+        "REF_013:0002"
+      ],
+      "id": "round11_R11_NCA_TERMINAL_INTEGRATION:K01",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "required_branches": [],
+      "knowledge_layer": "general_method",
+      "kind": "method_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "origin_job": "R11_NCA_TERMINAL_INTEGRATION",
+      "source_ids": [
+        "REF_002",
+        "REF_003",
+        "REF_011",
+        "REF_013"
+      ],
+      "citation_check": "SOURCE_LINKS_CHECKED_NOT_SCIENTIFIC_APPROVAL",
+      "example_is_synthetic": true,
+      "source_vs_engineering_conventions": "Scientific statements linked to originals; synthetic arithmetic and host review safeguards are explicitly distinguished from source-study results."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

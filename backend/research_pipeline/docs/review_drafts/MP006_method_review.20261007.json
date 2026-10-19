@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_INPUT_DEFINITION_SCOPE",
+  "date": "2026-10-07",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "没问题",
+    "accepted_proposal": "MP006 checks human dosing scenario, relevant target descriptors, curve basis/time horizon and input sources. Model structure, complete parameter sets, simulation, evaluation and plotting grid are deferred; target-drug human PK data are not required."
+  },
+  "library_version": "1.0.0-draft.8",
+  "library_sha256": "133238a4fea46323f5c2c1da6366d58e9e74e89dc3c3dfded767bd727fb9760c",
+  "profile_sha256": "69033b09b3a8ff5668eb86408ce9705b6f21bc7c3b48084294132ff24ab943ba",
+  "profile": {
+    "id": "MP006",
+    "name": "Human PK simulation input definitions",
+    "family": "TRANSLATION",
+    "assessment_scope": "DATA_REQUIREMENTS_ONLY",
+    "target_endpoints": [
+      "Project-requested prospective human IV concentration-time scenarios"
+    ],
+    "outputs": [
+      "Human dosing and curve-definition coverage",
+      "Existing versus planned input sources",
+      "Scenario-specific missing definitions and required phase"
+    ],
+    "applies_when": "The project requests a prospective human IV PK curve. Reuse the registered parameter definitions, units, provenance and gaps; inspect only the additional simulation-scenario definitions and input sources.",
+    "required_inputs": [
+      "The proposed human IV regimen: dose and dose basis, bolus or infusion, applicable infusion duration, and repeat-dosing interval/count where relevant. Unspecified choices remain unresolved.",
+      "The requested curve concentration basis and simulation time horizon, sourced from the project objective or an authorized scenario definition.",
+      "An input-source inventory distinguishing existing inputs, predicted parameters planned from the translation branch, and inputs with no identified source."
+    ],
+    "conditional_inputs": [
+      "Target human body weight or other scenario descriptors only when required by the intended dosing/scaling task; do not insert typical values by default.",
+      "For an unbound curve, link the applicable binding-data requirement to MP007 rather than repeating its detailed checks."
+    ],
+    "acceptable_alternatives": [
+      "A planned output from the translation branch is a pending input, not missing raw data or an already available qualified estimate. Record its producer and the phase when it is needed."
+    ],
+    "data_checks": [
+      "Check whether regimen and curve definitions are explicit and consistent with the requested scenario; list unresolved choices without selecting them.",
+      "Reuse prior parameter/source assessments and distinguish prospective human predictions from animal estimates and target-drug human observations. Apply existing project source permissions; do not request target-drug human in vivo PK observations merely to complete a prospective scenario.",
+      "Distinguish inputs already supplied, planned downstream outputs and unidentified sources. Do not require an accepted human structure, a complete predicted parameter set or a completed simulation at this stage.",
+      "Keep simulation settings such as plotting time-grid resolution for the execution module. Record missing scientific scenario definitions as needed before simulation, without blocking otherwise supported animal data preparation."
+    ],
+    "missing_effect": "Report missing scenario definitions and input sources with their affected scenario and before-simulation timing. Use the general data-gap policy; preserve supported upstream animal work.",
+    "not_established": [
+      "A selected human model, accepted parameters, a simulated curve, quantified human variability or human predictive validation."
+    ],
+    "needed_at": "DATA_REQUIREMENTS_ASSESSMENT",
+    "source_ids": [
+      "S09",
+      "S01"
+    ]
+  },
+  "deferred_reference": {
+    "path": "research_pipeline/research_pipeline/resources/human_simulation_followup.json",
+    "sha256": "1ab607815b2bd630e737b7a66991fa0fe863a092c89cc9b667d823e35af9ed15"
+  },
+  "unchanged_profiles": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP005",
+    "MP007",
+    "MP008",
+    "MP009",
+    "MP010"
+  ],
+  "scientific_release": false,
+  "historical_runs_modified": false
+}

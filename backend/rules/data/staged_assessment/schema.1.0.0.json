@@ -1,0 +1,1164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Staged assessment policy documents and hypothetical decision contracts",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "version": {
+          "const": "1.0.0"
+        },
+        "status": {
+          "const": "AUTHORED_NOT_ACTIVATED"
+        },
+        "kind": {
+          "enum": [
+            "COVERAGE_POLICY",
+            "NECESSITY_POLICY"
+          ]
+        },
+        "authority": {
+          "const": "PROCESSING_POLICY_NOT_PROJECT_SCIENTIFIC_RULES"
+        },
+        "inherits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "instruction": {
+                "type": "string",
+                "minLength": 1
+              },
+              "on_failure": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "instruction",
+              "on_failure",
+              "source_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "decision_contract": {
+          "type": "object",
+          "minProperties": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "version",
+        "status",
+        "kind",
+        "authority",
+        "inherits",
+        "source_refs",
+        "rules",
+        "decision_contract"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "version": {
+          "const": "1.0.0"
+        },
+        "status": {
+          "const": "AUTHORED_NOT_ACTIVATED"
+        },
+        "kind": {
+          "const": "REFERENCE_LIBRARY"
+        },
+        "authority": {
+          "const": "REFERENCE_KNOWLEDGE_NOT_SOURCE_DATA"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "file_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "authority": {
+                "type": "string",
+                "minLength": 1
+              },
+              "locator": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "path",
+              "ids",
+              "version",
+              "file_sha256",
+              "authority",
+              "locator"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "action_templates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "family": {
+                "enum": [
+                  "NCA",
+                  "MODEL_BASED",
+                  "PD_INDEX",
+                  "PD_TARGET",
+                  "PTA"
+                ]
+              },
+              "inputs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kind": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "needed_before_action": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "source_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 1
+                    },
+                    "locator": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "kind",
+                    "needed_before_action",
+                    "source_ids",
+                    "locator"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              },
+              "not_required": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "scope_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              },
+              "locator": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "action_id",
+              "family",
+              "inputs",
+              "not_required",
+              "scope_fields",
+              "source_ids",
+              "locator"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "hypothetical": {
+                "const": true
+              },
+              "case_schema": {
+                "enum": [
+                  "coverage_case",
+                  "action_case",
+                  "exception_case",
+                  "shared_fact_case",
+                  "new_data_case"
+                ]
+              },
+              "case": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "title",
+              "hypothetical",
+              "case_schema",
+              "case"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "project_scope": {
+          "type": "object"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "version",
+        "status",
+        "kind",
+        "authority",
+        "sources",
+        "action_templates",
+        "examples",
+        "project_scope",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "version": {
+          "const": "1.0.0"
+        },
+        "status": {
+          "const": "AUTHORED_NOT_ACTIVATED"
+        },
+        "kind": {
+          "const": "STAGED_ASSESSMENT_MANIFEST"
+        },
+        "runtime_integration": {
+          "const": "NOT_CONNECTED"
+        },
+        "supersedes": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "enum": [
+                  "coverage_policy",
+                  "necessity_policy",
+                  "references",
+                  "schema"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "file_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "role",
+              "path",
+              "file_sha256"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 4
+        },
+        "source_path_base": {
+          "const": "REPOSITORY_ROOT"
+        }
+      },
+      "required": [
+        "schema_version",
+        "version",
+        "status",
+        "kind",
+        "runtime_integration",
+        "supersedes",
+        "files",
+        "source_path_base"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "coverage_case": {
+      "type": "object",
+      "properties": {
+        "support": {
+          "enum": [
+            "NONE",
+            "PARTIAL",
+            "SUPPORTED"
+          ]
+        },
+        "search_state": {
+          "enum": [
+            "ASSIGNED_ONLY",
+            "TARGETED_INCOMPLETE",
+            "TARGETED_COMPLETE",
+            "NOT_NEEDED"
+          ]
+        },
+        "conflict": {
+          "type": "boolean"
+        },
+        "planned_output": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "SUPPORTED",
+            "PARTIAL",
+            "MISSING",
+            "CONFLICT",
+            "UNRESOLVED",
+            "DEFERRED"
+          ]
+        }
+      },
+      "required": [
+        "support",
+        "search_state",
+        "conflict",
+        "planned_output",
+        "status"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "conflict": {
+                "const": true
+              }
+            },
+            "required": [
+              "conflict"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "CONFLICT"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "MISSING"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "support": {
+                "const": "NONE"
+              },
+              "search_state": {
+                "const": "TARGETED_COMPLETE"
+              },
+              "conflict": {
+                "const": false
+              },
+              "planned_output": {
+                "const": false
+              }
+            },
+            "required": [
+              "support",
+              "search_state",
+              "conflict",
+              "planned_output"
+            ]
+          }
+        },
+        {
+          "if": {
+            "allOf": [
+              {
+                "properties": {
+                  "support": {
+                    "const": "NONE"
+                  },
+                  "conflict": {
+                    "const": false
+                  },
+                  "planned_output": {
+                    "const": false
+                  }
+                },
+                "required": [
+                  "support",
+                  "conflict",
+                  "planned_output"
+                ]
+              },
+              {
+                "properties": {
+                  "search_state": {
+                    "enum": [
+                      "ASSIGNED_ONLY",
+                      "TARGETED_INCOMPLETE"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "UNRESOLVED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "SUPPORTED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "support": {
+                "const": "SUPPORTED"
+              },
+              "conflict": {
+                "const": false
+              },
+              "planned_output": {
+                "const": false
+              }
+            },
+            "required": [
+              "support",
+              "conflict",
+              "planned_output"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "planned_output": {
+                "const": true
+              },
+              "conflict": {
+                "const": false
+              }
+            },
+            "required": [
+              "planned_output",
+              "conflict"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "DEFERRED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      ]
+    },
+    "action_case": {
+      "type": "object",
+      "properties": {
+        "current_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependency_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "depends_on_this_action": {
+          "type": "boolean"
+        },
+        "necessity": {
+          "enum": [
+            "REQUIRED",
+            "CONDITIONAL"
+          ]
+        },
+        "applicability": {
+          "enum": [
+            "APPLIES",
+            "NOT_APPLICABLE",
+            "UNRESOLVED"
+          ]
+        },
+        "coverage_status": {
+          "enum": [
+            "SUPPORTED",
+            "PARTIAL",
+            "MISSING",
+            "CONFLICT",
+            "UNRESOLVED",
+            "DEFERRED"
+          ]
+        },
+        "blocked": {
+          "type": "boolean"
+        },
+        "applicability_basis": {
+          "enum": [
+            "PLANNED_REQUIREMENT",
+            "SOURCE_SCOPE",
+            "ORIGINAL_RULE_EXCEPTION",
+            "UNRESOLVED"
+          ]
+        }
+      },
+      "required": [
+        "current_action",
+        "dependency_action",
+        "depends_on_this_action",
+        "necessity",
+        "applicability",
+        "coverage_status",
+        "blocked",
+        "applicability_basis"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "depends_on_this_action": {
+                "const": false
+              }
+            },
+            "required": [
+              "depends_on_this_action"
+            ]
+          },
+          "then": {
+            "properties": {
+              "blocked": {
+                "const": false
+              }
+            },
+            "required": [
+              "blocked"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "coverage_status": {
+                "const": "SUPPORTED"
+              }
+            },
+            "required": [
+              "coverage_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "blocked": {
+                "const": false
+              }
+            },
+            "required": [
+              "blocked"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "applicability": {
+                "const": "NOT_APPLICABLE"
+              }
+            },
+            "required": [
+              "applicability"
+            ]
+          },
+          "then": {
+            "properties": {
+              "blocked": {
+                "const": false
+              }
+            },
+            "required": [
+              "blocked"
+            ]
+          }
+        },
+        {
+          "if": {
+            "allOf": [
+              {
+                "properties": {
+                  "depends_on_this_action": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "depends_on_this_action"
+                ]
+              },
+              {
+                "properties": {
+                  "coverage_status": {
+                    "not": {
+                      "const": "SUPPORTED"
+                    }
+                  },
+                  "applicability": {
+                    "enum": [
+                      "APPLIES",
+                      "UNRESOLVED"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "blocked": {
+                "const": true
+              }
+            },
+            "required": [
+              "blocked"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "necessity": {
+                "const": "REQUIRED"
+              },
+              "applicability": {
+                "const": "NOT_APPLICABLE"
+              }
+            },
+            "required": [
+              "necessity",
+              "applicability"
+            ]
+          },
+          "then": {
+            "properties": {
+              "applicability_basis": {
+                "const": "ORIGINAL_RULE_EXCEPTION"
+              }
+            }
+          }
+        }
+      ],
+      "description": "Hypothetical decision contract only. Dependency and original-rule exception facts must be established by source-bound review; booleans/enums do not prove them."
+    },
+    "exception_case": {
+      "type": "object",
+      "properties": {
+        "clause_present": {
+          "type": "boolean"
+        },
+        "scope_matches": {
+          "type": "boolean"
+        },
+        "evidence_clear": {
+          "type": "boolean"
+        },
+        "conflict": {
+          "type": "boolean"
+        },
+        "human_required": {
+          "type": "boolean"
+        },
+        "decision": {
+          "enum": [
+            "EXCEPTION_APPLIES",
+            "EXCEPTION_DOES_NOT_APPLY",
+            "HUMAN_REVIEW"
+          ]
+        }
+      },
+      "required": [
+        "clause_present",
+        "scope_matches",
+        "evidence_clear",
+        "conflict",
+        "human_required",
+        "decision"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "human_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "human_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "const": "HUMAN_REVIEW"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        },
+        {
+          "if": {
+            "allOf": [
+              {
+                "properties": {
+                  "human_required": {
+                    "const": false
+                  },
+                  "clause_present": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "human_required",
+                  "clause_present"
+                ]
+              },
+              {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "evidence_clear": {
+                        "const": false
+                      }
+                    },
+                    "required": [
+                      "evidence_clear"
+                    ]
+                  },
+                  {
+                    "properties": {
+                      "conflict": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "conflict"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "const": "HUMAN_REVIEW"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "human_required": {
+                "const": false
+              },
+              "clause_present": {
+                "const": false
+              }
+            },
+            "required": [
+              "human_required",
+              "clause_present"
+            ]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "const": "EXCEPTION_DOES_NOT_APPLY"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "human_required": {
+                "const": false
+              },
+              "clause_present": {
+                "const": true
+              },
+              "evidence_clear": {
+                "const": true
+              },
+              "conflict": {
+                "const": false
+              },
+              "scope_matches": {
+                "const": true
+              }
+            },
+            "required": [
+              "human_required",
+              "clause_present",
+              "evidence_clear",
+              "conflict",
+              "scope_matches"
+            ]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "const": "EXCEPTION_APPLIES"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "human_required": {
+                "const": false
+              },
+              "clause_present": {
+                "const": true
+              },
+              "evidence_clear": {
+                "const": true
+              },
+              "conflict": {
+                "const": false
+              },
+              "scope_matches": {
+                "const": false
+              }
+            },
+            "required": [
+              "human_required",
+              "clause_present",
+              "evidence_clear",
+              "conflict",
+              "scope_matches"
+            ]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "const": "EXCEPTION_DOES_NOT_APPLY"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        }
+      ]
+    },
+    "shared_fact_case": {
+      "type": "object",
+      "properties": {
+        "scope_equal": {
+          "type": "boolean"
+        },
+        "source_link_supported": {
+          "type": "boolean"
+        },
+        "fact_definition_equal": {
+          "type": "boolean"
+        },
+        "source_versions_equal": {
+          "type": "boolean"
+        },
+        "reuse": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "scope_equal",
+        "source_link_supported",
+        "fact_definition_equal",
+        "source_versions_equal",
+        "reuse"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "reuse": {
+                "const": true
+              }
+            },
+            "required": [
+              "reuse"
+            ]
+          },
+          "then": {
+            "properties": {
+              "scope_equal": {
+                "const": true
+              },
+              "source_link_supported": {
+                "const": true
+              },
+              "fact_definition_equal": {
+                "const": true
+              },
+              "source_versions_equal": {
+                "const": true
+              }
+            },
+            "required": [
+              "scope_equal",
+              "source_link_supported",
+              "fact_definition_equal",
+              "source_versions_equal"
+            ]
+          }
+        }
+      ]
+    },
+    "new_data_case": {
+      "type": "object",
+      "properties": {
+        "needed_for_current_action": {
+          "type": "boolean"
+        },
+        "applicability_resolved": {
+          "type": "boolean"
+        },
+        "permitted_search_complete": {
+          "type": "boolean"
+        },
+        "existing_material_can_supply": {
+          "type": "boolean"
+        },
+        "definition_pending": {
+          "type": "boolean"
+        },
+        "planned_output_pending": {
+          "type": "boolean"
+        },
+        "suggest_new_data": {
+          "type": "boolean"
+        },
+        "experiment_authorized": {
+          "const": false
+        }
+      },
+      "required": [
+        "needed_for_current_action",
+        "applicability_resolved",
+        "permitted_search_complete",
+        "existing_material_can_supply",
+        "definition_pending",
+        "planned_output_pending",
+        "suggest_new_data",
+        "experiment_authorized"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "suggest_new_data": {
+                "const": true
+              }
+            },
+            "required": [
+              "suggest_new_data"
+            ]
+          },
+          "then": {
+            "properties": {
+              "needed_for_current_action": {
+                "const": true
+              },
+              "applicability_resolved": {
+                "const": true
+              },
+              "permitted_search_complete": {
+                "const": true
+              },
+              "existing_material_can_supply": {
+                "const": false
+              },
+              "definition_pending": {
+                "const": false
+              },
+              "planned_output_pending": {
+                "const": false
+              }
+            },
+            "required": [
+              "needed_for_current_action",
+              "applicability_resolved",
+              "permitted_search_complete",
+              "existing_material_can_supply",
+              "definition_pending",
+              "planned_output_pending"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

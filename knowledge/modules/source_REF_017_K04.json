@@ -1,0 +1,36 @@
+{
+  "cards": [
+    {
+      "title": "Handling of Inserted C0 in Sparse AUC",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "When a non-zero C0 is inserted at dose time t0, the AUC estimate includes an additional constant term C* = C0(t1-t0)/2. The inserted C0 is treated as a constant, so its estimation variance is not duplicated in the Var(AUC) computation.",
+      "conditions": [
+        "Sparse NCA analysis where C0 is estimated/inserted"
+      ],
+      "required_inputs": [
+        "Estimated C0 value",
+        "Time points t0 and t1"
+      ],
+      "limitations": [
+        "The variance of the estimated C0 is not propagated into the AUC variance calculation in this specific implementation."
+      ],
+      "downstream_use": "Understanding bias/variance trade-offs when imputing C0 in sparse designs.",
+      "evidence_chunk_ids": [
+        "REF_017:0003"
+      ],
+      "id": "source_REF_017:K04",
+      "origin_job": "source_REF_017",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_017"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

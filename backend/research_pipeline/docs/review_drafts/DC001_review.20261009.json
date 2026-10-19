@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "quote": "需要改 grilling再检查一下是否有遗漏是否需要调用C005中的关键词信息",
+    "decision": "Decision card '按检查稿第 4 节改 DC001，并给标注调用加 PK 术语吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC001)"
+  },
+  "gaps_found": [
+    "Scope limited to tables although notes, document pages and unassigned content are inventory items.",
+    "Record type list mixed role, record level and observation source; current label fields unnamed.",
+    "Label-level evidence not required by the rule text.",
+    "Units copied as written had no host check.",
+    "CC005 categories without a label field: dosing schedule, time origin, total/unbound basis per column, statistic type, normalization/transformation, marker meanings, strain and health or infection state."
+  ],
+  "changes": [
+    "dc_coverage.json 1.5.0: DC001 rewritten; INDIVIDUAL definition forbids inferring serial identity from destructive sampling; terminology block (CPK01-CPK04, CPK08, supporting_metadata, data_qualifiers).",
+    "data_agents.py: LABEL dosing_regimen and columns[].qualifiers; verbatim unit/qualifier check; qualifier-aware page merge; pk_terminology to DC-label and DC-review.",
+    "tests: unit and qualifier evidence checks, terminology scope."
+  ],
+  "not_changed": "pk_binding_knowledge.json (owned by compression) is read, not edited. DP does not yet consume qualifiers or dosing_regimen."
+}

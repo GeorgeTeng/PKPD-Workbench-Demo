@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card 'Data 后端提速，做哪几项？': 四项都做 (A concurrent calls, B reuse on retry, C compact cells, D host-code fixes).",
+    "plan_document": "/mnt/project-files/data-part/Data后端提速方案_20261009.md"
+  },
+  "measured": {
+    "workload": "One workbook of 6 Excel tables x 1500 rows x 8 columns plus a 2000-line text file; fake model answering in 0.5 s (bench.py).",
+    "before": {
+      "inventory_s": 35.5,
+      "label_s": 27.5,
+      "label_calls": 43,
+      "label_request_chars": 10571734,
+      "assess_s": 3.6
+    },
+    "after": {
+      "inventory_s": 5.0,
+      "label_s": 4.2,
+      "label_calls": 13,
+      "label_request_chars": 2990707,
+      "assess_s": 2.1
+    },
+    "note": "Inventory time now is mostly openpyxl parsing (about 3.5 s) because the benchmark has no intake snapshot; real calls take a median of 69 s on the device, so labelling this workload falls from about 50 minutes (43 calls one by one) to about 4 rounds of calls."
+  },
+  "changes": [
+    "data_agents.py: run_calls (4 concurrent calls, DATA_AGENT_WORKERS) for DC-split sheets, DC-label pages, DP tables and split DC-review parts; results in plan order; first failure in plan order raised; stopped.json written under a lock.",
+    "data_agents.py: invoke(check=...) keeps a checked DC-split, DC-label or DP response under data_agents/kept/ and reuses it, checked again, for an identical request to the same executor; rejected splits are not kept.",
+    "data_agents.py: CELL_FORMAT and render_cell; content_cells gives parsed cells to host code and content_units the text models read; DC-split cells sent as {coordinate: text}; CSV items carry descriptor.source_format CSV and empty CSV fields are not listed.",
+    "data_agents.py: duplicate check indexes document number runs once; intake snapshots and their sheets parsed once per run; footnote lookup no longer quadratic in table size.",
+    "data_requirement_check.py 1.4.0: build_inputs takes a cell reader; cited cells outside the table range are SOURCE_NOTE, not body evidence (found while refactoring).",
+    "dc_coverage.json 2.5.0: DC002 states the cell format; runtime records concurrency and reuse.",
+    "data_agents.contract.json 3.18.0 (model_calls); data_requirement_check.contract.json 1.5.0 (A03)."
+  ],
+  "not_changed": [
+    "DR, DC-review and DH responses are not reused: their host checks continue across the step.",
+    "Inventory still reads one workbook's sheets in order; only DC-split calls run concurrently."
+  ]
+}

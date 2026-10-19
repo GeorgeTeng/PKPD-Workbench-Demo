@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Estimation of Terminal Elimination Rate (λz) in Sparse Data",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "The terminal elimination rate constant (λz) is estimated by linear regression on log-transformed concentrations at the last three sampling time points. In the Bayesian framework, λz is treated as a random variable with a uniform prior, allowing its uncertainty to propagate into the AUC0-∞ calculation.",
+      "conditions": [
+        "Terminal phase data must be available (at least 3 points).",
+        "First-order elimination kinetics are assumed for the terminal phase.",
+        "Concentrations at terminal points are log-normally distributed."
+      ],
+      "required_inputs": [
+        "Concentration values at the last three time points.",
+        "Time points corresponding to the terminal phase."
+      ],
+      "limitations": [
+        "The method uses a fixed number of points (last 3) rather than an adaptive regression (like Phoenix WinNonlin's best-fit search), which may affect accuracy if the terminal phase is not clearly defined by these points.",
+        "Assumes log-normality for the terminal phase data."
+      ],
+      "downstream_use": "Calculation of AUC0-∞ (AUC0-t + Ct/λz) and subsequent exposure metrics in sparse sampling studies.",
+      "evidence_chunk_ids": [
+        "SUP005:0006",
+        "SUP005:0010",
+        "SUP005:0011"
+      ],
+      "id": "source_SUP005:K03",
+      "origin_job": "source_SUP005",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

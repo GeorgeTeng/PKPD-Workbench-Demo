@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Monte Carlo Integration of Multi-Source Uncertainty",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "Monte Carlo simulation is an effective method to integrate multiple sources of uncertainty (e.g., clearance prediction error, volume of distribution scaling error, PD potency uncertainty) into a single empirical distribution of the predicted human dose or exposure. This approach handles both closed-form PK/PD models and complex nonlinear models where analytical solutions are unavailable.",
+      "conditions": [
+        "Used when multiple parameter uncertainties need to be propagated simultaneously.",
+        "Requires defining distributions for each uncertain input parameter."
+      ],
+      "required_inputs": [
+        "Distributions for PK parameters (e.g., log-normal for Vss to avoid negative values).",
+        "Distributions for PD parameters (e.g., MIC, potency).",
+        "Computational framework for numerical integration or optimization."
+      ],
+      "limitations": [
+        "Computational cost increases with model complexity (e.g., ODE integration per sample).",
+        "Correlations between parameter uncertainties are often unknown and may be omitted, potentially underestimating combined uncertainty."
+      ],
+      "downstream_use": "Generates empirical distributions of human dose or exposure metrics (e.g., fAUC/MIC) for PTA/CFR analysis.",
+      "evidence_chunk_ids": [
+        "SUP011:0005",
+        "SUP011:0013",
+        "SUP011:0025"
+      ],
+      "id": "module_human_simulation:K02",
+      "origin_job": "module_human_simulation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

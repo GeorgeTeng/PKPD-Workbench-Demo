@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Binding and Unbound Exposure Data Requirements",
+      "topics": [
+        "translation",
+        "pkpd"
+      ],
+      "claim": "Binding data must distinguish between directly measured unbound concentration, unbound fraction (fu), and bound fraction. Percentage vs. fractional scales must be preserved. Blood/plasma partition information is required only if the task changes concentration basis. One binding value is not valid for every matrix or concentration; concentration-dependent binding may require a model.",
+      "conditions": [
+        "Enable only when the objective requests unbound exposure or a binding correction.",
+        "Do not silently copy animal fu into a human prediction or assume fu equals one.",
+        "Do not confuse human-source in vitro evidence with human in vivo PK observations."
+      ],
+      "required_inputs": [
+        "Requested use (unbound exposure vs. correction).",
+        "Measurement method, species, matrix, temperature, pH, and concentration range.",
+        "Explicit definition of the binding metric (fu vs. bound fraction)."
+      ],
+      "limitations": [
+        "Ambiguous definitions (e.g., % vs fraction) must be flagged.",
+        "Non-specific binding to filters (e.g., in ultrafiltration) must be corrected for if applicable.",
+        "Missing binding data blocks unbound endpoint calculations but not total exposure work."
+      ],
+      "downstream_use": "Enables conversion of total to unbound exposure for PK/PD target matching.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0054",
+        "IN_BINDING:0008",
+        "IN_BINDING:0009",
+        "ARTICLE_S01:0007"
+      ],
+      "id": "module_translation:K03",
+      "origin_job": "module_translation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S01",
+        "IN_BINDING",
+        "IN_MAIN"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

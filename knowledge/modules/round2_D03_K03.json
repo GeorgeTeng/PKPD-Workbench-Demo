@@ -1,0 +1,49 @@
+{
+  "cards": [
+    {
+      "title": "Free/Total Basis and Binding Definitions",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Free concentration, unbound fraction (fu), and bound fraction are distinct concepts. Percentage vs. fractional scales must be preserved. Directly measured unbound concentrations do not require fu for conversion. Binding data must specify the species, matrix, and experimental conditions (e.g., temperature, pH) under which it was measured.",
+      "conditions": [
+        "Applies when distinguishing between total and unbound exposure.",
+        "Requires explicit labeling of whether a value is a measured concentration or a derived fraction.",
+        "Blood/plasma partitioning is only relevant if the task requires changing the concentration basis."
+      ],
+      "required_inputs": [
+        "Provenance: Source of binding data (e.g., equilibrium dialysis vs. ultrafiltration).",
+        "Identity: Specific analyte and matrix for binding measurement.",
+        "Prerequisites: Clear distinction between 'free concentration' (mass/volume) and 'fu' (dimensionless fraction).",
+        "Missing-input gates: Ambiguous definitions (e.g., 'binding' without specifying free vs. bound) block downstream exposure-response analysis."
+      ],
+      "limitations": [
+        "Do not apply fu_incubation corrections if CLint is already unbound; however, blood unbound fraction (fuB) remains a required factor in the well-stirred model equation.",
+        "Binding values are source-specific and not universal project policy.",
+        "Equilibrium dialysis may detect only specific components (e.g., PMB1) while ultrafiltration detects all, affecting comparability."
+      ],
+      "downstream_use": "Allows correct calculation of unbound exposure metrics. Prevents double-correction errors in PK modeling.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0054",
+        "REF_025:0004",
+        "REF_025:0005",
+        "REF_025:0007"
+      ],
+      "id": "round2_D03:K03",
+      "origin_job": "round2_D03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_MAIN",
+        "REF_025"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D03",
+      "retrieval_keywords": "Dose/event/time, analyte, matrix, units and free/total concentration definitions attached to descriptive evidence",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

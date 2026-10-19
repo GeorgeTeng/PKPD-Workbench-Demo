@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Structural Model Configuration Details",
+      "topics": [
+        "animal_pk",
+        "translation"
+      ],
+      "claim": "Model structure is defined by number of compartments (1-3) and absorption type (IV or Extravascular). Extravascular absorption adds Ka. Micro parameterization allows setting Ka=Ke. Clearance parameterization adds inter-compartmental clearances. An elimination compartment (urinecpt) can be added for urine data, which is ignored in steady-state dosing.",
+      "conditions": [
+        "Micro parameterization allows Ka=Ke constraint.",
+        "Clearance parameterization with elimination compartment removes 'Closed form?' option.",
+        "Infusions require mapping rate contexts (A1 Rate or Aa Rate)."
+      ],
+      "required_inputs": [
+        "Number of compartments (1-3).",
+        "Absorption type (IV or Extravascular).",
+        "Optional: Time lag (tlag), Elimination compartment flag."
+      ],
+      "limitations": [
+        "Adding an elimination compartment to a Clearance model disables closed-form options.",
+        "Steady-state dosing ignores the urinecpt statement."
+      ],
+      "downstream_use": "Configuring the differential equations or algebraic expressions for PK simulation. Mapping data columns to model parameters.",
+      "evidence_chunk_ids": [
+        "REF_009:0002",
+        "REF_009:0003",
+        "REF_009:0004"
+      ],
+      "id": "source_REF_009:K04",
+      "origin_job": "source_REF_009",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_009"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

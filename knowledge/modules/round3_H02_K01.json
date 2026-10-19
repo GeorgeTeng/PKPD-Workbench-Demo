@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Simulation Types: Typical vs. Mean vs. Uncertainty",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "Simulations based on fixed-effect estimates illustrate the profile for a typical individual, which generally differs from the population mean prediction. Mean latent-population predictions average over the specified between-subject parameter and relevant covariate distributions, by simulation or suitable integration; measurement residual error is conditional on the requested observed-data estimand. Parameter uncertainty simulations represent uncertainty in estimated parameters and resulting exposures or covariate effects, while BSV simulations describe the distribution of individual predictions.",
+      "conditions": [
+        "Applicable when defining simulation objectives for human PK/PD.",
+        "Typical simulations use only fixed-effect parameters.",
+        "BSV simulations require random effects; residual error models are required only when predicting observed concentrations.",
+        "Uncertainty simulations require estimates of parameter precision (e.g., bootstrap, standard errors)."
+      ],
+      "required_inputs": [
+        "Fixed-effect parameter estimates (typical values).",
+        "Between-subject variability (BSV) estimates (variance/covariance of random effects).",
+        "Residual error model parameters.",
+        "Parameter uncertainty estimates (e.g., covariance matrix of fixed effects)."
+      ],
+      "limitations": [
+        "Typical profiles do not represent the population mean.",
+        "Ignoring BSV in mean predictions leads to underestimation of exposure range.",
+        "Parameter uncertainty is distinct from biological variability; conflating them misrepresents risk."
+      ],
+      "downstream_use": "Select the appropriate simulation type based on the specific question (e.g., typical profile for mechanism, BSV for dose range, uncertainty for confidence intervals).",
+      "evidence_chunk_ids": [
+        "REF_022:0034",
+        "REF_022:0035"
+      ],
+      "id": "round3_H02:K01",
+      "origin_job": "round3_H02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "H02",
+      "retrieval_keywords": "Typical exposure versus between-person variability versus parameter uncertainty",
+      "supersedes": [
+        "round2_H02:K01",
+        "round2_H02:K02",
+        "round2_H02:K03",
+        "round2_H02:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

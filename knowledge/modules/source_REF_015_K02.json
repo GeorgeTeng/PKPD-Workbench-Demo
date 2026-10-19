@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Molecular-Weight-Normalized Systemic Metabolite Formation",
+      "topics": [
+        "pkpd",
+        "translation"
+      ],
+      "claim": "For a qualified parent-to-metabolite pathway, the systemically available fraction of the parent dose represented by a metabolite can be estimated from metabolite AUC and independently qualified systemic metabolite clearance, with molecular-weight conversion. Compare formed-metabolite kinetics with direct metabolite dosing when available; do not assume formation-limited or elimination-limited kinetics for every pair.",
+      "conditions": [
+        "Requires a defined parent/metabolite identity and formation stoichiometry, linear exposure-clearance relationship over the evaluated range, and appropriately integrated metabolite exposure.",
+        "Direct metabolite IV data can qualify systemic metabolite clearance; apparent clearance after an incompletely available route must not substitute without correction."
+      ],
+      "required_inputs": [
+        "Parent dose and molecular weight; metabolite molecular weight and formation stoichiometry.",
+        "Metabolite AUC after parent dosing, its units/window/extrapolation qualification, and systemic metabolite CL from an applicable independent dataset.",
+        "Parent and metabolite concentration-time profiles and dose/route records for comparing formation and disappearance kinetics."
+      ],
+      "limitations": [
+        "For one-to-one molar formation and compatible mass units: f_systemic_metabolite=AUC_metabolite*CL_metabolite/Dose_parent*(MW_parent/MW_metabolite). Multiply by100 only to express percent.",
+        "This is systemic metabolite availability, not necessarily total metabolic conversion or intestinal fraction absorbed. Other formation/elimination routes and first-pass loss can prevent identification of total conversion.",
+        "No source-pair fraction, half-life or kinetic dominance is retained as a default. Nonlinear or coupled formation/elimination may require a different model."
+      ],
+      "downstream_use": "Qualify analyte-specific metabolite contributions and mass-versus-molar accounting in conditional parent-metabolite translation.",
+      "evidence_chunk_ids": [
+        "REF_015:0011",
+        "REF_015:0012",
+        "REF_015:0017",
+        "REF_015:0018"
+      ],
+      "id": "source_REF_015:K02",
+      "origin_job": "source_REF_015",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_015"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review",
+      "method_keywords": [
+        "parent metabolite",
+        "systemic metabolite availability",
+        "molecular weight",
+        "formation stoichiometry",
+        "AUC metabolite clearance"
+      ],
+      "retrieval_keywords": "parent metabolite molecular weight molar mass systemic formation fraction clearance AUC"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

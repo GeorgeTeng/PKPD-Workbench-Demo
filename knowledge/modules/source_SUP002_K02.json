@@ -1,0 +1,45 @@
+{
+  "cards": [
+    {
+      "title": "pcVPC for Adaptive Dose Adjustments",
+      "topics": [
+        "animal_pk",
+        "pkpd"
+      ],
+      "claim": "pcVPCs are readily applicable to data from studies with a priori or a posteriori dose adaptations (e.g., therapeutic drug monitoring), where traditional VPCs can be misleading or uninformative due to the correlation between dose adjustments and the dependent variable.",
+      "conditions": [
+        "Study design involves dose adjustments based on observed concentrations or other dependent variable-related factors.",
+        "The dose adjustment algorithm may not be well-documented or fully reproducible in simulations.",
+        "Traditional VPCs show decreasing observed variability over time due to dose adjustments, which is not captured by simulations using realized designs."
+      ],
+      "required_inputs": [
+        "Dataset with adaptive dosing history.",
+        "Model predictions for the realized design.",
+        "Identification of bins for prediction correction."
+      ],
+      "limitations": [
+        "Simulations based on realized designs do not maintain the correlation between dose alterations and previous observed concentrations, which pcVPC corrects for.",
+        "If a dose adjustment algorithm is simulated, it may not accurately mimic real-life adjustments, leading to deceptive results; pcVPC based on realized design is preferred in these cases."
+      ],
+      "downstream_use": "Validating model predictive performance in clinical or preclinical studies with adaptive dosing protocols, ensuring that observed variability is correctly attributed to random effects rather than design artifacts.",
+      "evidence_chunk_ids": [
+        "SUP002:0002",
+        "SUP002:0004",
+        "SUP002:0010",
+        "SUP002:0013",
+        "SUP002:0019"
+      ],
+      "id": "source_SUP002:K02",
+      "origin_job": "source_SUP002",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

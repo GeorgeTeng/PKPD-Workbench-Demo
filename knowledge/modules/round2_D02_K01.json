@@ -1,0 +1,50 @@
+{
+  "cards": [
+    {
+      "title": "Categorical Distinction of Observation Statuses",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Observation statuses must be kept distinct: BLQ is not a measured zero; unresolved above-ULOQ is not an exact concentration at the upper limit; 'not sampled' is distinct from 'missing' or 'technical failure'. A stored numeric zero is a placeholder unless verified as a measured zero. EDA must retain these distinctions without collapsing mixed statuses.",
+      "conditions": [
+        "Applicable during initial data inspection and descriptive EDA.",
+        "Applies to all concentration-time data regardless of species or route.",
+        "Prohibited: Imputing BLQ with zero or LLOQ/2; converting BLQ to missing; treating 'not sampled' as 'missing' without schedule evidence."
+      ],
+      "required_inputs": [
+        "Original observation flags and recorded reasons.",
+        "Applicable LLOQ/ULOQ or microbial detection limits.",
+        "Actual vs. nominal time definitions.",
+        "Provenance of any numeric zeros (measured vs. placeholder)."
+      ],
+      "limitations": [
+        "EDA does not independently validate the assay or infer the missingness mechanism.",
+        "Unknown planned sampling is not evidence that a time was scheduled and missed.",
+        "Group summaries cannot reconstruct individual records; mixed statuses in pooled data must not be collapsed into one pure category."
+      ],
+      "downstream_use": "Preserves raw data integrity for later NCA or compartmental modeling. Prevents bias introduced by arbitrary imputation. Enables correct identification of censored vs. missing data for likelihood-based modeling.",
+      "evidence_chunk_ids": [
+        "IN_EDA:0012",
+        "IN_EDA:0042",
+        "IN_MAIN:0025"
+      ],
+      "id": "round2_D02:K01",
+      "origin_job": "round2_D02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA",
+        "IN_MAIN"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D02",
+      "retrieval_keywords": "BLQ, missing, not sampled, technical failure, above-range and assay qualification",
+      "supersedes": [
+        "source_REF_018:K02"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Experimental Unit Definition and Pseudoreplication",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "The experimental unit is the smallest biological entity independently assigned to a treatment group. Treating technical replicates (e.g., multiple cells from one mouse) or sub-samples as independent units constitutes pseudoreplication, artificially inflating sample size and invalidating statistical inference.",
+      "conditions": [
+        "Applicable when analyzing data with hierarchical structures (e.g., cells within animals, samples within cages).",
+        "Requires clear identification of the unit of randomization.",
+        "Applies to both destructive and longitudinal sampling designs."
+      ],
+      "required_inputs": [
+        "Explicit definition of the experimental unit for each experiment.",
+        "Mapping of each observation to its specific experimental unit ID.",
+        "Information on whether units were independently randomized or nested."
+      ],
+      "limitations": [
+        "Does not define the statistical model itself, only the unit of analysis.",
+        "Cannot resolve ambiguity if the original study design did not specify the unit of randomization.",
+        "Abstract-only sources may not provide sufficient detail to distinguish unit types."
+      ],
+      "downstream_use": "Determines the correct denominator for n in statistical tests and guides the selection of mixed-effects models versus simple t-tests/ANOVA.",
+      "evidence_chunk_ids": [
+        "ADD001:0012",
+        "ADD001:0013",
+        "ADD005:0001",
+        "ADD005:0005"
+      ],
+      "id": "round3_D01:K01",
+      "origin_job": "round3_D01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD001",
+        "ADD005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D01",
+      "retrieval_keywords": "Destructive samples, pooled specimens, biological and technical replicates: independent experimental units and descriptive uncertainty",
+      "supersedes": [
+        "round2_D01:K01",
+        "round2_D01:K02",
+        "round2_D01:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

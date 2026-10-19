@@ -1,0 +1,145 @@
+{
+  "cards": [
+    {
+      "title": "Prospective Human Regimen Simulation, Sensitivity Analysis, and Parameter Provenance",
+      "claim": "Prospective human regimen simulations require explicit specification of route, dose basis, administration schedule, and dosing interval. Sensitivity analysis must distinguish between deterministic parameter perturbation (e.g., worst-case ranges) and probabilistic uncertainty (e.g., Monte Carlo distributions). Oral bioavailability decomposition (Fa/Fg/Fh) is a conditional branch requiring specific IV/oral PK data and is not mandatory for all drugs. Exposure-only simulation outputs cannot establish safety, efficacy, or First-in-Human (FIH) doses without separate exposure-response validation. Model parameter provenance, including library model modifications and source justification, must be explicitly documented.",
+      "conditions": [
+        "Applicable when simulating human PK profiles for new doses, regimens, or formulations.",
+        "Fa/Fg/Fh is an optional oral mechanistic branch when relevant oral and IV exposure, absorption information and consistent clearance/flow definitions support decomposition; otherwise use an explicitly uncertain oral F scenario without claiming its components.",
+        "Assess sensitivity for uncertain inputs material to the stated scenario; choose scientifically justified ranges and joint perturbations where parameters are correlated. PBPK CYP/transporter examples are conditional.",
+        "Applicable when using library models or virtual populations; modifications to these models must be identified and justified."
+      ],
+      "required_inputs": [
+        "Route of administration (IV, oral, etc.).",
+        "Dose basis (mg/kg, absolute mg) and administration/infusion schedule.",
+        "Dosing interval and simulation time window.",
+        "Initial state assumptions (e.g., steady-state vs. single dose).",
+        "Exposure output metrics (Cmax, AUC, trough).",
+        "Parameter names, values, units, and sources (literature, estimation, or library default).",
+        "Documentation of any modifications to library models or system parameters."
+      ],
+      "limitations": [
+        "Does not provide target-drug specific human PK/PD parameters.",
+        "Does not validate a specific biomarker or supply efficacy/safety data.",
+        "Original EXTA001 study data are not transferable to target drugs; use only as methodological context for Fa/Fg/Fh estimation.",
+        "Exposure-response relationships must be separately qualified; simulation alone does not prove therapeutic effect.",
+        "Does not automatically validate library model defaults; user must justify modifications."
+      ],
+      "downstream_use": "Use to structure simulation inputs, define uncertainty propagation methods, and document parameter provenance. Use to justify parameter ranges and model modifications in regulatory submissions. Do not use to derive clinical dose recommendations without additional efficacy/safety evidence.",
+      "method_keywords": [
+        "prospective dose scenario",
+        "regimen simulation",
+        "sensitivity analysis",
+        "exposure window",
+        "Monte Carlo simulation",
+        "parameter uncertainty",
+        "Fa/Fg/Fh decomposition",
+        "oral bioavailability",
+        "parameter provenance",
+        "model modification",
+        "library model justification"
+      ],
+      "retrieval_keywords": "human scenario design, dose regimen assumptions, PBPK sensitivity, uncertainty quantification, oral absorption modeling, parameter source justification, library model modifications, PBPK reporting",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Define the specific human PK scenario (route, dose, schedule) and the scope of uncertainty (parameter ranges vs. distributions). Document the provenance of all model parameters and any modifications to library models.",
+        "input_contract": "1. Specify route, dose, formulation, and schedule. 2. Define initial conditions and time grid. 3. Identify parameters for sensitivity analysis (e.g., clearance, volume, absorption rate). 4. List all drug-specific and system-specific parameters with their values, units, and sources. 5. Document any modifications to library models or virtual populations.",
+        "applicability_and_prerequisites": "If oral first-pass mechanisms are in scope, F=Fa*Fg*Fh may be considered with supported data and assumptions. EXTA001 used Fa=1 for its indirect Fg estimate as a study assumption; unknown Fa is an uncertainty/gap, not permission to set Fa=1. Library model modifications must be justified.",
+        "definitions_units_basis_window": "Conditional oral decomposition: F=Fa*Fg*Fh (all dimensionless). In the original indirect method, metabolic/hepatic extraction and Fh depend on IV clearance, renal/biliary-route assumptions, liver blood flow and matched blood-versus-plasma clearance units; do not compute CLh/Qh from an unmatched total plasma CL. Concentration and exposure units must match scenario outputs.",
+        "procedure": "1. Define route, formulation, dose basis, administration schedule, interval, time window, initial state and output metric. 2. Declare which human parameters are known, translated or scenario assumptions, including their sources. 3. Document any modifications to library models or system parameters. 4. Run named deterministic sensitivities using justified ranges; run probabilistic uncertainty only with supplied joint distributions. 5. For an oral first-pass question, estimate Fa/Fg/Fh only when the indirect-method measurements and assumptions are met, otherwise carry F as an uncertain scenario input. 6. Report exposure and uncertainty without inferring efficacy, safety or FIH dose.",
+        "formula_and_parameterization": "Conditional oral decomposition: F=Fa*Fg*Fh (all dimensionless). In the original indirect method, metabolic/hepatic extraction and Fh depend on IV clearance, renal/biliary-route assumptions, liver blood flow and matched blood-versus-plasma clearance units; do not compute CLh/Qh from an unmatched total plasma CL. Concentration and exposure units must match scenario outputs.",
+        "uncertainty_and_identifiability": "Specify ranges or joint distributions from source evidence, measured uncertainty or transparent scenarios. The 10-fold CYP and 30-fold transporter values in SUP016 are PBPK sensitivity examples, not default human parameter ranges; Normal, lognormal and log-uniform laws are not automatic.",
+        "diagnostics_and_failure_modes": "If IV data are missing, do not estimate Fg/Fh; flag oral absorption as a gap. If exposure-response is unknown, do not infer safety/efficacy from PK variability. If library model modifications are undocumented, flag as a reporting gap.",
+        "missing_input_and_partial_fallback": "If IV data are missing, do not estimate Fg/Fh; flag oral absorption as a gap. If exposure-response is unknown, do not infer safety/efficacy from PK variability. If parameter sources are unclear, flag as a provenance gap.",
+        "output_and_interpretation": "Label each exposure result by its simulated layer: conditional profile, population variability, parameter/model uncertainty, or deterministic sensitivity. Exposure outputs alone do not establish efficacy. Without a qualified exposure-response link, retain the supported PK results and their limitations. Report parameter provenance and model modifications clearly.",
+        "worked_example_and_counterexample": "Synthetic conditional arithmetic only: if hepatic blood clearance is justified as 10 L/h and hepatic blood flow as 90 L/h under the source assumptions, Eh=10/90=0.111 and Fh=0.889. Without measured oral systemic F and a qualified Fa, Fg cannot be solved. A 100 mg q24h oral scenario may still vary total F over declared sensitivity values, but yields prospective exposure scenarios only. Counterexample: An IV CL estimate without oral systemic F and qualified Fa cannot determine Fg."
+      },
+      "claim_support": [
+        {
+          "claim": "Specify route, dose, formulation, and schedule for simulation.",
+          "scope": "General PBPK reporting requirement.",
+          "evidence_chunk_ids": [
+            "SUP015:0009"
+          ]
+        },
+        {
+          "claim": "EMA PBPK guidance recommends sensitivity analyses for uncertain, influential parameters using scientifically justified ranges and approaches; its CYP/transporter ranges are examples.",
+          "scope": "Parameter uncertainty handling.",
+          "evidence_chunk_ids": [
+            "SUP016:0018"
+          ]
+        },
+        {
+          "claim": "Monte Carlo can propagate the uncertainty components explicitly included in its joint input model; it does not automatically include unknown or omitted sources. One-at-a-time sensitivity plots answer a different, conditional perturbation question.",
+          "scope": "Uncertainty quantification methods.",
+          "evidence_chunk_ids": [
+            "SUP011:0005"
+          ]
+        },
+        {
+          "claim": "Exposure-response information supports dose/regimen adjustments but requires established relationships.",
+          "scope": "Interpretation of PK variability.",
+          "evidence_chunk_ids": [
+            "GEN001:0018"
+          ]
+        },
+        {
+          "claim": "The original indirect intestinal-availability study uses F=Fa*Fg*Fh and assumes Fa=1 for its Fg estimate; unknown Fa is a limitation, not a default.",
+          "scope": "Conditional oral absorption modeling.",
+          "evidence_chunk_ids": [
+            "EXTA001:0009",
+            "EXTA001:MATH01",
+            "EXTA001:0001"
+          ]
+        },
+        {
+          "claim": "Fa uncertainty impacts Fg estimation; solubility/permeability limits affect absorption.",
+          "scope": "Limitations of oral modeling.",
+          "evidence_chunk_ids": [
+            "EXTA001:0012"
+          ]
+        },
+        {
+          "claim": "All system-specific and drug-specific components, as well as the sources of parameter values, should be clearly specified and justified. Modifications to library models must be identified and justified.",
+          "scope": "Parameter provenance and model modification reporting.",
+          "evidence_chunk_ids": [
+            "SUP015:0009"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "GEN001:0018",
+        "SUP015:0009",
+        "SUP016:0018",
+        "SUP011:0005",
+        "EXTA001:0009",
+        "EXTA001:0012",
+        "EXTA001:MATH01",
+        "EXTA001:0001",
+        "SUP011:0003",
+        "REF_022:0034",
+        "REF_022:0035"
+      ],
+      "id": "round10_reviewed_v2_G10:K01",
+      "topics": [
+        "human_simulation"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "EXTA001",
+        "GEN001",
+        "REF_022",
+        "SUP011",
+        "SUP015",
+        "SUP016"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G10",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "example_is_synthetic": "True. The numerical values are illustrative only and do not represent any specific drug."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

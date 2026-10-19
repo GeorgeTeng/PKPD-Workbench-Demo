@@ -1,0 +1,94 @@
+{
+  "schema": "pkpd-reviewed-retrieval-metadata/1",
+  "status": "REVIEWED_INDEX_ONLY_FOR_ROUND11_STAGING",
+  "cards": [
+    {
+      "card_id": "round5_reviewed_v2_E02:K01",
+      "base_card_sha256": "c9e0a600e2c0b1fbf5e89269859d717e6a65b56d53f504aa02b238d1d678c128",
+      "keyword_additions": [
+        "experimental unit hierarchy cage subject",
+        "technical replicate biological n"
+      ],
+      "dependency_card_ids": [],
+      "review_evidence": [
+        "R01 E02",
+        "Existing plot_recipe grouping_and_connections and uncertainty_and_n"
+      ]
+    },
+    {
+      "card_id": "round5_reviewed_v2_E03:K01",
+      "base_card_sha256": "775b6ae5dec1c18e04058393f1d371b2399dfcf9202f8509db52a4afb9e7193d",
+      "keyword_additions": [
+        "BLQ BQL LLOQ ULOQ",
+        "dilution reassay provenance"
+      ],
+      "dependency_card_ids": [],
+      "review_evidence": [
+        "R01 E03",
+        "Existing censoring_and_missingness and claim_support"
+      ]
+    },
+    {
+      "card_id": "round10_reviewed_v2_G06:K01",
+      "base_card_sha256": "4cff2fb6f3858d1400aa467a024c417170b3f8584e6a55687276def9f7d405b1",
+      "keyword_additions": [
+        "active metabolite",
+        "parent drug",
+        "relative potency",
+        "concentration equivalent"
+      ],
+      "dependency_card_ids": [],
+      "review_evidence": [
+        "R03 G06",
+        "Existing EXTA003:MATH01 and method_recipe.formula_and_parameterization"
+      ]
+    },
+    {
+      "card_id": "round10_reviewed_v2_G10:K01",
+      "base_card_sha256": "5b66c8bf24dddb430a6a0d6cc94c9ee00f755eb9d97a8201e3d2e59ba033e1a7",
+      "keyword_additions": [
+        "PBPK parameter provenance",
+        "library model modification documentation"
+      ],
+      "dependency_card_ids": [],
+      "review_evidence": [
+        "R03 G10, narrowed and made query-specific",
+        "Existing SUP015:0009 full evidence; provenance documentation only, no new PBPK construction method"
+      ]
+    },
+    {
+      "card_id": "round10_reviewed_v2_G14:K01",
+      "base_card_sha256": "164cc6f29ad1866e1f1413e30719f41d83cc77cb1eee3866ec56c6bd1b723c48",
+      "keyword_additions": [
+        "adaptive dosing",
+        "prediction correction",
+        "percentile intervals",
+        "censoring frequency"
+      ],
+      "dependency_card_ids": [],
+      "review_evidence": [
+        "R03 G14 plus independent scope-preserving keyword review",
+        "Existing method_recipe.procedure steps 3-4; SUP002:0002/:0003/:0021"
+      ]
+    }
+  ],
+  "library_bindings": {
+    "chunks.jsonl": "388154f076e6ec5f3421886e4cf42af0ffb69a097305bca0c3e62b13fa6363f7",
+    "source_registry.json": "202893fde61abf1a82f03897d8c5ce7f7592b2f66c88cbdf7db58c50cb4047f4"
+  },
+  "reviewed_against_final_cards_and_evidence": true,
+  "rebind_review": {
+    "unchanged_eda": "E02/E03 and their cited evidence unchanged; prior review retained",
+    "G06": "Existing EXTA003 parent/metabolite formula and source-case qualification retained; new method keywords already contain accepted terms",
+    "G10": "SUP015:0009 explicitly requires parameter sources and library modifications; revised claim/inputs/procedure preserve scope",
+    "G14": "SUP002:0002/0003/0004/0005/0006/0021 support adaptive designs, prediction correction, percentile intervals and censor frequency; no universal approval rule"
+  },
+  "generalization_rebind_review": [
+    {
+      "card_id": "round10_reviewed_v2_G06:K01",
+      "before": "54519e7ff812dae4d0c020e40830ad711ca62d462bb90bda5b1b08d278fb6c83",
+      "after": "4cff2fb6f3858d1400aa467a024c417170b3f8584e6a55687276def9f7d405b1",
+      "review": "Only compound names removed from support scope; parent/metabolite potency and satellite-driver claims/evidence/keywords unchanged."
+    }
+  ]
+}

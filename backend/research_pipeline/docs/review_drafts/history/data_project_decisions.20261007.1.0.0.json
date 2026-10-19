@@ -1,0 +1,13 @@
+{
+  "version":"1.0.0",
+  "status":"USER_CONFIRMED_PENDING_PROJECT_RULE_PUBLICATION",
+  "scope":{"session_id":"flow_96036fc08334499f9a699212b66fb8f0","universal_default":false},
+  "source":{"type":"USER_CLARIFICATION","date":"2026-10-07","quote":"人体外推前必须至少有 3 个符合该参数要求的物种。完成可支持的指标；符合条件的参数可以交给外推分支审核，原有缺口继续保留 并不一定要房室模型 允许经审核的人源体外结合／代谢数据作为预测输入"},
+  "decisions":[
+    {"key":"minimum_qualified_species","text":"Before human extrapolation, require at least three distinct species qualified for the specific parameter being predicted.","minimum":3,"count_by":"PARAMETER","needed_at":"BEFORE_TRANSLATION","does_not_block":"Supported upstream NCA, data preparation or animal modeling"},
+    {"key":"partial_outputs_and_nca","text":"Complete supported endpoints and submit qualified parameters for extrapolation review. A compartmental animal model is not mandatory. Keep unresolved project objectives and evidence gaps visible.","needed_at":"ANALYSIS_ROUTING_AND_PARAMETER_HANDOFF"},
+    {"key":"human_in_vitro_inputs","text":"Reviewed human-source in vitro binding and metabolism evidence may be used as prediction inputs.","needed_at":"BEFORE_APPLICABLE_PREDICTION","supersession_scope":"Earlier blanket deferral of these human-source in vitro inputs; no extension of permission to target-drug human in vivo PK observations"}
+  ],
+  "publication":{"publisher":"Project Rules Agent","runtime_override":false,"note":"This record preserves the confirmed human decision. It is not an R-rule artifact, does not alter existing approvals, and is not automatically injected into unrelated projects. Reconcile affected prior rules during formal publication."},
+  "unresolved":["Evidence and acceptance criteria for qualifying a species-parameter estimate","Whether and under what review conditions published same-drug summary parameters without raw observations may count"]
+}

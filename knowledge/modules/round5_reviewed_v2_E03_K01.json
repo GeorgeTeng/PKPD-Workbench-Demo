@@ -1,0 +1,122 @@
+{
+  "cards": [
+    {
+      "title": "Censoring and Assay Range Display Conventions",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Confirmed BLQ is defined as C < LLOQ (LLOQ as upper bound); confirmed above-range is C > ULOQ (ULOQ as lower bound). Boundary symbols are not exact concentrations and must not enter numeric summaries. Valid dilution/reassay results are quantitative with provenance. Unknown limits block numeric bound placement but not categorical status plotting.",
+      "conditions": [
+        "Applies to EDA plotting of concentration-time data.",
+        "Require documented time/status for a status-time display; numeric measured value/unit only for quantitative records. If time is unresolved, retain a record/status table.",
+        "Assay type (chromatography vs LBA) and matrix/run context must be preserved.",
+        "No model fitting or mechanism inference."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Record/source locator, study, design, observation ID.",
+        "Experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID.",
+        "Regimen, dose occasion, route/formulation, analyte, matrix, free/total basis.",
+        "Time value/unit/origin if established, quantification status, and numeric measured value/unit only for quantified records; otherwise preserve null numeric value and any known applicable bound.",
+        "Applicable per-record assay/matrix/run range limits (if known).",
+        "Nullable serial_observation_subject_id, distinct from experimental_unit_id (e.g. an animal within its randomized cage); required for individual serial lines or paired loops."
+      ],
+      "limitations": [
+        "This is an engineering display contract, not a regulator-mandated layout.",
+        "Does not validate assay performance or grade assays.",
+        "Does not prescribe statistical estimators or imputation methods.",
+        "Unknown documentation is not invalidity; missing inputs block only dependent operations."
+      ],
+      "downstream_use": "Guides the construction of EDA plots that accurately represent censored and out-of-range data without misrepresenting bounds as exact values or conflating technical repeats with biological replicates.",
+      "evidence_chunk_ids": [
+        "REF_018:0014",
+        "REF_018:0038",
+        "REF_018:0054",
+        "REF_018:0103"
+      ],
+      "plot_recipe": {
+        "input_contract": "Preserve record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID, regimen and dose occasion, route/formulation, analyte, matrix, free/total basis, time value/unit/origin, measured value/unit and quantification status. Map only available applicable fields; never invent missing identities. Preserve nullable serial_observation_subject_id separately from experimental_unit_id, with its source linkage. Numeric measured value is required only for quantified records; censoring/missing statuses may have a null numeric value. Optional summary/error inputs are needed only when that layer is displayed.",
+        "plot_type": "Quantitative concentration points plus a separate labelled observation-status strip.",
+        "axes_and_units": "X = documented sample time; Y = quantitative concentration and unit in compatible assay/matrix/basis panels. Status strip has categorical labels, not concentration values. Optional assay-limit lines or inequality markers use the applicable known per-record assay/matrix/run range.",
+        "grouping_and_connections": "Separate study, regimen/dose occasion, route/formulation, analyte/matrix/basis and endpoint contexts. Connect only verified serial observations of the same unit in a compatible time reference, ordered by time. Break connections at recorded unresolved missing/censored statuses. No invented scheduled samples or cross-unit lines. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "Preserve observed values as points at their actual record level. Keep raw observations separate from optional source-reported or explicitly defined descriptive summaries. A labelled group-summary guide is not an individual trajectory. Do not reconstruct individuals from a mean and SD.",
+        "censoring_and_missingness": "Confirmed BLQ: C < LLOQ (LLOQ is an upper bound); confirmed above range: C > ULOQ (ULOQ is a lower bound). Check assay interpretation before calling an ambiguous signal above range. Valid final dilution/reassay result is quantitative with provenance. Boundary symbols are not exact concentrations and never enter numeric summaries as such. Preserve measured zero separately from BLQ, missing, not sampled and technical failure.",
+        "transformations_and_formula": "Retain original values, units, formula, input linkage and calculation order. Perform only the explicitly stated descriptive transformation with complete compatible inputs. No model fitting, integration, unsampled-peak interpolation or arbitrary log offsets.",
+        "uncertainty_and_n": "Label displayed record counts separately from known independent experimental-unit n. Preserve supplied statistic, calculation scale and exact SD, SE or CI meaning, including asymmetric interval endpoints. Technical repeats do not increase biological n. Unknown n or variability stays unknown; no automatic CI or zero-width bar.",
+        "interpretation_limits": "Descriptive patterns identify questions for later qualified analysis; they do not select a model, prove mechanism, dose proportionality, clinical efficacy or safety. Quantifiable-only summaries, if supplied, describe that subset, not the full censored sample.",
+        "stop_or_fallback": "Unknown limits: retain categorical status and valid quantitative observations, annotate limit unknown, omit only numerical boundary placement. Unknown quantification status: flag unresolved; do not infer it from stored numeric zero. Assay validation/range branches differ for chromatography and LBA; do not import numeric acceptance criteria into this plot recipe. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "Reported concentrations depend on a defined assay, matrix, calibration range and LLOQ, with stability assessed.",
+          "evidence_chunk_ids": [
+            "REF_018:0014"
+          ],
+          "scope": "General bioanalytical method validation principles.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "For chromatographic methods, if the highest calibration standard is rejected, the ULOQ for this analytical run is the next acceptable highest calibration standard.",
+          "evidence_chunk_ids": [
+            "REF_018:0038"
+          ],
+          "scope": "Chromatographic assay calibration range adjustment.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Due to the narrow assay range in many LBAs, study samples may require dilution to achieve analyte concentrations within the range of the assay; hook effect can cause erroneous results.",
+          "evidence_chunk_ids": [
+            "REF_018:0054"
+          ],
+          "scope": "LBA assay range and dilution linearity.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "LLOQ is the lowest amount of an analyte in a sample that can be quantitatively determined using a method with predefined precision and accuracy.",
+          "evidence_chunk_ids": [
+            "REF_018:0103"
+          ],
+          "scope": "Definition of LLOQ.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v2_E03:K01",
+      "origin_job": "round5_E03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_018"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E03",
+      "retrieval_keywords": "Censoring missingness and assay range in plots",
+      "supersedes": [
+        "round5_E03:K01",
+        "round4_E03:K01",
+        "round5_reviewed_E03:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "censoring missingness and assay range in plots",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "REF_018"
+      ],
+      "review_revision": {
+        "version": "local_review_v2",
+        "parent_card_id": "round5_E03:K01",
+        "parent_card_sha256": "4a7863306784ddfde645505fc973e942bd1df707676d9e3513261fc1d6c46859",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "e765fcc2666540990fb6e43fa59bbf9ada5963977e22475de2bc79fad19cff84"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

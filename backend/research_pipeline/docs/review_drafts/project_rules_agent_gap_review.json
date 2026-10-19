@@ -1,0 +1,303 @@
+{
+  "document_type": "PROJECT_RULES_AGENT_GAP_AUDIT",
+  "review_date": "2026-10-06",
+  "status": "REVIEW_COMPLETE_IMPLEMENTATION_NOT_ACTIVATED",
+  "scope": "Audit current PRC processing rules, identify gaps and draft additions. Runtime code and active rules were unchanged in this turn.",
+  "verification": {
+    "existing_tests": {
+      "passed": 46,
+      "command": ".venv-context/Scripts/python.exe -I -X utf8 -m pytest research_pipeline/tests/test_project_rule_agent.py research_pipeline/tests/test_project_rules_scheduler.py -q --tb=short",
+      "duration_seconds": 3.3
+    },
+    "adversarial_checks": {
+      "count": 11,
+      "artifact": "outputs/Project_Rules_Audit_20261006/probe_results.json",
+      "live_model_calls": 0,
+      "scientific_runs": 0,
+      "boundary": "Accepted counterexamples show host limits using authored responses. They do not measure real LLM accuracy."
+    }
+  },
+  "already_present": [
+    "Original proposal plus explicitly designated project document/JSON imports",
+    "Protected-source exclusion and exact quotation checks",
+    "Full source-unit checklist IDs and candidate/review hash binding",
+    "Fresh extraction and independent review calls",
+    "Separate project_rules.json with scoped text and usage annotations",
+    "Failure artifacts retained; no active scientific acceptance inferred"
+  ],
+  "gaps": [
+    {
+      "id": "PRG001",
+      "priority": "HIGH",
+      "type": "HOST_CONTRACT_DEFECT",
+      "finding": "An obligation can cite a source unit whose coverage row says NO_REQUIREMENT with no linked items.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:261",
+        "research_pipeline/research_pipeline/project_rule_agent.py:269"
+      ],
+      "recommendation": "Validate reverse relationships from every obligation evidence span to its source coverage and final publication map; reject contradictory coverage.",
+      "rule_ids": [
+        "PRC004",
+        "PRC011"
+      ],
+      "verification": "Offline contradictory_source_coverage probe was ACCEPTED."
+    },
+    {
+      "id": "PRG002",
+      "priority": "HIGH",
+      "type": "HOST_ENTRYPOINT_BINDING_DEFECT",
+      "finding": "task_rules.project_rules validates pack integrity but does not compare the supplied project context with the pack's reviewed context.",
+      "evidence": [
+        "research_pipeline/research_pipeline/task_rules.py:84",
+        "research_pipeline/research_pipeline/project_rule_agent.py:447"
+      ],
+      "recommendation": "Apply an explicit reviewed project/task binding at every entry point. Keep projected branch contracts usable through their parent reference; do not compare a deliberately smaller branch as if it were a complete main.",
+      "rule_ids": [
+        "PRC009",
+        "PRC012"
+      ],
+      "verification": "Real synthetic published-pack probe: different drug rejected by context_with_rules, accepted by task_rules.project_rules. Normal clinical dispatch has additional guards; no claim that production runs were misbound."
+    },
+    {
+      "id": "PRG003",
+      "priority": "HIGH",
+      "type": "RULE_CODE_MISMATCH",
+      "finding": "PRC008 allows informational non-obligation unknowns, but validation rejects all UNRESOLVED items and source rows.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:49",
+        "research_pipeline/research_pipeline/project_rule_agent.py:286"
+      ],
+      "recommendation": "Add explicit issue materiality, needed_at, impact, blocking scope and rationale; retain strict stops for unresolved obligation meaning, authority and conflicts.",
+      "rule_ids": [
+        "PRC008"
+      ],
+      "verification": "Informational unresolved probe was REJECTED despite INFO severity."
+    },
+    {
+      "id": "PRG004",
+      "priority": "HIGH",
+      "type": "UPSTREAM_OWNERSHIP_AND_HANDOFF_GAP",
+      "finding": "The earlier recommendation duplicated compression's responsibility by adding project-fact and project-assumption extraction to Project Rules Agent. The user assigns this identification to compression; the rule agent needs upstream references and non-rule source coverage instead.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:21",
+        "research_pipeline/tests/test_project_rule_agent.py:312"
+      ],
+      "recommendation": "Specify and verify compression's fact/assumption handoff, then reuse its relevant context references during requirement extraction. Do not create a second fact/assumption catalogue or mislabel project facts as literature facts. Route source-supported omissions or inconsistencies back to compression; extract explicit assumption-use obligations as requirements linked to that upstream assumption.",
+      "rule_ids": [
+        "PRC002",
+        "PRC009"
+      ],
+      "verification": "Historical probes rejected both labels in the rule-agent schema. Under the corrected ownership decision, rejection alone is not a defect and does not justify duplicate extraction; the revised handoff and source-coverage behavior still need implementation and verification.",
+      "decision_date": "2026-10-06",
+      "status": "REVISED_PER_USER_DIRECTION; IMPLEMENTATION_NOT_ACTIVATED",
+      "superseded_recommendation": "Add and audit the missing categories; only supported PROJECT_REQUIREMENT items publish. Correct the empty-obligation fixture that currently labels project facts as literature facts."
+    },
+    {
+      "id": "PRG005",
+      "priority": "HIGH",
+      "type": "SEMANTIC_REVIEW_BOUNDARY",
+      "finding": "Exact quotes and valid source roles do not establish that the quotation entails the entire rule or that a source obligation was not misclassified away.",
+      "evidence": [
+        "context_compression/ctxcomp/retention.py:46",
+        "research_pipeline/research_pipeline/project_rule_agent.py:239"
+      ],
+      "recommendation": "Re-check final organized rules in both directions against original materials; use human-labeled adversarial blind evaluation. Keep deterministic checks distinct from semantic-model capability.",
+      "rule_ids": [
+        "PRC003",
+        "PRC004",
+        "PRC011"
+      ],
+      "verification": "Unsupported-meaning and obligation-to-fact probes with authored all-PASS reviews were ACCEPTED. No real-model error rate was measured."
+    },
+    {
+      "id": "PRG006",
+      "priority": "HIGH",
+      "type": "AUTHORITY_LIFECYCLE_GAP",
+      "finding": "Source roles do not encode draft/adopted/withdrawn/superseded status, and there is no explicit rule replacement registry.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:20",
+        "research_pipeline/research_pipeline/project_rule_agent.py:174",
+        "research_pipeline/research_pipeline/project_rule_agent.py:376"
+      ],
+      "recommendation": "Introduce reviewed adoption status and explicit predecessor, affected scope and activation relations. User confirmed explicit replacement; newer dates alone do not override.",
+      "rule_ids": [
+        "PRC001",
+        "PRC006"
+      ],
+      "verification": "Source inspection; existing tests check allowed roles and protected files, not amendment lifecycle."
+    },
+    {
+      "id": "PRG007",
+      "priority": "MEDIUM",
+      "type": "APPLICABILITY_CONTRACT_GAP",
+      "finding": "Routing filters stage/task/source IDs but does not evaluate biological scope or rule conditions; unknown array sentinels can be treated as names.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:23",
+        "research_pipeline/research_pipeline/project_rule_agent.py:466"
+      ],
+      "recommendation": "Distinguish stage routing from task applicability; add typed applicability states, explicit unknowns and later metadata qualification. Do not broadcast unknown rules or silently exclude them.",
+      "rule_ids": [
+        "PRC007",
+        "PRC010",
+        "PRC012"
+      ],
+      "verification": "Unknown sentinel probe ACCEPTED; biological qualification is already documented as a consumer responsibility."
+    },
+    {
+      "id": "PRG008",
+      "priority": "MEDIUM",
+      "type": "TIME_AND_CHECK_CONTRACT_GAP",
+      "finding": "scope.window is reused as source_window, while usage.check_at is metadata without a downstream execution record.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:357",
+        "research_pipeline/docs/interfaces/project_rules_agent.md:62"
+      ],
+      "recommendation": "Separate observation_window, required_phase, trigger and deadline. Define a version-bound applicability/compliance record now; connect actual enforcement later as the user confirmed.",
+      "rule_ids": [
+        "PRC010",
+        "PRC012"
+      ],
+      "verification": "Source inspection; no claim of executed compliance checks."
+    },
+    {
+      "id": "PRG009",
+      "priority": "HIGH",
+      "type": "FINAL_REVIEW_ORDER_GAP",
+      "finding": "The independent reviewer checks candidate items before the host merges them and appends conditions, scope text and usage metadata.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:320",
+        "research_pipeline/research_pipeline/project_rule_agent.py:330",
+        "research_pipeline/research_pipeline/project_rule_agent.py:376"
+      ],
+      "recommendation": "Organize the staged rule package before independent review so final content is directly reviewed. Run deterministic publication validation afterward; any substantive post-review change requires new review.",
+      "rule_ids": [
+        "PRC005",
+        "PRC011"
+      ],
+      "verification": "Source inspection. Existing assembly is deterministic; this is the user's newly confirmed final-package re-check requirement."
+    },
+    {
+      "id": "PRG010",
+      "priority": "HIGH",
+      "type": "HISTORICAL_VERIFICATION_LIMIT",
+      "finding": "Verification compares frozen processing rules with the current constant and rebuilds requests with current shared governance, so policy updates can make intact historical packages unverifiable.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:165",
+        "research_pipeline/research_pipeline/project_rule_agent.py:431",
+        "context_compression/ctxcomp/governance.py:36"
+      ],
+      "recommendation": "Separate verification under the frozen historical contract from eligibility under the currently authorized project/rule contract. Never silently approve stale rules for a new task.",
+      "rule_ids": [
+        "PRC006",
+        "PRC011",
+        "PRC012"
+      ],
+      "verification": "PRC and governance drift probes both REJECTED the historical artifacts; silent stale reuse was not observed."
+    },
+    {
+      "id": "PRG011",
+      "priority": "MEDIUM",
+      "type": "CONTEXT_REVIEW_INPUT_GAP",
+      "finding": "The review request supplies objective/study and existing_rules, but not relevant main checks, data-use declarations or uncertainty fields. New-format existing_rules is empty.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:72",
+        "research_pipeline/research_pipeline/project_rule_agent.py:183",
+        "research_pipeline/research_pipeline/project_rule_agent.py:364"
+      ],
+      "recommendation": "Supply a source-bound relevant context slice and compare the final rule package against it. If an adopted clarification changes the effective context, report required context revision instead of publishing contradictory meanings.",
+      "rule_ids": [
+        "PRC009",
+        "PRC011"
+      ],
+      "verification": "Source inspection; objective unchanged/exact-duplication checks exist, but are not a full context consistency review."
+    },
+    {
+      "id": "PRG012",
+      "priority": "MEDIUM",
+      "type": "INSTRUCTION_DELIVERY_GAP",
+      "finding": "PRC003 is a short preservation sentence; this agent does not receive the full approved 13-category scientific detail profile used by compression.",
+      "evidence": [
+        "research_pipeline/research_pipeline/project_rule_agent.py:44",
+        "context_compression/ctxcomp/resources/cc005_details.json:5"
+      ],
+      "recommendation": "Provide the complete applicable preservation details through a shared scientific-meaning profile with a module-appropriate scope; do not import compression-only access instructions wholesale.",
+      "rule_ids": [
+        "PRC003"
+      ],
+      "verification": "Instruction/schema inspection; no live evaluation of current preservation performance."
+    }
+  ],
+  "implementation_order": [
+    {
+      "phase": "Align compression ownership and the rule-agent context handoff",
+      "items": [
+        "PRG004"
+      ]
+    },
+    {
+      "phase": "Fix verified host inconsistencies",
+      "items": [
+        "PRG001",
+        "PRG002",
+        "PRG003"
+      ]
+    },
+    {
+      "phase": "Meet final-package review and version requirements",
+      "items": [
+        "PRG009",
+        "PRG010",
+        "PRG006",
+        "PRG011"
+      ]
+    },
+    {
+      "phase": "Complete instruction/schema contracts and qualification",
+      "items": [
+        "PRG005",
+        "PRG007",
+        "PRG012"
+      ]
+    },
+    {
+      "phase": "Later consumer integration explicitly deferred",
+      "items": [
+        "PRG008"
+      ],
+      "note": "Contract drafted now; do not activate downstream enforcement in this audit."
+    }
+  ],
+  "regression_cases": [
+    "Compression identifies and preserves project facts and assumptions; Project Rules Agent reuses the reviewed context without duplicate extraction.",
+    "A project fact must not become a mandatory rule or be mislabeled as a literature fact to satisfy the rule-agent schema.",
+    "An explicit obligation to use an assumption links to that upstream assumption without treating it as an observed parameter.",
+    "Source-supported missing or inconsistent facts/assumptions produce a compression correction request rather than a silent main.json edit.",
+    "Paper use of two compartments does not mandate two compartments here.",
+    "A genuine quote with a fabricated threshold fails semantic review.",
+    "Every obligation maps back to supporting source units; NO_REQUIREMENT contradictions fail.",
+    "An unrelated unknown is informational; unknown permission affecting publication blocks.",
+    "Later validation evidence is not demanded during animal data preparation.",
+    "An explicit authorized replacement changes only its declared scope; a date alone never replaces.",
+    "A rule pack for another project is rejected by every consumer entry point.",
+    "Conditions, negations, AND/OR and free/total basis survive consolidation.",
+    "Organized output changed after review requires new review.",
+    "Historical artifacts remain verifiable under their frozen contract while current eligibility is checked separately.",
+    "Missing applicability or compliance records cannot count as PASS."
+  ],
+  "artifacts": {
+    "rules_draft": "research_pipeline/docs/review_drafts/project_rules_agent_rules.review.json",
+    "deferred_use_check_contract": "research_pipeline/docs/review_drafts/rule_use_check.contract.json"
+  },
+  "decisions_confirmed_this_turn": [
+    "Explicit scoped replacement with prior versions retained",
+    "Downstream check contract now; execution integration later",
+    "Re-check and re-validate the final organized rules",
+    "Compression owns PROJECT_FACT and PROJECT_ASSUMPTION identification; Project Rules Agent reuses and checks the context for requirement extraction"
+  ],
+  "not_in_scope": [
+    "Running a real proposal",
+    "Scientific PK fits or simulation",
+    "Activating unreviewed PK/PD guidelines",
+    "Project-wide selective rerun implementation"
+  ]
+}

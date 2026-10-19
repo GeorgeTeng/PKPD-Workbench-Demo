@@ -1,0 +1,43 @@
+{
+  "version": "1.1.0",
+  "status": "AUTHORING_COMPLETE_NOT_RUNTIME_INTEGRATED",
+  "language": "en",
+  "runtime_integrated": false,
+  "eda_enabled": false,
+  "model_calls": 0,
+  "common": "general.txt",
+  "stages": {
+    "compression": {
+      "file": "compression.txt",
+      "operations": [
+        "attachment_plan",
+        "extract",
+        "compose",
+        "review"
+      ]
+    },
+    "data": {
+      "file": "data.txt",
+      "operations": [
+        "access",
+        "extract",
+        "requirements",
+        "coverage",
+        "necessity",
+        "human_summary",
+        "handoff"
+      ]
+    },
+    "eda": {
+      "file": "eda.txt",
+      "operations": [
+        "plan",
+        "findings",
+        "review"
+      ],
+      "framework_ref": "../../../rules/eda/eda_rules.json"
+    }
+  },
+  "assembly": "common + canonical governance once + selected stage preamble + selected operation + applicable original rule text + existing response schema + authorized evidence",
+  "rule_policy": "Use the bound stage-rule version. EDA scope and contracts were rebuilt on 2026-10-13; other stage policies are unchanged. Authoring assets do not enable runtime."
+}

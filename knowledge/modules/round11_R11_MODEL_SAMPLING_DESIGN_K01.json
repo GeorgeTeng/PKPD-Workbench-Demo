@@ -1,0 +1,145 @@
+{
+  "cards": [
+    {
+      "title": "Candidate PK Model and Prospective Sampling-Design Assessment",
+      "claim": "Prospective sampling assessment separates structural identifiability, local design-dependent parameter precision and candidate-model discrimination. A source-specific Jacobian/FIM approach can inform local precision under its assumptions; it does not establish global structural identifiability. Stochastic simulation/estimation (SSE) estimates discrimination for explicitly named generating and rival models under a specified design and selection rule.",
+      "conditions": [
+        "Candidate models, target design and the prediction/precision question are named in advance; the generating structure and parameters in SSE are scenarios, not known truth for the target drug.",
+        "A residual/noise model and, for population SSE, a qualified random-effects/covariate model are specified or varied in sensitivity analysis.",
+        "FIM conclusions are local to the assumed parameterization/design; OFV likelihood-ratio cutoffs require suitable nested comparisons and stated degrees of freedom."
+      ],
+      "required_inputs": [
+        "Explicitly named candidate structural PK models (e.g., 1-cp, 1-cp-lag, 2-cp, 2-cp-lag).",
+        "Parameterization scheme for each candidate (e.g., CL/F, V, Ka, ALAG, Q, Vp).",
+        "Residual error model specification (e.g., additive + proportional).",
+        "Candidate sampling schedules (time points, number of samples per subject).",
+        "Sample size (number of subjects) for design evaluation.",
+        "Assay limits (LLOQ/ULOQ) if censoring is relevant to the design.",
+        "Prior parameter estimates or assumed 'true' values for simulation."
+      ],
+      "limitations": [
+        "No universal sample size, number of sampling points, or condition-number threshold guarantees model discrimination.",
+        "FIM-based precision is conditional on the assumed true parameters and design; it is not a universal certificate.",
+        "SSE results are specific to the simulated scenario and parameter values; they do not generalize to all drugs or conditions.",
+        "A local FIM/information test does not by itself establish global structural identifiability; any global claim needs a method suitable for the model and its assumptions.",
+        "The method does not replace model validation on real data; it is a prospective design tool."
+      ],
+      "downstream_use": "Use to justify sampling schedules in protocol design, to estimate required sample sizes for model discrimination, or to assess the risk of model misspecification due to sparse sampling.",
+      "method_keywords": [
+        "structural identifiability",
+        "deterministic identifiability",
+        "practical identifiability",
+        "Fisher Information Matrix",
+        "FIM",
+        "Jacobian",
+        "Stochastic Simulation and Estimation",
+        "SSE",
+        "model discrimination",
+        "sparse sampling",
+        "OFV",
+        "objective function value",
+        "power analysis",
+        "design efficiency"
+      ],
+      "retrieval_keywords": "PK model selection, sampling design, identifiability analysis, FIM, SSE, sparse sampling, model discrimination, population PK design",
+      "method_recipe": {
+        "estimand_and_scope": "Assess the ability of a candidate sampling design to (1) uniquely estimate parameters (deterministic identifiability) and (2) discriminate between competing structural models (model selection power).",
+        "input_contract": "Specify candidate structural models and parameterizations; feasible sampling times/windows, subjects and samples per subject; assay limits and censor approach if relevant; plausible parameter/noise/random-effect scenarios; prespecified rival-pair/model-selection rule. Keep number of subjects distinct from number of simulated replicate datasets.",
+        "applicability_and_prerequisites": "Applicable when candidate models and feasible designs can be simulated or locally evaluated with qualified assumptions. No named software is mandatory. Fixed-effects local FIM and mixed-effects population information are not interchangeable; assess the intended model and its likelihood appropriately.",
+        "definitions_units_basis_window": "Structural identifiability concerns uniqueness of model parameters under ideal information; local FIM rank at one design/parameter point is not a global structural certificate. For the cited fixed-effects/noise assumptions, M_F=J^T Sigma^-1 J. Diagonal(M_F^-1) approximates parameter variances when regularity holds; SE_j=sqrt((M_F^-1)_jj). SSE success is the fraction of simulated replicate datasets in which the prespecified rule selects the generating model against a named rival.",
+        "procedure": "1. Name structural candidates, target parameters and feasible design/sample-burden constraints. 2. Assess structural identifiability separately; examine local information for each candidate design under supplied parameter and noise assumptions. When invertible and appropriate, take sqrt(diagonal(M_F^-1)) to approximate SE, with scale and units. 3. For SSE, select one or more plausible generating models and parameter scenarios, simulate replicated datasets preserving the proposed design and observation/censor structure, fit the generating and rival models, and apply a prespecified pair-specific selection criterion. 4. Report fit failures, parameter precision, pair-specific selection frequency and simulation Monte Carlo error; repeat across plausible parameter/noise/design assumptions. 5. Keep design precision separate from model-discrimination probability.",
+        "formula_and_parameterization": "Under the cited fixed-effects assumptions only: M_F=J^T Sigma^-1 J; if invertible and regular, Var(theta_hat)_jj approx (M_F^-1)_jj and SE_j approx sqrt((M_F^-1)_jj). For SSE, success(pair,design)=number of replicate datasets selecting the generating model over the named rival / number of evaluable replicate datasets; report failed-fit count separately. Delta OFV=OFV_rival-OFV_generating is one source-study comparison, not a universal test. Chi-square thresholds such as 3.84 for 1 df apply only with justified nested likelihood-ratio conditions.",
+        "uncertainty_and_identifiability": "Uncertainty in SSE results arises from simulation noise; increase $N$ simulations to reduce Monte Carlo error. FIM precision is conditional on prior parameter estimates; sensitivity analysis on priors is recommended.",
+        "diagnostics_and_failure_modes": "A singular/ill-conditioned local information matrix flags local estimation/design issues but does not alone prove global structural nonidentifiability. Low SSE success limits discrimination under the simulated scenario; high pairwise OFV separation matters only under the prespecified rule and reliable fits. Inspect estimator failures and design/censor mismatch.",
+        "missing_input_and_partial_fallback": "When target-drug parameters are unknown, evaluate transparent plausible scenarios and state the unassessed range. If SSE is unavailable, report only local parameter-precision/sensitivity results from an applicable FIM; do not call them a proxy estimate of structural-model selection probability.",
+        "output_and_interpretation": "Report named generating/rival comparison, design, subjects and samples, number of simulation replicates/failed fits, pair-specific selection fraction with Monte Carlo uncertainty, and model-conditional parameter SE approximations where justified. No result is a universal sample-size threshold.",
+        "worked_example_and_counterexample": "Source-case illustration only: SUP004 simulated a 2-cp-lag generating model against 2-cp no-lag, 1-cp-lag and 1-cp rivals across specified sparse schedules. For the five-point/20-subject design, the reported 96.40% success belongs to the 2-cp-lag versus 2-cp without-lag comparison under the source's selection rule; it is not a general design target. Toy precision calculation: if local M_F=diag(4,25) in compatible parameter units, diag(M_F^-1)=(0.25,0.04) are variances and SE=(0.5,0.2); these numbers say nothing by themselves about selecting a lag/no-lag structure."
+      },
+      "claim_support": [
+        {
+          "claim": "Structural identifiability relates to the mathematical model structure and unique solutions, while deterministic identifiability relates to data informativeness and study design.",
+          "scope": "General PK/PD modeling",
+          "evidence_chunk_ids": [
+            "SUP003:0005"
+          ]
+        },
+        {
+          "claim": "The Fisher Information Matrix (FIM) is constructed from the Jacobian of the model response and the residual variance-covariance matrix. Its invertibility and determinant assess identifiability.",
+          "scope": "Fixed-effects models",
+          "evidence_chunk_ids": [
+            "SUP003:0007"
+          ]
+        },
+        {
+          "claim": "A revised criterion for identifiability uses the relationship between the FIM determinant and random noise, avoiding numerical issues with zero determinants.",
+          "scope": "Practical identifiability assessment",
+          "evidence_chunk_ids": [
+            "SUP003:0008"
+          ]
+        },
+        {
+          "claim": "The diagonal elements of the inverse FIM assess parameter precision for a candidate design, reflecting deterministic identifiability.",
+          "scope": "Design precision assessment",
+          "evidence_chunk_ids": [
+            "SUP003:0014",
+            "SUP003:0015"
+          ]
+        },
+        {
+          "claim": "Stochastic Simulation and Estimation (SSE) evaluates design efficiency by simulating data under a true model and fitting candidate models to calculate success rates (power) of model selection.",
+          "scope": "SSE methodology",
+          "evidence_chunk_ids": [
+            "SUP004:0009",
+            "SUP004:0010"
+          ]
+        },
+        {
+          "claim": "Model discrimination power depends on sample size and number of sampling points; sparse designs may fail to distinguish complex models (e.g., 2-cp-lag vs 2-cp).",
+          "scope": "Design sensitivity",
+          "evidence_chunk_ids": [
+            "SUP004:0014",
+            "SUP004:0015"
+          ]
+        },
+        {
+          "claim": "In the source design, sampling across absorption, distribution and elimination phases provided informative observations for model discrimination; adequacy depends on the candidate models and design.",
+          "scope": "Source-study sampling strategy, not a guarantee",
+          "evidence_chunk_ids": [
+            "SUP004:0016"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "SUP003:0005",
+        "SUP003:0007",
+        "SUP003:0008",
+        "SUP003:0014",
+        "SUP003:0015",
+        "SUP004:0009",
+        "SUP004:0010",
+        "SUP004:0014",
+        "SUP004:0015",
+        "SUP004:0016"
+      ],
+      "id": "round11_R11_MODEL_SAMPLING_DESIGN:K01",
+      "topics": [
+        "animal_pk",
+        "human_simulation"
+      ],
+      "required_branches": [],
+      "knowledge_layer": "general_method",
+      "kind": "method_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "origin_job": "R11_MODEL_SAMPLING_DESIGN",
+      "source_ids": [
+        "SUP003",
+        "SUP004"
+      ],
+      "citation_check": "SOURCE_LINKS_CHECKED_NOT_SCIENTIFIC_APPROVAL",
+      "example_is_synthetic": true,
+      "source_vs_engineering_conventions": "Scientific statements linked to originals; synthetic arithmetic and host review safeguards are explicitly distinguished from source-study results."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

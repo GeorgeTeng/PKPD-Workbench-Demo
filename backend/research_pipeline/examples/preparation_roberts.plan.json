@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "ruleset_version": "2026-09-16.1",
+  "evidence_attachment": "evidence",
+  "evidence_sha256": "d1e6b14f93d114c3798cfe4df57e87b38205c6f62c376a6752ee623ae25413ff",
+  "study_plan": {
+    "purpose": "human_translation",
+    "human_pk_available": false,
+    "target": {
+      "drug": "polymyxin_b",
+      "analyte": "polymyxin_b",
+      "route": "IV",
+      "matrix": "plasma",
+      "concentration_basis": "total",
+      "parameter_definition": "CL_per_kg",
+      "human_population": "NOT_FOUND",
+      "decision_quantity": "NOT_FOUND"
+    },
+    "scaling": {
+      "mode": "unknown_exponent"
+    }
+  },
+  "datasets": [
+    {
+      "id": "pk",
+      "kind": "pk",
+      "data_attachment": "source",
+      "table": {
+        "adapter": "roberts_fig4b",
+        "drug": "PMB"
+      },
+      "metadata": {
+        "drug": "PMB",
+        "species": "Sprague-Dawley rat",
+        "matrix": "plasma",
+        "concentration_unit": "mg/L",
+        "time_unit": "h",
+        "dose_unit": "mg/kg",
+        "route": "IV",
+        "concentration_basis": "total",
+        "record_level": "individual",
+        "data_origin": "observed",
+        "regimen_type": "single_dose",
+        "analyte": "polymyxin_b",
+        "formulation": "NOT_FOUND",
+        "parameter_definition": "CL_per_kg",
+        "sampling_design": "serial"
+      },
+      "analysis_options": {
+        "mode": "population_infusion_per_kg",
+        "compartments": 1,
+        "start": {
+          "CL": 0.2,
+          "V": 0.4
+        },
+        "excluded_statuses": [
+          "BLQ",
+          "MISSING_CANNULA_BLOCKAGE",
+          "NOT_SAMPLED"
+        ],
+        "reference_mode": "baseline"
+      }
+    }
+  ],
+  "precision_plans": []
+}

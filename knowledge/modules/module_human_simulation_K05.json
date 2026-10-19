@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Model Parameterization and Structural Assumptions",
+      "topics": [
+        "human_simulation",
+        "animal_pk"
+      ],
+      "claim": "PK models can be parameterized via Micro (mass transfer rate constants), Clearance (clearance-based differential equations), or Macro (closed-form sum of exponentials). Macro models require a 'stripping dose' assumption to scale predictions to different doses. Saturable elimination requires Km and Vmax parameters.",
+      "conditions": [
+        "Selection of parameterization affects which parameters are primary vs. derived.",
+        "Macro models assume a fixed reference dose for scaling."
+      ],
+      "required_inputs": [
+        "Choice of parameterization method (Micro, Clearance, Macro).",
+        "For Macro: Stripping dose definition.",
+        "For Saturable: Km and Vmax."
+      ],
+      "limitations": [
+        "Macro models do not directly model volume; it is derived.",
+        "Incorrect parameterization can lead to misinterpretation of Vss vs Vc."
+      ],
+      "downstream_use": "Determines the mathematical structure of the simulation engine and the interpretation of fitted parameters.",
+      "evidence_chunk_ids": [
+        "REF_009:0001",
+        "REF_009:0002"
+      ],
+      "id": "module_human_simulation:K05",
+      "origin_job": "module_human_simulation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_009"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

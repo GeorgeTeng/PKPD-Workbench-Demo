@@ -1,0 +1,75 @@
+{
+  "contract_version": "1.2",
+  "status": "IMPLEMENTED_FOR_NEW_RUNS",
+  "objective": "Publish source-supported project rules separately, with explicit applicability and usage timing.",
+  "ownership": {
+    "compression": "Preserve original meaning and requirements in evidenced context fields; keep rules=[]; no formal rule extraction or numbering.",
+    "project_rules_agent": "Recheck original materials, extract and classify obligations, independently review, then publish project_rules.json.",
+    "downstream": "Verify the published reference and receive only the applicable rule records with full text and conditions."
+  },
+  "inputs": {
+    "required": [
+      "Verified compression run",
+      "Original selected proposal"
+    ],
+    "additional_source_roles": [
+      "PROTOCOL",
+      "PROJECT_SUPPLEMENT",
+      "CLARIFICATION",
+      "PROJECT_APPROVAL"
+    ],
+    "declaration_fields": [
+      "file_id",
+      "role",
+      "designation_reason"
+    ],
+    "authority": "Roles are explicitly designated in the host input. Ordinary papers do not impose project obligations. Protected files remain inaccessible."
+  },
+  "outputs": {
+    "project_rules.json": "Formal rules, version, reviewed source references and scope.",
+    "main.json": "Scientific context plus project_rules_ref; reserved rules remains empty.",
+    "rule_audit.json": "Source coverage, exact quotations, classification, exclusions and publication mapping.",
+    "report.json": "Publication status, findings and next action.",
+    "review/publication_candidate.json": "Exact organized final rules and mapping supplied to independent review before publication."
+  },
+  "rule_usage": {
+    "usage.used_in": "Applicable downstream stages, derived from reviewed scope.stages.",
+    "usage.check_at": [
+      "STAGE_ENTRY_APPLICABILITY",
+      "BEFORE_STAGE_HANDOFF_COMPLIANCE"
+    ],
+    "usage.applies_when": "Source-supported trigger conditions.",
+    "usage.except_when": "Source-supported exceptions.",
+    "usage.source_window": "Source-stated window; NOT_SPECIFIED if absent.",
+    "boundary": "Usage annotations do not impose early access to deferred evidence or establish completed compliance checks.",
+    "usage.required_phase": "Source-stated workflow phase; NOT_SPECIFIED when absent.",
+    "usage.deadline": "Source-stated deadline; never inferred from observation time.",
+    "usage.frequency": "Source-stated frequency; never inferred from examples."
+  },
+  "execution": "LangGraph -> Prefect -> Snakemake: compression -> prepare rule input -> extract -> independent review -> publish.",
+  "release": "Block publication on failed review, conflicts or invalid evidence; block new-format downstream context without its published rule reference.",
+  "compatibility": "Historical inputs and approvals retain their versions. Start a new run to adopt this contract.",
+  "limitations": [
+    "Material roles have API/CLI support; a dedicated frontend role editor is not included.",
+    "Automated stage filtering does not fully decide biological applicability.",
+    "Offline fixture tests establish contract behavior, not real-model extraction accuracy."
+  ],
+  "processing_rule_revision": {
+    "status": "IMPLEMENTED_FOR_NEW_1.2_INPUTS_WORDING_REVIEW_PENDING",
+    "artifact": "../review_drafts/project_rules_agent_rules.review.json",
+    "version": "2.0.0-draft.10",
+    "focus": "Seven extraction-specific rules; full general instructions are inherited separately.",
+    "runtime_boundary": "New input snapshots use the adopted M01-M03 guide and structured fields; 1.0/1.1 keep their original contracts. No historical input migration or extra model calls.",
+    "methodology": "../review_drafts/prc_extraction_methodology.review.json"
+  },
+  "method_contract": {
+    "logical_phases": [
+      "Identify adopted requirement versus non-rule",
+      "Fill supported fields",
+      "Bind evidence and full source coverage",
+      "Review organized final collection"
+    ],
+    "calls": 2,
+    "authority": "The references inform processing methods only; they do not create project scientific obligations."
+  }
+}

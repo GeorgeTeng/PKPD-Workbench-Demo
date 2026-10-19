@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "MIC Distribution Provenance and Aggregation Constraints",
+      "topics": [
+        "pta"
+      ],
+      "claim": "Reference MIC distributions (e.g., EUCAST) are aggregated from diverse sources (human, animal, environmental) and methods (ISO broth microdilution, etc.) to define wild-type distributions and ECOFFs. These aggregated distributions are explicitly stated to NOT represent rates of resistance for any specific agent or location. They are used for ECOFF setting and method calibration, not as representative weights for CFR calculations in specific clinical scenarios.",
+      "conditions": [
+        "Applicable when evaluating the suitability of reference MIC data for weighting PTA.",
+        "Requires verification that the source data meets acceptance criteria (e.g., no lower-end truncation, adequate range around mode)."
+      ],
+      "required_inputs": [
+        "Source metadata for MIC distributions: Method (e.g., ISO 20776-1), source of isolates, year of study.",
+        "Acceptance status: 'Approved' or 'Rejected' (e.g., rejected for truncation, few data points, or aberrant mode)."
+      ],
+      "limitations": [
+        "Aggregated distributions mask local resistance trends and cannot be used to compare resistance rates among agents or over time.",
+        "Distributions dominated by outbreak isolates or with uncertain species identification are rejected.",
+        "Using aggregated reference data as weights for CFR assumes the local population matches the global aggregate, which is often invalid for specific clinical decision-making.",
+        "Abstract-only or partial excerpts cannot validate the full distribution quality."
+      ],
+      "downstream_use": "Use reference distributions to define ECOFFs or calibrate methods. Do not use them as default weights for CFR. If used for hypothetical weighting, the resulting CFR is not a local prediction.",
+      "evidence_chunk_ids": [
+        "REF_027:0001",
+        "REF_027:0003",
+        "ADD003:0015",
+        "ADD003:0012"
+      ],
+      "id": "round3_Q02:K02",
+      "origin_job": "round3_Q02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD003",
+        "REF_027"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "Q02",
+      "retrieval_keywords": "CFR and weighted attainment: MIC weights, population and denominator",
+      "supersedes": [
+        "round2_Q02:K01",
+        "round2_Q02:K02",
+        "round2_Q02:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

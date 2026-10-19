@@ -1,0 +1,100 @@
+{
+  "cards": [
+    {
+      "title": "Dimensionally consistent cross-species clearance scaling",
+      "topics": [
+        "translation"
+      ],
+      "claim": "Prepare a qualified cross-species clearance scaling scenario. Separate empirical size scaling from evidence that elimination mechanisms and route/basis are comparable. A calculable scenario is not an established prediction for an unstudied target.",
+      "conditions": [
+        "Choose the explicitly qualified branch; scientific scope and assumptions are specified in method_recipe."
+      ],
+      "required_inputs": [
+        "Use the branch-specific input contract below; unknown inputs remain unknown."
+      ],
+      "limitations": [
+        "Offline candidate pending source and operational review; no target-human facts, fitting or production use."
+      ],
+      "downstream_use": "Plan an evidence-bounded method and identify blocked dependent outputs; ContextBuilder supplies project objective separately.",
+      "evidence_chunk_ids": [
+        "SUP010:0014",
+        "SUP010:0015"
+      ],
+      "method_recipe": {
+        "estimand_and_scope": "Prepare a qualified cross-species clearance scaling scenario. Separate empirical size scaling from evidence that elimination mechanisms and route/basis are comparable. A calculable scenario is not an established prediction for an unstudied target.",
+        "input_contract": "Require animal CL with absolute or per-kg units, corresponding body mass, intended human reference mass and an explicitly justified exponent/model. Record IV versus apparent clearance, analyte/matrix/free-total basis, dose range, elimination mechanism and source population. Vss and organ flow are conditional inputs only for methods that actually use them.",
+        "applicability_and_prerequisites": "Review nonlinear, renal/nonrenal, transporter and binding contributions and route/formulation differences before transfer. SUP010 compares specific methods/data sets; its tested exponents and species counts are study choices, not universal rules. If mechanism qualification is absent, retain only a visibly unqualified sensitivity scenario with explicit assumptions.",
+        "definitions_units_basis_window": "CL absolute: volume/time; CL per kg: volume/time/kg; body mass: kg; exponent b dimensionless. Normalize units and multiply per-kg animal CL by that animal mass before applying an absolute-clearance allometric equation. Divide predicted absolute human CL by human mass only when a per-kg output is requested.",
+        "procedure": "Document the input basis; convert to absolute quantities; choose only an independently supplied model/exponent; calculate; check reverse normalization and dimensional consistency; then list unresolved biological-transfer assumptions. Do not select a default exponent merely because mechanistic inputs are missing.",
+        "formula_and_parameterization": "SUP010 Eq1: CL_h,absolute=CL_a,absolute*(BW_h/BW_a)^b. The body-mass ratio is dimensionless. Its separate liver-flow method uses absolute flows; source per-kg LBF values are multiplied by species body mass before forming that ratio. No exponent-rule or multiexponential formula is prescribed here.",
+        "uncertainty_and_identifiability": "Separate animal parameter uncertainty, exponent/model uncertainty and species-translation uncertainty. Explicit ranges can support deterministic sensitivity scenarios; probabilistic intervals require supported distributions and dependence. Do not impose lognormality or call an arbitrary range a confidence interval.",
+        "diagnostics_and_failure_modes": "Unit cancellation alone cannot qualify biological extrapolation. Reject mixing CL/F with absolute CL, blood with plasma bases, or per-kg input with absolute-output formulas. Study method performance is not a guarantee for new compounds.",
+        "missing_input_and_partial_fallback": "Missing animal mass blocks conversion from per-kg CL. Missing exponent leaves a symbolic relationship or user-specified sensitivity grid, not an automatic default. Missing mechanism evidence remains an applicability gap while existing animal observations remain available.",
+        "output_and_interpretation": "Output input provenance, units, explicit assumptions, computed reference-mass scenario and unresolved transfer risks. No target-human observation or clinical dose recommendation is inferred.",
+        "worked_example_and_counterexample": "SYNTHETIC unit fixture, b=1 supplied solely for easy arithmetic, not recommended scientifically: animal CL=10 mL/min/kg and BW=0.25 kg imply 2.5 mL/min. At BW_h=70 kg the absolute scenario is 2.5*(70/0.25)=700 mL/min, or 10 mL/min/kg. Counterexample: using 10 directly in the absolute formula gives 2800 mL/min and is rejected as a basis error; absent BW blocks conversion."
+      },
+      "claim_support": [
+        {
+          "claim": "Human clearance prediction via allometry requires converting per-kg animal clearance to absolute units by multiplying by animal body weight before applying the body-weight ratio equation.",
+          "evidence_chunk_ids": [
+            "SUP010:0014"
+          ],
+          "scope": "Dimensional synthesis for the absolute-CL equation; SUP010 explicitly demonstrates per-kg-to-absolute conversion for LBF, not an identical worked CL conversion.",
+          "support_type": "qualified_method_synthesis"
+        },
+        {
+          "claim": "SUP010 tests particular fixed exponents and corrected methods; this comparison does not establish a universally applicable default.",
+          "evidence_chunk_ids": [
+            "SUP010:0014",
+            "SUP010:0015"
+          ],
+          "scope": "The tested method choices are original facts; declining to universalize them is reviewer synthesis.",
+          "support_type": "qualified_method_synthesis"
+        },
+        {
+          "claim": "SUP010 divides its small-molecule data into hepatic, renal and mixed elimination groups for method comparison.",
+          "evidence_chunk_ids": [
+            "SUP010:0015"
+          ],
+          "scope": "Source-study stratification only; no universal qualification criterion is established.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round7_reviewed_v1_G03:K01",
+      "origin_job": "round7_G03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP010"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "G03",
+      "retrieval_keywords": "Cross species clearance allometry applicability uncertainty absolute per kg body weight",
+      "supersedes": [
+        "round7_G03:K01",
+        "round4_G03:K01",
+        "round6_G03:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "cross species clearance allometry applicability uncertainty",
+        "absolute clearance",
+        "per kg",
+        "body weight"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "SUP010"
+      ],
+      "review_amendment": {
+        "version": "round7_reviewed_v1",
+        "parent_card_id": "round7_G03:K01",
+        "status": "PENDING_FINAL_LOCAL_RECHECK",
+        "original_raw_output_retained": true
+      }
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

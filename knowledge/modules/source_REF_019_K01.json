@@ -1,0 +1,45 @@
+{
+  "cards": [
+    {
+      "title": "Definition and Linking of Secondary Parameters",
+      "topics": [
+        "animal_pk",
+        "translation"
+      ],
+      "claim": "Secondary parameters (renal clearance, bioavailability, ratios) are calculated by linking two intervals: a 'requesting interval' (where the result is reported) and a 'reference interval' (which supplies the cross-profile value, e.g., plasma AUC for renal clearance). These are not selected automatically by default interval tables but must be requested by name.",
+      "conditions": [
+        "Requires explicit request of the parameter (e.g., `clr.last`, `f.obs`).",
+        "Linking is achieved via `interval_id` in the reference row and `<parameter>_ref` in the requesting row.",
+        "If not manually linked, PKNCA attempts to derive the reference by finding the profile with the fewest differing group columns."
+      ],
+      "required_inputs": [
+        "Concentration data with group columns (e.g., PCSPEC, Analyte).",
+        "Interval specification data frame with `interval_id` and `<parameter>_ref` columns.",
+        "Explicit request for the secondary parameter in the interval specification."
+      ],
+      "limitations": [
+        "Sparse concentration data (`sparse = TRUE`) is not supported for secondary parameters.",
+        "Automatic derivation fails if multiple profiles are equally close (ambiguous reference), resulting in NA unless `group_ref` is used."
+      ],
+      "downstream_use": "Used to calculate renal clearance (AE/plasma AUC), absolute bioavailability (test/ref dose-normalized AUC), and accumulation/metabolite ratios.",
+      "evidence_chunk_ids": [
+        "REF_019:0001",
+        "REF_019:0002",
+        "REF_019:0003",
+        "REF_019:0004",
+        "REF_019:0005"
+      ],
+      "id": "source_REF_019:K01",
+      "origin_job": "source_REF_019",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_019"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

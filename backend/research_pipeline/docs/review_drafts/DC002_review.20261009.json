@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按检查稿改 DC002（整行分页、隐藏表和图片提示、新原文）吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC002)"
+  },
+  "gaps_found": [
+    "'file-specific' did not describe sheet, item and cross-file review requests.",
+    "DC-review reads labels and cited excerpts, not all source content.",
+    "Character paging could split one row across DC-label pages.",
+    "Hidden sheets were read without any flag.",
+    "PDF/DOCX images and figures were silently outside the inspected content.",
+    "Formula handling was unstated.",
+    "Hidden rows and columns are not recorded by intake (outside DC)."
+  ],
+  "changes": [
+    "dc_coverage.json 1.6.0: DC002 rewritten.",
+    "data_agents.py: whole-row paging; sheet_visibility and HIDDEN_SHEET_CONTENT; content_scope EXTRACTED_TEXT_ONLY and DOCUMENT_FIGURES_NOT_INSPECTED; coverage keeps content_scope.",
+    "tests: whole-row pages, hidden sheet flag, text-only documents."
+  ],
+  "forwarded": "Hidden rows and columns: intake gap, forwarded via the coordinator."
+}

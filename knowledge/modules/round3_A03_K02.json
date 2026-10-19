@@ -1,0 +1,55 @@
+{
+  "cards": [
+    {
+      "title": "Handling BQL Data: Likelihood-Based Methods (M2/M3) vs. Substitution",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Handling Below Limit of Quantification (BQL) data by omission or substitution (e.g., LOQ/2) can introduce bias in parameter estimates. M2 applies conditional likelihood to observations above LOQ, conditional on their being above LOQ. M3 simultaneously models quantitative observations and the probability that censored observations are below LOQ. In NONMEM VI, M2 uses YLO functionality, and M3 uses F_FLAG. In the source simulations, M2 reduced bias relative to omission but often retained unsatisfactory bias; M3 performed best among the investigated methods, with runtime and convergence tradeoffs. These findings do not guarantee unbiased estimates for other models or designs.",
+      "conditions": [
+        "Applicable when data are censored (BQL) in absorption or elimination phases.",
+        "Requires software supporting likelihood-based censoring (e.g., NONMEM VI with LAPLACIAN or specific flags).",
+        "Results are conditional on the specific simulation models and censoring patterns tested in the source."
+      ],
+      "required_inputs": [
+        "Concentration data with explicit BQL flags or values.",
+        "LOQ value.",
+        "Software implementation of M2 (YLO) or M3 (F_FLAG) methods.",
+        "Residual error model compatible with the chosen likelihood approach."
+      ],
+      "limitations": [
+        "M2/M3 performance is conditional on the tested model forms; not a universal guarantee of unbiasedness for all study designs.",
+        "Substitution methods (LOQ/2) are crude and suboptimal but may be used if likelihood methods are computationally infeasible.",
+        "A successful optimizer run does not validate the model; diagnostic checks (e.g., VPCs for BQL fraction) are required.",
+        "Does not address structural identifiability issues unrelated to censoring."
+      ],
+      "downstream_use": "Select M3 (or M2) as the primary method for handling BQL data in population PK modeling. Use VPCs that include BQL fraction diagnostics to validate the censoring model. Avoid omission or simple substitution unless justified by computational constraints and validated via simulation-based diagnostics.",
+      "evidence_chunk_ids": [
+        "SUP001:0002",
+        "SUP001:0003",
+        "SUP001:0007",
+        "SUP001:0008",
+        "SUP001:0017",
+        "SUP001:0018"
+      ],
+      "id": "round3_A03:K02",
+      "origin_job": "round3_A03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A03",
+      "retrieval_keywords": "Residual and censored observation models and structural/practical identifiability",
+      "supersedes": [
+        "round2_A03:K01",
+        "round2_A03:K02",
+        "round2_A03:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

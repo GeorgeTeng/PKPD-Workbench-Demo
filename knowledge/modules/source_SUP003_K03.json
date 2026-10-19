@@ -1,0 +1,39 @@
+{
+  "cards": [
+    {
+      "title": "Case Deletion for Identifying Unidentifiable Parameters",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Specific unidentifiable parameters can be identified via a case deletion methodology: removing the column corresponding to a specific parameter from the Jacobian matrix and observing if the log|MF| vs log(σ²) relationship becomes continuous/linear (indicating the removed parameter was the source of unidentifiability).",
+      "conditions": [
+        "Used when a model is determined to be unidentifiable.",
+        "Requires iterative assessment of individual parameters."
+      ],
+      "required_inputs": [
+        "Jacobian matrix of the model.",
+        "Parameter-specific columns for deletion."
+      ],
+      "limitations": [
+        "Computationally intensive for models with many parameters.",
+        "Relies on the assumption that removing the unidentifiable parameter restores identifiability for the remaining set."
+      ],
+      "downstream_use": "Use this diagnostic step to pinpoint which specific parameters (e.g., F in a one-compartment oral model) are causing structural unidentifiability, allowing for targeted model simplification or parameter fixing.",
+      "evidence_chunk_ids": [
+        "SUP003:0010",
+        "SUP003:0018"
+      ],
+      "id": "source_SUP003:K03",
+      "origin_job": "source_SUP003",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

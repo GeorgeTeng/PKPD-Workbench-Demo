@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Exposure Basis and Protein Binding Bias in PTA",
+      "topics": [
+        "pta"
+      ],
+      "claim": "For antimicrobials, the active concentration is the free (unbound) plasma concentration. Computing PTA by scaling total plasma concentrations by an unbound fraction (fu) introduces bias because total concentrations are intrinsically more variable than free concentrations due to binding variability. This bias typically leads to underestimation of the PK/PD cutoff (critical MIC) and overestimation of the dose required to attain a targeted quantile. The bias is greater when the variability of fu is erroneously included in the scaling.",
+      "conditions": [
+        "Applies when converting total measured concentrations to free concentrations for PTA calculation.",
+        "Bias direction and size depend on the modeled free/total distributions and assumptions about fu variability.",
+        "Specific bias magnitude is source-specific (e.g., greater for high binding or when fu variability is modeled)."
+      ],
+      "required_inputs": [
+        "Total plasma concentration data.",
+        "Unbound fraction (fu) value or distribution.",
+        "Knowledge of whether fu is treated as a scalar or a distribution in the simulation."
+      ],
+      "limitations": [
+        "This is a methodological warning, not a universal project policy.",
+        "Specific bias values (e.g., -20.5%) are specific to the cited study's simulation parameters (fu=0.1, etc.).",
+        "Does not apply if free concentrations are measured directly or if fu is constant and known without error."
+      ],
+      "downstream_use": "Guide the selection of input distributions for Monte Carlo simulations: prefer direct free concentration modeling or careful handling of fu variability to avoid biased PTA estimates.",
+      "evidence_chunk_ids": [
+        "SUP013:0003",
+        "SUP013:0012",
+        "SUP013:0014",
+        "SUP013:0002"
+      ],
+      "id": "round2_Q01:K02",
+      "origin_job": "round2_Q01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP013"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "Q01",
+      "retrieval_keywords": "Per-MIC PTA definition: exposure distribution, target, basis and window",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

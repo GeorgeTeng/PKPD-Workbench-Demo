@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "title": "Descriptive Calculation and Provenance Rules",
+      "topics": [
+        "data_eda",
+        "data_eda"
+      ],
+      "claim": "EDA may execute descriptive formulas (e.g., unit conversion, dose normalization, log transformations) only when definitions are established, inputs are available, and no new scientific assumptions are introduced. Original values, units, formula sources, and handling of missing/censored values must be preserved. Source-reported values must be distinguished from EDA-calculated values.",
+      "conditions": [
+        "Definition established",
+        "Inputs available",
+        "No new scientific assumption"
+      ],
+      "required_inputs": [
+        "Original values/units",
+        "Formula source/definition",
+        "Input links",
+        "Grouping/calculation scale",
+        "Missing/censored handling rules"
+      ],
+      "limitations": [
+        "Normalization alone does not establish dose proportionality",
+        "Group baselines do not create individual pairing",
+        "No arbitrary constants added to zero/censored counts"
+      ],
+      "downstream_use": "Preparation of clean datasets for PK/PD modeling and exposure-response analysis.",
+      "evidence_chunk_ids": [
+        "IN_EDA:0002"
+      ],
+      "id": "module_data_eda:K01",
+      "origin_job": "module_data_eda",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

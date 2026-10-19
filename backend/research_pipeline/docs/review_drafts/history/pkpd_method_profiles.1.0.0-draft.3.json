@@ -1,0 +1,178 @@
+{
+  "version": "1.0.0-draft.3",
+  "status": "DRAFT_PENDING_SCIENTIFIC_REVIEW",
+  "use": "CANDIDATE_REQUIREMENT_PLANNING_ONLY",
+  "general_rules": {"provider": "ctxcomp.governance.load_governance", "namespace": "G", "duplicate_rule_text": false},
+  "interpretation": "These profiles are project-designed summaries informed by the cited sources. They are neither verbatim guidance nor universal regulatory requirements. Evaluate applicability against the project objective and published rules. A library entry cannot authorize data access, publish a project rule, approve an analysis or impose an unreviewed numeric cutoff.",
+  "sources": [
+    {"id":"S01","title":"ICH M15: General Principles for Model-Informed Drug Development","url":"https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf","locator":"Sections 2.1.1, 2.1.2, 2.2.1 and 3","type":"FINAL_GUIDELINE","checked_on":"2026-10-07","supports":"Question-specific intended use, criteria, assumptions and fit-for-purpose evaluation; no fixed species-count rule is imported."},
+    {"id":"S02","title":"Phoenix: Lambda Z or Slope Estimation settings","url":"https://onlinehelp.certara.com/phoenix/8.5/Phoenix_UserDocs/NCA_Object/Lambda_Z_or_Slope_Estimation_settings.htm","locator":"Limitations of Lambda Z and slope estimation","type":"SOFTWARE_DOCUMENTATION","checked_on":"2026-10-07","supports":"Parameters independent of terminal slope remain reportable when slope estimation fails. Software point-count settings are not universal scientific sufficiency criteria."},
+    {"id":"S03","title":"Phoenix: NCA parameter formulas","url":"https://onlinehelp.certara.com/phoenix/8.4/Phoenix_UserDocs/NCA_Object/NCA_parameter_formulas.htm","locator":"Discrete plasma parameters; extrapolation; extravascular clearance/volume footnote","type":"SOFTWARE_DOCUMENTATION","checked_on":"2026-10-07","supports":"Endpoint-specific input dependencies and distinction between absolute parameters and apparent parameters containing F."},
+    {"id":"S04","title":"Bailer (1988): Testing for the equality of area under the curves when using destructive measurement techniques","url":"https://pubmed.ncbi.nlm.nih.gov/3221328/","locator":"Abstract","type":"PRIMARY_METHOD_STUDY","checked_on":"2026-10-07","supports":"Group-level AUC estimation under destructive sampling; not reconstruction of individual trajectories."},
+    {"id":"S05","title":"Tang et al. (2007): Interspecies prediction of human drug clearance based on scaling data from one or two animal species","url":"https://pubmed.ncbi.nlm.nih.gov/17646280/","locator":"Abstract; DOI 10.1124/dmd.107.016188","type":"PRIMARY_METHOD_STUDY","checked_on":"2026-10-07","supports":"Calibrated one-/two-species approaches have method-specific evidence. This does not authorize arbitrary fixed exponents or make a species count a validation result."},
+    {"id":"S06","title":"Ring et al. (2011): PhRMA CPCDC initiative, part 3: prediction methods of human clearance","url":"https://pubmed.ncbi.nlm.nih.gov/21541938/","locator":"Abstract; DOI 10.1002/jps.22552","type":"PRIMARY_COMPARATIVE_STUDY","checked_on":"2026-10-07","supports":"Allometry and IVIVE require different inputs and binding conventions. IV CL comparison involved 19 drugs; applicability to a new drug remains to be assessed."},
+    {"id":"S07","title":"EMA: Use of pharmacokinetics and pharmacodynamics in development of antimicrobial medicinal products","url":"https://www.ema.europa.eu/system/files/documents/scientific-guideline/wc500210982_en.pdf","locator":"Nonclinical PK-PD studies; PK-PD targets and target attainment","type":"GUIDELINE","checked_on":"2026-10-07","supports":"Antimicrobial exposure, susceptibility and effect must be linked for the intended use; in vitro and animal infection models can contribute complementary evidence."},
+    {"id":"S08","title":"Effect of treatment duration on PK/PD indices correlating with ceftazidime efficacy in experimental Klebsiella pneumoniae lung infection","url":"https://pubmed.ncbi.nlm.nih.gov/16940082/","locator":"Abstract","type":"PRIMARY_EXPERIMENTAL_STUDY","checked_on":"2026-10-07","supports":"Index conclusions depend on treatment duration and the response endpoint; do not transplant the study's winning index or numeric target into another project."},
+    {"id":"S09","title":"Phoenix: PK model options","url":"https://onlinehelp-dev.certara.com/phoenix/8.3/topics/PK_model_options.htm","locator":"Clearance parameterization and dosing options","type":"SOFTWARE_DOCUMENTATION","checked_on":"2026-10-07","supports":"Compartmental representations require structural and dosing parameters; choosing parameterization is an explicit modeling decision."},
+    {"id":"S10","title":"Heinzl (1996): A note on testing areas under the curve when using destructive measurement techniques","url":"https://pubmed.ncbi.nlm.nih.gov/9300355/","locator":"Abstract; DOI 10.1007/BF02353485","type":"PRIMARY_METHOD_STUDY","checked_on":"2026-10-07","supports":"Mean-curve AUC and its variance depend on sampling design and available summaries. The paper corrects an earlier testing approximation; no inferential procedure is automatically adopted by this profile."}
+  ],
+  "profiles": [
+    {
+      "id":"MP001","name":"Observed peaks and finite-window NCA","family":"NCA","outputs":["observed Cmax","observed Tmax","finite-window AUC"],
+      "applies_when":"The objective requests observed peak summaries or NCA exposure. This planning profile specifies methods, evidence needs and downstream checks; it performs no numerical analysis or method-validation experiment. Route AUC to infinity to MP002 for its additional terminal-phase assessment.",
+      "required_inputs":["Each requested endpoint, its intended use and concentration basis, with a source-bound proposal definition of any AUC window and time origin; do not choose defaults for the proposal","Permitted concentration-time observations with units, analyte, matrix, dosing context and profile membership","Separate source origin (original numerical data or digitized figure), aggregation level (individual observations or measured group summaries) and sampling design (serial, destructive or mixed)"],
+      "conditional_inputs":["Dose amount when an output requires dose normalization or comparison; dosing times and single-dose, repeated-dose or steady-state context when they define the window","For an unobserved integration boundary: a proposed method, supporting evidence, assumptions, relevant points and applicability limits; obtain method approval before downstream numerical use","Sample sizes, summary definition and SD/SE/CI meaning, plus any covariance information required by the chosen uncertainty method; retain unknown values rather than reconstructing them","For digitized inputs: source figure/panel/curve, axis transformations, units, extraction provenance and reconstruction review; distinguish measured points from a model-predicted or fitted line"],
+      "acceptable_alternatives":["Digitized measured group means may be proposed for group-level NCA after source reconstruction and endpoint-specific preflight review. Their availability does not establish adequacy for every requested endpoint","An unobserved boundary may use a scientifically justified, pre-reviewed method with explicit reporting. This does not authorize arbitrary extrapolation or exploratory AUC while sampling adequacy remains unresolved"],
+      "preflight_checks":["Assess each requested endpoint separately and record its required inputs, coverage evidence, candidate method, unresolved issues, needed review and downstream execution condition. At this stage report method proposals; do not claim a completed numerical validation","Check whether sampling supports the endpoint as defined. Observed Cmax/Tmax describe the sampled curve; do not relabel them as the unobserved true peak or the mean of individual peaks","For each AUC boundary, distinguish observed, interpolated, back-extrapolated, extrapolated and assumed values. Document the proposed approach and approval requirement; a missing 0 or 24 h observation is not permission to assume its concentration","If the proposal does not define the AUC window or time origin, request clarification. Do not replace its requested window with a shorter observed interval. AUCinf additionally requires MP002","Keep group-mean/composite curves at group level, preserve study/regimen/matrix membership and list gaps affecting uncertainty separately from those affecting a point estimate"],
+      "post_analysis_checks":["Downstream only: document the applied integration/boundary methods, method-review reference, original versus estimated points/intervals, assumptions, affected area contributions where computable and limitations","Downstream only: check the reported endpoint and data level against the approved plan; retain unresolved goals and do not infer individual uncertainty from group means"],
+      "missing_effect":"Withhold numerical calculation of the affected endpoint when its definition, sampling adequacy or required boundary-method approval is unresolved. Other independently supported endpoints may continue under their own checks. This planning stage may still report candidate methods, reasons and missing materials.",
+      "not_established":["Individual trajectories, individual exposure distributions or unsupported confidence intervals from digitized group means","An unobserved true peak or mean individual Cmax/Tmax from a mean curve","Reliable AUC from sample count alone or from merely applying an integration formula","CL, terminal half-life, model validity or a completed empirical method test","A universal AUC window, extrapolation cutoff or automatic approval of software defaults"],
+      "needed_at":"BEFORE_ANALYSIS","source_ids":["S03","S04","S02","S10"]
+    },
+    {
+      "id": "MP002",
+      "name": "Terminal-phase estimation and extrapolation",
+      "family": "NCA",
+      "outputs": [
+        "lambda_z",
+        "terminal half-life",
+        "AUCinf",
+        "terminal extrapolated area within a specified finite window"
+      ],
+      "applies_when": "Apply when a requested endpoint requires terminal-phase estimation or terminal extrapolation. Inherit MP001 requirements. The listed outputs are downstream numerical endpoints; this planning step only proposes methods, identifies missing inputs and specifies reporting requirements.",
+      "required_inputs": [
+        "Endpoint definition, time origin and data-level metadata established under MP001, with unresolved prerequisites retained.",
+        "Concentration-time observations potentially supporting a terminal interval, including quantifiability and BLQ information.",
+        "Dosing and infusion timing needed to distinguish terminal decline from ongoing or subsequent drug input."
+      ],
+      "conditional_inputs": [
+        "Relevant absorption information when an extravascular terminal phase may remain absorption-limited.",
+        "Replicate, variance or covariance information required by a proposed uncertainty method."
+      ],
+      "acceptable_alternatives": [
+        "Propose either justified manual interval selection or a documented automatic selection procedure. Both require downstream assessment of the selected interval.",
+        "Retain independently supported MP001 endpoints when terminal-dependent endpoints remain unsupported; do not silently substitute them for the requested endpoint."
+      ],
+      "preflight_checks": [
+        "Specify candidate terminal-interval selection principles, inclusion and exclusion reasons, and treatment of BLQ or other unusable observations. Do not assume that the last few observations necessarily represent the terminal phase.",
+        "Propose the regression scale, weighting and selection procedure. For standard log-linear terminal estimation, use ln(C) = intercept - lambda_z * time and require a negative fitted slope.",
+        "Specify the extrapolation anchor: the last observed quantifiable concentration or its regression-predicted counterpart. Preserve this distinction in the endpoint definition and reporting.",
+        "Define the requested extrapolation interval and confirm that its decay assumptions are compatible with dosing and absorption. A finite-window tail must end at the requested boundary.",
+        "Identify method-specific acceptance criteria and their evidence for review before numerical use. Do not infer adequacy from point count, adjusted R-squared or software defaults alone.",
+        "At this stage, report proposed methods, unresolved conditions and required approvals. Do not report numerical diagnostics as completed."
+      ],
+      "post_analysis_checks": [
+        "Downstream: report the selected observations and time range, exclusions, regression method, lambda_z, terminal half-life and available uncertainty estimates.",
+        "Downstream: assess fitted decline, residual patterns, time span and sensitivity to reasonable changes in terminal-interval selection.",
+        "Downstream: report the extrapolation anchor, extrapolated area and its proportion of the requested total area, together with assumptions and limitations.",
+        "Downstream: evaluate results against the reviewed criteria and record the method-review reference. If suitability remains unresolved, withhold the affected endpoint from downstream use."
+      ],
+      "missing_effect": "Keep unsupported terminal-dependent endpoints and their missing prerequisites explicit. Unresolved terminal adequacy blocks release of those numerical endpoints, while independently supported MP001 endpoints may continue. Changing the requested AUC window requires proposal clarification or an approved revision.",
+      "not_established": [
+        "A universal minimum sampling count, fit-statistic threshold or extrapolated-area cutoff.",
+        "Reliable terminal estimation merely because software returns a numerical result.",
+        "An elimination mechanism or elimination half-life solely from an observed terminal slope.",
+        "Individual parameter distributions from group-mean terminal curves.",
+        "Human predictive validity from an acceptable animal terminal estimate."
+      ],
+      "needed_at": "BEFORE_TERMINAL_DEPENDENT_ANALYSIS",
+      "source_ids": ["S02", "S03"]
+    },
+    {
+      "id":"MP003","name":"NCA clearance and steady-state distribution volume","family":"NCA","outputs":["CL","Vss"],
+      "applies_when":"The objective needs animal disposition parameters, including parameters intended for later extrapolation.",
+      "required_inputs":["Route, dose, analyte, concentration basis and parameter units","Exposure and moment estimates appropriate to the dosing design","For IV Vss, the required residence-time and input-duration treatment"],
+      "conditional_inputs":["At verified steady state, interval exposure may support an appropriate CL estimate","A justified independent bioavailability estimate if converting an apparent extravascular parameter"],
+      "acceptable_alternatives":["Reviewed NCA estimates may be proposed for extrapolation without a compartmental fit","Report CL/F or another apparent quantity under its actual definition when absolute identification is unavailable"],
+      "preflight_checks":["Separate CL from CL/F and Vss from Vz, Vc and apparent volumes","Check compatibility across dose normalization, matrices and analyte definitions"],
+      "post_analysis_checks":["Review the endpoint's supporting calculations and uncertainty; do not count a species before its parameter is qualified"],
+      "missing_effect":"Assess CL and Vss separately; preserve each unsupported parameter and its missing prerequisite.",
+      "not_established":["A compartmental curve shape","Absolute parameters merely from an extravascular dose","Model-independent validity of every reported NCA estimate"],
+      "needed_at":"BEFORE_PARAMETER_USE","source_ids":["S03","S01"]
+    },
+    {
+      "id":"MP004","name":"Animal compartmental PK modeling","family":"COMPARTMENTAL_PK","outputs":["candidate structural model","parameter estimates","fit diagnostics"],
+      "applies_when":"A time-course model is requested and the design may inform its parameters.",
+      "required_inputs":["Concentration, time, dosing events, analyte and units","Data level, study membership and actual experimental-unit identity","Candidate structures and residual-error specification compatible with the design"],
+      "conditional_inputs":["Verified individual repeated observations and population design support before estimating animal random effects","Route-specific absorption or infusion information"],
+      "acceptable_alternatives":["Exploratory study-level mean-curve fits with their limitations when individual data are unavailable","A simpler identifiable candidate or supported NCA outputs"],
+      "preflight_checks":["Review overall time/dose coverage against parameters rather than using a universal row-count threshold","Keep incompatible studies separate unless pooling has a scientific rationale"],
+      "post_analysis_checks":["Assess convergence, parameter identifiability/uncertainty, boundaries and graphical/numerical diagnostics","Compare likelihood criteria only for compatible outcomes, observations and likelihood definitions"],
+      "missing_effect":"Pre-fit eligibility authorizes an attempt; diagnostics decide whether the resulting model is usable.",
+      "not_established":["Reliable human prediction from convergence or a low AIC","Animal IIV from unverified IDs or group means","Automatic preference for additional compartments"],
+      "needed_at":"BEFORE_MODELING","source_ids":["S01","S09"]
+    },
+    {
+      "id":"MP005","name":"Empirical interspecies parameter extrapolation","family":"TRANSLATION","outputs":["predicted human CL","predicted human Vss"],
+      "applies_when":"The project requests animal-to-human parameter prediction by a specified empirical scaling method.",
+      "required_inputs":["Qualified animal estimates for the exact parameter and their provenance","Body weights and units compatible with the selected scaling equation","Justified species/parameter comparability and an explicit method specification"],
+      "conditional_inputs":["Method-specific correction factors, binding data or external calibration evidence","A project-specified minimum qualified species count, assessed separately for every parameter"],
+      "acceptable_alternatives":["NCA-derived and compartmental estimates may both contribute after parameter-specific qualification","Alternative scaling methods can be candidates only when their own conditions and project permissions are met"],
+      "preflight_checks":["Count unique qualified species, not tables, doses or duplicate publications","Do not pool CL/F with absolute CL or Vz with Vss","Separate proposed methods from published project requirements"],
+      "post_analysis_checks":["Inspect extrapolation sensitivity and uncertainty; distinguish animal internal checks from human validation"],
+      "missing_effect":"An unmet parameter-specific prerequisite blocks that prediction, while supported upstream calculations remain available.",
+      "not_established":["A universal minimum species count","A validated human prediction from good animal regression fit","A calibration coefficient transferable to every drug"],
+      "needed_at":"BEFORE_TRANSLATION","source_ids":["S05","S06"]
+    },
+    {
+      "id":"MP006","name":"Human IV concentration-time scenario","family":"TRANSLATION","outputs":["human IV concentration-time scenario"],
+      "applies_when":"The objective requires a prospective human IV profile using qualified predicted parameters.",
+      "required_inputs":["Accepted candidate structure and a complete parameter set for that structure","IV regimen, dose basis, infusion duration where relevant, and output time grid","Input-parameter provenance and explicit uncertainty/assumption treatment"],
+      "conditional_inputs":["For multi-compartment profiles, distribution parameters beyond total CL and Vss","Binding information if the requested curve is unbound"],
+      "acceptable_alternatives":["An explicitly justified simpler scenario may be proposed for review if the complex parameter set is unavailable"],
+      "preflight_checks":["Check every equation's inputs and ensure Vss is not silently treated as Vc","Keep target-drug human observations out of a prospective no-human-PK-data analysis"],
+      "post_analysis_checks":["Verify the simulated regimen and curve, and assess sensitivity to structure and uncertain parameters"],
+      "missing_effect":"Retain qualified parameter predictions; withhold a curve whose defining structure or parameter set is unresolved.",
+      "not_established":["A unique multi-compartment curve from CL and Vss alone","Measured human variability or clinical validation"],
+      "needed_at":"BEFORE_TRANSLATION","source_ids":["S09","S01"]
+    },
+    {
+      "id":"MP007","name":"Binding and unbound exposure","family":"IN_VITRO_PK","outputs":["binding evidence","unbound exposure inputs"],
+      "applies_when":"A requested exposure or selected extrapolation method uses free concentration or a binding correction.",
+      "required_inputs":["Binding fraction definition, analyte, species and biological matrix","Assay conditions and relevant concentration range","Permission to use the evidence at the intended stage"],
+      "conditional_inputs":["Concentration-dependent binding model when a constant fraction is not supported","Blood/plasma partition information when the method changes concentration basis"],
+      "acceptable_alternatives":["Directly measured unbound concentrations may support exposure without conversion from total concentrations","Reviewed human-source in vitro data may be prediction inputs when project permissions allow"],
+      "preflight_checks":["Do not confuse human-source in vitro evidence with human in vivo PK observations","Do not silently copy animal fu into a human prediction or assume fu equals one"],
+      "post_analysis_checks":["Assess uncertainty and sensitivity of the free-exposure conversion over its stated range"],
+      "missing_effect":"Retain supported total-exposure work; flag the affected unbound endpoint or correction.",
+      "not_established":["Permission to open protected human data","One binding value valid for every matrix or concentration"],
+      "needed_at":"BEFORE_UNBOUND_EXPOSURE_OR_TRANSLATION","source_ids":["S06","S07"]
+    },
+    {
+      "id":"MP008","name":"In vitro hepatic clearance extrapolation","family":"IN_VITRO_PK","outputs":["candidate hepatic clearance prediction"],
+      "applies_when":"The project permits IVIVE and the drug's disposition supports considering a hepatic metabolic method.",
+      "required_inputs":["Relevant microsomal/hepatocyte intrinsic-clearance or stability evidence with units","Experimental system, normalization and assay conditions","A specified scaling model and its physiological/scaling inputs"],
+      "conditional_inputs":["Incubation and plasma/blood binding where required by the selected method","Evidence on uptake limitation, other organs or other elimination pathways when material"],
+      "acceptable_alternatives":["Retain animal-based prediction as a separate candidate when its own prerequisites hold"],
+      "preflight_checks":["Check assay applicability and quantify what elimination component is represented","Keep human in vitro input permission distinct from human PK holdout permission"],
+      "post_analysis_checks":["Assess method bias, assumptions and uncertainty for the intended chemical/mechanistic domain"],
+      "missing_effect":"An unavailable hepatic-IVIVE input blocks that candidate, not unrelated animal parameter estimation.",
+      "not_established":["Total systemic clearance solely from a hepatic component","A requirement to build PBPK","Universal superiority of one binding convention"],
+      "needed_at":"BEFORE_TRANSLATION","source_ids":["S06"]
+    },
+    {
+      "id":"MP009","name":"Antibacterial PK/PD index comparison","family":"PKPD","outputs":["candidate exposure-effect relationships","index comparison"],
+      "applies_when":"The objective includes comparing antibacterial exposure indices against a specified measured response.",
+      "required_inputs":["Defined PD endpoint, baseline/comparator and response window","Traceable matching between regimen, exposure and biological response","Index definitions, concentration basis, analysis window and any threshold"],
+      "conditional_inputs":["Matched strain susceptibility measurements for MIC-normalized indices","Binding evidence or free concentrations for free-exposure indices","Exposure profiles and thresholds for time-above-threshold calculations"],
+      "acceptable_alternatives":["Compare non-MIC-normalized exposure measures only if explicitly requested and defined","In vitro effect data may support their own qualified analysis, without being relabeled as animal efficacy"],
+      "preflight_checks":["Assess whether the design can distinguish correlated index candidates","Separate an exposure summary from an exposure-effect fit and an estimated PD target"],
+      "post_analysis_checks":["Compare appropriate fit diagnostics and information criteria on comparable response data; retain uncertainty and endpoint dependence"],
+      "missing_effect":"Unmatched PD data prevent index ranking but need not block independent PK work.",
+      "not_established":["A winning index from exposure values alone","A borrowed MIC, unspoken threshold for fT, or another drug's PD target"],
+      "needed_at":"BEFORE_INDEX_ANALYSIS","source_ids":["S07","S08"]
+    },
+    {
+      "id":"MP010","name":"Prospective target-attainment scenario","family":"PKPD","outputs":["scenario-specific target attainment"],
+      "applies_when":"The approved objective includes prospective probability of target attainment for specified regimens and susceptibility values.",
+      "required_inputs":["A qualified PK scenario with explicit parameter/distribution assumptions","A qualified PD target with endpoint, index basis and window","Specified regimens and susceptibility values"],
+      "conditional_inputs":["An MIC distribution only when a population-weighted summary is requested","Explicit human-variability assumptions if human observations are unavailable"],
+      "acceptable_alternatives":["Report deterministic exposure/target comparisons separately when a defensible probability model is unavailable"],
+      "preflight_checks":["Separate uncertainty in estimates from variability between individuals","Ensure human PK and PD target definitions match before combining them"],
+      "post_analysis_checks":["Report simulation reproducibility and sensitivity to input distributions and target uncertainty"],
+      "missing_effect":"Withhold unsupported probability claims while retaining qualified PK and PD results.",
+      "not_established":["Clinical cure probability","Observed human IIV from animal IIV or parameter standard errors","Human validation in the absence of independent human observations"],
+      "needed_at":"BEFORE_PTA","source_ids":["S07","S01"]
+    }
+  ]
+}

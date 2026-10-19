@@ -1,0 +1,76 @@
+﻿<html lang="en-US">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>NCA_Object</title>
+ <link type="text/css" rel="StyleSheet" href="../../editstyle.css" />
+ <link type="text/css" rel="StyleSheet" href="../phoenix_userdocs.css" />
+ <link type="text/css" rel="StyleSheet" href="../../rhstylemapping.css" />
+ <link href="../../editstyle.css" rel="stylesheet" type="text/css" />
+ <script type="text/javascript" language="JavaScript">
+//<![CDATA[
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//]]>
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+-->
+</style>
+ <meta name="generator" content="Adobe FrameMaker v16.0" />
+<script type="text/javascript" src="../../template/scripts/rh.min.js"></script>
+<script type="text/javascript" src="../../template/scripts/common.min.js"></script>
+<script type="text/javascript" src="../../template/scripts/topic.min.js"></script>
+<script type="text/javascript" src="../../template/scripts/constants.js"></script>
+<script type="text/javascript" src="../../template/scripts/utils.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhutils.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhlang.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhver.js"></script>
+<script type="text/javascript" src="../../template/scripts/settings.js"></script>
+<script type="text/javascript" src="../../template/scripts/XmlJsReader.js"></script>
+<script type="text/javascript" src="../../template/scripts/loadparentdata.js"></script>
+<script type="text/javascript" src="../../template/scripts/loadscreen.js"></script>
+<script type="text/javascript" src="../../template/scripts/loadprojdata.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhtopic.js"></script>
+ <link rel="stylesheet" type="text/css" href="../../template/styles/topic.min.css">
+<script type="text/javascript" >
+gRootRelPath = "../..";
+gCommonRootRelPath = "../..";
+gTopicId = "32";
+</script>
+ <meta name="brsprev" value="Phoenix_UserDocs/Linear_Mixed_Effects_Object/Analyzing_variance_structure_effects.htm">
+ <meta name="brsnext" value="Phoenix_UserDocs/NCA_Object/NCA_user_interface_description.htm">
+</head>
+<body dir="ltr">
+<script type="text/javascript" src="../../ehlpdhtm.js"></script>
+
+    <!-- Breadcrumb --> 
+    <div><script type="text/javascript" language="javascript">//<![CDATA[
+document.write("<p class=\"Body\"  >");
+AddMasterBreadcrumbs("../../index.html", "", ">", "Home", "../Learn_About_Phoenix/Learn_About_Phoenix.htm");
+document.write("NCA Object<\/p>");
+//]]></script>
+    </div>
+    <div class="FLOW_A" dir="ltr"><p class="Chapter_Title" id="1022493"><a id="5524_Chapter_Title_1022493" name="5524_Chapter_Title_1022493"></a><a id="XREF_15700__NCA_Object5524" name="XREF_15700__NCA_Object5524">NCA</a><a id="CSH_2" name="CSH_2"></a><a id="CSH_4" name="CSH_4"> Object</a><a id="index_1052620" name="index_1052620"></a><a data-indexterm="NCA" id="NCA" name="NCA"></a><a data-indexterm="%3C$nopage%3ENoncompartmental%20analysis.%20See%20NCA." id="%3C$nopage%3ENoncompartmental_analysis__See_NCA_" name="%3C$nopage%3ENoncompartmental_analysis__See_NCA_"></a></p><p class="Body" id="1022494">Phoenix&apos;s noncompartmental analysis (NCA) engine computes derived measurements from raw data by using methods appropriate for either serially&#x2D; or sparsely&#x2D;sampled data. Phoenix provides the following NCA models for different types of input data&#x3A;</p><p class="Body_Indented" id="1022495">2&#x30;&#x30; Plasma&#47;blood data type, extravascular dose type, requires constants for time of last dose and dose interval (Tau)<sup><span class="Superscript">a</span></sup>&#160;</p><p class="Body_Indented" id="1022496">2&#x30;1 Plasma&#47;blood data type, IV Bolus dose type, requires constants for time of last dose and dose interval (Tau)<sup><span class="Superscript">a</span></sup>&#160;</p><p class="Body_Indented" id="1022497">2&#x30;2 Plasma&#47;blood data type, constant infusion dose type, requires constants for length of infusion, time of last dose, dose interval (Tau)<sup><span class="Superscript">a</span></sup>&#160;</p><p class="Body_Indented" id="1022498">21&#x30; Urine data type, extravascular dose type, requires constants for time of last dose</p><p class="Body_Indented" id="1022499">211 Urine data type, IV Bolus dose type, requires constant for time of last dose</p><p class="Body_Indented" id="1022500">212 Urine data type, constant infusion dose type, requires constant for time of last dose</p><p class="Body_Indented" id="1022501">22&#x30; Drug effect data type, any dose type, requires constants for time, baseline effect, and threshold (optional)</p><p class="Body_Indented" id="1022502"><sup><span class="Superscript">a</span></sup>Tau is required for steady&#x2D;state data only.</p><p class="Body" id="1022503">Models 2&#x30;&#x30;&#x2013;2&#x30;2 can be used for either single&#x2D;dose or steady&#x2D;state data. For steady&#x2D;state data, the computation assumes equal dosing intervals (Tau) for each profile, and that the data are from a &#x201c;final&#x201d; dose given at steady&#x2D;state.</p><p class="Body" id="1022504">Models 21&#x30;&#x2013;212 (urine concentrations) assume single&#x2D;dose data, and the final parameters do not depend on the dose type.</p><p class="Body" id="1022505">The plasma and urine models support rich datasets as well as sparsely&#x2D;sampled studies such as toxicokinetic studies. The drug effect model is for analysis of slope, height, areas, and moments in richly&#x2D;sampled time&#x2D;effect data.</p><p class="Body" id="1022506">Use <span class="Emphasis">one</span> of the following to add the object to a Workflow&#x3A;</p><p class="Bullet_Indented" id="1022507">Right&#x2D;click menu for a Workflow object&#x3A; <span class="Mouse_Click">New &#x3E; NonCompartmental Analysis &#x3E; NCA</span>. </p><p class="Bullet_Indented" id="1032976">Main menu&#x3A; <span class="Mouse_Click">Insert &#x3E; NonCompartmental Analysis &#x3E; NCA</span>.</p><p class="Bullet_Indented" id="1032978">Right&#x2D;click menu for a worksheet&#x3A; <span class="Mouse_Click">Send To &#x3E; NonCompartmental Analysis &#x3E; NCA</span>.</p><p class="Body" id="1022508">To view the object in its own window, select it in the Object Browser and double&#x2D;click it or press <span class="Key_Press">ENTER</span>. All instructions for setting up and execution are the same whether the object is viewed in its own window or in Phoenix view.</p><p class="Body_Indented" id="1022513"><a  href="NCA_user_interface_description.htm#XREF_77632__NCA_user_interface_description5524">NCA user interface description</a></p><p class="Body_Indented" id="1032980"><a  href="Results.htm#XREF_62466__Results5524">Results</a></p><p class="Body_Indented" id="1032982"><a  href="NCA_computation_rules.htm#XREF_56789__NCA_computation_rules5524">NCA computation rules</a></p><p class="Body_Indented" id="1033119"><a  href="NCA_parameter_formulas.htm#XREF_50336__NCA_parameter_formulas5524">NCA parameter formulas</a></p><p class="Body_Indented" id="1033121"><a  href="NCA_examples.htm#XREF_44933__NCA_examples5524">NCA examples</a></p></div><!-- Footer --> 
+    <div>
+      <hr>
+      <p class="Body"><a href="../LegalNotice/LegalNotice.htm" target="_self">Legal Notice</a> | <a href="https://www.certara.com/company/contact/?referer=null" target="_blank">Contact Certara</a><br>
+      &#169; <script type="text/javascript">
+      document.write(new Date().getFullYear());
+      </script> Certara USA, Inc. All rights reserved.</p>
+    </div>
+  </body>
+</html>

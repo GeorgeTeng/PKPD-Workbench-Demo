@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later IVIVE analysis-module review only; not loaded by Data requirements agents.",
+  "source_library": {
+    "version": "1.0.0-draft.9",
+    "sha256": "6e92d5018b34dca138626b005d65dea87e127cc99e7b6a305b3e198bc913808f",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.9.json"
+  },
+  "approval_boundary": "Approval covers conditional data requirements only. Original method-selection, extrapolation and prediction-evaluation content is retained for separate review and is not enabled for execution.",
+  "sources": [
+    {
+      "id": "S06",
+      "title": "Ring et al. (2011): PhRMA CPCDC initiative, part 3: prediction methods of human clearance",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21541938/",
+      "locator": "Abstract; DOI 10.1002/jps.22552",
+      "type": "PRIMARY_COMPARATIVE_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Allometry and IVIVE require different inputs and binding conventions. IV CL comparison involved 19 drugs; applicability to a new drug remains to be assessed."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP008",
+      "destination": "IN_VITRO_CLEARANCE_TRANSLATION",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "source_profile_sha256": "c053fb9a282d3b42f86334fc36374f1660df2dcb7f1baff1f9826930a9aea1e2",
+      "reference_profile": {
+        "id": "MP008",
+        "name": "In vitro hepatic clearance extrapolation",
+        "family": "IN_VITRO_PK",
+        "outputs": [
+          "candidate hepatic clearance prediction"
+        ],
+        "applies_when": "The project permits IVIVE and the drug's disposition supports considering a hepatic metabolic method.",
+        "required_inputs": [
+          "Relevant microsomal/hepatocyte intrinsic-clearance or stability evidence with units",
+          "Experimental system, normalization and assay conditions",
+          "A specified scaling model and its physiological/scaling inputs"
+        ],
+        "conditional_inputs": [
+          "Incubation and plasma/blood binding where required by the selected method",
+          "Evidence on uptake limitation, other organs or other elimination pathways when material"
+        ],
+        "acceptable_alternatives": [
+          "Retain animal-based prediction as a separate candidate when its own prerequisites hold"
+        ],
+        "preflight_checks": [
+          "Check assay applicability and quantify what elimination component is represented",
+          "Keep human in vitro input permission distinct from human PK holdout permission"
+        ],
+        "post_analysis_checks": [
+          "Assess method bias, assumptions and uncertainty for the intended chemical/mechanistic domain"
+        ],
+        "missing_effect": "An unavailable hepatic-IVIVE input blocks that candidate, not unrelated animal parameter estimation.",
+        "not_established": [
+          "Total systemic clearance solely from a hepatic component",
+          "A requirement to build PBPK",
+          "Universal superiority of one binding convention"
+        ],
+        "needed_at": "BEFORE_TRANSLATION",
+        "source_ids": [
+          "S06"
+        ]
+      }
+    }
+  ]
+}

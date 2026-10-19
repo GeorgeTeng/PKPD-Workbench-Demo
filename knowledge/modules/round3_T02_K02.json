@@ -1,0 +1,55 @@
+{
+  "cards": [
+    {
+      "title": "IVIVE Scaling Inputs and Interlaboratory Variability Constraints",
+      "topics": [
+        "translation"
+      ],
+      "claim": "In vitro intrinsic clearance (CLint) values exhibit significant interlaboratory variability, with coefficients of variation (CVs) increasing with CLint magnitude. This variability stems from differences in experimental procedures (e.g., shaking, incubation conditions) and biological scaling factors. Consequently, IVIVE predictions are subject to systematic underprediction, particularly for high-extraction ratio (ER) drugs. The scaling process involves converting in vitro CLint to in vivo CLint using physiological factors (e.g., microsomal protein per gram liver, hepatocellularity). These scaling factors are not universal constants and must be sourced from specific, validated references.",
+      "conditions": [
+        "Applicable when translating in vitro metabolic stability data to in vivo clearance.",
+        "Requires knowledge of the specific in vitro system (microsomes vs. hepatocytes) and donor pool characteristics.",
+        "Requires awareness of the source of scaling factors (physiological vs. empirical/regression-based)."
+      ],
+      "required_inputs": [
+        "In vitro CLint data with associated experimental conditions.",
+        "Physiological scaling factors (e.g., MPPGL, hepatocellularity) with provenance.",
+        "Information on the specific assay protocol (e.g., shaking speed, temperature) to assess comparability.",
+        "Data on the number of donors and pooling strategy used in the source study."
+      ],
+      "limitations": [
+        "Interlaboratory variability means a single CLint value may not be representative of the population.",
+        "Systematic underprediction bias is documented for high-CLint compounds; predictions may be inaccurate.",
+        "Source-specific scaling factors cannot be assumed to apply to the target drug without verification.",
+        "The method cannot predict non-metabolic clearance pathways (e.g., renal, biliary) unless explicitly included."
+      ],
+      "downstream_use": "Assess the uncertainty and reliability of the predicted CLH. Flag predictions derived from high-CLint data as having higher uncertainty due to documented underprediction bias. Use this to inform sensitivity analysis ranges in human simulation.",
+      "evidence_chunk_ids": [
+        "SUP009:0003",
+        "SUP009:0002",
+        "SUP012:0011",
+        "IN_IVIVE:0007"
+      ],
+      "id": "round3_T02:K02",
+      "origin_job": "round3_T02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_IVIVE",
+        "SUP009",
+        "SUP012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "T02",
+      "retrieval_keywords": "Binding, blood/plasma, apparent versus unbound intrinsic clearance and IVIVE scaling",
+      "supersedes": [
+        "round2_T02:K01",
+        "round2_T02:K02",
+        "round2_T02:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

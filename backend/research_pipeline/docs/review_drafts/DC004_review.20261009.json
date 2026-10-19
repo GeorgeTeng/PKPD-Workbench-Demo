@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按检查稿改 DC004，并加可选的审核模型设置吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC004)"
+  },
+  "gaps_found": [
+    "QC gate defined only in code.",
+    "PASS, NEEDS_REVIEW and REVISE undefined.",
+    "No-rewrite principle only in instructions.",
+    "Oversized split part behaviour unstated.",
+    "Independence limited to a fresh context on the same model."
+  ],
+  "changes": [
+    "dc_coverage.json 1.8.0: DC004 rewritten.",
+    "workflow_runtime.py: data_adequacy_agent uses spec review_model when set.",
+    "tests: review_model option."
+  ]
+}

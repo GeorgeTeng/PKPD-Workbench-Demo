@@ -1,0 +1,179 @@
+{
+  "request_sha256": "22f4e3bdd4fed4e9258562a9e67215c9bbffd6b0dda25f6441bd79e89a5a39d6",
+  "labels": [
+    {
+      "item_id": "F0003:S1:T27",
+      "role": "SUPPORTING_EVIDENCE",
+      "additional_roles": [
+        "BINDING"
+      ],
+      "requirement_ids": [
+        "REQ_PREP_SOURCE"
+      ],
+      "species": "mouse",
+      "matrix": "ELF; Plasma/BALF; Plasma",
+      "exposure_basis": "Plasma fraction unbound; concentration basis NOT_FOUND",
+      "record_level": "Study-level assay and missingness records; no individual concentration observations",
+      "drug": "NOT_FOUND",
+      "route": "IV in the item label IV4.12 ELF; otherwise NOT_FOUND",
+      "endpoint_window": "throughout; time bounds NOT_FOUND",
+      "reason": "The table records assay limits, an ELF BLQ qualification, and a plasma fraction unbound. It explicitly says these are not additional concentration observations.",
+      "evidence": [
+        {
+          "source": "F0003:S1:T27:A558",
+          "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
+        },
+        {
+          "source": "F0003:S1:T27:C561",
+          "quote": "IV4.12 ELF"
+        },
+        {
+          "source": "F0003:S1:T27:D561",
+          "quote": "BLQ throughout"
+        },
+        {
+          "source": "F0003:S1:T27:C563",
+          "quote": "Plasma fraction unbound"
+        },
+        {
+          "source": "F0003:S1:T27:B561",
+          "quote": "mouse"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "MIXED",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "NOT_FOUND",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Study",
+          "meaning": "GROUP_OR_TREATMENT",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:A560",
+              "quote": "Study"
+            },
+            {
+              "source": "F0003:S1:T27:A561",
+              "quote": "S05"
+            }
+          ]
+        },
+        {
+          "header": "Species",
+          "meaning": "COVARIATE",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:B560",
+              "quote": "Species"
+            },
+            {
+              "source": "F0003:S1:T27:B561",
+              "quote": "mouse"
+            }
+          ]
+        },
+        {
+          "header": "Item",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:C560",
+              "quote": "Item"
+            },
+            {
+              "source": "F0003:S1:T27:C562",
+              "quote": "Plasma/BALF LOQ (mg/L)"
+            },
+            {
+              "source": "F0003:S1:T27:C563",
+              "quote": "Plasma fraction unbound"
+            }
+          ]
+        },
+        {
+          "header": "Value",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [
+            "ND/BLQ remain nonnumeric."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:D560",
+              "quote": "Value"
+            },
+            {
+              "source": "F0003:S1:T27:A558",
+              "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
+            },
+            {
+              "source": "F0003:S1:T27:D561",
+              "quote": "BLQ throughout"
+            },
+            {
+              "source": "F0003:S1:T27:D562",
+              "quote": "0.1"
+            },
+            {
+              "source": "F0003:S1:T27:D563",
+              "quote": "0.046"
+            }
+          ]
+        },
+        {
+          "header": "Meaning",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:E560",
+              "quote": "Meaning"
+            },
+            {
+              "source": "F0003:S1:T27:E561",
+              "quote": "No numeric curve; do not generate eight zero concentrations"
+            },
+            {
+              "source": "F0003:S1:T27:E562",
+              "quote": "ELF LOQ approx 2 mg/L; BALF and ELF are different matrices"
+            },
+            {
+              "source": "F0003:S1:T27:E563",
+              "quote": "Study assay; variability NOT_FOUND; not an ELF fraction"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_ANIMAL_INPUT",
+      "affected_id": "REQ_ANIMAL_INPUT",
+      "reason": "The IV4.12 ELF entry says BLQ throughout and explicitly states that there is no numeric curve. This item supplies no sampling times, dose amount or usable concentration-time values for that component.",
+      "needed_material": "Source-linked dosing and sampling records, and any permitted numeric concentrations for the proposed component; retain this BLQ record as nonnumeric if none are available.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "ROUTING_UNASSIGNED_BINDING",
+      "affected_id": "F0003:S1:T27",
+      "reason": "The table also contains a plasma fraction unbound value, which is relevant beyond the assigned data requirements. Its study assay variability is marked NOT_FOUND.",
+      "needed_material": "Independent review of the binding record and its applicable requirement, preserving its plasma matrix and missing variability.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

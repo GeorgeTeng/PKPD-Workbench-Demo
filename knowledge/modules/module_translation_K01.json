@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Allometric Scaling Method Selection and Species Constraints",
+      "topics": [
+        "translation",
+        "animal_pk"
+      ],
+      "claim": "Human clearance prediction by allometry requires a specified species set, scaling method and exponent. In the cited dataset, single-species optimal exponents were 0.65-0.70 for small molecules and 0.75-0.80 for macromolecules; monkey liver-blood-flow scaling had AFE <= 2.0 in that analysis. In that dataset, renal small-molecule simple allometry had lower average error than hepatic small-molecule scaling, especially at low extraction; MLP/BRW corrections reduced some group-level errors. These observations do not fix a default exponent or guarantee a target-drug prediction.",
+      "conditions": [
+        "Applicable when animal PK data is qualified and body weights are available.",
+        "Do not pool CL/F with absolute CL or Vz with Vss.",
+        "Count unique qualified species, not duplicate publications."
+      ],
+      "required_inputs": [
+        "Qualified animal clearance estimates (CL) with provenance.",
+        "Body weights for all species used in scaling.",
+        "Explicit method specification (e.g., simple allometry, LBF, ROE)."
+      ],
+      "limitations": [
+        "No universal minimum species count is established.",
+        "Prediction error is high for low hepatic extraction ratio drugs using simple allometry.",
+        "A good animal regression fit does not validate human prediction accuracy."
+      ],
+      "downstream_use": "Generates prospective human clearance scenarios for dose prediction.",
+      "evidence_chunk_ids": [
+        "SUP010:0002",
+        "SUP010:0017",
+        "SUP010:0023",
+        "SUP010:0025",
+        "IN_TRANSLATION:0008"
+      ],
+      "id": "module_translation:K01",
+      "origin_job": "module_translation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_TRANSLATION",
+        "SUP010"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

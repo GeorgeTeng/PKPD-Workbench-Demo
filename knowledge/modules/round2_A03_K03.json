@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Residual Error Model Diagnostics and Definitions",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Residual error represents unexplained variability. Diagnostics must evaluate the fit of the residual error model using specific plots: DV vs IPRED/xPRED, |IWRES| vs IPRED/time, and Q-Q plots of random effects. Shrinkage measures the extent to which Empirical Bayes Estimates (EBE) depend on population parameters rather than individual data.",
+      "conditions": [
+        "Applicable during model development and validation.",
+        "Requires individual predictions (IPRED) and weighted residuals (IWRES/xWRES).",
+        "Time should be evaluated as continuous time and time after dose."
+      ],
+      "required_inputs": [
+        "Individual and population predictions.",
+        "Weighted residuals (conditional or simulation-based).",
+        "Random effects estimates (EBE).",
+        "Covariate data for residual diagnostics."
+      ],
+      "limitations": [
+        "No single validation method is sufficient; multiple diagnostics are required.",
+        "Outliers must be distinguished from model misspecification; removal of outliers requires prespecified criteria and sensitivity analysis.",
+        "Shrinkage indicates limited information for individual parameters, affecting reliability of EBEs."
+      ],
+      "downstream_use": "Use diagnostic plots to refine residual error structure (additive/proportional/combined); assess model adequacy; identify outliers for sensitivity analysis.",
+      "evidence_chunk_ids": [
+        "REF_022:0026",
+        "REF_022:0030",
+        "REF_022:0047"
+      ],
+      "id": "round2_A03:K03",
+      "origin_job": "round2_A03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A03",
+      "retrieval_keywords": "Residual and censored observation models and structural/practical identifiability",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

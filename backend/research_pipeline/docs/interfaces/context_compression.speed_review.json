@@ -1,0 +1,94 @@
+{
+  "status": "REVIEW_PROPOSALS_ONLY_NOT_IMPLEMENTED_OR_BENCHMARKED",
+  "scope": "This compression module only; no project-wide selective reruns.",
+  "rule_layering": "Shared G001-G007 and compression-specific extensions are active. Other prompt/input deduplication and execution-speed proposals in this document remain unimplemented and unbenchmarked; moving definitions alone does not establish a speed improvement.",
+  "current_path": {
+    "model_calls_on_fresh_successful_default_run": 8,
+    "dependency_layers_with_parallel_final_review": 7,
+    "stages": [
+      "attachment_plan",
+      "attachment_evidence",
+      "requirements",
+      "requirements_review",
+      "context",
+      "context_faithfulness || context_completeness",
+      "context_conflicts"
+    ],
+    "wall_time_relation": "T_plan + T_evidence + T_requirements + T_requirements_review + T_context + max(T_faithfulness, T_completeness) + T_global + host overhead; provider contention can alter each term."
+  },
+  "existing_measures": [
+    "Only relevant authorized attachment passages enter compression evidence.",
+    "Faithfulness and completeness calls can run concurrently.",
+    "Explicit same-run retry can reuse exact validated review branches; source/rule/candidate changes invalidate affected reviews.",
+    "Five-minute local heartbeats and event timestamps distinguish received output from CLI exit."
+  ],
+  "local_observations": [
+    {
+      "finding": "Earlier extraction requests contain both sources text and equivalent source_units, and the full multi-stage instruction document. Parallel branch requests already omit the duplicate sources body.",
+      "evidence": [
+        "../../../context_compression/ctxcomp/engine.py:155",
+        "../../../context_compression/ctxcomp/split_review.py:78",
+        "../../../outputs/CC_Review_Speed_20261006/request_inspection.json"
+      ]
+    },
+    {
+      "finding": "The runner still calls attachment_evidence when an accepted attachment plan has zero questions.",
+      "evidence": [
+        "../../../context_compression/ctxcomp/providers.py:224",
+        "../../../context_compression/ctxcomp/supporting.py:104"
+      ]
+    },
+    {
+      "finding": "In two historical synthetic cases, the parallel-plus-global design was about 4.6% and 14.0% slower than the old single-review design. These are not measurements of the current 1.8.0 pipeline or a same-work serial/parallel comparison.",
+      "evidence": [
+        "../../../outputs/Parallel_Review_Check/EVALUATION.md:10"
+      ]
+    }
+  ],
+  "proposals": [
+    {
+      "priority": 0,
+      "change": "Measure each stage before changing the pipeline.",
+      "method": "Aggregate existing event timestamps, serialized input/output sizes, validation failures, retry calls and reused branches. Compare complete-run latency and time to a valid handoff.",
+      "guardrail": "Do not confuse local heartbeats, engineering-test duration or model call counts with verified remote speed."
+    },
+    {
+      "priority": 1,
+      "change": "Remove redundant prompt content.",
+      "method": "Send only the current stage instructions; keep one complete canonical copy of source text plus stable citation metadata. Keep host qualification implementation details outside model prompts while preserving every applicable mandatory instruction, including CC005.",
+      "benefit": "Less repeated input; actual wall-time reduction requires measurement.",
+      "guardrail": "Preserve full source coverage, nearby context, stable references and fresh self-contained agent calls; no source truncation or hidden chat memory."
+    },
+    {
+      "priority": 2,
+      "change": "Skip an empty attachment-evidence model call deterministically.",
+      "method": "Only when the accepted attachment plan has questions=[], have the host record an empty evidence result and a deterministic NOT_APPLICABLE reason.",
+      "benefit": "Removes one model call and dependency layer for this case: eight calls become seven.",
+      "guardrail": "No keyword hits or unavailable evidence is not the same as no questions; unresolved questions still need evidence assessment."
+    },
+    {
+      "priority": 3,
+      "change": "Expose safe same-run retry through the frontend.",
+      "method": "Resume unchanged technical failures using the existing runner instead of starting every retry as a new revision run.",
+      "benefit": "Avoids repeating accepted stages and reusable review branches after a failure.",
+      "guardrail": "Changed inputs, rules, prompts, schemas or relevant candidate content invalidate reuse; never relabel a failed review as PASS."
+    },
+    {
+      "priority": 4,
+      "change": "Reduce repetitive audit prose.",
+      "method": "Keep complete claim/requirement coverage, citations and decisions. Use concise reasons for preserved items and detailed explanations for defects; let the host render repeated labels and summaries.",
+      "benefit": "Potentially shorter generated outputs.",
+      "guardrail": "No hard output truncation and no deletion of atomic claims, conditions, exceptions or mandatory evidence. Any response-schema change needs compatibility and semantic regression evaluation."
+    }
+  ],
+  "qualification_frequency": "System qualification is reused only for the qualified unchanged configuration; each proposal still requires its own semantic reviews.",
+  "recommended_sequence": "Baseline -> prompt deduplication -> zero-question shortcut -> safe frontend resume -> audit-output optimization, one change at a time.",
+  "evaluation": "Use the same held-out cases and predeclared metrics for baseline and candidate, with repeated runs. Report false releases, missed defects, false rejections, invalid outputs and latency; no performance percentage is promised.",
+  "unchanged_constraints": [
+    "No default model-call deadline",
+    "Five-minute local heartbeats",
+    "All three semantic reviews",
+    "Full applicable CC005 preservation",
+    "Single main.json handoff with required file references"
+  ]
+}

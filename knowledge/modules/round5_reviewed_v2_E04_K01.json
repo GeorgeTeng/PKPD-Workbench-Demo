@@ -1,0 +1,145 @@
+{
+  "cards": [
+    {
+      "title": "Raw Observation Display and Uncertainty Labeling",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "For small-sample displays where raw observations are available, showing them can reveal distributions hidden by summaries. This reviewed display convention preserves observed record level and labels any optional uncertainty by its supplied statistic, scale and unit structure.",
+      "conditions": [
+        "Applicable to small-sample continuous outcome displays where individual observation identities are known.",
+        "Requires clear distinction between experimental units (biological n) and technical repeats.",
+        "Requires explicit labeling of uncertainty measures and their calculation scale."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Individual observation values with units.",
+        "Experimental unit identifiers (nullable if unknown).",
+        "Technical repeat identifiers.",
+        "Quantification status (e.g., BLQ, above ULOQ, missing).",
+        "Optional supplied or explicitly permitted summary statistics and uncertainty endpoints, with definitions, independent-unit n and source/calculation provenance, only when an overlay is displayed.",
+        "Nullable serial_observation_subject_id, distinct from experimental_unit_id (e.g. an animal within its randomized cage); required for individual serial lines or paired loops."
+      ],
+      "limitations": [
+        "Does not define specific PK/PD endpoints or drug-specific parameters.",
+        "Does not mandate a specific plot type (e.g., strip plot vs scatter) beyond the requirement to show raw points.",
+        "Preserve censored statuses; never substitute or silently delete them. A supplied quantifiable-only summary must state its denominator and scope, and does not describe the full censored sample.",
+        "Does not support the reconstruction of unknown pool membership or experimental unit IDs from aggregated data."
+      ],
+      "downstream_use": "Supports inspection of observed distributions, documented pairing/clustering and unusual records; visual appearance alone does not verify independence or authorize outlier deletion.",
+      "evidence_chunk_ids": [
+        "ADD001:0012",
+        "ADD001:0013",
+        "ADD001:0056",
+        "ADD005:0024",
+        "EDA001:0001",
+        "EDA001:0002",
+        "EDA001:0004",
+        "EDA001:0005",
+        "EDA001:0006",
+        "EDA001:0007"
+      ],
+      "plot_recipe": {
+        "input_contract": "Preserve record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID, regimen and dose occasion, route/formulation, analyte, matrix, free/total basis, time value/unit/origin, measured value/unit and quantification status. Map only available applicable fields; never invent missing identities. Preserve nullable serial_observation_subject_id separately from experimental_unit_id, with its source linkage. Numeric measured value is required only for quantified records; censoring/missing statuses may have a null numeric value. Optional summary/error inputs are needed only when that layer is displayed.",
+        "plot_type": "Raw-observation strip/scatter plot with optional clearly labelled supplied or permitted summaries.",
+        "axes_and_units": "Use actual group/time category on X and measured quantity with unit on Y. Distinguish a log-scaled axis (ticks remain original concentration units) from an established numeric log10(C/reference-unit) variable on a linear axis. Do not silently change averaging scale.",
+        "grouping_and_connections": "Separate study, regimen/dose occasion, route/formulation, analyte/matrix/basis and endpoint contexts. Connect only verified serial observations of the same unit in a compatible time reference, ordered by time. Break connections at recorded unresolved missing/censored statuses. No invented scheduled samples or cross-unit lines. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "Keep original points visible where practical. Optional error intervals use the exact supplied lower and upper endpoints; do not symmetrize a CI around a mean or median. If a lower endpoint is nonpositive it cannot be shown faithfully on log-y: use a linear companion or disclose omitted interval display, never silently clip.",
+        "censoring_and_missingness": "Retain each measured quantity, unit and assay-specific status. Use endpoint-specific bounds when known; do not assign concentration LLOQ to a different response. Censored markers are not exact values. Supplied quantifiable-only summaries must disclose their subset denominator; they do not describe the full censored sample. Missing or unknown uncertainty does not become a zero-width bar.",
+        "transformations_and_formula": "Mean(log C) and log(mean C) differ. Do not transform values or recompute summaries merely to fit an axis. Any disclosed jitter changes display position only, never data values; preserve counts and identifiers.",
+        "uncertainty_and_n": "Label displayed record counts separately from known independent experimental-unit n. Preserve supplied statistic, calculation scale and exact SD, SE or CI meaning, including asymmetric interval endpoints. Technical repeats do not increase biological n. Unknown n or variability stays unknown; no automatic CI or zero-width bar.",
+        "interpretation_limits": "Overlapping marks can hide records because of rounding or overplotting; they do not prove high correlation or low variability. SD describes dispersion; SE/CI concern an estimator and need their stated method/unit level. Summary-only data cannot recover the original distribution or pairing.",
+        "stop_or_fallback": "Block only the operation that needs an unresolved input. Unknown serial-subject IDs block individual connections; unknown experimental-unit IDs block independent-unit summaries. Neither blocks labelled observed record/group displays. Unknown limits block numeric boundary placement, not status display. Unknown time origin permits a source timestamp only if documented; otherwise use a record table. Missing validation documentation means qualification unestablished, not automatically invalid. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "Summary statistics like mean ± SE or SD can obscure underlying data distributions, such as bimodality or outliers, which are visible in raw point displays.",
+          "evidence_chunk_ids": [
+            "EDA001:0001",
+            "EDA001:0002",
+            "EDA001:0004",
+            "EDA001:0005"
+          ],
+          "scope": "General biomedical visualization practices for small-sample continuous data.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Experimental unit definition is critical; treating repeated observations from a single unit as independent n values constitutes pseudoreplication.",
+          "evidence_chunk_ids": [
+            "ADD001:0012",
+            "ADD001:0013"
+          ],
+          "scope": "Animal research reporting and unit of analysis issues in laboratory research.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Summary-only displays of paired observations can hide the documented pairing and heterogeneity of individual changes; paired point displays can reveal those features.",
+          "evidence_chunk_ids": [
+            "EDA001:0004",
+            "EDA001:0006",
+            "EDA001:0007"
+          ],
+          "scope": "Visualization of paired or nonindependent data structures.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Reporting must include summary/descriptive statistics with a clearly identified measure of variability (e.g., SD, range) for each experimental group.",
+          "evidence_chunk_ids": [
+            "ADD001:0056"
+          ],
+          "scope": "ARRIVE 2.0 guidelines for reporting experimental results.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Visual inspection of raw data can reveal clustering patterns (e.g., within-subject similarity) that are not apparent from tabular summaries.",
+          "evidence_chunk_ids": [
+            "ADD005:0024"
+          ],
+          "scope": "Unit of analysis issues in laboratory-based research.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v2_E04:K01",
+      "origin_job": "round5_E04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD001",
+        "ADD005",
+        "EDA001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E04",
+      "retrieval_keywords": "Raw points summary statistics and uncertainty labels",
+      "supersedes": [
+        "round5_E04:K01",
+        "round4_E04:K01",
+        "round5_reviewed_E04:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "raw points summary statistics and uncertainty labels",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "ADD001",
+        "ADD005",
+        "EDA001"
+      ],
+      "review_revision": {
+        "version": "local_review_v2",
+        "parent_card_id": "round5_E04:K01",
+        "parent_card_sha256": "33e1ea0fbc6807eed8994f9c09fb391a36fdbb57741b9e5f05735b1e2314056f",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "49a81904e23517ca56033bbc22ddf23308386223f68f147879ef0c0dcd0c3d16"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

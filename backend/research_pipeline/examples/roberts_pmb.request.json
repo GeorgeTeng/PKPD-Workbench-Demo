@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "request_id": "roberts_pmb_api_002",
+  "reference_policy": {
+    "drug": "polymyxin_b",
+    "same_drug_only": true
+  },
+  "attachments": [
+    {
+      "id": "source",
+      "path": "C:/Users/georg/Documents/Codex/2026-09-15/file-c-users-georg-downloads-s11095/pmb_translational/references/roberts_2022_source_data.xlsx",
+      "role": "pk_workbook"
+    },
+    {
+      "id": "context",
+      "path": "../../outputs/Context_Compression_Local_2026-09-16/demo_run/compressed_context.json",
+      "role": "upstream_context"
+    }
+  ],
+  "context_attachment": "context",
+  "steps": [
+    {
+      "id": "pk",
+      "module": "pk_longitudinal",
+      "input": {
+        "data_attachment": "source",
+        "table": {
+          "adapter": "roberts_fig4b",
+          "drug": "PMB"
+        }
+      },
+      "metadata": {
+        "drug": "PMB",
+        "species": "Sprague-Dawley rat",
+        "matrix": "plasma",
+        "concentration_unit": "mg/L",
+        "time_unit": "h",
+        "dose_unit": "mg/kg",
+        "route": "IV",
+        "concentration_basis": "total",
+        "record_level": "individual",
+        "data_origin": "observed",
+        "regimen_type": "single_dose"
+      },
+      "options": {
+        "mode": "population_infusion_per_kg",
+        "compartments": 1,
+        "start": {
+          "CL": 0.2,
+          "V": 0.4
+        },
+        "excluded_statuses": [
+          "BLQ",
+          "MISSING_CANNULA_BLOCKAGE",
+          "NOT_SAMPLED"
+        ],
+        "reference_mode": "baseline"
+      }
+    }
+  ]
+}

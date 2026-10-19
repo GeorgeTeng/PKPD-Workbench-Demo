@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Human data review decision 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "assessment_sha256",
+    "decision",
+    "reviewer",
+    "confirm_rules",
+    "scope",
+    "selected_datasets",
+    "acknowledged_issues",
+    "rationale"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "assessment_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "decision": {
+      "enum": [
+        "APPROVE",
+        "REQUEST_CHANGES",
+        "REJECT"
+      ]
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confirm_rules": {
+      "type": "boolean"
+    },
+    "scope": {
+      "const": "exploratory_fit_only"
+    },
+    "selected_datasets": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "acknowledged_issues": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_id": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string"
+    },
+    "source_run": {
+      "type": "string"
+    },
+    "source_step": {
+      "type": "string"
+    },
+    "identity_verification": {
+      "type": "string"
+    }
+  }
+}

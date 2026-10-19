@@ -1,0 +1,32 @@
+{
+  "profile": "DEMO_CONTEXT_CANONICAL_PLACEMENT_1.0",
+  "scope": "THROUGH_DATA_TECHNICAL_DEMO_ONLY",
+  "original_review_decision": "REVISE",
+  "candidate_sha256": "eec5f586620b744b077247195177fd36e59eb257135e707d4c477c777b66cc43",
+  "review_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112449_467620\\context_work\\accepted\\context_review.4d9303060829a3cb.json",
+    "sha256": "c508dd3676bb15c53b89fb21b02b25b5b03367db37df43d741d5ce81f7c54067"
+  },
+  "review_sha256": "4d9303060829a3cbc060ba870a5980392bea4c22da171370cf08caa8e444df5b",
+  "candidate_changed": false,
+  "independent_review_passed": false,
+  "scientific_release": false,
+  "findings": [
+    {
+      "code": "CONTEXT_CANONICAL_PLACEMENT_DEFERRED",
+      "affected_id": "canonical_placement_no_duplicate_gaps",
+      "reason": "Gap ownership is preserved, but SC037 repeats the MIC-input freezing obligation already retained with its timing in SC035. Replace the repeated operation with a short SC035 reference.",
+      "needed_material": "Resolve the retained Context review finding before scientific analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONTEXT_CANONICAL_PLACEMENT_DEFERRED",
+      "affected_id": "SC037",
+      "reason": "Remove the repeated operation 'and freeze the MIC distribution' and substitute a short reference to SC035, which already owns MIC-input freezing with its complete timing condition. Preserve transparent probability derivation, the prohibition on silent renormalization and every other unique SC037 obligation.",
+      "needed_material": "Resolve the retained Context review finding before scientific analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    }
+  ]
+}

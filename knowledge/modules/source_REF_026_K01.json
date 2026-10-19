@@ -1,0 +1,58 @@
+{
+  "cards": [
+    {
+      "title": "Depletion Slope Qualification and Intrinsic Clearance Units",
+      "topics": [
+        "translation",
+        "human_simulation"
+      ],
+      "claim": "Under qualified first-order depletion conditions, regress ln(concentration remaining) or ln(percent remaining) against incubation time over an eligible linear interval. The negative slope is an apparent disappearance rate, not an in vivo hepatic clearance. Assay normalization, physiological scaling and binding qualification are separate steps.",
+      "conditions": [
+        "Measured substrate depletion in a defined microsomal or cellular assay, with time and concentration units retained.",
+        "The selected interval must support the kinetic approximation; substrate concentration, protein/cell loading, cofactor, pH and temperature are assay-specific qualifications."
+      ],
+      "required_inputs": [
+        "Incubation time and quantified concentration or normalized percent remaining, with censoring and normalization provenance.",
+        "Assay protocol, matrix, protein/cell loading, incubation volume and appropriate stability/recovery controls.",
+        "Only for downstream IVIVE: qualified assay-to-CLint conversion, physiological scaling quantities, flow and matrix/binding basis consistent with the selected equation."
+      ],
+      "limitations": [
+        "Do not import a source compound half-life, CLint, tested substrate level, fixed regression interval or assay recipe.",
+        "Loss from nonspecific binding or instability can be mistaken for metabolic disappearance; bulk depletion does not identify a specific enzyme contribution.",
+        "CLint per protein mass, per cell number and per body mass are distinct quantities; conflicting source denominators must be resolved before numerical reuse.",
+        "The image-only assay-conversion equation is not supplied here as an executable formula. Already-unbound-corrected CLint must not receive a second incubation-binding correction."
+      ],
+      "downstream_use": "Prepare an auditable depletion estimate and determine which assay-specific inputs are still needed before IVIVE.",
+      "evidence_chunk_ids": [
+        "REF_026:0002",
+        "REF_026:0005",
+        "REF_026:0009",
+        "REF_026:0013",
+        "REF_026:0014",
+        "SUP012:0002",
+        "SUP012:MATH01"
+      ],
+      "id": "source_REF_026:K01",
+      "origin_job": "source_REF_026",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_026",
+        "SUP012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review",
+      "method_keywords": [
+        "depletion slope",
+        "ln percent remaining",
+        "CLint normalization",
+        "microsomal protein",
+        "assay qualification",
+        "fuinc",
+        "physiological scaling"
+      ]
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

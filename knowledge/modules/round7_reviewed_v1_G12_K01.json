@@ -1,0 +1,114 @@
+{
+  "cards": [
+    {
+      "title": "Endpoint-specific noncompartmental eligibility and sparse-design scope",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Decide separately which NCA endpoints are supported: observed Cmax/Tmax, finite-window AUC, and single-dose terminal-dependent AUCinf/half-life/CL/Vz/moments. Distinguish individual serial profiles from destructive-sampling mean profiles. A blocked tail need not block descriptive or finite-window quantities.",
+      "conditions": [
+        "Choose the explicitly qualified branch; scientific scope and assumptions are specified in method_recipe."
+      ],
+      "required_inputs": [
+        "Use the branch-specific input contract below; unknown inputs remain unknown."
+      ],
+      "limitations": [
+        "Offline candidate pending source and operational review; no target-human facts, fitting or production use."
+      ],
+      "downstream_use": "Plan an evidence-bounded method and identify blocked dependent outputs; ContextBuilder supplies project objective separately.",
+      "evidence_chunk_ids": [
+        "REF_003:0001",
+        "REF_003:0003",
+        "REF_003:0004",
+        "REF_017:0001",
+        "SUP001:0003",
+        "SUP005:0006"
+      ],
+      "method_recipe": {
+        "estimand_and_scope": "Decide separately which NCA endpoints are supported: observed Cmax/Tmax, finite-window AUC, and single-dose terminal-dependent AUCinf/half-life/CL/Vz/moments. Distinguish individual serial profiles from destructive-sampling mean profiles. A blocked tail need not block descriptive or finite-window quantities.",
+        "input_contract": "Require time/unit and dosing reference; concentration/unit, matrix/analyte/basis, censor flag and bound; route/dose; design-unit IDs or explicitly unknown status; integration rule/window. Sparse summaries additionally require time-specific n and design/correlation information for uncertainty. Terminal outputs require justified phase selection, model and extrapolation assumptions.",
+        "applicability_and_prerequisites": "Establish comparable sampling/design and valid integration domain. Phoenix sparse calculations use mean concentrations at each time; its equal-n/no-missing restrictions apply to that documented implementation, especially batch repeated-subject designs. Unequal independent destructive sample sizes do not alone prove every mean-curve estimator biased. Qualify the actual estimator.",
+        "definitions_units_basis_window": "Observed Cmax has concentration units, Tmax time, AUC concentration*time and lambda_z 1/time. Label observed maximum rather than unknown true continuous-time maximum. Preserve BLQ as a censor event with its bound; do not silently convert it to zero or an exact imputed concentration. This preservation is a reviewer guardrail: SUP001 reports bias for tested model-estimation substitution/omission methods, not a universally proven NCA integration policy.",
+        "procedure": "Produce an endpoint eligibility table with reason for every blocked quantity. For finite AUC state exact start/end, time handling and chosen integration rule; do not invent unobserved endpoints. Examine a plausible terminal log-linear region separately; a numerical minimum point count or R2 alone cannot establish it. For sparse designs label mean-curve results and use design-appropriate uncertainty only.",
+        "formula_and_parameterization": "Linear-trapezoid finite AUC=sum_i [((C_i+C_(i+1))/2)*(t_(i+1)-t_i)], a mathematical expansion of the source method. If a valid terminal approximation exists, AUCinf=AUC0t+Ct/lambda_z; the source-defined last observed/predicted Ct choice must be recorded. No terminal approximation means no AUCinf. Dependent CL and moments follow their own route-qualified definitions, not Dose/AUClast.",
+        "uncertainty_and_identifiability": "Separate sampling variability, tail-model uncertainty and individual variability. A mean profile does not recover individual trajectories/parameter distributions. Sparse uncertainty must respect covariance from repeated animals; source-specific variance assumptions are not universally applicable. Do not attach confidence intervals if the required design/variance information is absent.",
+        "diagnostics_and_failure_modes": "Late BLQ may constrain a tail but does not automatically invalidate every possible qualified earlier slope. Rising or mixed distribution/absorption segments cannot simply be labeled terminal elimination. Preserve censored and missing observations distinctly. No universal three-point/R2 scientific pass criterion is used.",
+        "missing_input_and_partial_fallback": "Without a qualified tail, retain supported finite AUC and observed descriptors with explicit window/basis. If censoring makes numerical integration ambiguous, report the unresolved handling or a justified bound rather than choose zero/LLOQ2. Missing individual IDs prohibits invented serial curves but can permit qualified aggregate descriptions. The separately qualified steady-state IV CLss=Dose_per_interval/AUC_tau branch is covered by G02 and need not estimate a terminal slope when interval AUC is supported.",
+        "output_and_interpretation": "Report endpoint, value/unit if eligible, integration/design choices, censor handling, source provenance and limitations. Mean-profile CL or volume is explicitly a derived mean-profile quantity, not a mean or distribution of individual CL/volume.",
+        "worked_example_and_counterexample": "SYNTHETIC finite-window fixture: exact observed C=[0,2,4] mg/L at t=[0,1,2] h yields linear AUC0-2=1+3=4 mg*h/L, observed Cmax=4 mg/L at 2 h. Rising data establish no terminal slope, AUCinf or CL; Dose/AUC0-2 must not be labeled clearance. Counterexample: if the first value is BLQ rather than exact zero, this numerical AUC is not automatically permitted."
+      },
+      "claim_support": [
+        {
+          "claim": "NCA parameters are categorized into those requiring Lambda Z estimation (terminal-dependent) and those that do not (finite-window/descriptive).",
+          "evidence_chunk_ids": [
+            "REF_003:0001",
+            "REF_003:0003"
+          ],
+          "scope": "Source-defined single-dose parameters: AUClast/Cmax versus extrapolated AUCinf and its dependent quantities. Not a claim that every steady-state CL estimate needs lambda_z.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Sparse sampling NCA calculates parameters from a mean concentration curve derived from unique time points, not individual serial profiles.",
+          "evidence_chunk_ids": [
+            "REF_017:0001"
+          ],
+          "scope": "Phoenix NCA object treats sparse data by calculating mean concentration for each unique time value.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Bailer finite AUC0t in SUP005 uses linear trapezoids. Finite-window AUC does not itself require a terminal extrapolation, but its selected integration rule must be stated.",
+          "evidence_chunk_ids": [
+            "REF_003:0001",
+            "SUP005:0006"
+          ],
+          "scope": "Source-specific linear-trapezoid method and qualified finite-window interpretation; other NCA integration choices are not excluded.",
+          "support_type": "qualified_method_synthesis"
+        }
+      ],
+      "id": "round7_reviewed_v1_G12:K01",
+      "origin_job": "round7_G12",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003",
+        "REF_017",
+        "SUP001",
+        "SUP005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "G12",
+      "retrieval_keywords": "Noncompartmental partial AUC terminal slope sparse destructive sampling NCA Cmax Tmax AUClast AUCinf lambda_z half-life",
+      "supersedes": [
+        "round7_G12:K01",
+        "round6_G12:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "noncompartmental partial auc terminal slope sparse destructive sampling",
+        "NCA",
+        "Cmax",
+        "Tmax",
+        "AUClast",
+        "AUCinf",
+        "lambda_z",
+        "half-life"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "REF_003",
+        "REF_017",
+        "SUP001",
+        "SUP005"
+      ],
+      "review_amendment": {
+        "version": "round7_reviewed_v1",
+        "parent_card_id": "round7_G12:K01",
+        "status": "PENDING_FINAL_LOCAL_RECHECK",
+        "original_raw_output_retained": true
+      }
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "title": "Residual Error and Censored Data (BLQ) Handling",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Residual error models must be specified (e.g., additive, proportional, or combined). For logarithmically transformed data, additive error is often used. Below Limit of Quantification (BLQ) data requires specific handling; simple omission or imputation is not sufficient. Maximum Likelihood methods with censored data options (e.g., M3 method) use the cumulative distribution function for censored values and probability density for non-censored values, often reverting to Laplacian approximation.",
+      "conditions": [
+        "Data contains BLQ values",
+        "Log-transformation applied"
+      ],
+      "required_inputs": [
+        "Observed concentrations",
+        "LLOQ values",
+        "Censoring flags"
+      ],
+      "limitations": [
+        "Naive pooled or QRPEM engines may have different constraints",
+        "Residual error cannot be less than 0.001 in some software contexts"
+      ],
+      "downstream_use": "Model fitting, likelihood calculation",
+      "evidence_chunk_ids": [
+        "REF_009:0006",
+        "ARTICLE_S01:0010",
+        "ARTICLE_S05:0029"
+      ],
+      "id": "module_animal_pk:K05",
+      "origin_job": "module_animal_pk",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S01",
+        "ARTICLE_S05",
+        "REF_009"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

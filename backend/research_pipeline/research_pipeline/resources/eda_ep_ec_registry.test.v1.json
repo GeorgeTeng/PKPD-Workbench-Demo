@@ -1,0 +1,60 @@
+{
+  "version": "EP_EC_EV_REGISTRY_TEST_1.1",
+  "task_contract": "EP_EC_TASK_1.0",
+  "handler_version": "TEST_SOURCE_ROWS_1.0",
+  "status": "TEST_ONLY_NOT_PRODUCTION_ASSESSMENT",
+  "executable_status": "PLANNED",
+  "operations": {
+    "OBSERVATION_PASSTHROUGH": {
+      "dataset_id": "F0004:S1:T28",
+      "role": "PK_OBSERVATIONS",
+      "experimental_unit": "Observed mean symbols digitized from the published figure, not individual raw observations or fitted curves.",
+      "column_roles": {"point_id": "A", "time": "B", "mean_concentration": "C"},
+      "grouping_columns": ["A"],
+      "units": {"A": "NOT_FOUND", "B": "h", "C": "mg/L"},
+      "baseline_scope": "NOT_APPLICABLE",
+      "display": {
+        "kind": "PK_OBSERVED_MEAN_POINTS",
+        "x": {"column": "B", "unit": "h", "scales": ["linear"]},
+        "y": {"column": "C", "unit": "mg/L", "scales": ["linear", "log10"]},
+        "marks": "POINTS_ONLY", "facets": "NONE", "legend": "NONE",
+        "uncertainty_definition": "NO_NUMERICAL_SD",
+        "required_notes": ["S02 Figure 1: digitized observed group means, single SC 2 mg/kg as-reported PMB sulphate.", "Source reports 3 or 4 mice/time; point-specific n and numerical SD unavailable.", "No individual trajectories, fitted curve or biological error bars."]
+      }
+    },
+    "REPORTED_MEAN_SD_DISPLAY": {
+      "dataset_id": "F0004:S1:T13",
+      "role": "PD_OBSERVATIONS",
+      "experimental_unit": "reported group mean +/- SD, n=4 as reported; individual values and animal links unavailable",
+      "column_roles": {"strain": "A", "dose_level": "B", "daily_dose": "C", "endpoint_mean": "D", "endpoint_sd": "E", "reported_n": "F", "baseline_mean": "G", "baseline_sd": "H"},
+      "grouping_columns": ["A", "B", "C"],
+      "units": {"A": "NOT_FOUND", "B": "NOT_FOUND", "C": "mg/kg/24 h", "D": "log10 CFU/thigh", "E": "log10 CFU/thigh", "F": "NOT_FOUND", "G": "log10 CFU/thigh", "H": "log10 CFU/thigh"},
+      "baseline_scope": "SAME_TABLE_FOOTNOTES",
+      "display": {
+        "kind": "PD_REPORTED_MEAN_SD_BY_DOSE",
+        "x": {"column": "C", "unit": "mg/kg/24 h", "scales": ["linear"]},
+        "y": {"column": "D", "unit": "log10 CFU/thigh", "scales": ["linear"]},
+        "marks": "POINTS_WITH_REPORTED_SD", "facets": {"column": "A"},
+        "legend": "ENDPOINT_AND_SAME_TABLE_BASELINE", "uncertainty_definition": "SOURCE_SD_NOT_SE",
+        "required_notes": ["Source group mean +/- SD; endpoint n is source-reported, not recomputed.", "Baseline is Table 3 footnotes, not Figure 4; baseline n is not reported.", "ND means not determined, never zero. Reported log10 values are not logged again.", "Daily dose divided into SC injections at 0, 8 and 16 h; endpoint 24 h. No PK-PD animal/regimen join."]
+      }
+    },
+    "MIC_TABLE": {
+      "dataset_id": "F0004:S1:T10",
+      "role": "MIC",
+      "experimental_unit": "Strain-level MIC values",
+      "column_roles": {"organism": "A", "strain": "B", "mic": "C"},
+      "grouping_columns": ["A", "B"],
+      "units": {"A": "NOT_FOUND", "B": "NOT_FOUND", "C": "mg/L"},
+      "baseline_scope": "NOT_APPLICABLE",
+      "display": {
+        "kind": "MIC_STRAIN_POINTS",
+        "x": {"column": "B", "unit": "NOT_FOUND", "scales": ["categorical"]},
+        "y": {"column": "C", "unit": "mg/L", "scales": ["linear"]},
+        "marks": "POINTS_ONLY", "facets": "NONE", "legend": "NONE",
+        "uncertainty_definition": "NO_REPLICATE_VARIABILITY",
+        "required_notes": ["Source strain MICs; not a surveillance or population MIC distribution.", "Broth microdilution in untreated polystyrene trays without polysorbate 80; PMB values only."]
+      }
+    }
+  }
+}

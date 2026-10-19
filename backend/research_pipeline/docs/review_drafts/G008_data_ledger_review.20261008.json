@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-08",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "做下一步",
+    "accepted_proposal": "Next step named in the thread: carry method-condition gaps and other unresolved items through the G008 ledger to the DH handoff. Plan recorded in /mnt/project-files/data-part/Data_框架说明.md section T."
+  },
+  "design": {
+    "items": "Open CC019 warnings from main.json (ids unchanged, original record kept verbatim) and Data findings whose required_by is later than the step that raised them (DC-U###, DH-U###). Statuses: NOT_FOUND, SEARCH_INCOMPLETE, DEFERRED, AMBIGUOUS, CONFLICT, OPEN_FINDING.",
+    "due_steps": "DC-review decides items due BEFORE_QC; DH-handoff decides items due BEFORE_EDA. Later phases belong to downstream modules; Data only forwards them.",
+    "outcomes": "RESOLVED needs exact evidence; LIMITATION_ACCEPTED needs a stated limitation; ESCALATED becomes a HUMAN_REVIEW finding at the item's phase and keeps that gate closed; CARRIED must name a later phase. Each outcome is appended to the item's history with the input artifact references it relied on.",
+    "forwarding": "Each eda/pk/index handoff carries unresolved_items (all OPEN, CARRIED or ESCALATED items, unchanged), accepted_limitations and the ledger reference. Historical assessments without a ledger fall back to the open warnings in main.json."
+  },
+  "rule_changes": "dc_coverage.json 1.2.0 adds DC006; dh_handoff.json 1.1.0 adds DH004.",
+  "code_changes": [
+    "New research_pipeline/unresolved_ledger.py.",
+    "data_agents.py: DC-review and DH-handoff receive unresolved_ledger and due_item_ids and return ledger_outcomes; adequacy/unresolved_ledger.json and data_preparation/unresolved_ledger.json; adequacy.json, qc_context.json, data_report.json and each handoff reference the ledger.",
+    "tests/test_data_agents.py: 8 ledger cases; fixture returns outcomes; DC/DH rule lists."
+  ],
+  "verification": "research_pipeline suite: 18 failed, 520 passed, 7 skipped, 2 errors; identical failure list to the pre-change baseline (environment: no R).",
+  "open_points": [
+    "The G008 implementation note in rules/general/workflow_governance.json still says later steps do not consume the record; that general-rule file is not owned by the Data thread and was left unchanged.",
+    "Downstream eda/pk/index modules do not yet record outcomes for items due at their phases."
+  ]
+}

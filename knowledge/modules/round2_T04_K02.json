@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "title": "Quantifying Scaling Uncertainty and Method Discrepancy",
+      "topics": [
+        "translation"
+      ],
+      "claim": "Scaling method uncertainty is often represented by log-normal distributions (e.g., 95% probability within threefold of the point estimate). When multiple methods (e.g., allometry and IVIVE) yield different predictions, they should not be treated as independent samples of truth. Instead, discrepancies require investigation into the underlying reasons (e.g., compound-specific suitability), and consensus predictions may be formed by averaging samples from each method's uncertainty distribution.",
+      "conditions": [
+        "Applicable when multiple scaling methods are available or when a single method's uncertainty is characterized by literature benchmarks (e.g., 66-94% accuracy within 2-3 fold).",
+        "Requires that the methods are not simply redundant but represent different mechanistic or empirical assumptions."
+      ],
+      "required_inputs": [
+        "Point estimates from each scaling method.",
+        "Literature-based or empirically derived uncertainty ranges for each method.",
+        "Justification for combining methods (e.g., consensus) or selecting one over the other."
+      ],
+      "limitations": [
+        "Literature benchmarks for method accuracy are based on historical datasets and may not apply to the specific compound class.",
+        "Assuming log-normality is a simplification; actual error distributions may differ.",
+        "Discrepancies between methods may indicate a fundamental model misspecification rather than just uncertainty."
+      ],
+      "downstream_use": "Use to construct input distributions for prospective human simulations, ensuring that the spread reflects methodological uncertainty rather than just biological noise.",
+      "evidence_chunk_ids": [
+        "SUP011:0017",
+        "SUP011:0031"
+      ],
+      "id": "round2_T04:K02",
+      "origin_job": "round2_T04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "T04",
+      "retrieval_keywords": "Animal parameter uncertainty, scaling-method discrepancy and prospective human uncertainty",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,399 @@
+{
+  "request_sha256": "ac78884e19215cb68db538d63cd630d0628c66d014097328c1b197e88951076b",
+  "analyses": [
+    {
+      "gap_ids": [
+        "RQ001:F2",
+        "RQ001:F3",
+        "RQ001:F6",
+        "RQ001:F7",
+        "RQ001:C1"
+      ],
+      "affected_scope": "S02 mouse, S07 rat, S05 mouse, S22 rabbit",
+      "next_action": "Fit source-specific animal PK curves",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Unjustified analyte, dose, free-fraction or matrix bridges restrict pooling.",
+      "can_continue": [
+        "Fit separately on each reported basis."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Resolve component and formulation definitions in existing sources.",
+      "conditions_to_verify": [
+        "Document each proposed conversion or physiological bridge."
+      ],
+      "local_method_profile_ids": [
+        "MP004",
+        "MP007"
+      ],
+      "importance": "ANALYSIS_SPECIFIC"
+    },
+    {
+      "gap_ids": [
+        "RQ002:F6",
+        "RQ002:F9",
+        "RQ002:C1"
+      ],
+      "affected_scope": "S21 mouse plasma/ELF; S21 rat plasma; S22 rabbit means",
+      "next_action": "Fit censored PK observations",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Mouse identities and numerical censor bounds remain unverified.",
+      "can_continue": [
+        "Use verified rat IDs and quantifiable observations."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Locate assay bounds and mouse sampling identifiers.",
+      "conditions_to_verify": [
+        "Retain BLQ separately from unsampled records."
+      ],
+      "local_method_profile_ids": [
+        "MP004"
+      ],
+      "importance": "ANALYSIS_SPECIFIC"
+    },
+    {
+      "gap_ids": [
+        "RQ003:F5",
+        "RQ003:F8",
+        "RQ003:F9",
+        "RQ003:F13",
+        "RQ003:C1",
+        "RQ003:C2"
+      ],
+      "affected_scope": "S21 rat IV; S05 mouse IV; S02 mouse SC; S22 rabbit",
+      "next_action": "Fit source-specific animal time courses",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Rat time origin and dose basis; rabbit timing differ.",
+      "can_continue": [
+        "Fit S05 or S02 group curves conditionally."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Resolve rat timing and rabbit plotted-protocol discrepancies.",
+      "conditions_to_verify": [
+        "Preserve S05 base versus S02 sulphate dosing."
+      ],
+      "local_method_profile_ids": [
+        "MP004"
+      ],
+      "importance": "REQUIRED_NOW"
+    },
+    {
+      "gap_ids": [
+        "RQ004:F1",
+        "RQ004:F3",
+        "RQ004:F4",
+        "RQ004:F5",
+        "RQ004:F7",
+        "RQ004:F8",
+        "RQ004:C1"
+      ],
+      "affected_scope": "S21 rat individuals; S02 mouse and S22 rabbit means",
+      "next_action": "Fit animal PK models",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Only rat columns establish repeated individuals; group uncertainty varies.",
+      "can_continue": [
+        "Fit qualified group-level mouse curves."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Specify outputs and whether individual variability is requested.",
+      "conditions_to_verify": [
+        "Reconcile S22 counts and error-bar meaning."
+      ],
+      "local_method_profile_ids": [
+        "MP004"
+      ],
+      "importance": "REQUIRED_NOW"
+    },
+    {
+      "gap_ids": [
+        "RQ005:F1",
+        "RQ005:F2",
+        "RQ005:F3",
+        "RQ005:F4",
+        "RQ005:F6",
+        "RQ005:F7",
+        "RQ005:C1"
+      ],
+      "affected_scope": "S05/S02 mouse means; S21 rat; S22 rabbit",
+      "next_action": "Calculate observed NCA endpoints",
+      "impact": "PENDING_CONFIRMATION",
+      "impact_summary": "Optional endpoint and AUC window lack definitions.",
+      "can_continue": [
+        "Describe peaks of sampled mean curves."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Select endpoint, use and exact AUC boundaries.",
+      "conditions_to_verify": [
+        "Identify unobserved boundaries and concentration basis."
+      ],
+      "local_method_profile_ids": [
+        "MP001"
+      ],
+      "importance": "NEEDS_CONFIRMATION"
+    },
+    {
+      "gap_ids": [
+        "RQ006:F1",
+        "RQ006:F4",
+        "RQ006:F5",
+        "RQ006:F6",
+        "RQ006:F7",
+        "RQ006:C1",
+        "RQ007:F1",
+        "RQ007:F2",
+        "RQ007:F3",
+        "RQ007:F5",
+        "RQ007:F7",
+        "RQ007:F8",
+        "RQ007:C1"
+      ],
+      "affected_scope": "S21 rat IV; S02 mouse SC; S22 rabbit SC; S09 summary",
+      "next_action": "Estimate terminal-dependent NCA parameters",
+      "impact": "PENDING_CONFIRMATION",
+      "impact_summary": "Endpoint, tail, exposure window and apparent status remain unresolved.",
+      "can_continue": [
+        "Retain independently eligible finite-window endpoints."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Specify estimand; examine existing late observations.",
+      "conditions_to_verify": [
+        "Require F for absolute SC clearance."
+      ],
+      "local_method_profile_ids": [
+        "MP002",
+        "MP003"
+      ],
+      "importance": "NEEDS_CONFIRMATION"
+    },
+    {
+      "gap_ids": [
+        "RQ008:F7",
+        "RQ008:F8",
+        "RQ008:C1"
+      ],
+      "affected_scope": "S01/S02/S21 mouse plasma; S24 mouse/rat B1 serum",
+      "next_action": "Calculate study-specific free exposures",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Assays, analytes, concentrations and fractions differ.",
+      "can_continue": [
+        "Use S01 published coordinates without reapplying fu."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Define eligible source-specific binding sensitivity scenarios.",
+      "conditions_to_verify": [
+        "Check range, analyte, matrix and scale."
+      ],
+      "local_method_profile_ids": [
+        "MP007",
+        "MP009"
+      ],
+      "importance": "ANALYSIS_SPECIFIC"
+    },
+    {
+      "gap_ids": [
+        "RQ009:F6"
+      ],
+      "affected_scope": "S01/S02/S13 K. pneumoniae; S25 MIC table",
+      "next_action": "Calculate MIC-normalized exposure indices",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "S25 assay context is unverified; matched strain MICs exist.",
+      "can_continue": [
+        "Use source-matched S01/S02 strain MICs."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Check S25 susceptibility methods if used.",
+      "conditions_to_verify": [
+        "Retain right-censored MIC inequalities."
+      ],
+      "local_method_profile_ids": [
+        "MP009"
+      ],
+      "importance": "ANALYSIS_SPECIFIC"
+    },
+    {
+      "gap_ids": [
+        "RQ010:F2",
+        "RQ010:F3",
+        "RQ010:F4",
+        "RQ010:F5",
+        "RQ010:F6",
+        "RQ010:F7",
+        "RQ010:F9",
+        "RQ010:C1",
+        "RQ010:C2"
+      ],
+      "affected_scope": "S01 Kp-T/Kp-C/Kp-A; S02 Table 3; S09 rabbit",
+      "next_action": "Compare common-record PD indices",
+      "impact": "BLOCKS_ACTION",
+      "impact_summary": "S01 panels lack cross-panel identities and marker regimens.",
+      "can_continue": [
+        "Assess eligible within-panel pairs for targets."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Seek original cross-panel and dose mappings.",
+      "conditions_to_verify": [
+        "Resolve S01 dose-range conflict and overlap."
+      ],
+      "local_method_profile_ids": [
+        "MP009",
+        "MP012"
+      ],
+      "importance": "REQUIRED_NOW"
+    },
+    {
+      "gap_ids": [
+        "RQ011:F1",
+        "RQ011:F2",
+        "RQ011:F5",
+        "RQ011:F7",
+        "RQ011:F9",
+        "RQ011:C1"
+      ],
+      "affected_scope": "S01 K. pneumoniae 104 free-exposure panels",
+      "next_action": "Rank three PD indices",
+      "impact": "BLOCKS_ACTION",
+      "impact_summary": "Published coordinates cannot establish matched comparison records.",
+      "can_continue": [
+        "Retain each panel's reported index definition."
+      ],
+      "recommendation_kind": "CONTINUE_WITH_LIMITS",
+      "recommendation": "Hold ranking pending supported common-record linkage.",
+      "conditions_to_verify": [
+        "Align windows, dosing histories and likelihood."
+      ],
+      "local_method_profile_ids": [
+        "MP009"
+      ],
+      "importance": "REQUIRED_NOW"
+    },
+    {
+      "gap_ids": [
+        "RQ012:F1",
+        "RQ012:F3",
+        "RQ012:F6",
+        "RQ012:C1",
+        "RQ013:F3",
+        "RQ013:F4",
+        "RQ013:F5",
+        "RQ013:F7",
+        "RQ013:F9",
+        "RQ013:C1"
+      ],
+      "affected_scope": "S01/S02 mouse thigh; S13/S25/S27 in vitro; S09 rabbit",
+      "next_action": "Estimate panel-specific PD targets",
+      "impact": "PENDING_CONFIRMATION",
+      "impact_summary": "Target effects and compatible baseline definitions need confirmation.",
+      "can_continue": [
+        "Use eligible S01 within-panel pairs conditionally."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Define three effects against each panel's baseline.",
+      "conditions_to_verify": [
+        "Exclude obscured markers; preserve independent replicates."
+      ],
+      "local_method_profile_ids": [
+        "MP009",
+        "MP012"
+      ],
+      "importance": "REQUIRED_NOW"
+    },
+    {
+      "gap_ids": [
+        "RQ014:F1",
+        "RQ014:F2",
+        "RQ014:F3",
+        "RQ014:F4",
+        "RQ014:F5",
+        "RQ014:F6",
+        "RQ014:F7",
+        "RQ014:F8",
+        "RQ014:F9",
+        "RQ014:C1"
+      ],
+      "affected_scope": "Current animal model; S01 published simulation; S02 regimens",
+      "next_action": "Predict regimen-specific PD exposures",
+      "impact": "FUTURE_DEPENDENCY",
+      "impact_summary": "Current-model exposure awaits animal PK outputs and regimen links.",
+      "can_continue": [
+        "Analyze independent animal PK sources."
+      ],
+      "recommendation_kind": "WAIT_FOR_UPSTREAM",
+      "recommendation": "Match reviewed predictions to eligible regimens.",
+      "conditions_to_verify": [
+        "Confirm index, units, matrix, basis and window."
+      ],
+      "local_method_profile_ids": [
+        "MP004",
+        "MP009",
+        "MP012"
+      ],
+      "importance": "FUTURE_DEPENDENCY"
+    }
+  ],
+  "assessment": {
+    "decision": "CONDITIONAL_PASS",
+    "scope": "Data support for the next animal PK and K. pneumoniae PK/PD analyses",
+    "opinion": "Source-specific animal PK fitting can begin conditionally; common-record index ranking remains blocked, while panel-specific target work needs defined effects."
+  },
+  "action_decisions": {
+    "MODEL_BASED_ANIMAL_PK": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S05/S02 mouse group curves usable; S21 rat timing and S22 rabbit held.",
+      "finding": "Source-specific group models can start; rat time origin and mouse dose basis need resolution, and rabbit timing/count discrepancies limit component assessment.",
+      "next_step": "Fit eligible curves at their data level; resolve held source timing and dose definitions.",
+      "gap_ids": [
+        "RQ003:F5",
+        "RQ003:F8",
+        "RQ003:F13",
+        "RQ004:F3",
+        "RQ004:F4"
+      ]
+    },
+    "PD_INDEX_COMPARISON": {
+      "readiness": "NOT_READY",
+      "source_scope": "S01 Kp-T/Kp-C/Kp-A held; S02 Table 3 lacks paired indices.",
+      "finding": "S01 has separate plotted pairs but no verified common response identities or marker doses; its dose ranges conflict with tolerability text.",
+      "next_step": "Seek original common-record and regimen mapping before fitting a shared comparison.",
+      "gap_ids": [
+        "RQ010:C1",
+        "RQ010:F7",
+        "RQ011:F9",
+        "RQ011:C1"
+      ]
+    },
+    "PD_TARGET_ESTIMATION": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S01 within-panel pairs candidate; S02 responses unpaired with exposure; S09 strain allocation held.",
+      "finding": "Each S01 panel has published-simulation exposure-response pairs; target effects and reference definitions need selection, and obscured markers cannot support numerical fitting.",
+      "next_step": "Define stasis, one-log and two-log effects; assess each eligible panel within its published basis.",
+      "gap_ids": [
+        "RQ010:C2",
+        "RQ012:F1",
+        "RQ012:F3",
+        "RQ013:F9"
+      ]
+    },
+    "NCA": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S05/S02 sampled mouse means candidate; S21 rat and S22 rabbit boundaries held.",
+      "finding": "Sampled mean peaks may be described; finite AUC needs a chosen window and boundary treatment, while terminal clearance needs qualified tail and route-specific inputs.",
+      "next_step": "Specify endpoint and window, then assess each source's boundaries and terminal inputs.",
+      "gap_ids": [
+        "RQ005:F1",
+        "RQ005:F3",
+        "RQ006:F1",
+        "RQ007:F1"
+      ]
+    },
+    "PTA": {
+      "readiness": "LATER",
+      "source_scope": "Prospective K. pneumoniae scenarios pending; surveillance MIC distribution remains separate.",
+      "finding": "PTA awaits a qualified PK source, effect-specific PD target and frozen compatible MIC inputs; a published panel coordinate is no population probability.",
+      "next_step": "Define scenarios after PK and target outputs, then assess variability and MIC-bin coverage.",
+      "gap_ids": [
+        "RQ014:F1",
+        "RQ014:F2",
+        "RQ012:F1"
+      ]
+    }
+  }
+}

@@ -1,0 +1,77 @@
+﻿<html lang="en-US">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Lambda_Z_or_Slope_Estimation_settings</title>
+ <link type="text/css" rel="StyleSheet" href="../../editstyle.css" />
+ <link type="text/css" rel="StyleSheet" href="../phoenix_userdocs.css" />
+ <link type="text/css" rel="StyleSheet" href="../../rhstylemapping.css" />
+ <link href="../../editstyle.css" rel="stylesheet" type="text/css" />
+ <script type="text/javascript" language="JavaScript">
+//<![CDATA[
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//]]>
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute;
+left:0px;
+top:0px;
+z-index:4;
+visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+-->
+</style>
+ <meta name="generator" content="Adobe FrameMaker v16.0" />
+<script type="text/javascript" src="../../template/scripts/rh.min.js"></script>
+<script type="text/javascript" src="../../template/scripts/common.min.js"></script>
+<script type="text/javascript" src="../../template/scripts/topic.min.js"></script>
+<script type="text/javascript" src="../../template/scripts/constants.js"></script>
+<script type="text/javascript" src="../../template/scripts/utils.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhutils.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhlang.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhver.js"></script>
+<script type="text/javascript" src="../../template/scripts/settings.js"></script>
+<script type="text/javascript" src="../../template/scripts/XmlJsReader.js"></script>
+<script type="text/javascript" src="../../template/scripts/loadparentdata.js"></script>
+<script type="text/javascript" src="../../template/scripts/loadscreen.js"></script>
+<script type="text/javascript" src="../../template/scripts/loadprojdata.js"></script>
+<script type="text/javascript" src="../../template/scripts/mhtopic.js"></script>
+ <link rel="stylesheet" type="text/css" href="../../template/styles/topic.min.css">
+<script type="text/javascript" >
+gRootRelPath = "../..";
+gCommonRootRelPath = "../..";
+gTopicId = "39.3.0_3";
+</script>
+ <meta name="brsprev" value="Phoenix_UserDocs/NCA_Object/Data_checking_and_pre-treatment.htm">
+ <meta name="brsnext" value="Phoenix_UserDocs/NCA_Object/Therapeutic_response.htm">
+ <meta name="topic-breadcrumbs" content="NCA Object > NCA computation rules" />
+</head>
+<body dir="ltr">
+<script type="text/javascript" src="../../ehlpdhtm.js"></script>
+
+    <!-- Breadcrumb --> 
+    <div><script type="text/javascript" language="javascript">//<![CDATA[
+document.write("<p class=\"Body\"  >");
+AddMasterBreadcrumbs("../../index.html", "", ">", "Home", "../Learn_About_Phoenix/Learn_About_Phoenix.htm");
+document.write("<a href=\"NCA_Object.htm#1022493\">NCA Object<\/a> > <a href=\"NCA_computation_rules.htm#1022946\">NCA computation rules<\/a> > Lambda Z or Slope Estimation settings<\/p>");
+//]]></script>
+    </div>
+    <div><p class="Heading2" id="1023005"><a id="1280_Heading2_1023005" name="1280_Heading2_1023005"></a><a id="XREF_32244__Lambda_Z_or_Slope_Estimation_settings1280" name="XREF_32244__Lambda_Z_or_Slope_Estimation_settings1280">Lambda Z or Slope Estimation settings</a></p><p class="Body" id="1023006"><a id="1280_Body_1023006" name="1280_Body_1023006"></a>This section pertains to NCA and IVIVC objects. </p><p class="Body" id="1023007">Phoenix will attempt to estimate the rate constant, Lambda Z, associated with the terminal elimination phase for concentration data. If Lambda Z is estimable, parameters for concentration data will be extrapolated to infinity. For NCA drug effect models, Phoenix estimates the two slopes at the beginning and end of the data. NCA does not extrapolate beyond the observed data for drug effect models.</p><p class="Heading3" id="1023009">Lambda Z or slope range selection<a id="index_1023008" name="index_1023008"></a><a data-indexterm="nca:slope%20data%20ranges" id="NCA_slope_data_ranges" name="NCA_slope_data_ranges"></a></p><p class="Body" id="1023010">Phoenix will automatically determine the data points to include in Lambda Z or slope calculations as follows. (The exception to this is if the time range to use in the calculation of Lambda Z or slopes is not specified in an NCA object and curve stripping is not disabled, as described in the <a  href="Options_tab.htm#XREF_48790__Options_tab1280">“Options tab”</a> section.)</p><p class="Body" id="1043952">The NCA tool offers two options for determining the points to be included in the terminal elimination phase, that is, the points included in the estimation of Lambda Z&#x3A;</p><p class="Body" id="1043953"><span class="Mouse_Click">Best Fit method</span>&#x3A; NCA automatically determines the data points to include in Lambda Z calculations. To estimate the best fit for Lambda Z, NCA repeats regressions of the natural logarithm of the concentration values using the last three points with non&#x2D;zero concentrations, then the last four points, last five points, etc. Points with a concentration value of zero are not included since the logarithm cannot be taken. Points prior to Cmax, points prior to the end of infusion, and the point at Cmax for non&#x2D;bolus models, are not used in the Best Fit method (they can only be used if a time range that includes them is specifically requested). For each linear regression (that solves for the best slope and intercept for ln(<span class="EquationVariables">y</span>) &#x3D; intercept + slope &#x2A; <span class="EquationVariables">t</span>, for the time and concentration vectors <span class="EquationVariables">t</span> and <span class="EquationVariables">y</span>), an adjusted <span class="EquationVariables">R</span><sup><span class="Superscript">2</span></sup> is computed&#x3A;</p><p class="Body_Indented" id="1043957"><img alt="Phoenix_UserDocs_NCA_Object_image3469" class="image" height="44.322327" src="../assets/Phoenix_UserDocs_NCA_Object_image3469.jpg" width="244.550456"/></p><p class="Body" id="1043958">where <span class="EquationVariables">n</span> is the number of data points in the regression and R<sup><span class="Superscript">2</span></sup> is the square of the correlation coefficient.</p><p class="Body" id="1043959">Lambda Z is estimated using the regression with the largest adjusted <span class="EquationVariables">R</span><sup><span class="Superscript">2</span></sup>, with these caveats&#x3A; </p><p class="Bullet_Indented" id="1043960">If the adjusted <span class="EquationVariables">R</span><sup><span class="Superscript">2</span></sup> does not improve, but is within &#x30;.&#x30;&#x30;&#x30;1 of the largest adjusted <span class="EquationVariables">R</span><sup><span class="Superscript">2</span></sup> value, the regression with the larger number of points is used. </p><p class="Bullet_Indented" id="1043961">Lambda Z must be calculated from at least three data points.</p><p class="Bullet_Indented" id="1043962">The estimated slope must be negative &#x2014; Lambda Z is defined as the negative of the estimated slope and must be positive.</p><p class="Body" id="1043963"><span class="Mouse_Click">Time Range method</span>&#x3A; The points to be included in the calculation of Lambda Z are user&#x2D;specified. NCA estimates Lambda Z by performing a linear regression of the natural logarithm of the concentration values in this range of sampling times. The estimated slope must be negative &#x2014; Lambda Z is defined as the negative of the estimated slope and must be positive.</p><p class="Body" id="1043964">Therefore, for either method (Best Fit or Time Range), the regression line has the equation&#x3A; </p><p class="Body_Indented" id="1043965">ln(<span class="EquationVariables">y</span>) &#x3D; Lambda_z_intercept &#x2013; Lambda_Z &#x2A; <span class="EquationVariables">t</span>&#160;</p><p class="Body" id="1043966">so the <span class="EquationVariables">y</span>&#x2D;value predicted by this line at time <span class="EquationVariables">t</span> is&#x3A; </p><p class="Body_Indented" id="1043967"><span class="EquationVariables">y</span><sub><span class="Subscript">pred</span></sub>(<span class="EquationVariables">t</span>) &#x3D; exp(Lambda_z_intercept &#x2013; Lambda_Z &#x2A; <span class="EquationVariables">t</span>) </p><p class="Body" id="1043968">For sparse data, the mean concentration at each time for discrete data, or mean rate for each interval for interval data is used when estimating Lambda Z, but otherwise, the methods are the same.</p><p class="Body" id="1045128">For drug effect data, NCA will compute the best&#x2D;fitting slope at the beginning of the data (Slope 1) and at the end of the data (Slope 2) using the same rules that are used for Lambda Z (best adjusted <span class="EquationVariables">R</span><sup><span class="Superscript">2</span></sup> with at least three points), with the exceptions that linear or log regression can be used (the <span class="EquationVariables">y</span>&#x2D;values themselves are used or their natural logarithms are used) as specified, and the estimated slope can be positive or negative. The actual slopes are reported; they are not negated as for Lambda Z. If the range is only specified only for Slope1, then, in addition to computing Slope1, NCA will compute the best&#x2D;fitting slope at the end of the data for Slope2. If the range is specified only for Slope2, then NCA will also compute the best&#x2D;fitting slope at the beginning of the data for Slope1. (The data points included in each slope are indicated on the Summary table of the output workbook and text for model 22&#x30;. Data points for Slope1 are marked with &#x201c;1&#x201d; in workbook output and footnoted using &#x201c;&#x23;&#x201d; in text output; data points for Slope2 are labeled &#x201c;2&#x201d; and footnoted using an asterisk, &#x201c;&#x2A;&#x201d;.)</p><p class="Note" id="1045129"><span class="Emphasis">Note&#x3A;&#160;&#160;&#160; </span>Using this methodology, Phoenix will almost always compute an estimate for Lambda Z. However, the appropriateness of the estimated value should always be evaluated.</p><p class="Heading3" id="1043972">Limitations<a id="index_1043971" name="index_1043971"></a><a data-indexterm="Lambda%20Z:not%20estimable" id="Lambda_Z_not_estimable" name="Lambda_Z_not_estimable"></a> of Lambda Z and slope estimation</p><p class="Body" id="1043973">It is not possible for NCA to estimate Lambda Z or slopes in the following cases. </p><p class="Bullet_Indented" id="1043974">There are only two non&#x2D;missing observations and automatic range selection was requested (Best Fit).</p><p class="Bullet_Indented" id="1043975">The user&#x2D;specified range contains fewer than two non&#x2D;missing observations.</p><p class="Bullet_Indented" id="1043976">Automatic range selection is chosen, but there are fewer than three positive concentration values after the Cmax of the profile for non&#x2D;bolus models and fewer than two for bolus models or the slope is not negative.</p><p class="Bullet_Indented" id="1043977">For infusion data, automatic range selection is chosen, and there are fewer than three points at or after the infusion stop time.</p><p class="Bullet_Indented" id="1043978">The time difference between the first and last data points in the estimation range used is approximately &#x3C; 1e &#x2013;1&#x30;.</p><p class="Body" id="1043979">In these instances, the curve fit for that subject will be omitted. The parameters that do not depend on Lambda Z (i.e., Cmax, Tmax, AUClast, etc.) will still be reported, but a warning is issued in the text output, indicating that Lambda Z was not estimable.</p><p class="Insert_table_or_figure" id="1042662"><br/></p></div><!-- Footer --> 
+    <div>
+      <hr>
+      <p class="Body"><a href="../LegalNotice/LegalNotice.htm" target="_self">Legal Notice</a> | <a href="https://www.certara.com/company/contact/?referer=null" target="_blank">Contact Certara</a><br>
+      &#169; <script type="text/javascript">
+      document.write(new Date().getFullYear());
+      </script> Certara USA, Inc. All rights reserved.</p>
+    </div>
+  </body>
+</html>

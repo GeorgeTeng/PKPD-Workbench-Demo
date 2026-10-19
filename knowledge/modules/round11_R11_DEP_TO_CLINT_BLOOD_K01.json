@@ -1,0 +1,99 @@
+{
+  "cards": [
+    {
+      "title": "Conditional depletion-to-CLint scaling and blood/plasma basis",
+      "claim": "SUP012's well-stirred hepatic blood-clearance calculation uses physiologically scaled CLint and, when that CLint still includes incubation binding, the factor fu,B/fu,inc. An already unbound-corrected scaled CLint must not be divided by fu,inc again. The assay-specific depletion-to-CLint conversion remains a separate source gap.",
+      "conditions": [
+        "Conditional hepatic IVIVE: a qualified assay-specific in-vitro CLint estimate, physiological scaling to the target species, QH, and binding terms on declared bases are available before numerical prediction.",
+        "If CLint is already corrected to unbound incubation concentration, do not apply fu,inc a second time; retain the applicable fu,B term.",
+        "Blood/plasma ratio is needed only when converting or comparing blood and plasma clearance/concentration bases; it cannot replace fu,B."
+      ],
+      "required_inputs": [
+        "Assay-specific turnover data and verified conversion to in-vitro CLint with original units; this conversion is a SOURCE_GAP in SUP012 if not supplied elsewhere.",
+        "Physiological scaling factor(s) for the assay system and liver/body basis to produce scaled CLint in volume/time.",
+        "Liver blood flow QH in volume/time on the same species/body basis.",
+        "Qualified fu,B; fu,inc only if scaled CLint still includes incubation binding and needs that correction.",
+        "A documented blood/plasma ratio and measured-clearance provenance only if a blood/plasma conversion or prediction comparison is requested."
+      ],
+      "limitations": [
+        "The indexed source (SUP012) demonstrates the well-stirred equation and scaling concept but does not provide a universal depletion-slope-to-CLint formula or specific numerical scaling factors; these must be sourced separately.",
+        "Low-turnover compounds may have high uncertainty due to experimental limits (e.g., enzyme activity decline in microsomes >1h, viability decline in hepatocytes >4-6h).",
+        "Does not model uptake, biliary secretion, or extrahepatic metabolism explicitly.",
+        "Blood and plasma concentrations/binding are distinct; do not equate them without documented conversion."
+      ],
+      "downstream_use": "Use as a conditional hepatic blood-clearance scenario when assay-specific CLint, physiological scale, binding and QH inputs are qualified. Track uncertainty and blood/plasma basis; do not treat CLH alone as systemic CL, an observed human outcome or a dose recommendation.",
+      "method_keywords": [
+        "hepatic IVIVE",
+        "well-stirred model",
+        "intrinsic clearance",
+        "blood/plasma binding",
+        "physiological scaling",
+        "clearance prediction"
+      ],
+      "retrieval_keywords": "hepatic IVIVE well-stirred model intrinsic clearance blood plasma binding physiological scaling clearance prediction",
+      "method_recipe": {
+        "estimand_and_scope": "Predict hepatic blood clearance (CL_H) from in-vitro intrinsic clearance (CL_int) using the well-stirred model, accounting for blood/plasma binding differences.",
+        "input_contract": "Record assay system, depletion/turnover and CLint derivation, units, target species, scaling factors and resulting scaled CLint (volume/time); QH on the same basis; fu,B and whether fu,inc has already been applied. Add blood/plasma ratio only for a cross-basis comparison. The exact generic depletion-slope equation and numerical factors are not supplied by SUP012.",
+        "applicability_and_prerequisites": "The source-supported well-stirred equation is an available conditional method definition. A target-drug numeric CLH prediction requires a verified assay-specific in-vitro CLint calculation, physiological scaling and declared binding basis; stop the numerical branch at any missing step without discarding the method card.",
+        "definitions_units_basis_window": "In-vitro CLint: assay-specific volume/time per protein mass or cell amount. Scaled CLint entering the equation: volume/time on the same body/species basis as QH. fu,B and fu,inc are dimensionless fractions unbound in blood and incubation. QH and predicted hepatic blood CLH have volume/time units. Blood/plasma ratio is a separate basis-conversion input when justified.",
+        "procedure": "1. Preserve the observed assay turnover and verify its protocol-specific conversion to in-vitro CLint (source gap here). 2. Scale with documented protein/hepatocyte content and liver/body factors to CLint in volume/time. 3. Declare whether scaled CLint is incubation-bound or already unbound-corrected. If bound-basis, apply SUP012's fu,B/fu,inc factor once; if already unbound-corrected, use fu,B*scaled_CLint,u without another fu,inc division. 4. With QH on the same species/body basis, calculate CLH=QH*X/(QH+X), where X is the appropriate binding-corrected scaled CLint. 5. Compare only with observed hepatic blood CL or an explicitly converted/partitioned quantity; do not equate total plasma CL with hepatic blood CL.",
+        "formula_and_parameterization": "SUP012 bound-incubation basis: X=(fu,B/fu,inc)*scaled_CLint; CLH=QH*X/(QH+X). If scaled_CLint,u has already been corrected for fu,inc, X=fu,B*scaled_CLint,u instead. QH, X and CLH all volume/time on matched species/body basis.",
+        "uncertainty_and_identifiability": "Uncertainty arises from in-vitro variability, scaling factor variability, and model assumptions (well-stirred). Low-turnover compounds have higher uncertainty. Identifiability of CL_int depends on accurate turnover measurement.",
+        "diagnostics_and_failure_modes": "Stop only the numerical prediction when the assay-specific depletion-to-CLint equation, scaling factor, QH or required binding basis is unverified. Inspect low-turnover detectability and blood/plasma basis. Do not infer that fu,B is supplied by a B/P ratio alone.",
+        "missing_input_and_partial_fallback": "If depletion-to-CLint conversion or physiological scale is absent, report method and explicit gap without a numeric CLH. If fu,B is missing, do not substitute B/P. If observed comparison is plasma total CL, require matched B/P and hepatic-versus-total clearance provenance before judging accuracy.",
+        "output_and_interpretation": "When inputs are qualified, output predicted hepatic blood CLH and a units/binding-basis ledger. Any comparison to observed clearance must match blood/plasma and hepatic-versus-total basis; otherwise report prediction without validation claim.",
+        "worked_example_and_counterexample": "Synthetic bound-basis example: scaled CLint=10 L/h, QH=90 L/h, fu,B=0.1, fu,inc=0.5. X=(0.1/0.5)*10=2 L/h and CLH=90*2/(90+2)=1.95652 L/h. Equivalent already-unbound scaled CLint,u=20 L/h gives X=0.1*20=2 L/h. Wrongly dividing that 20 by fu,inc again gives X=4 L/h and CLH=3.82979 L/h; that is a double correction, not a new biological estimate."
+      },
+      "claim_support": [
+        {
+          "claim": "For SUP012's incubation-bound CLint basis, the well-stirred equation uses fu,B/fu,inc: fraction unbound in blood divided by fraction unbound in incubation, not a blood/plasma binding ratio.",
+          "scope": "SUP012 conditional intrinsic-clearance basis",
+          "evidence_chunk_ids": [
+            "SUP012:MATH01",
+            "SUP012:0005"
+          ]
+        },
+        {
+          "claim": "In-vitro CL_int is scaled to in-vivo CL_int using physiological factors.",
+          "scope": "Scaling step",
+          "evidence_chunk_ids": [
+            "SUP012:0002"
+          ]
+        },
+        {
+          "claim": "Low-turnover compounds have high uncertainty due to experimental limits.",
+          "scope": "Limitations",
+          "evidence_chunk_ids": [
+            "SUP012:0004"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "SUP012:0002",
+        "SUP012:0004",
+        "SUP012:0005",
+        "SUP012:MATH01"
+      ],
+      "id": "round11_R11_DEP_TO_CLINT_BLOOD:K01",
+      "topics": [
+        "translation",
+        "animal_pk"
+      ],
+      "required_branches": [
+        "hepatic_ivive"
+      ],
+      "knowledge_layer": "conditional_method",
+      "kind": "method_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "origin_job": "R11_DEP_TO_CLINT_BLOOD",
+      "source_ids": [
+        "SUP012"
+      ],
+      "citation_check": "SOURCE_LINKS_CHECKED_NOT_SCIENTIFIC_APPROVAL",
+      "example_is_synthetic": true,
+      "source_vs_engineering_conventions": "Scientific statements linked to originals; synthetic arithmetic and host review safeguards are explicitly distinguished from source-study results."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,107 @@
+{
+  "cards": [
+    {
+      "title": "Censored-observation likelihood and qualified identifiability assessment",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Specify how quantitative and left-censored observations enter a chosen likelihood, and distinguish structural from practical identifiability. This is an offline method specification, not a fit or proof of estimator adequacy.",
+      "conditions": [
+        "Choose the explicitly qualified branch; scientific scope and assumptions are specified in method_recipe."
+      ],
+      "required_inputs": [
+        "Use the branch-specific input contract below; unknown inputs remain unknown."
+      ],
+      "limitations": [
+        "Offline candidate pending source and operational review; no target-human facts, fitting or production use."
+      ],
+      "downstream_use": "Plan an evidence-bounded method and identify blocked dependent outputs; ContextBuilder supplies project objective separately.",
+      "evidence_chunk_ids": [
+        "ADD002:0059",
+        "SUP001:0003",
+        "SUP003:0005"
+      ],
+      "method_recipe": {
+        "estimand_and_scope": "Specify how quantitative and left-censored observations enter a chosen likelihood, and distinguish structural from practical identifiability. This is an offline method specification, not a fit or proof of estimator adequacy.",
+        "input_contract": "Require quantitative/censored flags, measured value or original bound with provenance, unit/matrix, observation scale, conditional predictor and chosen residual distribution. Hierarchical models additionally need unit identity and an explicitly specified random-effects structure for the requested population analysis. Unknown residual law or bound is unresolved, not a default.",
+        "applicability_and_prerequisites": "Use a likelihood matching the observation process and scale. M3-style censor-event probability is distinct from M2 conditional likelihood for above-LOQ observations; M4 adds positive-observation conditioning in the cited setting. Censoring cannot be made harmless by a generic MAR/MCAR label. Qualify additional missingness/selection separately.",
+        "definitions_units_basis_window": "A quantitative observation contributes a density in inverse observation units; a left-censor event contributes a dimensionless probability. Threshold and predictor must share the modeled scale. Residual error describes observation conditional on latent response; between-unit variation is separate. A log scale requires justified transformation/distribution and valid support.",
+        "procedure": "Preserve the original measured threshold and flags. Construct the conditional quantitative density or censor-event probability, then handle random effects according to the specified hierarchical likelihood, if present. Use stable log-density/log-CDF evaluation as an engineering implementation choice. Review model/observation structure and design for identifiability before interpreting fitted parameters.",
+        "formula_and_parameterization": "For an explicitly selected untruncated normal observation model Y|mu,sigma~Normal(mu,sigma^2), left censor at L contributes Phi((L-mu)/sigma), sigma>0; an exact y contributes its normal density. This mathematically instantiates the normal-CDF/PDF description, not a universal Phoenix/M3 default. ADD002 also describes a zero-to-bound interval in another software note; do not conflate that support with this explicitly untruncated example. Other distributions or truncation require their own correctly scoped density/CDF.",
+        "uncertainty_and_identifiability": "Structural identifiability concerns uniqueness under perfect input-output information; practical identifiability concerns available noisy data/design. Local/global ambiguity and parameterization matter. A finite FIM determinant, optimizer convergence or parameter count alone does not establish global identifiability; no unknown parameter is automatically fixed to an invented value.",
+        "diagnostics_and_failure_modes": "Check scale, censor bounds, conditional versus marginal meaning, impossible probabilities and finite numerical evaluation. ADD002 includes a software overflow workaround mentioning increasing BQL if possible; it is not scientific authorization to alter an assay limit. Escalate numerical instability with preserved data, implementation/model review and explicit scientific qualification of any reanalysis.",
+        "missing_input_and_partial_fallback": "Missing bound blocks that record-specific censor likelihood until resolved; retain known records and document the incomplete likelihood. Unknown error law blocks numeric likelihood specification, not descriptive data inspection. Numerical underflow must not be repaired by changing the assay threshold or silently switching error models.",
+        "output_and_interpretation": "Return the explicit observation model/scale, conditional inputs, contribution definitions, threshold provenance and unresolved structural/practical limitations. Original-source method support does not prove unbiased inference for the target study or scientific validation.",
+        "worked_example_and_counterexample": "SYNTHETIC observation-law fixture only: explicitly assumed normal mu=1 mg/L, sigma=1 mg/L, L=1 mg/L gives censor probability 0.5. An exact y=1 mg/L instead has density 1/sqrt(2*pi)=0.39894228 L/mg, not probability 0.5. Counterexample: sigma or L unknown prevents that numeric likelihood; raising L for optimizer convenience is not allowed."
+      },
+      "claim_support": [
+        {
+          "claim": "Structural identifiability relates to model structure uniqueness (global/local/unidentifiable), while practical/deterministic identifiability relates to data informativeness and design.",
+          "evidence_chunk_ids": [
+            "SUP003:0005"
+          ],
+          "scope": "General PK/PD models",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "In the cited M3/M4 approaches, BQL records contribute censor-event probabilities; M4 additionally conditions on observations above zero. M2 instead uses conditional likelihood for above-LOQ observations. Normal residual error is not inherent to these general method labels.",
+          "evidence_chunk_ids": [
+            "SUP001:0003"
+          ],
+          "scope": "Mixed effect models with BQL data",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Software implementations (e.g., Phoenix NLME) use the CDF for censored observations and PDF for non-censored observations, with specific handling for log-likelihood overflow.",
+          "evidence_chunk_ids": [
+            "ADD002:0059"
+          ],
+          "scope": "Phoenix NLME 8.3 normal-error description, with differing censor-interval wording preserved for qualification; not a universal likelihood specification.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round7_reviewed_v1_G13:K01",
+      "origin_job": "round7_G13",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD002",
+        "SUP001",
+        "SUP003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "G13",
+      "retrieval_keywords": "Residual censoring likelihood identifiability BLQ BQL LLOQ M2 M3 FIM structural practical",
+      "supersedes": [
+        "round7_G13:K01",
+        "round6_G13:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "residual censoring likelihood identifiability",
+        "BLQ",
+        "BQL",
+        "LLOQ",
+        "M2",
+        "M3",
+        "FIM",
+        "structural practical"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "ADD002",
+        "SUP001",
+        "SUP003"
+      ],
+      "review_amendment": {
+        "version": "round7_reviewed_v1",
+        "parent_card_id": "round7_G13:K01",
+        "status": "PENDING_FINAL_LOCAL_RECHECK",
+        "original_raw_output_retained": true
+      }
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

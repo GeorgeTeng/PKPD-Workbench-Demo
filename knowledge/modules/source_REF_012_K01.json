@@ -1,0 +1,45 @@
+{
+  "cards": [
+    {
+      "title": "Positional BLQ Handling Logic",
+      "topics": [
+        "data_eda",
+        "animal_pk",
+        "human_simulation"
+      ],
+      "claim": "BLQ values are categorized by their position in the concentration-time profile: 'first' (up to first non-BLQ), 'middle' (between first and last non-BLQ), 'last' (after last non-BLQ), or relative to Tmax ('before.tmax', 'after.tmax'). Each category can be independently configured to 'drop', 'keep', or set to a specific numeric value.",
+      "conditions": [
+        "Concentration values are considered BLQ if they are 0.",
+        "NA values are handled by `clean.conc.na` before BLQ logic is applied.",
+        "The method for handling NA can affect which points are subsequently classified as BLQ or 'middle'."
+      ],
+      "required_inputs": [
+        "Concentration vector (`conc`)",
+        "Time vector (`time`)",
+        "BLQ handling strategy (`conc.blq`): scalar or list with keys 'first', 'middle', 'last', 'before.tmax', 'after.tmax'",
+        "NA handling strategy (`conc.na`)"
+      ],
+      "limitations": [
+        "BLQ is defined strictly as 0 in this implementation.",
+        "The output depends on the order of operations: NA handling precedes BLQ handling.",
+        "Does not specify statistical imputation methods beyond setting to a fixed number or dropping."
+      ],
+      "downstream_use": "Preprocessing step for NCA or compartmental modeling to ensure consistent handling of censored data before parameter estimation.",
+      "evidence_chunk_ids": [
+        "REF_012:0001",
+        "REF_012:0002"
+      ],
+      "id": "source_REF_012:K01",
+      "origin_job": "source_REF_012",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

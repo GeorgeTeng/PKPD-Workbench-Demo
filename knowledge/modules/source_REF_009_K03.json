@@ -1,0 +1,42 @@
+{
+  "cards": [
+    {
+      "title": "BQL Data Handling in Maximum Likelihood Models",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Phoenix handles Below Quantification Limit (BQL) data by using maximum likelihood estimation with censored data. When BQL is enabled, the engine reverts to the Laplacian method. Censored observations (CObsBQL != 0) use the cumulative distribution function for likelihood calculation, while non-censored values use the probability density function.",
+      "conditions": [
+        "BQL option must be selected in the model configuration.",
+        "Data must include a column flagging censored vs. non-censored values (e.g., CObsBQL).",
+        "Static LLOQ can be used if no BQL flag column is mapped, but mapped columns override static values."
+      ],
+      "required_inputs": [
+        "Observation data with BQL flags.",
+        "LLOQ values (either static or per-row).",
+        "Selection of 'BQL?' checkbox in model options."
+      ],
+      "limitations": [
+        "Log-likelihood calculations may overflow if censoring numbers are very small, particularly with multiplicative error models.",
+        "BQL handling is specific to Maximum Likelihood engines (e.g., Laplacian)."
+      ],
+      "downstream_use": "Accurate parameter estimation in the presence of censored PK data. Avoiding bias from imputing BQL values as zero or LLOQ/2.",
+      "evidence_chunk_ids": [
+        "REF_009:0006",
+        "REF_009:0007"
+      ],
+      "id": "source_REF_009:K03",
+      "origin_job": "source_REF_009",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_009"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

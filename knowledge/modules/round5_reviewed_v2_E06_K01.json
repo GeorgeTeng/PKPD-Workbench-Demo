@@ -1,0 +1,115 @@
+{
+  "cards": [
+    {
+      "title": "Response-Time Plotting and Baseline Reference Integrity",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Response-time plots must preserve record-level integrity, distinguishing individual paired baselines from group-level contrasts and concurrent controls. Display conventions must separate observed points from summaries and handle missing/censored data without substitution.",
+      "conditions": [
+        "Applicable to general PK/PD EDA where response is plotted against time.",
+        "Requires documented time origin (e.g., dose or treatment start) and explicit response units.",
+        "Individual change calculations require verified individual pairing; group-level contrasts require complete compatible inputs.",
+        "BLQ and above-range values must be handled as categorical statuses, not numeric substitutions."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Record/source locator, study, design, observation ID.",
+        "Experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID.",
+        "Regimen, dose occasion, route/formulation, analyte, matrix, free/total basis.",
+        "Time value, unit, and origin; measured value, unit, and quantification status.",
+        "Documented baseline or reference definitions for change calculations.",
+        "Nullable serial_observation_subject_id, distinct from experimental_unit_id (e.g. an animal within its randomized cage); required for individual serial lines or paired loops."
+      ],
+      "limitations": [
+        "Response-time shape alone is descriptive and does not identify mechanism (e.g., turnover, effect-site delay) or clinical efficacy.",
+        "Unknown serial-subject IDs block individual connections; unknown experimental-unit IDs block independent-unit n/uncertainty, not otherwise verified observed subject series.",
+        "Unknown limits block numeric boundary placement but not status display.",
+        "This is an engineering display contract, not a regulator-mandated layout or scientific law."
+      ],
+      "downstream_use": "Guides the construction of EDA figures for response-time data, ensuring that visual representations accurately reflect data structure, unit integrity, and quantification limits without implying unsupported mechanistic or statistical conclusions.",
+      "evidence_chunk_ids": [
+        "ADD001:0056",
+        "GEN001:0022",
+        "GEN001:0033"
+      ],
+      "plot_recipe": {
+        "input_contract": "Preserve record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID, regimen and dose occasion, route/formulation, analyte, matrix, free/total basis, time value/unit/origin, measured value/unit and quantification status. Map only available applicable fields; never invent missing identities. Preserve nullable serial_observation_subject_id separately from experimental_unit_id, with its source linkage. Numeric measured value is required only for quantified records; censoring/missing statuses may have a null numeric value. Optional summary/error inputs are needed only when that layer is displayed.",
+        "plot_type": "Observed response versus documented time, with serial-unit lines only when verified; cross-sectional/destructive points otherwise.",
+        "axes_and_units": "X = time with explicit origin (e.g. dose or treatment start); Y = the exact response and unit, or explicitly defined change from a named reference. Show treatment start/stop and relevant events if known. Separate endpoints, assays, matrices and reference definitions.",
+        "grouping_and_connections": "Separate study, regimen/dose occasion, route/formulation, analyte/matrix/basis and endpoint contexts. Connect only verified serial observations of the same unit in a compatible time reference, ordered by time. Break connections at recorded unresolved missing/censored statuses. No invented scheduled samples or cross-unit lines. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "Preserve observed values as points at their actual record level. Keep raw observations separate from optional source-reported or explicitly defined descriptive summaries. A labelled group-summary guide is not an individual trajectory. Do not reconstruct individuals from a mean and SD.",
+        "censoring_and_missingness": "The plotted variable is response Y, with its actual endpoint, unit and reference. For a confirmed quantifiable-range censor, use Y<its applicable lower limit or Y>its applicable upper limit only when that assay meaning is established. Microbial count detection/quantification limits, bioanalytical limits and response-scale bounds are distinct. Keep unavailable-after-death, missing, not sampled and technical failure separate from censoring; never invent a zero or apply a concentration LLOQ to response Y.",
+        "transformations_and_formula": "Individual change = individual endpoint minus that individual's documented baseline, only with verified pairing. An established group endpoint minus group treatment-start reference is allowed with complete compatible inputs but must be labelled group-level. Endpoint minus concurrent untreated-control response is a different contrast, never relabelled treatment-start baseline. Log transforms require valid positive quantified inputs and a stated reference-unit definition.",
+        "uncertainty_and_n": "Label displayed record counts separately from known independent experimental-unit n. Preserve supplied statistic, calculation scale and exact SD, SE or CI meaning, including asymmetric interval endpoints. Technical repeats do not increase biological n. Unknown n or variability stays unknown; no automatic CI or zero-width bar.",
+        "interpretation_limits": "Response-time shape alone is not a concentration-response hysteresis loop and does not identify turnover, effect-site delay or clinical benefit. Keep unavailable-after-death or assay-censored outcomes as stated statuses; never create zero responses.",
+        "stop_or_fallback": "Block only the operation that needs an unresolved input. Unknown serial-subject IDs block individual connections; unknown experimental-unit IDs block independent-unit summaries. Neither blocks labelled observed record/group displays. Unknown limits block numeric boundary placement, not status display. Unknown time origin permits a source timestamp only if documented; otherwise use a record table. Missing validation documentation means qualification unestablished, not automatically invalid. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "ARRIVE asks for summary/descriptive statistics by experimental group, variability where applicable, and exact experimental-unit counts. SD describes dispersion and is not interchangeable with SE or a CI.",
+          "evidence_chunk_ids": [
+            "ADD001:0056"
+          ],
+          "scope": "Animal reporting guidelines for descriptive statistics and experimental unit definition.",
+          "support_type": "qualified_method_synthesis"
+        },
+        {
+          "claim": "The FDA guidance discusses assessing response time courses and exposure-response over time to investigate time-related effects. It states that plasma concentration is more directly related to target-site concentration than administered dose alone; this does not identify a mechanism from a response-time plot.",
+          "evidence_chunk_ids": [
+            "GEN001:0022"
+          ],
+          "scope": "General exposure-response guidance on time-dependent responses and concentration-response relationships.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "The most appropriate representation of exposure depends on study objectives and the nature of the exposure-response relationship; simplified metrics (AUC, Cmax) may be appropriate for single daily responses, while sequential concentration-time data is preferred for time-varying responses.",
+          "evidence_chunk_ids": [
+            "GEN001:0033"
+          ],
+          "scope": "General guidance on selecting exposure metrics based on response time-dependence.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v2_E06:K01",
+      "origin_job": "round5_E06",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD001",
+        "GEN001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E06",
+      "retrieval_keywords": "Response-time plots and baseline-reference integrity",
+      "supersedes": [
+        "round5_E06:K01",
+        "round4_E06:K01",
+        "round5_reviewed_E06:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "response-time plots and baseline-reference integrity",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "ADD001",
+        "GEN001"
+      ],
+      "review_revision": {
+        "version": "local_review_v2",
+        "parent_card_id": "round5_E06:K01",
+        "parent_card_sha256": "42b2846e691729b47521369e0ffb5f5b1da4adb0e0d6ca38d7447d7b553dde5e",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "34ad677f255cfeb9fa338f2f4570daeb3b366830920c5fdd914598e820a72cb4"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "title": "Phoenix NCA Model Selection and Input Requirements",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Phoenix NCA uses specific model IDs based on matrix and dose type: 200 (extravascular plasma), 201 (IV bolus plasma), 202 (constant infusion plasma), 210-212 (urine variants), and 220 (drug effect). Plasma models require 'time of last dose' and 'Tau' (for steady-state); infusion models also require 'length of infusion'. Urine models assume single-dose data.",
+      "conditions": [
+        "Applicable when configuring NCA objects in Phoenix workflows.",
+        "Requires correct identification of dose type (extravascular, IV bolus, infusion) and matrix (plasma/blood vs. urine)."
+      ],
+      "required_inputs": [
+        "Raw concentration or effect data",
+        "Dose type specification",
+        "Time of last dose",
+        "Tau (dose interval) for steady-state plasma models",
+        "Length of infusion for model 202",
+        "Baseline effect and threshold (optional) for model 220"
+      ],
+      "limitations": [
+        "Does not specify the mathematical formulas for parameters (referenced as separate 'NCA parameter formulas' section).",
+        "Does not define default settings for lambda_z or AUC extrapolation.",
+        "Software-specific implementation; not a general PK theory reference."
+      ],
+      "downstream_use": "Guides correct object configuration for PK analysis. Ensures appropriate handling of infusion inputs and steady-state assumptions.",
+      "evidence_chunk_ids": [
+        "REF_016:0001"
+      ],
+      "id": "source_REF_016:K01",
+      "origin_job": "source_REF_016",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_016"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

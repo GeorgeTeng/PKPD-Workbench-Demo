@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-08",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "同意",
+    "accepted_proposal": "/mnt/project-files/data-part/MP按数据接入_建议_20261008.md: the objective selects profiles (DR, unchanged); dataset labels decide which conditions of the selected profiles apply (host checklist, decided by DC-review); data never create requirements, and data no requirement uses are routed to human review."
+  },
+  "library_version": "1.0.0-draft.15",
+  "library_sha256": "f89b56e86024a0c60cd7ae7279b0964cae5d6a056b11f2e08143c627dc6d25b4",
+  "previous_library_sha256": "5e611e0b673bd83af4a4b7adc7e811b3abc6f6a6670c5c2d6a0ccdeac336bdb3",
+  "library_changes": [
+    "Every profile gains data_roles (label roles whose data it can use) and condition_triggers: one trigger per conditional input and data check. Profile text is unchanged.",
+    "Trigger = labels (field -> allowed values; empty means every linked dataset) + review (NONE, OBJECTIVE or DATA). Triggers are a project-designed mapping, pending the same scientific review as the profile text."
+  ],
+  "label_changes": "DC labels add role values URINE_EXCRETION, IN_VITRO_CLEARANCE, REPORTED_PARAMETERS, ANIMAL_CHARACTERISTICS; categorical route_category, matrix_category, record_category, observation_source (with MIXED and NOT_FOUND); and dose_basis and analyte as stated by the source. Existing free-text fields are kept.",
+  "rule_changes": "dc_coverage.json 1.1.0 adds DC005.",
+  "code_changes": [
+    "method_profiles.py: LABEL_CATEGORIES, TRIGGER schema, applicability(), condition_checklist(), unrequested_profiles(); the current menu must carry triggers, frozen snapshots without them stay readable and yield no checklist rows.",
+    "data_agents.py: label schema and instructions; DC-review receives condition_checklist and returns condition_checks; host check_conditions() verifies ids, evidence and that label-confirmed rows are not excluded; METHOD_CONDITION_GAP and DATA_FITS_UNREQUESTED_METHOD findings are FOLLOW_UP; adequacy/condition_checklist.json is written and referenced from adequacy.json.",
+    "Tests: test_method_profiles.py adds 8 cases; test_data_agents.py fixture supplies the new label fields and condition decisions."
+  ],
+  "verification": "research_pipeline suite: 18 failed, 512 passed, 7 skipped, 2 errors; identical failure list to the pre-change baseline (environment: no R).",
+  "not_done": "Condition gaps are not yet carried through the G008 ledger to DH handoffs; that belongs to the planned ledger work."
+}

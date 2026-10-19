@@ -1,0 +1,122 @@
+[
+  {
+    "id": "CTX2026",
+    "title": "Context Engineering for AI-Assisted Pharmacometrics: A Practical Tutorial",
+    "doi": "10.1002/psp4.70317",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13442926/",
+    "checked_on": "2026-09-16",
+    "evidence_scope": "Indexed primary full-text sections: task library, architecture, data availability",
+    "application": "Organize tasks with domain rules, verification criteria, dependencies and file-based handoffs",
+    "limitation": "Our context schema and planning software are adaptations; the tutorial does not validate their accuracy"
+  },
+  {
+    "id": "FACTSCORE",
+    "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+    "doi": "10.18653/v1/2023.emnlp-main.741",
+    "url": "https://aclanthology.org/2023.emnlp-main.741/",
+    "checked_on": "2026-09-18",
+    "evidence_scope": "Primary abstract and prior method discussion",
+    "application": "Decompose generated claims and check whether their full meaning is supported by a source",
+    "limitation": "Custom review contracts only; no FActScore package, benchmark results or calibrated accuracy are reproduced"
+  },
+  {
+    "id": "SUMMHAY",
+    "title": "Summary of a Haystack: A Challenge to Long-Context LLMs and RAG Systems",
+    "doi": "10.18653/v1/2024.emnlp-main.552",
+    "url": "https://aclanthology.org/2024.emnlp-main.552/",
+    "checked_on": "2026-09-18",
+    "evidence_scope": "Primary abstract and prior method discussion",
+    "application": "Assess expected source information coverage separately from evidence support",
+    "limitation": "Our proposal inventory needs its own review and is not known benchmark ground truth; no SummHay score is claimed"
+  },
+  {
+    "id": "RECOMP",
+    "title": "RECOMP: Improving Retrieval-Augmented LMs with Compression and Selective Augmentation",
+    "doi": "10.48550/arXiv.2310.04408",
+    "url": "https://arxiv.org/abs/2310.04408",
+    "checked_on": "2026-09-16",
+    "evidence_scope": "Primary abstract, prior conversation implementation review",
+    "application": "Select and compress information according to the downstream question",
+    "limitation": "The trained RECOMP models are not installed or reproduced; this software uses structured generation and review"
+  },
+  {
+    "id": "MODULO",
+    "title": "LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks",
+    "doi": "10.48550/arXiv.2402.01817",
+    "url": "https://arxiv.org/abs/2402.01817",
+    "checked_on": "2026-09-16",
+    "evidence_scope": "Primary abstract",
+    "application": "Generate candidate plans, check them externally, and use explicit feedback for bounded revision",
+    "limitation": "A design reference, not proof that graph checks establish scientific validity"
+  },
+  {
+    "id": "CWL",
+    "title": "Common Workflow Language Workflow Description v1.2.1",
+    "doi": "NOT_FOUND",
+    "url": "https://www.commonwl.org/v1.2/Workflow.html",
+    "checked_on": "2026-09-16",
+    "evidence_scope": "Official specification",
+    "application": "Represent inputs, outputs and dependencies explicitly and derive connections from file producers and consumers",
+    "limitation": "The emitted JSON is a custom planning contract, not an executable CWL document"
+  },
+  {
+    "id": "APR2021",
+    "title": "Model-Informed Drug Development for Antimicrobials: Translational PK and PK/PD Modeling to Predict an Efficacious Human Dose for Apramycin",
+    "doi": "10.1002/cpt.2104",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8048880/",
+    "checked_on": "2026-09-16",
+    "evidence_scope": "Primary indexed full text and local review/supplement inventory from 2026-09-15",
+    "application": "Animal compartmental PK and allometric human PK prediction linked to preclinical pharmacodynamic evidence",
+    "limitation": "Use its translation structure, not its parameter values, for another drug. Complete raw data and estimation code were not confirmed public in our review"
+  },
+  {
+    "id": "PMB2012",
+    "title": "Pharmacokinetics and Renal Disposition of Polymyxin B in an Animal Model",
+    "doi": "10.1128/AAC.01333-12",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3486600/",
+    "checked_on": "2026-09-15",
+    "evidence_scope": "Prior primary-source review recorded in local literature index",
+    "application": "Starting example for animal compartmental PK and distinguishing systemic from tissue disposition",
+    "limitation": "The paper does not validate animal-derived human PK prediction; individual raw data and executable code were not verified"
+  },
+  {
+    "id": "BWC2024",
+    "title": "BWC0977, a broad-spectrum antibacterial clinical candidate to treat multidrug resistant infections",
+    "doi": "10.1038/s41467-024-52557-2",
+    "url": "https://www.nature.com/articles/s41467-024-52557-2",
+    "checked_on": "2026-09-15",
+    "evidence_scope": "Prior primary-source review and local source-data inventory",
+    "application": "Animal PK scaling followed by comparison with observed phase I human PK",
+    "limitation": "Good human PK agreement does not validate clinical response. Published corrections must be checked. Complete animal data and executable PK code were not confirmed"
+  },
+  {
+    "id": "PRECISION2008",
+    "title": "How many subjects are necessary for population pharmacokinetic experiments? Confidence interval approach",
+    "doi": "10.1007/s00228-008-0493-7",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18483725/",
+    "checked_on": "2026-09-16",
+    "evidence_scope": "Primary abstract verified",
+    "application": "Plan sample size by simulating the probability of achieving specified parameter-CI precision under an explicit PK model and sampling design",
+    "limitation": "No universal number of animals or species; precision does not establish accuracy of human extrapolation"
+  },
+  {
+    "id": "TANG2007",
+    "title": "Interspecies prediction of human drug clearance based on scaling data from one or two animal species",
+    "doi": "10.1124/dmd.107.016188",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/17646280/",
+    "checked_on": "2026-09-15",
+    "evidence_scope": "Prior primary abstract/method review; full validation data not independently reanalyzed",
+    "application": "Candidate calibrated one- or two-species CL scaling comparator when the drug and available species match its scope",
+    "limitation": "Historically calibrated using other drugs' human PK; not a universal exponent and not a complete human concentration-time model. See MAHMOOD2009"
+  },
+  {
+    "id": "MAHMOOD2009",
+    "title": "Role of fixed coefficients and exponents in the prediction of human drug clearance: how accurate are the predictions from one or two species?",
+    "doi": "10.1002/jps.21597",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/19025899/",
+    "checked_on": "2026-09-15",
+    "evidence_scope": "Prior primary abstract review",
+    "application": "Include a critical comparator and check method implementation, disposition, CL versus CL/F and validation dataset matching",
+    "limitation": "Reported disagreement is evidence of limited generalization, not proof that adding a species always improves prediction"
+  }
+]

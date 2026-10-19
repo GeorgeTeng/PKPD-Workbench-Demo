@@ -1,0 +1,121 @@
+{
+  "cards": [
+    {
+      "title": "Target Attainment: Population Probability vs. Parameter Uncertainty",
+      "claim": "A population PTA is the model-implied proportion of individuals meeting a defined target event under the stated population variability and scenario. Fixed-effect-only simulation gives a conditional typical attain/not-attain result, while parameter uncertainty concerns confidence in predicted attainment. Residual error is required only if the event is defined on future observed measurements rather than latent exposure. Uncertainty in BSV parameters should be accounted for when predicting the range of observed concentrations in a future population.",
+      "conditions": [
+        "Applicable when evaluating if a dosing regimen achieves a specific exposure target (e.g., AUC > threshold, Cmin > MEC).",
+        "Requires a defined target event, direction (above/below), integration interval, and dose schedule.",
+        "A qualified PK/PD model and between-individual distribution are needed for population PTA; residual error is needed only for observation-scale events. Scientific/clinical qualification of the target is separately reported.",
+        "Without a between-individual distribution, report conditional typical attainment and, if supplied, propagated parameter uncertainty; do not label either a population PTA."
+      ],
+      "required_inputs": [
+        "A qualified model for the stated scenario with parameter provenance; population PTA additionally requires a justified between-individual distribution. Its scientific qualification and remaining target-specific limitations must be stated.",
+        "Definition of the target event (e.g., Cmin > MEC, AUC/MIC > X).",
+        "Target cutoff value and direction (above/below).",
+        "Integration interval or time window for the target event.",
+        "Dose schedule and administration route.",
+        "Population demographic/covariate distributions (if covariate effects are included).",
+        "Joint distribution of fixed-effect parameters (for parameter uncertainty intervals).",
+        "Between-subject variability (BSV) estimates and correlations (for population PTA)."
+      ],
+      "limitations": [
+        "Does not provide universal target cutoffs; targets are project-specific.",
+        "PD model uncertainty is often higher and more project-specific than PK uncertainty.",
+        "Source guidance is nonbinding; does not validate specific biomarkers or supply target-drug data.",
+        "Does not specify a default random-effects distribution or residual error model; these must be selected based on model diagnostics.",
+        "Monte Carlo numerical error is distinct from model parameter uncertainty and must be reported separately if simulation size is limited."
+      ],
+      "downstream_use": "Used to quantify the likelihood of achieving therapeutic or safety targets in a target population, informing dose selection and regimen optimization.",
+      "method_keywords": [
+        "probability of target attainment",
+        "PTA",
+        "target event",
+        "population simulation",
+        "parameter uncertainty",
+        "between-subject variability",
+        "exposure-response",
+        "dose optimization",
+        "Monte Carlo error"
+      ],
+      "retrieval_keywords": "PTA target event population probability versus parameter uncertainty BSV Monte Carlo error",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Calculate the proportion of simulated individuals in a target population who meet a specific exposure criterion (target event) over a defined interval. Distinguish this from the confidence interval of the typical individual's exposure. Separate model parameter uncertainty from Monte Carlo simulation error.",
+        "input_contract": "Define the target event, direction, units, dose and time window. For latent-exposure population PTA provide a qualified PK model plus BSV/covariate joint distribution. For observation-scale attainment also provide a residual-error model. For parameter-uncertainty intervals provide a justified joint parameter distribution. Specify simulation size to assess Monte Carlo error.",
+        "applicability_and_prerequisites": "Declare model qualification and extrapolation limits for the stated scenario. Population PTA needs a between-individual distribution. Without it, conditional typical attainment and supplied parameter uncertainty may still be reported, but are not population PTA. A defined target event is necessary for any attainment calculation.",
+        "definitions_units_basis_window": "PTA = event-positive simulated individuals / total simulated individuals, a dimensionless probability reported as a fraction or percent. The event metric and cutoff retain their own matching units (e.g., mg/L or mg*h/L), basis and time window.",
+        "procedure": "1. Define and label the target event, units, interval and population. 2. Simulate individual latent profiles under the supplied BSV/covariate law; add residual error only for an observed-value event. 3. Count event-positive individuals and divide by the full simulated denominator. 4. Separately propagate joint model-parameter uncertainty when available and report its effect on PTA. 5. State whether the target is externally qualified or a prospective hypothetical threshold. 6. Report Monte Carlo numerical error (e.g., standard error of the proportion) separately from parameter uncertainty.",
+        "formula_and_parameterization": "PTA = event-positive simulated individuals / total simulated individuals. PTA is dimensionless; metric/cutoff units and the event time window must match.",
+        "uncertainty_and_identifiability": "Parameter and PD-translation uncertainties should be considered when relevant; their magnitude is case-specific and cannot be asserted to dominate without evidence. Preserve known random-effect correlations. Distinguish between uncertainty in fixed effects (theta), uncertainty in BSV (Omega), and Monte Carlo simulation error.",
+        "diagnostics_and_failure_modes": "If BSV is unavailable, report conditional typical attainment with any justified parameter-uncertainty analysis, explicitly excluding population-probability claims. If the target is undefined, do not invent a cutoff; report the missing event specification. Distinguish a prospective hypothetical target from an externally qualified target.",
+        "missing_input_and_partial_fallback": "If BSV is unavailable, report conditional typical attainment with any justified parameter-uncertainty analysis, explicitly excluding population-probability claims. If the target is undefined, do not invent a cutoff; report the missing event specification. Distinguish a prospective hypothetical target from an externally qualified target.",
+        "output_and_interpretation": "Report the defined target event, population/scenario and time window. Distinguish a typical-exposure parameter-uncertainty interval from a conditional population PTA estimate. For independent identically distributed simulated event indicators, Monte Carlo SE estimates conditional numerical sampling error; it does not represent parameter uncertainty. If theta/Omega uncertainty is propagated, report the across-parameter-draw PTA interval separately, together with target and model uncertainty assumptions.",
+        "worked_example_and_counterexample": "Synthetic Example: A drug has a target of Cmin > 10 mg/L. A model with BSV on CL and V is used. 1000 individuals are simulated. 850 have Cmin > 10 mg/L. PTA = 0.85. This is distinct from the 95% CI of the typical Cmin, which reflects parameter uncertainty. Counterexample: A typical fixed-effect attain/not-attain outcome is not a population PTA."
+      },
+      "claim_support": [
+        {
+          "claim": "Simulations based on fixed-effect estimates illustrate the typical individual, not mean predictions or population probability.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "REF_022:0034"
+          ]
+        },
+        {
+          "claim": "Between-subject variability is accounted for in simulations to show the range of individual predictions and calculate population attainment.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "REF_022:0035"
+          ]
+        },
+        {
+          "claim": "Uncertainty in parameter estimates is used to illustrate the probability of the typical subject's exposure reaching a cutoff or to evaluate covariate effects.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "REF_022:0034",
+            "REF_022:0035"
+          ]
+        },
+        {
+          "claim": "PD model uncertainty is often project-specific and can significantly impact dose predictions.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "SUP011:0030"
+          ]
+        },
+        {
+          "claim": "Exposure-response modeling helps understand relationships and optimize regimens but does not inherently establish causality.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN001:0040"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_022:0034",
+        "REF_022:0035",
+        "SUP011:0014",
+        "SUP011:0030",
+        "GEN001:0040"
+      ],
+      "id": "round10_reviewed_v2_G11:K01",
+      "topics": [
+        "pta"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "GEN001",
+        "REF_022",
+        "SUP011"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G11",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "source_vs_engineering_conventions": "Source supports the distinction between fixed-effect simulations (typical) and BSV simulations (population). Engineering convention dictates defining the denominator and event clearly before simulation.",
+      "example_is_synthetic": "The numerical values (10 mg/L, 850/1000) are illustrative placeholders to demonstrate the calculation logic, not real data."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "pcVPC Principle and Normalization",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Prediction-corrected VPCs (pcVPC) remove variability arising from differences in independent variables (e.g., dose, covariates) within a bin by normalizing the dependent variable (observed and simulated) based on the typical population prediction for the median independent variable in that bin.",
+      "conditions": [
+        "Applicable when traditional VPCs are hampered by binning across large variability in dose or influential covariates.",
+        "Requires a mixed-effects model capable of generating typical population predictions (PRED).",
+        "For log-transformed dependent variables, the transformation must be adjusted to allow correct prediction correction."
+      ],
+      "required_inputs": [
+        "Fitted mixed-effects model (fixed and random effects).",
+        "Observed data with independent variables (time, dose, covariates).",
+        "Typical population predictions (PRED) for each observation.",
+        "Median typical population prediction for each bin of independent variables."
+      ],
+      "limitations": [
+        "Prediction correction transforms the y-axis scale, making it less intuitive than raw concentration units.",
+        "Censored data (e.g., BQL) cannot be directly handled by standard pcVPC rank-based methods; they must be omitted from both observed and simulated datasets before calculating statistics, requiring accurate prediction of censoring frequency.",
+        "Does not replace the need for other diagnostics; it is one tool in a toolbox."
+      ],
+      "downstream_use": "Model qualification and diagnostic evaluation of population PK/PD models, specifically for assessing random effects structure and structural model misspecification in the presence of covariate or dose variability.",
+      "evidence_chunk_ids": [
+        "SUP002:0002",
+        "SUP002:0005",
+        "SUP002:0007",
+        "SUP002:0021"
+      ],
+      "id": "source_SUP002:K01",
+      "origin_job": "source_SUP002",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

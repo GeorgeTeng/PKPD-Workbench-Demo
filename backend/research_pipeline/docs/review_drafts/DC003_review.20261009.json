@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按检查稿改 DC003，并给审核加代码算的列摘要吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC003)"
+  },
+  "gaps_found": [
+    "Scope dimensions incomplete and not aligned with SCOPE_ALIGNMENT or the DC001 regimen and qualifier fields.",
+    "Rule did not say label links are candidates decided by review.",
+    "No rule for combining evidence across items.",
+    "Conflict and unit handling only in instructions.",
+    "Review saw only cited cells, so time windows and sample counts could not be checked."
+  ],
+  "changes": [
+    "dc_coverage.json 1.7.0: DC003 rewritten.",
+    "data_requirement_check.py 1.1.0: column_summaries() adds COMPUTED catalog entries; instructions limit them to scope alignment.",
+    "tests: summary content and rejection as body evidence."
+  ]
+}

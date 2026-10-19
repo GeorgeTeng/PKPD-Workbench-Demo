@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "Structured Population Models for Heterogeneous Resistance",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "Physiologically Structured Population (PSP) models can describe resistance as a selection process based on heterogeneous binding affinities (e.g., K_D distributions) among cells. In this framework, resistance is defined by a critical affinity (K_Dcrit); bacteria with K_D > K_Dcrit survive and grow, while those with K_D < K_Dcrit are killed. This approach models adaptive resistance as a selection of pre-existing heterogeneity rather than a single-step mutation.",
+      "conditions": [
+        "Applicable only when binding-affinity heterogeneity is a supported mechanistic hypothesis; selection of this model requires biological justification.",
+        "Requires assumptions about receptor turnover and binding equilibrium.",
+        "Static drug concentration assumption simplifies the model but may be violated if bacterial load clears drug."
+      ],
+      "required_inputs": [
+        "Distribution of binding affinities (K_D) within the bacterial population.",
+        "Maximum efficacy and critical concentration parameters.",
+        "Time-kill data for strains with differing susceptibilities."
+      ],
+      "limitations": [
+        "This is a specific mechanistic hypothesis (binding affinity selection); it does not apply to all resistance mechanisms (e.g., efflux pumps, enzymatic degradation).",
+        "Numeric parameters (e.g., K_Dcrit values) are specific to the studied strain/drug pair and cannot be reused.",
+        "Model assumes exponential growth of the resistant subpopulation."
+      ],
+      "downstream_use": "Use PSP models when investigating adaptive resistance driven by molecular heterogeneity. Do not apply this specific mathematical framework to drugs with different mechanisms of action without re-deriving the structural assumptions.",
+      "evidence_chunk_ids": [
+        "ARTICLE_S13:0007",
+        "ARTICLE_S13:0023",
+        "ARTICLE_S13:0031"
+      ],
+      "id": "round2_P04:K03",
+      "origin_job": "round2_P04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S13"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "P04",
+      "retrieval_keywords": "Time-kill, regrowth and resistance mechanism interpretation",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "Lambda Z Estimation Methodology (Best Fit)",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Phoenix's 'Best Fit' method automatically determines points for Lambda Z calculation by performing linear regressions of ln(concentration) vs time on subsets of data points (starting from the last 3 non-zero points post-Cmax). It selects the regression with the largest adjusted R². If adjusted R² values are within 0.0001, the regression with more points is chosen. Lambda Z is defined as the negative of the estimated slope and must be positive.",
+      "conditions": [
+        "Concentration data must be positive (log-transformable).",
+        "Points prior to Cmax or end of infusion are excluded unless specifically requested.",
+        "Minimum of 3 data points required for automatic selection.",
+        "Slope must be negative for Lambda Z to be valid."
+      ],
+      "required_inputs": [
+        "Concentration-time data",
+        "Cmax identification",
+        "Infusion stop time (if applicable)"
+      ],
+      "limitations": [
+        "Cannot estimate if fewer than 3 positive concentration values exist after Cmax (non-bolus) or 2 (bolus).",
+        "Fails if slope is not negative.",
+        "Fails if time difference between first and last points in range is < 1e-10."
+      ],
+      "downstream_use": "Determines whether terminal half-life and extrapolated AUC can be calculated. Failure to estimate Lambda Z limits PK parameters to those independent of terminal slope (e.g., AUClast, Cmax).",
+      "evidence_chunk_ids": [
+        "REF_002:0001",
+        "REF_002:0002",
+        "REF_002:0003",
+        "REF_002:0004"
+      ],
+      "id": "source_REF_002:K01",
+      "origin_job": "source_REF_002",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

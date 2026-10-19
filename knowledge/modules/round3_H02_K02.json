@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Distinguishing Uncertainty from Variability and Handling Correlations",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "Uncertainty represents limited knowledge of the system and decreases with information accumulation, whereas variability is a property of the system (e.g., genetic/environmental) that does not decrease with sample size. Simulations accounting for BSV must include correlations between random effects to avoid unrealistic parameter combinations. Independence assumptions for unknown correlations are not established truth and must be explicitly assessed.",
+      "conditions": [
+        "Applicable when propagating uncertainty into dose predictions or simulating population ranges.",
+        "Correlations between random effects must be accounted for in BSV simulations.",
+        "Uncertainty in scaling methodology is distinct from population variability of a parameter."
+      ],
+      "required_inputs": [
+        "Covariance matrix of random effects (to preserve correlations).",
+        "Explicit assumption statement if correlations are unknown (e.g., independence assumption).",
+        "Source-specific guidance on how to handle unknown correlations (project-local draft policy required)."
+      ],
+      "limitations": [
+        "Defaulting to independence for unknown correlations is an assumption, not a fact.",
+        "Misinterpreting uncertainty distributions as population variability leads to incorrect risk assessment.",
+        "PD uncertainty is often more project-specific and harder to generalize than PK uncertainty."
+      ],
+      "downstream_use": "Construct simulation inputs that preserve random effect correlations. Explicitly document any independence assumptions. Use Monte Carlo simulations to integrate all uncertainty sources for dose prediction distributions.",
+      "evidence_chunk_ids": [
+        "SUP011:0003",
+        "SUP011:0030",
+        "REF_022:0035"
+      ],
+      "id": "round3_H02:K02",
+      "origin_job": "round3_H02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022",
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "H02",
+      "retrieval_keywords": "Typical exposure versus between-person variability versus parameter uncertainty",
+      "supersedes": [
+        "round2_H02:K01",
+        "round2_H02:K02",
+        "round2_H02:K03",
+        "round2_H02:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

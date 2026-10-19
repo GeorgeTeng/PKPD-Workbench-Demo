@@ -1,0 +1,718 @@
+{
+  "version": "MINIMAL_TASK_CONTEXT_1.0",
+  "governance_rule": "G005",
+  "governance_version": "1.6.1",
+  "scope": "ALL_CONTEXTBUILDER_ROUTES",
+  "mode": "MINIMUM_SELF_CONTAINED_SEMANTIC_CONTEXT",
+  "task_sufficiency": "Minimum context must retain the current task's decision-relevant questions, conditions and downstream uses. Available software handlers constrain execution, not the scientific planning scope. Preserve explicit local omissions instead of silently removing needed outputs. Do not include an unrelated workflow connection graph.",
+  "unknown_route": "REJECT_UNTIL_EXPLICIT_TASK_PROFILE_EXISTS",
+  "implicit_full_payload_fallback": false,
+  "host_retention": "Full inputs, immutable provenance and audit remain bound on host; model exposure is task-specific.",
+  "identifiers": "Expose only identifiers needed for scientific identity, relations, attribution or valid response fields; retain their definitions. Mechanical archive/chunk/config identifiers stay host unless explicitly needed.",
+  "forbidden_shortcuts": [
+    "hard truncation",
+    "dropping required rule clauses or exceptions",
+    "keyword-only rule filtering",
+    "opaque compression",
+    "source-scope collapse",
+    "semantic changes labeled as exact deduplication",
+    "claiming token or response quality from character count"
+  ],
+  "required_audit": [
+    "route and task purpose",
+    "model-visible section purposes",
+    "host-only fields with reasons",
+    "retained rule identities and operative clause comparison",
+    "evidence/source identity and scope preservation",
+    "response-reference closure",
+    "input and policy hashes",
+    "actual prompt character count and explicit tokenizer status"
+  ],
+  "profiles": {
+    "requirements_planning": {
+      "purpose": "Plan reusable input requirements and conditions, not dataset assignment or availability.",
+      "model_needs": [
+        "project objective and stage boundary",
+        "all supplied applicable rule clauses and unresolved constraints",
+        "selected method input definitions and conditional alternatives",
+        "task-relevant design distinctions only; full per-table inventory and source notes belong to later source assessment",
+        "output-authorized project and method references",
+        "optional question-scoped methodological evidence"
+      ],
+      "evidence_boundary": "Reuse authoritative context and constraints. Planning orientation cannot imply coverage, joins, matching or new obligations; the host retains all source inventory and note history."
+    },
+    "source_assessment": {
+      "purpose": "Assess assigned source records against requirements without inventing requirements or replacing complete evidence with top-k retrieval.",
+      "model_needs": [
+        "assigned requirements and rules",
+        "all permitted source fragments for the assigned assessment",
+        "source/record identity, units, conditions and conflicting evidence",
+        "required output references"
+      ],
+      "evidence_boundary": "No source-unit pruning; exact duplicates may share text only when each occurrence identity and scope remain explicit."
+    },
+    "source_review": {
+      "purpose": "Independently compare the assigned candidate against the complete authorized source basis and review criteria.",
+      "model_needs": [
+        "candidate and expected output record identities",
+        "complete assigned source units including counterevidence",
+        "applicable processing rules and authority/permission boundaries",
+        "assigned review dimension and output contract"
+      ],
+      "evidence_boundary": "Do not substitute the candidate, upstream summary or retrieved top-k for independent full-source evidence."
+    },
+    "source_transform": {
+      "purpose": "Perform the assigned extraction, planning or source transformation within its explicit source access scope.",
+      "model_needs": [
+        "assigned instructions and relevant processing rules",
+        "complete source units needed by the assigned transformation",
+        "source roles and location/identity needed for the output",
+        "unresolved restrictions and output contract"
+      ],
+      "evidence_boundary": "Keep complete assigned extraction evidence. File registration does not grant permission to read attachment bodies."
+    },
+    "impact_advice": {
+      "purpose": "Explain consequences and next actions from accepted coverage and recorded gaps.",
+      "model_needs": [
+        "objective and applicable rules",
+        "accepted coverage, requirement definitions and every assigned gap",
+        "relevant permitted method alternatives",
+        "source scope and required assessment links"
+      ],
+      "evidence_boundary": "Do not re-open raw data, redo coverage, invent missing evidence or treat proposed alternatives as confirmed usable."
+    },
+    "accepted_summary": {
+      "purpose": "Explain accepted assessment and decisions to the user without new findings.",
+      "model_needs": [
+        "accepted assessment and decisions",
+        "material uncertainty, dependencies and limitations",
+        "references explicitly required by the output contract"
+      ],
+      "evidence_boundary": "No raw tables, complete method library or unrelated rules; do not change the accepted scientific conclusion."
+    },
+    "access_classification": {
+      "purpose": "Classify source roles and access permissions without inspecting unapproved bodies.",
+      "model_needs": [
+        "task objective and access policy",
+        "assigned file metadata and requested source role",
+        "existing restrictions and required identity references"
+      ],
+      "evidence_boundary": "Unregistered or held-out sources do not become accessible by similarity or retrieval."
+    },
+    "preparation": {
+      "purpose": "Perform the assigned source preparation or bounded review of deterministic preparation.",
+      "model_needs": [
+        "assigned preparation contract and rules",
+        "source values, units and experimental-unit identity needed for this operation",
+        "deterministic checks and unresolved changes requiring review",
+        "required output mappings"
+      ],
+      "evidence_boundary": "Preserve raw values, BLQ/missingness distinctions and conflicts; no invented identifiers, joins or imputation."
+    },
+    "handoff_review": {
+      "purpose": "Review the assigned prepared handoff and unresolved limitations.",
+      "model_needs": [
+        "prepared candidate and declared source bindings",
+        "assigned review evidence and validation findings",
+        "applicable handoff rules and unresolved limitations",
+        "required handoff output references"
+      ],
+      "evidence_boundary": "A partial/historical checkpoint is not a newly approved complete assessment."
+    },
+    "eda_plan": {
+      "purpose": "You are the EDA planner. Start from the admitted Data handoff, objective, supplied downstream decision needs, applicable rules and bound scientific reference. Consider the relevant conditional display and descriptive-calculation catalogue. Explain needed but unsupported, unimplemented or deferred work locally; combine panels or use tables when they answer the questions. Mark an operation executable only when its inputs and explicit R handler are available. Do not calculate, repeat Data assessments, invent available operations or perform downstream model fitting.",
+      "model_needs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "compact downstream decision needs and the conditional candidate catalogue; trace each relevant candidate to planned evidence or an explicit scoped omission",
+        "applicable G001-G008 and explicitly scoped EDA rules",
+        "output contract and disclosed transport limits"
+      ],
+      "evidence_boundary": "Admitted Data scope, definitions, restrictions, objective, supplied downstream uses and bound reference remain authoritative. Implementation capability does not establish scientific applicability or erase a needed question. An omitted fixture source is not project-wide absence. No generated results, parameter or target fitting, findings or human approval."
+    },
+    "eda_findings": {
+      "purpose": "You are the EDA interpreter. Start from the supplied plan, host results, plotted rows and metadata. State supported observations, limitations and downstream implications. Do not recompute results, reread unrelated sources, fit models or repeat Data assessments.",
+      "model_needs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "applicable G001-G008 and explicitly scoped EDA rules",
+        "output contract and disclosed transport limits"
+      ],
+      "evidence_boundary": "Plan, supplied R results and plot evidence with their source identities; absent rows or images remain unreviewed. Quote host results only."
+    },
+    "eda_review": {
+      "purpose": "You are the independent EDA reviewer. Compare the supplied plan, calculations, figure evidence and findings with the objective and applicable rules. Report concrete issues and affected artifacts once. Do not rewrite findings, start corrections, grant human approval or assemble the handoff.",
+      "model_needs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "eda_findings",
+        "applicable G001-G008 and explicitly scoped EDA rules",
+        "output contract and disclosed transport limits"
+      ],
+      "evidence_boundary": "All supplied review evidence including counterevidence and open items. Paths alone are not inspected images or result rows. Human confirmation and handoff assembly remain host-only."
+    },
+    "context_sufficiency": {
+      "purpose": "Assess each declared need against its criteria, visible project view and method evidence. Return supported, partial or unsupported with exact citations; never infer missing project observations.",
+      "model_needs": [
+        "objective",
+        "needs",
+        "task_view",
+        "knowledge",
+        "output schema"
+      ],
+      "evidence_boundary": "Only the packed evidence for this check is visible. No retrieval, tools, approval or generation of scientific results."
+    }
+  },
+  "routes": {
+    "data.requirements": {
+      "profile": "requirements_planning",
+      "method_retrieval": {
+        "mode": "EXPLICIT_UNANSWERED_QUESTIONS",
+        "target": [
+          "reviewed_method_background_v1"
+        ],
+        "project_path": [
+          "project_context"
+        ],
+        "consumer_route": "data.requirements",
+        "allowed_stages": [
+          "data_eda",
+          "animal_pk",
+          "pkpd",
+          "translation",
+          "human_simulation",
+          "pta"
+        ]
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.coverage": {
+      "profile": "source_assessment",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.necessity": {
+      "profile": "impact_advice",
+      "method_retrieval": {
+        "mode": "EXPLICIT_UNANSWERED_QUESTIONS",
+        "target": [
+          "reviewed_method_background_v1"
+        ],
+        "project_path": [
+          "project_context"
+        ],
+        "consumer_route": "data.necessity",
+        "allowed_stages": [
+          "data_eda",
+          "animal_pk",
+          "pkpd",
+          "translation",
+          "human_simulation",
+          "pta"
+        ]
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.human_summary": {
+      "profile": "accepted_summary",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.human_summary_legacy": {
+      "profile": "accepted_summary",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.extract": {
+      "profile": "source_transform",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.review": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_requirements": {
+      "profile": "source_transform",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_pipeline": {
+      "profile": "source_transform",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_context": {
+      "profile": "source_transform",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_attachment_evidence": {
+      "profile": "source_transform",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_context_review": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_requirements_review": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_pipeline_review": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_attachment_plan": {
+      "profile": "source_transform",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DIRECT_DR_COVERAGE": {
+      "profile": "source_assessment",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DR-access": {
+      "profile": "access_classification",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DC-split": {
+      "profile": "source_assessment",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_HUMAN_REVIEW_SUMMARY_ONLY": {
+      "profile": "accepted_summary",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_REQUIREMENT_PLANNING_ONLY": {
+      "profile": "requirements_planning",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DH-handoff": {
+      "profile": "handoff_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_NECESSITY_IMPACT_AND_ADVICE_ONLY": {
+      "profile": "impact_advice",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DC-label": {
+      "profile": "source_assessment",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DR": {
+      "profile": "requirements_planning",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DP": {
+      "profile": "preparation",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_NECESSITY_SCOPED_ASSESSMENT": {
+      "profile": "impact_advice",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "data.adapter_DC-review": {
+      "profile": "source_assessment",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_context_faithfulness": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_context_completeness": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "compression.adapter_context_conflicts": {
+      "profile": "source_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [],
+      "rule_paths": [
+        [
+          "project_rules"
+        ]
+      ]
+    },
+    "eda.plan": {
+      "profile": "eda_plan",
+      "method_retrieval": {
+        "mode": "EXPLICIT_UNANSWERED_QUESTIONS",
+        "target": [
+          "task_context",
+          "reviewed_method_background_v1"
+        ],
+        "project_path": [
+          "task_context"
+        ],
+        "consumer_route": "method_background",
+        "allowed_stages": [
+          "data_eda"
+        ]
+      },
+      "reference_fields": [
+        [
+          "scientific_reference",
+          "text"
+        ]
+      ],
+      "rule_paths": [
+        [
+          "task_context",
+          "project_rules"
+        ]
+      ]
+    },
+    "eda.findings": {
+      "profile": "eda_findings",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [
+        [
+          "scientific_reference",
+          "text"
+        ]
+      ],
+      "rule_paths": [
+        [
+          "task_context",
+          "project_rules"
+        ]
+      ]
+    },
+    "eda.review": {
+      "profile": "eda_review",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "This task consumes its assigned evidence or upstream result; it does not request new method background."
+      },
+      "reference_fields": [
+        [
+          "scientific_reference",
+          "text"
+        ]
+      ],
+      "rule_paths": [
+        [
+          "task_context",
+          "project_rules"
+        ]
+      ]
+    },
+    "context.sufficiency": {
+      "profile": "context_sufficiency",
+      "method_retrieval": {
+        "mode": "NONE",
+        "reason": "Evidence is already frozen; no recursive retrieval."
+      },
+      "reference_fields": [],
+      "rule_paths": []
+    }
+  },
+  "retrieval": "An explicit unanswered task question is required. Existing task definitions do not trigger duplicate background retrieval; zero external background is valid.",
+  "handoff_projection": {
+    "version": "UPSTREAM_SEMANTIC_HANDOFF_1.0",
+    "scope": "Existing task profiles; all 33 routes including EDA remain explicit.",
+    "impact_advice": "Keep accepted coverage status, every shortage and source scope, original/counterevidence, requirements and exact candidate method conditions/alternatives/limitations. Method bibliography and content-integrity lineage stay host-side; they are not additional method authority.",
+    "published_rule_handoff": "Downstream preparation, handoff, impact and source assessment consume host-verified published Rules. When each rule carries project_rules_ref and projection_version, source derivation/routing audit stays host-side. All operative clauses, conditions, exceptions, requirement, usage, stages and context_path stay visible. This never applies to arbitrary source/candidate records or their contrary evidence.",
+    "accepted_summary": "Preserve complete supplied conclusions, readiness, affected scope, holds, conditions, uncertainty, next actions and material numbers. No new source review or raw library is requested.",
+    "protected_evidence": "Coverage, independent review, DP/DH supplied record scope, and all EDA supplied handoff/plan/calculation/figure/findings evidence are complete task inputs. No additional record selection, counterevidence pruning, source joins or applicability inference.",
+    "exact_deduplication": "Only exact repeated text may share a local descriptive definition. Retain every occurrence identity/scope, original output selectors and exact expansion; cross-scope matching is never inferred."
+  },
+  "task_orchestration": {
+    "version": "WORKFLOW_TASK_ORCHESTRATION_1.0",
+    "scope": "All registered routes; future steps require explicit profile and stage adapter registration.",
+    "published_rule_audit_fields": [
+      "evidence",
+      "field_evidence",
+      "authority_evidence",
+      "candidate_ids",
+      "classification_reason",
+      "routing_reason"
+    ],
+    "rule_collections": {
+      "consumer_profiles": [
+        "requirements_planning",
+        "source_assessment",
+        "impact_advice",
+        "preparation",
+        "handoff_review",
+        "eda_plan",
+        "eda_findings",
+        "eda_review"
+      ],
+      "paths": [
+        [
+          "project_rules"
+        ],
+        [
+          "task_context",
+          "project_rules"
+        ]
+      ],
+      "unpublished_policy": "Retain derivation evidence unless the stage explicitly consumes an admitted bound project Rule collection.",
+      "independent_review_policy": "Do not remove source or candidate evidence from independent review."
+    },
+    "reference_selection": "Only explicitly catalogued method-reference fields may be scoped. All global constraints and transitive dependencies remain. Rules, source evidence and upstream results are never selectable.",
+    "zero_retrieval": "Default. Upstream outputs go directly into the next task input; they are not retrieved or summarized again."
+  }
+}

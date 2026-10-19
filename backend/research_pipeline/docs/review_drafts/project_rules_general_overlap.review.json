@@ -1,0 +1,221 @@
+{
+  "document_type": "PROJECT_RULES_GENERAL_OWNERSHIP_REVIEW",
+  "version": "1.1.0",
+  "review_date": "2026-10-07",
+  "status": "REVIEW_COMPLETE_REFACTOR_PROPOSED_NOT_ACTIVATED",
+  "scope": "All 12 Project Rules Agent draft rules compared with the active G001-G007 pack. Processing rules only; no changes to scientific project requirements.",
+  "sources": {
+    "general_rules": {
+      "path": "research_pipeline/docs/review_drafts/history/workflow_governance.1.2.0.json",
+      "version": "1.2.0",
+      "sha256": "4dfde590ad128301cc541fda6415d748b9365a9f973f9d83cabab027297b536c"
+    },
+    "module_draft": {
+      "path": "research_pipeline/docs/review_drafts/history/project_rules_agent_rules.2.0.0-draft.5.json",
+      "version": "2.0.0-draft.5"
+    },
+    "runtime_module": {
+      "path": "research_pipeline/research_pipeline/project_rule_agent.py",
+      "version": "1.1",
+      "sha256": "3373b916f9f1f31ccb37e255bef05b171d5bd34b97df9325efba2d83e904b863"
+    }
+  },
+  "conclusion": "Generic preservation, deduplication, provenance, version binding and actionable failures belong to shared governance. A module rule should add a concrete local responsibility, field contract, check or release decision instead of paraphrasing governance.",
+  "ownership_policy": {
+    "canonical_text": "Maintain each shared principle once in workflow_governance.json. Module records reference shared owners and add only local requirements.",
+    "delivery": "Materialize applicable full general instructions once per fresh request, then the required module details. A reference alone is not sufficient model context.",
+    "scientific_profile": "Reuse the approved 13-category detail profile and relevant versioned PK appendix. Preserve all details; do not import compression-only workflow instructions or copy the profile into every module.",
+    "approval": "Retain original approval records and replacement mappings. Do not automatically approve changed wording or renumber pending rules during this audit."
+  },
+  "findings": [
+    {
+      "id": "PRC001",
+      "general_owners": [
+        "G002",
+        "G006"
+      ],
+      "action": "KEEP_LOCAL_DELTA",
+      "shared_content": "Evidence is not normative authority; preserve source status and version.",
+      "module_delta": "Re-read designated original project materials and determine which candidate obligations are adopted and currently effective."
+    },
+    {
+      "id": "PRC002",
+      "general_owners": [
+        "G002",
+        "G004"
+      ],
+      "action": "KEEP_LOCAL_DELTA",
+      "shared_content": "Distinguish facts, assumptions, requirements and suggestions.",
+      "module_delta": "Reuse compression-owned facts and assumptions; extract obligations to use assumptions, account for non-rule source clauses, and return upstream correction requests."
+    },
+    {
+      "id": "PRC003",
+      "general_owners": [
+        "G003",
+        "G004"
+      ],
+      "action": "REPLACE_REPEATED_PRINCIPLES_WITH_PROFILE_APPLICATION",
+      "shared_content": "Preserve meaning, numbers, conditions, negation, uncertainty and provenance.",
+      "module_delta": "Check obligation strength, actor or target and linked qualifications; apply the full shared scientific detail profile and PK binding appendix to requirement extraction."
+    },
+    {
+      "id": "PRC004",
+      "general_owners": [
+        "G002",
+        "G004"
+      ],
+      "action": "KEEP_LOCAL_EVIDENCE_CHECKS",
+      "shared_content": "Support claims with evidence; distinguish missingness states; preserve counterevidence.",
+      "module_delta": "Record separately whether original clauses support the complete obligation and whether authorized project evidence adopts it. One source may establish both."
+    },
+    {
+      "id": "PRC005",
+      "general_owners": [
+        "G001",
+        "G004",
+        "G005",
+        "G006"
+      ],
+      "action": "PROPOSE_REMOVE_STANDALONE_RULE",
+      "shared_content": "True-duplicate merging, qualifier preservation, source mappings and review binding already have general owners.",
+      "module_delta": "Retain explicit source-unit-to-candidate-to-final-rule mapping in PRC011. Keep deterministic merge keys in the local implementation contract; do not make exact text equality a universal algorithm.",
+      "merge_into": [
+        "PRC011"
+      ]
+    },
+    {
+      "id": "PRC006",
+      "general_owners": [
+        "G001",
+        "G002",
+        "G006"
+      ],
+      "action": "SHARE_AMENDMENT_PRINCIPLE_KEEP_RULE_LINEAGE",
+      "shared_content": "Preserve authority, versions and prior approvals. Explicit replacement scope and the rule that newer dates alone do not override are not fully stated in current G006.",
+      "module_delta": "Record predecessor project rule or source clause, replacement scope, activation condition and publication blockers."
+    },
+    {
+      "id": "PRC007",
+      "general_owners": [
+        "G003",
+        "G004",
+        "G005"
+      ],
+      "action": "KEEP_ROUTING_AND_APPLICABILITY_CONTRACT",
+      "shared_content": "Preserve relevant scope and pass only task-needed information.",
+      "module_delta": "Distinguish stage routing from applicability; specify the local UNASSIGNED state and typed conditions. Routing is not evidence of applicability or compliance."
+    },
+    {
+      "id": "PRC008",
+      "general_owners": [
+        "G004",
+        "G007"
+      ],
+      "action": "KEEP_MODULE_RELEASE_DECISIONS",
+      "shared_content": "Provide actionable findings and preserve unresolved information.",
+      "module_delta": "Define which requirement-authority, meaning or scope gaps block publication and which later-stage scientific gaps can be deferred. Generic issue fields can use a common schema."
+    },
+    {
+      "id": "PRC009",
+      "general_owners": [
+        "G002",
+        "G003",
+        "G004"
+      ],
+      "action": "PROPOSE_MERGE_LOCAL_CHECKS",
+      "shared_content": "Objective-first alignment, no unsupported changes and preservation of constraints.",
+      "module_delta": "Place pure-objective versus binding-requirement classification in PRC002. Place effective main.json versus final rules consistency in PRC011; send required context revisions upstream.",
+      "merge_into": [
+        "PRC002",
+        "PRC011"
+      ]
+    },
+    {
+      "id": "PRC010",
+      "general_owners": [
+        "G001",
+        "G004",
+        "G006"
+      ],
+      "action": "MOVE_REPRESENTATION_DETAILS_TO_MODULE_CONTRACT",
+      "shared_content": "Preserve identity and time meaning; host-controlled identifiers.",
+      "module_delta": "Keep citation IDs distinct from downstream dataset IDs; define unallocated IDs, local missing-value encoding, observation_window, required_phase, trigger and deadline. Do not force one schema's sentinel values on all modules."
+    },
+    {
+      "id": "PRC011",
+      "general_owners": [
+        "G004",
+        "G006",
+        "G007"
+      ],
+      "action": "KEEP_FINAL_REVIEW_GATE",
+      "shared_content": "Reviews bind exact versions; retain failures and invalidate changed reviews.",
+      "module_delta": "Review the final organized rule package against admitted originals, require faithfulness/completeness/conflict outcomes and bidirectional coverage, then deterministically validate before release. Include PRC005 mappings and PRC009 context consistency."
+    },
+    {
+      "id": "PRC012",
+      "general_owners": [
+        "G001",
+        "G005",
+        "G006",
+        "G007"
+      ],
+      "action": "KEEP_PUBLICATION_AND_HANDOFF_CONTRACT",
+      "shared_content": "Deliver complete applicable instructions, correct version binding and scoped acceptance.",
+      "module_delta": "Publish project_rules.json, reference it from main.json, retain rule_audit.json and define rule-use records. Downstream applicability/compliance execution remains deferred."
+    }
+  ],
+  "proposed_general_clarifications": [
+    {
+      "id": "GC01",
+      "owner": "G005",
+      "coverage": "CURRENT_PRINCIPLE_PRESENT_DETAIL_CAN_BE_MADE_EXPLICIT",
+      "text": "Treat statements as duplicates only when their meaning and relevant scope, strength, conditions, exceptions and information status are equivalent. Identical wording alone does not establish equivalence; retain all supporting provenance.",
+      "status": "PROPOSED_NOT_ACTIVATED"
+    },
+    {
+      "id": "GC02",
+      "owner": "G006",
+      "coverage": "EXPLICIT_AMENDMENT_SEMANTICS_NOT_FULLY_PRESENT",
+      "text": "An authorized revision must identify the prior requirement or specification, affected scope and effective conditions. A newer date alone does not establish replacement; retain predecessor and decision evidence.",
+      "status": "PROPOSED_NOT_ACTIVATED"
+    },
+    {
+      "id": "GC03",
+      "owner": "G004",
+      "coverage": "EVIDENCE_PRINCIPLE_PRESENT_SUPPORT_TEST_CAN_BE_MADE_EXPLICIT",
+      "text": "Check that evidence supports a claim in its context, including relevant qualifications and counterevidence. A matching quotation, identifier or valid schema alone does not establish semantic support.",
+      "status": "PROPOSED_NOT_ACTIVATED"
+    }
+  ],
+  "not_generalized": [
+    "Mandatory three-way semantic review or three model calls for every workflow step.",
+    "Project Rules Agent source-to-candidate-to-final-rule coverage and publication schema.",
+    "Exact-text merge keys or NOT_SPECIFIED/UNASSIGNED values as universal algorithms or encodings.",
+    "Compression-only source access, extraction ownership or workflow restrictions.",
+    "Specific PK scientific profile contents as mandatory subject matter for unrelated modules."
+  ],
+  "runtime_observations": [
+    "project_rule_agent.request() already returns governed_request(payload), which attaches the full general pack.",
+    "The runtime still supplies its older inline PRC001-PRC010; the 12-rule review draft is disabled and not loaded.",
+    "Therefore removing duplicate prose from the review draft alone would not remove runtime duplication; a later approved implementation must update the runtime module contract and verification."
+  ],
+  "verification_scope": {
+    "review": "Static ownership review, not a live-model accuracy evaluation.",
+    "changed_artifacts": "Review artifacts only.",
+    "runtime_changed": false,
+    "scientific_runs": 0,
+    "model_calls": 0
+  },
+  "follow_up": {
+    "date": "2026-10-07",
+    "authorization": "User requested the shared additions and a focused reorganization of PRC rules.",
+    "general_rules_version": "1.3.0",
+    "general_clarifications": "GC01-GC03 incorporated into G005, G006 and G004 respectively.",
+    "focused_prc_draft": "project_rules_agent_rules.review.json",
+    "focused_prc_version": "2.0.0-draft.6",
+    "focused_rule_count": 7,
+    "prc_runtime_activation": false,
+    "historical_scope": "The findings and verification_scope above describe the original pre-change audit; archived input paths retain that evidence."
+  }
+}

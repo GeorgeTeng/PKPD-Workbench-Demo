@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_INPUT_REQUIREMENTS_SCOPE",
+  "date": "2026-10-07",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "没问题",
+    "accepted_proposal": "MP007 is conditional on unbound exposure or binding correction. Check free/bound definitions, scale, assay conditions/range and any required blood/plasma partition inputs. Accept direct unbound observations and permitted reviewed human in vitro evidence; do not default fu, fit models or convert concentrations."
+  },
+  "library_version": "1.0.0-draft.9",
+  "library_sha256": "6e92d5018b34dca138626b005d65dea87e127cc99e7b6a305b3e198bc913808f",
+  "profile_sha256": "cc092748c7b70b383c58e46515b84945f39518a3bbd27435b2db47371f7605e1",
+  "profile": {
+    "id": "MP007",
+    "name": "Data requirements for binding and unbound exposure",
+    "family": "IN_VITRO_PK",
+    "assessment_scope": "DATA_REQUIREMENTS_ONLY",
+    "target_endpoints": [
+      "Project-requested unbound exposures or binding corrections"
+    ],
+    "outputs": [
+      "Binding/free-concentration input availability",
+      "Definition and applicability gaps",
+      "Affected unbound endpoint and missing supporting material"
+    ],
+    "applies_when": "Enable only when the objective requests unbound exposure or a binding correction. Reuse the registered analyte, species, matrix and source metadata; inspect only binding-specific input definitions and coverage.",
+    "required_inputs": [
+      "The requested use and whether the supplied evidence is directly measured unbound concentration, an unbound fraction (fu) or a bound fraction. Preserve explicit percentage versus fractional-scale definitions.",
+      "For binding evidence used as an input: reported measurement method, experimental conditions and concentration range, linked to the existing source and biological-context metadata."
+    ],
+    "conditional_inputs": [
+      "Blood/plasma partition information only when the intended task changes the concentration basis between blood and plasma."
+    ],
+    "acceptable_alternatives": [
+      "Directly measured unbound concentrations may supply an unbound-exposure input without requiring fu solely for a total-to-free conversion.",
+      "Reviewed human-source in vitro binding evidence may be a candidate input when the published project permissions allow its use at the intended stage."
+    ],
+    "data_checks": [
+      "Distinguish free concentration, unbound fraction and bound fraction, including percent versus fractional scale. Flag ambiguous definitions rather than guessing or converting them here.",
+      "Check whether measurement method, conditions and concentration range are recorded and relevant to the intended use. Preserve concentration-specific records and unresolved applicability; do not assume one value applies to every concentration or matrix.",
+      "Do not fill a missing fu with one or automatically substitute animal fu for a human input. Keep human-source in vitro evidence distinct from target-drug human in vivo PK observations under the existing access rules.",
+      "Identify only the missing input for the requested unbound endpoint or correction. Do not fit a binding model, perform a concentration conversion or assess conversion sensitivity in this stage."
+    ],
+    "missing_effect": "Report the affected unbound endpoint or binding correction and its missing input through the general data-gap policy. Retain independently supported total-concentration work.",
+    "not_established": [
+      "An accepted binding model, completed free-exposure conversion, validated applicability or permission to access protected data."
+    ],
+    "needed_at": "DATA_REQUIREMENTS_ASSESSMENT",
+    "source_ids": [
+      "S06",
+      "S07"
+    ]
+  },
+  "deferred_reference": {
+    "path": "research_pipeline/research_pipeline/resources/binding_analysis_followup.json",
+    "sha256": "8317264580f15b0c261c76e7a4df1b54872c26e8c0524c514c7629f819ec1de4"
+  },
+  "unchanged_profiles": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP005",
+    "MP006",
+    "MP008",
+    "MP009",
+    "MP010"
+  ],
+  "scientific_release": false,
+  "historical_runs_modified": false
+}

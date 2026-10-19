@@ -1,0 +1,161 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "T0039",
+  "role": "BINDING",
+  "metadata": {
+    "role": "BINDING",
+    "species": "Rat",
+    "matrix": "serum",
+    "exposure_basis": "percent BOUND",
+    "record_level": "commercial pooled serum; triplicate per concentration; mean ± SD",
+    "drug": "polymyxin B1",
+    "route": "NOT_APPLICABLE",
+    "endpoint_window": "NOT_FOUND",
+    "route_category": "NOT_APPLICABLE",
+    "matrix_category": "PLASMA_SERUM_BLOOD",
+    "record_category": "POOLED",
+    "observation_source": "SOURCE_VALUES",
+    "dose_basis": "NOT_FOUND",
+    "analyte": "polymyxin B1",
+    "dosing_regimen": "NOT_FOUND",
+    "additional_roles": [],
+    "columns": [
+      {
+        "header": "PMB concn (µg/mL)",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "µg/mL",
+        "qualifiers": [
+          "Spiked concentrations"
+        ],
+        "column": "A",
+        "evidence": [
+          {
+            "source": "F0003:S2:T3:A35",
+            "quote": "PMB concn (µg/mL)"
+          },
+          {
+            "source": "F0003:S2:T3:A32",
+            "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+          }
+        ]
+      },
+      {
+        "header": "Rat ED % bound",
+        "meaning": "BINDING",
+        "unit": "%",
+        "qualifiers": [
+          "percent BOUND",
+          "mean ± SD"
+        ],
+        "column": "B",
+        "evidence": [
+          {
+            "source": "F0003:S2:T3:B35",
+            "quote": "Rat ED % bound"
+          },
+          {
+            "source": "F0003:S2:T3:A32",
+            "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+          }
+        ]
+      },
+      {
+        "header": "Rat UF % bound",
+        "meaning": "BINDING",
+        "unit": "%",
+        "qualifiers": [
+          "percent BOUND",
+          "mean ± SD"
+        ],
+        "column": "C",
+        "evidence": [
+          {
+            "source": "F0003:S2:T3:C35",
+            "quote": "Rat UF % bound"
+          },
+          {
+            "source": "F0003:S2:T3:A32",
+            "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+          }
+        ]
+      }
+    ],
+    "permission": "DEVELOPMENT_CANDIDATE",
+    "source_table": {
+      "title": "Rat serum protein binding of polymyxin B1",
+      "sheet": "Rat",
+      "region": {
+        "start_row": 29,
+        "end_row": 40,
+        "left": 1,
+        "right": 3,
+        "header_row": 35,
+        "title": "Rat serum protein binding of polymyxin B1",
+        "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
+        "note_regions": []
+      },
+      "notes": "Rat serum protein binding of polymyxin B1\nS24 | DOI 10.1128/AAC.01815-15 | Table 1 (Abodakpi et al. 2015, PMC4604353)\nPure in-vitro spiking of commercial pooled serum (Equitech-Bio); equilibrium dialysis (ED) and ultrafiltration (UF), triplicate per concentration, 37 °C 2 h.\nValues are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding.\nConflicts with S21 (rat 80% bound, UF) and S02 (mouse about 91%). Do not average sources; treat fu as a sensitivity parameter.\nOnly rows for this worksheet species are shown; human columns are stored in the separate human validation workbook.",
+      "column_map": {
+        "c001_pmb_concn_g_ml": "PMB concn (µg/mL)",
+        "c002_rat_ed_bound": "Rat ED % bound",
+        "c003_rat_uf_bound": "Rat UF % bound"
+      }
+    },
+    "source_item_id": "F0003:S2:T3",
+    "source_evidence": [
+      {
+        "source": "F0003:S2:T3:A29",
+        "quote": "Rat serum protein binding of polymyxin B1"
+      },
+      {
+        "source": "F0003:S2:T3:A31",
+        "quote": "Pure in-vitro spiking of commercial pooled serum (Equitech-Bio); equilibrium dialysis (ED) and ultrafiltration (UF), triplicate per concentration, 37 °C 2 h."
+      },
+      {
+        "source": "F0003:S2:T3:A32",
+        "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+      },
+      {
+        "source": "F0003:S2:T3:A33",
+        "quote": "Conflicts with S21 (rat 80% bound, UF) and S02 (mouse about 91%). Do not average sources; treat fu as a sensitivity parameter."
+      }
+    ],
+    "requirement_ids": [
+      "RQ001",
+      "RQ008"
+    ],
+    "independent_animal_count": "NOT_ESTABLISHED",
+    "dose": "NOT_FOUND",
+    "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
+    "normalized_fields": {},
+    "preparation_policy": "DATASET_ACTION_V1"
+  },
+  "data_file": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\normalized\\T0039.json",
+    "sha256": "00da5752ba81954afbff6ce95aac5e9fbee407022a799065eb4e9285fe470b46"
+  },
+  "source_refs": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\files\\F0003.xlsx",
+      "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\parsed\\F0003.json",
+      "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\preparation_plan.json",
+      "sha256": "db2e58af367824a5a9fea3524390d433115d3f33370e8290d344df602da71b9a"
+    }
+  ],
+  "summary": {
+    "source_records": 5,
+    "retained_records": 5,
+    "quarantined_records": 0,
+    "independent_animals": "NOT_ESTABLISHED",
+    "quarantine_reasons": {}
+  },
+  "review_status": "PENDING",
+  "release_authority": "SEPARATE_SIGNED_HANDOFF",
+  "human_prediction_allowed": false
+}

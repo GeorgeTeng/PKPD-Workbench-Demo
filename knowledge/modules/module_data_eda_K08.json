@@ -1,0 +1,45 @@
+{
+  "cards": [
+    {
+      "title": "NCA Model Selection and Input Requirements",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Phoenix NCA requires specific model IDs based on matrix and dose type (e.g., 200 for extravascular plasma, 201 for IV bolus). Plasma models require 'time of last dose' and 'Tau' for steady-state. Urine models assume single-dose data and require interval start/end times.",
+      "conditions": [
+        "Non-compartmental analysis",
+        "Data structure definition"
+      ],
+      "required_inputs": [
+        "Matrix type",
+        "Dose type",
+        "Time of last dose",
+        "Tau (if steady-state)",
+        "Interval data (if urine)"
+      ],
+      "limitations": [
+        "Vss is not computed for extravascular dosing",
+        "Urine models do not depend on dose type for final parameters"
+      ],
+      "downstream_use": "Parameter estimation and model qualification.",
+      "evidence_chunk_ids": [
+        "REF_016:0001",
+        "REF_003:0004",
+        "REF_003:0007"
+      ],
+      "id": "module_data_eda:K08",
+      "origin_job": "module_data_eda",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003",
+        "REF_016"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

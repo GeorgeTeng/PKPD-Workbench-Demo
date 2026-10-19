@@ -1,0 +1,73 @@
+{
+  "version": "1.1.0",
+  "status": "USER_CONFIRMED_PENDING_PROJECT_RULE_PUBLICATION",
+  "scope": {
+    "session_id": "flow_96036fc08334499f9a699212b66fb8f0",
+    "universal_default": false
+  },
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "date": "2026-10-07",
+    "quote": "人体外推前必须至少有 3 个符合该参数要求的物种。完成可支持的指标；符合条件的参数可以交给外推分支审核，原有缺口继续保留 并不一定要房室模型 允许经审核的人源体外结合／代谢数据作为预测输入"
+  },
+  "decisions": [
+    {
+      "key": "minimum_qualified_species",
+      "text": "Before human extrapolation, require at least three distinct species qualified for the specific parameter being predicted.",
+      "minimum": 3,
+      "count_by": "PARAMETER",
+      "needed_at": "BEFORE_TRANSLATION",
+      "does_not_block": "Supported upstream NCA, data preparation or animal modeling"
+    },
+    {
+      "key": "partial_outputs_and_nca",
+      "text": "Complete supported endpoints and submit qualified parameters for extrapolation review. A compartmental animal model is not mandatory. Keep unresolved project objectives and evidence gaps visible.",
+      "needed_at": "ANALYSIS_ROUTING_AND_PARAMETER_HANDOFF"
+    },
+    {
+      "key": "human_in_vitro_inputs",
+      "text": "Reviewed human-source in vitro binding and metabolism evidence may be used as prediction inputs.",
+      "needed_at": "BEFORE_APPLICABLE_PREDICTION",
+      "supersession_scope": "Earlier blanket deferral of these human-source in vitro inputs; no extension of permission to target-drug human in vivo PK observations"
+    },
+    {
+      "key": "auc_windows_by_purpose",
+      "text": "Allow purpose-specific AUC windows, including AUCtau for steady-state clearance, only when explicitly defined in the proposal. Retain the original primary objective and do not choose an agent default.",
+      "needed_at": "BEFORE_ENDPOINT_ANALYSIS",
+      "supersession_scope": "Replaces the exhaustive AUC0-24h/AUC0-infinity choice restriction in MP001_method_review.20261007.json; preserves proposal-defined windows and pre-reviewed boundary methods.",
+      "source": {
+        "type": "USER_CLARIFICATION",
+        "date": "2026-10-07",
+        "quote": "允许按用途定义，均需 proposal 明示（推荐）"
+      }
+    },
+    {
+      "key": "group_mean_parameters_without_reliable_uncertainty",
+      "text": "A supported digitized measured group-mean point estimate without reliable uncertainty may enter as a candidate. Human review of use, limitations and uncertainty treatment is required before it counts toward the parameter-specific minimum qualified species. Preserve the gap and do not fabricate uncertainty.",
+      "needed_at": "BEFORE_QUALIFIED_SPECIES_COUNT",
+      "source": {
+        "type": "USER_CLARIFICATION",
+        "date": "2026-10-07",
+        "quote": "先作为候选，专门审核后才计入（推荐）"
+      }
+    },
+    {
+      "key": "literature_reported_parameters",
+      "text": "Allow same-drug published CL/Vss without original concentration curves into the candidate library. Label LITERATURE_REPORTED, NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED; explain source, definition, method, uncertainty and gaps. Admission is not species qualification. Any downstream use or qualified-species count requires a separate documented review.",
+      "needed_at": "PARAMETER_CANDIDATE_ADMISSION_AND_BEFORE_USE",
+      "source": {
+        "type": "USER_CLARIFICATION",
+        "date": "2026-10-07",
+        "quote": "建议允许 但是需要说明 其他没有问题添加到相应的位置去 然后看下一条"
+      }
+    }
+  ],
+  "publication": {
+    "publisher": "Project Rules Agent",
+    "runtime_override": false,
+    "note": "This record preserves the confirmed human decision. It is not an R-rule artifact, does not alter existing approvals, and is not automatically injected into unrelated projects. Reconcile affected prior rules during formal publication."
+  },
+  "unresolved": [
+    "Project- and parameter-specific scientific acceptance criteria and the actual qualification of each species-parameter candidate"
+  ]
+}

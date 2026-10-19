@@ -1,0 +1,8 @@
+.context-stage-list{list-style:none;margin:0;padding:0;display:grid}
+.context-stage{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.context-stage:last-child{border-bottom:0}
+.context-stage strong{font-size:12px;font-weight:500;color:var(--text);display:block}
+.context-stage small{display:block;font-size:11px;color:var(--faint);line-height:1.6;margin-top:3px;overflow-wrap:anywhere}
+.context-stage .text-button{font-size:11px;white-space:nowrap}
+.context-stage .text-button:disabled{color:var(--faint);text-decoration:none}
+@media (max-width:520px){.context-stage{grid-template-columns:minmax(0,1fr) auto}.context-stage>button,.context-stage>span:last-child{grid-column:1/-1;justify-self:start}}

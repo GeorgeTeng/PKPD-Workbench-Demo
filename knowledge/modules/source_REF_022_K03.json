@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "Model Validation and Diagnostic Criteria",
+      "topics": [
+        "animal_pk",
+        "human_simulation"
+      ],
+      "claim": "Model validation is critical and requires multiple methods. Goodness-of-fit (GOF) plots (DV vs IPRED/xPRED, residuals vs predictions/time) and simulation-based diagnostics (VPC, pcVPC, NPC, NPDE) are used. High shrinkage obscures EBE-based diagnostics, making simulation-based checks more informative. External validation uses data not used for model building.",
+      "conditions": [
+        "No single validation method is sufficient.",
+        "Shrinkage >20-30% limits utility of individual diagnostics.",
+        "External validation requires data excluded from model development; independent studies or a predeclared held-out set may supply them."
+      ],
+      "required_inputs": [
+        "Model predictions (IPRED, xPRED).",
+        "Residuals (IWRES, xWRES).",
+        "Random effects distributions.",
+        "Test dataset for external validation."
+      ],
+      "limitations": [
+        "Internal validation relies on the same data used for building.",
+        "Data splitting reduces power to detect covariates.",
+        "Shrinkage affects reliability of individual post-hoc estimates."
+      ],
+      "downstream_use": "Qualifying models for regulatory submission or internal decision-making; assessing model robustness.",
+      "evidence_chunk_ids": [
+        "REF_022:0026",
+        "REF_022:0030",
+        "REF_022:0031",
+        "REF_022:0032"
+      ],
+      "id": "source_REF_022:K03",
+      "origin_job": "source_REF_022",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

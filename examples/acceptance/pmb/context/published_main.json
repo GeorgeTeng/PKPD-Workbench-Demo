@@ -1,0 +1,614 @@
+{
+  "version": "3.2",
+  "objective": "Test whether animal PK and preclinical PK/PD can predict human polymyxin B exposure and support efficacious-dose estimation; the primary outcome is model feasibility (SC001).",
+  "study": {
+    "drug": "Polymyxin B (PMB), the sole test drug (SC003).",
+    "regimen": "Partial, separate dosing information is supplied: mouse dose-fractionation schedules, rat IV administration, and horse single- and repeated-dose summaries and reported doses (SC005, SC006, SC009, SC016).",
+    "population": "Mouse, rat and rabbit development evidence; held-out horses; eligible K. pneumoniae PD evidence; and a separate human validation cohort (SC005, SC006, SC007, SC009, SC010, SC011).",
+    "system": "Animal-to-human systemic PK translation, supported pulmonary PK, and eligible PK/PD analysis (SC001, SC014, SC019).",
+    "measurements": "Described plasma, serum, ELF and tissue PK, binding, MIC, bacterial-burden and human validation measurements (SC005, SC006, SC007, SC010, SC011).",
+    "methods": "Prepare source data, fit eligible animal PK models, test frozen scaling in horses, predict human PK, assess PK/PD indices, validate human predictions, then assess PTA and feasibility (SC013, SC014, SC016, SC018, SC019, SC020, SC021)."
+  },
+  "data": {
+    "available": [],
+    "required": [],
+    "files": [
+      {
+        "id": "F0001",
+        "name": "AGENT_README.md",
+        "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0001.md",
+        "sha256": "96a0ef0249b11bc671f8d95f170b9b101177c9e3157c13505e0410a45f404948",
+        "kind": "document",
+        "role": "SUPPORTING_DOCUMENT",
+        "receivers": [
+          "data_preparation"
+        ],
+        "read_status": "READ_COMPLETE",
+        "qc_status": "NOT_RUN",
+        "fit_ready": false,
+        "snapshot_path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0001.json",
+        "snapshot_sha256": "6d653b98935457e6f4b94a728468c08e87479dbbd4bf22c5324feaf18ec9dbe1"
+      },
+      {
+        "id": "F0002",
+        "name": "PMB_project_proposal.docx",
+        "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0002.docx",
+        "sha256": "07915b6f3fd95853e55f98611de35ca18fc9c2bf3a0a269eb3c98dd5ee7ce7b2",
+        "kind": "document",
+        "role": "PROPOSAL",
+        "receivers": [
+          "context_compression"
+        ],
+        "read_status": "READ_COMPLETE",
+        "qc_status": "NOT_RUN",
+        "fit_ready": false,
+        "snapshot_path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0002.json",
+        "snapshot_sha256": "5ff5be49644a8622979d787d4913ecef10a39296af556b98f8943b46c5c8aaf1"
+      },
+      {
+        "id": "F0003",
+        "name": "PMB_source_tables_by_species.xlsx",
+        "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+        "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144",
+        "kind": "xlsx",
+        "role": "DATA_CANDIDATE",
+        "receivers": [
+          "data_preparation"
+        ],
+        "read_status": "READ_COMPLETE",
+        "qc_status": "NOT_RUN",
+        "fit_ready": false,
+        "snapshot_path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+        "snapshot_sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
+      }
+    ]
+  },
+  "rules": [],
+  "checks": [],
+  "uncertainties": [
+    "[MI001]",
+    "[MI002]",
+    "[MI003]",
+    "[MI004]",
+    "[MI005]",
+    "[MI006]",
+    "[MI007]",
+    "[MI008]",
+    "[MI009]",
+    "[MI010]",
+    "[MI011]",
+    "[MI012]",
+    "[MI013]",
+    "[MI014]",
+    "[MI015]"
+  ],
+  "rule_publication": "PROJECT_RULES_AGENT",
+  "scientific_context": {
+    "version": "2.0",
+    "items": [
+      {
+        "id": "SC001",
+        "statement": "The project will test whether animal PK and preclinical PK/PD can predict human PMB exposure and support efficacious-dose estimation. Its primary outcome is model feasibility, not a clinical dosing recommendation or proof of generalizability.",
+        "science": {
+          "role": "OBJECTIVE",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC002",
+        "statement": "PMB is a known-drug test case with existing human PK for independent validation. The project follows the translational objective of Sou et al. (2021) without importing the apramycin model or its parameters.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC003",
+        "statement": "PMB is the sole test drug; colistin and other antibiotics are not substitutes.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC004",
+        "statement": "PMB_source_tables_by_species.xlsx is described as the single animal and in-vitro data workbook. Its sheets retain source-shaped tables and notes, not a ready-made modeling dataset.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC005",
+        "statement": "The mouse material is described as plasma and ELF PK, serum binding from two conflicting sources, strain MICs, dose-fractionation schedules, bacterial-burden endpoints, and digitized index-response panels, for animal PK and eligible PD analysis. See MI001 for the unverified panel-to-regimen matching.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC006",
+        "statement": "The rat material is described as individual IV plasma profiles, serum and seven-tissue biodistribution means, and serum binding by dialysis and ultrafiltration. Its stated uses are systemic PK and supported pulmonary translation; limited observations do not establish predictive validity.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC007",
+        "statement": "The rabbit material is described as plasma, ELF and whole-lung mean profiles, exposure summaries, pulmonary infection outcomes, and study metadata. Its component support and source discrepancies are unresolved in MI002 and MI003.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC008",
+        "statement": "The proposal reports that no further public rabbit PMB concentration data were found.",
+        "science": {
+          "role": "RESULT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC009",
+        "statement": "The held-out horse material is described as digitized serum concentrations from two veterinary studies—healthy-horse peaks and troughs and hospitalized-horse daily samples—and printed single- and repeated-dose summaries from a third study. Horse dose-basis and binding issues are recorded in MI004 and MI005.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC010",
+        "statement": "The in-vitro material is described as K. pneumoniae time-kill data for BAA1705, KP619 and three KPC-2 isolates at two static concentrations; genotype and MIC data for six carbapenem-resistant isolates; and a surveillance MIC distribution. Eligible time-kill data serve PD analysis, while the distribution serves population-weighted attainment and cannot replace matched strain MICs.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC011",
+        "statement": "The described human validation cohort has 40 patients, 230 concentration records and 268 dose events; human reference tables are also described. See MI006 for availability and release conditions.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC012",
+        "statement": "PMB_project_proposal.docx defines the task; AGENT_README.md explains package use and known gaps; benchmark_reference.json is described as final-stage reference material containing published model-derived parameters and targets.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC013",
+        "statement": "The planned preparation step splits mixed source blocks into PK, PD, MIC, validation and benchmark inputs, then checks provenance, units, dose histories, experimental units and missing fields to identify usable records and unresolved gaps before fitting.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC014",
+        "statement": "The planned animal PK step selects eligible systemic and, where supported, pulmonary models for mouse, rat and rabbit, evaluating fit, parameter identifiability and held-out prediction where the design permits.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC015",
+        "statement": "Rabbit evidence may be used only to the extent that it identifies a model component; exclusion or exploratory use must be documented. See MI002 and MI003.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC016",
+        "statement": "The planned translation uses supported animal models, body size, protein binding and justified physiological relationships, comparing scaling with and without each species rather than assuming that more species is better. After mouse, rat and rabbit scaling is frozen, it predicts horse profiles under reported horse doses, compares them with held-out horse figures as an intermediate large-body-weight translation check, and records the result without retuning.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC017",
+        "statement": "Horse data must not be used to fit, select or scale models; the held-out horse procedure is specified in SC016.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC018",
+        "statement": "The project plans to predict human concentration-time profiles, AUC and Cmax with uncertainty under specified doses and routes, then freeze those predictions before opening human outcomes. The required doses and routes are unresolved in MI015.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC019",
+        "statement": "For eligible K. pneumoniae data, the planned PD analysis compares fAUC/MIC, fCmax/MIC and fT>MIC using ordinary Emax and sigmoid Emax/Hill regression, estimates supported exposure targets, or reports that the data cannot determine a best index or target.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC020",
+        "statement": "Human validation is planned by applying the frozen model to actual human dose histories, comparing predicted and observed plasma PK, assessing ELF separately when compatible data exist, and reporting bias, precision, exposure agreement and predictive uncertainty against criteria fixed before validation.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC021",
+        "statement": "After PK validation and PD qualification, the planned PTA step simulates a prespecified human population and dosing scenarios, processes the MIC distribution, and includes an exploratory efficacious-dose estimate, uncertainty and the final published-result benchmark where supported. It delivers PTA tables or curves, a feasibility conclusion and reproducible code, or explains why PTA is not estimable if required inputs are missing. SC029 specifies the distinct attainment outputs.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC022",
+        "statement": "Source identifiers, units, missing values and BLQ limits must be preserved. Group means and digitized observations are not individual animals; IDs, variability, exposure-response links and missing measurements must not be invented.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC023",
+        "statement": "Routes, formulations, analytes, total versus unbound drug, and plasma, serum, whole-lung tissue, BAL and ELF must remain distinct. Every conversion or physiological bridge requires recorded justification; unsupported pulmonary or multi-species models must not be forced.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC024",
+        "statement": "The proposal reports conflicting binding sources: mouse about 91% versus 97–99% bound, and rat 80% versus 92–99%.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC025",
+        "statement": "All three indices and both regression families must have equal eligibility. Comparisons must use the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. The selection rule must be registered before fitting; R², AIC/BIC, stability and identifiability must be reported with the extra Hill parameter counted. Selection by R² alone and a forced winner are prohibited.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC026",
+        "statement": "Stasis, 1-log kill and 2-log kill targets must remain separate; other pathogens cannot set K. pneumoniae targets.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC027",
+        "statement": "Published fitted parameters and model-derived results must remain hidden during primary-analysis selection and cannot set starting values, bounds, priors or rankings; they are reserved for the final benchmark.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC028",
+        "statement": "Human outcomes cannot tune the animal model or scaling. The model, validation criteria, PD targets and MIC input must be frozen before their respective validation or dose-simulation steps. If a later model is revised, the original validation result must be preserved.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC029",
+        "statement": "MIC processing must preserve bins, units, counts or proportions, denominators and censored categories; probabilities must be derived transparently and the MIC distribution frozen. Incomplete coverage must not be silently renormalized, and per-MIC PTA must remain distinct from MIC-weighted attainment.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC030",
+        "statement": "PTA analysis must include supported PK variability and propagate parameter, binding, PD-target and MIC uncertainty; group summaries cannot supply invented interindividual variability. Conflicting binding sources must not be averaged, and fu must be carried as a sensitivity parameter.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC031",
+        "statement": "A successful fit is not predictive validation, and human PK agreement does not validate antibacterial efficacy or safety. Failures and data gaps must be preserved.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC032",
+        "statement": "Transformations, assumptions, code, seeds and results must be saved, and human review must occur before fitting.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC033",
+        "statement": "The version 3.0 draft, dated 8 October 2026, supersedes earlier versions; prior approvals do not automatically carry forward.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      }
+    ],
+    "potential_questions": []
+  },
+  "missing_information": {
+    "schema_version": "1.0",
+    "items": [
+      {
+        "id": "MI001",
+        "field": "Mouse index-response panel to regimen matching",
+        "status": "AMBIGUOUS",
+        "needed_at": "prepare",
+        "impact": "Matched mouse PK/PD comparisons cannot reliably assign the separate panels to regimen records.",
+        "why_it_matters": "The proposal explicitly says matching is unverified; attachment bodies have not been assessed.",
+        "clarification": "Establish whether and how each mouse index-response panel matches a dose-fractionation regimen and its response records before matched analysis.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI002",
+        "field": "Rabbit PK model-component support",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Rabbit evidence cannot yet be assigned to a supported PK model component rather than exploratory constraints or exclusion.",
+        "why_it_matters": "The proposal calls for this assessment during animal PK modeling; the rabbit source data have not been assessed here.",
+        "clarification": "Assess which, if any, rabbit PK component the described evidence identifies and document exploratory use or exclusion.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI003",
+        "field": "Rabbit source discrepancies",
+        "status": "NOT_FOUND",
+        "needed_at": "prepare",
+        "impact": "Rabbit source discrepancies cannot be reconciled or carried with precise affected values and scopes yet.",
+        "why_it_matters": "The proposal requires preservation of rabbit source discrepancies but does not specify them in the supplied text.",
+        "clarification": "Identify the rabbit discrepancies from authorized source data, including affected study, matrix, value and consequence.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI004",
+        "field": "Horse reported-dose basis",
+        "status": "AMBIGUOUS",
+        "needed_at": "pk",
+        "impact": "Horse dose inputs and exposure comparisons cannot be placed on a verified common mass basis.",
+        "why_it_matters": "Horse doses are mostly reported in IU without a salt or base correction.",
+        "clarification": "For each held-out horse study, establish the reported IU dose meaning and any justified salt or base conversion, retaining unresolved cases.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI005",
+        "field": "Horse protein binding",
+        "status": "NOT_FOUND",
+        "needed_at": "pk",
+        "impact": "Horse unbound-exposure translation cannot use a measured horse binding value from the supplied proposal.",
+        "why_it_matters": "The proposal explicitly states that no horse binding is available.",
+        "clarification": "Document the lack of horse binding and its effect on the held-out horse comparison; use only a subsequently justified basis if one becomes available.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI006",
+        "field": "Human validation data availability and release",
+        "status": "DEFERRED",
+        "needed_at": "validation",
+        "impact": "Human observed-outcome validation cannot proceed until the separate data are released under the specified freeze condition.",
+        "why_it_matters": "Human validation data are not in this package; the separate file is released only at task 5 after the animal model, scaling and predictions are frozen.",
+        "clarification": "At task 5, verify the required freezes and obtain the separately held human validation data without using their outcomes earlier.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI007",
+        "field": "Prespecified human validation criteria",
+        "status": "NOT_FOUND",
+        "needed_at": "validation",
+        "impact": "Bias, precision, exposure agreement and predictive uncertainty cannot be judged against fixed criteria until those criteria are specified.",
+        "why_it_matters": "The proposal requires criteria fixed before validation but does not give their definitions or thresholds.",
+        "clarification": "Record the human validation metrics, decision criteria and their freeze before opening human outcomes.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI008",
+        "field": "Mouse serum binding source conflict",
+        "status": "CONFLICT",
+        "needed_at": "pk",
+        "impact": "Mouse free-exposure estimates and translation depend on unresolved source-specific binding values.",
+        "why_it_matters": "The conflicting mouse values in SC024 must not be averaged; the proposal requires fu sensitivity.",
+        "clarification": "Assess the mouse binding sources, conditions and applicable fu sensitivity without silently selecting or averaging them.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI009",
+        "field": "Rat serum binding source conflict",
+        "status": "CONFLICT",
+        "needed_at": "pk",
+        "impact": "Rat free-exposure estimates and translation depend on unresolved source-specific binding values.",
+        "why_it_matters": "The conflicting rat values in SC024 must not be averaged; the proposal requires fu sensitivity.",
+        "clarification": "Assess the rat binding sources, conditions and applicable fu sensitivity without silently selecting or averaging them.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI010",
+        "field": "Qualified K. pneumoniae PK/PD index and targets",
+        "status": "DEFERRED",
+        "needed_at": "index",
+        "impact": "Target-based dose simulation cannot use a qualified index or exposure target until eligible PD analysis is completed.",
+        "why_it_matters": "The proposal allows an indeterminate best index or target if available data cannot establish one.",
+        "clarification": "Compare the eligible indices and regression families under SC019 and SC025, retaining an indeterminate result if warranted.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI011",
+        "field": "Surveillance MIC distribution coverage",
+        "status": "DEFERRED",
+        "needed_at": "clinical",
+        "impact": "Population-weighted attainment cannot be calculated reliably until MIC bins, denominators, censoring and coverage are assessed.",
+        "why_it_matters": "The proposal forbids silent renormalization of incomplete coverage; the workbook contents have not been assessed here.",
+        "clarification": "Assess the surveillance MIC distribution and record any incomplete or censored coverage before distribution-weighted PTA.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI012",
+        "field": "Support for individual PK variability in PTA",
+        "status": "DEFERRED",
+        "needed_at": "clinical",
+        "impact": "The PTA population distribution cannot be specified as supported individual PK variability until its evidence basis is established.",
+        "why_it_matters": "The proposal requires supported variability and prohibits inventing interindividual variability from group summaries.",
+        "clarification": "Assess whether defensible individual PK variability can be supported; if it cannot, state the resulting PTA limitation without inventing variability.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI013",
+        "field": "Prespecified PTA population and dosing scenarios",
+        "status": "DEFERRED",
+        "needed_at": "clinical",
+        "impact": "PTA simulation cannot proceed with defined population and dosing scenarios until they are prespecified.",
+        "why_it_matters": "The proposal requires PTA simulation after PK validation and PD qualification, using a population and dosing scenarios prespecified before that simulation; it supplies no scenario choices here.",
+        "clarification": "Specify and freeze the human population and dosing scenarios before PTA simulation.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI014",
+        "field": "Compatible human ELF validation data",
+        "status": "DEFERRED",
+        "needed_at": "validation",
+        "impact": "The separate ELF validation assessment cannot be performed unless compatible human data exist.",
+        "why_it_matters": "The proposal makes ELF assessment conditional, and the protected human file has not been examined.",
+        "clarification": "At validation, determine whether compatible human ELF data exist and either assess them separately or record that this conditional assessment is unavailable.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI015",
+        "field": "Human prediction doses and routes",
+        "status": "NOT_FOUND",
+        "needed_at": "human_pk",
+        "impact": "Human concentration-time, AUC and Cmax predictions cannot be generated under specific regimens until their doses and routes are defined.",
+        "why_it_matters": "The proposal requests predictions under specified doses and routes but does not specify those values in the supplied text.",
+        "clarification": "Specify the human prediction doses and routes before producing and freezing prospective predictions.",
+        "resolution_status": "OPEN"
+      }
+    ]
+  },
+  "project_rules_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\project_rules\\published\\project_rules.json",
+    "sha256": "2b32db5ab8cc4591c5d5539d147608669a5341bbc3c41887da59f474c09cac70"
+  }
+}

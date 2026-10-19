@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "Residual Error Model Selection",
+      "topics": [
+        "animal_pk",
+        "pkpd"
+      ],
+      "claim": "Residual error models include Additive, Multiplicative, Power, and Mixed (Add+Mult, Mix Ratio). For PK models, Multiplicative or Power error models are preferred because PK concentrations often span several orders of magnitude, whereas Additive error has large relative errors at low concentrations. For PD models, Additive error is often the first choice due to narrower effect ranges.",
+      "conditions": [
+        "PK models: Prefer Multiplicative or Power error models.",
+        "PD models: Prefer Additive error models.",
+        "Log-additive error models transform predictions and observations to log-space for fitting, improving performance/accuracy for FOCE engines."
+      ],
+      "required_inputs": [
+        "Selection of error model type (Additive, Multiplicative, Power, etc.).",
+        "Standard deviation (Stdev) or power exponent values.",
+        "For Mixed models: Definition of multiplicative sigma or mix ratio parameters."
+      ],
+      "limitations": [
+        "Residual error cannot be less than 0.001 for most engines.",
+        "Log-additive models truncate zero/negative values to 1/4 of the smallest positive observation.",
+        "Mixed error models require specific formula implementations (e.g., using sigma() function for Add+Mult)."
+      ],
+      "downstream_use": "Defining the statistical error structure for model fitting. Interpreting residual plots and model diagnostics.",
+      "evidence_chunk_ids": [
+        "REF_009:0004",
+        "REF_009:0005",
+        "REF_009:0008",
+        "REF_009:0009",
+        "REF_009:0010"
+      ],
+      "id": "source_REF_009:K02",
+      "origin_job": "source_REF_009",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_009"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

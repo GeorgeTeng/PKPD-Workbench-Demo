@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-08",
+  "source": {
+    "type": "USER_REQUEST",
+    "quote": "查看DC具体的rules和规则 这个context我们是需要检查的",
+    "review_document": "/mnt/project-files/data-part/DC_规则和上下文检查_20261008.md (requests captured at runtime from the synthetic fixtures)",
+    "decision": "Decision card '按检查稿第 5 节修改 DC 的规则和上下文吗？': 全部按建议 (label definitions start from the draft and remain open to user review)."
+  },
+  "findings": [
+    {
+      "id": 1,
+      "kind": "CODE_DEFECT",
+      "text": "Table descriptor source_notes took whole sheet rows, so side-by-side tables leaked a neighbour's title and header into DR, DC-label and DC-review context.",
+      "change": "source_notes restricted to the table's own columns, except DOI-anchor layouts."
+    },
+    {
+      "id": 2,
+      "kind": "CONTEXT",
+      "text": "DC-split received the coverage-scope paragraph and no statement that splitting ignores relevance.",
+      "change": "No DATA_SCOPE_INSTRUCTIONS for DC-split; relevance sentence added."
+    },
+    {
+      "id": 3,
+      "kind": "CONTEXT",
+      "text": "Every DC call received DC001-DC008 (G005).",
+      "change": "Each rule lists its calls: split DC002, DC007; label DC001-DC003, DC008; review DC001-DC006."
+    },
+    {
+      "id": 4,
+      "kind": "CONTEXT",
+      "text": "Warning instructions let DC-review close any warning by a finding, contradicting the G008 ledger, and blocked coverage on warnings due later.",
+      "change": "In DC-review warnings close only through ledger_outcomes at their due step; the coverage block applies only to warnings due at or before the requirement."
+    },
+    {
+      "id": 5,
+      "kind": "CONTEXT",
+      "text": "Label and column values had names but no definitions.",
+      "change": "label_vocabulary (draft definitions, pending user review) sent to DC-label and DC-review; host code checks it defines every value."
+    },
+    {
+      "id": 6,
+      "kind": "CONTEXT",
+      "text": "DC-label pages after the first had no header, title or note cells to cite.",
+      "change": "Every page repeats those cells; body cells are read once."
+    },
+    {
+      "id": 7,
+      "kind": "CONTEXT",
+      "text": "DC-review received host file bindings (paths, hashes).",
+      "change": "Review receives requirement and label content only."
+    }
+  ],
+  "rule_changes": "dc_coverage.json 1.4.0: rules carry calls; label_vocabulary added.",
+  "verification": "research_pipeline suite: 18 failed, 542 passed, 7 skipped, 2 errors; identical failure list to the pre-change baseline (environment: no R)."
+}

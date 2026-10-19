@@ -1,0 +1,48 @@
+{
+  "cards": [
+    {
+      "title": "Exposure-Response Index Ranking Methodology",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "Index ranking requires matched response data (e.g., log CFU change) linked to specific regimens and exposures. The design must allow separation of correlated indices (e.g., varying dose frequency vs. total dose) to distinguish which index best predicts effect. Goodness-of-fit (e.g., R² of sigmoid Emax models) is used to compare candidate indices on comparable response data.",
+      "conditions": [
+        "When the objective is to identify the best predictor of antibacterial effect among candidate indices.",
+        "When raw response data is available and traceable to PK inputs."
+      ],
+      "required_inputs": [
+        "Traceable mapping between regimen, exposure, and biological response.",
+        "PD endpoint definition (e.g., change from baseline, survival).",
+        "Baseline/untreated control data.",
+        "Multiple dose levels or regimens to vary indices independently."
+      ],
+      "limitations": [
+        "Exposure values alone do not establish a best index.",
+        "If the design does not separate correlated indices, ranking remains unresolved.",
+        "Do not fit models or select a 'winning' index in the data-requirements stage; this is a methodological prerequisite."
+      ],
+      "downstream_use": "Selection of the primary PK/PD index for target estimation.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0045",
+        "IN_MAIN:0046",
+        "IN_PKPD_INDEX:0008",
+        "ARTICLE_S01:0002",
+        "ARTICLE_S02:0013"
+      ],
+      "id": "module_pkpd:K02",
+      "origin_job": "module_pkpd",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S01",
+        "ARTICLE_S02",
+        "IN_MAIN",
+        "IN_PKPD_INDEX"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

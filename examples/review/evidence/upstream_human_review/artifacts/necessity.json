@@ -1,0 +1,3719 @@
+{
+  "version": "DIRECT_NECESSITY_3.0",
+  "complete": true,
+  "scope": "SCOPED_DATA_RECOMMENDATION",
+  "assessment": {
+    "decision": "CONDITIONAL_PASS",
+    "scope": "Data support for the next animal PK and K. pneumoniae PK/PD analyses",
+    "opinion": "Source-specific animal PK fitting can begin conditionally; common-record index ranking remains blocked, while panel-specific target work needs defined effects."
+  },
+  "action_decisions": {
+    "MODEL_BASED_ANIMAL_PK": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S05/S02 mouse group curves usable; S21 rat timing and S22 rabbit held.",
+      "finding": "Source-specific group models can start; rat time origin and mouse dose basis need resolution, and rabbit timing/count discrepancies limit component assessment.",
+      "next_step": "Fit eligible curves at their data level; resolve held source timing and dose definitions.",
+      "gap_ids": [
+        "RQ003:F5",
+        "RQ003:F8",
+        "RQ003:F13",
+        "RQ004:F3",
+        "RQ004:F4"
+      ]
+    },
+    "PD_INDEX_COMPARISON": {
+      "readiness": "NOT_READY",
+      "source_scope": "S01 Kp-T/Kp-C/Kp-A held; S02 Table 3 lacks paired indices.",
+      "finding": "S01 has separate plotted pairs but no verified common response identities or marker doses; its dose ranges conflict with tolerability text.",
+      "next_step": "Seek original common-record and regimen mapping before fitting a shared comparison.",
+      "gap_ids": [
+        "RQ010:C1",
+        "RQ010:F7",
+        "RQ011:F9",
+        "RQ011:C1"
+      ]
+    },
+    "PD_TARGET_ESTIMATION": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S01 within-panel pairs candidate; S02 responses unpaired with exposure; S09 strain allocation held.",
+      "finding": "Each S01 panel has published-simulation exposure-response pairs; target effects and reference definitions need selection, and obscured markers cannot support numerical fitting.",
+      "next_step": "Define stasis, one-log and two-log effects; assess each eligible panel within its published basis.",
+      "gap_ids": [
+        "RQ010:C2",
+        "RQ012:F1",
+        "RQ012:F3",
+        "RQ013:F9"
+      ]
+    },
+    "NCA": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S05/S02 sampled mouse means candidate; S21 rat and S22 rabbit boundaries held.",
+      "finding": "Sampled mean peaks may be described; finite AUC needs a chosen window and boundary treatment, while terminal clearance needs qualified tail and route-specific inputs.",
+      "next_step": "Specify endpoint and window, then assess each source's boundaries and terminal inputs.",
+      "gap_ids": [
+        "RQ005:F1",
+        "RQ005:F3",
+        "RQ006:F1",
+        "RQ007:F1"
+      ]
+    },
+    "PTA": {
+      "readiness": "LATER",
+      "source_scope": "Prospective K. pneumoniae scenarios pending; surveillance MIC distribution remains separate.",
+      "finding": "PTA awaits a qualified PK source, effect-specific PD target and frozen compatible MIC inputs; a published panel coordinate is no population probability.",
+      "next_step": "Define scenarios after PK and target outputs, then assess variability and MIC-bin coverage.",
+      "gap_ids": [
+        "RQ014:F1",
+        "RQ014:F2",
+        "RQ012:F1"
+      ]
+    }
+  },
+  "analyses": [
+    {
+      "gap_ids": [
+        "RQ001:F2",
+        "RQ001:F3",
+        "RQ001:F6",
+        "RQ001:F7",
+        "RQ001:C1"
+      ],
+      "affected_scope": "S02 mouse, S07 rat, S05 mouse, S22 rabbit",
+      "next_action": "Fit source-specific animal PK curves",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Unjustified analyte, dose, free-fraction or matrix bridges restrict pooling.",
+      "can_continue": [
+        "Fit separately on each reported basis."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Resolve component and formulation definitions in existing sources.",
+      "conditions_to_verify": [
+        "Document each proposed conversion or physiological bridge."
+      ],
+      "local_method_profile_ids": [
+        "MP004",
+        "MP007"
+      ],
+      "importance": "ANALYSIS_SPECIFIC",
+      "id": "NA001",
+      "requirement_ids": [
+        "RQ001"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ002:F6",
+        "RQ002:F9",
+        "RQ002:C1"
+      ],
+      "affected_scope": "S21 mouse plasma/ELF; S21 rat plasma; S22 rabbit means",
+      "next_action": "Fit censored PK observations",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Mouse identities and numerical censor bounds remain unverified.",
+      "can_continue": [
+        "Use verified rat IDs and quantifiable observations."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Locate assay bounds and mouse sampling identifiers.",
+      "conditions_to_verify": [
+        "Retain BLQ separately from unsampled records."
+      ],
+      "local_method_profile_ids": [
+        "MP004"
+      ],
+      "importance": "ANALYSIS_SPECIFIC",
+      "id": "NA002",
+      "requirement_ids": [
+        "RQ002"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ003:F5",
+        "RQ003:F8",
+        "RQ003:F9",
+        "RQ003:F13",
+        "RQ003:C1",
+        "RQ003:C2"
+      ],
+      "affected_scope": "S21 rat IV; S05 mouse IV; S02 mouse SC; S22 rabbit",
+      "next_action": "Fit source-specific animal time courses",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Rat time origin and dose basis; rabbit timing differ.",
+      "can_continue": [
+        "Fit S05 or S02 group curves conditionally."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Resolve rat timing and rabbit plotted-protocol discrepancies.",
+      "conditions_to_verify": [
+        "Preserve S05 base versus S02 sulphate dosing."
+      ],
+      "local_method_profile_ids": [
+        "MP004"
+      ],
+      "importance": "REQUIRED_NOW",
+      "id": "NA003",
+      "requirement_ids": [
+        "RQ003"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ004:F1",
+        "RQ004:F3",
+        "RQ004:F4",
+        "RQ004:F5",
+        "RQ004:F7",
+        "RQ004:F8",
+        "RQ004:C1"
+      ],
+      "affected_scope": "S21 rat individuals; S02 mouse and S22 rabbit means",
+      "next_action": "Fit animal PK models",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Only rat columns establish repeated individuals; group uncertainty varies.",
+      "can_continue": [
+        "Fit qualified group-level mouse curves."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Specify outputs and whether individual variability is requested.",
+      "conditions_to_verify": [
+        "Reconcile S22 counts and error-bar meaning."
+      ],
+      "local_method_profile_ids": [
+        "MP004"
+      ],
+      "importance": "REQUIRED_NOW",
+      "id": "NA004",
+      "requirement_ids": [
+        "RQ004"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ005:F1",
+        "RQ005:F2",
+        "RQ005:F3",
+        "RQ005:F4",
+        "RQ005:F6",
+        "RQ005:F7",
+        "RQ005:C1"
+      ],
+      "affected_scope": "S05/S02 mouse means; S21 rat; S22 rabbit",
+      "next_action": "Calculate observed NCA endpoints",
+      "impact": "PENDING_CONFIRMATION",
+      "impact_summary": "Optional endpoint and AUC window lack definitions.",
+      "can_continue": [
+        "Describe peaks of sampled mean curves."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Select endpoint, use and exact AUC boundaries.",
+      "conditions_to_verify": [
+        "Identify unobserved boundaries and concentration basis."
+      ],
+      "local_method_profile_ids": [
+        "MP001"
+      ],
+      "importance": "NEEDS_CONFIRMATION",
+      "id": "NA005",
+      "requirement_ids": [
+        "RQ005"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ006:F1",
+        "RQ006:F4",
+        "RQ006:F5",
+        "RQ006:F6",
+        "RQ006:F7",
+        "RQ006:C1",
+        "RQ007:F1",
+        "RQ007:F2",
+        "RQ007:F3",
+        "RQ007:F5",
+        "RQ007:F7",
+        "RQ007:F8",
+        "RQ007:C1"
+      ],
+      "affected_scope": "S21 rat IV; S02 mouse SC; S22 rabbit SC; S09 summary",
+      "next_action": "Estimate terminal-dependent NCA parameters",
+      "impact": "PENDING_CONFIRMATION",
+      "impact_summary": "Endpoint, tail, exposure window and apparent status remain unresolved.",
+      "can_continue": [
+        "Retain independently eligible finite-window endpoints."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Specify estimand; examine existing late observations.",
+      "conditions_to_verify": [
+        "Require F for absolute SC clearance."
+      ],
+      "local_method_profile_ids": [
+        "MP002",
+        "MP003"
+      ],
+      "importance": "NEEDS_CONFIRMATION",
+      "id": "NA006",
+      "requirement_ids": [
+        "RQ006",
+        "RQ007"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ008:F7",
+        "RQ008:F8",
+        "RQ008:C1"
+      ],
+      "affected_scope": "S01/S02/S21 mouse plasma; S24 mouse/rat B1 serum",
+      "next_action": "Calculate study-specific free exposures",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "Assays, analytes, concentrations and fractions differ.",
+      "can_continue": [
+        "Use S01 published coordinates without reapplying fu."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Define eligible source-specific binding sensitivity scenarios.",
+      "conditions_to_verify": [
+        "Check range, analyte, matrix and scale."
+      ],
+      "local_method_profile_ids": [
+        "MP007",
+        "MP009"
+      ],
+      "importance": "ANALYSIS_SPECIFIC",
+      "id": "NA007",
+      "requirement_ids": [
+        "RQ008"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ009:F6"
+      ],
+      "affected_scope": "S01/S02/S13 K. pneumoniae; S25 MIC table",
+      "next_action": "Calculate MIC-normalized exposure indices",
+      "impact": "LIMITS_ANALYSIS",
+      "impact_summary": "S25 assay context is unverified; matched strain MICs exist.",
+      "can_continue": [
+        "Use source-matched S01/S02 strain MICs."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Check S25 susceptibility methods if used.",
+      "conditions_to_verify": [
+        "Retain right-censored MIC inequalities."
+      ],
+      "local_method_profile_ids": [
+        "MP009"
+      ],
+      "importance": "ANALYSIS_SPECIFIC",
+      "id": "NA008",
+      "requirement_ids": [
+        "RQ009"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ010:F2",
+        "RQ010:F3",
+        "RQ010:F4",
+        "RQ010:F5",
+        "RQ010:F6",
+        "RQ010:F7",
+        "RQ010:F9",
+        "RQ010:C1",
+        "RQ010:C2"
+      ],
+      "affected_scope": "S01 Kp-T/Kp-C/Kp-A; S02 Table 3; S09 rabbit",
+      "next_action": "Compare common-record PD indices",
+      "impact": "BLOCKS_ACTION",
+      "impact_summary": "S01 panels lack cross-panel identities and marker regimens.",
+      "can_continue": [
+        "Assess eligible within-panel pairs for targets."
+      ],
+      "recommendation_kind": "SEARCH_EXISTING",
+      "recommendation": "Seek original cross-panel and dose mappings.",
+      "conditions_to_verify": [
+        "Resolve S01 dose-range conflict and overlap."
+      ],
+      "local_method_profile_ids": [
+        "MP009",
+        "MP012"
+      ],
+      "importance": "REQUIRED_NOW",
+      "id": "NA009",
+      "requirement_ids": [
+        "RQ010"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ011:F1",
+        "RQ011:F2",
+        "RQ011:F5",
+        "RQ011:F7",
+        "RQ011:F9",
+        "RQ011:C1"
+      ],
+      "affected_scope": "S01 K. pneumoniae 104 free-exposure panels",
+      "next_action": "Rank three PD indices",
+      "impact": "BLOCKS_ACTION",
+      "impact_summary": "Published coordinates cannot establish matched comparison records.",
+      "can_continue": [
+        "Retain each panel's reported index definition."
+      ],
+      "recommendation_kind": "CONTINUE_WITH_LIMITS",
+      "recommendation": "Hold ranking pending supported common-record linkage.",
+      "conditions_to_verify": [
+        "Align windows, dosing histories and likelihood."
+      ],
+      "local_method_profile_ids": [
+        "MP009"
+      ],
+      "importance": "REQUIRED_NOW",
+      "id": "NA010",
+      "requirement_ids": [
+        "RQ011"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ012:F1",
+        "RQ012:F3",
+        "RQ012:F6",
+        "RQ012:C1",
+        "RQ013:F3",
+        "RQ013:F4",
+        "RQ013:F5",
+        "RQ013:F7",
+        "RQ013:F9",
+        "RQ013:C1"
+      ],
+      "affected_scope": "S01/S02 mouse thigh; S13/S25/S27 in vitro; S09 rabbit",
+      "next_action": "Estimate panel-specific PD targets",
+      "impact": "PENDING_CONFIRMATION",
+      "impact_summary": "Target effects and compatible baseline definitions need confirmation.",
+      "can_continue": [
+        "Use eligible S01 within-panel pairs conditionally."
+      ],
+      "recommendation_kind": "CLARIFY",
+      "recommendation": "Define three effects against each panel's baseline.",
+      "conditions_to_verify": [
+        "Exclude obscured markers; preserve independent replicates."
+      ],
+      "local_method_profile_ids": [
+        "MP009",
+        "MP012"
+      ],
+      "importance": "REQUIRED_NOW",
+      "id": "NA011",
+      "requirement_ids": [
+        "RQ012",
+        "RQ013"
+      ]
+    },
+    {
+      "gap_ids": [
+        "RQ014:F1",
+        "RQ014:F2",
+        "RQ014:F3",
+        "RQ014:F4",
+        "RQ014:F5",
+        "RQ014:F6",
+        "RQ014:F7",
+        "RQ014:F8",
+        "RQ014:F9",
+        "RQ014:C1"
+      ],
+      "affected_scope": "Current animal model; S01 published simulation; S02 regimens",
+      "next_action": "Predict regimen-specific PD exposures",
+      "impact": "FUTURE_DEPENDENCY",
+      "impact_summary": "Current-model exposure awaits animal PK outputs and regimen links.",
+      "can_continue": [
+        "Analyze independent animal PK sources."
+      ],
+      "recommendation_kind": "WAIT_FOR_UPSTREAM",
+      "recommendation": "Match reviewed predictions to eligible regimens.",
+      "conditions_to_verify": [
+        "Confirm index, units, matrix, basis and window."
+      ],
+      "local_method_profile_ids": [
+        "MP004",
+        "MP009",
+        "MP012"
+      ],
+      "importance": "FUTURE_DEPENDENCY",
+      "id": "NA012",
+      "requirement_ids": [
+        "RQ014"
+      ]
+    }
+  ],
+  "recorded_shortages": {
+    "RQ001:F2": {
+      "requirement_id": "RQ001",
+      "field": "analyte",
+      "status": "PARTIAL",
+      "summary": "PMB is identified in PK records; binding experiments specifically measure polymyxin B1, and some table notes do not specify the assayed component.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T35",
+          "scope_note": "Mouse serum binding is for polymyxin B1.",
+          "source_ids": [
+            "F0003:S1:T35:A677"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T35:A677",
+              "item_id": "F0003:S1:T35",
+              "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T3",
+          "scope_note": "Rat serum binding is for polymyxin B1.",
+          "source_ids": [
+            "F0003:S2:T3:A32"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A32",
+              "item_id": "F0003:S2:T3",
+              "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T1",
+          "scope_note": "Mouse plasma record reports polymyxin B.",
+          "source_ids": [
+            "F0003:S1:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T1:A3",
+              "item_id": "F0003:S1:T1",
+              "quote": "Polymyxin B 5 mg/kg IP; concentration mg/L; time h; single dose."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Assayed PMB component is unspecified for some concentration records.",
+      "not_applicable_condition": ""
+    },
+    "RQ001:F3": {
+      "requirement_id": "RQ001",
+      "field": "formulation",
+      "status": "PARTIAL",
+      "summary": "PMB sulphate is reported for the S02 mouse and S07 rat records; formulation is unspecified for other profiles.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T28",
+          "scope_note": "S02 SC mouse profile uses as-reported PMB sulphate.",
+          "source_ids": [
+            "F0003:S1:T28:A569"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T28:A569",
+              "item_id": "F0003:S1:T28",
+              "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "S07 rat biodistribution uses PMB sulfate USP.",
+          "source_ids": [
+            "F0003:S2:T2:A21"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A21",
+              "item_id": "F0003:S2:T2",
+              "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Formulation is not established for every nonhuman concentration record.",
+      "not_applicable_condition": ""
+    },
+    "RQ001:F6": {
+      "requirement_id": "RQ001",
+      "field": "total_or_unbound_basis",
+      "status": "PARTIAL",
+      "summary": "S05 plasma observations are explicitly total; S01 index coordinates already apply fu=0.20. The basis of some other concentrations is not specified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T18",
+          "scope_note": "S05 mouse plasma mean is total concentration.",
+          "source_ids": [
+            "F0003:S1:T18:A270"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T18:A270",
+              "item_id": "F0003:S1:T18",
+              "quote": "Plasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 K. pneumoniae index coordinates already include fu.",
+          "source_ids": [
+            "F0003:S1:T24:A444",
+            "F0003:S1:T24:A446"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T24:A446",
+              "item_id": "F0003:S1:T24",
+              "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T13",
+          "scope_note": "Rabbit whole-lung total or unbound basis is not stated.",
+          "source_ids": [
+            "F0003:S3:T13:A172"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T13:A172",
+              "item_id": "F0003:S3:T13",
+              "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Total or unbound basis is unspecified for some nonhuman matrices.",
+      "not_applicable_condition": ""
+    },
+    "RQ001:F7": {
+      "requirement_id": "RQ001",
+      "field": "conversion_or_bridge_justification",
+      "status": "UNRESOLVED",
+      "summary": "The sources distinguish matrices and binding assays but do not provide a recorded justification for every cross-formulation or physiological bridge.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T11",
+          "scope_note": "Study-specific mouse binding assays and plasma preparations differ.",
+          "source_ids": [
+            "F0003:S1:T11:A132",
+            "F0003:S1:T11:A133"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T11:A132",
+              "item_id": "F0003:S1:T11",
+              "quote": "These are study-specific measurements. The two assays and plasma preparation procedures differ."
+            },
+            {
+              "source": "F0003:S1:T11:A133",
+              "item_id": "F0003:S1:T11",
+              "quote": "Do not borrow a free fraction between studies or use plasma fu as ELF/tissue fu. Percent is not fraction."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T27",
+          "scope_note": "BALF and ELF are distinct; plasma fu is not ELF fu.",
+          "source_ids": [
+            "F0003:S1:T27:E562",
+            "F0003:S1:T27:E563"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:E562",
+              "item_id": "F0003:S1:T27",
+              "quote": "ELF LOQ approx 2 mg/L; BALF and ELF are different matrices"
+            },
+            {
+              "source": "F0003:S1:T27:E563",
+              "item_id": "F0003:S1:T27",
+              "quote": "Study assay; variability NOT_FOUND; not an ELF fraction"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Applicable conversion or physiological bridge justifications are not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ001:C1": {
+      "requirement_id": "RQ001",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "A conversion or physiological bridge needs recorded justification.",
+      "summary": "Justifications for all potentially used bridges are not established.",
+      "source_ids": [
+        "F0003:S1:T11:A133",
+        "F0003:S1:T27:E562"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T11:A133",
+          "item_id": "F0003:S1:T11",
+          "quote": "Do not borrow a free fraction between studies or use plasma fu as ELF/tissue fu. Percent is not fraction."
+        },
+        {
+          "source": "F0003:S1:T27:E562",
+          "item_id": "F0003:S1:T27",
+          "quote": "ELF LOQ approx 2 mg/L; BALF and ELF are different matrices"
+        }
+      ]
+    },
+    "RQ002:F6": {
+      "requirement_id": "RQ002",
+      "field": "experimental_unit_identifier_if_supported",
+      "status": "PARTIAL",
+      "summary": "Rat numbers identify repeated rat columns; mouse PK column labels do not verify cross-time identity, and digitized means have no animal IDs.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat-number columns and 11-rat count.",
+          "source_ids": [
+            "F0003:S2:T1:A5",
+            "F0003:S2:T1:B6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A5",
+              "item_id": "F0003:S2:T1",
+              "quote": "* means blood unavailable due to temporary arterial cannula blockage; 11 rats."
+            },
+            {
+              "source": "F0003:S2:T1:B6",
+              "item_id": "F0003:S2:T1",
+              "quote": "Rat 1"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T1",
+          "scope_note": "Mouse column labels lack verified cross-time linkage.",
+          "source_ids": [
+            "F0003:S1:T1:A5"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T1:A5",
+              "item_id": "F0003:S1:T1",
+              "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit digitized means have no individual IDs.",
+          "source_ids": [
+            "F0003:S3:T8:A73"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A73",
+              "item_id": "F0003:S3:T8",
+              "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Cross-time mouse identity and individual IDs behind figure means are unverified.",
+      "not_applicable_condition": ""
+    },
+    "RQ002:F9": {
+      "requirement_id": "RQ002",
+      "field": "LLOQ_bound",
+      "status": "PARTIAL",
+      "summary": "S05 reports a plasma/BALF LOQ of 0.10 mg/L and approximate ELF LOQ of 2 mg/L; numerical bounds are not supplied for all censored records.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T27",
+          "scope_note": "S05 assay and approximate ELF bounds.",
+          "source_ids": [
+            "F0003:S1:T27:D562",
+            "F0003:S1:T27:E562"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T27:D562",
+              "item_id": "F0003:S1:T27",
+              "quote": "0.1"
+            },
+            {
+              "source": "F0003:S1:T27:E562",
+              "item_id": "F0003:S1:T27",
+              "quote": "ELF LOQ approx 2 mg/L; BALF and ELF are different matrices"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T2",
+          "scope_note": "S21 mouse ELF LLOQ value not found.",
+          "source_ids": [
+            "F0003:S1:T2:A24"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T2:A24",
+              "item_id": "F0003:S1:T2",
+              "quote": "Neutropenic mice; urea-corrected ELF via BAL; caption n=3 but early source rows have four slots. LLOQ numeric value NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Numeric LLOQ bounds for S21 mouse ELF and other flagged records are unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ002:C1": {
+      "requirement_id": "RQ002",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "An unspecified identifier or censoring bound remains unresolved.",
+      "summary": "Mouse cross-time identities and some numerical LLOQ bounds remain unverified.",
+      "source_ids": [
+        "F0003:S1:T1:A5",
+        "F0003:S1:T2:A24"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T1:A5",
+          "item_id": "F0003:S1:T1",
+          "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
+        },
+        {
+          "source": "F0003:S1:T2:A24",
+          "item_id": "F0003:S1:T2",
+          "quote": "Neutropenic mice; urea-corrected ELF via BAL; caption n=3 but early source rows have four slots. LLOQ numeric value NOT_FOUND."
+        }
+      ]
+    },
+    "RQ003:F5": {
+      "requirement_id": "RQ003",
+      "field": "time_origin",
+      "status": "PARTIAL",
+      "summary": "S05 and S22 explicitly place single dosing at time zero; the S21 rat time origin is not specified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "Mouse IV dose at time zero.",
+          "source_ids": [
+            "F0003:S1:T20:A310"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A310",
+              "item_id": "F0003:S1:T20",
+              "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit SC dose at time zero.",
+          "source_ids": [
+            "F0003:S3:T8:A72"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A72",
+              "item_id": "F0003:S3:T8",
+              "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat single-dose time series lacks an explicit origin statement.",
+          "source_ids": [
+            "F0003:S2:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A3",
+              "item_id": "F0003:S2:T1",
+              "quote": "Polymyxin B 1 mg/kg IV over 1 minute; concentration mg/L; time h; single dose."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "The reference event for S21 rat time values is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ003:F8": {
+      "requirement_id": "RQ003",
+      "field": "dose_basis",
+      "status": "PARTIAL",
+      "summary": "S05 mouse doses are base/kg and S02 mouse doses are as-reported PMB sulphate; S21 and S07 salt-versus-base bases are unresolved.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "S05 mouse dose in mg base/kg.",
+          "source_ids": [
+            "F0003:S1:T20:A314"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A314",
+              "item_id": "F0003:S1:T20",
+              "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T28",
+          "scope_note": "S02 mouse dose as PMB sulphate.",
+          "source_ids": [
+            "F0003:S1:T28:A569"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T28:A569",
+              "item_id": "F0003:S1:T28",
+              "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T1",
+          "scope_note": "S21 mouse numeric dose basis requires review.",
+          "source_ids": [
+            "F0003:S1:T1:A6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T1:A6",
+              "item_id": "F0003:S1:T1",
+              "quote": "LC-MS/MS. Numeric dose basis and cross-time linkage require review; retain the reported IP route."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "S07 rat salt/base basis not stated.",
+          "source_ids": [
+            "F0003:S2:T2:A21"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A21",
+              "item_id": "F0003:S2:T2",
+              "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Salt, base or activity basis is unspecified for some dose records.",
+      "not_applicable_condition": ""
+    },
+    "RQ003:F9": {
+      "requirement_id": "RQ003",
+      "field": "dose_time",
+      "status": "PARTIAL",
+      "summary": "S05 and S22 single-dose times are zero; S21 rat injection duration is reported but its time reference is not explicit.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "Mouse IV dose at zero.",
+          "source_ids": [
+            "F0003:S1:T20:A310"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A310",
+              "item_id": "F0003:S1:T20",
+              "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit SC dose at zero.",
+          "source_ids": [
+            "F0003:S3:T8:A72"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A72",
+              "item_id": "F0003:S3:T8",
+              "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat IV over one minute, with no explicit sampling origin.",
+          "source_ids": [
+            "F0003:S2:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A3",
+              "item_id": "F0003:S2:T1",
+              "quote": "Polymyxin B 1 mg/kg IV over 1 minute; concentration mg/L; time h; single dose."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Exact dose-to-sampling time reference for some profiles is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ003:F13": {
+      "requirement_id": "RQ003",
+      "field": "sampling_design",
+      "status": "PARTIAL",
+      "summary": "Repeated rat columns and terminal mouse and rat group sampling are described; some mouse column links and rabbit figure-versus-protocol sampling remain uncertain.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Repeated rat-number columns.",
+          "source_ids": [
+            "F0003:S2:T1:A5",
+            "F0003:S2:T1:B6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A5",
+              "item_id": "F0003:S2:T1",
+              "quote": "* means blood unavailable due to temporary arterial cannula blockage; 11 rats."
+            },
+            {
+              "source": "F0003:S2:T1:B6",
+              "item_id": "F0003:S2:T1",
+              "quote": "Rat 1"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "Different terminal rat groups by time.",
+          "source_ids": [
+            "F0003:S2:T2:A22"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A22",
+              "item_id": "F0003:S2:T2",
+              "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "S05 terminal mouse samples.",
+          "source_ids": [
+            "F0003:S1:T20:A314",
+            "F0003:S1:T20:A315"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A314",
+              "item_id": "F0003:S1:T20",
+              "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+            },
+            {
+              "source": "F0003:S1:T20:A315",
+              "item_id": "F0003:S1:T20",
+              "quote": "Caption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit figure times and counts differ from blood protocol.",
+          "source_ids": [
+            "F0003:S3:T8:A77",
+            "F0003:S3:T8:A78"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A77",
+              "item_id": "F0003:S3:T8",
+              "quote": "Figure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times."
+            },
+            {
+              "source": "F0003:S3:T8:A78",
+              "item_id": "F0003:S3:T8",
+              "quote": "Tissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Some experimental-unit links and the S22 rabbit plasma sampling schedule are unverified.",
+      "not_applicable_condition": ""
+    },
+    "RQ003:C1": {
+      "requirement_id": "RQ003",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Retain actual versus nominal sampling times where relevant.",
+      "summary": "S22 plotted plasma times differ from the nominal blood protocol; their reconciliation remains unresolved.",
+      "source_ids": [
+        "F0003:S3:T8:A77"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S3:T8:A77",
+          "item_id": "F0003:S3:T8",
+          "quote": "Figure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times."
+        }
+      ]
+    },
+    "RQ003:C2": {
+      "requirement_id": "RQ003",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Record infusion or repeated-dose input history when it affects the requested time course or exposure window.",
+      "summary": "Rat IV duration is stated; complete timing relative to samples remains unspecified.",
+      "source_ids": [
+        "F0003:S2:T1:A3"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S2:T1:A3",
+          "item_id": "F0003:S2:T1",
+          "quote": "Polymyxin B 1 mg/kg IV over 1 minute; concentration mg/L; time h; single dose."
+        }
+      ]
+    },
+    "RQ004:F1": {
+      "requirement_id": "RQ004",
+      "field": "requested_animal_PK_outputs",
+      "status": "UNRESOLVED",
+      "summary": "The supplied evidence does not define a specific animal PK model output list.",
+      "source_scopes": [],
+      "unresolved_information": "Specific requested model outputs and their levels are unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ004:F3": {
+      "requirement_id": "RQ004",
+      "field": "individual_identifiers_if_verified",
+      "status": "PARTIAL",
+      "summary": "Rat-number columns support repeated individual rat records; mouse column identity across time and identities behind means are unverified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Eleven rat-number columns.",
+          "source_ids": [
+            "F0003:S2:T1:A5",
+            "F0003:S2:T1:B6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A5",
+              "item_id": "F0003:S2:T1",
+              "quote": "* means blood unavailable due to temporary arterial cannula blockage; 11 rats."
+            },
+            {
+              "source": "F0003:S2:T1:B6",
+              "item_id": "F0003:S2:T1",
+              "quote": "Rat 1"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T1",
+          "scope_note": "Mouse column labels do not verify cross-time identity.",
+          "source_ids": [
+            "F0003:S1:T1:A5"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T1:A5",
+              "item_id": "F0003:S1:T1",
+              "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit means have no individual IDs.",
+          "source_ids": [
+            "F0003:S3:T8:A73"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A73",
+              "item_id": "F0003:S3:T8",
+              "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Individual identities behind mouse and rabbit group profiles are unavailable or unverified.",
+      "not_applicable_condition": ""
+    },
+    "RQ004:F4": {
+      "requirement_id": "RQ004",
+      "field": "sampling_structure",
+      "status": "PARTIAL",
+      "summary": "Repeated and terminal sampling are distinguished, but S22 plotted times and counts conflict with its protocol description.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Repeated rat-number plasma columns.",
+          "source_ids": [
+            "F0003:S2:T1:A5",
+            "F0003:S2:T1:B6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A5",
+              "item_id": "F0003:S2:T1",
+              "quote": "* means blood unavailable due to temporary arterial cannula blockage; 11 rats."
+            },
+            {
+              "source": "F0003:S2:T1:B6",
+              "item_id": "F0003:S2:T1",
+              "quote": "Rat 1"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "Terminal rat tissue groups.",
+          "source_ids": [
+            "F0003:S2:T2:A22"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A22",
+              "item_id": "F0003:S2:T2",
+              "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit plotted plasma times differ from protocol.",
+          "source_ids": [
+            "F0003:S3:T8:A77"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A77",
+              "item_id": "F0003:S3:T8",
+              "quote": "Figure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "S22 plotted-versus-protocol timing and point counts remain unresolved.",
+      "not_applicable_condition": ""
+    },
+    "RQ004:F5": {
+      "requirement_id": "RQ004",
+      "field": "available_covariates",
+      "status": "PARTIAL",
+      "summary": "Sex, age, weight, species and some infection status are reported for selected studies, but individual-level covariate records are limited.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T1",
+          "scope_note": "Female Swiss mouse age and weight range.",
+          "source_ids": [
+            "F0003:S1:T1:A5"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T1:A5",
+              "item_id": "F0003:S1:T1",
+              "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "Female Sprague-Dawley rat weight range.",
+          "source_ids": [
+            "F0003:S2:T2:A22"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A22",
+              "item_id": "F0003:S2:T2",
+              "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit age and group weight summary.",
+          "source_ids": [
+            "F0003:S3:T8:A76"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A76",
+              "item_id": "F0003:S3:T8",
+              "quote": "New Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; nominal blood 0.25,0.5,1,1.5,2,4,6 h."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Covariates linked to each individual PK observation are not established for most profiles.",
+      "not_applicable_condition": ""
+    },
+    "RQ004:F7": {
+      "requirement_id": "RQ004",
+      "field": "group_sample_counts",
+      "status": "PARTIAL",
+      "summary": "Some group counts are reported, but point-specific S02 counts and S22 figure counts are unresolved.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "Rat terminal groups n=3, 6 and 3.",
+          "source_ids": [
+            "F0003:S2:T2:A22"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A22",
+              "item_id": "F0003:S2:T2",
+              "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T28",
+          "scope_note": "S02 states 3 or 4 mice per time without point-specific n.",
+          "source_ids": [
+            "F0003:S1:T28:A569"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T28:A569",
+              "item_id": "F0003:S1:T28",
+              "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit methods n=3–4 per time; caption n=3.",
+          "source_ids": [
+            "F0003:S3:T8:A78"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A78",
+              "item_id": "F0003:S3:T8",
+              "quote": "Tissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Point-specific sample counts are unavailable for some digitized means.",
+      "not_applicable_condition": ""
+    },
+    "RQ004:F8": {
+      "requirement_id": "RQ004",
+      "field": "reported_dispersion_definition",
+      "status": "PARTIAL",
+      "summary": "S07 reports SD; numerical SD is absent for S02 digitization and S22 error-bar definition is unrecovered.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "Rat tissue summary mean ± SD.",
+          "source_ids": [
+            "F0003:S2:T2:A21"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A21",
+              "item_id": "F0003:S2:T2",
+              "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T28",
+          "scope_note": "Mouse digitized means lack numerical SD.",
+          "source_ids": [
+            "F0003:S1:T28:A569"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T28:A569",
+              "item_id": "F0003:S1:T28",
+              "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit error-bar definition unrecovered.",
+          "source_ids": [
+            "F0003:S3:T8:A78"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A78",
+              "item_id": "F0003:S3:T8",
+              "quote": "Tissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Numerical dispersion or its definition is missing for some group curves.",
+      "not_applicable_condition": ""
+    },
+    "RQ004:C1": {
+      "requirement_id": "RQ004",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Individual or population variability requires verified individual-level information or another justified source.",
+      "summary": "Only the rat-number plasma series supports verified repeated individual identifiers among the cited PK examples.",
+      "source_ids": [
+        "F0003:S2:T1:A5",
+        "F0003:S1:T1:A5",
+        "F0003:S3:T8:A73"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S2:T1:A5",
+          "item_id": "F0003:S2:T1",
+          "quote": "* means blood unavailable due to temporary arterial cannula blockage; 11 rats."
+        },
+        {
+          "source": "F0003:S1:T1:A5",
+          "item_id": "F0003:S1:T1",
+          "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
+        },
+        {
+          "source": "F0003:S3:T8:A73",
+          "item_id": "F0003:S3:T8",
+          "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+        }
+      ]
+    },
+    "RQ005:F1": {
+      "requirement_id": "RQ005",
+      "field": "requested_endpoint",
+      "status": "UNRESOLVED",
+      "summary": "No optional observed Cmax, Tmax or finite-window AUC endpoint is specifically requested in the supplied evidence.",
+      "source_scopes": [],
+      "unresolved_information": "Requested observed NCA endpoint is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ005:F2": {
+      "requirement_id": "RQ005",
+      "field": "intended_use",
+      "status": "UNRESOLVED",
+      "summary": "The intended use of a particular optional observed NCA endpoint is not stated.",
+      "source_scopes": [],
+      "unresolved_information": "Endpoint-specific intended use is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ005:F3": {
+      "requirement_id": "RQ005",
+      "field": "AUC_window_if_requested",
+      "status": "UNRESOLVED",
+      "summary": "No new finite AUC window is selected; S09 reports an existing rabbit AUC0–12h summary for a different regimen.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S3:T1",
+          "scope_note": "Previously studied rabbit IV regimen with reported AUC0–12h summary.",
+          "source_ids": [
+            "F0003:S3:T1:A3",
+            "F0003:S3:T1:A6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A3",
+              "item_id": "F0003:S3:T1",
+              "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
+            },
+            {
+              "source": "F0003:S3:T1:A6",
+              "item_id": "F0003:S3:T1",
+              "quote": "AUC_0_12h"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Requested finite AUC window, if any, is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ005:F4": {
+      "requirement_id": "RQ005",
+      "field": "time_origin",
+      "status": "PARTIAL",
+      "summary": "Several source profiles state dose at zero; S21 rat time origin is not explicit.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "Mouse IV single dose at zero.",
+          "source_ids": [
+            "F0003:S1:T20:A310"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A310",
+              "item_id": "F0003:S1:T20",
+              "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "Rabbit SC single dose at zero.",
+          "source_ids": [
+            "F0003:S3:T8:A72"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A72",
+              "item_id": "F0003:S3:T8",
+              "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat source reports times and injection duration but no explicit origin.",
+          "source_ids": [
+            "F0003:S2:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A3",
+              "item_id": "F0003:S2:T1",
+              "quote": "Polymyxin B 1 mg/kg IV over 1 minute; concentration mg/L; time h; single dose."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Time origin for every possible NCA profile is not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ005:F6": {
+      "requirement_id": "RQ005",
+      "field": "boundary_observation_status",
+      "status": "PARTIAL",
+      "summary": "First and last sampled observations are identifiable for cited profiles; no requested AUC boundaries are defined.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T28",
+          "scope_note": "S02 mouse first and last digitized sample times.",
+          "source_ids": [
+            "F0003:S1:T28:B574",
+            "F0003:S1:T28:B581"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T28:B574",
+              "item_id": "F0003:S1:T28",
+              "quote": "0.2487"
+            },
+            {
+              "source": "F0003:S1:T28:B581",
+              "item_id": "F0003:S1:T28",
+              "quote": "5.0155"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat first and last listed times; some late values are censored.",
+          "source_ids": [
+            "F0003:S2:T1:A7",
+            "F0003:S2:T1:A16",
+            "F0003:S2:T1:F16"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A7",
+              "item_id": "F0003:S2:T1",
+              "quote": "0.17"
+            },
+            {
+              "source": "F0003:S2:T1:A16",
+              "item_id": "F0003:S2:T1",
+              "quote": "6"
+            },
+            {
+              "source": "F0003:S2:T1:F16",
+              "item_id": "F0003:S2:T1",
+              "quote": "<LLOQ"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Observation status at any requested AUC window boundary cannot be assigned until the window is specified.",
+      "not_applicable_condition": ""
+    },
+    "RQ005:F7": {
+      "requirement_id": "RQ005",
+      "field": "concentration_basis",
+      "status": "PARTIAL",
+      "summary": "S05 plasma observations are total; basis for some other matrices or reported summaries is unspecified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "Mouse plasma total only.",
+          "source_ids": [
+            "F0003:S1:T20:A316"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A316",
+              "item_id": "F0003:S1:T20",
+              "quote": "Plasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T13",
+          "scope_note": "Rabbit whole-lung concentration basis unspecified.",
+          "source_ids": [
+            "F0003:S3:T13:A172"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T13:A172",
+              "item_id": "F0003:S3:T13",
+              "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Concentration basis for the as-yet unspecified endpoint and profile is unresolved.",
+      "not_applicable_condition": ""
+    },
+    "RQ005:C1": {
+      "requirement_id": "RQ005",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Apply only when optional observed Cmax, Tmax or finite-window AUC is requested.",
+      "summary": "Whether an optional endpoint is requested is not established.",
+      "source_ids": [],
+      "evidence": []
+    },
+    "RQ006:F1": {
+      "requirement_id": "RQ006",
+      "field": "terminal_dependent_endpoint",
+      "status": "UNRESOLVED",
+      "summary": "No specific half-life, AUCinf, Vz or tail-dependent moment request is identified.",
+      "source_scopes": [],
+      "unresolved_information": "Requested terminal-dependent endpoint, if any, is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ006:F4": {
+      "requirement_id": "RQ006",
+      "field": "late_BLQ_flags_and_bounds",
+      "status": "PARTIAL",
+      "summary": "Some late rat values are flagged below LLOQ, but their numerical bound is not supplied in this record.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat 5 and Rat 9 at 6 h are below LLOQ.",
+          "source_ids": [
+            "F0003:S2:T1:F16",
+            "F0003:S2:T1:J16"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:F16",
+              "item_id": "F0003:S2:T1",
+              "quote": "<LLOQ"
+            },
+            {
+              "source": "F0003:S2:T1:J16",
+              "item_id": "F0003:S2:T1",
+              "quote": "<LLOQ"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Numerical LLOQ for these late rat plasma values is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ006:F5": {
+      "requirement_id": "RQ006",
+      "field": "late_sampling_gaps",
+      "status": "PARTIAL",
+      "summary": "The rat table explicitly records unsampled 5 h slots; other late gaps depend on the profile and requested tail window.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat 1 and Rat 2 were not sampled at 5 h.",
+          "source_ids": [
+            "F0003:S2:T1:B15",
+            "F0003:S2:T1:C15"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:B15",
+              "item_id": "F0003:S2:T1",
+              "quote": "No sampling"
+            },
+            {
+              "source": "F0003:S2:T1:C15",
+              "item_id": "F0003:S2:T1",
+              "quote": "No sampling"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Endpoint-specific late sampling gaps are not fully defined without the requested terminal window.",
+      "not_applicable_condition": ""
+    },
+    "RQ006:F6": {
+      "requirement_id": "RQ006",
+      "field": "dosing_and_input_history",
+      "status": "PARTIAL",
+      "summary": "Single-dose and rat IV infusion duration are stated; complete endpoint-specific input histories are not selected.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Single rat IV dose over one minute.",
+          "source_ids": [
+            "F0003:S2:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A3",
+              "item_id": "F0003:S2:T1",
+              "quote": "Polymyxin B 1 mg/kg IV over 1 minute; concentration mg/L; time h; single dose."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "Single mouse IV dose at zero.",
+          "source_ids": [
+            "F0003:S1:T20:A310"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A310",
+              "item_id": "F0003:S1:T20",
+              "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Input history for a selected terminal-dependent endpoint is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ006:F7": {
+      "requirement_id": "RQ006",
+      "field": "extrapolation_extent_if_defined",
+      "status": "UNRESOLVED",
+      "summary": "No extrapolation fraction or accepted terminal slope is provided for the requested analysis.",
+      "source_scopes": [],
+      "unresolved_information": "Extrapolation extent is not defined.",
+      "not_applicable_condition": ""
+    },
+    "RQ006:C1": {
+      "requirement_id": "RQ006",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Apply only to requested terminal-dependent quantities such as half-life, AUCinf, Vz or tail-dependent moments.",
+      "summary": "A terminal-dependent quantity has not been specified.",
+      "source_ids": [],
+      "evidence": []
+    },
+    "RQ007:F1": {
+      "requirement_id": "RQ007",
+      "field": "requested_CL_or_volume_estimand",
+      "status": "UNRESOLVED",
+      "summary": "No particular CL, Vss, Vz or apparent NCA parameter is requested.",
+      "source_scopes": [],
+      "unresolved_information": "Requested clearance or volume estimand is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ007:F2": {
+      "requirement_id": "RQ007",
+      "field": "absolute_or_apparent_status",
+      "status": "UNRESOLVED",
+      "summary": "The parameter's absolute or apparent status is not defined.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "S22 notes that absolute SC clearance lacks bioavailability.",
+          "source_ids": [
+            "F0003:S3:T8:A79"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A79",
+              "item_id": "F0003:S3:T8",
+              "quote": "Exploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Absolute or apparent parameter definition is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ007:F3": {
+      "requirement_id": "RQ007",
+      "field": "dose_and_analyte_basis",
+      "status": "PARTIAL",
+      "summary": "S05 mouse base doses and S02 sulphate doses are distinguished; some other dose bases remain unspecified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T20",
+          "scope_note": "Mouse IV dose in mg base/kg.",
+          "source_ids": [
+            "F0003:S1:T20:A314"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A314",
+              "item_id": "F0003:S1:T20",
+              "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T28",
+          "scope_note": "Mouse SC PMB sulphate dose.",
+          "source_ids": [
+            "F0003:S1:T28:A569"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T28:A569",
+              "item_id": "F0003:S1:T28",
+              "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T2",
+          "scope_note": "Rat IV salt/base basis not stated.",
+          "source_ids": [
+            "F0003:S2:T2:A21"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T2:A21",
+              "item_id": "F0003:S2:T2",
+              "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Dose and analyte basis for a selected estimand is not fully defined.",
+      "not_applicable_condition": ""
+    },
+    "RQ007:F5": {
+      "requirement_id": "RQ007",
+      "field": "exposure_window",
+      "status": "PARTIAL",
+      "summary": "Observed sample spans and the separate reported rabbit AUC0–12h summary exist, but no estimand-specific total-exposure window is selected.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat observations extend from 0.17 to 6 h.",
+          "source_ids": [
+            "F0003:S2:T1:A7",
+            "F0003:S2:T1:A16"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A7",
+              "item_id": "F0003:S2:T1",
+              "quote": "0.17"
+            },
+            {
+              "source": "F0003:S2:T1:A16",
+              "item_id": "F0003:S2:T1",
+              "quote": "6"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T1",
+          "scope_note": "Rabbit reported AUC0–12h summary.",
+          "source_ids": [
+            "F0003:S3:T1:A6",
+            "F0003:S3:T1:B6",
+            "F0003:S3:T1:D6"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A6",
+              "item_id": "F0003:S3:T1",
+              "quote": "AUC_0_12h"
+            },
+            {
+              "source": "F0003:S3:T1:B6",
+              "item_id": "F0003:S3:T1",
+              "quote": "35.87"
+            },
+            {
+              "source": "F0003:S3:T1:D6",
+              "item_id": "F0003:S3:T1",
+              "quote": "mg*h/L"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Exposure window for a requested clearance or volume estimand is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ007:F7": {
+      "requirement_id": "RQ007",
+      "field": "infusion_or_input_history_if_applicable",
+      "status": "PARTIAL",
+      "summary": "The S21 rat IV infusion is one minute; complete timing for a selected CL or volume calculation remains unspecified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S2:T1",
+          "scope_note": "Rat IV over one minute.",
+          "source_ids": [
+            "F0003:S2:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T1:A3",
+              "item_id": "F0003:S2:T1",
+              "quote": "Polymyxin B 1 mg/kg IV over 1 minute; concentration mg/L; time h; single dose."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T1",
+          "scope_note": "Rabbit previously studied IV q12h regimen.",
+          "source_ids": [
+            "F0003:S3:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A3",
+              "item_id": "F0003:S3:T1",
+              "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Estimand-specific input history and time reference are not fully defined.",
+      "not_applicable_condition": ""
+    },
+    "RQ007:F8": {
+      "requirement_id": "RQ007",
+      "field": "bioavailability_source_if_required",
+      "status": "UNRESOLVED",
+      "summary": "No applicable bioavailability value is supplied for isolated extravascular profiles.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S3:T8",
+          "scope_note": "S22 states absolute SC clearance lacks F.",
+          "source_ids": [
+            "F0003:S3:T8:A79"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T8:A79",
+              "item_id": "F0003:S3:T8",
+              "quote": "Exploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Applicable bioavailability for an absolute parameter from extravascular exposure is unavailable.",
+      "not_applicable_condition": ""
+    },
+    "RQ007:C1": {
+      "requirement_id": "RQ007",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Apply when optional NCA-derived CL, Vss, Vz or an apparent parameter is requested.",
+      "summary": "The optional parameter and route-specific definition are not specified.",
+      "source_ids": [],
+      "evidence": []
+    },
+    "RQ008:F7": {
+      "requirement_id": "RQ008",
+      "field": "concentration_range_if_reported",
+      "status": "PARTIAL",
+      "summary": "S24 reports 1.25–10 µg/mL spiked B1 concentrations; concentration ranges are not provided for every other binding estimate.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T35",
+          "scope_note": "Mouse S24 spiking range.",
+          "source_ids": [
+            "F0003:S1:T35:A677",
+            "F0003:S1:T35:A681",
+            "F0003:S1:T35:A684"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T35:A677",
+              "item_id": "F0003:S1:T35",
+              "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            },
+            {
+              "source": "F0003:S1:T35:A681",
+              "item_id": "F0003:S1:T35",
+              "quote": "1.25"
+            },
+            {
+              "source": "F0003:S1:T35:A684",
+              "item_id": "F0003:S1:T35",
+              "quote": "10"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T3",
+          "scope_note": "Rat S24 spiking range.",
+          "source_ids": [
+            "F0003:S2:T3:A32",
+            "F0003:S2:T3:A36",
+            "F0003:S2:T3:A39"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A32",
+              "item_id": "F0003:S2:T3",
+              "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            },
+            {
+              "source": "F0003:S2:T3:A36",
+              "item_id": "F0003:S2:T3",
+              "quote": "1.25"
+            },
+            {
+              "source": "F0003:S2:T3:A39",
+              "item_id": "F0003:S2:T3",
+              "quote": "10"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Concentration range for all other reported binding assays is not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ008:F8": {
+      "requirement_id": "RQ008",
+      "field": "sensitivity_scenarios",
+      "status": "UNRESOLVED",
+      "summary": "Distinct estimates are available, but the actual unbound-fraction sensitivity scenarios have not been defined.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T11",
+          "scope_note": "Mouse study estimates differ in basis and assay.",
+          "source_ids": [
+            "F0003:S1:T11:A132",
+            "F0003:S1:T11:C135",
+            "F0003:S1:T11:C136"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T11:A132",
+              "item_id": "F0003:S1:T11",
+              "quote": "These are study-specific measurements. The two assays and plasma preparation procedures differ."
+            },
+            {
+              "source": "F0003:S1:T11:C135",
+              "item_id": "F0003:S1:T11",
+              "quote": "20"
+            },
+            {
+              "source": "F0003:S1:T11:C136",
+              "item_id": "F0003:S1:T11",
+              "quote": "91.4"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S2:T3",
+          "scope_note": "Rat B1 estimates vary by assay and concentration.",
+          "source_ids": [
+            "F0003:S2:T3:B36",
+            "F0003:S2:T3:C39"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:B36",
+              "item_id": "F0003:S2:T3",
+              "quote": "98.9 ± 3.3"
+            },
+            {
+              "source": "F0003:S2:T3:C39",
+              "item_id": "F0003:S2:T3",
+              "quote": "92.5 ± 0.8"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Scenario definitions and their eligible study-specific application are unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ008:C1": {
+      "requirement_id": "RQ008",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Apply when an index or target uses free exposure.",
+      "summary": "Free-exposure index panels exist, but study-specific binding scenarios for new eligible work are not defined.",
+      "source_ids": [
+        "F0003:S1:T24:A444",
+        "F0003:S1:T11:A132"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T24:A444",
+          "item_id": "F0003:S1:T24",
+          "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+        },
+        {
+          "source": "F0003:S1:T11:A132",
+          "item_id": "F0003:S1:T11",
+          "quote": "These are study-specific measurements. The two assays and plasma preparation procedures differ."
+        }
+      ]
+    },
+    "RQ009:F6": {
+      "requirement_id": "RQ009",
+      "field": "MIC_measurement_context",
+      "status": "PARTIAL",
+      "summary": "Broth microdilution is documented for S01, S02 and S13, including S02 tray conditions; S25 supplies values without an assay method in the supplied table note.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T9",
+          "scope_note": "S01 reports broth microdilution.",
+          "source_ids": [
+            "F0003:S1:T9:A107"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T9:A107",
+              "item_id": "F0003:S1:T9",
+              "quote": "Reported MIC by broth microdilution; units mg/L. Strain labels below are copied from Table S1."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T10",
+          "scope_note": "S02 reports untreated polystyrene trays without polysorbate 80.",
+          "source_ids": [
+            "F0003:S1:T10:A123"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T10:A123",
+              "item_id": "F0003:S1:T10",
+              "quote": "Broth microdilution in untreated polystyrene trays without polysorbate 80. PMB values only."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S5:T1",
+          "scope_note": "S13 BAA1705 reports broth microdilution.",
+          "source_ids": [
+            "F0003:S5:T1:A3"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T1:A3",
+              "item_id": "F0003:S5:T1",
+              "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S5:T4",
+          "scope_note": "S25 table reports strain MICs and units.",
+          "source_ids": [
+            "F0003:S5:T4:A114",
+            "F0003:S5:T4:C117"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T4:A114",
+              "item_id": "F0003:S5:T4",
+              "quote": "Mean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown."
+            },
+            {
+              "source": "F0003:S5:T4:C117",
+              "item_id": "F0003:S5:T4",
+              "quote": "0.5"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Assay method and conditions are unspecified for some reported strain MICs.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F2": {
+      "requirement_id": "RQ010",
+      "field": "response_record_identity",
+      "status": "PARTIAL",
+      "summary": "Panel marker labels identify visible plotted features, but overlapping features obscure multiplicity and cross-panel identity.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Kp-T marker label and overlap qualification.",
+          "source_ids": [
+            "F0003:S1:T24:A455",
+            "F0003:S1:T24:A445",
+            "F0003:S1:T24:A450"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A455",
+              "item_id": "F0003:S1:T24",
+              "quote": "S01-Kp-T-01"
+            },
+            {
+              "source": "F0003:S1:T24:A445",
+              "item_id": "F0003:S1:T24",
+              "quote": "These are visible single-thigh markers, NOT a complete individual dataset. Overlap hides counts; no invented duplicate dots."
+            },
+            {
+              "source": "F0003:S1:T24:A450",
+              "item_id": "F0003:S1:T24",
+              "quote": "OVERLAP_OR_AXIS_REVIEW flags close/axis-obscured features; multiplicity uncertain. Exclude these from numerical diagnostics."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "Kp-C marker label and missing cross-panel IDs.",
+          "source_ids": [
+            "F0003:S1:T25:A492",
+            "F0003:S1:T25:A484"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:A492",
+              "item_id": "F0003:S1:T25",
+              "quote": "S01-Kp-C-01"
+            },
+            {
+              "source": "F0003:S1:T25:A484",
+              "item_id": "F0003:S1:T25",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Individual underlying point identities and some multiplicities are unknown.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F3": {
+      "requirement_id": "RQ010",
+      "field": "regimen_link",
+      "status": "PARTIAL",
+      "summary": "S02 Table 3 links its group response to dose levels; S01 digitized panel markers have no per-marker dose or regimen link.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 group response rows include strain and daily dose.",
+          "source_ids": [
+            "F0003:S1:T13:A179",
+            "F0003:S1:T13:C184",
+            "F0003:S1:T13:D184"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A179",
+              "item_id": "F0003:S1:T13",
+              "quote": "Experiment S02-T3: daily dose divided into three equal SC injections at 0, 8 and 16 h. Endpoint at 24 h."
+            },
+            {
+              "source": "F0003:S1:T13:C184",
+              "item_id": "F0003:S1:T13",
+              "quote": "22.5"
+            },
+            {
+              "source": "F0003:S1:T13:D184",
+              "item_id": "F0003:S1:T13",
+              "quote": "5.3"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T per-marker doses are not found.",
+          "source_ids": [
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Per-marker S01 response-to-regimen link is unavailable.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F4": {
+      "requirement_id": "RQ010",
+      "field": "strain_link",
+      "status": "PARTIAL",
+      "summary": "The S01 panels identify K. pneumoniae 104 and S02 group rows identify their strains; individual S09 rabbit response summaries lack strain allocation.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T strain 104.",
+          "source_ids": [
+            "F0003:S1:T24:A442",
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A442",
+              "item_id": "F0003:S1:T24",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; percent_fT_above_MIC"
+            },
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 Table 3 strain row.",
+          "source_ids": [
+            "F0003:S1:T13:A184"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A184",
+              "item_id": "F0003:S1:T13",
+              "quote": "FADDI-KP032"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T2",
+          "scope_note": "Rabbit group summaries are not allocated by strain.",
+          "source_ids": [
+            "F0003:S3:T2:A12",
+            "F0003:S3:T2:A13"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A12",
+              "item_id": "F0003:S3:T2",
+              "quote": "Neutropenic New Zealand White rabbits; K. pneumoniae 39427/39428; PMB MIC 0.5 mg/L for both strains."
+            },
+            {
+              "source": "F0003:S3:T2:A13",
+              "item_id": "F0003:S3:T2",
+              "quote": "PMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Strain allocation is unavailable for some response summaries.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F5": {
+      "requirement_id": "RQ010",
+      "field": "MIC_link",
+      "status": "PARTIAL",
+      "summary": "Study and strain identity can link S01 strain 104 to its reported MIC and S02 strains to their MIC table; this does not establish marker-level regimen links.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T9",
+          "scope_note": "S01 strain 104 MIC.",
+          "source_ids": [
+            "F0003:S1:T9:B118",
+            "F0003:S1:T9:C118"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T9:B118",
+              "item_id": "F0003:S1:T9",
+              "quote": "text \"104\""
+            },
+            {
+              "source": "F0003:S1:T9:C118",
+              "item_id": "F0003:S1:T9",
+              "quote": "1"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T strain identity.",
+          "source_ids": [
+            "F0003:S1:T24:A442",
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A442",
+              "item_id": "F0003:S1:T24",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; percent_fT_above_MIC"
+            },
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T10",
+          "scope_note": "S02 FADDI-KP032 MIC.",
+          "source_ids": [
+            "F0003:S1:T10:B125",
+            "F0003:S1:T10:C125"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T10:B125",
+              "item_id": "F0003:S1:T10",
+              "quote": "FADDI-KP032"
+            },
+            {
+              "source": "F0003:S1:T10:C125",
+              "item_id": "F0003:S1:T10",
+              "quote": "0.5"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 FADDI-KP032 group response.",
+          "source_ids": [
+            "F0003:S1:T13:A184",
+            "F0003:S1:T13:D184"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A184",
+              "item_id": "F0003:S1:T13",
+              "quote": "FADDI-KP032"
+            },
+            {
+              "source": "F0003:S1:T13:D184",
+              "item_id": "F0003:S1:T13",
+              "quote": "5.3"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "MIC linkage is not sufficient to identify unmatched S01 marker regimens.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F6": {
+      "requirement_id": "RQ010",
+      "field": "exposure_link",
+      "status": "PARTIAL",
+      "summary": "Each S01 panel pairs a plotted response with its own published-simulation exposure coordinate; the three panels cannot be joined by common response identity.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Kp-T within-panel exposure-response pair.",
+          "source_ids": [
+            "F0003:S1:T24:B458",
+            "F0003:S1:T24:D458",
+            "F0003:S1:T24:A446"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:B458",
+              "item_id": "F0003:S1:T24",
+              "quote": "11.7302"
+            },
+            {
+              "source": "F0003:S1:T24:D458",
+              "item_id": "F0003:S1:T24",
+              "quote": "2.711"
+            },
+            {
+              "source": "F0003:S1:T24:A446",
+              "item_id": "F0003:S1:T24",
+              "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "Kp-C separate exposure-response pair.",
+          "source_ids": [
+            "F0003:S1:T25:B500",
+            "F0003:S1:T25:D500",
+            "F0003:S1:T25:A485"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:B500",
+              "item_id": "F0003:S1:T25",
+              "quote": "2.6621"
+            },
+            {
+              "source": "F0003:S1:T25:D500",
+              "item_id": "F0003:S1:T25",
+              "quote": "2"
+            },
+            {
+              "source": "F0003:S1:T25:A485",
+              "item_id": "F0003:S1:T25",
+              "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T26",
+          "scope_note": "Kp-A separate exposure-response pair.",
+          "source_ids": [
+            "F0003:S1:T26:B539",
+            "F0003:S1:T26:D539",
+            "F0003:S1:T26:A523"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T26:B539",
+              "item_id": "F0003:S1:T26",
+              "quote": "37.1685"
+            },
+            {
+              "source": "F0003:S1:T26:D539",
+              "item_id": "F0003:S1:T26",
+              "quote": "2"
+            },
+            {
+              "source": "F0003:S1:T26:A523",
+              "item_id": "F0003:S1:T26",
+              "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Common response records across indices and independently produced current-model exposures are unestablished.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F7": {
+      "requirement_id": "RQ010",
+      "field": "dose_history_link",
+      "status": "PARTIAL",
+      "summary": "S02 Table 3 states three SC doses at 0, 8 and 16 h; S01 provides interval ranges without per-marker assignments and contains a dose-range conflict.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 Table 3 dosing history.",
+          "source_ids": [
+            "F0003:S1:T13:A179"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A179",
+              "item_id": "F0003:S1:T13",
+              "quote": "Experiment S02-T3: daily dose divided into three equal SC injections at 0, 8 and 16 h. Endpoint at 24 h."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T14",
+          "scope_note": "S01 dose intervals and unresolved range conflict.",
+          "source_ids": [
+            "F0003:S1:T14:A196",
+            "F0003:S1:T14:A197"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T14:A196",
+              "item_id": "F0003:S1:T14",
+              "quote": "E. coli ATCC 25922 and K. pneumoniae 104; SC; thigh endpoint is change from pretreatment to 24 h."
+            },
+            {
+              "source": "F0003:S1:T14:A197",
+              "item_id": "F0003:S1:T14",
+              "quote": "These ranges conflict with the article's >64 mg/kg per-dose intolerance statement. The supplement does not resolve the conflict."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T per-marker doses not found.",
+          "source_ids": [
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Individual S01 panel markers cannot be assigned a supported dosing history.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:F9": {
+      "requirement_id": "RQ010",
+      "field": "experimental_unit_or_replicate_identity_if_supported",
+      "status": "PARTIAL",
+      "summary": "S01 panels show visible single-thigh markers without animal IDs; S02 Table 3 reports group summaries without individual animal links.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 markers are incomplete and lack animal IDs.",
+          "source_ids": [
+            "F0003:S1:T24:A445",
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A445",
+              "item_id": "F0003:S1:T24",
+              "quote": "These are visible single-thigh markers, NOT a complete individual dataset. Overlap hides counts; no invented duplicate dots."
+            },
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 group summaries lack individual links.",
+          "source_ids": [
+            "F0003:S1:T13:A180"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A180",
+              "item_id": "F0003:S1:T13",
+              "quote": "Values are reported group mean +/- SD, n=4 as reported; log10 CFU/thigh. Individual values and animal links are unavailable."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Animal or replicate identity for the unmatched response panels is unknown.",
+      "not_applicable_condition": ""
+    },
+    "RQ010:C1": {
+      "requirement_id": "RQ010",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Separate digitized mouse index-response panels remain unmatched until links are supported.",
+      "summary": "S01 K. pneumoniae per-marker doses, animal IDs and cross-panel point IDs are not found.",
+      "source_ids": [
+        "F0003:S1:T24:A447",
+        "F0003:S1:T25:A484",
+        "F0003:S1:T26:A522"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T24:A447",
+          "item_id": "F0003:S1:T24",
+          "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        },
+        {
+          "source": "F0003:S1:T25:A484",
+          "item_id": "F0003:S1:T25",
+          "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        },
+        {
+          "source": "F0003:S1:T26:A522",
+          "item_id": "F0003:S1:T26",
+          "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        }
+      ]
+    },
+    "RQ010:C2": {
+      "requirement_id": "RQ010",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Within-panel target inputs and common-record cross-index comparison have distinct pairing requirements.",
+      "summary": "Within-panel plotted pairs exist, but common records across all three panels are not established.",
+      "source_ids": [
+        "F0003:S1:T24:A448",
+        "F0003:S1:T25:A485",
+        "F0003:S1:T26:A523"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T24:A448",
+          "item_id": "F0003:S1:T24",
+          "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+        },
+        {
+          "source": "F0003:S1:T25:A485",
+          "item_id": "F0003:S1:T25",
+          "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+        },
+        {
+          "source": "F0003:S1:T26:A523",
+          "item_id": "F0003:S1:T26",
+          "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+        }
+      ]
+    },
+    "RQ011:F1": {
+      "requirement_id": "RQ011",
+      "field": "fAUC_over_MIC_definition",
+      "status": "PARTIAL",
+      "summary": "The Kp-A panel reports an fAUC/MIC index coordinate in hours for 0–24 h exposure, but full calculation inputs are not supplied.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T26",
+          "scope_note": "K. pneumoniae fAUC/MIC panel, 0–24 h and fu applied.",
+          "source_ids": [
+            "F0003:S1:T26:A517",
+            "F0003:S1:T26:A519",
+            "F0003:S1:T26:C529"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T26:A517",
+              "item_id": "F0003:S1:T26",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h"
+            },
+            {
+              "source": "F0003:S1:T26:A519",
+              "item_id": "F0003:S1:T26",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T26:C529",
+              "item_id": "F0003:S1:T26",
+              "quote": "X unit"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Underlying exposure profile and calculation definition for each plotted value are not fully supplied.",
+      "not_applicable_condition": ""
+    },
+    "RQ011:F2": {
+      "requirement_id": "RQ011",
+      "field": "fCmax_over_MIC_definition",
+      "status": "PARTIAL",
+      "summary": "The Kp-C panel reports a dimensionless fCmax/MIC coordinate with fu already applied; its underlying PK profile is not supplied.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "K. pneumoniae fCmax/MIC panel.",
+          "source_ids": [
+            "F0003:S1:T25:A479",
+            "F0003:S1:T25:A481",
+            "F0003:S1:T25:C491"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:A479",
+              "item_id": "F0003:S1:T25",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; fCmax_MIC"
+            },
+            {
+              "source": "F0003:S1:T25:A481",
+              "item_id": "F0003:S1:T25",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T25:C491",
+              "item_id": "F0003:S1:T25",
+              "quote": "X unit"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Underlying Cmax calculation and marker-level dose link are not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ011:F5": {
+      "requirement_id": "RQ011",
+      "field": "free_concentration_basis",
+      "status": "PARTIAL",
+      "summary": "Published S01 panel coordinates already use fu=0.20; no independently fitted current-model free exposure or alternative study-specific basis is linked.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Kp-T published simulation and fu=0.20.",
+          "source_ids": [
+            "F0003:S1:T24:A444",
+            "F0003:S1:T24:A446"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T24:A446",
+              "item_id": "F0003:S1:T24",
+              "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T11",
+          "scope_note": "S01 binding reports 20% unbound.",
+          "source_ids": [
+            "F0003:S1:T11:B135",
+            "F0003:S1:T11:C135"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T11:B135",
+              "item_id": "F0003:S1:T11",
+              "quote": "Unbound"
+            },
+            {
+              "source": "F0003:S1:T11:C135",
+              "item_id": "F0003:S1:T11",
+              "quote": "20"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Free-concentration profiles for a new common-record index comparison are not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ011:F7": {
+      "requirement_id": "RQ011",
+      "field": "dosing_history",
+      "status": "PARTIAL",
+      "summary": "S01 interval ranges are reported, but no dose history is linked to individual K. pneumoniae panel markers; the published ranges conflict with tolerability text.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T14",
+          "scope_note": "S01 fractionation intervals and range conflict.",
+          "source_ids": [
+            "F0003:S1:T14:A196",
+            "F0003:S1:T14:A197"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T14:A196",
+              "item_id": "F0003:S1:T14",
+              "quote": "E. coli ATCC 25922 and K. pneumoniae 104; SC; thigh endpoint is change from pretreatment to 24 h."
+            },
+            {
+              "source": "F0003:S1:T14:A197",
+              "item_id": "F0003:S1:T14",
+              "quote": "These ranges conflict with the article's >64 mg/kg per-dose intolerance statement. The supplement does not resolve the conflict."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Kp-T marker doses not found.",
+          "source_ids": [
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Per-response dosing histories are unavailable and the source dose-range conflict remains unresolved.",
+      "not_applicable_condition": ""
+    },
+    "RQ011:F9": {
+      "requirement_id": "RQ011",
+      "field": "common_record_membership",
+      "status": "UNRESOLVED",
+      "summary": "The separate panels have no verified cross-panel point IDs or common underlying response records.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Kp-T cross-panel point IDs not found.",
+          "source_ids": [
+            "F0003:S1:T24:A447",
+            "F0003:S1:T24:A448"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            },
+            {
+              "source": "F0003:S1:T24:A448",
+              "item_id": "F0003:S1:T24",
+              "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "Kp-C cross-panel point IDs not found.",
+          "source_ids": [
+            "F0003:S1:T25:A484",
+            "F0003:S1:T25:A485"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:A484",
+              "item_id": "F0003:S1:T25",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            },
+            {
+              "source": "F0003:S1:T25:A485",
+              "item_id": "F0003:S1:T25",
+              "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T26",
+          "scope_note": "Kp-A cross-panel point IDs not found.",
+          "source_ids": [
+            "F0003:S1:T26:A522",
+            "F0003:S1:T26:A523"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T26:A522",
+              "item_id": "F0003:S1:T26",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            },
+            {
+              "source": "F0003:S1:T26:A523",
+              "item_id": "F0003:S1:T26",
+              "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "A matched common set of K. pneumoniae response records across indices is not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ011:C1": {
+      "requirement_id": "RQ011",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "A common comparison requires compatible records, windows and likelihood definitions.",
+      "summary": "Common cross-panel records and a likelihood definition are not supplied.",
+      "source_ids": [
+        "F0003:S1:T24:A448",
+        "F0003:S1:T25:A485",
+        "F0003:S1:T26:A523"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T24:A448",
+          "item_id": "F0003:S1:T24",
+          "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+        },
+        {
+          "source": "F0003:S1:T25:A485",
+          "item_id": "F0003:S1:T25",
+          "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+        },
+        {
+          "source": "F0003:S1:T26:A523",
+          "item_id": "F0003:S1:T26",
+          "quote": "DO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking."
+        }
+      ]
+    },
+    "RQ012:F1": {
+      "requirement_id": "RQ012",
+      "field": "target_effect_stasis_or_1_log_or_2_log_kill",
+      "status": "UNRESOLVED",
+      "summary": "The source responses do not supply three separately defined target-effect thresholds as project target inputs.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 supplies observed changes rather than separate target definitions.",
+          "source_ids": [
+            "F0003:S1:T24:A444"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Separate stasis, 1-log-kill and 2-log-kill reference definitions are unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ012:F3": {
+      "requirement_id": "RQ012",
+      "field": "baseline_or_control_reference",
+      "status": "PARTIAL",
+      "summary": "S02 Table 3 has its own 0 h baseline, and S01 panels state change from pretreatment; separate S02 dose-fractionation baseline animals cannot be joined to Table 3.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 Table 3 baseline footnotes and group mean.",
+          "source_ids": [
+            "F0003:S1:T13:A181",
+            "F0003:S1:T13:G184"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A181",
+              "item_id": "F0003:S1:T13",
+              "quote": "Baseline values are from Table 3 footnotes, NOT the different Figure 4 dose-fractionation baseline cohort."
+            },
+            {
+              "source": "F0003:S1:T13:G184",
+              "item_id": "F0003:S1:T13",
+              "quote": "6.8"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 change from pretreatment.",
+          "source_ids": [
+            "F0003:S1:T24:A444"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T33",
+          "scope_note": "Separate S02 baseline cohort without animal joins.",
+          "source_ids": [
+            "F0003:S1:T33:A657",
+            "F0003:S1:T33:A658"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T33:A657",
+              "item_id": "F0003:S1:T33",
+              "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
+            },
+            {
+              "source": "F0003:S1:T33:A658",
+              "item_id": "F0003:S1:T33",
+              "quote": "These are not the separate Table 3 comparison-experiment baselines."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "The exact baseline or control reference for each prospective target-effect definition is not specified.",
+      "not_applicable_condition": ""
+    },
+    "RQ012:F6": {
+      "requirement_id": "RQ012",
+      "field": "candidate_index_and_exposure_window",
+      "status": "PARTIAL",
+      "summary": "S01 has separate 0–24 h candidate-index panels, but their marker-level dose and cross-index links are absent.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T 0–24 h panel.",
+          "source_ids": [
+            "F0003:S1:T24:A442",
+            "F0003:S1:T24:A444",
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A442",
+              "item_id": "F0003:S1:T24",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; percent_fT_above_MIC"
+            },
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "S01 Kp-C panel.",
+          "source_ids": [
+            "F0003:S1:T25:A479",
+            "F0003:S1:T25:A484"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:A479",
+              "item_id": "F0003:S1:T25",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; fCmax_MIC"
+            },
+            {
+              "source": "F0003:S1:T25:A484",
+              "item_id": "F0003:S1:T25",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T26",
+          "scope_note": "S01 Kp-A panel.",
+          "source_ids": [
+            "F0003:S1:T26:A517",
+            "F0003:S1:T26:A522"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T26:A517",
+              "item_id": "F0003:S1:T26",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h"
+            },
+            {
+              "source": "F0003:S1:T26:A522",
+              "item_id": "F0003:S1:T26",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Index-to-common-response and regimen links needed for separate target inputs are not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ012:C1": {
+      "requirement_id": "RQ012",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Retain separate definitions for stasis, 1-log kill and 2-log kill.",
+      "summary": "The three target-effect reference definitions are not supplied as source-supported target inputs.",
+      "source_ids": [
+        "F0003:S1:T24:A444",
+        "F0003:S1:T13:A181"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T24:A444",
+          "item_id": "F0003:S1:T24",
+          "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+        },
+        {
+          "source": "F0003:S1:T13:A181",
+          "item_id": "F0003:S1:T13",
+          "quote": "Baseline values are from Table 3 footnotes, NOT the different Figure 4 dose-fractionation baseline cohort."
+        }
+      ]
+    },
+    "RQ013:F3": {
+      "requirement_id": "RQ013",
+      "field": "inoculum_if_reported",
+      "status": "PARTIAL",
+      "summary": "S25 reports mean starting inoculum and S27 a planned static time-kill inoculum; inocula for the cited mouse index panels are not supplied.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S5:T4",
+          "scope_note": "S25 starting inoculum 8.19 ± 0.07 log10 CFU/mL.",
+          "source_ids": [
+            "F0003:S5:T4:A114"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T4:A114",
+              "item_id": "F0003:S5:T4",
+              "quote": "Mean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S5:T5",
+          "scope_note": "S27 context reports about 10^6 CFU/mL.",
+          "source_ids": [
+            "F0003:S5:T5:A128"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T5:A128",
+              "item_id": "F0003:S5:T5",
+              "quote": "Static time-kill: PMB 0.5, 1, 2, 4, 8, 16, 64 mg/L; inoculum about 10^6 CFU/mL; sampling 0,1,2,4,6,8,24 h; LLOQ 2 log10 CFU/mL."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Inoculum for the mouse K. pneumoniae index panels is unspecified in supplied records.",
+      "not_applicable_condition": ""
+    },
+    "RQ013:F4": {
+      "requirement_id": "RQ013",
+      "field": "host_immune_status_if_applicable",
+      "status": "PARTIAL",
+      "summary": "S01 mouse thigh and S09 rabbit lung systems are neutropenic; immune status is unspecified for some other animal response records.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 neutropenic thigh mice.",
+          "source_ids": [
+            "F0003:S1:T24:A444"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S3:T2",
+          "scope_note": "S09 neutropenic rabbits.",
+          "source_ids": [
+            "F0003:S3:T2:A12"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A12",
+              "item_id": "F0003:S3:T2",
+              "quote": "Neutropenic New Zealand White rabbits; K. pneumoniae 39427/39428; PMB MIC 0.5 mg/L for both strains."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Host immune status is not established for every animal response source.",
+      "not_applicable_condition": ""
+    },
+    "RQ013:F5": {
+      "requirement_id": "RQ013",
+      "field": "treatment_start_and_duration",
+      "status": "PARTIAL",
+      "summary": "S02 reports treatment beginning 2 h after inoculation with a 0–24 h treatment window; S01 reports pretreatment-to-24 h outcome but the precise treatment start relative to inoculation is not supplied here.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T12",
+          "scope_note": "S02 treatment begins 2 h after inoculation.",
+          "source_ids": [
+            "F0003:S1:T12:A141",
+            "F0003:S1:T12:A142"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T12:A141",
+              "item_id": "F0003:S1:T12",
+              "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
+            },
+            {
+              "source": "F0003:S1:T12:A142",
+              "item_id": "F0003:S1:T12",
+              "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 0–24 h exposure and response window.",
+          "source_ids": [
+            "F0003:S1:T24:A444"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Treatment start relative to inoculation is not specified for all response systems.",
+      "not_applicable_condition": ""
+    },
+    "RQ013:F7": {
+      "requirement_id": "RQ013",
+      "field": "baseline_or_control_response",
+      "status": "PARTIAL",
+      "summary": "S02 Table 3 has its own 0 h baseline and S13 includes a source-file control exposure; these do not create matched controls for every panel marker.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T13",
+          "scope_note": "S02 Table 3 strain-specific baseline.",
+          "source_ids": [
+            "F0003:S1:T13:A181",
+            "F0003:S1:T13:G184"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T13:A181",
+              "item_id": "F0003:S1:T13",
+              "quote": "Baseline values are from Table 3 footnotes, NOT the different Figure 4 dose-fractionation baseline cohort."
+            },
+            {
+              "source": "F0003:S1:T13:G184",
+              "item_id": "F0003:S1:T13",
+              "quote": "6.8"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S5:T1",
+          "scope_note": "S13 control exposure retained as 1e-8.",
+          "source_ids": [
+            "F0003:S5:T1:A5",
+            "F0003:S5:T1:B46"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T1:A5",
+              "item_id": "F0003:S5:T1",
+              "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+            },
+            {
+              "source": "F0003:S5:T1:B46",
+              "item_id": "F0003:S5:T1",
+              "quote": "1e-08"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T33",
+          "scope_note": "Separate baseline cohort lacks exact animal joins.",
+          "source_ids": [
+            "F0003:S1:T33:A657"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T33:A657",
+              "item_id": "F0003:S1:T33",
+              "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Matched baseline or control response for every prospective index-response record is not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ013:F9": {
+      "requirement_id": "RQ013",
+      "field": "independent_replicate_information_if_reported",
+      "status": "PARTIAL",
+      "summary": "S25 reports duplicate experiments; S13 lacks independent replicate IDs and S01 panel overlap obscures marker counts.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S5:T4",
+          "scope_note": "S25 mean ± SD of duplicate experiments.",
+          "source_ids": [
+            "F0003:S5:T4:A113"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T4:A113",
+              "item_id": "F0003:S5:T4",
+              "quote": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S5:T1",
+          "scope_note": "S13 independent replicate IDs not found.",
+          "source_ids": [
+            "F0003:S5:T1:A5"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S5:T1:A5",
+              "item_id": "F0003:S5:T1",
+              "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 visible marker multiplicity uncertain.",
+          "source_ids": [
+            "F0003:S1:T24:A445",
+            "F0003:S1:T24:A450"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A445",
+              "item_id": "F0003:S1:T24",
+              "quote": "These are visible single-thigh markers, NOT a complete individual dataset. Overlap hides counts; no invented duplicate dots."
+            },
+            {
+              "source": "F0003:S1:T24:A450",
+              "item_id": "F0003:S1:T24",
+              "quote": "OVERLAP_OR_AXIS_REVIEW flags close/axis-obscured features; multiplicity uncertain. Exclude these from numerical diagnostics."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Independent replicate identities or counts are unavailable for some response sources.",
+      "not_applicable_condition": ""
+    },
+    "RQ013:C1": {
+      "requirement_id": "RQ013",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Apply to response-linked index comparison or new target estimation.",
+      "summary": "The matched response-to-index links needed to identify applicable experimental records remain unresolved.",
+      "source_ids": [
+        "F0003:S1:T24:A447",
+        "F0003:S1:T25:A484",
+        "F0003:S1:T26:A522"
+      ],
+      "evidence": [
+        {
+          "source": "F0003:S1:T24:A447",
+          "item_id": "F0003:S1:T24",
+          "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        },
+        {
+          "source": "F0003:S1:T25:A484",
+          "item_id": "F0003:S1:T25",
+          "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        },
+        {
+          "source": "F0003:S1:T26:A522",
+          "item_id": "F0003:S1:T26",
+          "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        }
+      ]
+    },
+    "RQ014:F1": {
+      "requirement_id": "RQ014",
+      "field": "producing_animal_model",
+      "status": "DEFERRED",
+      "summary": "The producing animal PK model for a selected PD prediction has not been supplied.",
+      "source_scopes": [],
+      "unresolved_information": "Producing current animal model is pending.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F2": {
+      "requirement_id": "RQ014",
+      "field": "predicted_regimen_exposure",
+      "status": "DEFERRED",
+      "summary": "No reviewed current-model regimen exposure is supplied; S01 plotted coordinates originate from a published simulation.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T coordinates come from published PK simulation.",
+          "source_ids": [
+            "F0003:S1:T24:A446"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A446",
+              "item_id": "F0003:S1:T24",
+              "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Current animal-model exposure prediction is pending.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F3": {
+      "requirement_id": "RQ014",
+      "field": "exposure_index_or_profile",
+      "status": "PARTIAL",
+      "summary": "Published K. pneumoniae panels identify fT>MIC, fCmax/MIC and fAUC/MIC coordinate types; a current-model output type is not selected.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Published percent fT>MIC.",
+          "source_ids": [
+            "F0003:S1:T24:A442"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A442",
+              "item_id": "F0003:S1:T24",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; percent_fT_above_MIC"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "Published fCmax/MIC.",
+          "source_ids": [
+            "F0003:S1:T25:A479"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:A479",
+              "item_id": "F0003:S1:T25",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; fCmax_MIC"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T26",
+          "scope_note": "Published fAUC/MIC.",
+          "source_ids": [
+            "F0003:S1:T26:A517"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T26:A517",
+              "item_id": "F0003:S1:T26",
+              "quote": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Selected current-model exposure index or profile is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F4": {
+      "requirement_id": "RQ014",
+      "field": "exposure_unit",
+      "status": "PARTIAL",
+      "summary": "Published panel coordinates use percent, ratio and hours respectively; units of a pending current-model exposure output are not supplied.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Published percent fT>MIC unit.",
+          "source_ids": [
+            "F0003:S1:T24:C454"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:C454",
+              "item_id": "F0003:S1:T24",
+              "quote": "X unit"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T25",
+          "scope_note": "Published fCmax/MIC ratio unit.",
+          "source_ids": [
+            "F0003:S1:T25:C491"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T25:C491",
+              "item_id": "F0003:S1:T25",
+              "quote": "X unit"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T26",
+          "scope_note": "Published fAUC/MIC hours unit.",
+          "source_ids": [
+            "F0003:S1:T26:C529"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T26:C529",
+              "item_id": "F0003:S1:T26",
+              "quote": "X unit"
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Unit for a selected current-model output is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F5": {
+      "requirement_id": "RQ014",
+      "field": "exposure_window",
+      "status": "PARTIAL",
+      "summary": "Published S01 K. pneumoniae panel exposures use 0–24 h; a pending model-prediction window is not specified.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Published same-study 0–24 h window.",
+          "source_ids": [
+            "F0003:S1:T24:A444"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Window of a selected current-model exposure prediction is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F6": {
+      "requirement_id": "RQ014",
+      "field": "matrix",
+      "status": "UNRESOLVED",
+      "summary": "The matrix of a pending current-model PD exposure output is not identified by the published index panel.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Panel identifies thigh response and free-exposure coordinate, not the current prediction matrix.",
+          "source_ids": [
+            "F0003:S1:T24:A444",
+            "F0003:S1:T24:A446"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T24:A446",
+              "item_id": "F0003:S1:T24",
+              "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Prediction matrix is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F7": {
+      "requirement_id": "RQ014",
+      "field": "total_or_unbound_basis",
+      "status": "PARTIAL",
+      "summary": "Published S01 coordinates are free exposure with fu=0.20 already applied; the pending model-output basis is not defined.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "Published Kp-T free-exposure basis.",
+          "source_ids": [
+            "F0003:S1:T24:A444",
+            "F0003:S1:T24:A446"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A444",
+              "item_id": "F0003:S1:T24",
+              "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            },
+            {
+              "source": "F0003:S1:T24:A446",
+              "item_id": "F0003:S1:T24",
+              "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Total or unbound basis of a current animal-model prediction is unspecified.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F8": {
+      "requirement_id": "RQ014",
+      "field": "regimen_identity",
+      "status": "PARTIAL",
+      "summary": "S02 regimen labels and S01 interval ranges exist, but S01 panel markers lack per-marker regimen identities.",
+      "source_scopes": [
+        {
+          "item_id": "F0003:S1:T12",
+          "scope_note": "S02 curator-assigned strain and dose-fractionation regimen labels.",
+          "source_ids": [
+            "F0003:S1:T12:A143",
+            "F0003:S1:T12:A146"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T12:A143",
+              "item_id": "F0003:S1:T12",
+              "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+            },
+            {
+              "source": "F0003:S1:T12:A146",
+              "item_id": "F0003:S1:T12",
+              "quote": "KP032-0.5-q24"
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T14",
+          "scope_note": "S01 interval ranges with unresolved dose conflict.",
+          "source_ids": [
+            "F0003:S1:T14:A196",
+            "F0003:S1:T14:A197"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T14:A196",
+              "item_id": "F0003:S1:T14",
+              "quote": "E. coli ATCC 25922 and K. pneumoniae 104; SC; thigh endpoint is change from pretreatment to 24 h."
+            },
+            {
+              "source": "F0003:S1:T14:A197",
+              "item_id": "F0003:S1:T14",
+              "quote": "These ranges conflict with the article's >64 mg/kg per-dose intolerance statement. The supplement does not resolve the conflict."
+            }
+          ]
+        },
+        {
+          "item_id": "F0003:S1:T24",
+          "scope_note": "S01 Kp-T per-marker doses not found.",
+          "source_ids": [
+            "F0003:S1:T24:A447"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T24:A447",
+              "item_id": "F0003:S1:T24",
+              "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+            }
+          ]
+        }
+      ],
+      "unresolved_information": "Regimen identity linked to each eligible predicted response is not established.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:F9": {
+      "requirement_id": "RQ014",
+      "field": "prediction_uncertainty_if_supported",
+      "status": "DEFERRED",
+      "summary": "No current-model prediction or prediction uncertainty has been supplied.",
+      "source_scopes": [],
+      "unresolved_information": "Prediction uncertainty is pending with the model output.",
+      "not_applicable_condition": ""
+    },
+    "RQ014:C1": {
+      "requirement_id": "RQ014",
+      "status": "UNRESOLVED_CONDITION",
+      "condition": "Apply only when model-derived exposure is selected for the PD task.",
+      "summary": "Selection of current animal-model exposure for the PD task is not established.",
+      "source_ids": [],
+      "evidence": []
+    }
+  },
+  "bindings": {
+    "direct_runtime": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\research_pipeline\\research_pipeline\\data_direct_runtime.py",
+      "sha256": "5bd588db2c5c45bad968767054c194db86429ae8551037afe70e42b2cb7fe42b"
+    },
+    "governance": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\rules\\general\\workflow_governance.json",
+      "sha256": "93ca683e3ae74b5ecbbdb5c894a20e146aee3a1b4b58eabb6320f2c7361688ed"
+    },
+    "necessity_code": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\research_pipeline\\research_pipeline\\data_necessity_decisions.py",
+      "sha256": "bbba237991552f9ada7d647e312dafaac2d44c8fc230f1d9b67189dba6e0fe18"
+    },
+    "legacy_contract": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\research_pipeline\\research_pipeline\\data_necessity_direct.py",
+      "sha256": "bbe55f9729e498a93ad45bc960b004d4458108ebf40fe25a02689e7498e1db2d"
+    },
+    "coverage": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\assessment\\coverage\\coverage.json",
+      "sha256": "9cab878c752c510e9b2bbf5715108939c8e1e82136600e62b49e6bf9aee496e9"
+    },
+    "main": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\first_part\\published\\main.json",
+      "sha256": "095f40dda74aa761f24e3c22b659071d3e2cdb723b8d60c98b7da3f4fe939415"
+    },
+    "local_method_profiles": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\local_method_profiles08.json",
+      "sha256": "33c7073a318fe685b3ed1252f7f2c81c48793bf1a70614e4711f77768e5c2284"
+    },
+    "prompt_code": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\research_pipeline\\research_pipeline\\data_necessity_prompt.py",
+      "sha256": "66d340b966eece82de5b31a91a0447a9c5f99a8f6ef40a44542768bc2b2c8b2a"
+    },
+    "bounded_prose_contract": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\necessity_budget09.py",
+      "sha256": "a5a6a851b596c439c9f514fdaddd1ed8c9ce4e024e16fd25ff128e7e699096f5"
+    },
+    "prepared": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\assessment09\\necessity\\prepared.json",
+      "sha256": "bde136988c7fd3b5b787918790dab6fbb975187730cf5827dd0daf7b47977845"
+    }
+  },
+  "request_sha256": "ac78884e19215cb68db538d63cd630d0628c66d014097328c1b197e88951076b",
+  "execution": {
+    "requested_model": "gpt-6-sol",
+    "served_models": [],
+    "test_generator": false
+  },
+  "scientific_approval": false,
+  "downstream_executed": false
+}

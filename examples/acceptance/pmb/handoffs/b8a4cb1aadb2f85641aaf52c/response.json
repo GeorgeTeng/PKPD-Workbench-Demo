@@ -1,0 +1,161 @@
+{
+  "request_sha256": "f08c42153da9658e8f7a2fd5cf61c8ea78ea1932d2eb0f8575b1d18a8712fcb3",
+  "labels": [
+    {
+      "item_id": "F0003:S1:T10",
+      "role": "MIC",
+      "additional_roles": [],
+      "requirement_ids": [
+        "REQ_PREP_SOURCE",
+        "REQ_PD_MATCHING",
+        "REQ_INDEX_METHOD_INPUTS"
+      ],
+      "species": "K. pneumoniae; FADDI-KP032, ATCC BAA-2146, FADDI-KP042",
+      "matrix": "Broth; composition NOT_FOUND",
+      "exposure_basis": "NOT_APPLICABLE",
+      "record_level": "Strain-level MIC values; replicate count NOT_FOUND",
+      "drug": "PMB",
+      "route": "NOT_APPLICABLE",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "The table reports PMB MIC values for three named K. pneumoniae strains, with a source and assay note. It does not establish links to response records, dosing regimens, exposure inputs or index-response panels.",
+      "evidence": [
+        {
+          "source": "F0003:S1:T10:A121",
+          "quote": "Strain susceptibility in the 2018 mouse study"
+        },
+        {
+          "source": "F0003:S1:T10:A122",
+          "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Materials and methods"
+        },
+        {
+          "source": "F0003:S1:T10:A123",
+          "quote": "Broth microdilution in untreated polystyrene trays without polysorbate 80. PMB values only."
+        },
+        {
+          "source": "F0003:S1:T10:A125",
+          "quote": "K. pneumoniae"
+        },
+        {
+          "source": "F0003:S1:T10:B125",
+          "quote": "FADDI-KP032"
+        },
+        {
+          "source": "F0003:S1:T10:B126",
+          "quote": "ATCC BAA-2146"
+        },
+        {
+          "source": "F0003:S1:T10:B127",
+          "quote": "FADDI-KP042"
+        },
+        {
+          "source": "F0003:S1:T10:C124",
+          "quote": "PMB MIC (mg/L)"
+        },
+        {
+          "source": "F0003:S1:T10:C125",
+          "quote": "0.5"
+        },
+        {
+          "source": "F0003:S1:T10:C126",
+          "quote": "0.5"
+        },
+        {
+          "source": "F0003:S1:T10:C127",
+          "quote": "0.5"
+        }
+      ],
+      "route_category": "NOT_APPLICABLE",
+      "matrix_category": "IN_VITRO_SYSTEM",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_APPLICABLE",
+      "analyte": "PMB",
+      "dosing_regimen": "NOT_APPLICABLE",
+      "columns": [
+        {
+          "header": "Species",
+          "meaning": "COVARIATE",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T10:A124",
+              "quote": "Species"
+            },
+            {
+              "source": "F0003:S1:T10:A125",
+              "quote": "K. pneumoniae"
+            }
+          ]
+        },
+        {
+          "header": "Strain",
+          "meaning": "GROUP_OR_TREATMENT",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T10:B124",
+              "quote": "Strain"
+            },
+            {
+              "source": "F0003:S1:T10:B125",
+              "quote": "FADDI-KP032"
+            },
+            {
+              "source": "F0003:S1:T10:B126",
+              "quote": "ATCC BAA-2146"
+            },
+            {
+              "source": "F0003:S1:T10:B127",
+              "quote": "FADDI-KP042"
+            }
+          ]
+        },
+        {
+          "header": "PMB MIC (mg/L)",
+          "meaning": "MIC",
+          "unit": "mg/L",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T10:C124",
+              "quote": "PMB MIC (mg/L)"
+            },
+            {
+              "source": "F0003:S1:T10:C125",
+              "quote": "0.5"
+            },
+            {
+              "source": "F0003:S1:T10:C126",
+              "quote": "0.5"
+            },
+            {
+              "source": "F0003:S1:T10:C127",
+              "quote": "0.5"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_MATCHING",
+      "affected_id": "REQ_PD_MATCHING",
+      "reason": "The MIC rows identify strains and values, but this item gives no source-supported link from those strains to a response record, regimen, exposure input or digitized panel.",
+      "needed_material": "Response and regimen records with explicit strain identities and source-supported links to the relevant MIC rows, exposures and panels; resolve the documented panel-to-regimen ambiguity.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_MIC_CONTEXT",
+      "affected_id": "REQ_INDEX_METHOD_INPUTS",
+      "reason": "The assay note states broth microdilution and tray conditions, but the medium, testing standard, replicate count and summary-value definition are unspecified.",
+      "needed_material": "Source evidence for the MIC medium, testing standard, replicate count and the value selected for MIC-normalized index analysis.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Handling Pooled Specimens and Unknown Provenance",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "When specimens are pooled or their origin is unknown, the true experimental unit cannot be reconstructed. If pool membership is unknown, the data cannot support inferential statistics about individual biological variability; such data should be treated as descriptive or excluded from unit-level inference.",
+      "conditions": [
+        "Applies when individual animal IDs are missing or when samples are physically pooled before analysis.",
+        "Requires explicit documentation of pooling strategy if available.",
+        "Missing individual IDs prevent reconstruction of individual trajectories, but known treatment/time-group provenance can still support labelled aggregate or descriptive analysis. Record the experimental unit from the study design separately from the measurement or pool identity; a group or pooled sample is not automatically an independent experimental unit."
+      ],
+      "required_inputs": [
+        "Metadata indicating whether samples are pooled or individual.",
+        "Provenance records linking observations to specific biological sources.",
+        "Documentation of any technical failures or censoring that might obscure unit identity."
+      ],
+      "limitations": [
+        "Cannot recover lost individual-level data.",
+        "Does not provide a method to impute missing unit identities.",
+        "Pooled data may still be useful for descriptive summaries but not for estimating between-subject variance."
+      ],
+      "downstream_use": "Blocks invented individual trajectories and unsupported inference about individual variability when specimen identity or pool membership is unknown. Preserves labelled aggregate summaries and population methods whose input, sampling and measurement assumptions are supported by the known design; inferential n and uncertainty require a justified unit structure.",
+      "evidence_chunk_ids": [
+        "ADD005:0012",
+        "ADD005:0013",
+        "ADD001:0014"
+      ],
+      "id": "round3_D01:K02",
+      "origin_job": "round3_D01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD001",
+        "ADD005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D01",
+      "retrieval_keywords": "Destructive samples, pooled specimens, biological and technical replicates: independent experimental units and descriptive uncertainty",
+      "supersedes": [
+        "round2_D01:K01",
+        "round2_D01:K02",
+        "round2_D01:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

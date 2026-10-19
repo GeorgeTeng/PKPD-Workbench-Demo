@@ -1,0 +1,122 @@
+{
+  "cards": [
+    {
+      "title": "Antibacterial PK/PD Index Discrimination and Conditional Target Estimation",
+      "claim": "Dose fractionation and fitted exposure–response comparisons can help discriminate antibacterial PK/PD indices. For an endpoint-count model, E0 is fitted untreated endpoint burden while B0 is bacterial burden when treatment begins; stasis solves the fitted endpoint at E=B0, and a 1-log kill solves E=B0−1. Any index ranking and target remain conditional on design, organism, infection site, endpoint window and supported exposure range.",
+      "conditions": [
+        "For index discrimination, use dose fractionation or another informative exposure design that separates competing index predictions; declare which exposure features vary or are controlled. A prespecified-index target fit does not by itself independently rank indices.",
+        "For target estimation: Requires a prespecified index and matched exposure-response data; does not require independent ranking if the index is already established.",
+        "Target estimation is conditional on the specific strain, infection site, and achievable exposure range in the source study.",
+        "Applicable to antibacterial agents with concentration- or time-dependent killing."
+      ],
+      "required_inputs": [
+        "Qualified unbound plasma concentration-time data, directly measured or estimated from total concentration with a justified fu and binding model.",
+        "MIC qualification: identify the pathogen strain/isolate and provenance, assay method/protocol and relevant medium/incubation conditions, concentration units, tested dilution range and any off-scale bound. Normalize compatible concentration units before calculating an index; verify comparability with the conditions under which the target was derived.",
+        "Bacterial burden (log10 CFU) at treatment initiation (B0) and at endpoint (e.g., 24h).",
+        "Dose levels and dosing intervals used in the study."
+      ],
+      "limitations": [
+        "Source-specific numeric targets (e.g., specific AUC/MIC values) are examples only and must not be transferred to other drugs.",
+        "If the highest tolerated dose does not achieve the desired log-kill (e.g., 2-log), the target cannot be determined.",
+        "When unbound concentrations are derived from total measurements, use a justified binding relationship; concentration-dependent fu must be handled consistently. Direct qualified unbound measurements do not require a second conversion."
+      ],
+      "downstream_use": "Used to define PK/PD targets for clinical dosing regimen design and to identify the primary driver of efficacy (AUC, Cmax, or Time>MIC).",
+      "method_keywords": [
+        "PK/PD index discrimination",
+        "dose fractionation",
+        "sigmoidal Emax model",
+        "fAUC/MIC",
+        "fCmax/MIC",
+        "fT>MIC",
+        "stasis target",
+        "log-kill target",
+        "E0 vs B0"
+      ],
+      "retrieval_keywords": "antibacterial PKPD index dose fractionation fAUC/MIC fCmax/MIC fT>MIC stasis E0 B0",
+      "knowledge_layer": "conditional_method",
+      "method_recipe": {
+        "estimand_and_scope": "Identify the most predictive PK/PD index (discrimination) or estimate the exposure target (e.g., fAUC/MIC) required for stasis or specific log-kill (target estimation).",
+        "input_contract": "Raw inputs: Qualified unbound plasma concentrations (directly measured or converted from total via fu), MIC, bacterial counts (CFU) at t=0 (B0) and t=end (E_obs). MIC qualification: identify the pathogen strain/isolate and provenance, assay method/protocol and relevant medium/incubation conditions, concentration units, tested dilution range and any off-scale bound. Normalize compatible concentration units before calculating an index; verify comparability with the conditions under which the target was derived. These are inputs needed before numerical index/target use, not outputs to infer from the fitted model.",
+        "applicability_and_prerequisites": "Index discrimination requires an informative exposure design that separates competing indices; dose fractionation is one source-supported design. A prespecified-index target estimate needs qualified matched exposure, MIC and response data but does not require independent index ranking.",
+        "definitions_units_basis_window": "Source endpoint-count example: E(X)=E0−Emax*X^gamma/(X^gamma+EC50^gamma), where E,E0,Emax and B0 are log10 CFU per sampled site, X is one chosen PK/PD index, gamma is dimensionless, and Emax is a positive maximal reduction. Stasis: E(X)=B0; k-log kill: E(X)=B0−k. If a study instead models change from baseline, transform both outcome and target consistently. fAUC/MIC has time units; fCmax/MIC is dimensionless; fT>MIC is time or percentage as declared.",
+        "procedure": "1. Define site, organism, treatment-start B0, endpoint time/count and whether response is endpoint count or change. 2. Obtain qualified unbound exposure and MIC; derive each candidate index with its unit and window. 3. For discrimination: Use dose fractionation or another justified design that creates informative separation among indices. For target estimation: Fit the source-appropriate index–effect curve for the prespecified index. 4. Compare fit and predictive adequacy (for discrimination) or invert the fitted model (for target estimation). 5. Invert only an admissible fitted target (B0 or B0−k on endpoint-count scale) within estimated effect and exposure ranges; report uncertainty or not estimable otherwise.",
+        "formula_and_parameterization": "Source endpoint-count example: E(X)=E0−Emax*X^gamma/(X^gamma+EC50^gamma), where E,E0,Emax and B0 are log10 CFU per sampled site, X is one chosen PK/PD index, gamma is dimensionless, and Emax is a positive maximal reduction. Stasis: E(X)=B0; k-log kill: E(X)=B0−k. If a study instead models change from baseline, transform both outcome and target consistently. fAUC/MIC has time units; fCmax/MIC is dimensionless; fT>MIC is time or percentage as declared.",
+        "uncertainty_and_identifiability": "Parameter estimates (EC50, γ) have associated standard errors. R² indicates variance explained but does not prove causality. Extrapolation beyond observed doses is invalid.",
+        "diagnostics_and_failure_modes": "Poor fits across candidate indices warrant investigating model, endpoint, exposure and design adequacy; no universal R-squared cutoff is supplied. For the stated positive-Emax curve, delta=E0-(B0-k) must satisfy 0<delta<Emax for a finite positive interior inverse. Handle delta=0 as the zero-exposure boundary and delta=Emax as the asymptotic limit, subject to supported data range.",
+        "missing_input_and_partial_fallback": "For E(X)=E0-Emax*g(X) and desired endpoint B0-k, define delta=E0-(B0-k). A finite positive interior inverse requires 0<delta<Emax and the target to remain within fitted effect/exposure support. At boundaries or outside support report the appropriate boundary/not-estimable result; do not compare k alone with Emax. If exposure, baseline or endpoint data are insufficient, retain descriptive comparisons and explicit unresolved target status. If MIC units or assay/strain comparability remain unresolved, retain descriptive exposure-response observations and withhold a qualified numerical MIC-normalized index/target.",
+        "output_and_interpretation": "A better-fitting index is the best-supported descriptor under the examined design, not necessarily a causal driver or transferable winner. E0 is the fitted untreated endpoint count; B0 is treatment-start count. A numerical target is conditional on strain/site/time/exposure and cannot be borrowed for the target drug.",
+        "worked_example_and_counterexample": "Synthetic arithmetic: endpoint model E=7.5−3X/(X+50), with E and B0 in log10 CFU/site, X=fAUC/MIC in h. If B0=6.5, stasis E=6.5 occurs at X=25 h. One-log kill E=5.5 occurs at X=100 h. These values are only admissible if the fitted response and tested exposure range cover them; they are not target-drug values. Counterexample: For an endpoint-count model, stasis is E=B0, not E=0; an unreachable target has no inverse."
+      },
+      "claim_support": [
+        {
+          "claim": "PK/PD index represents quantitative relationship between exposure and susceptibility; targets derived from nonclinical studies.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "REF_007:0015"
+          ]
+        },
+        {
+          "claim": "Sigmoidal Emax model used to fit PK/PD index to effect; E0 is effect in absence of drug; EC50 is index for 50% Emax; γ is Hill coefficient.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "SUP007:0014",
+            "ARTICLE_S02:0021"
+          ]
+        },
+        {
+          "claim": "Index discrimination via R² comparison (e.g., AUC/MIC vs Cmax/MIC vs T>MIC).",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "SUP008:0003",
+            "ARTICLE_S02:0021"
+          ]
+        },
+        {
+          "claim": "Stasis value is defined as bacterial count at 0h (B0); model E0 is a fitted parameter.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "ARTICLE_S02:0022"
+          ]
+        },
+        {
+          "claim": "The archived EUCAST reference specifies MIC concentration units and organism-dependent assay method/medium. Recording these with strain identity is a host data-qualification rule for compatible index calculation.",
+          "scope": "Conditional antibacterial use; no universal assay protocol or target transfer",
+          "evidence_chunk_ids": [
+            "SUP018:0003"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_007:0015",
+        "SUP007:0014",
+        "SUP008:0003",
+        "ARTICLE_S02:0021",
+        "ARTICLE_S02:0022",
+        "SUP007:0013",
+        "SUP018:0003"
+      ],
+      "id": "round10_reviewed_v2_B01:K01",
+      "topics": [
+        "pkpd"
+      ],
+      "required_branches": [
+        "antibacterial"
+      ],
+      "source_ids": [
+        "ARTICLE_S02",
+        "REF_007",
+        "SUP007",
+        "SUP008",
+        "SUP018"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "B01",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "source_vs_engineering_conventions": "Source-supported: Use of sigmoidal Emax model, R² for index comparison, distinction of E0 from B0. Engineering: Specific software (WinNonlin) and unweighted regression are conventions from source but not universal requirements.",
+      "example_is_synthetic": "The numerical values in the worked example are synthetic to demonstrate the algebraic inversion of the Emax model. They do not represent real data from the source studies."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

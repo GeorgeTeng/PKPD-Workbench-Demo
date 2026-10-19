@@ -1,0 +1,185 @@
+{
+  "request_sha256": "ba4d37e9068d3e90acdf76075663ce5ae97103f5fa295c10dc4534d9370e3da9",
+  "labels": [
+    {
+      "item_id": "F0003:S4:T2",
+      "role": "BINDING",
+      "additional_roles": [
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DRQ01",
+        "DRQ02",
+        "DRQ03",
+        "DRQ12",
+        "DRQ48"
+      ],
+      "species": "Rabbit; strain and health or infection state NOT_FOUND; rabbit attribution is NOT_VERIFIED",
+      "matrix": "Citrate rabbit plasma",
+      "exposure_basis": "Plasma protein binding expressed as Rabbit binding (%); no directly measured unbound concentration or fu is reported",
+      "record_level": "Concentration-specific binding entries with accompanying ± terms; n and summary-statistic definitions NOT_FOUND",
+      "drug": "Meropenem",
+      "route": "NOT_APPLICABLE",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "The body contains three concentration-specific binding entries from results text attributed to an in vitro microdialysis preprint. These provide candidate binding inputs, but DRQ12 remains UNRESOLVED: rabbit attribution is explicitly NOT_VERIFIED, summary statistics are undefined, and experimental conditions and recovery information are not reported. The source is not peer reviewed. The entries do not establish individual animals, a validated binding correction or a supported uncertainty distribution.",
+      "evidence": [
+        {
+          "source": "F0003:S4:T2:A24",
+          "quote": "Rabbit plasma protein binding by in vitro microdialysis (preprint)"
+        },
+        {
+          "source": "F0003:S4:T2:A25",
+          "quote": "S11 | DOI 10.1101/2023.03.23.534048 | Results text (Pesta et al. 2023, bioRxiv preprint, not peer reviewed)"
+        },
+        {
+          "source": "F0003:S4:T2:A26",
+          "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+        },
+        {
+          "source": "F0003:S4:T2:A27",
+          "quote": "The source writes \"+\" for \"±\"."
+        },
+        {
+          "source": "F0003:S4:T2:A28",
+          "quote": "Meropenem concentration (µg/mL)"
+        },
+        {
+          "source": "F0003:S4:T2:B28",
+          "quote": "Rabbit binding (%)"
+        },
+        {
+          "source": "F0003:S4:T2:A29",
+          "quote": "2.5"
+        },
+        {
+          "source": "F0003:S4:T2:B29",
+          "quote": "13.8+9.5"
+        },
+        {
+          "source": "F0003:S4:T2:A30",
+          "quote": "10"
+        },
+        {
+          "source": "F0003:S4:T2:B30",
+          "quote": "11.9+7.3"
+        },
+        {
+          "source": "F0003:S4:T2:A31",
+          "quote": "100"
+        },
+        {
+          "source": "F0003:S4:T2:B31",
+          "quote": "9.7+4.6"
+        }
+      ],
+      "route_category": "NOT_APPLICABLE",
+      "matrix_category": "IN_VITRO_SYSTEM",
+      "record_category": "NOT_FOUND",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_APPLICABLE",
+      "analyte": "Meropenem",
+      "dosing_regimen": "NOT_APPLICABLE",
+      "columns": [
+        {
+          "header": "Meropenem concentration (µg/mL)",
+          "meaning": "CONCENTRATION",
+          "unit": "µg/mL",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S4:T2:A28",
+              "quote": "Meropenem concentration (µg/mL)"
+            }
+          ]
+        },
+        {
+          "header": "Rabbit binding (%)",
+          "meaning": "BINDING",
+          "unit": "%",
+          "qualifiers": [
+            "The source writes \"+\" for \"±\".",
+            "n not reported.",
+            "the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED)"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S4:T2:B28",
+              "quote": "Rabbit binding (%)"
+            },
+            {
+              "source": "F0003:S4:T2:A24",
+              "quote": "Rabbit plasma protein binding by in vitro microdialysis (preprint)"
+            },
+            {
+              "source": "F0003:S4:T2:A26",
+              "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+            },
+            {
+              "source": "F0003:S4:T2:A27",
+              "quote": "The source writes \"+\" for \"±\"."
+            }
+          ]
+        }
+      ],
+      "stated_values": [
+        {
+          "quantity": "concentration",
+          "value": "10",
+          "unit": "µg/mL",
+          "subject": "NOT_FOUND",
+          "qualifiers": [
+            "the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED)"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S4:T2:A26",
+              "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_SPECIES_ATTRIBUTION",
+      "affected_id": "F0003:S4:T2",
+      "reason": "A26 explicitly marks the inferred rabbit-first ordering NOT_VERIFIED. The binding entries exist, but their attribution to rabbit is unresolved; the header cannot resolve this counterevidence.",
+      "needed_material": "Authorized source evidence or a recorded review confirming the species attribution of each binding entry. Keep the entries provisional and do not access the separate human reference file before its permitted release.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "UNRESOLVED_EXPERIMENTAL_UNIT_AND_STATISTICS",
+      "affected_id": "DRQ02",
+      "reason": "A26 states n not reported. A27 defines + as ±, but this page does not define the central statistic, accompanying statistic, replicate structure or experimental unit. Individual records and a group-summary classification cannot be established.",
+      "needed_material": "Authorized definitions of the central and accompanying statistics, sample count and experimental units, or an explicit retained limitation. Preserve each printed binding entry without assigning mean, SD, SEM or animal identity.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_BINDING_INPUT_COVERAGE",
+      "affected_id": "DRQ12",
+      "reason": "Available evidence includes meropenem concentration entries of 2.5, 10 and 100 µg/mL, percentage binding, citrate rabbit plasma and in vitro microdialysis. Temperature, pH, recovery, nonspecific binding and mass balance are NOT_FOUND on this page. Species attribution and applicability to the requested unbound endpoints remain unresolved.",
+      "needed_material": "Reported experimental conditions and recovery or adsorption information where available, confirmation of species attribution, and downstream review of applicability to the intended binding correction. Do not convert binding percentages to fu at this step.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_BINDING_UNCERTAINTY",
+      "affected_id": "DRQ48",
+      "reason": "The body reports accompanying ± terms, but their statistical meaning and n are unspecified. This page does not establish a binding uncertainty distribution, covariance or alternative-source comparison.",
+      "needed_material": "Source definitions supporting interpretation of the reported uncertainty terms and any authorized alternative binding evidence. Carry unsupported uncertainty components as limitations; do not manufacture a distribution or average conflicting sources.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI004",
+      "reason": "Human validation data availability and release remains DEFERRED, resolution_status OPEN, needed_at validation. Human validation data are not in the supplied package. The reference tables described in SC026 are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen. Independent comparison with human observations must await the permitted release.",
+      "needed_material": "At task 5, release the separate human reference file only after confirming the required freezes; do not access its outcomes earlier.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

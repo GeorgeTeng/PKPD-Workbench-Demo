@@ -1,0 +1,56 @@
+{
+  "cards": [
+    {
+      "title": "NCA Clearance and Volume Definitions (CL, CL/F, Vss, Vz)",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Total body clearance (CL) is calculated as Dose/AUCINF for IV dosing. For extravascular dosing, apparent clearance (CL/F) is used because F cannot be estimated. Volume of distribution at steady state (Vss) is computed as MRTINF * CL (or CLss) and is NOT computed for extravascular dosing because MRTINF includes mean input time. Volume of distribution based on terminal phase (Vz) is Dose/[Lambda_z * AUCINF]; for extravascular dosing, this is effectively Vz/F. Lambda_z is estimated by linear regression of log concentration (Y) on time (X).",
+      "conditions": [
+        "Vss is only valid for IV Bolus and Infusion models.",
+        "For infusion models, MRTINF = (AUMCINF/AUCINF) - (Tinf/2). Do not subtract Tinf/2 again when calculating Vss.",
+        "For extravascular models (e.g., oral), parameters are apparent (CL/F, Vz/F).",
+        "Lambda_z estimation requires sufficient points in the terminal log-linear phase."
+      ],
+      "required_inputs": [
+        "Dose (amount)",
+        "Concentration-time data (plasma/serum)",
+        "AUCINF (extrapolated to infinity)",
+        "AUMCINF (extrapolated to infinity)",
+        "Lambda_z (terminal slope)",
+        "Tinf (infusion duration, if applicable)"
+      ],
+      "limitations": [
+        "Vss cannot be calculated for extravascular data using standard NCA formulas due to absorption phase influence on MRT.",
+        "CL/F and Vz/F are not true physiological parameters but apparent values dependent on F.",
+        "NCA parameters assume linear kinetics unless specified otherwise; they do not describe time-varying clearance."
+      ],
+      "downstream_use": "Use CL/CL/F for exposure-response analysis and dose adjustment. Use Vss for understanding tissue distribution extent in IV studies. Use Vz for terminal half-life interpretation. Do not mix apparent and absolute parameters in the same model without explicit F assumptions.",
+      "evidence_chunk_ids": [
+        "REF_003:0003",
+        "REF_003:0004",
+        "REF_003:0005",
+        "REF_003:0007"
+      ],
+      "id": "round3_A02:K01",
+      "origin_job": "round3_A02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A02",
+      "retrieval_keywords": "CL, CL/F, Vss, Vz and Vc definitions and conditions",
+      "supersedes": [
+        "round2_A02:K01",
+        "round2_A02:K02",
+        "round2_A02:K03",
+        "round2_A02:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

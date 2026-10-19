@@ -1,0 +1,1652 @@
+{
+  "request_sha256": "8a3d7260704043f1cb8bed5152f8556493c3a695e8f0bef59029f718c5e13306",
+  "context": {
+    "version": "3.0",
+    "objective": "Assess whether animal PK and preclinical PK/PD can support human voriconazole exposure prediction and efficacious-dose estimation (SC001).",
+    "study": {
+      "drug": "Voriconazole (SC002).",
+      "regimen": "Multiple source-specific animal regimens and planned human IV and oral regimens, including loading doses; details remain study-specific (SC005, SC007, SC009, SC010, SC011, SC014, SC023).",
+      "population": "Primary mouse and rat studies; secondary multi-species evidence; in-vitro fungal susceptibility data; independent human validation (SC003–SC018).",
+      "system": "Animal systemic PK and organism- and endpoint-specific antifungal PK/PD, translated to human plasma exposure (SC005–SC018, SC023–SC026).",
+      "measurements": "Concentrations, PK parameters and exposures, isolate efficacy, survival ED50s, protein binding and MICs (SC005–SC018, SC030).",
+      "methods": "Planned preparation, animal PK modeling, human translation, PK/PD index comparison, independent validation and PTA analysis (SC021–SC026)."
+    },
+    "data": {
+      "available": [],
+      "required": []
+    },
+    "rules": [],
+    "checks": [],
+    "uncertainties": [
+      "[MI001]",
+      "[MI002]",
+      "[MI003]",
+      "[MI004]",
+      "[MI005]",
+      "[MI006]",
+      "[MI007]",
+      "[MI008]",
+      "[MI009]",
+      "[MI010]",
+      "[MI011]",
+      "[MI012]",
+      "[MI013]",
+      "[MI014]",
+      "[MI015]"
+    ]
+  },
+  "scientific_context": {
+    "version": "2.0",
+    "items": [
+      {
+        "id": "SC001",
+        "statement": "Test whether animal PK and preclinical PK/PD can predict human voriconazole exposure and support efficacious-dose estimation. The primary outcome is model feasibility, not a clinical dosing recommendation or proof of generalizability.",
+        "science": {
+          "role": "OBJECTIVE",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC002",
+        "statement": "Voriconazole is the sole test drug. Fluconazole, itraconazole, posaconazole, amphotericin B, caspofungin and tofacitinib appear as comparators or co-administered drugs and must not substitute for it.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC003",
+        "statement": "The proposal is Animal to Human Translation of Voriconazole, feasibility study Version 1.0 (draft), dated 9 October 2026. Voriconazole is a known-drug test case with existing human PK intended for independent validation.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC004",
+        "statement": "Voriconazole_source_tables_by_species.xlsx is the single animal and in-vitro workbook. Its sheets retain source-shaped tables and notes rather than a ready-made modeling dataset; these are proposal-described resource roles, not inspected attachment contents.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC005",
+        "statement": "The Mouse sheet is described as containing digitized mean plasma curves and exposure parameters after oral doses in non-neutropenic aspergillosis mice.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC006",
+        "statement": "The Mouse sheet is described as containing serum PK parameters and per-isolate efficacy in neutropenic candidiasis mice.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC007",
+        "statement": "The Mouse sheet is described as containing intraperitoneal PK and survival ED50s against A. flavus.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC008",
+        "statement": "The Mouse sheet is described as containing serum levels in mice given grapefruit juice.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC009",
+        "statement": "Two mouse studies sampled PK on treatment day 2; the proposal does not identify those studies individually.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC010",
+        "statement": "The Rat sheet is described as containing single IV and oral PK with and without a co-administered drug.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC011",
+        "statement": "A rat population model describes saturable elimination and autoinduction from 10-day intraperitoneal dosing.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC012",
+        "statement": "The rat AUCs associated with SC011 are model-predicted.",
+        "science": {
+          "role": "RESULT",
+          "evidence_status": "PREDICTED",
+          "method_refs": [
+            "SC011"
+          ],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC013",
+        "statement": "The Rat sheet also describes a population model with plasma binding in healthy and meningitis rats.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC014",
+        "statement": "Cross_species_secondary contains one multi-species table for mouse, rat, rabbit, guinea pig and dog, reproduced in a thesis from Roffey et al. (2003). It describes single- and multiple-dose AUC after IV and oral dosing and protein binding; decimals use Portuguese commas. Provenance and mapping issues are MI001 and MI002.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC015",
+        "statement": "Use SC014 only as low-confidence context or for sensitivity analysis, never as the sole basis for a species model; retain its secondary label throughout.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC016",
+        "statement": "In_vitro_MIC contains EUCAST MIC distributions for C. albicans and A. fumigatus and isolate MICs for the two mouse aspergillosis studies. Candidiasis isolate MICs are located with their efficacy table on the Mouse sheet.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC017",
+        "statement": "Use matched isolate MICs for PD and MIC distributions for population-weighted attainment; a distribution cannot replace matched isolate MICs.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC018",
+        "statement": "The separate human reference file is described as containing label PK parameters and statements, a healthy-volunteer IV-to-oral dose-escalation study, and a human-target column removed from a rat source. Its access restriction is MI003.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC019",
+        "statement": "Voriconazole_project_proposal.docx defines the task; AGENT_README.md explains package use and known gaps.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC020",
+        "statement": "The designated uses are mouse PK and eligible PD analysis, and rat systemic PK, nonlinearity and time-dependent clearance.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC021",
+        "statement": "Planned preparation splits mixed source blocks into PK, PD, MIC and validation inputs; checks provenance, units, dose histories, treatment day, analytes, matrices, assays, experimental units and missing fields; and identifies usable records and unresolved gaps before fitting.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC022",
+        "statement": "Planned animal PK work selects eligible systemic models for mouse and rat, including saturable elimination and time-dependent clearance where supported. It evaluates fit, parameter identifiability and held-out prediction where the design permits, and documents whether and how SC014 is used.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC023",
+        "statement": "Planned human translation uses supported animal models, body size, protein binding, metabolic clearance and justified physiological relationships, accounting for nonlinearity and autoinduction before scaling. It compares approaches with and without each species rather than assuming more species is better; predicts human concentration-time profiles, AUC, Cmax and Cmin with uncertainty under specified IV and oral regimens, including loading doses; and freezes those predictions before opening human outcomes.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC024",
+        "statement": "For eligible data, planned PK/PD analysis compares fAUC/MIC, fCmax/MIC and fT>MIC using ordinary Emax and sigmoid Emax/Hill regression separately by organism and endpoint. It estimates supported exposure targets or reports that the available data cannot determine a best index or target.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC025",
+        "statement": "Planned human validation applies the frozen model to doses and regimens in the human reference tables, comparing predicted with observed plasma PK, including the change from single to repeated dosing. It reports bias, precision, exposure agreement and predictive uncertainty against criteria fixed before validation.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": [
+            {
+              "type": "USES",
+              "target_id": "SC018"
+            },
+            {
+              "type": "TESTS",
+              "target_id": "SC023"
+            }
+          ]
+        }
+      },
+      {
+        "id": "SC026",
+        "statement": "After PK validation and PD qualification, planned simulation uses a prespecified human population and IV and oral scenarios to estimate PTA at each MIC, reporting distribution-weighted attainment separately. Where supported, it includes an exploratory efficacious-dose estimate with uncertainty. Deliverables are PTA tables/curves, a feasibility conclusion and reproducible code; if required inputs are missing, report why PTA is not estimable.",
+        "science": {
+          "role": "METHOD",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC027",
+        "statement": "Preserve source identifiers, units, missing values and detection limits. Group means, published fitted parameters, model-predicted AUCs and digitized points are not individual animals or observations. Do not invent IDs, exposure-response links or missing measurements; the variability restriction is SC038.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC028",
+        "statement": "Keep oral gavage, intraperitoneal and IV routes separate; distinguish total from unbound drug, serum from plasma from free brain dialysate, and bioassay from chromatographic results. Keep single-dose, day-2, repeat-dose and post-treatment samples apart; parameters from one dose or day do not transfer to another. Separate neutropenic, non-neutropenic, infected, meningitis, grapefruit-juice and co-medicated animals. Every conversion requires a recorded justification.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC029",
+        "statement": "Mouse exposure is reported to rise more than dose-proportionally. Exposure is reported as nonlinear and falling with repeated dosing in mice and rats.",
+        "science": {
+          "role": "RESULT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC030",
+        "statement": "Reported binding descriptions are mouse 78% bound in serum, 29.97% unbound in plasma and 67% in the secondary table, and rat 64-66%. The proposal does not further qualify the percentage basis of the latter two descriptions. The source-declared conflict is MI004.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC031",
+        "statement": "Never average the conflicting binding sources; carry fu as a sensitivity parameter.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC032",
+        "statement": "Give all three indices and both regression families in SC024 equal eligibility. Compare them using the same matched response records, isolate MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC033",
+        "statement": "Kidney CFU and survival endpoints are not interchangeable. Keep CFU-based and survival-based targets separate; a target from one organism or endpoint cannot set another.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC034",
+        "statement": "The rat escalating regimen was designed to match a human exposure target; the proposal does not identify it here as a specific regimen in another source block.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC035",
+        "statement": "Published ED50s, exposure indices and conclusions cannot set primary-analysis starting values, bounds, priors or rankings. Do not use the rat escalating regimen in SC034 to tune scaling, or human outcomes to tune the animal model or scaling. Model/prediction freezing and validation-criterion timing are specified in SC023 and SC025; freeze PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC036",
+        "statement": "The EUCAST distributions were compiled to set epidemiological cut-offs; the C. albicans data are mostly truncated at 0.016 mg/L.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC037",
+        "statement": "Preserve MIC bins, units, counts, denominators, censored categories and test method (EUCAST, CLSI or NCCLS). Do not interpret SC036 as resistance rates. Derive probabilities transparently and freeze the MIC distribution; never silently renormalize. The distinction between per-MIC PTA and MIC-weighted attainment is retained in SC026.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC038",
+        "statement": "Propagate parameter, binding, PD-target and MIC uncertainty. Do not invent variability, including interindividual variability from group summaries.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC039",
+        "statement": "A successful fit is not predictive validation; human PK agreement does not validate antifungal efficacy or safety. Preserve failures and data gaps.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC040",
+        "statement": "Save transformations, assumptions, code, seeds and results, and obtain human review before fitting.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC041",
+        "statement": "The proposal cites Sou T et al., Model-Informed Drug Development for Antimicrobials: Translational PK and PK/PD Modeling to Predict an Efficacious Human Dose for Apramycin, Clinical Pharmacology & Therapeutics, 2021;109:1063-1073, https://doi.org/10.1002/cpt.2104.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC042",
+        "statement": "Follow the translational objective of Sou et al. (2021), identified in SC041, without importing the apramycin model or its parameters.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      }
+    ],
+    "potential_questions": []
+  },
+  "missing_information": {
+    "schema_version": "1.0",
+    "items": [
+      {
+        "id": "MI001",
+        "field": "Original source provenance for SC014",
+        "status": "NOT_FOUND",
+        "needed_at": "prepare",
+        "impact": "Primary-source verification of the secondary table cannot be established from the supplied proposal.",
+        "why_it_matters": "The proposal explicitly reports that the original Roffey et al. paper was unavailable; attachment registration supplies no additional verification.",
+        "clarification": "Provide authorized original-source evidence if available, or retain the provenance limitation under SC015.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI002",
+        "field": "Column-to-species mapping in SC014",
+        "status": "AMBIGUOUS",
+        "needed_at": "prepare",
+        "impact": "Secondary-table values cannot be assigned confidently to species.",
+        "why_it_matters": "The proposal explicitly states that the mapping is unverified.",
+        "clarification": "Verify the mapping from authorized evidence before assigning values to species; otherwise preserve the uncertainty and SC015 restrictions.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI003",
+        "field": "Access to human validation data",
+        "status": "DEFERRED",
+        "needed_at": "validation",
+        "impact": "Independent human validation must await the authorized release.",
+        "why_it_matters": "Human validation data are not in the supplied package. The separate reference file described in SC018 is released only at task 5, after the animal model, scaling and predictions are frozen.",
+        "clarification": "Release the separate human reference file only at the specified stage after the required freezes; do not access its outcomes earlier.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI004",
+        "field": "Conflicting mouse binding sources and percentage interpretation",
+        "status": "CONFLICT",
+        "needed_at": "pk",
+        "impact": "A single defensible mouse free-exposure conversion cannot be selected from the proposal alone.",
+        "why_it_matters": "The source explicitly identifies conflicting binding descriptions in SC030 across serum, plasma and the secondary table; their concentration bases must remain distinct.",
+        "clarification": "Resolve source-specific binding definitions and applicability, retaining unresolved alternatives under SC031 rather than averaging them.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI005",
+        "field": "Source-block preparation and record eligibility",
+        "status": "DEFERRED",
+        "needed_at": "prepare",
+        "impact": "A usable modeling dataset and its unresolved record-level limitations have not been established by this transformation.",
+        "why_it_matters": "SC021 requires a later preparation assessment. Only the proposal was supplied; attachment bodies were not searched or assessed.",
+        "clarification": "Perform the authorized SC021 assessment and document eligible records and independently identified gaps without assuming completeness.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI006",
+        "field": "Animal PK model support and design-permitted evaluation",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Supported mouse and rat model structures and permitted predictive checks cannot yet be determined.",
+        "why_it_matters": "SC022 makes model choices and evaluation conditional on data and design support; the proposal does not supply that assessment.",
+        "clarification": "Assess the prepared evidence for the conditional choices in SC022 and retain unsupported or unassessable components as limitations.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI007",
+        "field": "Support for individual PK variability",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Individual variability cannot be used defensibly in animal modeling or carried into human simulations until its evidential basis is established.",
+        "why_it_matters": "The proposal distinguishes summaries and predictions from individual observations and prohibits invented variability in SC027 and SC038; attachment-level support remains unassessed.",
+        "clarification": "Determine whether authorized individual-level evidence supports variability estimation; otherwise preserve the limitation without constructing variability from summaries.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI008",
+        "field": "Supported human translation inputs and relationships",
+        "status": "DEFERRED",
+        "needed_at": "human_pk",
+        "impact": "A justified human scaling approach cannot yet be selected.",
+        "why_it_matters": "The proposal specifies the translation considerations in SC023 but leaves their supported implementation to later assessment.",
+        "clarification": "Establish and document the supported inputs and physiological relationships for SC023, including how nonlinearity and autoinduction are addressed.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI009",
+        "field": "Numerical prospective human prediction regimens",
+        "status": "NOT_FOUND",
+        "needed_at": "human_pk",
+        "impact": "Prospective human exposure profiles cannot be generated for reproducibly specified dosing histories.",
+        "why_it_matters": "The proposal supplies partial regimen components in SC023 but no numerical doses, dosing intervals, loading schedules or treatment durations for those prospective predictions.",
+        "clarification": "Specify the complete prospective dosing histories, preserving the distinct routes and loading components already stated in SC023.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI010",
+        "field": "Eligible matched PK/PD records",
+        "status": "DEFERRED",
+        "needed_at": "index",
+        "impact": "Comparable index regressions and supported targets cannot yet be established.",
+        "why_it_matters": "SC024 and SC032 depend on eligibility and matched inputs. The proposal describes relevant resources but does not establish record-level matching or adequacy; attachment bodies were not assessed.",
+        "clarification": "Establish eligible matched records for each organism and endpoint under SC017, SC032 and SC033, or document why an index or target is not determinable.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI011",
+        "field": "Prespecified PK/PD index selection rule",
+        "status": "NOT_FOUND",
+        "needed_at": "index",
+        "impact": "Index comparison cannot proceed with a fully registered selection procedure.",
+        "why_it_matters": "SC032 requires registration before fitting, but the proposal does not state the selection rule.",
+        "clarification": "Register the selection rule before index fitting while preserving the comparison requirements and no-forced-winner condition in SC032.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI012",
+        "field": "Prespecified human prediction validation criteria",
+        "status": "NOT_FOUND",
+        "needed_at": "validation",
+        "impact": "Human predictive performance cannot receive a prespecified acceptance judgment.",
+        "why_it_matters": "SC025 names evaluation outputs and requires criteria fixed before validation, but the criteria themselves are not supplied.",
+        "clarification": "Specify and freeze the validation criteria before evaluating human outcomes; do not derive them from validation results.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI013",
+        "field": "MIC distribution preparation and probability support",
+        "status": "DEFERRED",
+        "needed_at": "prepare",
+        "impact": "A transparent MIC probability input for later weighted attainment has not been established.",
+        "why_it_matters": "The source describes the distribution limitations in SC036 and processing obligations in SC037, but the supplied proposal does not assess the underlying bins, denominators or censored-category handling.",
+        "clarification": "Assess the authorized MIC tables and document how probabilities preserve the source categories and truncation, without silent renormalization.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI014",
+        "field": "Prespecified human PTA population",
+        "status": "NOT_FOUND",
+        "needed_at": "clinical",
+        "impact": "PTA simulation lacks a defined target population.",
+        "why_it_matters": "SC026 requires a prespecified human population, but the proposal does not define it.",
+        "clarification": "Specify the human PTA population before simulation, with variability and uncertainty supported under SC038.",
+        "resolution_status": "OPEN"
+      },
+      {
+        "id": "MI015",
+        "field": "Prespecified human PTA dosing scenarios",
+        "status": "NOT_FOUND",
+        "needed_at": "clinical",
+        "impact": "PTA simulation lacks a reproducible set of dosing scenarios.",
+        "why_it_matters": "SC026 specifies route categories but does not supply the numerical PTA scenario choices; these are a separate decision from the prospective prediction regimens in MI009.",
+        "clarification": "Prespecify the complete PTA dosing scenarios before simulation and document their relationship to the validated PK predictions.",
+        "resolution_status": "OPEN"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "id": "/objective",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "We will test whether animal PK and preclinical PK/PD can predict human voriconazole exposure and support efficacious-dose estimation."
+        }
+      ],
+      "reason": "Short orientation to the source objective, fully retained in SC001."
+    },
+    {
+      "id": "/study/drug",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Voriconazole is the sole test drug"
+        }
+      ],
+      "reason": "Explicit test-drug identity."
+    },
+    {
+      "id": "/study/regimen",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "after oral doses in non-neutropenic aspergillosis mice"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "intraperitoneal PK and survival ED50s against A. flavus"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Two studies sampled PK on day 2 of treatment"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Rat: single IV and oral PK with and without a co-administered drug, a population model with saturable elimination and autoinduction from 10-day intraperitoneal dosing with model-predicted AUCs"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "with single- and multiple-dose AUC after IV and oral dosing and protein binding."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "under specified IV and oral regimens, including loading doses"
+        }
+      ],
+      "reason": "Retains partial dosing information without joining independent studies or treating sampling days as dosing events."
+    },
+    {
+      "id": "/study/population",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Select eligible systemic PK models for mouse and rat"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "one multi-species table (mouse, rat, rabbit, guinea pig, dog)"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "In_vitro_MIC: EUCAST MIC distributions for C. albicans and A. fumigatus"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Voriconazole is a known-drug test case with existing human PK for independent validation."
+        }
+      ],
+      "reason": "Source-supported populations and evidence categories, with specific records in the cited scientific span."
+    },
+    {
+      "id": "/study/system",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use for systemic PK, nonlinearity and time-dependent clearance."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "separately by organism and endpoint."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Compare predicted and observed plasma PK"
+        }
+      ],
+      "reason": "Concise orientation to the systemic PK and scoped antifungal PD translation."
+    },
+    {
+      "id": "/study/measurements",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "digitized mean plasma curves and exposure parameters after oral doses in non-neutropenic aspergillosis mice, serum PK parameters and per-isolate efficacy in neutropenic candidiasis mice, intraperitoneal PK and survival ED50s against A. flavus, and serum levels in mice given grapefruit juice."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "with single- and multiple-dose AUC after IV and oral dosing and protein binding."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "In_vitro_MIC: EUCAST MIC distributions for C. albicans and A. fumigatus, and isolate MICs for the two mouse aspergillosis studies"
+        }
+      ],
+      "reason": "Measurement categories are described by the proposal, without attachment inspection."
+    },
+    {
+      "id": "/study/methods",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "1. Prepare the data."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "2. Fit animal PK."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "3. Predict human PK."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "4. Determine the PK/PD index."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "5. Validate the human prediction."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "6. Produce PTA and assess feasibility."
+        }
+      ],
+      "reason": "All six planned task branches are retained."
+    },
+    {
+      "id": "SC001",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "We will test whether animal PK and preclinical PK/PD can predict human voriconazole exposure and support efficacious-dose estimation."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "The primary outcome is model feasibility, not a clinical dosing recommendation or proof of generalizability."
+        }
+      ],
+      "reason": "Preserves the overall objective and explicit limits on its intended outcome."
+    },
+    {
+      "id": "SC002",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Voriconazole is the sole test drug; fluconazole, itraconazole, posaconazole, amphotericin B, caspofungin and tofacitinib appear in the sources as comparators or co-administered drugs and are not substitutes."
+        }
+      ],
+      "reason": "Preserves all named drugs and their permitted identities."
+    },
+    {
+      "id": "SC003",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Animal to Human Translation of Voriconazole\nFeasibility study   Version 1.0 (draft)   9 October 2026"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Voriconazole is a known-drug test case with existing human PK for independent validation."
+        }
+      ],
+      "reason": "Proposal identity and stated validation design."
+    },
+    {
+      "id": "SC004",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Voriconazole_source_tables_by_species.xlsx is the single animal and in-vitro data workbook. Its sheets retain source-shaped tables and notes, not a ready-made modeling dataset:"
+        }
+      ],
+      "reason": "Resource description is attributed to the proposal and does not assert inspection."
+    },
+    {
+      "id": "SC005",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Mouse: digitized mean plasma curves and exposure parameters after oral doses in non-neutropenic aspergillosis mice"
+        }
+      ],
+      "reason": "Preserves species, disease state, route, matrix and summary/digitization level."
+    },
+    {
+      "id": "SC006",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "serum PK parameters and per-isolate efficacy in neutropenic candidiasis mice"
+        }
+      ],
+      "reason": "Keeps the candidiasis block distinct from other mouse studies."
+    },
+    {
+      "id": "SC007",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "intraperitoneal PK and survival ED50s against A. flavus"
+        }
+      ],
+      "reason": "Preserves the route and survival endpoint without constructing an exposure-response join."
+    },
+    {
+      "id": "SC008",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "serum levels in mice given grapefruit juice."
+        }
+      ],
+      "reason": "Preserves the matrix and treatment condition."
+    },
+    {
+      "id": "SC009",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Two studies sampled PK on day 2 of treatment"
+        }
+      ],
+      "reason": "Retains the study count and sampling day without assigning unspecified study identities."
+    },
+    {
+      "id": "SC010",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Rat: single IV and oral PK with and without a co-administered drug"
+        }
+      ],
+      "reason": "Preserves single-dose routes and co-medication conditions."
+    },
+    {
+      "id": "SC011",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "a population model with saturable elimination and autoinduction from 10-day intraperitoneal dosing with model-predicted AUCs"
+        }
+      ],
+      "reason": "Published model description remains distinct from its predicted outputs."
+    },
+    {
+      "id": "SC012",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "a population model with saturable elimination and autoinduction from 10-day intraperitoneal dosing with model-predicted AUCs"
+        }
+      ],
+      "reason": "Explicit prediction basis supports the result status and SC011 method reference."
+    },
+    {
+      "id": "SC013",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "a population model with plasma binding in healthy and meningitis rats."
+        }
+      ],
+      "reason": "Retains the separately described model, matrix and animal conditions."
+    },
+    {
+      "id": "SC014",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Cross_species_secondary: one multi-species table (mouse, rat, rabbit, guinea pig, dog) reproduced in a thesis from Roffey et al. (2003), with single- and multiple-dose AUC after IV and oral dosing and protein binding."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "decimals use Portuguese commas."
+        }
+      ],
+      "reason": "Retains unique species, table count, provenance, exposure categories, routes and decimal convention; full unresolved issues reside in MI001 and MI002."
+    },
+    {
+      "id": "SC015",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use it only as low-confidence context or for sensitivity analysis, never as the sole basis for a species model."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep the secondary multi-species table labelled as secondary throughout."
+        }
+      ],
+      "reason": "Preserves the secondary table's use restrictions and labeling obligation."
+    },
+    {
+      "id": "SC016",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "In_vitro_MIC: EUCAST MIC distributions for C. albicans and A. fumigatus, and isolate MICs for the two mouse aspergillosis studies (candidiasis isolate MICs sit with their efficacy table on the Mouse sheet)."
+        }
+      ],
+      "reason": "Preserves organisms, MIC resource roles, study count and the candidiasis table location."
+    },
+    {
+      "id": "SC017",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use matched isolate MICs for PD and the distributions for population-weighted attainment; a distribution cannot replace matched isolate MICs."
+        }
+      ],
+      "reason": "Preserves the distinct purposes and non-substitution restriction."
+    },
+    {
+      "id": "SC018",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Human reference tables (label PK parameters and statements, a healthy-volunteer IV-to-oral dose-escalation study, and a human-target column removed from a rat source) are held in a separate file"
+        }
+      ],
+      "reason": "All distinct reference-file roles are retained; availability and release conditions have one owner in MI003."
+    },
+    {
+      "id": "SC019",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Other files. Voriconazole_project_proposal.docx defines this task. AGENT_README.md explains package use and known gaps."
+        }
+      ],
+      "reason": "Preserves both task-definition and package-use/known-gap documentation roles."
+    },
+    {
+      "id": "SC020",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use for PK and eligible PD analysis"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use for systemic PK, nonlinearity and time-dependent clearance."
+        }
+      ],
+      "reason": "Species-specific uses follow their respective Mouse and Rat source paragraphs."
+    },
+    {
+      "id": "SC021",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "1. Prepare the data. Split the mixed source blocks into PK, PD, MIC and validation inputs. Check provenance, units, dose histories, treatment day, analytes, matrices, assays, experimental units and missing fields. Identify usable records and unresolved gaps before fitting."
+        }
+      ],
+      "reason": "Complete planned preparation scope and timing."
+    },
+    {
+      "id": "SC022",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "2. Fit animal PK. Select eligible systemic PK models for mouse and rat, including saturable elimination and time-dependent clearance where the data support them. Evaluate fit, parameter identifiability and held-out prediction where the design permits. Document whether and how the secondary multi-species table is used."
+        }
+      ],
+      "reason": "Preserves conditional model eligibility and design-dependent evaluation without selecting a model."
+    },
+    {
+      "id": "SC023",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "3. Predict human PK. Translate supported animal models using body size, protein binding, metabolic clearance and justified physiological relationships, accounting for nonlinearity and autoinduction before scaling. Compare approaches with and without each species rather than assuming more species is better. Predict human concentration-time profiles, AUC, Cmax and Cmin with uncertainty under specified IV and oral regimens, including loading doses, and freeze them before opening human outcomes."
+        }
+      ],
+      "reason": "Preserves the complete planned translation procedure, partial regimens, outputs and freeze condition."
+    },
+    {
+      "id": "SC024",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "4. Determine the PK/PD index. For eligible data, compare fAUC/MIC, fCmax/MIC and fT>MIC using ordinary Emax and sigmoid Emax/Hill regression, separately by organism and endpoint. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        }
+      ],
+      "reason": "Preserves all candidate indices and regression families, scoped comparisons and the permissible indeterminate outcome."
+    },
+    {
+      "id": "SC025",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "5. Validate the human prediction. Apply the frozen model to the doses and regimens in the human reference tables. Compare predicted and observed plasma PK, including the change from single to repeated dosing. Report bias, precision, exposure agreement and predictive uncertainty against criteria fixed before validation."
+        }
+      ],
+      "reason": "Supports the full validation method and directed relations: validation uses human references and tests the frozen human translation."
+    },
+    {
+      "id": "SC026",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "6. Produce PTA and assess feasibility. After PK validation and PD qualification, simulate a prespecified human population and IV and oral dosing scenarios to estimate the probability of target attainment (PTA) at each MIC. Process the MIC distributions and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver the PTA tables/curves, feasibility conclusion and reproducible code; if required inputs are missing, report why PTA is not estimable."
+        }
+      ],
+      "reason": "Preserves prerequisites, distinct attainment outputs, conditional dose estimation, deliverables and non-estimability reporting."
+    },
+    {
+      "id": "SC027",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep source identifiers, units, missing values and detection limits. Group means, published fitted parameters, model-predicted AUCs and digitized points are not individual animals or observations."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Do not invent IDs, variability, exposure-response links or missing measurements."
+        }
+      ],
+      "reason": "Preserves evidence levels and fabrication prohibitions; variability is owned fully by SC038."
+    },
+    {
+      "id": "SC028",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Separate routes (oral gavage, intraperitoneal, IV), total versus unbound drug, serum versus plasma versus free brain dialysate, and bioassay versus chromatographic results."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep single-dose, day-2, repeat-dose and post-treatment samples apart; exposure is nonlinear and falls with repeated dosing in mice and rats, so parameters from one dose or day do not transfer to another. Keep neutropenic, non-neutropenic, infected, meningitis, grapefruit-juice and co-medicated animals apart. Every conversion requires a recorded justification."
+        }
+      ],
+      "reason": "All compatibility dimensions, sample phases, transfer restrictions and conversion obligations are retained; the reported exposure behavior is classified separately in SC029."
+    },
+    {
+      "id": "SC029",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "exposure rises more than dose-proportionally."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "exposure is nonlinear and falls with repeated dosing in mice and rats"
+        }
+      ],
+      "reason": "Reported exposure findings are kept separate from requirements and retain their species scope."
+    },
+    {
+      "id": "SC030",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Binding sources conflict (mouse 78% bound in serum versus 29.97% unbound in plasma versus 67% in the secondary table; rat 64-66%)"
+        }
+      ],
+      "reason": "Preserves the exact percentages and stated bases without assigning unstated bases; conflict ownership is MI004."
+    },
+    {
+      "id": "SC031",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "never average them, and carry fu as a sensitivity parameter."
+        }
+      ],
+      "reason": "Preserves the mandatory response to binding uncertainty."
+    },
+    {
+      "id": "SC032",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Give all three indices equal eligibility and both regression families. Compare them on the same matched response records, isolate MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner."
+        }
+      ],
+      "reason": "Complete comparison, registration and model-selection restrictions."
+    },
+    {
+      "id": "SC033",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "kidney CFU and survival endpoints are not interchangeable."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep CFU-based and survival-based targets separate; a target from one organism or endpoint cannot set another."
+        }
+      ],
+      "reason": "Consolidates repeated endpoint restrictions while retaining the kidney-specific qualification."
+    },
+    {
+      "id": "SC034",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "The rat escalating regimen was designed to match a human exposure target"
+        }
+      ],
+      "reason": "Keeps the existing design fact separate from its use prohibition and avoids an unsupported cross-block regimen match."
+    },
+    {
+      "id": "SC035",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Published ED50s, exposure indices and conclusions cannot set primary-analysis starting values, bounds, priors or rankings. The rat escalating regimen was designed to match a human exposure target; do not use it to tune scaling. Human outcomes cannot tune the animal model or scaling. Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        }
+      ],
+      "reason": "Preserves all leakage and revision restrictions; shared freeze details refer to their canonical method owners."
+    },
+    {
+      "id": "SC036",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "The EUCAST distributions were compiled to set epidemiological cut-offs, and the C. albicans data are mostly truncated at 0.016 mg/L"
+        }
+      ],
+      "reason": "Retains compilation purpose, organism, truncation magnitude and units."
+    },
+    {
+      "id": "SC037",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Preserve MIC bins, units, counts, denominators, censored categories and test method (EUCAST, CLSI or NCCLS)."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "do not read them as resistance rates. Derive probabilities transparently and freeze the MIC distribution; never silently renormalize. Distinguish per-MIC PTA from MIC-weighted attainment."
+        }
+      ],
+      "reason": "Preserves MIC processing and interpretation obligations; distinct attainment outputs are owned by SC026."
+    },
+    {
+      "id": "SC038",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Do not invent IDs, variability, exposure-response links or missing measurements."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Propagate parameter, binding, PD-target and MIC uncertainty; group summaries cannot supply invented interindividual variability."
+        }
+      ],
+      "reason": "Canonical owner of uncertainty propagation and the repeated variability prohibition."
+    },
+    {
+      "id": "SC039",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "A successful fit is not predictive validation; human PK agreement does not validate antifungal efficacy or safety. Preserve failures and data gaps."
+        }
+      ],
+      "reason": "Preserves limits of inference and adverse evidence."
+    },
+    {
+      "id": "SC040",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Save transformations, assumptions, code, seeds and results, and obtain human review before fitting."
+        }
+      ],
+      "reason": "Preserves reproducibility outputs and the human review gate."
+    },
+    {
+      "id": "SC041",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Reference: Sou T et al. Model-Informed Drug Development for Antimicrobials: Translational PK and PK/PD Modeling to Predict an Efficacious Human Dose for Apramycin. Clinical Pharmacology & Therapeutics. 2021;109:1063-1073. https://doi.org/10.1002/cpt.2104"
+        }
+      ],
+      "reason": "Preserves the proposal's bibliographic resource without consulting it."
+    },
+    {
+      "id": "SC042",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Following the translational objective of Sou et al. (2021), we do not import the apramycin model or its parameters."
+        }
+      ],
+      "reason": "Preserves objective-level influence and the explicit non-adoption of another drug's model and parameters."
+    },
+    {
+      "id": "MI001",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "The original paper was not available"
+        }
+      ],
+      "reason": "Source-explicit unavailability, not a fabricated search of attachment contents."
+    },
+    {
+      "id": "MI002",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "the column-to-species mapping is unverified"
+        }
+      ],
+      "reason": "Independently closable mapping uncertainty."
+    },
+    {
+      "id": "MI003",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Human validation data are not in this package. Human reference tables (label PK parameters and statements, a healthy-volunteer IV-to-oral dose-escalation study, and a human-target column removed from a rat source) are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen."
+        }
+      ],
+      "reason": "Protected later-stage release is DEFERRED; the complete availability and release condition is owned by this gap."
+    },
+    {
+      "id": "MI004",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Binding sources conflict (mouse 78% bound in serum versus 29.97% unbound in plasma versus 67% in the secondary table; rat 64-66%); never average them, and carry fu as a sensitivity parameter."
+        }
+      ],
+      "reason": "Source-declared conflict; exact reported values remain in SC030 and governing treatment in SC031."
+    },
+    {
+      "id": "MI005",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "1. Prepare the data. Split the mixed source blocks into PK, PD, MIC and validation inputs. Check provenance, units, dose histories, treatment day, analytes, matrices, assays, experimental units and missing fields. Identify usable records and unresolved gaps before fitting."
+        }
+      ],
+      "reason": "A required later assessment is deferred; no dataset absence or completed search is asserted."
+    },
+    {
+      "id": "MI006",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Select eligible systemic PK models for mouse and rat, including saturable elimination and time-dependent clearance where the data support them. Evaluate fit, parameter identifiability and held-out prediction where the design permits."
+        }
+      ],
+      "reason": "Conditional support and evaluation require later PK assessment rather than an invented adequacy finding."
+    },
+    {
+      "id": "MI007",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Group means, published fitted parameters, model-predicted AUCs and digitized points are not individual animals or observations."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "group summaries cannot supply invented interindividual variability."
+        }
+      ],
+      "reason": "Defensibility of individual variability remains a deferred assessment, not a conclusion that individual data are absent."
+    },
+    {
+      "id": "MI008",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Translate supported animal models using body size, protein binding, metabolic clearance and justified physiological relationships, accounting for nonlinearity and autoinduction before scaling."
+        }
+      ],
+      "reason": "The supported implementation is a later human translation assessment, not a selected method in this extraction."
+    },
+    {
+      "id": "MI009",
+      "status": "NOT_FOUND",
+      "citations": [],
+      "reason": "No numerical prospective human prediction doses, intervals, loading schedules or durations appear in the supplied proposal. This says nothing about unread files."
+    },
+    {
+      "id": "MI010",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "For eligible data, compare fAUC/MIC, fCmax/MIC and fT>MIC"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Compare them on the same matched response records, isolate MICs, free-exposure basis, dosing histories, time windows and likelihood."
+        }
+      ],
+      "reason": "Eligibility and matching are deferred requirements; no unmatched-dataset finding or incomplete search is invented."
+    },
+    {
+      "id": "MI011",
+      "status": "NOT_FOUND",
+      "citations": [],
+      "reason": "The supplied proposal requires a registered selection rule but does not specify it."
+    },
+    {
+      "id": "MI012",
+      "status": "NOT_FOUND",
+      "citations": [],
+      "reason": "The supplied proposal requires fixed validation criteria but supplies no acceptance criteria."
+    },
+    {
+      "id": "MI013",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Preserve MIC bins, units, counts, denominators, censored categories and test method (EUCAST, CLSI or NCCLS). The EUCAST distributions were compiled to set epidemiological cut-offs, and the C. albicans data are mostly truncated at 0.016 mg/L; do not read them as resistance rates. Derive probabilities transparently and freeze the MIC distribution; never silently renormalize."
+        }
+      ],
+      "reason": "The required MIC preparation assessment is deferred; source-described limitations do not establish unread table completeness."
+    },
+    {
+      "id": "MI014",
+      "status": "NOT_FOUND",
+      "citations": [],
+      "reason": "A human population must be prespecified for PTA, but its definition is absent from the supplied proposal."
+    },
+    {
+      "id": "MI015",
+      "status": "NOT_FOUND",
+      "citations": [],
+      "reason": "The proposal names IV and oral PTA scenarios without specifying the numerical scenario choices."
+    },
+    {
+      "id": "/uncertainties/0",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI001."
+    },
+    {
+      "id": "/uncertainties/1",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI002."
+    },
+    {
+      "id": "/uncertainties/2",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI003."
+    },
+    {
+      "id": "/uncertainties/3",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI004."
+    },
+    {
+      "id": "/uncertainties/4",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI005."
+    },
+    {
+      "id": "/uncertainties/5",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI006."
+    },
+    {
+      "id": "/uncertainties/6",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI007."
+    },
+    {
+      "id": "/uncertainties/7",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI008."
+    },
+    {
+      "id": "/uncertainties/8",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI009."
+    },
+    {
+      "id": "/uncertainties/9",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI010."
+    },
+    {
+      "id": "/uncertainties/10",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI011."
+    },
+    {
+      "id": "/uncertainties/11",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI012."
+    },
+    {
+      "id": "/uncertainties/12",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI013."
+    },
+    {
+      "id": "/uncertainties/13",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI014."
+    },
+    {
+      "id": "/uncertainties/14",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References MI015."
+    }
+  ]
+}

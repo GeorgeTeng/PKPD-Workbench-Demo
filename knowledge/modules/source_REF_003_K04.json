@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Interval Data (Urine) NCA Formulas",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "For interval data (e.g., urine), excretion rate is calculated as (Concentration * Volume) / (Ending Time - Starting Time). Lambda Z is estimated using midpoints of collection intervals vs. log excretion rates. Amount_Recovered is the cumulative amount eliminated.",
+      "conditions": [
+        "Urine or other interval-collected data"
+      ],
+      "required_inputs": [
+        "Start/End times",
+        "Concentration",
+        "Volume"
+      ],
+      "limitations": [
+        "Midpoint is used for time axis in regression.",
+        "AURC_INF is theoretically equal to Amount_Recovered but differs due to experimental error."
+      ],
+      "downstream_use": "Renal clearance estimation; mass balance analysis.",
+      "evidence_chunk_ids": [
+        "REF_003:0007",
+        "REF_003:0008",
+        "REF_003:0009"
+      ],
+      "id": "source_REF_003:K04",
+      "origin_job": "source_REF_003",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

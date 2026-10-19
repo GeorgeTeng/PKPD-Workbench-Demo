@@ -1,0 +1,42 @@
+{
+  "cards": [
+    {
+      "title": "AUC Extrapolation Methods",
+      "topics": [
+        "animal_pk",
+        "translation"
+      ],
+      "claim": "Three extrapolation methods are defined for the tail of the concentration-time curve: 'AUClast' (no extrapolation, integral is zero), 'AUCall' (no extrapolation if the last measured concentration is above LOQ; otherwise linear triangle integration from the last quantifiable point to the subsequent zero-concentration time, under the stated PKNCA convention), and 'AUCinf' (extrapolation using the equation C_last/lambda_z, requiring half-life estimation).",
+      "conditions": [
+        "Last concentration relative to LLOQ",
+        "Availability of terminal half-life (lambda_z) for AUCinf",
+        "Explicit user selection of method"
+      ],
+      "required_inputs": [
+        "Last measured concentration (Clast)",
+        "Terminal elimination rate constant (lambda_z) for AUCinf",
+        "LLOQ value"
+      ],
+      "limitations": [
+        "AUCinf requires reliable lambda_z estimation",
+        "AUCall behavior depends on whether Clast is above or below LLOQ",
+        "Extrapolation choices are explicit settings, not automatic defaults"
+      ],
+      "downstream_use": "Total exposure calculation (AUCinf/AUCall)",
+      "evidence_chunk_ids": [
+        "REF_011:0003"
+      ],
+      "id": "source_REF_011:K02",
+      "origin_job": "source_REF_011",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

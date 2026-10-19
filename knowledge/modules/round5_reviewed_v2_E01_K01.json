@@ -1,0 +1,128 @@
+{
+  "cards": [
+    {
+      "title": "Prefit Individual Concentration-Time Plotting and Event Alignment",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Prefit visual examination of concentration-time data requires strict separation of observed records from model-derived values, explicit handling of censoring/missingness as categorical states, and connection of points only within verified serial observation subjects and compatible time references.",
+      "conditions": [
+        "Applies to prefit EDA of concentration-time data.",
+        "This card addresses prefit observed-data displays and does not substitute for post-fit diagnostics. Properly labelled exploratory figures can appear in final reports with provenance and limitations.",
+        "Assumes source data contains identifiable records, even if some IDs are unresolved."
+      ],
+      "required_inputs": [
+        "Conditional input mapping: numeric values only for quantified records; optional summaries/errors only when shown; assay-specific or branch-specific fields only when applicable. Missing fields limit dependent operations, not all displays.",
+        "Record/source locator",
+        "Study ID",
+        "Design",
+        "Observation ID",
+        "Experimental-unit ID (nullable)",
+        "Specimen/pool ID",
+        "Technical-repeat ID",
+        "Regimen and dose occasion",
+        "Route/formulation",
+        "Analyte",
+        "Matrix",
+        "Free/total basis",
+        "Time value/unit/origin",
+        "Measured value/unit",
+        "Quantification status",
+        "Nullable serial_observation_subject_id, distinct from experimental_unit_id (e.g. an animal within its randomized cage); required for individual serial lines or paired loops."
+      ],
+      "limitations": [
+        "Missingness mechanism is unknown from the plot; visual patterns neither select covariates nor qualify model feasibility.",
+        "A semilog visual slope is not a terminal elimination estimate or evidence for a compartment structure.",
+        "Unknown serial-subject IDs block individual connections; unknown experimental-unit IDs block independent-unit n/uncertainty, not verified observed subject series.",
+        "Unknown limits block numeric boundary placement, not status display.",
+        "Unknown time origin permits a source timestamp only if documented; otherwise use a record table.",
+        "Missing validation documentation means qualification unestablished, not automatically invalid."
+      ],
+      "downstream_use": "Visual patterns revealed by these plots inform subsequent model development and covariate investigation but do not themselves select covariates or declare model feasibility.",
+      "evidence_chunk_ids": [
+        "ADD001:0012",
+        "GEN001:0036",
+        "REF_022:0024"
+      ],
+      "plot_recipe": {
+        "input_contract": "Preserve record/source locator, study, design, observation ID, experimental-unit ID (nullable), specimen/pool ID, technical-repeat ID, regimen and dose occasion, route/formulation, analyte, matrix, free/total basis, time value/unit/origin, measured value/unit and quantification status. Map only available applicable fields; never invent missing identities. Preserve nullable serial_observation_subject_id separately from experimental_unit_id, with its source linkage. Numeric measured value is required only for quantified records; censoring/missing statuses may have a null numeric value. Optional summary/error inputs are needed only when that layer is displayed.",
+        "plot_type": "Individual concentration-time scatter with optional verified serial lines; linear and positive-only log-y companion panels.",
+        "axes_and_units": "X = actual elapsed time from a documented reference event, in stated units; Y = measured concentration on its stated analyte/matrix/free-total basis and unit. Time since last dose requires verified dose history and dose occasion; retain global documented time for traceability. Positive-only log-y is optional; measured zero remains on the linear panel.",
+        "grouping_and_connections": "Separate study, regimen/dose occasion, route/formulation, analyte/matrix/basis and endpoint contexts. Connect only verified serial observations of the same unit in a compatible time reference, ordered by time. Break connections at recorded unresolved missing/censored statuses. No invented scheduled samples or cross-unit lines. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "Preserve observed values as points at their actual record level. Keep raw observations separate from optional source-reported or explicitly defined descriptive summaries. A labelled group-summary guide is not an individual trajectory. Do not reconstruct individuals from a mean and SD.",
+        "censoring_and_missingness": "Separate quantified, BLQ, confirmed above-range, missing, not sampled and technical-failure states. BLQ is not zero or negative. Confirmed BLQ implies C < LLOQ; confirmed above-range implies C > ULOQ. Default engineering convention: categorical status strip; optional boundary markers require known applicable limits and explicit inequality. No substitution or silent exclusion.",
+        "transformations_and_formula": "Retain original values, units, formula, input linkage and calculation order. Perform only the explicitly stated descriptive transformation with complete compatible inputs. No model fitting, integration, unsampled-peak interpolation or arbitrary log offsets.",
+        "uncertainty_and_n": "Label displayed record counts separately from known independent experimental-unit n. Preserve supplied statistic, calculation scale and exact SD, SE or CI meaning, including asymmetric interval endpoints. Technical repeats do not increase biological n. Unknown n or variability stays unknown; no automatic CI or zero-width bar.",
+        "interpretation_limits": "A semilog visual slope is not a terminal elimination estimate or evidence for a compartment structure. Missingness mechanism is unknown from this plot; visual patterns neither select covariates nor qualify model feasibility.",
+        "stop_or_fallback": "Block only the operation that needs an unresolved input. Unknown serial-subject IDs block individual connections; unknown experimental-unit IDs block independent-unit summaries. Neither blocks labelled observed record/group displays. Unknown limits block numeric boundary placement, not status display. Unknown time origin permits a source timestamp only if documented; otherwise use a record table. Missing validation documentation means qualification unestablished, not automatically invalid. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "Population PK analysis often begins with a visual examination of the observed data to reveal patterns and features using graphical and statistical techniques.",
+          "evidence_chunk_ids": [
+            "REF_022:0024"
+          ],
+          "scope": "General population PK preliminary examination.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Concentration-time profiles allow determination of concentration versus time profiles for each individual, yielding detailed exposure information that can be correlated to observed response.",
+          "evidence_chunk_ids": [
+            "GEN001:0036"
+          ],
+          "scope": "Traditional PK studies with non-sparse sampling.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "The experimental unit is defined as the biological entity subjected to an intervention independently of all other units, such that it is possible to assign any two experimental units to different treatment groups.",
+          "evidence_chunk_ids": [
+            "ADD001:0012"
+          ],
+          "scope": "Animal research reporting guidelines.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v2_E01:K01",
+      "origin_job": "round5_E01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD001",
+        "GEN001",
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E01",
+      "retrieval_keywords": "Individual concentration-time plots and event alignment",
+      "supersedes": [
+        "round5_E01:K01",
+        "round4_E01:K01",
+        "round5_reviewed_E01:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "individual concentration-time plots and event alignment",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "ADD001",
+        "GEN001",
+        "REF_022"
+      ],
+      "review_revision": {
+        "version": "local_review_v2",
+        "parent_card_id": "round5_E01:K01",
+        "parent_card_sha256": "1aa4e8754e2487e02d23b548d7cf489920fa8b1b9f2d2d3575cfd2a1c127cb7e",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "d909a13b70fae23d4d2786f9ad24884f88244986e99abed2b69e260335dadcab"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

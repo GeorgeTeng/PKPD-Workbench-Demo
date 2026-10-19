@@ -1,0 +1,123 @@
+{
+  "cards": [
+    {
+      "title": "Population PK Model Diagnostics: Convergence, Residuals, and Predictive Checks",
+      "claim": "Assess fitted NLME models through separate numerical-convergence and precision checks, structural/practical identifiability questions, residual diagnostics with shrinkage caveats, simulation checks matched to the observed design, and independent-data prediction when available. Each diagnostic answers a limited question; none alone validates the model.",
+      "conditions": [
+        "Applicable to nonlinear mixed-effects (NLME) population PK/PD models.",
+        "pcVPC may be informative when VPC bins mix dose or influential covariate effects or when adaptive dosing impairs a standard VPC; choose and qualify the diagnostic for the model question.",
+        "External validation requires data not used for model building (model building vs. testing dataset split)."
+      ],
+      "required_inputs": [
+        "Final population PK model structure and parameter estimates.",
+        "Observed dataset with covariates, dosing history, and sampling times.",
+        "Censoring information (e.g., LLOQ/BQL status) for simulation-based checks.",
+        "Independent testing dataset (for external validation)."
+      ],
+      "limitations": [
+        "At substantial shrinkage (the guidance discusses roughly >20–30% SD-based shrinkage), EBE/IPRED/IWRES-based diagnostics can become less informative; interpret with caution alongside simulation-based checks.",
+        "Standard VPCs can be misleading under broad dose/covariate variation or adaptive dosing; pcVPC offers a prediction-corrected option, not an unconditional requirement.",
+        "The cited pcVPC paper uses matched omission of censored observed and simulated values, then checks censoring frequency by independent variable; this is a source-specific diagnostic strategy. Preserve BLQ flags and evaluate the chosen censoring approach for the analysis.",
+        "A condition number above about 1000 is a guidance diagnostic suggesting poor support for one or more estimates; scaling, parameterization, precision and design should be examined before any model change. It does not determine structural identifiability or a universal pass/fail.",
+        "External validation is limited by the scope of the independent dataset; it does not prove global identifiability."
+      ],
+      "downstream_use": "Model qualification for regulatory submission or internal decision-making; identification of model misspecification; justification for model simplification or additional data collection.",
+      "method_keywords": [
+        "model diagnostics",
+        "convergence",
+        "identifiability",
+        "condition number",
+        "shrinkage",
+        "IWRES",
+        "IPRED",
+        "VPC",
+        "pcVPC",
+        "external validation",
+        "BQL handling"
+      ],
+      "retrieval_keywords": "population PK model diagnostics convergence residual IWRES VPC pcVPC censoring external prediction",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Assess the adequacy of a fitted NLME model through numerical stability, residual behavior, and predictive performance.",
+        "input_contract": "Requires fitted model object, observed data, and simulation settings (number of replicates, seed).",
+        "applicability_and_prerequisites": "Assess numerical convergence and fit failures first; a failed fit can still be diagnosed. Use VPC/pcVPC only with a suitable fitted model and a simulation design matching the observations and question. pcVPC is an option when prediction correction is justified. With high shrinkage, interpret EBE-based plots cautiously and supplement them with relevant simulation-based checks.",
+        "definitions_units_basis_window": "Condition number: ratio of largest to smallest eigenvalue for the specified information/curvature matrix, with parameter scaling and matrix definition stated. Shrinkage: report software definition and estimate (e.g., SD-based EBE shrinkage relative to estimated random-effect SD); do not divide by an undefined “SD of population estimate.”",
+        "procedure": "1. Check minimization, numerical stability, precision and biological plausibility; treat condition number as a signal, not a verdict. 2. Assess residual trends and note shrinkage limits of EBE-based plots. 3. Simulate the fitted model under the observed dose, sampling, covariate and censoring design for VPC or a justified pcVPC; prediction correction is based on model predictions for each observation relative to a bin reference, not simply a median covariate. 4. If using the cited matched-omission pcVPC method for BLQ, also check predicted censoring frequency by the independent variable. 5. Test prespecified predictions on independent data if available and state the supported population/scenario.",
+        "formula_and_parameterization": "Condition number: ratio of largest to smallest eigenvalue for the specified information/curvature matrix, with parameter scaling and matrix definition stated. Shrinkage: report software definition and estimate (e.g., SD-based EBE shrinkage relative to estimated random-effect SD); do not divide by an undefined “SD of population estimate.”",
+        "uncertainty_and_identifiability": "Parameter uncertainty estimated via bootstrap or asymptotic SEs. Standard VPC simulations from one fitted structure at fixed estimates reflect modeled interindividual and observation variation and replicated-study sampling variability. They do not by themselves propagate uncertainty about model structure. Parameter/model uncertainty requires additional justified sampling or structural scenarios.",
+        "diagnostics_and_failure_modes": "Investigate numerical failures, unstable parameters, misspecified variability or residual structure, and poor design coverage. High shrinkage reduces the weight of EBE diagnostics; it does not mandate ignoring all of them. A failed external check limits supported prediction in the tested setting, not every possible population.",
+        "missing_input_and_partial_fallback": "Investigate numerical failures, unstable parameters, misspecified variability or residual structure, and poor design coverage. High shrinkage reduces the weight of EBE diagnostics; it does not mandate ignoring all of them. A failed external check limits supported prediction in the tested setting, not every possible population.",
+        "output_and_interpretation": "Convergence: A low condition number is not evidence of convergence/precision by itself; report optimizer status, curvature scale, parameter precision, sensitivity and identifiability separately. Residuals: Absence of an obvious residual trend is compatible with, but does not establish, adequate fit; trends indicate misspecification. VPC/pcVPC: Name percentile levels, bins/strata, replicate count and matching observed/simulated statistics; compare each observed percentile to its corresponding replicate interval. Avoid a universal all-points-inside acceptance rule. External: Predictions should match independent observations.",
+        "worked_example_and_counterexample": "Synthetic illustration: a fitted one-compartment model has condition number 500, CL EBE shrinkage 15%, and a pcVPC chosen because doses vary. These values alone do not establish acceptance. Review convergence/precision, residual and simulated percentile patterns, BLQ frequency if censored, and prediction on any independent cohort against a stated purpose. Counterexample: A condition number of 500 and shrinkage of 15% do not by themselves validate a model."
+      },
+      "claim_support": [
+        {
+          "claim": "Substantial shrinkage can make EBE/IPRED/IWRES-based diagnostics less informative; the guidance gives a contextual roughly 20–30% SD-shrinkage range.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "REF_022:0031"
+          ]
+        },
+        {
+          "claim": "A condition number above about 1000 is a diagnostic indication of weak parameter support in the cited guidance, not a proof of global nonidentifiability.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "REF_022:0032"
+          ]
+        },
+        {
+          "claim": "pcVPC normalizes observed and simulated values using model predictions to address relevant within-bin prediction differences, including some dose/covariate and adaptive-design settings; it does not remove all variability or guarantee model adequacy.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "SUP002:0002",
+            "SUP002:0003"
+          ]
+        },
+        {
+          "claim": "The cited pcVPC method handles censored plotted values with matched observed/simulated omission plus a censoring-frequency check; it does not delete original data.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "SUP002:0021"
+          ]
+        },
+        {
+          "claim": "Identifiability is classified into structural (a priori) and deterministic types.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "SUP003:0004"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_022:0031",
+        "REF_022:0032",
+        "SUP002:0002",
+        "SUP002:0003",
+        "SUP002:0021",
+        "SUP003:0004",
+        "REF_022:0034",
+        "REF_022:0035",
+        "SUP002:0004",
+        "SUP002:0005",
+        "SUP002:0006"
+      ],
+      "id": "round10_reviewed_v2_G14:K01",
+      "topics": [
+        "animal_pk"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "REF_022",
+        "SUP002",
+        "SUP003"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G14",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "example_is_synthetic": "true"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

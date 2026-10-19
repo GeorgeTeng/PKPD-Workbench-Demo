@@ -1,0 +1,45 @@
+{
+  "cards": [
+    {
+      "title": "Required Inputs for Prospective Human IV Simulation",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "A prospective human IV concentration-time scenario requires a complete, accepted parameter set for a specific compartmental structure, explicit IV regimen details (dose, infusion duration), and an output time grid. Vss must not be silently substituted for Vc. Binding information is required if unbound concentrations are simulated.",
+      "conditions": [
+        "Applicable when no human PK data exists for the target drug.",
+        "Requires qualified animal/in vitro parameters translated to human."
+      ],
+      "required_inputs": [
+        "Accepted candidate model structure (e.g., 1- or 2-compartment).",
+        "Complete parameter set for that structure (CL, Vc, Q, Vp, etc.) with provenance.",
+        "IV regimen: dose amount, infusion duration, dosing interval.",
+        "Output time grid for simulation.",
+        "Explicit uncertainty/assumption treatment for each parameter."
+      ],
+      "limitations": [
+        "A unique multi-compartment curve cannot be derived from CL and Vss alone; distribution parameters are required.",
+        "Measured human variability is not established; simulations reflect predicted uncertainty, not observed inter-individual variability."
+      ],
+      "downstream_use": "Generate simulated concentration-time profiles for exposure-response analysis or PTA calculations, clearly labeled as prospective predictions.",
+      "evidence_chunk_ids": [
+        "IN_HUMAN_SIMULATION:0008",
+        "IN_HUMAN_SIMULATION:0007"
+      ],
+      "id": "round2_H01:K01",
+      "origin_job": "round2_H01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_HUMAN_SIMULATION"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "H01",
+      "retrieval_keywords": "Required inputs and scenario status of prospective human regimen simulation",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

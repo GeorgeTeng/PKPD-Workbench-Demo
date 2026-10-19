@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later binding/free-exposure analysis review only; not loaded by Data requirements agents.",
+  "source_library": {
+    "version": "1.0.0-draft.8",
+    "sha256": "133238a4fea46323f5c2c1da6366d58e9e74e89dc3c3dfded767bd727fb9760c",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.8.json"
+  },
+  "approval_boundary": "Approval covers input definitions and coverage only. Retained binding-model, conversion and sensitivity content remains pending separate scientific review and is not enabled for execution.",
+  "sources": [
+    {
+      "id": "S06",
+      "title": "Ring et al. (2011): PhRMA CPCDC initiative, part 3: prediction methods of human clearance",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21541938/",
+      "locator": "Abstract; DOI 10.1002/jps.22552",
+      "type": "PRIMARY_COMPARATIVE_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Allometry and IVIVE require different inputs and binding conventions. IV CL comparison involved 19 drugs; applicability to a new drug remains to be assessed."
+    },
+    {
+      "id": "S07",
+      "title": "EMA: Use of pharmacokinetics and pharmacodynamics in development of antimicrobial medicinal products",
+      "url": "https://www.ema.europa.eu/system/files/documents/scientific-guideline/wc500210982_en.pdf",
+      "locator": "Nonclinical PK-PD studies; PK-PD targets and target attainment",
+      "type": "GUIDELINE",
+      "checked_on": "2026-10-07",
+      "supports": "Antimicrobial exposure, susceptibility and effect must be linked for the intended use; in vitro and animal infection models can contribute complementary evidence."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP007",
+      "destination": "BINDING_AND_UNBOUND_EXPOSURE",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "source_profile_sha256": "18d2be60c3e3f551f8bd729f5f191ab6ee6f8fa353368bcdc9756fdcc6ad352a",
+      "reference_profile": {
+        "id": "MP007",
+        "name": "Binding and unbound exposure",
+        "family": "IN_VITRO_PK",
+        "outputs": [
+          "binding evidence",
+          "unbound exposure inputs"
+        ],
+        "applies_when": "A requested exposure or selected extrapolation method uses free concentration or a binding correction.",
+        "required_inputs": [
+          "Binding fraction definition, analyte, species and biological matrix",
+          "Assay conditions and relevant concentration range",
+          "Permission to use the evidence at the intended stage"
+        ],
+        "conditional_inputs": [
+          "Concentration-dependent binding model when a constant fraction is not supported",
+          "Blood/plasma partition information when the method changes concentration basis"
+        ],
+        "acceptable_alternatives": [
+          "Directly measured unbound concentrations may support exposure without conversion from total concentrations",
+          "Reviewed human-source in vitro data may be prediction inputs when project permissions allow"
+        ],
+        "preflight_checks": [
+          "Do not confuse human-source in vitro evidence with human in vivo PK observations",
+          "Do not silently copy animal fu into a human prediction or assume fu equals one"
+        ],
+        "post_analysis_checks": [
+          "Assess uncertainty and sensitivity of the free-exposure conversion over its stated range"
+        ],
+        "missing_effect": "Retain supported total-exposure work; flag the affected unbound endpoint or correction.",
+        "not_established": [
+          "Permission to open protected human data",
+          "One binding value valid for every matrix or concentration"
+        ],
+        "needed_at": "BEFORE_UNBOUND_EXPOSURE_OR_TRANSLATION",
+        "source_ids": [
+          "S06",
+          "S07"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "cards": [
+    {
+      "title": "Bioanalytical Context and Assay Validity",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Reported concentrations depend on a defined assay with specific calibration ranges, LLOQ, and stability profiles. QC acceptance criteria (e.g., ±15% of nominal) and stability tests (freeze-thaw, bench-top) validate the data's reliability. Endogenous analytes require specific QC handling (spiked vs. unspiked) to ensure accuracy.",
+      "conditions": [
+        "Applies when evaluating the quality and traceability of concentration data.",
+        "Requires knowledge of the assay method (e.g., LC-MS/MS) and matrix-specific validation.",
+        "Stability and recovery data must be available to interpret concentration changes over time."
+      ],
+      "required_inputs": [
+        "Provenance: Reference to specific validation guidelines (e.g., ICH M10) or study-specific validation reports.",
+        "Identity: Assay method name and specific analyte measured.",
+        "Prerequisites: Documented LLOQ, ULOQ, and stability conditions (temperature, pH, time).",
+        "Missing-input gates: If assay validation details are absent, quantitative-reuse qualification is marked as unresolved; this does not establish invalid data or failed validation."
+      ],
+      "limitations": [
+        "A source-reported result is not a new fitted result.",
+        "PDF text extraction does not validate table layout or figure accuracy.",
+        "Assay limitations (e.g., interference) must be retained in annotations."
+      ],
+      "downstream_use": "Informs whether assay evidence supports quantitative reuse for NCA or compartmental modeling. If stability or selectivity documentation is absent, mark qualification as unresolved and flag dependent reuse for review; absence of documentation alone does not establish invalid data or failed validation.",
+      "evidence_chunk_ids": [
+        "REF_018:0030",
+        "REF_018:0076",
+        "REF_018:0078",
+        "REF_018:0080",
+        "IN_MAIN:0025"
+      ],
+      "id": "round2_D03:K02",
+      "origin_job": "round2_D03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_MAIN",
+        "REF_018"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D03",
+      "retrieval_keywords": "Dose/event/time, analyte, matrix, units and free/total concentration definitions attached to descriptive evidence",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

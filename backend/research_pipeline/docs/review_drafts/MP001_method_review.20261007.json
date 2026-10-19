@@ -1,0 +1,62 @@
+{
+  "profile_id": "MP001",
+  "library_version": "1.0.0-draft.2",
+  "review_date": "2026-10-07",
+  "status": "METHOD_DESIGN_ACCEPTED_IN_PRINCIPLE",
+  "scope": "Method proposals and reporting requirements only; no NCA calculation or empirical method test at this step.",
+  "user_decision": "预先审核的边界处理方法并且报告 这一部分仅仅是提出方法而不需要测试 第一个大概没问题了",
+  "scientific_release": false,
+  "zotero": {
+    "status": "LOCAL_RECORDS_AND_MEMBERSHIP_VERIFIED",
+    "collection_path": "Translational PKPD - Method Profiles / MP001 - NCA endpoints and data levels",
+    "collection_key": "IT6RA5GU",
+    "items": {"S04": "W7S2VR6P", "S10": "XE8JMILE", "S03": "YIKSMLFN", "S02": "6JRGUFJL"},
+    "review_note_key": "Z75FEE3B",
+    "pdf_attachments": "NOT_IMPORTED",
+    "receipt": "outputs/MP001_Method_Review_20261007/zotero_receipt.json"
+  },
+  "other_profiles": "MP002 through MP010 remain pending individual review.",
+  "project_specific_window_decision": {
+    "choices": ["AUC0-24h", "AUC0-infinity"],
+    "selection": "Must be stated in the proposal for each requested analysis; no default is selected here.",
+    "universal_method_default": false,
+    "additional_definitions": ["Reference dose and time zero", "Single/repeated dose or steady state", "Analyte and total/free basis"],
+    "publication": "Project Rules Agent must reconcile and publish this project decision before treating it as an active project rule."
+  },
+  "procedure": [
+    {
+      "step": "PER_ENDPOINT_PLAN",
+      "action": "Create a separate record for each requested observed Cmax, observed Tmax and AUC endpoint.",
+      "record": ["endpoint", "proposal_ref", "data_refs", "required_inputs", "available_evidence", "candidate_method", "planning_status", "reason", "missing_materials", "needed_at"],
+      "planning_statuses": ["METHOD_PROPOSED", "NEEDS_CLARIFICATION", "NO_SUPPORTED_METHOD_IDENTIFIED"],
+      "handoff_condition": "Downstream calculation requires the endpoint's applicable preflight and method approvals. Unresolved sampling adequacy blocks that endpoint, not independent supported endpoints."
+    },
+    {
+      "step": "TIME_WINDOW_AND_BOUNDARIES",
+      "action": "Compare the proposal-defined interval with available observation times and specify boundary handling without calculating exposure.",
+      "candidate_options": [
+        "Use an observed boundary concentration when available and applicable to the defined dose interval.",
+        "If the boundary lies between applicable observations, propose an appropriate interpolation rule with its assumptions and rationale.",
+        "If the boundary lies outside observed support, explicitly identify extrapolation and its additional evidence needs; do not call it interpolation.",
+        "For time zero, distinguish pre-dose from post-dose and single from repeated dosing; do not automatically insert zero concentration.",
+        "Refer terminal extrapolation for AUCinf to MP002."
+      ],
+      "required_report": ["boundary_time", "observed_or_estimated", "method_and_version", "source_refs", "input_points", "assumptions", "applicability_limits", "approval_status_and_ref", "downstream_impact"],
+      "current_scope": "Propose and document the method; numerical contributions and diagnostics belong to the later analysis report."
+    },
+    {
+      "step": "DATA_LEVEL",
+      "action": "Label data origin, aggregation and sampling design separately, then bind the estimand to that level.",
+      "minimum_metadata": ["source_origin", "aggregation_level", "sampling_design", "study_and_regimen", "summary_definition", "n_if_known", "error_bar_definition_if_known", "digitization_provenance", "limitations"],
+      "group_mean_estimand": "Exposure under the reconstructed measured group-summary curve. Do not label it as an individual AUC distribution or an individual peak summary.",
+      "not_permitted": ["Invent animal IDs or within-animal trajectories", "Treat fitted/predicted curves as measured group means", "Invent SD/SE, covariance or confidence intervals"]
+    }
+  ],
+  "evidence_mapping": [
+    {"source_id": "S03", "supports": "Observed peak definitions, finite versus infinite exposure and explicit boundary estimation.", "type": "SOFTWARE_DOCUMENTATION", "limit": "Implementation reference, not a universal acceptance policy."},
+    {"source_id": "S04", "supports": "AUC estimation from group means in destructive sampling.", "type": "PAPER", "limit": "Does not validate a particular digitization or reconstruct individual animals."},
+    {"source_id": "S10", "supports": "Design-specific group-mean AUC inference and caution about the original testing approximation.", "type": "PAPER", "limit": "No specific confidence-interval/test implementation is adopted in this planning step."},
+    {"source_id": "S02", "supports": "Separate terminal-dependent endpoints from other summaries.", "type": "SOFTWARE_DOCUMENTATION", "limit": "MP002 remains pending; software defaults are not universal thresholds."}
+  ],
+  "verification_scope": "Check saved file structure and Zotero bibliographic records only. No model execution, NCA calculation or empirical test is requested."
+}

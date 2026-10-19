@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Experiment-Level Case Deletion for Time-Kill Parameter Robustness",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "Assess internal robustness by refitting after deleting an experiment or an experimental day and comparing parameter estimates with the full-data fit. If a parameter is sensitive to one experiment, disclose that dependence. A fixed-parameter sensitivity refit is a separate analysis and does not change the final model unless an explicit model-selection decision is made.",
+      "conditions": [
+        "Experiment/day membership is known and deletion preserves the intended experimental-unit grouping.",
+        "The model can be re-estimated using comparable fitting settings."
+      ],
+      "required_inputs": [
+        "Full and subset datasets with experiment identifiers.",
+        "Full-data and deletion-refit parameter estimates, convergence records and objective-function outputs.",
+        "For any fixed-parameter sensitivity analysis: the tested value, units, rationale and explicit final-model decision."
+      ],
+      "limitations": [
+        "Internal case deletion does not establish external predictive validity.",
+        "Instability can reflect limited design information, model misspecification or influential observations.",
+        "No universal objective-function threshold or fixed delay constant is supplied by this method card."
+      ],
+      "downstream_use": "Report parameter-specific fragility and preserve the distinction between the selected model and sensitivity refits.",
+      "evidence_chunk_ids": [
+        "SUP006:0003",
+        "SUP006:0016",
+        "SUP006:0020",
+        "SUP006:0021",
+        "SUP006:0019"
+      ],
+      "id": "source_SUP006:K04",
+      "origin_job": "source_SUP006",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP006"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review",
+      "method_keywords": [
+        "case deletion",
+        "CDD",
+        "experiment-level robustness",
+        "sensitivity refit",
+        "parameter stability",
+        "time-kill"
+      ]
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

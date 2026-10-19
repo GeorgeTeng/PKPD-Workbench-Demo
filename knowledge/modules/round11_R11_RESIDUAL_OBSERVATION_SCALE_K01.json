@@ -1,0 +1,118 @@
+{
+  "cards": [
+    {
+      "title": "Residual Observation Error Scales and Phoenix Combined-Error Parameterizations",
+      "claim": "An observation model links a latent PK/PD prediction to a measured value on a declared scale. Additive, proportional normal and log-additive errors have different conditional SD/variance laws. Phoenix's Mix Ratio and Add+Mult combined-error options use distinct sigma definitions and variance functions; neither supplies a universal residual default.",
+      "conditions": [
+        "Applicable when fitting or simulating observed values; residual error is not mandatory for latent concentration/exposure scenarios.",
+        "Choose the error law and estimation scale using assay/error behavior and diagnostic evidence; Phoenix PK/PD menu preferences are examples, not general rules.",
+        "Phoenix log-additive transforms observations and predictions into log space only under its documented engine conditions, and requires positive inputs for that transformation."
+      ],
+      "required_inputs": [
+        "Observed values, latent model predictions and their units/matrix/endpoint, with assay status including censoring limits.",
+        "A candidate observation-error law and sigma definitions, or explicitly unresolved residual structure for a proposed rather than fitted model.",
+        "Phoenix Stdev/Mult Stdev/Mix Ratio names and engine settings only if those particular software options are used."
+      ],
+      "limitations": [
+        "Phoenix NLME log-additive implementation truncates non-positive values to 0.25 * min(positive_obs), which is a software behavior, not a general data cleaning rule.",
+        "Do not force lognormal errors for latent scenarios where observation error is irrelevant.",
+        "Parameter identifiability may be compromised if the error model is misspecified relative to the data scale."
+      ],
+      "downstream_use": "Used to define the likelihood function for parameter estimation and to simulate realistic observation data for model validation (VPC) or trial simulation.",
+      "method_keywords": [
+        "residual error",
+        "additive error",
+        "multiplicative error",
+        "log-additive",
+        "combined error",
+        "Mix Ratio",
+        "Add+Mult",
+        "variance structure",
+        "observation scale"
+      ],
+      "retrieval_keywords": "residual error model additive multiplicative log-additive combined variance Phoenix NLME Mix Ratio Add+Mult",
+      "method_recipe": {
+        "estimand_and_scope": "Let mu=f(theta,eta) denote a latent prediction. Define one conditional observation model Y|mu with declared error scale and parameters; do not insert the same residual epsilon inside f and add it again. Cover source-established Phoenix combined/log-additive parameterizations without treating one as a universal fit recommendation.",
+        "input_contract": "Supply observed value and latent mu on the same endpoint/matrix scale, assay/censoring status, concentration range, and candidate sigma definitions. For Phoenix options identify whether eps has additive Stdev sigma_a and whether fixed effect r is Mix Ratio or multStdev is Add+Mult. Do not require residual sigma for a latent-only scenario.",
+        "applicability_and_prerequisites": "Positive predictions/observations are required for the cited log-additive transform. Other residual forms require a justified distribution and support appropriate to the endpoint. A measured BQL observation contributes censor likelihood/bounds under a qualified method; do not create a positive replacement as policy. Diagnosing a model's structural fit and assay limitations precedes changing the residual law.",
+        "definitions_units_basis_window": "mu and Y share the observed endpoint unit. Additive sigma_a has that unit. Proportional sigma_p or multStdev is dimensionless. Phoenix Mix Ratio r=sigma_mult/sigma_add has inverse endpoint units. Log-additive sigma_log is dimensionless on log(Y). Conditional SD/variance must be stated on the scale used for inference.",
+        "procedure": "1. Define latent mu=f(theta,eta), observed endpoint, assay range and censor status. 2. Compare justified additive, proportional-normal, log-additive or combined observation structures against assay and diagnostic evidence; do not default by PK versus PD label. 3. For Phoenix, retain its exact Mix Ratio or Add+Mult formula and report sigma meaning; verify whether its log-additive engine actually fits in log space. 4. Evaluate residuals/likelihood on the fitted scale and observed-scale predictive checks separately. 5. For BQL observations preserve the limit and use a separately qualified censor-aware likelihood or bounded result; never treat Phoenix internal nonpositive replacement as scientific imputation.",
+        "formula_and_parameterization": "Additive normal: Y=mu+eps_a, eps_a~N(0,sigma_a^2), SD(Y|mu)=sigma_a. Proportional normal: Y=mu*(1+eps_p), eps_p~N(0,sigma_p^2), SD=|mu|*sigma_p. Log-additive/lognormal: Y=mu*exp(eps_log), eps_log~N(0,sigma_log^2), so log(Y)=log(mu)+eps_log for positive values and original-scale CV=sqrt(exp(sigma_log^2)-1). Phoenix Mix Ratio: Y=mu+eps*(1+mu*r), eps~N(0,sigma_a^2), r=sigma_mult/sigma_a; Var(Y|mu)=sigma_a^2*(1+mu*r)^2. Phoenix Add+Mult: Y=mu+eps*sqrt(1+(mu*multStdev/sigma_a)^2), eps~N(0,sigma_a^2), multStdev=sigma_mult; Var(Y|mu)=sigma_a^2+(mu*sigma_mult)^2. Mix Ratio and Add+Mult are not the same conditional variance law.",
+        "uncertainty_and_identifiability": "Residual sigma is observation variation conditional on latent parameters, distinct from between-subject variability and parameter uncertainty. Log-additive normal error implies positive lognormal observed values; on the original scale CV=sqrt(exp(sigma_log^2)-1). Combined components may be weakly distinguished over a narrow measurement range; diagnose rather than imposing a fixed form.",
+        "diagnostics_and_failure_modes": "Inspect residuals on their fitted scale and simulate back to the observation scale; systematic trend, heteroscedasticity or low-concentration bias may arise from structure, assay censoring or error law. Do not automatically switch to multiplicative/log-additive or simplify on optimization failure without investigating. Phoenix's nonpositive replacement in log-additive mode is implementation behavior, not a user data-cleaning rule.",
+        "missing_input_and_partial_fallback": "If assay precision or observation-error form is unknown, mark the fitted likelihood choice unresolved, compare justified sensitivity alternatives when data permit, and keep latent simulations distinct from observed-value predictions. Preserve BQL limits and refer detailed M2/M3/M4 likelihood to the separate censoring method card.",
+        "output_and_interpretation": "Report observation equation, error distribution, sigma/ratio definitions and units, estimation scale, conditional observed-scale SD/variance, censor handling and diagnostics. A latent population exposure band does not require residual sigma; an observed-value interval does.",
+        "worked_example_and_counterexample": "Synthetic at mu=10 ng/mL, sigma_a=2 ng/mL, sigma_mult=0.1 and r=0.05 mL/ng: Phoenix Mix Ratio has SD=2*(1+10*0.05)=3 ng/mL and variance=9 (ng/mL)^2. Phoenix Add+Mult has SD=sqrt(2^2+(10*0.1)^2)=sqrt(5)=2.236 ng/mL and variance=5 (ng/mL)^2. These are different models. If sigma_log=0.1, original-scale CV=sqrt(exp(0.01)-1)=0.10025, approximately 10.0%. A single 0/BLQ observation cannot be made valid for log fitting by silently replacing it with 0.25 times the smallest positive value."
+      },
+      "claim_support": [
+        {
+          "claim": "Phoenix additive, multiplicative and power options imply different observation-scale error magnitudes; its preferences are software guidance.",
+          "scope": "Phoenix NLME implementation",
+          "evidence_chunk_ids": [
+            "REF_009:0005"
+          ]
+        },
+        {
+          "claim": "Phoenix log-additive transforms to log scale only under specified engine conditions; nonpositive replacement is documented software behavior.",
+          "scope": "Phoenix NLME implementation, not data-cleaning policy",
+          "evidence_chunk_ids": [
+            "REF_009:0009",
+            "ADD002:0063"
+          ]
+        },
+        {
+          "claim": "Mix Ratio r is sigma_mult/sigma_add and has the Phoenix form C+eps*(1+C*r).",
+          "scope": "Phoenix combined-error parameterization",
+          "evidence_chunk_ids": [
+            "ADD002:0063",
+            "ADD002:0064"
+          ]
+        },
+        {
+          "claim": "Add+Mult uses multStdev as multiplicative sigma and a square-root form with variance sigma_add^2+(C*sigma_mult)^2.",
+          "scope": "Phoenix combined-error parameterization",
+          "evidence_chunk_ids": [
+            "ADD002:0064",
+            "ADD002:0065"
+          ]
+        },
+        {
+          "claim": "BQL observations may be modeled as censor events rather than set to a fixed fraction of LOQ; detailed methods are a separate branch.",
+          "scope": "Censoring context",
+          "evidence_chunk_ids": [
+            "SUP001:0003"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_009:0005",
+        "REF_009:0009",
+        "ADD002:0063",
+        "ADD002:0064",
+        "ADD002:0065",
+        "SUP001:0003"
+      ],
+      "id": "round11_R11_RESIDUAL_OBSERVATION_SCALE:K01",
+      "topics": [
+        "animal_pk",
+        "pkpd",
+        "human_simulation"
+      ],
+      "required_branches": [],
+      "knowledge_layer": "general_method",
+      "kind": "method_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "origin_job": "R11_RESIDUAL_OBSERVATION_SCALE",
+      "source_ids": [
+        "ADD002",
+        "REF_009",
+        "SUP001"
+      ],
+      "citation_check": "SOURCE_LINKS_CHECKED_NOT_SCIENTIFIC_APPROVAL",
+      "example_is_synthetic": true,
+      "source_vs_engineering_conventions": "Scientific statements linked to originals; synthetic arithmetic and host review safeguards are explicitly distinguished from source-study results."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

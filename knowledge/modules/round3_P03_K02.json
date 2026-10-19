@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Handling Bacterial Count Censoring and Growth Rate Estimation",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "Bacterial counts below the assay's limit of detection (e.g., 100 CFU/mL) are censored data, not zero. For quantitative model estimation use a justified censor-aware method; descriptive plots retain <LOD bounds and counts rather than zero. The cited study used a censor-aware likelihood for bacterial counts, distinct from drug-concentration BLQ handling. Growth rates (ψ) are estimated from the slope of the natural logarithm of CFU vs. time (ln(N) vs. t) in the absence of drug or at low concentrations. If fitting on log10 CFU, convert using ψ = ln(10) × slope_log10. In the cited study, the geometric mean of zero-hour measurements was used for N0. Other studies retain actual replicate/time provenance and justify their baseline method.",
+      "conditions": [
+        "Applicable to time-kill curve analysis where counts fall below the detection limit.",
+        "Requires explicit definition of the limit of detection (LOD) for the specific assay.",
+        "Source-specific: LOD was 100 CFU/mL in the cited gonococcal study."
+      ],
+      "required_inputs": [
+        "Provenance: Raw colony counts and dilution factors.",
+        "Units: CFU/mL.",
+        "Defined assay LOD and censor flags; a justified censor-aware observation model is additionally needed for quantitative fitting, while bounded descriptive displays may remain possible.",
+        "Data: Time-series viable counts (CFU/mL) and corresponding time points."
+      ],
+      "limitations": [
+        "Do not impute censored bacterial counts as zero or exclude them without statistical adjustment.",
+        "Growth rate estimation assumes exponential growth/death; deviations require model adjustment.",
+        "This method applies to bacterial burden data, not drug concentration data.",
+        "Ensure correct log-base conversion (ln vs log10) to avoid factor-of-2.3 error in ψ."
+      ],
+      "downstream_use": "Accurate estimation of net bacterial growth rates (ψ) for input into PK/PD models (e.g., Regoes model).",
+      "evidence_chunk_ids": [
+        "ADD004:0011",
+        "ADD004:0008",
+        "ADD004:0019"
+      ],
+      "id": "round3_P03:K02",
+      "origin_job": "round3_P03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD004"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "P03",
+      "retrieval_keywords": "Stasis, 1-log and 2-log kill targets depend on baseline, time, endpoint and censoring, natural log slope, ln(10) conversion, geometric mean N0",
+      "supersedes": [
+        "round2_P03:K01",
+        "round2_P03:K02",
+        "round2_P03:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

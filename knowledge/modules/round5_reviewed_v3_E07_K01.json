@@ -1,0 +1,111 @@
+{
+  "cards": [
+    {
+      "title": "Exposure-Response Scatterplot and Time-Order Display Conventions",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Exposure-response scatter and a time-ordered paired concentration-response loop are distinct displays. A loop requires verified time-matched pairs from the same serial observation subject and compatible context; shared experimental-unit or group identity is insufficient. A loop can suggest time dependence, but its appearance alone identifies neither a specific mechanism nor a model.",
+      "conditions": [
+        "An individual loop requires verified within-subject concentration-response pairing and order.",
+        "A separately documented shared regimen exposure may support labelled regimen-assigned scatter without individual PK pairing; never fabricate nearest-time joins.",
+        "The display is exploratory, not a model fit or causal identification."
+      ],
+      "required_inputs": [
+        "Scatter branch: a supplied qualified exposure metric (e.g. concentration, AUC or Cmax) with source, unit, concentration basis and exposure window, and a measured response with endpoint, unit, reference and response time/window.",
+        "Documented individual linkage or explicit shared regimen/group exposure assignment; preserve observation-level IDs and nesting. Unknown independent-unit n stays unknown rather than blocking otherwise qualified record-level scatter.",
+        "Loop branch only: time-matched concentration and response with verified serial_observation_subject_id, study/regimen/assay context, measurement timestamps and documented pairing/time-alignment method; no invented nearest-time joins.",
+        "Preserve X and Y quantification/censoring/missingness statuses, units and applicable bounds separately. Numeric values are required only for quantitative points; unmatched and censored records stay visible in a companion status/count table.",
+        "Optional exposure uncertainty or response summary/error inputs only when supplied or explicitly qualified, with their statistic, scale, unit level and source."
+      ],
+      "limitations": [
+        "A visible loop does not prove a specific PK/PD model structure.",
+        "Absence of a loop does not prove a direct effect.",
+        "Unpaired data cannot be forced into a loop display.",
+        "This is an engineering display contract, not a regulatory mandate."
+      ],
+      "downstream_use": "Prioritize later time-course or mechanistic model evaluation based on observed time-dependence.",
+      "evidence_chunk_ids": [
+        "GEN001:0021",
+        "GEN001:0022",
+        "GEN001:0033"
+      ],
+      "plot_recipe": {
+        "input_contract": "Choose scatter or within-subject loop explicitly. Scatter requires a supplied qualified exposure metric (concentration, AUC, Cmax or another defined metric) with X source/unit/basis/window and a measured response with Y source/endpoint/unit/reference/time-window, plus documented individual linkage or shared regimen assignment. Only a loop requires verified serial_observation_subject_id, paired concentration and response timestamps, documented time-alignment and order within compatible study/regimen/assay context. Preserve X/Y status and bounds separately; numeric values only for quantitative records. Unknown independent-unit n remains labelled unknown. Optional uncertainty layers need supplied or explicitly qualified inputs.",
+        "plot_type": "Exposure-response scatter; a time-ordered concentration-response loop only when time-matched within-unit observations are verified. Optional concentration-time and response-time companion panels are separate.",
+        "axes_and_units": "X = supplied qualified exposure metric with basis/unit/window; Y = measured response with endpoint/unit/reference/time. For a hysteresis display specifically X = time-matched concentration and Y = response, with arrows or colour indicating verified observation order. A time-X dual-Y display is not the hysteresis loop.",
+        "grouping_and_connections": "Require documented linkage within study, individual/regimen, endpoint and compatible assay/time context. Never create closest-row or nearest-time pairs. A supplied shared regimen exposure can be plotted against individual responses only when assignment is known and labelled shared; it is not independent individual PK. For a loop connect only verified ordered pairs, with recorded gaps explicit. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "point_and_summary_layers": "Preserve observed values as points at their actual record level. Keep raw observations separate from optional source-reported or explicitly defined descriptive summaries. A labelled group-summary guide is not an individual trajectory. Do not reconstruct individuals from a mean and SD.",
+        "censoring_and_missingness": "Preserve X exposure and Y response statuses separately with their units, windows and documented bounds. A censored concentration has its own assay bound; it does not automatically define a bound for derived AUC or another exposure metric. Do not turn a censored X or Y into an exact paired loop point. Display documented inequalities or separate status records, retain unmatched-pair counts/reasons, and do not silently infer a pair from nearest timestamps.",
+        "transformations_and_formula": "Retain original values, units, formula, input linkage and calculation order. Perform only the explicitly stated descriptive transformation with complete compatible inputs. No model fitting, integration, unsampled-peak interpolation or arbitrary log offsets.",
+        "uncertainty_and_n": "Distinguish independent PK units, PD units and repeated/nested responses. If supplied and compatible, horizontal intervals describe exposure uncertainty and vertical intervals describe the stated response statistic; response spread is not exposure-estimation uncertainty. No invented or universally banned uncertainty bars.",
+        "interpretation_limits": "A visible loop may motivate several time-dependent hypotheses; it does not identify one mechanism. No visible loop does not establish a direct effect. No model selection, fitted Emax, target estimation or clinical conclusion follows from this scatter alone.",
+        "stop_or_fallback": "Keep unmatched/censored-pair counts and reasons in a companion table. Missing individual pairing blocks a within-unit loop, not separately qualified regimen-level scatter. A dose-response plot may be useful but must not be relabelled concentration-response. Serial-observation subject ID is distinct from experimental-unit ID: a cage/litter may contain several animals. Individual trajectories or paired loops require the same verified serial_observation_subject_id within study and compatible regimen/time/assay context. A shared cage/litter ID alone never authorizes connecting animals. Unknown serial identity blocks individual lines/pairs, not record-level displays; unknown experimental-unit identity blocks independent-unit n/uncertainty, not an otherwise verified observed subject series.",
+        "implementation_conventions": "This recipe is an explicitly reviewed engineering display contract, not a regulator-mandated layout or scientific law. Use readable legends, separate aligned panels and visible status/count annotations. No universal numeric completeness threshold. No change to source data or current project Rules."
+      },
+      "claim_support": [
+        {
+          "claim": "Exposure-response information can be used to examine responses at various concentrations attained over time, and hysteresis may result from delayed or persistent clinical measurements compared to plasma concentrations.",
+          "evidence_chunk_ids": [
+            "GEN001:0021"
+          ],
+          "scope": "General guidance on time-dependent responses and hysteresis.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "The FDA guidance explains the value of within-individual concentration-response time courses for reducing the specific confounding from inter-individual PK variability and dose-selection/titration; this does not establish freedom from every possible time-varying confounder.",
+          "evidence_chunk_ids": [
+            "GEN001:0022"
+          ],
+          "scope": "Value of within-subject time-course analysis.",
+          "support_type": "qualified_method_synthesis"
+        },
+        {
+          "claim": "The most appropriate representation of exposure depends on study objectives; if response varies with time within a dosage interval, relating response to concentration within individual subjects retrieves maximum information.",
+          "evidence_chunk_ids": [
+            "GEN001:0033"
+          ],
+          "scope": "Selection of exposure metrics based on time-dependence.",
+          "support_type": "direct_original_support"
+        }
+      ],
+      "id": "round5_reviewed_v3_E07:K01",
+      "origin_job": "round5_E07",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "GEN001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "E07",
+      "retrieval_keywords": "Exposure-response scatterplots and time-order exploration",
+      "supersedes": [
+        "round4_E07:K01",
+        "round5_E07:K01",
+        "round5_reviewed_E07:K01",
+        "round5_reviewed_v2_E07:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "exposure-response scatterplots and time-order exploration",
+        "EDA plotting figure axes units"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "GEN001"
+      ],
+      "review_revision": {
+        "version": "local_review_v3",
+        "parent_card_id": "round5_E07:K01",
+        "parent_card_sha256": "d8abd5d7d2b0231ee6a6e1d825f41254b00c5c2117bc716f49ed6e2983653cd5",
+        "origin": "Qwen draft with explicit local reviewer amendments; not unmodified model output",
+        "scientific_approval": false,
+        "prior_reviewed_card_sha256": "9e61c5da377e0f45dfa8ecf198e2acce0e3ecb3709e129f7559aeaca14f1601f"
+      },
+      "summary_claim_provenance": "Operational summary combines bounded scientific principles with explicitly labelled engineering display conventions; only claim_support entries assert original-source support."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

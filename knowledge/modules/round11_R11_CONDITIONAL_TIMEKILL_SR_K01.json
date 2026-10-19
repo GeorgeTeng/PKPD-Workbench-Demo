@@ -1,0 +1,109 @@
+{
+  "cards": [
+    {
+      "title": "Source-Case Susceptible/Resting Time-Kill Hypothesis and Data Contract (Non-Executable)",
+      "claim": "The SUP006 in-vitro source model describes growing susceptible S and resting R populations, total B=S+R, density-related S-to-R transfer and drug effect applied to S. It explored first-order drug degradation and effect delay; kRS=0 was a source-case constant-pressure/no-dilution assumption. The exact equation tables e1-e7 are image-only in the present library, so this card is a non-executable structural hypothesis and data contract, not a fitted dynamic method or target-drug mechanism claim.",
+      "conditions": [
+        "Applicable only when an in-vitro time-kill question warrants comparing a susceptible/resting hypothesis with simpler explanations; this model is not a required generic time-kill analysis.",
+        "SUP006's constant-pressure/no-dilution setup, kRS=0, first-order degradation, effect delay and latent mixtures are source-case assumptions or optional candidates, not transferable defaults.",
+        "An executable S/R model requires visual verification and hash-bound transcription of original equation images e1-e7, plus identifiability and data checks."
+      ],
+      "required_inputs": [
+        "Observed CFU-versus-time and actual exposure/dosing schedule, with organism, assay count limit and replicate/experimental-unit provenance.",
+        "Drug stability/concentration measurements when the objective is to test depletion as a regrowth explanation; otherwise retain mechanism uncertainty.",
+        "For any executable S/R fit: visually verified source equations, declared initial-state assumptions and data informative for model parameters. Initial resting fraction and mixture parameters may be fitted or scenario assumptions rather than observed raw inputs."
+      ],
+      "limitations": [
+        "Exact SUP006 e1-e7 equations are image-only in the current source packet; do not state or fit specific ODEs until verified transcription is added.",
+        "kRS=0, first-order degradation, delayed effect, NONMEM implementation, latent mixture and the paper's LOD/2-first/omit-later rule are source choices, not universal prerequisites or cleaning rules.",
+        "Curve shape/regrowth alone cannot identify persistence, resistance, depletion or R-to-S transfer; no target-drug dynamic parameters are supplied."
+      ],
+      "downstream_use": "Use only as a source-case S/R hypothesis and data/provenance checklist alongside the existing general B03 time-kill design card. The equation-image gap blocks executable dynamic modeling until a verified transcription and model qualification are supplied.",
+      "method_keywords": [
+        "time-kill",
+        "semimechanistic",
+        "susceptible-resting",
+        "effect-compartment",
+        "first-order-degradation",
+        "density-dependent-transfer",
+        "NONMEM",
+        "censoring",
+        "replicate-variability"
+      ],
+      "retrieval_keywords": "time-kill PK/PD model susceptible resting compartments effect delay drug degradation density-dependent transfer NONMEM censoring replicate structure",
+      "method_recipe": {
+        "estimand_and_scope": "Non-executable companion to the general time-kill design/interpretation card: specify observed longitudinal CFU, censor/replicate status and competing S/R versus simpler mechanistic hypotheses. No numerical S/R state-parameter estimand is available from the present image-only equations.",
+        "input_contract": "Observed times and viable counts (including <LOD status), experimental run/specimen/replicate identifiers, organism and exposure schedule. Stability measurements and initial-state information are conditional on the hypothesis to be tested. Verified e1-e7 equations are mandatory only for executable S/R fitting.",
+        "applicability_and_prerequisites": "Use for a qualified in-vitro time-kill design where a source-case S/R interpretation is under consideration. The existing B03 card covers generic curve design; this companion only adds the source's latent S/R structural hypothesis and equation-extraction gate. Do not use source-specific culture conditions as universal criteria.",
+        "definitions_units_basis_window": "S is the source's growing susceptible subpopulation, R its resting subpopulation, and B=S+R is total viable burden in CFU/mL. k_growth, k_death, kSR/kRS, Bmax, drug degradation and effect-delay terms are source model concepts, not estimable definitions without verified equations and chosen parameterization. The source fixed kRS=0 in its constant-pressure/no-dilution experiments only.",
+        "procedure": "1. Preserve observed CFU/time, count limit/censor flags, run/replicate lineage and exposure/stability information; do not apply LOD/2 or drop records by default. 2. Plot/describe early kill, stationary behavior and regrowth on their measured windows; compare untreated controls and exposure history where available. 3. Record source-case S/R graph in words: S growing/susceptible, R resting, B=S+R, density-linked S-to-R transfer, drug effect on S. Treat kRS=0, degradation, effect delay and latent inoculum mixtures as alternative assumptions to test, not defaults. 4. List competing explanations and what additional observations could distinguish them. 5. Stop before numerical S/R ODE fitting until M1.gif-M7.gif are visually verified, transcribed with source hash and model/data identifiability assessed.",
+        "formula_and_parameterization": "Text-supported identity only: B=S+R. The exact SUP006 equations e1-e7 (including dS/dt, dR/dt, concentration/effect dynamics and parameterization of transfer/drug action) are present only as image links in the original HTML and are not verified text chunks. No executable differential equation is supplied by this card.",
+        "uncertainty_and_identifiability": "Initial inoculum composition, degradation, effect delay and replicate/run variability can be uncertain. SUP006 explored a mixture model and a split residual structure for its experiments, but these are optional source-case mechanisms. Without exact equations and informative data, S/R parameters cannot be claimed identifiable or numerically estimated.",
+        "diagnostics_and_failure_modes": "Observed regrowth can arise under multiple exposure and bacterial-state mechanisms; it does not by itself falsify the paper's kRS=0 assumption or prove genetic resistance/persistence. If drug stability was not measured, depletion remains unresolved. If CFU is below the assay limit, keep censor status and avoid treating it as zero. A misleading exact ODE transcription is a stop condition for executable modeling.",
+        "missing_input_and_partial_fallback": "If equation images are not yet visually verified, retain descriptive time-kill and explicit S/R hypothesis only; do not substitute a fabricated one-compartment/direct-Emax fit. If stability data are unavailable, do not assume constant exposure; label drug-loss contribution unresolved. Missing target-drug parameters do not invalidate descriptive plots.",
+        "output_and_interpretation": "Output an observed/censored time-kill summary, provenance, optional source-case S/R model graph, competing hypotheses and equation/data gaps. Do not output fitted k_growth, k_death, Bmax, kdeg, ke, Emax, EC50, gamma or mixture fractions until an executable, verified and identifiable model exists.",
+        "worked_example_and_counterexample": "Synthetic descriptive example: CFU begins at 10^6/mL, is reported <10^3/mL at 6 h and is quantified at 10^5/mL at 12 h. Early reduction exceeds 3 log10 and later regrowth relative to the <10^3 bound exceeds 2 log10; the exact 6-h count and cause of regrowth remain unknown. Neither this shape nor kRS=0 alone establishes a specific S/R transfer rate, resistance or persistence."
+      },
+      "claim_support": [
+        {
+          "claim": "The source-case bacterial system has growing susceptible S, resting R, B=S+R, density-related S-to-R transfer and kRS=0 under its experimental assumptions.",
+          "scope": "SUP006 source-case structure",
+          "evidence_chunk_ids": [
+            "SUP006:0011",
+            "SUP006:0012"
+          ]
+        },
+        {
+          "claim": "The paper explored first-order drug degradation/effect delay and applied drug effect to susceptible bacteria; exact equation tables are absent from extracted text.",
+          "scope": "SUP006 source-case hypotheses and extraction limit",
+          "evidence_chunk_ids": [
+            "SUP006:0010",
+            "SUP006:0013"
+          ]
+        },
+        {
+          "claim": "The paper used a historical LOD/2-first/omit-later rule and mixture/run error model; those are examples, not general policies.",
+          "scope": "SUP006 implementation example",
+          "evidence_chunk_ids": [
+            "SUP006:0014"
+          ]
+        },
+        {
+          "claim": "Time-kill kinetics alone can be insufficient for unique resistance-mechanism inference.",
+          "scope": "Mechanistic interpretation caution",
+          "evidence_chunk_ids": [
+            "ARTICLE_S13:0031"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "SUP006:0010",
+        "SUP006:0011",
+        "SUP006:0012",
+        "SUP006:0013",
+        "SUP006:0014",
+        "ARTICLE_S13:0031"
+      ],
+      "id": "round11_R11_CONDITIONAL_TIMEKILL_SR:K01",
+      "topics": [
+        "pkpd"
+      ],
+      "required_branches": [
+        "dynamic_time_kill"
+      ],
+      "knowledge_layer": "conditional_method",
+      "kind": "method_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "origin_job": "R11_CONDITIONAL_TIMEKILL_SR",
+      "source_ids": [
+        "ARTICLE_S13",
+        "SUP006"
+      ],
+      "citation_check": "SOURCE_LINKS_CHECKED_NOT_SCIENTIFIC_APPROVAL",
+      "example_is_synthetic": true,
+      "source_vs_engineering_conventions": "Scientific statements linked to originals; synthetic arithmetic and host review safeguards are explicitly distinguished from source-study results."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

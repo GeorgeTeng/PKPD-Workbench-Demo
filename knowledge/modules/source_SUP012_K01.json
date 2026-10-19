@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "IVIVE Systematic Underprediction of High Extraction Ratio Compounds",
+      "topics": [
+        "translation"
+      ],
+      "claim": "IVIVE predictions using the well-stirred model systematically underpredict hepatic clearance (CLH) for high extraction ratio (ER) compounds. While low ER compounds are frequently classified correctly as low ER (>90% accuracy), their numerical CLH predictions are often inaccurate (only ~25-40% within 2-fold). The majority of high ER compounds are misclassified as low or intermediate ER due to underprediction.",
+      "conditions": [
+        "Applies to compounds where hepatic metabolism is the primary elimination route.",
+        "Based on analysis of human and rat hepatocyte/microsome data.",
+        "Assumes standard physiologically based scaling factors without empirical correction."
+      ],
+      "required_inputs": [
+        "In vitro intrinsic clearance (CLint) from microsomes or hepatocytes.",
+        "Fraction unbound in blood (fu,B) and incubation (fu,inc).",
+        "Liver blood flow (QH) values (e.g., 20.7 ml/min/kg for human, 100 ml/min/kg for rat).",
+        "Observed in vivo CLH for validation."
+      ],
+      "limitations": [
+        "The study uses known compounds; bias patterns do not determine the target drug's specific clearance.",
+        "Does not account for extra-hepatic metabolism or specific transporter effects not captured in the model.",
+        "High ER compounds have fewer data points in the dataset, potentially affecting statistical robustness for that range."
+      ],
+      "downstream_use": "Use this to qualify the reliability of IVIVE-derived CLH predictions. If the target drug is suspected to be high ER, expect underprediction and consider empirical scaling factors or alternative models (parallel tube/dispersion) with caution, noting that the source found no significant improvement with parallel tube models for human hepatocytes.",
+      "evidence_chunk_ids": [
+        "SUP012:0001",
+        "SUP012:0002",
+        "SUP012:0006",
+        "SUP012:0007",
+        "SUP012:0009",
+        "SUP012:0010"
+      ],
+      "id": "source_SUP012:K01",
+      "origin_job": "source_SUP012",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

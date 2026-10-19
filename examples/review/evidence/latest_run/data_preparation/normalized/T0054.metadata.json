@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "T0054",
+  "role": "IN_VITRO_TIME_KILL",
+  "metadata": {
+    "role": "IN_VITRO_TIME_KILL",
+    "species": "K. pneumoniae BAA1705",
+    "matrix": "Static in-vitro exposure",
+    "exposure_basis": "nominal exposure AMT (mg/L)",
+    "record_level": "Source-file ID and observation rows; independent replicate IDs NOT_FOUND",
+    "drug": "PMB",
+    "route": "NOT_APPLICABLE",
+    "endpoint_window": "TIME is h; observation rows shown from 0 to 24 h",
+    "route_category": "NOT_APPLICABLE",
+    "matrix_category": "IN_VITRO_SYSTEM",
+    "record_category": "NOT_FOUND",
+    "observation_source": "SOURCE_VALUES",
+    "dose_basis": "NOT_APPLICABLE",
+    "analyte": "PMB",
+    "dosing_regimen": "NOT_FOUND",
+    "additional_roles": [
+      "MIC",
+      "SUPPORTING_EVIDENCE"
+    ],
+    "columns": [
+      {
+        "header": "ID",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "A",
+        "evidence": [
+          {
+            "source": "F0003:S5:T1:A6",
+            "quote": "ID"
+          },
+          {
+            "source": "F0003:S5:T1:A4",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          },
+          {
+            "source": "F0003:S5:T1:A5",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+          }
+        ]
+      },
+      {
+        "header": "AMT",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
+        "qualifiers": [
+          "nominal exposure"
+        ],
+        "column": "B",
+        "evidence": [
+          {
+            "source": "F0003:S5:T1:B6",
+            "quote": "AMT"
+          },
+          {
+            "source": "F0003:S5:T1:A4",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          }
+        ]
+      },
+      {
+        "header": "AMT_CMT",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "column": "C",
+        "evidence": [
+          {
+            "source": "F0003:S5:T1:C6",
+            "quote": "AMT_CMT"
+          },
+          {
+            "source": "F0003:S5:T1:A4",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          }
+        ]
+      },
+      {
+        "header": "TIME",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [],
+        "column": "D",
+        "evidence": [
+          {
+            "source": "F0003:S5:T1:D6",
+            "quote": "TIME"
+          },
+          {
+            "source": "F0003:S5:T1:A3",
+            "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+          }
+        ]
+      },
+      {
+        "header": "Y",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/mL",
+        "qualifiers": [],
+        "column": "E",
+        "evidence": [
+          {
+            "source": "F0003:S5:T1:E6",
+            "quote": "Y"
+          },
+          {
+            "source": "F0003:S5:T1:A3",
+            "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+          }
+        ]
+      },
+      {
+        "header": "CENS",
+        "meaning": "BLQ_OR_FLAG",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "CENS=1 flags censored Y"
+        ],
+        "column": "F",
+        "evidence": [
+          {
+            "source": "F0003:S5:T1:F6",
+            "quote": "CENS"
+          },
+          {
+            "source": "F0003:S5:T1:A5",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+          }
+        ]
+      }
+    ],
+    "permission": "DEVELOPMENT_CANDIDATE",
+    "source_table": {
+      "title": "K. pneumoniae BAA1705 time-kill",
+      "sheet": "In_vitro_MIC",
+      "region": {
+        "start_row": 1,
+        "end_row": 51,
+        "left": 1,
+        "right": 6,
+        "header_row": 6,
+        "title": "K. pneumoniae BAA1705 time-kill",
+        "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
+        "note_regions": []
+      },
+      "notes": "K. pneumoniae BAA1705 time-kill\nS13 | DOI 10.1371/journal.pone.0171834 | PB_data_2.txt\nPMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h.\nAMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID.\nA dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND.",
+      "column_map": {
+        "c001_id": "ID",
+        "c002_amt": "AMT",
+        "c003_amt_cmt": "AMT_CMT",
+        "c004_time": "TIME",
+        "c005_y": "Y",
+        "c006_cens": "CENS"
+      }
+    },
+    "source_item_id": "F0003:S5:T1",
+    "source_evidence": [
+      {
+        "source": "F0003:S5:T1:A1",
+        "quote": "K. pneumoniae BAA1705 time-kill"
+      },
+      {
+        "source": "F0003:S5:T1:A2",
+        "quote": "S13 | DOI 10.1371/journal.pone.0171834 | PB_data_2.txt"
+      },
+      {
+        "source": "F0003:S5:T1:A3",
+        "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+      },
+      {
+        "source": "F0003:S5:T1:A4",
+        "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+      },
+      {
+        "source": "F0003:S5:T1:A5",
+        "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+      },
+      {
+        "source": "F0003:S5:T1:E8",
+        "quote": "6.193124598"
+      },
+      {
+        "source": "F0003:S5:T1:D38",
+        "quote": "24"
+      }
+    ],
+    "requirement_ids": [
+      "RQ002",
+      "RQ009",
+      "RQ013"
+    ],
+    "independent_animal_count": "NOT_ESTABLISHED",
+    "dose": "NOT_FOUND",
+    "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
+    "normalized_fields": {
+      "time_h": {
+        "source_header": "TIME",
+        "factor": 1
+      }
+    },
+    "preparation_policy": "DATASET_ACTION_V1"
+  },
+  "data_file": {
+    "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\data_preparation\\normalized\\T0054.json",
+    "sha256": "d88d6d27cc1a1be908b6bf0946650dcb379670986a8729f6601605bca7e2d62e"
+  },
+  "source_refs": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\files\\F0003.xlsx",
+      "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\context\\intake\\parsed\\F0003.json",
+      "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\Data_Cleaning_Rerun_20261016\\run04\\preparation_plan.json",
+      "sha256": "db2e58af367824a5a9fea3524390d433115d3f33370e8290d344df602da71b9a"
+    }
+  ],
+  "summary": {
+    "source_records": 43,
+    "retained_records": 43,
+    "quarantined_records": 0,
+    "independent_animals": "NOT_ESTABLISHED",
+    "quarantine_reasons": {}
+  },
+  "review_status": "PENDING",
+  "release_authority": "SEPARATE_SIGNED_HANDOFF",
+  "human_prediction_allowed": false
+}

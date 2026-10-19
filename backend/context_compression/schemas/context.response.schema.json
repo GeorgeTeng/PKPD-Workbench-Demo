@@ -1,0 +1,166 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "3.0",
+          "type": "string"
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "study": {
+          "type": "object",
+          "properties": {
+            "drug": {
+              "type": "string",
+              "minLength": 1
+            },
+            "regimen": {
+              "type": "string",
+              "minLength": 1
+            },
+            "population": {
+              "type": "string",
+              "minLength": 1
+            },
+            "system": {
+              "type": "string",
+              "minLength": 1
+            },
+            "measurements": {
+              "type": "string",
+              "minLength": 1
+            },
+            "methods": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "drug",
+            "regimen",
+            "population",
+            "system",
+            "measurements",
+            "methods"
+          ],
+          "additionalProperties": false
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "available": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "available",
+            "required"
+          ],
+          "additionalProperties": false
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "version",
+        "objective",
+        "study",
+        "data",
+        "rules",
+        "checks",
+        "uncertainties"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "description": "JSON pointer relative to the context object, excluding /version. Use /objective, /study/drug or /data/available/0, without a /context prefix. Every scalar leaf needs exactly one evidence record."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "EXPLICIT",
+              "PROPOSED",
+              "NOT_FOUND"
+            ]
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "path",
+          "status",
+          "source_id",
+          "quote",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "request_sha256",
+    "context",
+    "evidence"
+  ],
+  "additionalProperties": false
+}

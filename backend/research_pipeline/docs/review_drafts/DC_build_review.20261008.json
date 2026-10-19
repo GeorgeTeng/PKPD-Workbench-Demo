@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-08",
+  "source": {
+    "type": "USER_DECISION",
+    "quote": "全部按方案",
+    "accepted_proposal": "Decision card '按方案构建 DC，并加入 DC007、DC008 规则吗？' answering the plan in /mnt/project-files/data-part/DC_构建方案_20261008.md: DC-split with explicit range plans taking precedence, column meanings, task-split coverage review, rule drafts DC001/DC004 rewritten and DC007/DC008 added, and forwarding the intake cell-limit issue."
+  },
+  "evidence": "roberts_2022_source_data.xlsx: all 14 small sheets returned TABLE_BOUNDARIES_REQUIRED under the previous splitter (side-by-side tables, title and dose rows above headers, side footnotes).",
+  "design": {
+    "table_split": "Precedence: explicit range plan bound to file sha256, Excel table definitions, DOI source anchors, DC-split. DC-split proposes tables (title, range, header_row) and note blocks (TITLE, DESCRIPTION, FOOTNOTE, STATISTICS, OTHER, applies_to). Host code checks bounds, non-empty header rows inside the range, overlaps, note links and that every non-empty cell is covered; otherwise the sheet stays UNASSIGNED with TABLE_SPLIT_INVALID (HUMAN_REVIEW). Oversized sheets give TABLE_SPLIT_TOO_LARGE. A failed explicit plan gives TABLE_RANGE_PLAN_INVALID and is never replaced by a model split.",
+    "labels": "role plus additional_roles; columns {header, meaning, unit, evidence} with units as written and no conversion. Page merge: role or category conflict becomes MIXED, other field conflicts NOT_FOUND, column conflicts meaning OTHER and unit NOT_FOUND, each with a LABEL_CONFLICT finding. Condition triggers match any of an item's roles; MIXED stays UNDETERMINED.",
+    "review_split": "On DATA_REQUEST_TOO_LARGE, one DC-review per task (its requirements, items first used by it, criterion plans, evidence and condition rows) plus one for items no task uses and the G008 items due before QC. Shared checks keep the strictest decision with reasons joined by scope; review.json lists every part with its request hash and decision."
+  },
+  "rule_changes": "dc_coverage.json 1.3.0: DC001 and DC004 rewritten; DC007 table split and DC008 page conflicts added; DC-split call described.",
+  "code_changes": [
+    "data_agents.py: CALL_AGENT DC-split; SPLIT schema and split_sheet(); read_range_plan(); inventory(run, range_plan) records splits and NOTE items; content_units reads linked notes; LABEL additional_roles and columns; page-merge conflicts; review_parts() and merge_reviews().",
+    "method_profiles.py: label_roles(); applicability and unrequested_profiles use every role.",
+    "data_requirement_check.py: column evidence enters the evidence catalog.",
+    "workflow_runtime.py: data_inventory passes run, model and the optional table_range_plan spec path.",
+    "tests: test_dc_split.py (13 cases), test_data_agents.py (page conflicts, column citations, multi-role conditions, split review x2, DC001-DC008 list)."
+  ],
+  "verification": "research_pipeline suite: 18 failed, 538 passed, 7 skipped, 2 errors; identical failure list to the pre-change baseline (environment: no R).",
+  "open_points": [
+    "intake MAX_CELLS (ctxcomp/intake.py) rejects the whole roberts_2022 workbook because of two omics sheets; owned by intake, forwarded via the coordinator.",
+    "No real-model run of DC-split yet; wording of SPLIT_INSTRUCTIONS is unvalidated against real supplementary workbooks."
+  ]
+}

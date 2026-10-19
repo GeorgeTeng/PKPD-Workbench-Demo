@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Analyte, Matrix, and Unit Definitions for Descriptive Data",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "Concentration data must be labeled with the specific matrix (e.g., plasma, serum, tissue homogenate) and analyte identity (parent, metabolite, or specific component of a mixture). Units must specify mass/volume or mass/tissue-mass. Total and free bases are distinct; whole-lung homogenate is not equivalent to epithelial lining fluid (ELF).",
+      "conditions": [
+        "Applicable when cataloging raw concentration-time data for EDA.",
+        "Requires explicit distinction between administered dose basis (e.g., salt vs. free base) and measured analyte.",
+        "Source-specific numbers (e.g., LLOQ) are not universal thresholds but define the assay's quantifiable range."
+      ],
+      "required_inputs": [
+        "Provenance: Source ID and chunk ID for each data point.",
+        "Identity: Exact analyte or component identity versus total mixture, with matrix type.",
+        "Units: Explicit mass/volume (e.g., mg/L) or mass/tissue-mass (e.g., µg/g) with total/free basis.",
+        "Time: Documented time origin (e.g., dose start) and units."
+      ],
+      "limitations": [
+        "Group means cannot be treated as individual trajectories.",
+        "Technical replicates do not increase biological n.",
+        "BLQ is not zero; missing/not-sampled/technical failure are distinct states.",
+        "Abstract-only evidence cannot support unreported method details."
+      ],
+      "downstream_use": "Enables valid comparison of exposure metrics (AUC, Cmax) by ensuring denominator and basis consistency. Prevents invalid pooling of incompatible matrices or analytes.",
+      "evidence_chunk_ids": [
+        "IN_EDA:0032",
+        "IN_EDA:0033",
+        "IN_MAIN:0025",
+        "ARTICLE_S08:0001"
+      ],
+      "id": "round2_D03:K01",
+      "origin_job": "round2_D03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S08",
+        "IN_EDA",
+        "IN_MAIN"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D03",
+      "retrieval_keywords": "Dose/event/time, analyte, matrix, units and free/total concentration definitions attached to descriptive evidence",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,108 @@
+{
+  "cards": [
+    {
+      "title": "Conditional Renal Clearance from Matched Urinary Ae and Plasma AUC",
+      "claim": "Renal clearance (CLR) is a secondary parameter calculated by dividing the amount of unchanged drug excreted in urine (Ae) over a specific interval by the plasma AUC over the exact same interval. This calculation requires strict matching of subject, analyte, and time window between the urine collection and plasma profile. Low urinary recovery alone does not prove negligible renal elimination; interpretation must consider collection completeness, bioavailability, and nonrenal pathways.",
+      "conditions": [
+        "Conditional on a qualified urine unchanged-analyte amount Ae and plasma AUC for the same subject, analyte and time window; sampling instants need not coincide with collection boundaries if the AUC method supports the window.",
+        "Urine volume/collection and analyte stability are adequately documented for the chosen interval.",
+        "Not a universal measurement requirement for every compound or route."
+      ],
+      "required_inputs": [
+        "Urinary amount excreted (Ae) for the unchanged drug (parent or specific metabolite).",
+        "Plasma concentration-time data sufficient to calculate AUC over the same interval as the urine collection.",
+        "Matching subject IDs and analyte identifiers between urine and plasma datasets.",
+        "Explicit time intervals (start/end) for both urine collection and plasma AUC calculation."
+      ],
+      "limitations": [
+        "Do not use Ae/AUC computed over mismatched intervals.",
+        "Do not treat low urine recovery alone as proof of negligible renal elimination without considering collection duration/completeness, bioavailability/route, analyte stability, and nonrenal pathways.",
+        "Parent and metabolite analytes must be kept separate; do not mix analytes in the ratio."
+      ],
+      "downstream_use": "Use to estimate renal clearance for specific intervals when paired urine and plasma data exist. Propagate exclusions from plasma AUC or urine Ae to the CLR output. Do not substitute allometry or assume negligible renal elimination based solely on low recovery.",
+      "method_keywords": [
+        "renal clearance",
+        "CLR",
+        "secondary parameter",
+        "Ae",
+        "AUC",
+        "interval matching",
+        "PKNCA",
+        "urine collection",
+        "analyte separation"
+      ],
+      "retrieval_keywords": "renal clearance calculation, Ae over AUC, matched interval PK, secondary parameter linkage, urine plasma matching, CLR interval, analyte specific clearance",
+      "method_recipe": {
+        "estimand_and_scope": "Estimate renal clearance (CLR) for a specific analyte over a specific time interval by linking urinary excretion data to plasma exposure data. Scope is limited to intervals where both urine Ae and plasma AUC are available and matched.",
+        "input_contract": "Urine: subject, analyte, interval start/end, collection volume/completeness and unchanged-analyte Ae with units. Plasma: same subject/analyte with concentration-time records sufficient to calculate AUC over that identical interval. The AUC interval boundary is a computation definition, not a requirement that a blood sample occur exactly at each urine boundary.",
+        "applicability_and_prerequisites": "The same-subject, same-analyte plasma profile must support an AUC for precisely the Ae collection interval using a stated interpolation/extrapolation rule. Propagate any reference-AUC exclusion to CLR. A potentially incomplete urine collection or analyte loss remains an uncertainty/qualification issue, not an automatic zero CLR.",
+        "definitions_units_basis_window": "CLR_interval = Ae_unchanged,interval / AUC_plasma,same_interval. Units: Ae in mass (e.g., mg), AUC in concentration*time (e.g., mg*h/L), resulting CLR in volume/time (e.g., L/h). Basis: Mass balance over the interval. Window: Must be identical for numerator and denominator.",
+        "procedure": "1. Identify urine records with Ae for the target analyte and interval [t_start, t_end]. 2. Identify plasma records for the same subject and analyte covering [t_start, t_end]. 3. Calculate AUC_plasma over [t_start, t_end] using the specified method (e.g., linear). 4. Link the urine Ae to the plasma AUC using the matching subject, analyte, and interval. 5. Compute CLR = Ae / AUC. 6. If the plasma AUC is excluded (e.g., due to too few points), mark the CLR as excluded with the same reason. 7. Ensure parent and metabolite CLR calculations are kept separate.",
+        "formula_and_parameterization": "CLR = Ae / AUC. In PKNCA, this is handled as a secondary parameter where the urine interval links to a plasma reference interval. The 'group_ref' or automatic reference derivation must ensure the plasma profile matches the analyte of the urine sample.",
+        "uncertainty_and_identifiability": "Ae uncertainty includes collection completeness and analyte stability; AUC uncertainty includes sampling, interpolation and any extrapolation. Unrecovered unchanged analyte can make Ae and CLR spuriously low if other errors are absent, but the net direction is conditional on collection and assay errors. The supplied vignette does not give a universal CLR confidence-interval propagation method.",
+        "diagnostics_and_failure_modes": "Failure: Mismatched intervals, mismatched analytes, or missing plasma data for the interval. Diagnostic: Check if the reference interval was automatically derived correctly. Check if exclusions on plasma AUC propagated to CLR. Failure Mode: If plasma AUC is NA due to insufficient points, CLR must be NA.",
+        "missing_input_and_partial_fallback": "If matched interval AUC cannot be computed, CLR is unavailable (not zero or allometrically replaced). If collection completeness/stability is unknown, retain Ae/AUC as a qualified conditional estimate or flag it unresolved rather than asserting a universal downward bias. Keep parent and metabolite analytes distinct.",
+        "output_and_interpretation": "Report CLR=Ae_unchanged/AUC_plasma for the declared analyte/window in volume/time, link IDs, collection/AUC provenance and uncertainty qualifiers. A low CLR is not by itself a fraction-of-dose or nonrenal-mechanism conclusion; consider duration/completeness, binding, route/F and competing clearance pathways.",
+        "worked_example_and_counterexample": "Example: Subject 1, Parent analyte. Urine Ae (0-24h) = 350 mg. Plasma AUC (0-24h) = 144 mg*h/L. CLR = 350 / 144 = 2.43 L/h. Counterexample: If Plasma AUC (0-24h) is excluded due to 'too few points', CLR is NA, not 0 or estimated."
+      },
+      "claim_support": [
+        {
+          "claim": "Renal clearance is a secondary parameter linking urine Ae to plasma AUC over the same interval.",
+          "scope": "General PK analysis with paired urine/plasma data.",
+          "evidence_chunk_ids": [
+            "REF_019:0001"
+          ]
+        },
+        {
+          "claim": "Calculation requires matching subject, analyte, and interval; exclusions on AUC propagate to CLR.",
+          "scope": "Data processing and exclusion handling.",
+          "evidence_chunk_ids": [
+            "REF_019:0004",
+            "REF_019:0013"
+          ]
+        },
+        {
+          "claim": "Parent and metabolite analytes must be kept separate in CLR calculations.",
+          "scope": "Multi-analyte studies.",
+          "evidence_chunk_ids": [
+            "REF_019:0008"
+          ]
+        },
+        {
+          "claim": "Arithmetic demonstration: 350/144 = 2.430556 in consistent units.",
+          "scope": "Calculation verification.",
+          "evidence_chunk_ids": [
+            "REF_019:0004"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_019:0001",
+        "REF_019:0004",
+        "REF_019:0005",
+        "REF_019:0008",
+        "REF_019:0013"
+      ],
+      "id": "round11_R11_CONDITIONAL_RENAL_AE_AUC:K01",
+      "topics": [
+        "animal_pk",
+        "translation"
+      ],
+      "required_branches": [
+        "renal_clearance"
+      ],
+      "knowledge_layer": "conditional_method",
+      "kind": "method_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "origin_job": "R11_CONDITIONAL_RENAL_AE_AUC",
+      "source_ids": [
+        "REF_019"
+      ],
+      "citation_check": "SOURCE_LINKS_CHECKED_NOT_SCIENTIFIC_APPROVAL",
+      "example_is_synthetic": false,
+      "source_vs_engineering_conventions": "Scientific statements linked to originals; synthetic arithmetic and host review safeguards are explicitly distinguished from source-study results."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

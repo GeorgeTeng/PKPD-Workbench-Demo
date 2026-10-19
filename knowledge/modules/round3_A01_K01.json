@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Endpoint Independence from Terminal Slope Estimation",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Parameters such as Cmax, Tmax, AUClast, and AUMClast do not require Lambda Z estimation and remain reportable when terminal slope estimation fails. Conversely, parameters like AUCinf, Vz, CL, and MRTinf depend on Lambda Z; if Lambda Z is not estimable (e.g., due to insufficient points or non-negative slope), these parameters are omitted or flagged. CLss is a distinct estimand for steady-state data and does not rely on single-dose terminal slope.",
+      "conditions": [
+        "Applicable when terminal phase data is insufficient for regression (e.g., <3 points for non-bolus, <2 for bolus) or slope is not negative.",
+        "Software automatically omits Lambda Z-dependent parameters and issues a warning."
+      ],
+      "required_inputs": [
+        "Concentration-time data with clear Cmax and Tlast.",
+        "Dosing information (bolus vs. infusion) to determine point count requirements for Lambda Z."
+      ],
+      "limitations": [
+        "AUClast is truncated at Tlast; it does not represent total exposure if elimination is incomplete.",
+        "Software defaults for point counts (e.g., 3 points) are algorithmic constraints, not universal scientific validity criteria."
+      ],
+      "downstream_use": "Report observed exposure metrics (AUClast, Cmax) for PK/PD analysis when terminal phase is undefined. Do not impute or extrapolate CL/Vz without valid Lambda Z.",
+      "evidence_chunk_ids": [
+        "REF_002:0001",
+        "REF_002:0003",
+        "REF_002:0004",
+        "REF_003:0001",
+        "REF_003:0002",
+        "REF_003:0005"
+      ],
+      "id": "round3_A01:K01",
+      "origin_job": "round3_A01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_002",
+        "REF_003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A01",
+      "retrieval_keywords": "NCA endpoints with unreliable terminal slope and sparse destructive sampling",
+      "supersedes": [
+        "round2_A01:K01",
+        "round2_A01:K02",
+        "round2_A01:K03",
+        "round2_A01:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

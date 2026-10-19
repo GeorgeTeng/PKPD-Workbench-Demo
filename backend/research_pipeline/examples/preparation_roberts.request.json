@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "request_id": "preparation_roberts_pending_001",
+  "reference_policy": {
+    "drug": "polymyxin_b",
+    "same_drug_only": true
+  },
+  "attachments": [
+    {
+      "id": "source",
+      "path": "C:/Users/georg/Documents/Codex/2026-09-15/file-c-users-georg-downloads-s11095/pmb_translational/references/roberts_2022_source_data.xlsx",
+      "role": "pk_workbook"
+    },
+    {
+      "id": "context",
+      "path": "../../outputs/Context_Compression_Local_2026-09-16/demo_run/compressed_context.json",
+      "role": "upstream_context"
+    },
+    {
+      "id": "plan",
+      "path": "preparation_roberts.plan.json"
+    },
+    {
+      "id": "evidence",
+      "path": "species_selection_evidence.snapshot.md",
+      "sha256": "d1e6b14f93d114c3798cfe4df57e87b38205c6f62c376a6752ee623ae25413ff"
+    }
+  ],
+  "context_attachment": "context",
+  "steps": [
+    {
+      "id": "data",
+      "module": "data_preparation",
+      "input": {
+        "preparation_attachment": "plan"
+      },
+      "options": {}
+    },
+    {
+      "id": "pk",
+      "module": "pk_longitudinal",
+      "input": {
+        "prepared_step": "data",
+        "prepared_dataset": "pk__001"
+      },
+      "options": {}
+    }
+  ]
+}

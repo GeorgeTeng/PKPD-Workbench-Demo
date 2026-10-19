@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "LBA Calibration Curve Validation Criteria",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "For Ligand Binding Assays (LBA), the calibration curve requires at least 6 concentration levels (including LLOQ/ULOQ) plus a blank sample. Blank is excluded from parameter calculation. Anchor points (below LLOQ/above ULOQ) may be used for curve fitting but have no acceptance criteria. Back-calculated concentrations must be within ±25% at LLOQ/ULOQ and ±20% at other levels. At least 75% of calibration standards (excluding anchor points, min 6 levels) must meet criteria. Surrogate matrix use requires scientific justification and assessment of matrix effect/recovery differences.",
+      "conditions": [
+        "Applicable to LBA methods.",
+        "Surrogate matrix use requires scientific justification and comparative assessment against authentic matrix.",
+        "4- or 5-parameter logistic models are typical; other models require justification.",
+        "Minimum 6 independent runs over several days required for validation."
+      ],
+      "required_inputs": [
+        "Calibration standard concentrations (nominal).",
+        "Analytical response data for blank and calibration standards.",
+        "Justification for surrogate matrix use (if applicable).",
+        "Data from at least 10 different donors for matrix effect assessment (LBA specific)."
+      ],
+      "limitations": [
+        "Source-specific regulatory criteria; not universal project policy.",
+        "Does not define QC acceptance criteria.",
+        "Does not address study-run acceptance logic beyond calibration curve failure.",
+        "Surrogate analyte approach requires response factor unity check; not covered in this specific calibration section."
+      ],
+      "downstream_use": "Use to validate if calibration data meets regulatory acceptance criteria for LBA assays. Reject runs if calibration curve fails acceptance criteria. Do not use for QC sample acceptance or study sample quantification logic.",
+      "evidence_chunk_ids": [
+        "REF_018:0050",
+        "REF_018:0051",
+        "REF_018:0078"
+      ],
+      "id": "round3_D02:K02",
+      "origin_job": "round3_D02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_018"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D02",
+      "retrieval_keywords": "BLQ, missing, not sampled, technical failure, above-range and assay qualification",
+      "supersedes": [
+        "round2_D02:K02",
+        "round2_D02:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

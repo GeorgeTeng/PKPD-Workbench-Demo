@@ -1,0 +1,49 @@
+{
+  "cards": [
+    {
+      "title": "Bayesian NCA for Serial Sacrifice Designs",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "A Bayesian approach using MCMC (BUGS) can estimate the posterior distribution of AUC0-∞, tissue-to-plasma AUC ratios, and Drug Targeting Index (DTI) in serial sacrifice designs, providing valid uncertainty estimates (credible intervals) where frequentist methods (Bailer, Yuan) fail to account for within-animal plasma-tissue correlation or underestimate variance.",
+      "conditions": [
+        "Study design must be serial sacrifice (destructive sampling) with sparse data (one sample per animal).",
+        "Concentrations are assumed log-normally distributed.",
+        "Terminal elimination follows first-order kinetics.",
+        "Non-informative (vague) priors are used unless prior knowledge is available.",
+        "Within-animal correlation between plasma and tissue concentrations is modeled via a bivariate normal likelihood."
+      ],
+      "required_inputs": [
+        "Concentration data (plasma and tissue) at discrete time points.",
+        "Time points for sampling.",
+        "Assumption of log-normality for concentration data.",
+        "Definition of terminal phase (e.g., last 3 time points) for λz estimation."
+      ],
+      "limitations": [
+        "Requires Bayesian statistical expertise and MCMC software (e.g., OpenBUGS).",
+        "Prior specification is subjective, though vague priors minimize this.",
+        "Assumes linear distributional kinetics (no saturation of efflux transporters in the model structure, though inference on ratios remains valid).",
+        "Does not replace compartmental modeling for mechanistic insight but improves NCA parameter uncertainty."
+      ],
+      "downstream_use": "Statistical comparison of tissue penetration (partition coefficients) between genotypes or formulations in preclinical PK studies; quantifying uncertainty in exposure metrics derived from destructive sampling.",
+      "evidence_chunk_ids": [
+        "SUP005:0002",
+        "SUP005:0005",
+        "SUP005:0008",
+        "SUP005:0020"
+      ],
+      "id": "source_SUP005:K01",
+      "origin_job": "source_SUP005",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

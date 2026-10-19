@@ -1,0 +1,55 @@
+{
+  "cards": [
+    {
+      "title": "Verified Well-Stirred Model Equation and Binding Correction Logic",
+      "topics": [
+        "translation"
+      ],
+      "claim": "The hepatic clearance (CLH) is calculated using the well-stirred model: CLH = [QH * (fu,B / fu,inc) * CLint] / [QH + (fu,B / fu,inc) * CLint]. In this formulation, CLint represents the scaled apparent intrinsic clearance. The term (fu,B / fu,inc) serves as the binding correction factor. If CLint is already reported as unbound intrinsic clearance (CLint,u), the fu,inc correction is already embedded; in this case, the effective intrinsic clearance term becomes A = fu,B * CLint,u, and applying the full (fu,B / fu,inc) ratio again would constitute a double-correction error. The equation structure must be preserved exactly as verified in the source MathML to prevent algebraic misinterpretation.",
+      "conditions": [
+        "Applicable when using the well-stirred model for hepatic clearance prediction.",
+        "Requires explicit identification of whether the input CLint is apparent (total) or unbound.",
+        "Requires matched units for QH (liver blood flow) and CLint (typically mL/min/kg or mL/min).",
+        "Requires distinct values for fu,B (fraction unbound in blood) and fu,inc (fraction unbound in incubation matrix)."
+      ],
+      "required_inputs": [
+        "Scaled apparent intrinsic clearance (CLint) with units.",
+        "Fraction unbound in blood (fu,B).",
+        "Fraction unbound in incubation (fu,inc).",
+        "Liver blood flow (QH) with units.",
+        "Explicit flag indicating if CLint is already unbound (CLint,u) to bypass fu,inc correction."
+      ],
+      "limitations": [
+        "The model assumes well-stirred hepatic disposition; it may not apply to parallel-tube or dispersion models.",
+        "Does not account for active uptake/efflux transporters unless explicitly modeled.",
+        "Source-specific values for QH and scaling factors are not universal constants.",
+        "Abstract-only or partial excerpts do not validate the specific numerical values used in the source study."
+      ],
+      "downstream_use": "Calculate predicted human hepatic clearance (CLH) for prospective scenario modeling. Use the result to assess feasibility of dosing regimens or to compare against observed human data if available (noting target drug has no human PK observations).",
+      "evidence_chunk_ids": [
+        "SUP012:MATH01",
+        "SUP012:0005",
+        "IN_IVIVE:0007"
+      ],
+      "id": "round3_T02:K01",
+      "origin_job": "round3_T02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_IVIVE",
+        "SUP012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "T02",
+      "retrieval_keywords": "Binding, blood/plasma, apparent versus unbound intrinsic clearance and IVIVE scaling",
+      "supersedes": [
+        "round2_T02:K01",
+        "round2_T02:K02",
+        "round2_T02:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

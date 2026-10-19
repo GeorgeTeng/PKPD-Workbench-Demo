@@ -1,0 +1,119 @@
+{
+  "cards": [
+    {
+      "title": "MIC-Weighted Cumulative Fraction of Response (CFR) Calculation",
+      "claim": "CFR is calculated as the sum of PTA values at each MIC dilution multiplied by the fractional weight of isolates at that MIC. Off-scale or missing MIC data must be explicitly tracked rather than renormalized. A CFR threshold (e.g., 90%) is a study-specific interpretation criterion, not a universal regulatory standard.",
+      "conditions": [
+        "Applicable to antibacterial regimens when a qualified PK/PD target and PTA-by-MIC profile exist; the source study used fT>MIC because its studied agents had time-dependent killing.",
+        "Requires a defined MIC distribution (frequency of isolates per dilution).",
+        "Requires a PTA profile generated via Monte Carlo simulation or similar PK/PD modeling."
+      ],
+      "required_inputs": [
+        "PTA profile: Probability of achieving PD target (e.g., 40% fT>MIC) at each MIC dilution.",
+        "MIC distribution: Count or fraction of isolates at each MIC dilution (e.g., 0.008 to 128 μg/mL).",
+        "Isolate denominator: Total number of isolates in the stratum used to calculate fractional weights.",
+        "MIC qualification: identify the pathogen strain/isolate and provenance, assay method/protocol and relevant medium/incubation conditions, concentration units, tested dilution range and any off-scale bound. Normalize compatible concentration units before calculating an index; verify comparability with the conditions under which the target was derived.",
+        "MIC dataset provenance: organism/isolate stratum, inclusion/selection rule, collection place and time (or explicitly unknown), source and aggregation/weighting scheme. Qualify representativeness for the intended population; a pooled reference distribution is not automatically a population resistance rate."
+      ],
+      "limitations": [
+        "EUCAST ECOFF/TECOFF criteria govern distribution acceptance for cut-off setting, not CFR eligibility.",
+        "Source-specific CFR thresholds (e.g., 90%) do not constitute universal clinical reliability policy.",
+        "Truncated distributions (lower/upper end) must be handled explicitly; silent dropping of off-scale mass biases CFR."
+      ],
+      "downstream_use": "Used to assess the probability that a regimen will attain its PD index against a specific population of organisms, informing empiric therapy decisions.",
+      "method_keywords": [
+        "cumulative fraction of response",
+        "MIC distribution",
+        "off-scale MIC",
+        "PTA weighting",
+        "CFR calculation",
+        "MIC bin weights"
+      ],
+      "retrieval_keywords": "CFR MIC-weighted attainment PTA profile isolate denominator off-scale tails",
+      "knowledge_layer": "conditional_method",
+      "method_recipe": {
+        "estimand_and_scope": "Calculate CFR as the weighted average of PTA across MIC bins. Scope is limited to the specific isolate population and MIC distribution provided.",
+        "input_contract": "1. PTA profile: Array of PTA values corresponding to MIC dilutions. 2. MIC distribution: Array of isolate counts or fractions per dilution. 3. Metadata: Total isolate count (denominator), off-scale counts, and missing data counts. 4. MIC qualification: identify the pathogen strain/isolate and provenance, assay method/protocol and relevant medium/incubation conditions, concentration units, tested dilution range and any off-scale bound. Normalize compatible concentration units before calculating an index; verify comparability with the conditions under which the target was derived. 5. MIC dataset provenance: organism/isolate stratum, inclusion/selection rule, collection place and time (or explicitly unknown), source and aggregation/weighting scheme. Qualify representativeness for the intended population; a pooled reference distribution is not automatically a population resistance rate. Qualify these before population-level CFR interpretation; PTA probabilities are supplied downstream model outputs, while MIC measurements and sampling metadata are source data.",
+        "applicability_and_prerequisites": "Requires PTA for a declared antibacterial index/target at MIC bins and a compatible isolate distribution/stratum. The REF021 example used fT>MIC for its time-dependent agents; other appropriate indices remain conditional on evidence.",
+        "definitions_units_basis_window": "CFR = Σ (PTA_i × w_i), where w_i = (Count_i / Total_Isolates). Units: PTA is probability (0-1), w_i is fraction (0-1), CFR is probability (0-1).",
+        "procedure": "0. Check MIC units, assay comparability and isolate-population provenance before combining bins; document any restriction of the estimand. 1. Align PTA values with MIC dilutions. 2. Calculate fractional weight (w_i) for each MIC bin using the total isolate count as denominator. 3. Multiply PTA_i by w_i for each bin. 4. Sum products to obtain CFR. 5. Explicitly report mass of off-scale, missing, or unmatched MIC data; do not renormalize weights to sum to 1 if mass is lost.",
+        "formula_and_parameterization": "CFR = Σ (PTA_i × w_i), where w_i = (Count_i / Total_Isolates). Units: PTA is probability (0-1), w_i is fraction (0-1), CFR is probability (0-1).",
+        "uncertainty_and_identifiability": "Report MIC sampling and PTA/model uncertainty when estimable. The cited study used a Newcombe-Wilson procedure for its CFR intervals; choose any interval method according to the current weighted design and dependence structure rather than applying that procedure by default.",
+        "diagnostics_and_failure_modes": "If MIC distribution is truncated or incomplete, report partial CFR or withhold full CFR calculation rather than assuming missing isolates are wild-type or resistant. Do not silently renormalize weights.",
+        "missing_input_and_partial_fallback": "If MIC distribution is truncated or incomplete, report partial CFR or withhold full CFR calculation rather than assuming missing isolates are wild-type or resistant. Do not silently renormalize weights. If assay comparability or intended-population representativeness is unresolved, a computable weighted result is only a labeled conditional/reference-distribution scenario; withhold a generalizable population CFR interpretation. Unknown metadata must remain unknown.",
+        "output_and_interpretation": "CFR is the modeled MIC-distribution-weighted probability of attaining the specified PK/PD target in the declared isolate population and regimen. It does not alone establish clinical cure, reliable empiric coverage or a universal 90% decision threshold.",
+        "worked_example_and_counterexample": "Synthetic mass-balanced example: among 100 total isolates, 45 have MIC 1 with PTA=0.9, 45 have MIC 2 with PTA=0.5, and 10 are off-scale with unknown PTA. The known weighted contribution is (45/100)*0.9+(45/100)*0.5=0.63. The off-scale weight is 0.10, so without further information full CFR lies between 0.63 and 0.73; do not renormalize the 90 known isolates. Counterexample: Known counts of 50+50 out of 100 cannot coexist with ten additional off-scale isolates in the same denominator."
+      },
+      "claim_support": [
+        {
+          "claim": "CFR is the sum of MIC-bin PTA times a bin weight.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_021:0008"
+          ]
+        },
+        {
+          "claim": "PTA is the proportion of trials achieving PD target at a given MIC.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_021:0007"
+          ]
+        },
+        {
+          "claim": "EUCAST ECOFF/TECOFF criteria are for cut-off setting, not CFR eligibility.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "ADD003:0016",
+            "REF_027:0003"
+          ]
+        },
+        {
+          "claim": "MIC distributions are reference material and cannot be used to infer resistance rates directly.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_027:0001",
+            "REF_027:0003"
+          ]
+        },
+        {
+          "claim": "MIC uses concentration units and organism-dependent reference methods/media; EUCAST pooled distributions combine locations, periods and selection schemes and cannot represent resistance rates. Provenance qualification before population CFR interpretation is a host rule derived from these limitations.",
+          "scope": "Conditional antibacterial CFR; no requirement to use a single universal assay",
+          "evidence_chunk_ids": [
+            "SUP018:0003",
+            "REF_027:0001",
+            "REF_027:0003"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_021:0007",
+        "REF_021:0008",
+        "ADD003:0016",
+        "REF_027:0001",
+        "REF_027:0003",
+        "SUP018:0003"
+      ],
+      "required_branches": [
+        "antibacterial"
+      ],
+      "id": "round10_reviewed_v2_B02:K01",
+      "topics": [
+        "pta"
+      ],
+      "source_ids": [
+        "REF_021",
+        "ADD003",
+        "REF_027",
+        "SUP018"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "B02",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "source_vs_engineering_conventions": "Source-supported: CFR definition as sum of PTA × MIC frequency; use of Monte Carlo for PTA. Engineering convention: Explicit tracking of off-scale mass; prohibition of silent renormalization.",
+      "example_is_synthetic": "The numerical values (100 isolates, specific MICs/PTAs) are synthetic for illustration. The method of weighting PTA by isolate fraction is source-supported."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

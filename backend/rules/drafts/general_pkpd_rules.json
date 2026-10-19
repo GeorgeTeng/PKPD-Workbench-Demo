@@ -1,0 +1,300 @@
+{
+  "schema_version": "1.0",
+  "status": "DRAFT_PENDING_USER_REVIEW",
+  "enabled": false,
+  "created_at": "2026-09-20",
+  "principle": "Rules are additional scientific audit criteria, selected, adjusted, and versioned for each project. They are not a fixed execution workflow or regulatory certification.",
+  "activation_policy": "Only after explicit user review; no automatic import into proposal rules or runtime criteria.",
+  "rules": [
+    {
+      "id": "GEN-PKPD-001",
+      "title": "Define intended use and estimands",
+      "proposal": "State whether the goal is description, index screening, or human extrapolation, with evidence requirements for each.",
+      "scope": "All PK/PD projects",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Treating successful fitting as validated human prediction",
+      "source": {
+        "title": "FDA Population Pharmacokinetics (2022)",
+        "url": "https://www.fda.gov/media/128793/download",
+        "section": "V.C: validation for the intended use"
+      },
+      "project_parameters": [
+        "analysis_objective",
+        "intended_use"
+      ],
+      "unknown_handling": "NOT_CALCULABLE; define the objective first",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-002",
+      "title": "Identify experimental units and replicates",
+      "proposal": "Record animals/subjects, strains, wells, repeated samples, and group summaries separately to avoid pseudoreplication.",
+      "scope": "Animal studies; define in vitro experimental units separately",
+      "suggested_action": "WARN_AND_REVIEW",
+      "avoid": "Counting each blood sample as an independent animal or reconstructing individuals from means",
+      "source": {
+        "title": "ARRIVE 2.0 — experimental unit",
+        "url": "https://arriveguidelines.org/arrive-guidelines/study-design/1b/explanation",
+        "section": "Essential 10, 1b; applying this to in vitro work is a project-specific extension"
+      },
+      "project_parameters": [
+        "experimental_unit",
+        "n_units",
+        "n_observations"
+      ],
+      "unknown_handling": "Report gaps; defer inference pending confirmation",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-003",
+      "title": "Assess data amount and coverage for the task",
+      "proposal": "Use parameter precision, identifiability, and time/dose coverage to assess adequacy; no fixed species count.",
+      "scope": "Tasks requiring parameter estimation or prediction",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Automatically declaring three species or a fixed N adequate",
+      "source": {
+        "title": "FDA Population Pharmacokinetics (2022)",
+        "url": "https://www.fda.gov/media/128793/download",
+        "section": "V.C.1: parameter precision and data support"
+      },
+      "project_parameters": [
+        "precision_goal",
+        "sampling_window",
+        "identifiability_plan"
+      ],
+      "unknown_handling": "NOT_CALCULABLE without project-specific criteria",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-004",
+      "title": "Trace assay quality, LLOQ, and BLQ",
+      "proposal": "Record quantification method, matrix, and LLOQ; distinguish missing values, BLQ, and true zeros.",
+      "scope": "Quantitative concentrations; record gaps in public-source documentation",
+      "suggested_action": "WARN_AND_REVIEW",
+      "avoid": "Declaring data invalid solely because assay-validation documentation is unavailable",
+      "source": {
+        "title": "ICH M10 Bioanalytical Method Validation (2022)",
+        "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/ich-guideline-m10-bioanalytical-method-validation-step-5_en.pdf",
+        "section": "Assay fitness-for-purpose principles; state encoding is a proposed software implementation"
+      },
+      "project_parameters": [
+        "assay_method",
+        "matrix",
+        "LLOQ",
+        "missingness_policy"
+      ],
+      "unknown_handling": "Preserve the original state; follow the project analysis plan",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-005",
+      "title": "Establish biological plausibility and parameter meaning",
+      "proposal": "Support structures, covariates, and parameter definitions pharmacologically; distinguish apparent and absolute parameters.",
+      "scope": "PK structural models and cross-species comparisons",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Applying the same parameter range or fixed allometric exponent to every drug",
+      "source": {
+        "title": "FDA Population Pharmacokinetics (2022)",
+        "url": "https://www.fda.gov/media/128793/download",
+        "section": "V.B; CL/F checks are implementation proposals based on model definitions"
+      },
+      "project_parameters": [
+        "parameter_definition",
+        "route",
+        "bioavailability_assumption"
+      ],
+      "unknown_handling": "Check units, model conventions, and applicability",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-006",
+      "title": "Match free/total exposure, MIC, and infection site",
+      "proposal": "Prioritize free exposure; justify total concentrations and match binding, MIC, and tissue matrix.",
+      "scope": "Antimicrobial PK/PD; not automatically applicable to other drug classes",
+      "suggested_action": "WARN_AND_REVIEW",
+      "avoid": "Uncritically using another species' binding or treating lung homogenate as ELF",
+      "source": {
+        "title": "EMA Antimicrobial PK/PD guideline (2016; effective 2017)",
+        "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-and-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf",
+        "section": "4.2.3、4.3.3"
+      },
+      "project_parameters": [
+        "exposure_basis",
+        "binding_source",
+        "MIC_method",
+        "site_matrix"
+      ],
+      "unknown_handling": "Do not calculate indices when critical conversion evidence is missing",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-007",
+      "title": "Confirm PD endpoints and observation windows in advance",
+      "proposal": "Define effect scale, baseline, time window, and strain; retain non-estimability when target effects are not reached.",
+      "scope": "Antimicrobial infection or time-kill models",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Requiring the same bacterial kill magnitude for every drug",
+      "source": {
+        "title": "EMA Antimicrobial PK/PD guideline (2016; effective 2017)",
+        "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-and-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf",
+        "section": "4.2.1–4.2.3"
+      },
+      "project_parameters": [
+        "endpoint",
+        "baseline",
+        "endpoint_time",
+        "strain"
+      ],
+      "unknown_handling": "Do not pool different times/endpoints as one comparison",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-008",
+      "title": "Use comparable conditions for information criteria",
+      "proposal": "Check observation sets, response scales, and likelihood comparability before ranking by AIC/BIC.",
+      "scope": "Model selection using AIC/BIC",
+      "suggested_action": "BLOCK_INVALID_COMPARISON",
+      "avoid": "Directly ranking AIC values from different datasets",
+      "source": {
+        "title": "R stats — AIC",
+        "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html",
+        "section": "Details: likelihood and data conditions across fits"
+      },
+      "project_parameters": [
+        "observation_set_id",
+        "response_scale",
+        "likelihood"
+      ],
+      "unknown_handling": "Stop that ranking; retain individual fit results where appropriate",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-009",
+      "title": "Assess uncertainty, convergence, and shrinkage together",
+      "proposal": "Report estimation uncertainty and diagnostics; review the reliability of individual exposure estimates separately.",
+      "scope": "Parameter estimation; shrinkage only for applicable population models",
+      "suggested_action": "WARN_AND_REVIEW",
+      "avoid": "Using RSE<30% or a convergence flag as a universal acceptance threshold",
+      "source": {
+        "title": "FDA Population Pharmacokinetics (2022)",
+        "url": "https://www.fda.gov/media/128793/download",
+        "section": "V.C.1: the consequences of shrinkage depend on intended use"
+      },
+      "project_parameters": [
+        "CI_method",
+        "convergence_evidence",
+        "shrinkage_definition"
+      ],
+      "unknown_handling": "Flag non-identifiability or limits of use; configure thresholds per project",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-010",
+      "title": "Separate predictive checks from goodness of fit",
+      "proposal": "Choose diagnostics, predictive checks, and independent validation for the intended use; describe the validation scope.",
+      "scope": "Models used for prediction or translation",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Treating the highest R² or lowest AIC as proof of clinical reliability",
+      "source": {
+        "title": "FDA Population Pharmacokinetics (2022)",
+        "url": "https://www.fda.gov/media/128793/download",
+        "section": "V.C: complementary validation methods selected for intended use"
+      },
+      "project_parameters": [
+        "validation_plan",
+        "acceptance_criteria",
+        "validation_scope"
+      ],
+      "unknown_handling": "Limit conclusions when evidence does not support the intended use",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-011",
+      "title": "Define the animal/in vitro-to-human bridge",
+      "proposal": "Record species, infection-state, and population differences; label predictions without human PK as awaiting validation.",
+      "scope": "Preclinical-to-human translation",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Treating animal targets or scenario PTA as a validated human regimen",
+      "source": {
+        "title": "EMA Antimicrobial PK/PD guideline (2016; effective 2017)",
+        "url": "https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-use-pharmacokinetics-and-pharmacodynamics-development-antimicrobial-medicinal-products_en.pdf",
+        "section": "4.3–4.4: preclinical exploratory work can still proceed"
+      },
+      "project_parameters": [
+        "translation_assumptions",
+        "human_data_status",
+        "target_population"
+      ],
+      "unknown_handling": "Retain translational research; do not claim validated human dosing recommendations",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    },
+    {
+      "id": "GEN-PKPD-012",
+      "title": "Review regimen feasibility and safety separately",
+      "proposal": "Assess effects, practical dosing constraints, and safety endpoints; unsupported thresholds remain unassessable.",
+      "scope": "Clinical interpretation and regimen scenarios",
+      "suggested_action": "HUMAN_REVIEW",
+      "avoid": "Automatically declaring a regimen safe because target attainment is high",
+      "source": {
+        "title": "FDA Exposure–Response Relationships (2003)",
+        "url": "https://www.fda.gov/media/71277/download",
+        "section": "Clinical use and exposure–benefit/adverse-effect relationships; feasibility checklists are project proposals"
+      },
+      "project_parameters": [
+        "regimen_constraints",
+        "safety_endpoint",
+        "threshold_source"
+      ],
+      "unknown_handling": "Record limitations; gather evidence or open another cycle",
+      "status": "DRAFT_PENDING_USER_REVIEW",
+      "enabled": false,
+      "numeric_threshold": null,
+      "origin": "GUIDANCE_PRINCIPLE_WITH_PROPOSED_WORKFLOW_IMPLEMENTATION",
+      "user_decision": null
+    }
+  ]
+}

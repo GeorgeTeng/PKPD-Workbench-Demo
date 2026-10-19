@@ -1,0 +1,406 @@
+{
+  "version": "2.0.0-draft.1",
+  "updated_date": "2026-10-13",
+  "status": "FRAMEWORK_BUILT_RUNTIME_PENDING",
+  "general_rules": "Apply canonical G001-G008 once to each model call. This pack defines the descriptive EDA scope and five component contracts.",
+  "scope": {
+    "stage": "DESCRIPTIVE_EDA_BEFORE_DISPATCH",
+    "purpose": "Describe animal PK and preclinical PD evidence, available analytical inputs and limitations supporting later prospective human exposure prediction and assessment of potentially efficacious doses/regimens, feasibility and uncertainty.",
+    "out_of_scope": [
+      "Combination therapy",
+      "Covariate analysis and allometric/parameter-weight plots",
+      "New concentration-time AUC/AUMC or response-time integration",
+      "PK parameter estimation beyond explicitly permitted descriptive quantities",
+      "Exposure reconstruction, interpolation, extrapolation and terminal-slope selection",
+      "PD-target fitting, model/index selection and inferential uncertainty estimation",
+      "Human simulations, PTA and scientific release"
+    ],
+    "human_evidence": "In the current target-drug setting human PK/PD/efficacy/safety observations are absent. Human outputs are prospective scenarios. Known-drug human holdout benchmarks remain separate and protected."
+  },
+  "external_inputs": {
+    "data_handoff": "Host-verified, released Data package with unchanged dataset/metadata references, hashes, dictionary, record/source IDs, quarantine, stated values and unresolved ledger. Reuse upstream Coverage/Necessity decisions.",
+    "task_context": "Objective, requirements, routed project rules, selected downstream methods, supported constraints and existing review policy.",
+    "scientific_reference": "Bound EDA review text: display specifications, MP background and exact source locators; guidance is not automatically task data.",
+    "human_confirmation": "Existing final human checkpoint for the exact reviewed EDA version; needed by ER handoff only, not by earlier components."
+  },
+  "agents": [
+    {
+      "id": "EP",
+      "name": "EDA Planner",
+      "order": 1,
+      "execution": "MODEL",
+      "responsibility": "Accept the verified Data scope and select decision-relevant displays and descriptive operations.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference"
+      ],
+      "outputs": [
+        "eda_plan"
+      ],
+      "call": "EP-plan"
+    },
+    {
+      "id": "EC",
+      "name": "EDA Calculator",
+      "order": 2,
+      "execution": "R",
+      "responsibility": "Execute established descriptive formulas with complete inputs; preserve raw values, source links and calculation order.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "eda_plan"
+      ],
+      "outputs": [
+        "calculation_bundle"
+      ],
+      "entrypoint": {
+        "file": "pkpd_r/eda/calculate.R",
+        "function": "eda_calculate"
+      },
+      "implementation_status": "INTERFACE_ONLY"
+    },
+    {
+      "id": "EV",
+      "name": "EDA Visualizer",
+      "order": 3,
+      "execution": "R",
+      "responsibility": "Draw from the exact EC results and permitted unchanged observations; check figure semantics and rendering.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle"
+      ],
+      "outputs": [
+        "figure_bundle"
+      ],
+      "entrypoint": {
+        "file": "pkpd_r/eda/visualize.R",
+        "function": "eda_visualize"
+      },
+      "implementation_status": "INTERFACE_ONLY"
+    },
+    {
+      "id": "EI",
+      "name": "EDA Interpreter",
+      "order": 4,
+      "execution": "MODEL",
+      "responsibility": "Describe observed findings, supported limits and implications for subsequent analysis.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle"
+      ],
+      "outputs": [
+        "eda_findings"
+      ],
+      "call": "EI-findings"
+    },
+    {
+      "id": "ER",
+      "name": "EDA Reviewer & Handoff",
+      "order": 5,
+      "execution": "MODEL_REVIEW_HOST_HANDOFF",
+      "responsibility": "Independently review evidence and outputs, route targeted corrections, and let the host assemble the exact reviewed and human-confirmed handoff.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "eda_findings",
+        "human_confirmation"
+      ],
+      "outputs": [
+        "eda_review",
+        "eda_handoff"
+      ],
+      "call": "ER-review",
+      "human_confirmation_used_at": "HOST_HANDOFF_ONLY"
+    }
+  ],
+  "calls": [
+    {
+      "id": "EP-plan",
+      "agent": "EP",
+      "operation": "PLAN_ANALYSES",
+      "prompt_operation": "plan",
+      "description": "One planning operation per EDA task, scoped to the question and available evidence."
+    },
+    {
+      "id": "EI-findings",
+      "agent": "EI",
+      "operation": "WRITE_FINDINGS",
+      "prompt_operation": "findings",
+      "description": "One findings operation for the scoped EDA task; no default call per dataset or figure."
+    },
+    {
+      "id": "ER-review",
+      "agent": "ER",
+      "operation": "INDEPENDENT_REVIEW",
+      "prompt_operation": "review",
+      "description": "One independent review operation with figures, plotted rows and source bindings. Handoff assembly requires no extra model call."
+    }
+  ],
+  "artifact_contracts": {
+    "eda_plan": {
+      "owner": "EP",
+      "required_fields": [
+        "version",
+        "input_refs",
+        "objective",
+        "analyses",
+        "not_planned",
+        "open_items"
+      ],
+      "analysis_fields": [
+        "analysis_id",
+        "requirement_ids",
+        "question",
+        "objective_link",
+        "source_refs",
+        "reference_sections",
+        "dataset_ids",
+        "record_selection",
+        "experimental_unit",
+        "formula_definition",
+        "input_relationships",
+        "grouping",
+        "transform_aggregation_order",
+        "censoring_policy",
+        "display_spec",
+        "status",
+        "reason"
+      ],
+      "display_spec_fields": [
+        "kind",
+        "x_variable_unit_scale",
+        "y_variable_unit_scale",
+        "marks",
+        "facets",
+        "legend",
+        "uncertainty_definition",
+        "annotations",
+        "caption_limits"
+      ],
+      "notes": "Allow not-applicable fields with reasons. Tables and annotations may replace standalone figures. An authorized objective subquestion may be linked without inventing a formal requirement ID. Planned operation IDs must later resolve to implemented R handlers."
+    },
+    "calculation_bundle": {
+      "owner": "EC",
+      "required_fields": [
+        "version",
+        "plan_ref",
+        "input_refs",
+        "results_ref",
+        "provenance_ref",
+        "checks",
+        "not_calculable"
+      ],
+      "notes": "Planned results.rds plus reviewable data tables. Every quantity retains source record IDs, original values/units, formula/source, operands, grouping, experimental unit, scale/order, window, censoring and result status. Original input files remain unchanged."
+    },
+    "figure_bundle": {
+      "owner": "EV",
+      "required_fields": [
+        "version",
+        "plan_ref",
+        "calculation_ref",
+        "figures",
+        "tables",
+        "technical_checks",
+        "omissions"
+      ],
+      "figure_fields": [
+        "figure_id",
+        "analysis_ids",
+        "image_ref",
+        "plotted_rows_ref",
+        "caption",
+        "source_refs",
+        "limitations"
+      ],
+      "notes": "Planned PNG previews plus SVG or PDF exports; exact plot data stays reviewable. EV consumes EC statistics rather than calculating a second version. Rendered inspection is distinct from machine checks."
+    },
+    "eda_findings": {
+      "owner": "EI",
+      "required_fields": [
+        "version",
+        "input_refs",
+        "findings",
+        "limitations",
+        "open_items"
+      ],
+      "finding_fields": [
+        "finding_id",
+        "analysis_ids",
+        "artifact_refs",
+        "record_scope",
+        "observation",
+        "interpretation_if_useful",
+        "alternative_if_interpretation",
+        "downstream_implication"
+      ],
+      "notes": "Quote host results only. Retain non-achievement, supplied tolerability/administration constraints and absent information. Include data-support signals only when relevant to already selected methods."
+    },
+    "eda_review": {
+      "owner": "ER",
+      "required_fields": [
+        "version",
+        "reviewed_refs",
+        "decision",
+        "review_scope",
+        "issues",
+        "unreviewed_items"
+      ],
+      "issue_fields": [
+        "issue_id",
+        "affected_artifact",
+        "evidence",
+        "consequence",
+        "correction_owner",
+        "smallest_correction"
+      ],
+      "notes": "PASS, REVISE or NEEDS_REVIEW. Scope visual checks to images actually supplied. New Data defects return to Data; computation -> EC, rendering -> EV, interpretation -> EI, plan -> EP."
+    },
+    "eda_handoff": {
+      "owner": "ER_HOST",
+      "required_fields": [
+        "version",
+        "review_ref",
+        "human_confirmation_ref",
+        "input_refs",
+        "scoped_contexts",
+        "not_calculable",
+        "accepted_limitations",
+        "open_items"
+      ],
+      "notes": "Host assembles after successful review resolution and exact-version human confirmation. Changed inputs/rules/prompts/outputs invalidate relevant reviews and approval. Forward open ledger items unchanged; no automatic downstream launch."
+    }
+  },
+  "rules": [
+    {
+      "id": "EDA001",
+      "title": "Inputs and scope",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Use only the host-verified Data handoff, authorized context and bound scientific reference. Preserve source roles and protected holdouts. Do not edit inputs or repeat Coverage, Necessity or cleaning. An invalid handoff identity blocks intake; a local missing definition or conflict limits dependent operations. A Data READY status alone does not establish calculability of every requested quantity.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA002",
+      "title": "Unresolved items",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Retain unresolved items and source conflicts with exact source locations. Record G008 outcomes before the decisions that depend on them. Scope unavailable inputs and conflicts to affected operations; forward unrelated open items unchanged. Do not select a convenient conflicting value, invent pairing, infer experimental-unit identity or replace uncertainty with PASS.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA003",
+      "title": "Plan",
+      "calls": [
+        "EP-plan"
+      ],
+      "text": "Tie each display or table to the objective and applicable requirement or authorized subquestion. Specify data, provenance, experimental unit, known relationships, formula, calculation order, groups, X/Y variables/units/scales, marks, facets, uncertainty, annotations and purpose. Reuse panels, tables and notes; the reference catalogue is conditional, not a mandatory figure checklist. Operations lacking an implemented permitted R handler remain unimplemented rather than being delegated as model-generated executable code.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA004",
+      "title": "Descriptive calculation",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "EC executes R formulas only when definitions and all required inputs/relationships are established without new scientific assumptions. Allow traceable unit conversion, time alignment, compatible nonzero-dose normalization, supported response transforms, ratios from existing/allowed quantities, complete measured collection amounts, explicitly maximum observed concentrations, and descriptive statistics at verified unit/group levels. Preserve raw values, units, source rows, operands, formula definition/source, scale/order, denominator/window, technical versus biological repeats and censoring. Supported bounds remain bounds; quantifiable-only summaries disclose exclusions. SD requires its defined denominator and at least two contributing values. Do not calculate AUC/AUMC or new response-time integrals, reconstruct exposure, impute limits/zeros, fit terminal slopes or PD targets, estimate inferential uncertainty or simulate humans. Source-reported analytical outputs may be displayed with their method and limits.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA005",
+      "title": "Experimental units and display",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "EV draws in R from unchanged permitted observations and EC results. Respect serial, sparse, destructive, pooled, nested, source-summary and digitized records. Do not create animal trajectories or biological n from record IDs, tissue replicates or technical repeats. Label axis variables/units/basis, source versus calculated summaries, n and error definitions. Use linear/log scales for the question; do not log nonpositive values or add artificial offsets. Preserve missing/censored status and input discontinuities. Connected summary points are descriptive guides with supported membership, not fitted trajectories. Check plots against their exact plotted rows; machine checks alone are not visual review.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA006",
+      "title": "Comparability",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Assess compatibility for the specific operation: analyte, system/species, matrix, route/formulation, regimen/dose basis, total/free basis, units, time origin/window, endpoint/reference and matched strain MIC as applicable. Keep incompatible contexts in separate panels/tables and name the differences; incompatibility for pooling does not prohibit descriptive display. Normalization and visual trends do not establish dose proportionality, mechanisms or a winning index. Retain reported non-achievement and study-specific tolerability/formulation/administration limits without inferring human safety.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA007",
+      "title": "Findings",
+      "calls": [
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "State decision-relevant observations once, with artifact/record scope and downstream implication. Quote new numbers only from host results; missing results are unavailable. Add candidate interpretations only when useful, with a credible alternative and discriminating evidence. Do not force mechanistic speculation. Data-support signals for already selected methods remain scoped descriptions, not repeat Coverage, model selection, parameter qualification or scientific acceptance.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA008",
+      "title": "Independent review",
+      "calls": [
+        "ER-review"
+      ],
+      "text": "Independently compare the plan, calculations, rendered figures, plotted rows and findings against the task and this scope. State missing or unreviewed evidence. Distinguish input defects, calculation errors, display errors and unsupported interpretation; request the smallest correction from the responsible component. PASS means coherence and completeness for the disclosed EDA scope. REVISE requires correction; NEEDS_REVIEW requires human scientific judgment. No result establishes human predictive validity or approves itself.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA009",
+      "title": "Host handoff",
+      "calls": [
+        "ER-review"
+      ],
+      "text": "ER's independent model review precedes deterministic host handoff assembly. After review issues are resolved and the exact version is human-confirmed under the existing checkpoint, retain unchanged Data references and route relevant outputs/findings to dispatch, animal-PK and index contexts. Include NOT_CALCULABLE reasons, accepted limitations and all still-open ledger items. No extra handoff model call, new global assessment, automatic downstream launch or copied historical approval.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    }
+  ],
+  "runtime": {
+    "enabled": false,
+    "implemented": false,
+    "model_operations_per_normal_pass": 3,
+    "model_calls_run": 0,
+    "per_dataset_calls": false,
+    "per_figure_calls": false,
+    "handoff_model_call": false,
+    "calculation_engine": "R",
+    "plot_engine": "R / ggplot2",
+    "orchestration": "Python",
+    "human_review": "BEFORE_HANDOFF_FOR_EXACT_REVIEWED_VERSION",
+    "review_context": "Independent from plan/findings generation; include bound artifacts and disclosed review scope.",
+    "repair_policy": "Target only affected artifacts; stop unresolved scientific assumptions for review, never loop or change source values automatically.",
+    "model_release": false
+  },
+  "source": {
+    "replaces": "EDA 1.0.0-draft.1 (EP/EX/ER/EH) and the previous four-operation EDA prompt; preserved in outputs/EDA_Framework_20261013_213146/before.",
+    "authority": "User accepted five logical parts and requested names plus a simple framework; the current English review defines scientific scope. Detailed executors and workflow integration remain pending.",
+    "scientific_reference": {
+      "file": "eda_scientific_reference.txt",
+      "sha256": "595b7d39a896c096619081d5e49724d4746907f6a7667a00ada6250506a0f6ea",
+      "origin": "C:/Users/georg/Documents/Transitioanl PKPD Context Engineering/deliverables/eda_rebuild_20261013/EDA_data_plot_purpose_EN_review.txt",
+      "status": "UNCHANGED_SNAPSHOT_OF_REVIEW_TEXT",
+      "interpretation": "The text's no-implementation statement describes its authoring scope. This framework is a separate artifact."
+    }
+  }
+}

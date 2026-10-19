@@ -1,0 +1,55 @@
+{
+  "cards": [
+    {
+      "title": "Baseline vs. Control and Free-Drug Conversion for PK/PD Linkage",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "In PK/PD modeling, the 'baseline' is the bacterial burden at the start of treatment (time 0), which serves as the stasis reference, distinct from the untreated control group measured at the end of the observation window. To link exposure to effect, total plasma concentrations must be converted to unbound (free) concentrations using experimentally determined protein binding data. The unbound fraction (fu) is a critical parameter; if binding is concentration-independent, a single fu value is applied to total AUC/Cmax to derive fAUC/fCmax for correlation with MIC.",
+      "conditions": [
+        "Applicable when analyzing in vivo infection model data where total drug concentrations are measured.",
+        "Requires determination of protein binding in the relevant matrix (e.g., plasma) across the concentration range observed.",
+        "Source-specific: In the cited study, binding was constant over the range, allowing a single fu value (0.086) to be used."
+      ],
+      "required_inputs": [
+        "Total plasma concentration-time data.",
+        "Protein binding data (percentage bound or fu) in the relevant matrix.",
+        "Bacterial burden at time 0 (baseline/stasis value).",
+        "Bacterial burden at end of treatment window (treated and untreated controls).",
+        "MIC values for the specific strains tested."
+      ],
+      "limitations": [
+        "Protein binding in animal models (e.g., mice) may differ significantly from humans; direct translation of fu is invalid without human-specific binding data.",
+        "If binding is concentration-dependent, a single fu is insufficient; a model of binding kinetics is required.",
+        "Group mean baseline values cannot be paired with individual subject trajectories in destructive sampling designs."
+      ],
+      "downstream_use": "Calculate fAUC/MIC, fCmax/MIC, or fT>MIC indices. Use these free-drug indices to fit exposure-response models (e.g., inhibitory sigmoid Emax) to determine PDTs.",
+      "evidence_chunk_ids": [
+        "ARTICLE_S02:0002",
+        "ARTICLE_S02:0006",
+        "ARTICLE_S02:0010",
+        "ARTICLE_S02:0019",
+        "REF_007:0024"
+      ],
+      "id": "round3_P01:K01",
+      "origin_job": "round3_P01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S02",
+        "REF_007"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "P01",
+      "retrieval_keywords": "Exposure-response linkage to strain/MIC, effect window, baseline, assay and matrix",
+      "supersedes": [
+        "round2_P01:K01",
+        "round2_P01:K02",
+        "round2_P01:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

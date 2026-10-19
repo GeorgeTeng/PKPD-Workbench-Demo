@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按检查稿改 DC007（空表、批注、合计行、统一核对）吗？': 全部按建议.",
+    "review_document": "/mnt/project-files/data-part/DC规则逐条检查_20261009.md (DC007)"
+  },
+  "gaps_found": [
+    "Empty sheets triggered a DC-split call and an UNASSIGNED item (or a HUMAN_REVIEW finding without a run).",
+    "DC-split received cell values only; comments and comment-only cells were dropped, leaving them unassigned.",
+    "Header checks applied only to DC-split; model titles were not verified against the sheet.",
+    "Explicit plans could not name note blocks, so footnotes became body rows or unassigned cells.",
+    "A rejected proposal lost the model's own findings.",
+    "Excel totals rows were read as body rows and headerless tables used their first data row as header (intake records only name and ref).",
+    "Rule text claimed full-coverage verification; code keeps uncovered cells as an UNASSIGNED item."
+  ],
+  "changes": [
+    "dc_coverage.json 1.11.0: DC007 rewritten.",
+    "data_agents.py: empty_sheets; comments to DC-split; check_split and attach_notes shared by all methods; title check with NOT_FOUND; plan note_blocks; Excel header/totals counts when intake supplies them; rejected proposals keep findings.",
+    "tests: empty sheet, comments, titles, explicit plan notes and headers, totals rows.",
+    "data_agents.py (DC002 follow-through): intake now records hidden_rows and hidden_columns; tables containing them carry both lists and a FOLLOW_UP HIDDEN_ROWS_OR_COLUMNS finding, DC-split sees them, and older snapshots mark hidden_rows_and_columns NOT_RECORDED."
+  ],
+  "follow_up": "Intake owner asked to record header_row_count and totals_row_count for Excel tables."
+}

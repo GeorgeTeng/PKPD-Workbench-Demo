@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Unified Information-Theoretic Identifiability Criterion",
+      "topics": [
+        "animal_pk",
+        "pkpd"
+      ],
+      "claim": "Identifiability can be assessed by analyzing the relationship between the determinant of the Fisher Information Matrix (|MF|) and the residual noise variance (σ²). For structurally identifiable fixed-effects models, log|MF| shows a continuous linear relationship with log(σ²) and approaches infinity as σ² approaches zero. For mixed-effects models, the relationship is continuous but asymptotes to a constant value rather than infinity.",
+      "conditions": [
+        "Applicable to both fixed-effects and mixed-effects (population) PK/PD models.",
+        "Requires computation of the Jacobian matrix and the Fisher Information Matrix.",
+        "Assumes equal variances across observation points (though this can be relaxed)."
+      ],
+      "required_inputs": [
+        "Structural model equations (fixed and random effects).",
+        "Design points (observation times).",
+        "Parameter vector (Θ) and variance-covariance matrix of random effects (Ω).",
+        "Residual error model (σ²)."
+      ],
+      "limitations": [
+        "A full-rank local information matrix does not guarantee global identifiability.",
+        "The method is model- and design-specific.",
+        "Does not explicitly assess deterministic identifiability directly, but allows inference via Cramér-Rao bounds on parameter precision."
+      ],
+      "downstream_use": "Use this method to screen for local/design-dependent identifiability issues in proposed PK/PD model structures before data collection or model fitting. It helps identify parameters that may be unidentifiable under specific designs, requiring fixing or re-parameterization.",
+      "evidence_chunk_ids": [
+        "SUP003:0002",
+        "SUP003:0006",
+        "SUP003:0007",
+        "SUP003:0008",
+        "SUP003:0013"
+      ],
+      "id": "source_SUP003:K01",
+      "origin_job": "source_SUP003",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

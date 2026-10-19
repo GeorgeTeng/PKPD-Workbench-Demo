@@ -1,0 +1,50 @@
+{
+  "cards": [
+    {
+      "title": "Shrinkage Impact on Individual vs. Simulation-Based Diagnostics",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "High standard deviation-based shrinkage (typically >20-30%) causes individual parameters (IPRED, IWRES) and Empirical Bayes Estimates (EBEs) to shrink toward population means, rendering individual-level diagnostic plots uninformative and obscuring covariate correlations. However, simulation-based diagnostics like VPC, pcVPC, NPC, and NPDE are not affected by shrinkage in the same manner and remain informative. Model selection should not be based solely on shrinkage; rather, shrinkage limits the reliability of individual post-hoc estimates for exposure-response analysis.",
+      "conditions": [
+        "Applicable when evaluating mixed-effects models with sparse data or few observations per individual.",
+        "Shrinkage is calculated as SD-based; values >20-30% indicate high shrinkage.",
+        "Individual plots become less informative but are not inherently invalid if interpreted with caution regarding their reduced power."
+      ],
+      "required_inputs": [
+        "Estimated individual parameters (IPRED, IWRES) and population predictions (PRED).",
+        "Calculated shrinkage values for random effects.",
+        "Simulated datasets for VPC/pcVPC generation."
+      ],
+      "limitations": [
+        "High shrinkage does not invalidate the model structure but limits the utility of individual-level diagnostics.",
+        "Shrinkage alone is not a criterion for model rejection; it indicates reduced information content in individual estimates.",
+        "External source status: FDA guidance is nonbinding; these are contextual guidelines, not mandatory project rules."
+      ],
+      "downstream_use": "Guide the selection of diagnostic tools: rely on simulation-based checks (VPC/pcVPC) when shrinkage is high; use individual diagnostics only when shrinkage is low or for specific covariate screening where shrinkage impact is assessed.",
+      "evidence_chunk_ids": [
+        "REF_022:0031",
+        "REF_022:0013",
+        "REF_022:0027"
+      ],
+      "id": "round3_A04:K01",
+      "origin_job": "round3_A04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A04",
+      "retrieval_keywords": "Residuals, VPC/pcVPC, convergence, uncertainty and external prediction diagnose different issues",
+      "supersedes": [
+        "round2_A04:K01",
+        "round2_A04:K02",
+        "round2_A04:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

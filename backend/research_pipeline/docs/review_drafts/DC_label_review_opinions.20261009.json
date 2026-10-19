@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "Decision card '按复查意见修改 DR、标注和审核吗？': 不加 DR 确认点 (L1, L2, R2, R3, R4 adopted; D1 declined).",
+    "review_document": "/mnt/project-files/data-part/DR_标注_审核_意见_20261009.md"
+  },
+  "gaps_found": [
+    "Footnotes beside Excel tables went to the unassigned item and were never read by labelling (verified with a workbook).",
+    "Page disagreements in a long document (for example rats then mice) blocked QC.",
+    "Review could not cite the lines of stated values (bug).",
+    "Review saw only the cells labels cited, so it could not find counterevidence labels missed.",
+    "Nothing recorded whether labels and review used the same model.",
+    "The mandatory review checkpoint had no list of what the person decides.",
+    "Declined: a human checkpoint after DR-access."
+  ],
+  "changes": [
+    "dc_coverage.json 2.3.0: DC001, DC004 and DC008 text.",
+    "data_agents.py: SHEET_TEXT note regions; document page conflicts FOLLOW_UP; label model recorded; adequacy models; checkpoint.json and checkpoint.md.",
+    "data_requirement_check.py 1.3.0: stated-value lines and REVIEW_SAMPLE rows in the evidence catalog.",
+    "workflow_runtime.py: checkpoint files are outputs of data_adequacy_agent.",
+    "tests: footnotes beside an Excel table, stated-value lines in review, document page conflicts, review sample rows and the checkpoint."
+  ],
+  "footnote_links": {
+    "source": "George, project thread 2026-10-09: '脚注可以放进表格中并添加链接'.",
+    "change": "data_agents.py: footnote_links in table descriptors, FOOTNOTE_MARKER_UNRESOLVED follow-up, source_footnotes on prepared records; dc_coverage DC001 text; tests in test_dc_split.py and test_data_agents.py."
+  },
+  "footnotes_elsewhere": {
+    "source": "George, project thread 2026-10-09: '可以改' (notes outside any table and notes on other sheets).",
+    "change": "data_agents.py: text-only sheets as NOTE items, tiered footnote lookup with note_sheet, workbook_notes on tables, label instruction; dc_coverage 2.4.0 DC001; tests in test_dc_split.py."
+  }
+}

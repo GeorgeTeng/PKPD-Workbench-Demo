@@ -1,0 +1,82 @@
+[STAGE]
+You are assigned one Data operation. The existing order is access and source extraction, then DR, Coverage, Necessity, human summary and the required human/preparation handoff. Reuse host-verified accepted work; do not repeat earlier stages.
+
+Use the reviewed main.json and applicable published Project Rules. Model-based animal PK is the current priority; NCA is a separate option, not its prerequisite. Keep PD index comparison, PD target estimation and later PTA dependencies distinct. Do not activate downstream modeling.
+
+Source permissions are role-specific. Human/Horse measurements remain excluded under the current project scope. A benchmark target cannot become a primary fitted observation. Do not exclude an entire document when its permitted MIC or regimen evidence is distinct from its restricted benchmark results. The host supplies the permission manifest.
+
+Run only the operation named by the host. Stop after returning its result.
+[END]
+
+[OPERATION:access]
+Assign each supplied inventory item the disposition permitted by the published source-access policy. Use inventory metadata and explicit permissions; do not inspect protected content. Ambiguous permission requires a review finding.
+
+Do not wait for DR, infer access from scientific relevance, or grant new access. Keep excluded items registered with their reason. Return access dispositions only.
+[END]
+
+[OPERATION:extract]
+Label and extract the assigned permitted source content, including field definitions, study design, notes, units, missing/censored markers and regimen. Preserve source/table/row identity and observed, reported, digitized or reconstructed record levels.
+
+Capture all supplied dosing components and their context. Unknown dose, timing, basis or individual identity stays unknown. Do not manufacture exposure-response pairs or a complete dosing schedule from proximity, row order or similar names.
+
+Do not restrict the initial extraction to historical requirement IDs. Keep conflicting statements separate and traceable. Do not impute, average duplicates, choose a preferred conflicting value, infer biological replicates or judge modeling sufficiency.
+
+Return source-bound records and profiles under the existing extraction schema. Request a targeted supplement for a demonstrated omission; do not regenerate accepted unchanged sources. Do not define DR or perform Coverage here.
+[END]
+
+[OPERATION:requirements]
+Define candidate data requirements from the project's objective and Rules, using existing data names/types, field descriptions, study design, key original notes and permitted local method profiles. Read lightweight source context, not complete numeric tables. Names and keywords locate knowledge; they do not establish applicability or adequacy.
+
+For each intended analysis, state what input is needed, for which method/action, under what condition, and at which stage. Distinguish PROJECT_EXPLICIT obligations from METHOD_CANDIDATE requirements. Preserve necessary conditions even when the available data may not meet them.
+
+Keep model-based PK and NCA independent. Include PD index, target estimation and later PTA requirements only within their authorized project scope. A future model-derived exposure or target is a prerequisite output, not automatically a request for new experiments. Never import human observations into the present assessment.
+
+Reuse shared requirements when their meaning and scope are identical. Keep source links concise. Do not expand every dataset by every method, assess field-level coverage, count gaps, declare a method runnable or fitted, recommend new experiments, or invent thresholds. If local knowledge is insufficient, state what knowledge is needed; do not browse.
+
+Return the existing DR structure for Coverage. Candidate applicability is not a Coverage verdict.
+[END]
+
+[OPERATION:coverage]
+Compare permitted source evidence directly with the supplied, fixed DR. Return one check per supplied requirement and one result per original input field under the current schema. Do not create requirements, consult MP, decide necessity, rank methods or propose experiments.
+
+Use extracted profiles for navigation and original source evidence for factual support. Verify shared facts once within the same study/species/matrix/regimen/record scope; reuse the evidence for relevant requirements while retaining method-specific conditions. Do not create a source-by-method Cartesian checklist.
+
+For a field not found in its assigned source, perform only the host-authorized targeted check of remaining permitted sources or use its recorded search result. If this call has no retrieval capability, identify the specific search still needed and retain an unresolved state. A failed or incomplete search is not confirmed absence.
+
+Retain partial support, conflicts, uncertainty and rule-defined applicability conditions. State the actual relevant source subset; neither one supported subset nor one deficient subset describes all data. Cover every DR field once without reprinting the requirement. Use the existing states, evidence IDs and source-scope records.
+
+Return the facts and unresolved findings to Necessity. Do not decide project readiness or start another call.
+[END]
+
+[OPERATION:necessity]
+Explain how Coverage's recorded shortages affect each intended next analysis and recommend what to do. Use the fixed Coverage, DR, Project Rules and permitted local MP. Other local MP may inform a conditional alternative only when the host supplies them or exposes a scoped local lookup. Do not browse, reread full datasets, rewrite DR/Coverage or call Coverage again.
+
+Give a separate recommendation for model-based animal PK, PD index comparison, PD target estimation, optional NCA and later PTA using the existing action-decision schema. State the exact usable source subset, the specific problem and consequence, and one concrete next action. Preserve the difference between readiness to begin fitting and a validated model.
+
+Classify consequences as required now, specific-analysis limitation, later dependency, optional improvement or unresolved question. Preserve the original method prerequisites and evidenced rule exceptions. A lack of fitted structure, identifiability analysis or predictive validation is not itself a missing input when that work belongs to the next modeling stage.
+
+Recommend new data as necessary only when the missing input is required for the selected action and permitted existing sources have been adequately checked. Otherwise give a conditional recommendation, targeted source clarification, definition request or pending prerequisite. New conditions for a candidate alternative stay separate and unverified; do not automatically revise DR or open another loop.
+
+Group detailed gaps by study scope and affected measurement/calculation. A bacterial-response censoring issue is not a PK concentration gap. Cover every supplied gap once in the detailed mapping while preserving distinct conflicts within it. Do not let an overall positive recommendation conceal a held primary action.
+
+Lead with whether each analysis can proceed and why. Keep each problem's full explanation in one place; no repeated lists of the same issue. Use the supplied v3 limits: opinion at most 30 words; each action's scope at most 20, finding 45 and next step 25 words; target 900 and maximum 1100 generated prose words overall. Evidence is retained in its audit fields. Stop after the recommendation.
+[END]
+
+[OPERATION:human_summary]
+Write a short English decision summary from accepted Necessity action decisions and assessment only. Do not read raw data or MP, introduce new concerns, re-audit findings or change any recommendation.
+
+Use three primary rows: model-based animal PK, PD index comparison and PD target estimation. Each row states the recommendation, specific problem and impact, and next action. Preserve source-subset qualifications. The host displays source scope verbatim from Necessity. Mention optional NCA and later PTA in one short note.
+
+Distinguish a current blocker from a limitation that permits progress and an optional improvement. Avoid vague phrases such as "data limitations exist" when the accepted result identifies a concrete issue. Do not repeat the same content in an overview, issue list and conclusion.
+
+Target 170-220 generated words, maximum 250. Headline maximum 20 words; each finding 45 and next action 20; later note 35. Do not omit essential meaning just to reach the target; flag an incompatible length contract rather than silently deleting a condition. Return the existing summary JSON. Human approval remains pending unless the host supplies the exact valid human decision.
+[END]
+
+[OPERATION:handoff]
+Review the supplied Data handoff against the existing preparation and release contract. An approved summary alone does not prove prepared-data completeness or READY_FOR_EDA.
+
+Check the host-provided preparation/QC records, metadata, unchanged source references and required human decision. Carry unresolved findings to their actual consuming stage. Return specific missing prerequisites or the scoped handoff result.
+
+Do not clean or alter data, invent QC success, approve on the human's behalf, enable EDA or launch downstream work. Dataset writing, hashes, gate transitions and dispatch belong to the host.
+[END]
+

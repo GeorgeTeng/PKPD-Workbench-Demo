@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Manual Time Range Selection for Slope Estimation",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Users can manually specify the time range for Lambda Z or Slope estimation. Phoenix performs linear regression of ln(concentration) (or raw values for drug effect) on the user-specified points. The estimated slope must be negative for Lambda Z (which is then negated to be positive). For drug effect models, slopes can be positive or negative and are reported as-is.",
+      "conditions": [
+        "User must specify the time range.",
+        "For Lambda Z, the resulting slope must be negative.",
+        "For drug effect Slope 1/2, linear or log regression can be chosen, and slope sign is not constrained to negative."
+      ],
+      "required_inputs": [
+        "User-defined time range",
+        "Concentration or effect data"
+      ],
+      "limitations": [
+        "If the user-specified range contains fewer than two non-missing observations, estimation fails.",
+        "Manual selection bypasses the automatic 'Best Fit' logic but still requires valid data points for regression."
+      ],
+      "downstream_use": "Allows override of automatic selection when automatic methods fail or select inappropriate points due to noise or sparse sampling.",
+      "evidence_chunk_ids": [
+        "REF_002:0002",
+        "REF_002:0003"
+      ],
+      "id": "source_REF_002:K02",
+      "origin_job": "source_REF_002",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

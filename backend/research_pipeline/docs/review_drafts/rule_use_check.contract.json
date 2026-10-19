@@ -1,0 +1,77 @@
+{
+  "document_type": "DOWNSTREAM_RULE_USE_CHECK_CONTRACT",
+  "version": "0.1-draft",
+  "status": "CONTRACT_ONLY_EXECUTION_DEFERRED",
+  "enabled": false,
+  "review_date": "2026-10-06",
+  "decision_basis": "User confirmed contract definition now and execution integration later.",
+  "identity_fields": [
+    "check_id",
+    "rule_id",
+    "project_rules_ref",
+    "task_contract_ref",
+    "stage",
+    "checkpoint",
+    "input_refs",
+    "checker",
+    "checked_at"
+  ],
+  "checkpoint_values": [
+    "STAGE_ENTRY_APPLICABILITY",
+    "BEFORE_STAGE_HANDOFF_COMPLIANCE"
+  ],
+  "applicability": {
+    "required_fields": [
+      "status",
+      "reason",
+      "evaluated_scope",
+      "evaluated_conditions",
+      "evidence_refs"
+    ],
+    "status_values": [
+      "APPLICABLE",
+      "NOT_APPLICABLE",
+      "DEFERRED",
+      "UNRESOLVED"
+    ],
+    "meaning": {
+      "APPLICABLE": "Task metadata and rule conditions support applicability.",
+      "NOT_APPLICABLE": "Evidence supports exclusion; unknown metadata is not exclusion.",
+      "DEFERRED": "Source-supported later phase or unmet activation condition; identify when it must be revisited.",
+      "UNRESOLVED": "Necessary applicability evidence is unknown, conflicting or unassessed."
+    }
+  },
+  "compliance": {
+    "required_fields": [
+      "status",
+      "reason",
+      "evidence_refs",
+      "missing_materials"
+    ],
+    "status_values": [
+      "PASS",
+      "FAIL",
+      "NOT_ASSESSED"
+    ],
+    "meaning": {
+      "PASS": "The applicable obligation was checked against actual evidence.",
+      "FAIL": "Evidence shows a relevant requirement was not met.",
+      "NOT_ASSESSED": "No completed check supports a compliance conclusion."
+    }
+  },
+  "release_policy": {
+    "applicable_at_current_checkpoint": "FAIL or NOT_ASSESSED blocks the dependent release.",
+    "unknown_material_applicability": "UNRESOLVED blocks the dependent release until resolved.",
+    "not_applicable": "Requires evidence and a rationale; not a waiver.",
+    "deferred": "Does not satisfy the future obligation; record required_phase and trigger.",
+    "aggregate": "A missing check or a required failure cannot be overwritten by another PASS."
+  },
+  "timing_fields": {
+    "observation_window": "Scientific sampling or endpoint window, if stated.",
+    "required_phase": "Phase in which the information or action is needed.",
+    "trigger": "Source-supported activation condition.",
+    "deadline": "Source-supported deadline; never guessed."
+  },
+  "version_policy": "Check original artifact identity and authorized current applicability separately. Historical verifiability is not current execution approval.",
+  "execution_boundary": "No downstream enforcement is activated by this JSON; implementation and verification remain a future task."
+}

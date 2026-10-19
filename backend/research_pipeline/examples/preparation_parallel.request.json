@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "request_id": "preparation_synthetic_pending_001",
+  "attachments": [
+    {
+      "id": "data",
+      "path": "synthetic_pk.json",
+      "role": "pk_observations"
+    },
+    {
+      "id": "endpoints",
+      "path": "synthetic_endpoints.csv",
+      "role": "independent_endpoint_and_candidate_indices"
+    },
+    {
+      "id": "plan",
+      "path": "preparation_synthetic.plan.json",
+      "role": "data_preparation_plan"
+    },
+    {
+      "id": "evidence",
+      "path": "species_selection_evidence.snapshot.md",
+      "sha256": "d1e6b14f93d114c3798cfe4df57e87b38205c6f62c376a6752ee623ae25413ff",
+      "role": "decision_method_source"
+    }
+  ],
+  "steps": [
+    {
+      "id": "data",
+      "module": "data_preparation",
+      "input": {
+        "preparation_attachment": "plan"
+      },
+      "options": {}
+    },
+    {
+      "id": "pk",
+      "module": "pk_longitudinal",
+      "input": {
+        "prepared_step": "data",
+        "prepared_dataset": "pk__001"
+      },
+      "options": {}
+    },
+    {
+      "id": "index",
+      "module": "pkpd_index",
+      "input": {
+        "prepared_step": "data",
+        "prepared_dataset": "index__001"
+      },
+      "options": {}
+    }
+  ]
+}

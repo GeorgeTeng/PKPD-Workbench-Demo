@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Sparse Sampling NCA Methodology and Output Structure",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "When the Sparse Sampling option is enabled in Phoenix NCA, the engine computes mean concentration or rate at each unique time value/interval across subjects. It estimates standard parameters plus specific standard errors (SE_Cmax, SE_AUClast, SE_AUCall for plasma; SE_Max_Rate, SE_AURC_last, SE_AURC_all for urine). Output worksheets are renamed to 'Mean Curve Final Parameters' and 'Mean Curve Summary Table' to indicate group-level estimands.",
+      "conditions": [
+        "Applicable to pre-clinical sparse sampling designs.",
+        "Requires loading an NCA model with the Sparse Sampling option enabled.",
+        "Data is treated as a special case of plasma or urine concentration data."
+      ],
+      "required_inputs": [
+        "Concentration or rate data with subject IDs and time points.",
+        "Configuration of NCA model with Sparse Sampling option active."
+      ],
+      "limitations": [
+        "Outputs represent group-level means, not individual trajectories.",
+        "Standard errors are derived from the mean curve structure, not individual variability directly."
+      ],
+      "downstream_use": "Use for analyzing pre-clinical PK studies where individual full profiles are not available. Interpret parameters as mean curve estimates with associated uncertainty metrics.",
+      "evidence_chunk_ids": [
+        "REF_013:0001",
+        "REF_013:0002"
+      ],
+      "id": "source_REF_013:K01",
+      "origin_job": "source_REF_013",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_013"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

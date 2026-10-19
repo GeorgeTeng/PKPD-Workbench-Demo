@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Conceptual Distinction: Uncertainty vs. Variability",
+      "topics": [
+        "pta"
+      ],
+      "claim": "Uncertainty represents limited knowledge of the system and decreases as information accumulates, whereas variability is an inherent property of the system (e.g., genetic or environmental differences) that does not decrease with larger sample sizes. In PK/PD modeling, parameter uncertainty affects the precision of the typical profile estimate, while between-subject variability (BSV) describes the distribution of individual parameters around that typical value.",
+      "conditions": [
+        "Applicable when defining simulation inputs for PTA.",
+        "Requires explicit separation of fixed-effect parameter uncertainty from random-effect variability in model specification."
+      ],
+      "required_inputs": [
+        "Provenance: External methodological definitions (SUP011, REF_022).",
+        "Basis: Distinction between 'limited knowledge' (uncertainty) and 'system property' (variability).",
+        "Prerequisite: Clear definition of the 'typical' individual vs. the population distribution."
+      ],
+      "limitations": [
+        "Confusing uncertainty with variability leads to incorrect simulation distributions (e.g., treating a wide confidence interval for CL as if it were BSV).",
+        "Source-specific examples (e.g., clearance scaling) are illustrative, not target-drug specific."
+      ],
+      "downstream_use": "Guides the correct assignment of input distributions in Monte Carlo simulations: uncertainty distributions for fixed effects vs. variance/covariance matrices for random effects.",
+      "evidence_chunk_ids": [
+        "SUP011:0003",
+        "SUP011:0014",
+        "REF_022:0034"
+      ],
+      "id": "round3_Q03:K01",
+      "origin_job": "round3_Q03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022",
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "Q03",
+      "retrieval_keywords": "Separate target uncertainty, parameter uncertainty and between-unit variability",
+      "supersedes": [
+        "round2_Q03:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

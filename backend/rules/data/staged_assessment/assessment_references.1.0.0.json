@@ -1,0 +1,570 @@
+{
+  "kind": "REFERENCE_LIBRARY",
+  "schema_version": "1.0",
+  "version": "1.0.0",
+  "status": "AUTHORED_NOT_ACTIVATED",
+  "authority": "REFERENCE_KNOWLEDGE_NOT_SOURCE_DATA",
+  "sources": [
+    {
+      "id": "GENERAL",
+      "path": "backend/rules/general/workflow_governance.json",
+      "ids": [
+        "G001",
+        "G002",
+        "G003",
+        "G004",
+        "G005",
+        "G006",
+        "G007",
+        "G008"
+      ],
+      "version": "1.5.2",
+      "file_sha256": "c661a1b16aae68bb47343c034acbf91af7320e55a483d2b9c8a222404b032296",
+      "authority": "GOVERNANCE_PROCESSING_POLICY",
+      "locator": "rules; keep original IDs, wording, versions, conditions and exceptions"
+    },
+    {
+      "id": "DC",
+      "path": "backend/rules/data/dc_coverage.json",
+      "ids": [
+        "DC002",
+        "DC003",
+        "DC005",
+        "DC006",
+        "DC007",
+        "DC008"
+      ],
+      "version": "2.6.0",
+      "file_sha256": "924b9f1c4accfc7ec5c7bad546d8cf776b2a2d89c292f558321f7a1049155b2a",
+      "authority": "EXISTING_MODULE_POLICY",
+      "locator": "rules selected by id; new staged supplement does not replace historical DC policy"
+    },
+    {
+      "id": "MP",
+      "path": "backend/rules/data/pkpd_method_profiles.1.1.0-draft.1.json",
+      "ids": [
+        "MP001",
+        "MP002",
+        "MP003",
+        "MP004",
+        "MP007",
+        "MP009",
+        "MP010",
+        "MP012"
+      ],
+      "version": "1.1.0-draft.1",
+      "file_sha256": "81b4a26bc2cd6adf75fd0fb76c973ae934523efe57523dee58fb4641f79bc0f3",
+      "authority": "CANDIDATE_METHOD_KNOWLEDGE",
+      "locator": "profiles selected by id; source_ids point to original scientific references; planning_conventions"
+    },
+    {
+      "id": "PROJECT_RULES",
+      "path": "outputs/Codex_Agent_Run_20261009/project_rules_01/live12_targeted_revision04/published/project_rules.json",
+      "ids": [
+        "R001",
+        "R004",
+        "R010",
+        "R014",
+        "R015",
+        "R016",
+        "R017",
+        "R036",
+        "R038",
+        "R039",
+        "R042",
+        "R043",
+        "R044",
+        "R045",
+        "R046",
+        "R047",
+        "R049",
+        "R050",
+        "R051",
+        "R052",
+        "R053",
+        "R054",
+        "R055"
+      ],
+      "version": "PROJECT_RULES_PUBLISHED",
+      "file_sha256": "73f2145534817b0fec6d95b57bc1d7abfd4d7996da1ad1c23212c8e221985918",
+      "authority": "PROJECT_SCIENTIFIC_RULES",
+      "locator": "rules selected by original id; applies only to the bound PMB project, never universalized"
+    },
+    {
+      "id": "USER_DECISIONS",
+      "path": "outputs/Codex_Agent_Run_20261009/data_test_12_dr_only/coverage_necessity_rules_current.json",
+      "ids": [],
+      "version": "CURRENT_RULES_REPORT_NOT_EXECUTION_OR_POLICY_CHANGE",
+      "file_sha256": "fde78c7468d332d7af246293c66871206f0116804910727689618cd96bb11ec7",
+      "authority": "RECORDED_USER_DECISIONS_NOT_NEW_AUTHORIZATION",
+      "locator": "user_confirmed_changes_not_implemented; provenance summary of decisions already authorized in this conversation, not a policy grant by the report itself"
+    }
+  ],
+  "action_templates": [
+    {
+      "action_id": "CALCULATE_FINITE_WINDOW_NCA",
+      "family": "NCA",
+      "inputs": [
+        {
+          "name": "源支持的浓度与时间、单位、窗口、取样设计和record level",
+          "kind": "SOURCE_INPUT",
+          "needed_before_action": "CALCULATE_FINITE_WINDOW_NCA",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP001.required_inputs; conditional_inputs; data_checks"
+        },
+        {
+          "name": "给药时间/途径/剂量及基准：仅在对应NCA endpoint依赖时",
+          "kind": "CONDITIONAL_SOURCE_INPUT",
+          "needed_before_action": "CALCULATE_FINITE_WINDOW_NCA",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP001; MP003.required_inputs; conditional_inputs"
+        }
+      ],
+      "not_required": [
+        "终末斜率/无限外推输入仅在对应endpoint被请求时另审；不自动阻断有限窗口汇总",
+        "群均值不重建individual轨迹；不导出虚构IIV"
+      ],
+      "scope_fields": [
+        "study",
+        "species",
+        "drug_analyte",
+        "matrix",
+        "route_formulation",
+        "regimen",
+        "time_origin",
+        "window",
+        "record_level",
+        "units",
+        "concentration_basis",
+        "organism_strain"
+      ],
+      "source_ids": [
+        "MP"
+      ],
+      "locator": "MP001; MP002.applies_when; MP003"
+    },
+    {
+      "action_id": "ESTIMATE_ANIMAL_PK_MODEL",
+      "family": "MODEL_BASED",
+      "inputs": [
+        {
+          "name": "原始时间-浓度、dose/input history、route、矩阵/单位与实验单位定义",
+          "kind": "SOURCE_INPUT",
+          "needed_before_action": "ESTIMATE_ANIMAL_PK_MODEL",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP004.required_inputs; conditional_inputs"
+        },
+        {
+          "name": "协变量/变异输入仅针对请求的模型层次；组均值与individual分开",
+          "kind": "CONDITIONAL_SOURCE_INPUT",
+          "needed_before_action": "ESTIMATE_ANIMAL_PK_MODEL",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP004.conditional_inputs; data_checks"
+        }
+      ],
+      "not_required": [
+        "不为结构候选添加通用样本量、固定compartment或精度阈值",
+        "未来PD target/weighted MIC不属于独立animal PK拟合的普遍前置输入"
+      ],
+      "scope_fields": [
+        "study",
+        "species",
+        "drug_analyte",
+        "matrix",
+        "route_formulation",
+        "regimen",
+        "time_origin",
+        "window",
+        "record_level",
+        "units",
+        "concentration_basis",
+        "organism_strain"
+      ],
+      "source_ids": [
+        "MP"
+      ],
+      "locator": "MP004"
+    },
+    {
+      "action_id": "COMPARE_PD_INDICES",
+      "family": "PD_INDEX",
+      "inputs": [
+        {
+          "name": "定义的indices、窗口、free/total依据及对应暴露输入",
+          "kind": "SOURCE_INPUT",
+          "needed_before_action": "COMPARE_PD_INDICES",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP009.required_inputs; conditional_inputs"
+        },
+        {
+          "name": "共同且兼容的response records、endpoint/baseline、source-supported regimen/exposure links",
+          "kind": "SOURCE_INPUT",
+          "needed_before_action": "COMPARE_PD_INDICES",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP009.data_checks; MP012.data_checks"
+        },
+        {
+          "name": "strain MIC与binding仅在具体index需要时",
+          "kind": "CONDITIONAL_SOURCE_INPUT",
+          "needed_before_action": "COMPARE_PD_INDICES",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP009.conditional_inputs; MP007"
+        }
+      ],
+      "not_required": [
+        "不能将独立panel按排名拼成共同records",
+        "index比较未解决不抹去可独立支持的exposure汇总或panel target任务"
+      ],
+      "scope_fields": [
+        "study",
+        "species",
+        "drug_analyte",
+        "matrix",
+        "route_formulation",
+        "regimen",
+        "time_origin",
+        "window",
+        "record_level",
+        "units",
+        "concentration_basis",
+        "organism_strain"
+      ],
+      "source_ids": [
+        "MP"
+      ],
+      "locator": "MP009; MP012"
+    },
+    {
+      "action_id": "ESTIMATE_PD_TARGET",
+      "family": "PD_TARGET",
+      "inputs": [
+        {
+          "name": "项目选择的effect、baseline/comparator、endpoint/time/window及适用实验背景",
+          "kind": "DESIGN_DEFINITION",
+          "needed_before_action": "ESTIMATE_PD_TARGET",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP012.required_inputs"
+        },
+        {
+          "name": "每个兼容panel内paired exposure-response与独立重复/record-level信息；保留是否覆盖目标水平",
+          "kind": "SOURCE_INPUT",
+          "needed_before_action": "ESTIMATE_PD_TARGET",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP012.conditional_inputs; data_checks"
+        }
+      ],
+      "not_required": [
+        "stasis/1-log/2-log是项目选择，不能变成每项目默认阈值",
+        "不要求先选winning index；numeric target是本动作产物，不能自我依赖",
+        "插值/外推和不确定性留给后续实际分析，不在coverage拟合"
+      ],
+      "scope_fields": [
+        "study",
+        "species",
+        "drug_analyte",
+        "matrix",
+        "route_formulation",
+        "regimen",
+        "time_origin",
+        "window",
+        "record_level",
+        "units",
+        "concentration_basis",
+        "organism_strain"
+      ],
+      "source_ids": [
+        "MP"
+      ],
+      "locator": "MP012; MP009"
+    },
+    {
+      "action_id": "SIMULATE_PER_MIC_PTA",
+      "family": "PTA",
+      "inputs": [
+        {
+          "name": "适用且资格状态明确的PD target；若尚未产生则保留生产任务",
+          "kind": "UPSTREAM_OUTPUT",
+          "needed_before_action": "SIMULATE_PER_MIC_PTA",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP010.required_inputs; MP012"
+        },
+        {
+          "name": "可用PK模型、参数/变异/不确定性来源及dosing scenarios和目标population",
+          "kind": "UPSTREAM_OUTPUT_OR_DEFINITION",
+          "needed_before_action": "SIMULATE_PER_MIC_PTA",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP010.required_inputs; conditional_inputs"
+        },
+        {
+          "name": "定义的MIC/grid、index/units/free-total/window可比性",
+          "kind": "SOURCE_INPUT_OR_DEFINITION",
+          "needed_before_action": "SIMULATE_PER_MIC_PTA",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP010.required_inputs; data_checks"
+        }
+      ],
+      "not_required": [
+        "逐MIC PTA不要求MIC频数分布",
+        "不能从均值推造概率分布；typical deterministic comparison不称population PTA",
+        "当前数据整理可等待这些前置产物；真正模拟仍依赖它们"
+      ],
+      "scope_fields": [
+        "study",
+        "species",
+        "drug_analyte",
+        "matrix",
+        "route_formulation",
+        "regimen",
+        "time_origin",
+        "window",
+        "record_level",
+        "units",
+        "concentration_basis",
+        "organism_strain"
+      ],
+      "source_ids": [
+        "MP"
+      ],
+      "locator": "MP010"
+    },
+    {
+      "action_id": "COMPUTE_MIC_WEIGHTED_ATTAINMENT",
+      "family": "PTA",
+      "inputs": [
+        {
+          "name": "按MIC对应的PTA结果",
+          "kind": "UPSTREAM_OUTPUT",
+          "needed_before_action": "COMPUTE_MIC_WEIGHTED_ATTAINMENT",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP010.data_checks"
+        },
+        {
+          "name": "目标菌群的MIC bins/counts或频率、denominator、censoring、覆盖范围及来源",
+          "kind": "SOURCE_INPUT",
+          "needed_before_action": "COMPUTE_MIC_WEIGHTED_ATTAINMENT",
+          "source_ids": [
+            "MP"
+          ],
+          "locator": "MP010.conditional_inputs; data_checks"
+        }
+      ],
+      "not_required": [
+        "unknown概率不填均值，不丢不支持的bin或静默重归一",
+        "某weighted任务缺分布不阻断独立per-MIC任务"
+      ],
+      "scope_fields": [
+        "study",
+        "species",
+        "drug_analyte",
+        "matrix",
+        "route_formulation",
+        "regimen",
+        "time_origin",
+        "window",
+        "record_level",
+        "units",
+        "concentration_basis",
+        "organism_strain"
+      ],
+      "source_ids": [
+        "MP"
+      ],
+      "locator": "MP010"
+    }
+  ],
+  "examples": [
+    {
+      "title": "分配表内没找到，仍有相关许可文档未查",
+      "hypothetical": true,
+      "case_schema": "coverage_case",
+      "case": {
+        "support": "NONE",
+        "search_state": "TARGETED_INCOMPLETE",
+        "conflict": false,
+        "planned_output": false,
+        "status": "UNRESOLVED"
+      }
+    },
+    {
+      "title": "相关许可来源查清仍无记录：缺失仅限已记范围",
+      "hypothetical": true,
+      "case_schema": "coverage_case",
+      "case": {
+        "support": "NONE",
+        "search_state": "TARGETED_COMPLETE",
+        "conflict": false,
+        "planned_output": false,
+        "status": "MISSING"
+      }
+    },
+    {
+      "title": "有匹配数值但原文存在矛盾",
+      "hypothetical": true,
+      "case_schema": "coverage_case",
+      "case": {
+        "support": "SUPPORTED",
+        "search_state": "NOT_NEEDED",
+        "conflict": true,
+        "planned_output": false,
+        "status": "CONFLICT"
+      }
+    },
+    {
+      "title": "待产生target不阻断无关的PK输入准备",
+      "hypothetical": true,
+      "case_schema": "action_case",
+      "case": {
+        "current_action": "PREPARE_PK_INPUTS",
+        "dependency_action": "SIMULATE_PER_MIC_PTA",
+        "depends_on_this_action": false,
+        "necessity": "REQUIRED",
+        "applicability": "APPLIES",
+        "coverage_status": "DEFERRED",
+        "blocked": false,
+        "applicability_basis": "PLANNED_REQUIREMENT"
+      }
+    },
+    {
+      "title": "同一target到真正PTA模拟动作时仍是依赖",
+      "hypothetical": true,
+      "case_schema": "action_case",
+      "case": {
+        "current_action": "SIMULATE_PER_MIC_PTA",
+        "dependency_action": "SIMULATE_PER_MIC_PTA",
+        "depends_on_this_action": true,
+        "necessity": "REQUIRED",
+        "applicability": "APPLIES",
+        "coverage_status": "DEFERRED",
+        "blocked": true,
+        "applicability_basis": "PLANNED_REQUIREMENT"
+      }
+    },
+    {
+      "title": "原Rule明文例外且证据明确，不强制再加human门槛",
+      "hypothetical": true,
+      "case_schema": "exception_case",
+      "case": {
+        "clause_present": true,
+        "scope_matches": true,
+        "evidence_clear": true,
+        "conflict": false,
+        "human_required": false,
+        "decision": "EXCEPTION_APPLIES"
+      }
+    },
+    {
+      "title": "原规则指定human时继续服从该门槛",
+      "hypothetical": true,
+      "case_schema": "exception_case",
+      "case": {
+        "clause_present": true,
+        "scope_matches": true,
+        "evidence_clear": true,
+        "conflict": false,
+        "human_required": true,
+        "decision": "HUMAN_REVIEW"
+      }
+    },
+    {
+      "title": "同species但窗口不同，不能复用成同一事实",
+      "hypothetical": true,
+      "case_schema": "shared_fact_case",
+      "case": {
+        "scope_equal": false,
+        "source_link_supported": true,
+        "fact_definition_equal": true,
+        "source_versions_equal": true,
+        "reuse": false
+      }
+    },
+    {
+      "title": "全部scope和原文关联相同，仅事实可复用",
+      "hypothetical": true,
+      "case_schema": "shared_fact_case",
+      "case": {
+        "scope_equal": true,
+        "source_link_supported": true,
+        "fact_definition_equal": true,
+        "source_versions_equal": true,
+        "reuse": true
+      }
+    },
+    {
+      "title": "许可来源尚未查清，不可建议新增实验替代补查",
+      "hypothetical": true,
+      "case_schema": "new_data_case",
+      "case": {
+        "needed_for_current_action": true,
+        "applicability_resolved": true,
+        "permitted_search_complete": false,
+        "existing_material_can_supply": false,
+        "definition_pending": false,
+        "planned_output_pending": false,
+        "suggest_new_data": false,
+        "experiment_authorized": false
+      }
+    },
+    {
+      "title": "必要、到期且来源无法补齐时可建议；建议仍不授权实验",
+      "hypothetical": true,
+      "case_schema": "new_data_case",
+      "case": {
+        "needed_for_current_action": true,
+        "applicability_resolved": true,
+        "permitted_search_complete": true,
+        "existing_material_can_supply": false,
+        "definition_pending": false,
+        "planned_output_pending": false,
+        "suggest_new_data": true,
+        "experiment_authorized": false
+      }
+    }
+  ],
+  "project_scope": {
+    "source_ids": [
+      "PROJECT_RULES",
+      "USER_DECISIONS"
+    ],
+    "scope_kind": "BOUND_PROJECT_ONLY_NOT_UNIVERSAL_SCIENTIFIC_REQUIREMENT",
+    "protected_roles": [
+      "HUMAN_PK_HOLDOUT",
+      "HORSE_HOLDOUT",
+      "BENCHMARK_RESULTS"
+    ],
+    "current_data_scope": "NONHUMAN_PER_CALL_PERMISSIONS",
+    "instruction": "保持原项目规则与source allowlist；只读取规则文本和引用元数据，不读取或解锁holdout/benchmark数据。科学规则中的更晚任务继续保留，不提前索取受保护证据。"
+  },
+  "notes": [
+    "来源权威不同：G/旧DC是处理约束，项目R是特定项目科学与权限约束，MP是候选知识，用户决定记录只追溯已获授权的方向。",
+    "任何参考条目、假设例子或policy测试都不是本项目数据证据或科学资格。",
+    "模板按动作说明依赖，实例化前仍须结合原Objective、Rules、数据level及MP适用条件；不导入新阈值或样本量规则。",
+    "执行拟合、模拟或新增实验均需各自授权；本bundle只定义评估政策，没有执行权限。",
+    "decision case_schema仅约束已声明事实之间的政策一致性；它不从数据自动证明scope相同、依赖成立、来源搜索完整或原例外适用。实际证据审核仍由后续接线实施。"
+  ]
+}

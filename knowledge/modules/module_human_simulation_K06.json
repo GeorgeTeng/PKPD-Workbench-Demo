@@ -1,0 +1,40 @@
+{
+  "cards": [
+    {
+      "title": "Steady-State and Sparse Sampling Assumptions in NCA",
+      "topics": [
+        "human_simulation",
+        "animal_pk"
+      ],
+      "claim": "Non-compartmental analysis (NCA) models for steady-state data assume equal dosing intervals (Tau) and that data is from a 'final' dose at steady state. These models support both rich and sparsely-sampled datasets (e.g., toxicokinetics).",
+      "conditions": [
+        "Applicable when deriving exposure metrics from sparse or rich data for simulation validation or input.",
+        "Requires explicit definition of Tau for steady-state calculations."
+      ],
+      "required_inputs": [
+        "Concentration-time data.",
+        "Dosing interval (Tau) for steady-state.",
+        "Infusion duration for constant infusion models."
+      ],
+      "limitations": [
+        "Assumes steady state has been reached; does not model accumulation dynamics directly.",
+        "Sparse sampling may limit the resolution of terminal slope estimation."
+      ],
+      "downstream_use": "Provides exposure metrics (AUC, Cmax) for comparison with simulated profiles or as inputs for PD modeling.",
+      "evidence_chunk_ids": [
+        "REF_016:0001"
+      ],
+      "id": "module_human_simulation:K06",
+      "origin_job": "module_human_simulation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_016"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

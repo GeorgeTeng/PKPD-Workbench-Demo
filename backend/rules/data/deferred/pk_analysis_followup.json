@@ -1,0 +1,363 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later NCA/animal PK review only; not loaded by the Data requirements agents and not an executable gate.",
+  "source_library": {
+    "version": "1.0.0-draft.5",
+    "sha256": "92642d69cca127e4b33c062f90f8bd7d4388111ec1145d6a4f8f43b8b2225cf8",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.5.json"
+  },
+  "approval_boundary": "MP001-MP003 method content retains its earlier review history. MP004 analysis content remains pending scientific review. Relocation does not approve execution, create a new project rule or update a historical run.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "ICH M15: General Principles for Model-Informed Drug Development",
+      "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf",
+      "locator": "Sections 2.1.1, 2.1.2, 2.2.1 and 3",
+      "type": "FINAL_GUIDELINE",
+      "checked_on": "2026-10-07",
+      "supports": "Question-specific intended use, criteria, assumptions and fit-for-purpose evaluation; no fixed species-count rule is imported."
+    },
+    {
+      "id": "S02",
+      "title": "Phoenix: Lambda Z or Slope Estimation settings",
+      "url": "https://onlinehelp.certara.com/phoenix/8.5/Phoenix_UserDocs/NCA_Object/Lambda_Z_or_Slope_Estimation_settings.htm",
+      "locator": "Limitations of Lambda Z and slope estimation",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Parameters independent of terminal slope remain reportable when slope estimation fails. Software point-count settings are not universal scientific sufficiency criteria."
+    },
+    {
+      "id": "S03",
+      "title": "Phoenix: NCA parameter formulas",
+      "url": "https://onlinehelp.certara.com/phoenix/8.4/Phoenix_UserDocs/NCA_Object/NCA_parameter_formulas.htm",
+      "locator": "Discrete plasma parameters; extrapolation; extravascular clearance/volume footnote",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Endpoint-specific input dependencies and distinction between absolute parameters and apparent parameters containing F."
+    },
+    {
+      "id": "S04",
+      "title": "Bailer (1988): Testing for the equality of area under the curves when using destructive measurement techniques",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3221328/",
+      "locator": "Abstract",
+      "type": "PRIMARY_METHOD_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Group-level AUC estimation under destructive sampling; not reconstruction of individual trajectories."
+    },
+    {
+      "id": "S09",
+      "title": "Phoenix: PK model options",
+      "url": "https://onlinehelp-dev.certara.com/phoenix/8.3/topics/PK_model_options.htm",
+      "locator": "Clearance parameterization and dosing options",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Compartmental representations require structural and dosing parameters; choosing parameterization is an explicit modeling decision."
+    },
+    {
+      "id": "S10",
+      "title": "Heinzl (1996): A note on testing areas under the curve when using destructive measurement techniques",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9300355/",
+      "locator": "Abstract; DOI 10.1007/BF02353485",
+      "type": "PRIMARY_METHOD_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Mean-curve AUC and its variance depend on sampling design and available summaries. The paper corrects an earlier testing approximation; no inferential procedure is automatically adopted by this profile."
+    },
+    {
+      "id": "S11",
+      "title": "PKNCA: AUC integration methods",
+      "url": "https://humanpred.github.io/pknca/articles/v23-auc-integration-methods.html",
+      "locator": "Integration before Tlast; AUClast, AUCall and AUCinf definitions",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Integration and extrapolation choices are explicit settings. Package defaults are not project approval or universal requirements."
+    },
+    {
+      "id": "S12",
+      "title": "PKNCA: Handle BLQ values in concentration measurements",
+      "url": "https://humanpred.github.io/pknca/reference/clean.conc.blq.html",
+      "locator": "Details: missing-value handling and first, middle and last BLQ values",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Missingness and BLQ handling interact with curve position and require specification. Package input encoding does not authorize overwriting original censoring information."
+    },
+    {
+      "id": "S13",
+      "title": "Phoenix: Sparse sampling (pre-clinical) data",
+      "url": "https://onlinehelp-dev.certara.com/phoenix/8.3/topics/Sparse_sampling_pre-clinical_data.htm",
+      "locator": "Mean Curve Final Parameters and SE_AUClast/SE_AUCall limitations",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Mean-curve parameters have a group-level estimand. The documented sparse-AUC standard-error method depends on a linear combination of means and is not automatically applicable to logarithmic trapezoids."
+    },
+    {
+      "id": "S14",
+      "title": "Cheng and Jusko (1988): Mean Residence Time Concepts for Pharmacokinetic Systems with Nonlinear Drug Elimination Described by the Michaelis-Menten Equation",
+      "url": "https://doi.org/10.1023/A:1015960806202",
+      "locator": "Author institution abstract: https://researchconnect.buffalo.edu/en/publications/mean-residence-time-concepts-for-pharmacokinetic-systems-with-non/",
+      "type": "PRIMARY_METHOD_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "For the studied Michaelis-Menten systems, Dose/AUC is a time-average clearance and AUMC/AUC differs from true MRT. This supports an applicability check, not a prohibition on descriptive AUC under all nonlinear conditions."
+    },
+    {
+      "id": "S15",
+      "title": "Lee et al. (2021): Pharmacokinetic Characterization of LW6, a Novel Hypoxia-Inducible Factor-1alpha (HIF-1alpha) Inhibitor in Mice",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8070284/",
+      "locator": "Sections 2.1.1-2.1.2; Tables 1-2 and 4; methods equation 2",
+      "type": "PRIMARY_EXPERIMENTAL_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Metabolite exposure after parent dosing was distinguished from disposition after direct metabolite dosing. Formation calculations used analyte-specific clearance and molecular-weight conversion. No drug-specific parameter is transferred."
+    },
+    {
+      "id": "S16",
+      "title": "Phoenix: NCA Object",
+      "url": "https://onlinehelp.certara.com/phoenix/8.6/Phoenix_UserDocs/NCA_Object/NCA_Object.htm",
+      "locator": "Dose types for models 200-202 and steady-state assumptions",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "The relevant infusion model assumes constant input. Together with the NCA formulas this bounds the Tinf/2 correction; interrupted or varying input requires separate treatment."
+    },
+    {
+      "id": "S17",
+      "title": "Phoenix: Sparse sampling calculation",
+      "url": "https://onlinehelp-dev.certara.com/phoenix/8.3/topics/Sparse_sampling_calculation.htm",
+      "locator": "Mean concentration at unique times; nominal-time recommendation; repeated-sample correlation",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Time handling must match sampling design. Nominal-time grouping for a sparse procedure differs from individual actual times; the software recommendation is not a universal substitution rule."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP001",
+      "source_profile_sha256": "85f837e0c3883f5da6c8e498281c4213cf3457aaabe52c9f089414ce23c0e45e",
+      "destination": "NCA_ANALYSIS",
+      "review_status": "PREVIOUS_METHOD_REVIEW_RETAINED",
+      "target_endpoints": [
+        "observed Cmax",
+        "observed Tmax",
+        "finite-window AUC"
+      ],
+      "reference_conditions": {
+        "applies_when": "The objective requests observed peak summaries or NCA exposure. This planning profile specifies methods, evidence needs and downstream checks; it performs no numerical analysis or method-validation experiment. Route AUC to infinity to MP002 for its additional terminal-phase assessment.",
+        "required_inputs": [
+          "Each requested endpoint, its intended use and concentration basis, with a source-bound proposal definition of any AUC window and time origin; do not choose defaults for the proposal",
+          "Permitted concentration-time observations with units, analyte, matrix, dosing context and profile membership",
+          "Separate source origin (original numerical data or digitized figure), aggregation level (individual observations or measured group summaries) and sampling design (serial, destructive or mixed)"
+        ],
+        "conditional_inputs": [
+          "Dose amount when an output requires dose normalization or comparison; dosing times and single-dose, repeated-dose or steady-state context when they define the window",
+          "For an unobserved integration boundary: a proposed method, supporting evidence, assumptions, relevant points and applicability limits; obtain method approval before downstream numerical use",
+          "Sample sizes, summary definition and SD/SE/CI meaning, plus any covariance information required by the chosen uncertainty method; retain unknown values rather than reconstructing them",
+          "For digitized inputs: source figure/panel/curve, axis transformations, units, extraction provenance and reconstruction review; distinguish measured points from a model-predicted or fitted line"
+        ],
+        "acceptable_alternatives": [
+          "Digitized measured group means may be proposed for group-level NCA after source reconstruction and endpoint-specific preflight review. Their availability does not establish adequacy for every requested endpoint",
+          "An unobserved boundary may use a scientifically justified, pre-reviewed method with explicit reporting. This does not authorize arbitrary extrapolation or exploratory AUC while sampling adequacy remains unresolved"
+        ]
+      },
+      "analysis_method_requirements": [
+        "Assess each requested endpoint separately and record its required inputs, coverage evidence, candidate method, unresolved issues, needed review and downstream execution condition. At this stage report method proposals; do not claim a completed numerical validation",
+        "Check whether sampling supports the endpoint as defined. Observed Cmax/Tmax describe the sampled curve; do not relabel them as the unobserved true peak or the mean of individual peaks",
+        "For each AUC boundary, distinguish observed, interpolated, back-extrapolated, extrapolated and assumed values. Document the proposed approach and approval requirement; a missing 0 or 24 h observation is not permission to assume its concentration",
+        "Require the proposal to define each AUC window by intended use, including AUCtau for steady-state clearance when applicable. If its window or time origin is undefined, request clarification; do not default to 0-24 h or infinity, replace the primary objective, or infer steady state from repeat dosing alone. AUCinf additionally requires MP002.",
+        "Keep group-mean/composite curves at group level, preserve study/regimen/matrix membership and separate uncertainty gaps from point-estimate gaps. Identify arithmetic mean, geometric mean or median explicitly; do not interchange these summaries.",
+        "Specify the integration method, actual versus nominal sampling-time handling, and the missingness/BLQ policy including curve position. Preserve original censoring and missingness; do not silently replace them with numeric zeros or use package defaults as authorization.",
+        "Identify internal unsampled intervals as well as missing endpoints. Propose a justified treatment and its limits; endpoint observations alone do not establish coverage of the intervening curve.",
+        "Match uncertainty methods to the sampling design, available variance/covariance information and integration rule. A sparse-data standard-error formula requiring linear combinations of means is not automatically valid for logarithmic integration."
+      ],
+      "result_evaluation_requirements": [
+        "Downstream only: document the applied integration/boundary methods, method-review reference, original versus estimated points/intervals, assumptions, affected area contributions where computable and limitations",
+        "Downstream only: check the reported endpoint and data level against the approved plan; retain unresolved goals and do not infer individual uncertainty from group means"
+      ],
+      "release_limitations": {
+        "missing_effect": "Withhold numerical calculation of the affected endpoint when its definition, sampling adequacy or required boundary-method approval is unresolved. Other independently supported endpoints may continue under their own checks. This planning stage may still report candidate methods, reasons and missing materials.",
+        "not_established": [
+          "Individual trajectories, individual exposure distributions or unsupported confidence intervals from digitized group means",
+          "An unobserved true peak or mean individual Cmax/Tmax from a mean curve",
+          "Reliable AUC from sample count alone or from merely applying an integration formula",
+          "CL, terminal half-life, model validity or a completed empirical method test",
+          "A universal AUC window, extrapolation cutoff or automatic approval of software defaults"
+        ]
+      },
+      "source_ids": [
+        "S03",
+        "S04",
+        "S02",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S17"
+      ]
+    },
+    {
+      "profile_id": "MP002",
+      "source_profile_sha256": "391f71d80afd91b6603d8e33aa78560032fac631095cd6db0c0dc8bf1982063b",
+      "destination": "NCA_ANALYSIS",
+      "review_status": "PREVIOUS_METHOD_REVIEW_RETAINED",
+      "target_endpoints": [
+        "lambda_z",
+        "terminal half-life",
+        "AUCinf",
+        "terminal extrapolated area within a specified finite window"
+      ],
+      "reference_conditions": {
+        "applies_when": "Apply when a requested endpoint requires terminal-phase estimation or terminal extrapolation. Inherit MP001 requirements. The listed outputs are downstream numerical endpoints; this planning step only proposes methods, identifies missing inputs and specifies reporting requirements.",
+        "required_inputs": [
+          "Endpoint definition, time origin and data-level metadata established under MP001, with unresolved prerequisites retained.",
+          "Concentration-time observations potentially supporting a terminal interval, including quantifiability and BLQ information.",
+          "Dosing and infusion timing needed to distinguish terminal decline from ongoing or subsequent drug input."
+        ],
+        "conditional_inputs": [
+          "Relevant absorption information when an extravascular terminal phase may remain absorption-limited.",
+          "Replicate, variance or covariance information required by a proposed uncertainty method.",
+          "For MRT or Vss requests, specify the additional terminal-moment information required by MP003 and a method for assessing the AUMC tail separately from the AUC tail."
+        ],
+        "acceptable_alternatives": [
+          "Propose either justified manual interval selection or a documented automatic selection procedure. Both require downstream assessment of the selected interval.",
+          "Retain independently supported MP001 endpoints when terminal-dependent endpoints remain unsupported; do not silently substitute them for the requested endpoint."
+        ]
+      },
+      "analysis_method_requirements": [
+        "Specify candidate terminal-interval selection principles, inclusion and exclusion reasons, and treatment of BLQ or other unusable observations. Do not assume that the last few observations necessarily represent the terminal phase.",
+        "Propose the regression scale, weighting and selection procedure. For standard log-linear terminal estimation, use ln(C) = intercept - lambda_z * time and require a negative fitted slope.",
+        "Specify the extrapolation anchor: the last observed quantifiable concentration or its regression-predicted counterpart. Preserve this distinction in the endpoint definition and reporting.",
+        "Define the requested extrapolation interval and confirm that its decay assumptions are compatible with dosing and absorption. A finite-window tail must end at the requested boundary.",
+        "Identify method-specific acceptance criteria and their evidence for review before numerical use. Do not infer adequacy from point count, adjusted R-squared or software defaults alone.",
+        "At this stage, report proposed methods, unresolved conditions and required approvals. Do not report numerical diagnostics as completed."
+      ],
+      "result_evaluation_requirements": [
+        "Downstream: report the selected observations and time range, exclusions, regression method, lambda_z, terminal half-life and available uncertainty estimates.",
+        "Downstream: assess fitted decline, residual patterns, time span and sensitivity to reasonable changes in terminal-interval selection.",
+        "Downstream: report the extrapolation anchor, extrapolated area and its proportion of the requested total area, together with assumptions and limitations. When AUMC is required for MRT or Vss, report its tail contribution separately; an acceptable AUC extrapolated fraction does not qualify the AUMC tail.",
+        "Downstream: evaluate results against the reviewed criteria and record the method-review reference. If suitability remains unresolved, withhold the affected endpoint from downstream use."
+      ],
+      "release_limitations": {
+        "missing_effect": "Keep unsupported terminal-dependent endpoints and their missing prerequisites explicit. Unresolved terminal adequacy blocks release of those numerical endpoints, while independently supported MP001 endpoints may continue. Changing the requested AUC window requires proposal clarification or an approved revision.",
+        "not_established": [
+          "A universal minimum sampling count, fit-statistic threshold or extrapolated-area cutoff.",
+          "Reliable terminal estimation merely because software returns a numerical result.",
+          "An elimination mechanism or elimination half-life solely from an observed terminal slope.",
+          "Individual parameter distributions from group-mean terminal curves.",
+          "Human predictive validity from an acceptable animal terminal estimate."
+        ]
+      },
+      "source_ids": [
+        "S02",
+        "S03"
+      ]
+    },
+    {
+      "profile_id": "MP003",
+      "source_profile_sha256": "46b8c9a6b89eeaecd1c6af2c5f8474344cf79b408351fbed49bc7878bf6914ee",
+      "destination": "NCA_ANALYSIS",
+      "review_status": "PREVIOUS_METHOD_REVIEW_RETAINED",
+      "target_endpoints": [
+        "CL",
+        "Vss",
+        "CL/F when absolute clearance is not identified"
+      ],
+      "reference_conditions": {
+        "applies_when": "The objective needs animal disposition parameters, including parameters intended for later extrapolation. Inherit MP001 and applicable MP002 requirements. This step proposes methods and identifies missing inputs; numerical estimation and qualification of the resulting parameters remain downstream.",
+        "required_inputs": [
+          "Route, administered dose, analyte, concentration basis and parameter units, including whether quantities are absolute or body-weight-normalized.",
+          "Exposure and, for Vss, moment/residence-time information appropriate to the dosing design.",
+          "Dosing design and IV input-duration information needed by the proposed method. Establish whether infusion is constant-rate; for varying or interrupted infusion, request the actual input history and a justified correction."
+        ],
+        "conditional_inputs": [
+          "Confirmed steady state, dosing interval and matching interval exposure when proposing steady-state clearance estimation.",
+          "A justified independent bioavailability estimate applicable to the study if converting CL/F to CL.",
+          "Relevant formation/systemic-input information and molecular-weight or active-moiety conversion when the measured analyte is formed from the administered parent or prodrug. Missing formation information may prevent absolute analyte clearance without preventing a supported exposure summary.",
+          "Evidence on dose dependence or nonlinear disposition when it affects CL, MRT or Vss interpretation or use. Do not require proof of linearity as a universal prerequisite for descriptive AUC."
+        ],
+        "acceptable_alternatives": [
+          "Reviewed NCA estimates may enter extrapolation review without a compartmental fit; qualify each parameter separately.",
+          "Report CL/F under its actual definition when an extravascular study does not identify absolute clearance.",
+          "When project source permissions allow it, same-drug published CL or Vss without underlying concentration data may enter as a LITERATURE_REPORTED candidate. Preserve citation/table/page, parameter definition, route, dose/regimen, data level, estimation method, reported uncertainty and missing information. Explicitly state NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED; candidate admission neither qualifies a species nor authorizes extrapolation.",
+          "If a group-mean point estimate is supported but reliable uncertainty cannot be estimated, retain it as a candidate with the uncertainty gap. Human review of intended use, limitations and uncertainty treatment is required before counting it as a qualified species-parameter. Do not invent uncertainty or treat review as evidence that uncertainty is known."
+        ]
+      },
+      "analysis_method_requirements": [
+        "Propose NCA methods for CL and Vss separately according to dosing design and parameter definition. Distinguish absolute from apparent parameters and require the appropriate exposure, moment and input-duration information.",
+        "For single-dose IV clearance, propose Dose/AUCinf when the method assumptions apply. Do not substitute AUC0-24 for AUCinf merely because the finite window is available.",
+        "For verified steady-state interval methods, match dose and AUC to the same dosing interval and retain the route-specific distinction between CL and CL/F.",
+        "For IV Vss, propose CL multiplied by the appropriate MRT with AUC/AUMC and infusion-input treatment specified. Require separate AUMC-tail assessment; acceptable AUC behavior alone does not qualify MRT or Vss. Suitable single-dose IV data may support Vss; its name does not require steady-state repeat dosing.",
+        "Distinguish Vss from Vz, Vc and apparent volumes. Knowing F alone does not justify using an oral MRT directly as the disposition MRT for Vss.",
+        "Preserve plasma versus blood, total versus free, and L/h versus L/h/kg or corresponding volume definitions; do not combine incompatible parameter definitions.",
+        "Label CL or Vss derived from a group-summary curve as parameters of that curve, not means or distributions of individual parameters; nonlinear operations on summaries do not generally reproduce summaries of individual estimates.",
+        "When nonlinear disposition is supported or suspected from relevant evidence, distinguish descriptive exposure from conventional moment-derived CL/MRT/Vss interpretations. Retain dose/regimen dependence and require justification before treating a derived quantity as a transferable constant.",
+        "Bind the numerator dose to the measured analyte input. Parent/prodrug dose divided by formed-analyte AUC does not by itself identify absolute clearance of that analyte.",
+        "Apply the familiar Tinf/2 residence-time correction only under its constant-rate infusion assumptions. Other input patterns require an explicitly justified method."
+      ],
+      "result_evaluation_requirements": [
+        "Downstream: review the supporting exposure and moment calculations, input-duration treatment, assumptions and available uncertainty separately for CL and Vss. For MRT/Vss, assess AUMC extrapolation and sensitivity separately from AUC without importing an unreviewed universal cutoff.",
+        "Downstream: submit each qualified parameter with its method, definitions, limitations and unresolved gaps for extrapolation review. Do not count a species for a parameter before that parameter is qualified. Document the specific human use decision for candidates lacking reliable uncertainty or underlying concentration data. Literature values remain LITERATURE_REPORTED even if accepted for a particular use."
+      ],
+      "release_limitations": {
+        "missing_effect": "Keep unsupported parameters and their missing prerequisites explicit. A supported CL does not automatically establish Vss. Retain independently supported results without silently changing the proposal's requested exposure window or parameter definition.",
+        "not_established": [
+          "A compartmental curve shape from NCA CL and Vss alone.",
+          "Absolute clearance merely from an extravascular dose when F is unknown.",
+          "Interchangeability of Vss, Vz, Vc or apparent volumes.",
+          "Validity of every NCA parameter solely because another parameter is supported."
+        ]
+      },
+      "source_ids": [
+        "S03",
+        "S01",
+        "S13",
+        "S14",
+        "S15",
+        "S16"
+      ]
+    },
+    {
+      "profile_id": "MP004",
+      "source_profile_sha256": "de6ae7a95de72826ee459b8a6cc51ac4655df7227657152ad07f9c90ca95c528",
+      "destination": "ANIMAL_PK_MODELING",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "target_endpoints": [
+        "candidate structural model",
+        "parameter estimates",
+        "fit diagnostics"
+      ],
+      "reference_conditions": {
+        "applies_when": "A time-course model is requested and the design may inform its parameters.",
+        "required_inputs": [
+          "Concentration, time, dosing events, analyte and units",
+          "Data level, study membership and actual experimental-unit identity",
+          "Candidate structures and residual-error specification compatible with the design"
+        ],
+        "conditional_inputs": [
+          "Verified individual repeated observations and population design support before estimating animal random effects",
+          "Route-specific absorption or infusion information"
+        ],
+        "acceptable_alternatives": [
+          "Exploratory study-level mean-curve fits with their limitations when individual data are unavailable",
+          "A simpler identifiable candidate or supported NCA outputs"
+        ]
+      },
+      "analysis_method_requirements": [
+        "Review overall time/dose coverage against parameters rather than using a universal row-count threshold",
+        "Keep incompatible studies separate unless pooling has a scientific rationale"
+      ],
+      "result_evaluation_requirements": [
+        "Assess convergence, parameter identifiability/uncertainty, boundaries and graphical/numerical diagnostics",
+        "Compare likelihood criteria only for compatible outcomes, observations and likelihood definitions"
+      ],
+      "release_limitations": {
+        "missing_effect": "Pre-fit eligibility authorizes an attempt; diagnostics decide whether the resulting model is usable.",
+        "not_established": [
+          "Reliable human prediction from convergence or a low AIC",
+          "Animal IIV from unverified IDs or group means",
+          "Automatic preference for additional compartments"
+        ]
+      },
+      "source_ids": [
+        "S01",
+        "S09"
+      ]
+    }
+  ]
+}

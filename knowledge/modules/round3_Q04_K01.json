@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "MIC Distribution Aggregation and ECOFF Definition",
+      "topics": [
+        "pta"
+      ],
+      "claim": "ECOFFs are epidemiological cut-off values defining the upper end of the wild-type MIC distribution, distinct from clinical breakpoints. Aggregated MIC distributions in the EUCAST database are derived from multiple sources and methods (primarily ISO 20776-1 broth microdilution), incorporating inter-laboratory and temporal variability. These distributions are not representative of resistance rates and cannot be used to infer epidemiological trends over time or geography. ECOFF setting requires at least five valid distributions from separate laboratories, with specific criteria for mode agreement and range coverage.",
+      "conditions": [
+        "Applicable when interpreting MIC data for PTA where the target is defined by wild-type distribution boundaries rather than clinical breakpoints.",
+        "Requires that the specific agent-organism combination has a published ECOFF or TECOFF in the EUCAST database.",
+        "Methodological variability is accepted if calibrated to reference methods; results rarely vary by more than one doubling dilution step."
+      ],
+      "required_inputs": [
+        "Provenance: EUCAST SOP 10.2 compliant data.",
+        "Identity: Specific organism and antimicrobial agent pair.",
+        "Basis: MIC values in mg/L or µg/mL.",
+        "Prerequisite: Confirmation that the data source is calibrated to ISO 20776-1 or equivalent reference methods."
+      ],
+      "limitations": [
+        "ECOFFs are not clinical breakpoints and do not indicate therapeutic success or failure.",
+        "Aggregated distributions cannot be used to calculate resistance rates or compare resistance across agents/geographies.",
+        "Source-specific sample size thresholds (e.g., 15 isolates per distribution, 100 total) are specific to EUCAST ECOFF setting rules, not universal PTA eligibility criteria."
+      ],
+      "downstream_use": "Use ECOFFs to define the wild-type/non-wild-type boundary for PTA calculations if the project policy adopts epidemiological cutoffs as the target. Do not use these distributions to estimate population resistance prevalence.",
+      "evidence_chunk_ids": [
+        "ADD003:0009",
+        "ADD003:0017",
+        "REF_027:0001",
+        "REF_027:0003",
+        "REF_027:0004"
+      ],
+      "id": "round3_Q04:K01",
+      "origin_job": "round3_Q04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ADD003",
+        "REF_027"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "Q04",
+      "retrieval_keywords": "MIC assay comparability, dilution bins and tails, and target transport applicability",
+      "supersedes": [
+        "round2_Q04:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

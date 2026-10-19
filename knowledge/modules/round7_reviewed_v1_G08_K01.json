@@ -1,0 +1,105 @@
+{
+  "cards": [
+    {
+      "title": "Separate PK, potency, target and biomarker translation bridges",
+      "topics": [
+        "translation"
+      ],
+      "claim": "Build an explicit bridge inventory: species PK/exposure; binding/in-vitro potency normalization; target-site kinetics; target/disease biology; biomarker-to-clinical endpoint. A supported PK bridge does not establish a PD or clinical endpoint bridge. GEN003 is a named case, not a universal transfer law.",
+      "conditions": [
+        "Choose the explicitly qualified branch; scientific scope and assumptions are specified in method_recipe."
+      ],
+      "required_inputs": [
+        "Use the branch-specific input contract below; unknown inputs remain unknown."
+      ],
+      "limitations": [
+        "Offline candidate pending source and operational review; no target-human facts, fitting or production use."
+      ],
+      "downstream_use": "Plan an evidence-bounded method and identify blocked dependent outputs; ContextBuilder supplies project objective separately.",
+      "evidence_chunk_ids": [
+        "GEN001:0038",
+        "GEN003:0015",
+        "GEN003:0017",
+        "GEN003:0025",
+        "GEN003:0028",
+        "GEN003:0029",
+        "GEN003:0031",
+        "GEN003:MATH08"
+      ],
+      "method_recipe": {
+        "estimand_and_scope": "Build an explicit bridge inventory: species PK/exposure; binding/in-vitro potency normalization; target-site kinetics; target/disease biology; biomarker-to-clinical endpoint. A supported PK bridge does not establish a PD or clinical endpoint bridge. GEN003 is a named case, not a universal transfer law.",
+        "input_contract": "For each intended bridge record endpoint, species, assay, timing and source-supported assumption. The scalar example conditionally needs total plasma concentration at a specified response level, compatible fu,p and in-vitro IC50. Target-site kinetics and clinical endpoint translation need their own evidence; multiple species, lognormal distributions or a specific biomarker are not universal prerequisites.",
+        "applicability_and_prerequisites": "Qualify assay comparability, driver basis, target biology and disease state. Source-study human effect-site equality and target-response assumptions remain assumptions. Absence of visible hysteresis alone does not justify an instantaneous direct model. Do not transfer study numerical targets or human findings to the current target drug.",
+        "definitions_units_basis_window": "Scalar=Cp,total*fu,p/IC50 is dimensionless only for compatible concentration units/bases. Cp and IC50 retain assay/species identity and specified PD level/window. fu,p is dimensionless. PK CL, target-site equilibration and biomarker response have separate parameters/units and may require different species bridges.",
+        "procedure": "Create one row per bridge with input/evidence, transportability assumption, conditional output and unresolved gap. First distinguish exposure transfer from potency/binding correction, then assess kinetics/biology and endpoint meaning. If using source Eq8, compare compatible response levels; explicitly label any assumed scalar preservation. Never collapse all rows into a single validated scaling claim.",
+        "formula_and_parameterization": "Source-specific GEN003 Eq8: scalar=(Cp,total*fu,p)/(in-vitro IC50). Algebraic scenario under an explicitly assumed equal scalar: Cp,total,h=scalar*IC50,h/fu,p,h. This only defines a conditional exposure target; it supplies neither a human PK curve nor a dose/regimen. No dose equation is introduced by this card.",
+        "uncertainty_and_identifiability": "Record whether each uncertainty is measurement, parameter, structural or cross-species/endpoint assumption. No automatic animal-to-human fu/potency borrowing or default distribution. A deterministic conditional target has no population coverage or confidence interval without further qualified inputs.",
+        "diagnostics_and_failure_modes": "A normalized curve overlap or biomarker change does not prove disease efficacy. Case-specific assay sensitivity, assumed ke0 transfer and incomplete endpoint links must remain visible. Check that observed source-drug human results are never described as current target-drug data.",
+        "missing_input_and_partial_fallback": "Missing human fu or potency blocks the numeric total-plasma target in this scalar branch; retain an explicit symbolic relation or qualified available upstream result. Missing clinical endpoint link leaves a biomarker/target scenario only. Do not substitute animal values, a no-hysteresis shortcut or an invented clinical target.",
+        "output_and_interpretation": "Return separate supported/assumed/unresolved bridges and scenario labels. Named study drugs remain in references and bounded case metadata, not general method keywords. Project-approved assumptions are supplied separately by ContextBuilder and cannot become universal library policy.",
+        "worked_example_and_counterexample": "SYNTHETIC scalar fixture: Cp,total,a=100 nM, fu,a=0.1 and compatible IC50,a=10 nM give scalar=1. Under explicitly assumed equal scalar and independently supplied synthetic IC50,h=5 nM, fu,h=0.2, conditional total-plasma target=25 nM. This predicts no clinical benefit or dose. Counterexample: missing fu,h leaves the total-plasma target unresolved; borrowing fu,a is prohibited."
+      },
+      "claim_support": [
+        {
+          "claim": "The source illustrates a scalar normalization of total plasma concentration using species-specific free fraction and in-vitro potency. Such a scalar requires its own equilibrium, matrix and potency assumptions; it is not a universal bridge.",
+          "evidence_chunk_ids": [
+            "GEN003:MATH08",
+            "GEN003:0015",
+            "GEN003:0025"
+          ],
+          "scope": "Bounded source demonstration of separate PK scaling and PD potency/binding normalization; no compound-specific coefficient retained.",
+          "support_type": "direct_original_support"
+        },
+        {
+          "claim": "Target-site kinetics (hysteresis/ke0) and biomarker-to-clinical endpoint links are distinct, case-specific assumptions that do not automatically transfer across species or compounds.",
+          "evidence_chunk_ids": [
+            "GEN003:0017",
+            "GEN003:0028",
+            "GEN003:0029",
+            "GEN003:0031",
+            "GEN001:0038"
+          ],
+          "scope": "GEN003 assumes ke0 equivalence between rhesus and human based on permeability; GEN001 clarifies that biomarkers are not valid surrogates without empirical proof of clinical benefit.",
+          "support_type": "qualified_method_synthesis"
+        }
+      ],
+      "id": "round7_reviewed_v1_G08:K01",
+      "origin_job": "round7_G08",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "GEN001",
+        "GEN003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "G08",
+      "retrieval_keywords": "Separate PK PD species potency biomarker translation bridge target-site clinical endpoint in vitro vivo",
+      "supersedes": [
+        "round7_G08:K01",
+        "round4_G08:K01"
+      ],
+      "knowledge_layer": "general_method",
+      "method_keywords": [
+        "separate pk pd species potency biomarker translation bridge",
+        "target-site",
+        "clinical endpoint",
+        "in vitro",
+        "in vivo"
+      ],
+      "required_branches": [],
+      "applicability_status": "REQUIRES_PROJECT_SPECIFIC_REVIEW",
+      "source_example_ids": [
+        "GEN001",
+        "GEN003"
+      ],
+      "review_amendment": {
+        "version": "round7_reviewed_v1",
+        "parent_card_id": "round7_G08:K01",
+        "status": "PENDING_FINAL_LOCAL_RECHECK",
+        "original_raw_output_retained": true
+      }
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

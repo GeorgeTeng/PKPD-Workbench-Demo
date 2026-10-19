@@ -1,0 +1,1 @@
+Recorded technical acceptance through Data. Human gates were automatically passed with explicit user authorization. This is not independent human scientific review or model release. Original path references and hashes are preserved; do not use this relocated snapshot to resume the original run. Import an example to create a new live run.

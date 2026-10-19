@@ -1,0 +1,114 @@
+{
+  "cards": [
+    {
+      "title": "In-Vitro Time-Kill Design and Regrowth Interpretation",
+      "claim": "In-vitro time-kill assays require strict control of inoculum, drug stability, and sampling to distinguish true bacterial regrowth from drug depletion or assay artifacts. Regrowth alone does not prove genetic resistance.",
+      "conditions": [
+        "Applicable to in-vitro bacterial culture systems with measurable viable counts.",
+        "Measure drug exposure or establish stability with a qualified assay/control when distinguishing drug depletion from biological regrowth; if unavailable, report mechanism as unresolved rather than excluding the time-kill curve.",
+        "Not applicable to in-vivo efficacy or clinical target attainment without further PK/PD integration."
+      ],
+      "required_inputs": [
+        "Initial inoculum density (CFU/ml) and growth phase status (log vs. stationary).",
+        "Drug concentration design and actual exposure history with units; concentrations may be expressed relative to MIC, but the source 0.25–64x MIC range is not mandatory.",
+        "Actual viable-count sampling times and exposure schedule; ensure early kill and later regrowth can be seen where those are study questions.",
+        "Viable count method (e.g., plate count on blood agar) and Limit of Detection (LOD).",
+        "Control growth curves (no antibiotic) for each experiment day.",
+        "Measured concentration or a justified stability assessment is conditional on distinguishing drug loss from biological regrowth explanations. If absent, retain descriptive curves and label depletion unresolved; resistance versus persistence requires separate corroborating evidence."
+      ],
+      "limitations": [
+        "Time-kill curves alone cannot distinguish all regrowth mechanisms (e.g., persister vs. resistant subpopulation) without additional molecular or single-cell data.",
+        "In-vitro results do not establish in-vivo efficacy or clinical breakpoints.",
+        "Drug degradation in broth can mimic bacterial regrowth if not measured.",
+        "Below-LOD values are censored data, not zero counts."
+      ],
+      "downstream_use": "Input for PK/PD modeling (e.g., NONMEM) to estimate growth/killing rates, effect compartment delays, and heteroresistance parameters.",
+      "method_keywords": [
+        "time-kill kinetics",
+        "bacterial regrowth",
+        "persister cells",
+        "limit of detection",
+        "drug degradation",
+        "inoculum effect",
+        "heteroresistance"
+      ],
+      "retrieval_keywords": "time kill curve design, bacterial regrowth interpretation, drug depletion vs resistance, in vitro PK/PD input contract",
+      "knowledge_layer": "conditional_method",
+      "method_recipe": {
+        "estimand_and_scope": "Estimate bacterial growth rate (ψ), killing rate, and regrowth dynamics under constant or degrading drug exposure. Scope is limited to in-vitro mechanistic characterization and design interpretation.",
+        "input_contract": "Record experiment/run and replicate identities, inoculum, actual viable-count times and values, assay LOD/censor flags, intended dosing/exposure design and controls. Require measured exposure or justified stability evidence when assessing drug depletion; otherwise retain descriptive time-kill curves with depletion unresolved. Distinguish raw observations from parameters estimated by a later qualified dynamic model.",
+        "applicability_and_prerequisites": "Use a qualified susceptibility assay and study-specific viable-count limit. Drug-stability information is important for interpreting regrowth but may be unavailable; in that case retain the curve and mechanism uncertainty.",
+        "definitions_units_basis_window": "For an exponential phase with quantified positive counts, N(t)=N0*exp(psi*t), with psi in 1/time; doubling time ln(2)/psi is meaningful for psi>0. A negative psi denotes net decline and has a halving time ln(2)/abs(psi). Values below the count limit remain censored; the SUP006 LOD/2-first-value rule was study-specific, while ADD004 used likelihood handling. Neither is a universal imputation policy.",
+        "procedure": "1. Establish organism, inoculum, control growth, drug exposure condition, sampling schedule and replicate lineage. 2. Measure viable counts and carry the limit/censor status through plots and analysis. 3. Where feasible measure drug concentration or run stability controls. 4. Compare early kill and regrowth against control and exposure history; consider depletion, adaptation/resting/persister and resistant-subpopulation explanations. 5. Choose a model only if the design identifies its parameters and retain mechanism ambiguity when data do not discriminate.",
+        "formula_and_parameterization": "For an exponential phase with quantified positive counts, N(t)=N0*exp(psi*t), with psi in 1/time; doubling time ln(2)/psi is meaningful for psi>0. A negative psi denotes net decline and has a halving time ln(2)/abs(psi). Values below the count limit remain censored; the SUP006 LOD/2-first-value rule was study-specific, while ADD004 used likelihood handling. Neither is a universal imputation policy.",
+        "uncertainty_and_identifiability": "Variability in starting inoculum growth phase (log vs. stationary) can affect initial killing rates. Consider a mixture model only if the growth-phase hypothesis is supported by data and identifiable; otherwise, use a justified simpler representation and retain uncertainty.",
+        "diagnostics_and_failure_modes": "If drug concentration/stability is unavailable, keep time-kill observations but label the regrowth mechanism unresolved; never assume stability. If counts are censored, retain limit flags and use a justified censoring method or report bounded conclusions rather than treating below-limit values as zero or applying LOD/2 by default.",
+        "missing_input_and_partial_fallback": "If drug concentration/stability is unavailable, keep time-kill observations but label the regrowth mechanism unresolved; never assume stability. If counts are censored, retain limit flags and use a justified censoring method or report bounded conclusions rather than treating below-limit values as zero or applying LOD/2 by default.",
+        "output_and_interpretation": "Regrowth is an observation, not a uniquely identified mechanism. Exposure falling below a relevant activity range supports depletion as a possibility; exposure remaining high weakens simple depletion but does not prove genetic resistance or persistence. Confirmatory susceptibility, stability or mechanistic evidence is needed for stronger claims.",
+        "worked_example_and_counterexample": "Synthetic interpretation: inoculum 10^6 CFU/mL; at 6 h the assay reports <10^3 CFU/mL, so reduction from baseline exceeds 3 log10 but the exact count is unknown. At 12 h a quantified 10^5 CFU/mL is regrowth relative to the 6 h bound. Measured drug at 12 h is 0.5x MIC, making depletion plausible, but not proving it or ruling out resistant/persister cells. Counterexample: A count <LOD cannot be replaced by an exact measured count, and regrowth with falling drug does not prove depletion is the only cause."
+      },
+      "claim_support": [
+        {
+          "claim": "The source study measured drug concentration to assess degradation as one possible explanation for altered killing/regrowth.",
+          "scope": "In-vitro stability assessment.",
+          "evidence_chunk_ids": [
+            "SUP006:0008",
+            "SUP006:0010"
+          ]
+        },
+        {
+          "claim": "Regrowth interpretation requires distinguishing drug depletion from biological resistance/persistence.",
+          "scope": "Mechanistic inference limits.",
+          "evidence_chunk_ids": [
+            "SUP006:0022",
+            "ARTICLE_S13:0031"
+          ]
+        },
+        {
+          "claim": "The source studies used different below-limit treatments (LOD/2-first-value or likelihood-based censoring); neither is a universal rule.",
+          "scope": "Data processing.",
+          "evidence_chunk_ids": [
+            "SUP006:0014",
+            "ADD004:0011"
+          ]
+        },
+        {
+          "claim": "A source study used a mixture model to investigate inoculum growth-phase variation; it is not required for every time-kill dataset.",
+          "scope": "Experimental design.",
+          "evidence_chunk_ids": [
+            "SUP006:0014"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "SUP006:0007",
+        "SUP006:0008",
+        "SUP006:0010",
+        "SUP006:0014",
+        "SUP006:0022",
+        "ADD004:0011",
+        "ADD004:0012",
+        "ARTICLE_S13:0031"
+      ],
+      "required_branches": [
+        "antibacterial"
+      ],
+      "id": "round10_reviewed_v2_B03:K01",
+      "topics": [
+        "pkpd"
+      ],
+      "source_ids": [
+        "ADD004",
+        "ARTICLE_S13",
+        "SUP006"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "B03",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "example_is_synthetic": "The numerical values (10^6, 4x MIC, 0.5x MIC) are illustrative placeholders to demonstrate the logic of distinguishing depletion from resistance. They do not represent specific experimental data."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

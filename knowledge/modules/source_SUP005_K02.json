@@ -1,0 +1,40 @@
+{
+  "cards": [
+    {
+      "title": "Modeling Within-Animal Plasma-Tissue Correlation",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "In serial sacrifice designs, plasma and tissue concentrations measured from the same animal at the same time point are correlated. The Bayesian model explicitly accounts for this by using a bivariate normal distribution for log-transformed concentrations, improving the precision of AUC ratio estimates compared to methods that treat them as independent.",
+      "conditions": [
+        "Paired plasma and tissue samples are collected from the same individual animal at each time point.",
+        "In the source model, the precision matrix (inverse covariance) has a Wishart prior; the covariance matrix has the corresponding Inverse-Wishart prior."
+      ],
+      "required_inputs": [
+        "Paired concentration data (C_plasma, C_tissue) for each animal at each time point.",
+        "Log-transformed concentration values."
+      ],
+      "limitations": [
+        "The cited model uses a time-specific covariance matrix Sigma_j for each sampling time point j.",
+        "Requires sufficient data points to estimate the covariance matrix reliably."
+      ],
+      "downstream_use": "Accurate estimation of tissue-to-plasma partition coefficients (Kp) and their confidence intervals in preclinical drug distribution studies.",
+      "evidence_chunk_ids": [
+        "SUP005:0004",
+        "SUP005:0008",
+        "SUP005:0009"
+      ],
+      "id": "source_SUP005:K02",
+      "origin_job": "source_SUP005",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

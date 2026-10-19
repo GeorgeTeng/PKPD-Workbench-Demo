@@ -1,0 +1,46 @@
+{
+  "cards": [
+    {
+      "title": "Handling of Free Drug and Binding in PK/PD Indices",
+      "topics": [
+        "pkpd",
+        "translation"
+      ],
+      "claim": "Free-drug indices (fAUC/MIC, fCmax/MIC, fT>MIC) require accurate protein binding data. Unbound fractions vary by species and matrix (e.g., plasma of neutropenic mice vs. critically ill humans). Binding evidence must be traceable and specific to the matrix and concentration range.",
+      "conditions": [
+        "When calculating free-drug indices.",
+        "When translating animal PK/PD data to human scenarios."
+      ],
+      "required_inputs": [
+        "Protein binding percentage or unbound fraction (fu) IF deriving unbound exposure from total. If unbound exposure is directly measured, this conversion factor is not required.",
+        "Matrix-specific binding data (e.g., plasma, lung homogenate).",
+        "Concentration-dependent binding data if non-linear."
+      ],
+      "limitations": [
+        "Do not assume one binding value is valid for every matrix or concentration.",
+        "Unbound fractions in animal models may differ substantially from human patients."
+      ],
+      "downstream_use": "Conversion of total drug PK to free drug PK for PD target comparison.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0044",
+        "IN_BINDING:0009",
+        "REF_023:0013",
+        "REF_028:0011"
+      ],
+      "id": "module_pkpd:K05",
+      "origin_job": "module_pkpd",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_BINDING",
+        "IN_MAIN",
+        "REF_023",
+        "REF_028"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

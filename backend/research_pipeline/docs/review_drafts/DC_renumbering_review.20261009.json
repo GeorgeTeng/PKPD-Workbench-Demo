@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_DESIGN",
+  "date": "2026-10-09",
+  "source": {
+    "type": "USER_DECISION",
+    "decision": "George, project thread: parallel DR (DR joins at step 2); renumber DC rules in run order; fix the gaps found by the overall review; organize data written in document text and check it for duplicates and conflicts.",
+    "review_document": "/mnt/project-files/data-part/DC_整体逻辑与复查_20261009.md"
+  },
+  "renumbering": {
+    "old_to_new": {"DC007": "DC001", "DC002": "DC002", "DC001": "DC003", "DC008": "DC004", "DC003": "DC005", "DC005": "DC006", "DC006": "DC007", "DC004": "DC008"},
+    "kept": "Decision tokens such as USER_APPROVED_2026-10-09_DC005_REVIEW, earlier review records and history notes keep the numbers in force when they were written; each rule records previous_id."
+  },
+  "gaps_found": [
+    "DR read the inventory before writing requirements, so requirements could follow what the files held rather than the objective, and DR waited for the inventory.",
+    "An item left NEEDS_REVIEW was never read and raised no finding.",
+    "A DATA requirement supported only by document or note text passed although preparation reads tables only.",
+    "Two copies of one dataset (two tables, or a table restated in a document) were labelled and counted separately.",
+    "Data values written in text were not organized, so they could not be checked against tables or carried to preparation."
+  ],
+  "changes": [
+    "dr_requirements.json 1.1.0: DR001 (call DR) defines tasks and requirements from the reviewed context alongside the inventory; DR002 (call DR-access) assigns access after both.",
+    "workflow_runtime.py: data_requirements_agent writes requirement_definition.json; new data_access_agent writes requirements.json; data_label_agents waits for it.",
+    "dc_coverage.json 2.0.0: rules renumbered in run order with previous_id and step; 2.1.0: DC003 stated values, DC005 text-only data and stated-value repeats.",
+    "data_agents.py: define and assign_access; ITEM_NOT_REVIEWED, DATA_NOT_IN_TABLE and POSSIBLE_DUPLICATE_DATA findings; stated values listed, compared and written to stated_values.json at preparation.",
+    "tests: parallel DR fixture, per-call rule lists, the three gap checks and stated values."
+  ]
+}

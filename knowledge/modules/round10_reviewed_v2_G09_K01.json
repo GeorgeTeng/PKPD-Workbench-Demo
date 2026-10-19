@@ -1,0 +1,123 @@
+{
+  "cards": [
+    {
+      "title": "Human Simulation Layers: Typical, Variability, Uncertainty, and Residual Error",
+      "claim": "Human PK/PD simulations should distinguish a conditional typical fixed-effect trajectory, between-subject variability, parameter/model uncertainty, and observation residual error. A typical trajectory is not generally the population mean. The population distribution and observed-concentration range require the relevant variability and residual-error inputs; uncertainty reflects limited knowledge that may narrow with information, whereas population variability does not vanish merely by increasing sample size.",
+      "conditions": [
+        "Applicable when simulating human PK/PD profiles for dose prediction or covariate analysis.",
+        "For population predictions, specify the applicable random-effect law and covariance structure. For typical or conditional individual trajectories, do not require population BSV merely to define an observation model. Do not assume independence or zero covariance without justification.",
+        "Source-specific variability distributions from preclinical or prior studies are not universal defaults for new targets.",
+        "Residual error models are required only when the estimand is the observed concentration range, not for latent population exposure distributions."
+      ],
+      "required_inputs": [
+        "For a typical latent profile: model structure, fixed-effect parameter values, covariates, dose and time grid.",
+        "For population latent predictions: specified BSV law/covariance and target-population covariates.",
+        "For observed-value prediction: a qualified residual-error model conditional on the chosen latent trajectory; add BSV inputs when predicting across a population rather than a specified individual trajectory.",
+        "For parameter-uncertainty bands: joint parameter covariance/posterior or a prespecified sensitivity set.",
+        "For future population uncertainty: qualified joint distribution over relevant fixed effects AND variability parameters (and residual parameters for observed-value events)."
+      ],
+      "limitations": [
+        "Typical parameter estimates do not correspond to mean predictions; mean predictions require simulating BSV.",
+        "Uncertainty in fixed effects should be included if the goal is to assess probability of exposure thresholds or covariate importance.",
+        "PD model translation from animal to human introduces structural uncertainty often underestimated if only PK uncertainty is propagated.",
+        "Missing target-specific BSV prevents population spread simulation; output is limited to typical profile.",
+        "Missing residual error prevents observed-concentration predictive range; latent population simulation remains valid.",
+        "If BSV uncertainty is unknown, label that layer unpropagated; do not assume fixed omega for future population range predictions."
+      ],
+      "downstream_use": "Used to generate population concentration-time profiles, evaluate dosing regimens, and quantify uncertainty in human dose predictions.",
+      "method_keywords": [
+        "typical profile",
+        "between-subject variability",
+        "parameter uncertainty",
+        "residual error",
+        "population simulation",
+        "covariance structure",
+        "uncertainty propagation",
+        "latent vs observed",
+        "BSV uncertainty"
+      ],
+      "retrieval_keywords": "typical individual population variability parameter uncertainty residual error BSV uncertainty latent observed",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Simulate prospective human PK/PD scenarios while distinguishing typical latent trajectory, latent population spread, observations conditional on a trajectory/population, and parameter/model uncertainty. Add BSV for population spread and residual noise for observation-scale outputs; neither is a universal requirement for every scenario.",
+        "input_contract": "Declare the estimand first. Typical latent trajectory: fixed-effect estimates and stated covariates. Population latent spread: additionally a qualified joint BSV law and relevant target-population covariate distribution. Simulated observations: additionally a residual model on the observation scale, conditional on the chosen latent trajectory. Parameter-uncertainty intervals: a qualified joint covariance/posterior or resampling representation for the parameters propagated. Future-population observed ranges also account for uncertainty in BSV parameters; disclose unpropagated layers.",
+        "applicability_and_prerequisites": "Use a model qualified to the extent possible for the stated prospective question, with its evidence and unresolved extrapolation limitations. Reassess suitability when changing purpose or population; do not imply target-human validation exists. Supply justified distributional assumptions only for the layers being simulated.",
+        "definitions_units_basis_window": "Typical latent prediction: C_typ(t)=f(theta_typ,covariates,dose,t). Individual latent prediction: C_i(t)=f(theta_i,covariates_i,dose_i,t), where the mapping from theta_typ to theta_i and its joint distribution must be supplied for the population branch. Observed concentration: Y_ij=g(C_i(t_ij),epsilon_ij) only if a specified residual-error model is included. Population mean latent profile is E_i[C_i(t)] under the stated population distribution; a typical curve need not equal it. No Normal or lognormal law is implicit.",
+        "procedure": "1. State whether the question asks for typical latent exposure, population individual predictions, observed-value range, or parameter/model uncertainty. 2. Compute the typical trajectory from declared fixed effects and covariates. 3. Add BSV only with a supplied joint random-effects law and realistic covariate distribution. 4. Add residual error only when predicting observations. 5. Propagate fixed-effect uncertainty only from a qualified joint covariance/posterior or use explicitly labelled sensitivity scenarios. 6. For future population range predictions, propagate uncertainty in BSV parameters (omega) alongside fixed effects. 7. Report each layer separately before any combined analysis.",
+        "formula_and_parameterization": "Typical latent prediction: C_typ(t)=f(theta_typ,covariates,dose,t). Individual latent prediction: C_i(t)=f(theta_i,covariates_i,dose_i,t), where the mapping from theta_typ to theta_i and its joint distribution must be supplied for the population branch. Observed concentration: Y_ij=g(C_i(t_ij),epsilon_ij) only if a specified residual-error model is included. Population mean latent profile is E_i[C_i(t)] under the stated population distribution; a typical curve need not equal it. No Normal or lognormal law is implicit.",
+        "uncertainty_and_identifiability": "Uncertainty is epistemic (limited knowledge) and decreases with more data. Variability is aleatoric (system property) and does not decrease with sample size. Confusing these biases decision-making. Uncertainty in BSV parameters must be accounted for when predicting future population observed ranges.",
+        "diagnostics_and_failure_modes": "If BSV is unknown, retain the typical latent profile but do not report population percentiles. If parameter covariance/posterior is absent, do not turn marginal standard errors into a joint uncertainty band; use named one-at-a-time sensitivity scenarios if justified. If residual error is absent, do not claim an observed-concentration predictive range. If BSV uncertainty is unknown, label that layer unpropagated.",
+        "missing_input_and_partial_fallback": "If BSV is unknown, retain the typical latent profile but do not report population percentiles. If parameter covariance/posterior is absent, do not turn marginal standard errors into a joint uncertainty band; use named one-at-a-time sensitivity scenarios if justified. If residual error is absent, do not claim an observed-concentration predictive range. If BSV uncertainty is unknown, label that layer unpropagated.",
+        "output_and_interpretation": "Typical profile: single curve representing the 'typical' individual. Population distribution: range of individual predictions. Uncertainty bands: intervals over parameter uncertainty (epistemic). Mean profile: average of many simulated individuals with BSV. Threshold probability: calculated separately from an explicit event/distribution.",
+        "worked_example_and_counterexample": "Synthetic calculation only: for an IV bolus of 100 mg with CL=10 L/h and V=50 L, k=CL/V=0.2 h^-1, C_typ(0)=100/50=2 mg/L and C_typ(1 h)=2*exp(-0.2)=1.637 mg/L. Without a BSV law, this is not a population distribution. Without a joint parameter-uncertainty distribution, marginal CL/V standard errors alone do not create a defensible uncertainty band. Counterexample: Marginal CL and V standard errors without covariance do not define a joint uncertainty band."
+      },
+      "claim_support": [
+        {
+          "claim": "Typical estimates do not correspond to mean predictions; mean predictions require simulating BSV.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_022:0034"
+          ]
+        },
+        {
+          "claim": "Uncertainty represents limited knowledge and decreases with information; variability is a system property.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "SUP011:0003"
+          ]
+        },
+        {
+          "claim": "Correlation between random effects must be accounted for to avoid unrealistic parameter combinations.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_022:0035"
+          ]
+        },
+        {
+          "claim": "PD model translation uncertainty is often underestimated if only PK uncertainty is propagated.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "SUP011:0014"
+          ]
+        },
+        {
+          "claim": "Residual error is added only when observed concentration range is the main interest; latent population simulation does not require it.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_022:0035"
+          ]
+        },
+        {
+          "claim": "Uncertainty in BSV parameters must be accounted for when predicting future population observed ranges.",
+          "scope": "general_method",
+          "evidence_chunk_ids": [
+            "REF_022:0035"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "REF_022:0034",
+        "REF_022:0035",
+        "SUP011:0003",
+        "SUP011:0014"
+      ],
+      "id": "round10_reviewed_v2_G09:K01",
+      "topics": [
+        "human_simulation"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "REF_022",
+        "SUP011"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G09",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "source_vs_engineering_conventions": "Source-supported: Distinction between typical/mean profiles, definition of uncertainty vs. variability, need for covariance in BSV. Engineering convention: Host requires explicit distribution/covariance specification; default to reporting 'unknown' rather than assuming independence.",
+      "example_is_synthetic": "The example uses hypothetical parameters to illustrate the distinction between typical profile with parameter uncertainty and a full population simulation. It does not represent real drug data."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

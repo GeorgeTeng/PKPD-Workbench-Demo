@@ -1,0 +1,49 @@
+{
+  "cards": [
+    {
+      "title": "External Validation and Simulation Purpose",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Model validation must be specific to the intended purpose. External validation uses data not used for model building. Simulations can be based on fixed-effect estimates (typical profile), uncertainty of fixed effects (covariate effects/precision), or between-subject variability (population range). Revalidation is required if the simulation purpose differs from the original model purpose.",
+      "conditions": [
+        "Applicable when preparing a model for prospective prediction or regimen optimization.",
+        "Use when distinguishing between descriptive model fit and predictive performance."
+      ],
+      "required_inputs": [
+        "Provenance: Separate testing dataset for external validation; simulation settings matching the specific question.",
+        "Units/Basis: Concentration-time profiles for typical individuals or population distributions.",
+        "Prerequisites: Model must be structurally and deterministically identifiable.",
+        "Missing-input gates: If no external data is available, external validation cannot be performed; internal validation only."
+      ],
+      "limitations": [
+        "Internal validation (data splitting) may reduce power to detect covariates.",
+        "Simulations based on typical estimates do not represent mean predictions unless variability is included.",
+        "Source is nonbinding guidance; specific validation strategies are project-dependent."
+      ],
+      "downstream_use": "Conduct external validation if data permits. Select simulation type (fixed-effect vs. variability-based) based on whether the goal is to illustrate typical behavior or population distribution.",
+      "evidence_chunk_ids": [
+        "REF_022:0032",
+        "REF_022:0034",
+        "REF_022:0035"
+      ],
+      "id": "round2_A04:K04",
+      "origin_job": "round2_A04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_022"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A04",
+      "retrieval_keywords": "Residuals, VPC/pcVPC, convergence, uncertainty and external prediction diagnose different issues",
+      "supersedes": [
+        "source_SUP002:K04",
+        "module_data_eda:K02"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

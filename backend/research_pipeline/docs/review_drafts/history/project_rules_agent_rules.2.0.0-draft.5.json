@@ -1,0 +1,398 @@
+{
+  "document_type": "PROJECT_RULES_AGENT_PROCESSING_RULES_REVIEW",
+  "ruleset_id": "PROJECT_RULES_AGENT_PROCESSING",
+  "version": "2.0.0-draft.5",
+  "status": "DRAFT_PENDING_RULE_BY_RULE_REVIEW",
+  "enabled": false,
+  "review_date": "2026-10-07",
+  "scope": "Project Rules Agent extraction, organization, independent review and publication. These are processing instructions, never scientific project R rules.",
+  "responsibility_boundary": {
+    "compression": "Identify and preserve PROJECT_FACT and PROJECT_ASSUMPTION in the reviewed context with their information status and source evidence. Preserve original requirement wording without publishing formal project rules.",
+    "project_rules_agent": "Reuse relevant reviewed context and re-read original sources to extract, classify, review and publish project requirements. Do not build a second project-fact or project-assumption extraction catalogue.",
+    "missing_or_inconsistent_upstream_context": "Return a source-linked correction request to compression; do not silently rewrite main.json or discard the discrepancy.",
+    "implementation_status": "REVIEW_DRAFT_ONLY; runtime adapters and schemas unchanged"
+  },
+  "current_runtime": {
+    "module_contract": "1.1",
+    "processing_rules": "PRC001-PRC010 inline in project_rule_agent.py",
+    "unchanged_this_turn": true
+  },
+  "inherits": {
+    "artifact": "context_compression/ctxcomp/resources/workflow_governance.json",
+    "version": "1.2.0",
+    "ids": [
+      "G001",
+      "G002",
+      "G003",
+      "G004",
+      "G005",
+      "G006",
+      "G007"
+    ],
+    "delivery": "Supply the applicable full shared text to fresh requests; do not rely on IDs alone."
+  },
+  "settled_decisions": [
+    {
+      "decision": "Compression preserves original meaning; Project Rules Agent alone extracts and publishes formal project rules.",
+      "status": "PREVIOUSLY_CONFIRMED"
+    },
+    {
+      "decision": "Formal rules have a separate artifact and consumption-stage/timing annotations.",
+      "status": "PREVIOUSLY_CONFIRMED"
+    },
+    {
+      "decision": "Explicit authorized replacement relations permit updates while preserving prior versions; newer dates alone do not override.",
+      "status": "CONFIRMED_THIS_TURN"
+    },
+    {
+      "decision": "Define a downstream applicability/compliance check contract now; connect its execution later.",
+      "status": "CONFIRMED_THIS_TURN"
+    },
+    {
+      "decision": "Organized rules must be re-checked and re-validated; a prior draft review cannot approve changed final content.",
+      "status": "CONFIRMED_THIS_TURN"
+    },
+    {
+      "decision": "PROJECT_FACT and PROJECT_ASSUMPTION identification belongs to compression. Project Rules Agent reuses and checks that context while extracting requirements; upstream omissions return to compression.",
+      "status": "USER_DIRECTED_CORRECTION",
+      "decision_date": "2026-10-06"
+    }
+  ],
+  "rules": [
+    {
+      "id": "PRC001",
+      "title": "Original sources and adoption status",
+      "instruction": "Recheck the original project materials. Activate a requirement only when its project authority and adoption status are supported.",
+      "checks": [
+        "Read the original proposal and any explicitly designated protocols, supplements, clarifications and review decisions.",
+        "Distinguish draft, proposed, approved, withdrawn and superseded statements; do not infer status from filenames or dates.",
+        "Treat cited papers as evidence unless an authorized project statement explicitly adopts a specific requirement."
+      ],
+      "human_review": {
+        "status": "APPROVED",
+        "decision_date": "2026-10-06",
+        "decision_quote": "同意",
+        "scope": "PRC001 wording and its source-adoption-status gap recommendation; no runtime activation.",
+        "clarification": "Existing explicit user authorization can be reused without requesting the same confirmation again.",
+        "change_policy": "Re-review this rule if its approved meaning, scope or conditions change."
+      },
+      "general_rules": [
+        "G002",
+        "G006"
+      ]
+    },
+    {
+      "id": "PRC002",
+      "title": "Requirement classification and upstream context reuse",
+      "instruction": "Reuse project facts and assumptions identified by compression. Extract and classify candidate project requirements from original materials; do not repeat upstream fact or assumption extraction. Only supported binding requirements enter the active rule collection.",
+      "checks": [
+        "Reference the relevant reviewed main.json content and source evidence; keep source-stated facts and assumptions distinct without treating either as independently verified.",
+        "For a mixed statement, extract any explicit obligation to use an assumption and link it to the upstream assumption; the assumption does not become a verified fact.",
+        "Distinguish binding requirements from literature facts, candidate suggestions and unresolved requirement statements.",
+        "Record non-rule source coverage and exclusion reasons without recreating the upstream fact or assumption catalogue.",
+        "If original materials expose missing or inconsistent upstream facts or assumptions, request a source-linked compression correction; do not silently rewrite the context."
+      ],
+      "human_review": {
+        "status": "REVISED_PER_USER_DIRECTION",
+        "decision_date": "2026-10-06",
+        "decision_quote": "`PROJECT_FACT` 和 `PROJECT_ASSUMPTION`  这一部分需要在compression中完成",
+        "scope": "Move project-fact and project-assumption identification to compression; retain requirement extraction and verification in Project Rules Agent. This replaces the earlier ownership recommendation; no runtime activation.",
+        "clarification": "The previous approval does not approve changed final wording. The ownership correction is user-directed; remaining rule-by-rule review continues.",
+        "change_policy": "Re-review this rule if its approved meaning, scope or conditions change."
+      },
+      "review_history": [
+        {
+          "version": "2.0.0-draft.1",
+          "title": "Statement classification",
+          "instruction": "Distinguish project objectives, facts, assumptions, binding requirements, literature facts, suggestions and unresolved statements. Only supported binding requirements enter the active rule collection.",
+          "checks": [
+            "Separate mixed statements while preserving their relationships and source evidence.",
+            "Distinguish an assumption from an explicit requirement to use that assumption.",
+            "Retain non-rule statements and classification reasons in the audit."
+          ],
+          "human_review": {
+            "status": "APPROVED",
+            "decision_date": "2026-10-06",
+            "decision_quote": "合理",
+            "scope": "PRC002 wording and the recommendation to add PROJECT_FACT and PROJECT_ASSUMPTION; no runtime activation.",
+            "clarification": "An obligation to use an assumption does not make that assumption a verified fact.",
+            "change_policy": "Re-review this rule if its approved meaning, scope or conditions change."
+          },
+          "superseded_scope": "Extraction ownership for project facts and assumptions; replaced by the user's explicit compression-ownership correction."
+        }
+      ],
+      "general_rules": [
+        "G002"
+      ]
+    },
+    {
+      "id": "PRC003",
+      "title": "Preserve complete requirement meaning",
+      "instruction": "Preserve each requirement's original meaning, strength, scope, conditions and exceptions during extraction and organization.",
+      "checks": [
+        "Interpret must, should, may, must not and only if in context; keywords alone do not establish obligation strength.",
+        "Preserve the actor or target, logical operators, timing, triggers and exceptions, including linked qualifications across paragraphs, tables and footnotes.",
+        "Apply the relevant 13-category scientific preservation checklist and its versioned PK terminology appendix; do not import compression-only workflow instructions.",
+        "Keep unstated or ambiguous details explicit. Do not invent thresholds, applicability, permissions or conditions."
+      ],
+      "general_rules": [
+        "G004"
+      ],
+      "on_failure": "Return a source-linked revision or clarification finding. Never silently repair or strengthen the requirement.",
+      "review_history": [
+        {
+          "version": "2.0.0-draft.2",
+          "status": "UNAPPROVED_DRAFT_REPLACED",
+          "rule": {
+            "id": "PRC003",
+            "title": "Complete obligation meaning",
+            "instruction": "Preserve the actor or target, obligation or prohibition, scope, trigger, conditions, exceptions and all consequential scientific definitions. Formatting or consolidation must not change logical operators or obligation strength.",
+            "checks": [
+              "Distinguish must, may, should, must not and only if using the original context; unresolved strength requires clarification.",
+              "Use the complete applicable 13-category preservation profile without requiring unstated scientific data.",
+              "Keep linked conditions from multiple paragraphs together; no invented thresholds, freeze conditions or parameter permissions."
+            ],
+            "general_rules": [
+              "G004"
+            ]
+          }
+        }
+      ],
+      "human_review": {
+        "status": "APPROVED",
+        "decision_date": "2026-10-07",
+        "decision_quote": "通过",
+        "scope": "The exact PRC003 title, instruction, four checks and on_failure text presented immediately before this decision.",
+        "clarification": "Approval of this rule text only; other pending PRC rules remain pending and runtime activation is unchanged.",
+        "change_policy": "Re-review if the approved meaning, scope or conditions change."
+      }
+    },
+    {
+      "id": "PRC004",
+      "title": "Verify meaning and adoption evidence",
+      "instruction": "Check separately that the source supports the complete requirement and that authorized project evidence supports its adoption.",
+      "checks": [
+        "Link each consequential clause to exact source spans and their context; quotation matching alone does not establish meaning.",
+        "Verify project adoption and its scope. Read permission, document type or publication status alone does not authorize a requirement.",
+        "Check relevant cross-references and contradictory evidence; do not select only passages supporting the proposed rule.",
+        "Distinguish unavailable, unreadable, unsearched, searched-but-not-found and explicitly absent evidence."
+      ],
+      "general_rules": [
+        "G002",
+        "G004"
+      ],
+      "on_failure": "Keep unsupported requirements unpublished and identify whether meaning, adoption or evidence access requires clarification.",
+      "review_history": [
+        {
+          "version": "2.0.0-draft.3",
+          "status": "UNAPPROVED_DRAFT_REPLACED",
+          "rule": {
+            "id": "PRC004",
+            "title": "Evidence support and authority support",
+            "instruction": "Check separately that cited text supports the rule's meaning and that a permitted project source authorizes its adoption. Exact quotation matching alone is insufficient.",
+            "checks": [
+              "Link each consequential clause and qualifier to source spans, including cross-references.",
+              "The independent reviewer must test entailment, counterevidence and permission scope, not just quote existence.",
+              "Unprovided, unreadable, unsearched, searched-but-not-found and explicitly absent evidence are different states."
+            ],
+            "general_rules": [
+              "G002",
+              "G004"
+            ]
+          }
+        }
+      ],
+      "human_review": {
+        "status": "APPROVED",
+        "decision_date": "2026-10-07",
+        "decision_quote": "同意",
+        "scope": "The exact PRC004 title, instruction, four checks and on_failure text presented before this decision.",
+        "clarification": "The user clarified agreement after the ambiguous message. PRC003 and PRC004 remain separate. Approval covers this rule only; other pending rules remain pending and runtime activation is unchanged.",
+        "change_policy": "Re-review if the approved meaning, scope or conditions change."
+      }
+    },
+    {
+      "id": "PRC005",
+      "title": "Consolidate without losing meaning",
+      "instruction": "Remove duplication while preserving every distinct obligation, qualification and source.",
+      "checks": [
+        "Merge exact duplicates only after confirming identical meaning, obligation strength, applicability, conditions and exceptions.",
+        "For semantic merging or splitting, preserve each original obligation and review the resulting text against all contributing source clauses.",
+        "Keep requirements separate when consolidation would hide different scopes, conditions, permissions or prohibitions.",
+        "Retain all source references and traceable mappings from original clauses to final rules."
+      ],
+      "general_rules": [
+        "G004",
+        "G005"
+      ],
+      "on_failure": "Keep the affected requirements separate and report the specific ambiguity or conflict for resolution.",
+      "review_history": [
+        {
+          "version": "2.0.0-draft.4",
+          "status": "UNAPPROVED_DRAFT_REPLACED",
+          "rule": {
+            "id": "PRC005",
+            "title": "Consolidation without loss",
+            "instruction": "Consolidate only obligations with compatible meaning and scope. Preserve each distinct qualifier, source and source-to-final-rule mapping.",
+            "checks": [
+              "Retain exact-duplicate merging as the deterministic baseline.",
+              "If semantic merging, splitting or wording changes are proposed, review the resulting text and all contributing original clauses.",
+              "A mixed permitted/prohibited or conditional statement must not become a blanket rule."
+            ],
+            "general_rules": ["G004", "G005"]
+          }
+        }
+      ],
+      "human_review": {
+        "status": "APPROVED_CONTENT_PLACEMENT_REVIEW_REQUESTED",
+        "decision_date": "2026-10-07",
+        "decision_quote": "同意 但是这些是不是在general rules已经有了像这些通用的应该放在general里而不是单独的对吧 recheck this part for me",
+        "scope": "The previously presented PRC005 content is accepted; the user requested a general-versus-module ownership review. This does not approve retaining PRC005 as a separate rule or activate runtime changes.",
+        "change_policy": "Keep the approved text in history when relocating it. Changed meaning or newly proposed shared wording remains subject to review."
+      },
+      "placement_review": {
+        "status": "PROPOSED_REMOVE_STANDALONE_DUPLICATION",
+        "audit": "project_rules_general_overlap.review.json",
+        "general_owners": ["G001", "G004", "G005", "G006"],
+        "module_destination": "PRC011 source-unit-to-candidate-to-final-rule coverage checks",
+        "implementation": "Ownership review only; no runtime activation, renumbering or deletion of approved history."
+      }
+    },
+    {
+      "id": "PRC006",
+      "title": "Explicit amendments and conflicts",
+      "instruction": "An authorized clarification or review decision may replace an earlier requirement only through an explicit, traceable replacement relation that identifies the affected requirement, scope and activation condition. A newer date alone does not override an older source.",
+      "checks": [
+        "Record the predecessor artifact/version and rule or original source clause; identify exactly what changes and what remains.",
+        "Retain old versions, evidence and the amendment decision; do not silently merge contradictory obligations.",
+        "Missing authority, ambiguous replacement scope or unresolved conflicts block the affected rule publication."
+      ],
+      "general_rules": [
+        "G001",
+        "G002",
+        "G006"
+      ]
+    },
+    {
+      "id": "PRC007",
+      "title": "Stage and biological applicability",
+      "instruction": "Record where a rule is consumed and distinguish source-stated applicability from a workflow mapping. Dispatch to a stage does not prove applicability to a particular dataset or analysis.",
+      "checks": [
+        "Preserve species, population, matrix, free/total basis, endpoint and relevant study restrictions.",
+        "Allow an explicit UNASSIGNED routing state with a reason; never force a guessed stage to satisfy the schema.",
+        "Unknown scope is neither universal applicability nor permission to exclude the rule; downstream metadata must resolve relevant conditions."
+      ],
+      "general_rules": [
+        "G003",
+        "G004",
+        "G005"
+      ]
+    },
+    {
+      "id": "PRC008",
+      "title": "Material gaps and release decisions",
+      "instruction": "Distinguish uncertainty about an obligation from missing scientific information. An unresolved authority, meaning, conflict or required applicability decision blocks publication; a faithfully represented non-obligation or explicitly later-stage data gap may remain a warning.",
+      "checks": [
+        "For every issue record its ID, affected field/rules, status, needed_at, impact, requested clarification/material and blocking reason.",
+        "Do not demand later-stage measurements now or invent extra project requirements to fill a gap.",
+        "Classify BLOCK_PUBLICATION versus WARN_OR_DEFER explicitly; an unknown with unresolved impact cannot be silently downgraded."
+      ],
+      "general_rules": [
+        "G004",
+        "G007"
+      ]
+    },
+    {
+      "id": "PRC009",
+      "title": "Objective and effective-context consistency",
+      "instruction": "Check the rule collection against the source-supported project question and the effective scientific context. A pure objective is not a rule; a consequential restriction remains mandatory even when it limits the objective.",
+      "checks": [
+        "Review semantic objective duplication, not only identical strings.",
+        "Compare obligations against relevant study, data-use, checks and uncertainty statements in main.json.",
+        "If an amendment changes the objective or leaves contradictory effective context, request the appropriate context revision before publishing a consistent handoff; do not silently rewrite the objective."
+      ],
+      "general_rules": [
+        "G003",
+        "G004"
+      ]
+    },
+    {
+      "id": "PRC010",
+      "title": "Identity and time semantics",
+      "instruction": "Keep source citations, dataset identifiers, workflow phases and scientific observation windows distinct. Assign only identifiers supplied by the host.",
+      "checks": [
+        "Before allocation, leave downstream task/dataset ID lists empty; preserve restrictions in text and typed scope.",
+        "Separate observation_window from required_phase, trigger and scientific deadline; do not infer one from another.",
+        "Use NOT_SPECIFIED for unstated scalar values; add an explicit applicability-status field so an empty array does not mean universal scope."
+      ],
+      "general_rules": [
+        "G001",
+        "G004"
+      ]
+    },
+    {
+      "id": "PRC011",
+      "title": "Re-check the final organized rule package",
+      "instruction": "Independently re-check the organized candidate rule package against the original sources, then re-validate its contract before publication. Review approval binds the exact final content and scope.",
+      "checks": [
+        "Perform faithfulness, completeness and global-conflict checks with separate recorded outcomes in a fresh reviewer invocation; they need not be three redundant model calls.",
+        "Require bidirectional source-unit, candidate-item and final-rule coverage; NO_REQUIREMENT cannot coexist with a mapped obligation supported by the same relevant source clauses.",
+        "Any change to meaning, conditions, exceptions, adoption, source or scope after review invalidates that review; create a new candidate and re-check. Retain failures, not repeated unchanged sampling for PASS."
+      ],
+      "general_rules": [
+        "G004",
+        "G006",
+        "G007"
+      ]
+    },
+    {
+      "id": "PRC012",
+      "title": "Publish and prepare for downstream re-validation",
+      "instruction": "Publish the active collection only in project_rules.json and reference it from main.json. Deliver complete applicable rule records and a version-bound contract for later checks at each consuming stage.",
+      "checks": [
+        "Before release, validate publication status, exact reviewed content, source references, replacement lineage and effective-main binding.",
+        "At use, re-validate the rule version, project/task binding and applicable conditions; a usage label is not evidence of compliance.",
+        "Downstream check records distinguish applicability from compliance. Execution of these checkpoints is deferred in this iteration by user decision."
+      ],
+      "general_rules": [
+        "G001",
+        "G005",
+        "G006",
+        "G007"
+      ]
+    }
+  ],
+  "scientific_preservation_profile": {
+    "status": "PROPOSED_SHARED_PROFILE_REUSE_WITHOUT_IMPORTING_COMPRESSION_ONLY_ACCESS_RULES",
+    "categories": [
+      "Quantities and units",
+      "Drug and analyte identity",
+      "Biological context",
+      "Dosing definitions",
+      "Time definitions",
+      "Endpoints and comparators",
+      "Experimental units and data levels",
+      "Statistical summaries",
+      "Variable and parameter definitions",
+      "Transformations and normalization",
+      "Information status",
+      "Relationships and matching",
+      "Logic, scope and exceptions"
+    ],
+    "delivery": "Reuse the full approved category details through a module-appropriate versioned profile; category names alone are not sufficient instructions."
+  },
+  "proposed_flow": [
+    "Receive reviewed facts and assumptions from compression; extract candidate project requirements from original materials",
+    "Deterministically organize a candidate rule package and its source mappings; do not publish",
+    "Fresh independent reviewer re-checks that organized package against all admitted original sources",
+    "Host re-validates schema, mappings, bindings, release conditions and final reviewed content",
+    "Publish immutable project_rules.json and the effective main reference",
+    "At downstream use, re-validate identity and applicability; execution adapter is deferred"
+  ],
+  "review_efficiency": "Organize the candidate before independent semantic review so the reviewer sees the final content. If no scientific content changes afterward, final publication uses deterministic validation. If it changes, a new semantic review is required. This does not implement project-wide selective reruns.",
+  "qualification": {
+    "status": "REQUIRED_BEFORE_FORMAL_USE_OF_CHANGED_RULES; NOT_RUN_THIS_TURN",
+    "method": "Human-labeled withheld examples and real-model blind evaluation, including known critical semantic errors and valid negative cases.",
+    "metrics": "Agree acceptance criteria before the evaluation; offline fixture PASS is not real-model accuracy."
+  }
+}

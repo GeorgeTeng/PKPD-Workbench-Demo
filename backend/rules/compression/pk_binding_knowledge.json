@@ -1,0 +1,753 @@
+{
+  "version": "2.0.0",
+  "authority": "TERMINOLOGY_AND_BINDING_GUIDANCE_ONLY",
+  "use": "Read source propositions using this English reference. Terms in a family are related, not interchangeable. Only aliases explicitly map alternative names. Source definitions override conventional symbols; preserve unfamiliar terms too. This is neither a completeness whitelist nor evidence of project facts, selected methods or obligations.",
+  "organization": "Dose input -> exposure -> disposition -> exposure basis -> modeling. Consult evaluation, translation and PK/PD extensions when relevant; their presence does not require those analyses.",
+  "groups": [
+    {
+      "id": "CPK01",
+      "topic": "Dose input and absorption",
+      "level": "CORE",
+      "references": [
+        "S07",
+        "S08",
+        "D02"
+      ],
+      "concepts": [
+        {
+          "id": "dose",
+          "name": "Dose amount",
+          "terms": [
+            "dose per administration",
+            "total daily dose",
+            "loading dose",
+            "maintenance dose"
+          ],
+          "check": "Retain amount, units, formulation and absolute versus body-weight-normalized basis; one administration is not one day."
+        },
+        {
+          "id": "schedule",
+          "name": "Dosing schedule",
+          "terms": [
+            "dosing interval",
+            "number of doses",
+            "single dose",
+            "multiple dose"
+          ],
+          "aliases": {
+            "tau": "dosing interval"
+          },
+          "check": "Keep route and schedule with the dose; do not infer either from a concentration curve."
+        },
+        {
+          "id": "input",
+          "name": "Administration input",
+          "terms": [
+            "IV bolus",
+            "IV infusion",
+            "infusion rate",
+            "infusion duration",
+            "extravascular administration"
+          ],
+          "check": "Bolus and infusion have different inputs; retain rate and duration separately. Preserve any named extravascular route."
+        },
+        {
+          "id": "absorption",
+          "name": "Absorption rate and delay",
+          "terms": [
+            "ka",
+            "absorption lag time",
+            "mean transit time",
+            "depot"
+          ],
+          "aliases": {
+            "Tlag": "absorption lag time",
+            "MTT": "mean transit time"
+          },
+          "check": "ka is an absorption rate constant; lag and transit times are distinct delay representations, not elimination half-lives."
+        },
+        {
+          "id": "bioavailability",
+          "name": "Extent of systemic availability",
+          "terms": [
+            "absolute bioavailability",
+            "relative bioavailability"
+          ],
+          "check": "Confirm the source definition and reference route/formulation; do not assign an absolute F from a relative comparison.",
+          "symbols": [
+            "F",
+            "Frel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CPK02",
+      "topic": "Concentration and exposure",
+      "level": "CORE",
+      "references": [
+        "S02",
+        "D01",
+        "D02",
+        "D03",
+        "D04"
+      ],
+      "concepts": [
+        {
+          "id": "concentration",
+          "name": "Concentration summaries",
+          "terms": [
+            "Cmax",
+            "Tmax",
+            "Cmin",
+            "Ctrough",
+            "Cavg",
+            "C0"
+          ],
+          "check": "Retain sampled versus model-derived values and the time window. Cmin is the interval minimum; Ctrough is tied to predose timing. C0 may be extrapolated."
+        },
+        {
+          "id": "auc",
+          "name": "Concentration-time integral",
+          "terms": [
+            "AUC",
+            "AUC0-t",
+            "AUC0-inf",
+            "AUC0-24",
+            "AUCtau",
+            "partial AUC"
+          ],
+          "check": "Preserve integration limits, time units, sampling origin and first-dose versus steady-state status. Extrapolated and observed-window exposure differ."
+        },
+        {
+          "id": "moments",
+          "name": "Time-weighted exposure and residence",
+          "terms": [
+            "AUMC",
+            "MRT"
+          ],
+          "check": "AUMC is the first moment of the concentration-time curve; MRT is mean residence time. Preserve route, integration window and input-duration correction; MRT is not MTT or half-life."
+        },
+        {
+          "id": "accumulation",
+          "name": "Repeated-dose exposure",
+          "terms": [
+            "steady state",
+            "accumulation ratio",
+            "peak-to-trough ratio"
+          ],
+          "aliases": {
+            "Rac": "accumulation ratio"
+          },
+          "check": "Specify which metric is ratioed and its reference dose/window; a simulated steady-state profile is not an observed one."
+        },
+        {
+          "id": "normalization",
+          "name": "Dose-exposure relationship",
+          "terms": [
+            "dose-normalized concentration",
+            "dose-normalized AUC",
+            "dose proportionality",
+            "dose-exposure power model"
+          ],
+          "aliases": {
+            "C/Dose": "dose-normalized concentration"
+          },
+          "check": "Retain the normalization denominator and fitted slope/interval. Nonproportional exposure alone does not identify its mechanism."
+        }
+      ]
+    },
+    {
+      "id": "CPK03",
+      "topic": "Distribution and elimination",
+      "level": "CORE",
+      "references": [
+        "S01",
+        "S05",
+        "S07",
+        "D02",
+        "D03"
+      ],
+      "concepts": [
+        {
+          "id": "clearance",
+          "name": "Clearance measures",
+          "terms": [
+            "CL",
+            "CL/F",
+            "CLu",
+            "CLR",
+            "CLH",
+            "CLint"
+          ],
+          "check": "Separate systemic, apparent, unbound, renal, hepatic and intrinsic clearance. Bind each to its concentration basis, units and organ/system definition; do not cancel an unknown F."
+        },
+        {
+          "id": "volume",
+          "name": "Distribution volumes",
+          "terms": [
+            "Vc",
+            "Vp",
+            "Vss",
+            "Vz",
+            "V/F"
+          ],
+          "check": "Central, peripheral, steady-state, terminal-phase and apparent volumes differ. V1/V2 labels need the source compartment mapping; Vss alone is not Vc."
+        },
+        {
+          "id": "exchange",
+          "name": "Intercompartmental exchange",
+          "terms": [
+            "intercompartmental clearance",
+            "k12",
+            "k21"
+          ],
+          "check": "Confirm the source meaning of Q; organ blood flow may use the same symbol. Exchange clearance and first-order transfer constants have different units.",
+          "symbols": [
+            "Q"
+          ]
+        },
+        {
+          "id": "slopes",
+          "name": "Elimination and curve slopes",
+          "terms": [
+            "k10",
+            "kel",
+            "alpha",
+            "beta",
+            "lambda_z"
+          ],
+          "check": "Distinguish model micro-rate constants from hybrid exponential slopes and the estimated terminal slope; compartment assumptions govern any equality."
+        },
+        {
+          "id": "halflife",
+          "name": "Half-life",
+          "terms": [
+            "terminal half-life",
+            "distribution half-life",
+            "absorption half-life"
+          ],
+          "check": "Retain the phase and estimation window. After extravascular dosing, a terminal slope can reflect absorption rather than elimination."
+        },
+        {
+          "id": "excretion",
+          "name": "Urinary recovery",
+          "terms": [
+            "amount excreted unchanged",
+            "fraction excreted unchanged"
+          ],
+          "aliases": {
+            "Ae": "amount excreted unchanged",
+            "fe": "fraction excreted unchanged"
+          },
+          "check": "Keep collection window and dose denominator; link renal clearance to the matching plasma exposure interval."
+        }
+      ]
+    },
+    {
+      "id": "CPK04",
+      "topic": "Free, total and tissue exposure",
+      "level": "CORE",
+      "references": [
+        "S07",
+        "S08",
+        "S09",
+        "S12"
+      ],
+      "concepts": [
+        {
+          "id": "basis",
+          "name": "Concentration basis",
+          "terms": [
+            "total concentration",
+            "unbound concentration",
+            "bound fraction",
+            "unbound fraction",
+            "fAUC",
+            "fCmax"
+          ],
+          "aliases": {
+            "free concentration": "unbound concentration",
+            "fu": "unbound fraction"
+          },
+          "check": "Bound and unbound fractions differ; do not apply an unbound conversion twice or treat nonspecific assay adsorption as protein binding. For fAUC/fCmax, retain the source's free-exposure definition and window."
+        },
+        {
+          "id": "binding",
+          "name": "Binding measurement",
+          "terms": [
+            "fu,p",
+            "fu,b",
+            "concentration-dependent binding",
+            "equilibrium dialysis",
+            "ultrafiltration",
+            "nonspecific binding"
+          ],
+          "aliases": {
+            "fup": "fu,p",
+            "fub": "fu,b",
+            "NSB": "nonspecific binding"
+          },
+          "check": "Retain matrix, species, method, concentration range and measured versus assumed status; animal binding does not establish human binding."
+        },
+        {
+          "id": "partition",
+          "name": "Site-specific exposure",
+          "terms": [
+            "blood-to-plasma ratio",
+            "tissue-to-plasma ratio",
+            "Kp",
+            "Kp,uu",
+            "epithelial lining fluid",
+            "lung homogenate",
+            "microdialysis"
+          ],
+          "aliases": {
+            "ELF": "epithelial lining fluid"
+          },
+          "check": "Keep ratio numerator/denominator, free/total basis and concentration versus AUC basis. Plasma, serum, blood, ELF and homogenate are distinct; retain sampling/dilution corrections."
+        }
+      ]
+    },
+    {
+      "id": "CPK05",
+      "topic": "Model structure and estimation",
+      "level": "CORE",
+      "references": [
+        "S02",
+        "S03",
+        "S05",
+        "S06"
+      ],
+      "concepts": [
+        {
+          "id": "nca",
+          "name": "Noncompartmental analysis",
+          "terms": [
+            "noncompartmental analysis",
+            "linear trapezoidal integration",
+            "linear-up/log-down integration",
+            "AUC extrapolated fraction"
+          ],
+          "aliases": {
+            "NCA": "noncompartmental analysis"
+          },
+          "check": "NCA is an analysis approach, not a compartment count; keep the integration and terminal extrapolation methods."
+        },
+        {
+          "id": "structure",
+          "name": "Compartment structure",
+          "terms": [
+            "one-compartment model",
+            "two-compartment model",
+            "three-compartment model"
+          ],
+          "aliases": {
+            "1C": "one-compartment model",
+            "2C": "two-compartment model",
+            "3C": "three-compartment model"
+          },
+          "check": "Keep input, elimination and parameterization with compartment count; a curved plot alone does not choose a structure."
+        },
+        {
+          "id": "kinetics",
+          "name": "Kinetic assumptions",
+          "terms": [
+            "first-order kinetics",
+            "zero-order kinetics",
+            "Michaelis-Menten elimination",
+            "Vmax",
+            "Km",
+            "flip-flop kinetics"
+          ],
+          "check": "Separate rate law from compartment count. A saturable model is not evidence that saturation occurred; preserve which process is nonlinear."
+        },
+        {
+          "id": "fitunit",
+          "name": "Fitting level",
+          "terms": [
+            "nonlinear least squares",
+            "group-mean curve fit",
+            "nonlinear mixed-effects model"
+          ],
+          "aliases": {
+            "NLS": "nonlinear least squares",
+            "NLME": "nonlinear mixed-effects model",
+            "NLMEM": "nonlinear mixed-effects model"
+          },
+          "check": "Do not equate pooled/mean fits with individual mixed-effects fits or reconstruct animal identities from summary curves."
+        },
+        {
+          "id": "variation",
+          "name": "Variability components",
+          "terms": [
+            "interindividual variability",
+            "interoccasion variability",
+            "residual unexplained variability",
+            "random-effects covariance",
+            "eta",
+            "epsilon"
+          ],
+          "aliases": {
+            "IIV": "interindividual variability",
+            "IOV": "interoccasion variability",
+            "RUV": "residual unexplained variability"
+          },
+          "check": "Variability and parameter-estimation uncertainty differ; retain covariance/correlation and the experimental unit. Do not invent IIV from mean data."
+        },
+        {
+          "id": "error",
+          "name": "Observation model",
+          "terms": [
+            "additive error",
+            "proportional error",
+            "combined error",
+            "log-normal error",
+            "censored likelihood",
+            "M3"
+          ],
+          "check": "Keep response scale, error assumptions and BLQ handling. A censoring method name does not supply a missing quantification limit."
+        },
+        {
+          "id": "estimation",
+          "name": "Estimation algorithms",
+          "terms": [
+            "FOCEI",
+            "SAEM",
+            "maximum likelihood",
+            "Bayesian estimation"
+          ],
+          "check": "FOCEI and SAEM are estimation algorithms, not compartment models. Retain objective, approximation, priors and convergence information where stated."
+        },
+        {
+          "id": "software",
+          "name": "Execution software",
+          "terms": [
+            "nlmixr",
+            "nlmixr2",
+            "NONMEM",
+            "Monolix"
+          ],
+          "check": "Software/version is distinct from the model and algorithm; naming a tool neither selects a method nor proves it was run."
+        }
+      ]
+    },
+    {
+      "id": "CPK06",
+      "topic": "Evaluation and uncertainty",
+      "level": "CONDITIONAL",
+      "references": [
+        "S04",
+        "S05",
+        "S11"
+      ],
+      "concepts": [
+        {
+          "id": "criteria",
+          "name": "Fit and comparison criteria",
+          "terms": [
+            "log likelihood",
+            "OFV",
+            "AIC",
+            "AICc",
+            "BIC",
+            "R-squared"
+          ],
+          "aliases": {
+            "R2": "R-squared"
+          },
+          "check": "Retain observation set, likelihood/response scale, parameter count and comparison scope; a best score alone does not validate prediction."
+        },
+        {
+          "id": "residuals",
+          "name": "Residual diagnostics",
+          "terms": [
+            "observed versus predicted",
+            "residual versus time",
+            "residual versus prediction",
+            "WRES",
+            "CWRES",
+            "IWRES"
+          ],
+          "check": "Keep residual definition and conditioning; an image path or scalar summary is not evidence that a residual plot was visually reviewed."
+        },
+        {
+          "id": "predictivechecks",
+          "name": "Simulation-based checks",
+          "terms": [
+            "VPC",
+            "pcVPC",
+            "NPC",
+            "NPDE"
+          ],
+          "check": "Use the named diagnostic only with its data/design and predictive distribution; mixed-effects diagnostics are not blanket obligations for every PK model."
+        },
+        {
+          "id": "uncertainty",
+          "name": "Uncertainty summaries",
+          "terms": [
+            "confidence interval",
+            "prediction interval",
+            "credible interval",
+            "relative standard error",
+            "bootstrap",
+            "sensitivity analysis"
+          ],
+          "aliases": {
+            "CI": "confidence interval",
+            "RSE": "relative standard error"
+          },
+          "check": "Retain interval level, target and resampling unit; parameter uncertainty, future observations and assumed population variability differ."
+        },
+        {
+          "id": "estimability",
+          "name": "Estimation reliability",
+          "terms": [
+            "convergence",
+            "identifiability",
+            "parameter correlation",
+            "condition number",
+            "shrinkage"
+          ],
+          "check": "Optimizer success is not identifiability. Distinguish parameter-estimate correlation from random-effects correlation; preserve failed or unavailable checks."
+        }
+      ]
+    },
+    {
+      "id": "CPK07",
+      "topic": "Animal-to-human translation",
+      "level": "CONDITIONAL",
+      "references": [
+        "S01",
+        "S07",
+        "S10",
+        "S12"
+      ],
+      "concepts": [
+        {
+          "id": "scaling",
+          "name": "Interspecies scaling",
+          "terms": [
+            "allometric scaling",
+            "allometric coefficient",
+            "allometric exponent",
+            "reference body weight",
+            "unbound-clearance scaling"
+          ],
+          "check": "Retain predicted parameter, weight basis, species set and estimated versus fixed exponent; no exponent or binding correction is universally supplied by this glossary."
+        },
+        {
+          "id": "ivive",
+          "name": "In vitro to in vivo extrapolation",
+          "terms": [
+            "in vitro to in vivo extrapolation",
+            "in vitro intrinsic clearance",
+            "unbound fraction in incubation",
+            "organ blood flow",
+            "extraction ratio"
+          ],
+          "aliases": {
+            "IVIVE": "in vitro to in vivo extrapolation",
+            "fu,inc": "unbound fraction in incubation"
+          },
+          "check": "Preserve system, units, physiological scaling factors and equations. Incubation, plasma and blood binding are not interchangeable."
+        },
+        {
+          "id": "humanmodel",
+          "name": "Human concentration-time prediction",
+          "terms": [
+            "predicted human clearance",
+            "predicted human distribution volume",
+            "human IV simulation",
+            "prospective prediction"
+          ],
+          "check": "Keep compatible parameter sets, compartment structure and dosing input. CL and Vss do not uniquely identify an arbitrary multicompartment curve."
+        },
+        {
+          "id": "validation",
+          "name": "Prediction evaluation",
+          "terms": [
+            "held-out species",
+            "independent validation",
+            "fold prediction error",
+            "prediction bias",
+            "prediction precision"
+          ],
+          "check": "Retain validation target and error definition. Animal holdout performance is not target-drug human validation; no human data means human outputs remain prospective."
+        }
+      ]
+    },
+    {
+      "id": "CPK08",
+      "topic": "PK/PD handoff",
+      "level": "CONDITIONAL",
+      "references": [
+        "S07",
+        "S08",
+        "S09",
+        "S10"
+      ],
+      "concepts": [
+        {
+          "id": "potency",
+          "name": "Susceptibility measurement",
+          "terms": [
+            "MIC",
+            "MIC50",
+            "MIC90",
+            "broth microdilution"
+          ],
+          "check": "Retain isolate, method and conditions. A population MIC90 is not a matched isolate MIC; MIC is not EC50."
+        },
+        {
+          "id": "indices",
+          "name": "Exposure indices",
+          "terms": [
+            "fAUC/MIC",
+            "fCmax/MIC",
+            "fT>MIC",
+            "%fT>MIC",
+            "dose fractionation"
+          ],
+          "check": "Retain free exposure, MIC pairing and exposure window. Explicitly distinguish duration, fraction and percentage for time above MIC; an index is not its effect target."
+        },
+        {
+          "id": "response",
+          "name": "Exposure-response models",
+          "terms": [
+            "Emax",
+            "EC50",
+            "Hill coefficient",
+            "effect compartment",
+            "ke0"
+          ],
+          "check": "Keep response definition, sign, units and source parameterization; maximum effect, half-maximal exposure and slope are separate parameters."
+        },
+        {
+          "id": "target",
+          "name": "Effect target",
+          "terms": [
+            "change in log10 CFU",
+            "stasis",
+            "1-log kill",
+            "2-log kill",
+            "resistance suppression",
+            "regrowth"
+          ],
+          "check": "Retain baseline/comparator and endpoint time; growth inhibition, bacterial killing and resistance suppression are different objectives."
+        },
+        {
+          "id": "pta",
+          "name": "Target attainment",
+          "terms": [
+            "PK/PD target magnitude",
+            "PTA",
+            "CFR",
+            "MIC distribution",
+            "Monte Carlo simulation",
+            "virtual population"
+          ],
+          "check": "Bind target, regimen, MIC and population assumptions. MIC-specific attainment and MIC-weighted summaries differ; PTA is not cure probability and assumed human IIV remains a scenario."
+        }
+      ]
+    }
+  ],
+  "supporting_metadata": "Bind to drug/analyte, study/analysis, species and subject/group; retain other descriptors only when consequential. Never infer a match from species alone.",
+  "data_qualifiers": [
+    "Preserve units, time origin/window, raw versus digitized and individual versus summary data, sampling unit and n; mean/median and SD/SEM/CV are distinct. Do not infer serial identity from destructive sampling.",
+    "Keep BLQ/BQL, LLOQ/ULOQ, LOD, missing and zero distinct; preserve assay limits and missingness reasons. Never invent a limit or treatment policy."
+  ],
+  "shared_guidance": "Use scientific_extraction.json for role/evidence status and CC005 for all 13 preservation categories, including negation, conditions and exceptions; these are not duplicated as PK keyword lists.",
+  "references": [
+    {
+      "id": "S01",
+      "citation": "Rowland et al. (1973). Clearance concepts in pharmacokinetics.",
+      "url": "https://link.springer.com/article/10.1007/BF01059626"
+    },
+    {
+      "id": "S02",
+      "citation": "Gabrielsson and Weiner (2012). Non-compartmental analysis.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23007438/"
+    },
+    {
+      "id": "S03",
+      "citation": "Bergstrand and Karlsson (2009). Handling Data Below the Limit of Quantification in Mixed Effect Models.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2691472/"
+    },
+    {
+      "id": "S04",
+      "citation": "Bergstrand et al. (2011). Prediction-corrected visual predictive checks for diagnosing nonlinear mixed-effects models.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21302010/"
+    },
+    {
+      "id": "S05",
+      "citation": "Fidler et al. (2019). Nonlinear Mixed-Effects Model Development and Simulation Using nlmixr and Related R Open-Source Packages.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6765694/"
+    },
+    {
+      "id": "S06",
+      "citation": "Schoemaker et al. (2019). Performance of the SAEM and FOCEI Algorithms in the Open-Source, Nonlinear Mixed Effect Modeling Tool nlmixr.",
+      "url": "https://ascpt.onlinelibrary.wiley.com/doi/10.1002/psp4.12471"
+    },
+    {
+      "id": "S07",
+      "citation": "Sou et al. (2021). Model-Informed Drug Development for Antimicrobials: Translational PK and PK/PD Modeling to Predict an Efficacious Human Dose for Apramycin.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33150591/"
+    },
+    {
+      "id": "S08",
+      "citation": "van der Meijden et al. (2023). Pharmacokinetic and pharmacodynamic properties of polymyxin B in Escherichia coli and Klebsiella pneumoniae murine infection models.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36718051/"
+    },
+    {
+      "id": "S09",
+      "citation": "Bissantz et al. (2024). Translational PK/PD for the Development of Novel Antibiotics-A Drug Developer's Perspective.",
+      "url": "https://doi.org/10.3390/antibiotics13010072"
+    },
+    {
+      "id": "S10",
+      "citation": "van den Berg et al. (2026). The magnitude of the pharmacodynamic index for NOSO-502: pathogen clearance, emergence of resistance and human dose predictions.",
+      "url": "https://pure.eur.nl/en/publications/the-magnitude-of-the-pharmacodynamic-index-for-noso-502-pathogen-/"
+    },
+    {
+      "id": "S11",
+      "citation": "Comets et al. (2008). Computing normalised prediction distribution errors to evaluate nonlinear mixed-effect models: the npde add-on package for R.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18215437/"
+    },
+    {
+      "id": "S12",
+      "citation": "Riley et al. (2005). A unified model for predicting human hepatic, metabolic clearance from in vitro intrinsic clearance data in hepatocytes and microsomes.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15932954/"
+    },
+    {
+      "id": "D01",
+      "citation": "PKNCA authors. AUC calculation and integration methods.",
+      "url": "https://humanpred.github.io/pknca/articles/v05-auc-calculation-with-PKNCA.html"
+    },
+    {
+      "id": "D02",
+      "citation": "PKNCA authors. Secondary parameters: renal clearance, bioavailability and ratios.",
+      "url": "https://humanpred.github.io/pknca/articles/v09-secondary-parameters.html"
+    },
+    {
+      "id": "D03",
+      "citation": "PKNCA authors. Half-life calculation.",
+      "url": "https://humanpred.github.io/pknca/articles/v06-half-life-calculation.html"
+    },
+    {
+      "id": "D04",
+      "citation": "PKNCA authors. Calculation intervals and residence-time corrections.",
+      "url": "https://humanpred.github.io/pknca/articles/v03-selection-of-calculation-intervals.html"
+    }
+  ],
+  "scope": [
+    "requirements",
+    "requirements_review",
+    "context",
+    "context_review",
+    "context_faithfulness",
+    "context_completeness",
+    "context_conflicts",
+    "binding_repair"
+  ]
+}

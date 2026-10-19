@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "title": "PK Model Parameterization Options",
+      "topics": [
+        "animal_pk",
+        "human_simulation"
+      ],
+      "claim": "Phoenix supports Micro, Clearance, and Macro parameterizations. Micro uses mass transfer rate constants (e.g., Ke). Clearance uses clearance parameters (e.g., Cl) and supports saturable (Michaelis-Menten) elimination. Macro uses closed-form sums of exponentials and requires a 'stripping dose' assumption to scale predictions for different doses.",
+      "conditions": [
+        "Macro models assume a reference initial dose (stripping dose) to convert fitted concentration curves to other doses.",
+        "Clearance parameterization allows switching to saturable kinetics (Km, Vmax).",
+        "Macro models are closed-form and cannot handle nonlinear kinetics directly in the same way differential equation models can."
+      ],
+      "required_inputs": [
+        "Selection of parameterization type (Micro, Clearance, Macro, Macro1).",
+        "For Macro: Definition of stripping dose (A1Strip).",
+        "For Clearance: Km and Vmax if saturable elimination is selected."
+      ],
+      "limitations": [
+        "Macro models require an assumption about the size of the initial dose used for fitting.",
+        "Closed-form models (Macro) are limited to linear kinetics and single observed variables.",
+        "Covariates in closed-form models must be constant during observation."
+      ],
+      "downstream_use": "Selecting the appropriate structural model representation for PK analysis. Ensuring correct parameter mapping for dose scaling in simulation.",
+      "evidence_chunk_ids": [
+        "REF_009:0001",
+        "REF_009:0002",
+        "REF_009:0003"
+      ],
+      "id": "source_REF_009:K01",
+      "origin_job": "source_REF_009",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_009"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

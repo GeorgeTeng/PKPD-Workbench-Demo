@@ -1,0 +1,142 @@
+{
+  "cards": [
+    {
+      "title": "Modeling Delayed Concentration-Effect Relationships (Hysteresis)",
+      "claim": "When plasma concentration (Cp) and effect (E) exhibit hysteresis (counter-clockwise or clockwise loops), the delay must be modeled explicitly. Common mechanisms include distributional delay to the effect site (effect compartment), indirect response/turnover kinetics, or active metabolite formation. The choice of model depends on the shape of the response-time profile and available data.",
+      "conditions": [
+        "Plasma concentration data is available (measured or qualified model-derived prediction).",
+        "Effect data is available.",
+        "A temporal delay between Cp and E is observed (hysteresis).",
+        "Mechanism of delay is unknown or requires discrimination."
+      ],
+      "required_inputs": [
+        "Plasma concentration-time data (Cp): either directly measured or derived from a qualified PK model anchored by sparse sampling (e.g., satellite PK + terminal sample).",
+        "Effect-time data (E).",
+        "Baseline effect (E0) if applicable.",
+        "Maximum effect (Emax) and potency (EC50) parameters (estimated or fixed).",
+        "For a parent/metabolite model: qualified parent and metabolite exposure information and the declared relative-potency parameter (estimated or independently fixed); distinguish measured from predicted exposures and report associated assumptions and uncertainty."
+      ],
+      "limitations": [
+        "Hysteresis alone does not identify the specific biological mechanism (e.g., distribution vs. turnover).",
+        "Model selection requires comparing goodness-of-fit and residual diagnostics.",
+        "Parameters like ke0 are empirical and may not represent a true physiological rate constant if the mechanism is indirect.",
+        "Active-metabolite contribution needs qualified metabolite exposure and potency information; parent-only data do not by themselves establish that contribution. Predicted metabolite exposure must be independently justified and its uncertainty disclosed.",
+        "Predicted Cp(t) introduces model uncertainty that must be propagated or qualified; it is not equivalent to direct observation."
+      ],
+      "downstream_use": "Used to refine PK/PD models for dose selection, predict time-course of effect, and interpret exposure-response relationships in translational studies.",
+      "method_keywords": [
+        "hysteresis",
+        "effect compartment",
+        "ke0",
+        "delayed response",
+        "indirect response model",
+        "turnover model",
+        "biophase compartment",
+        "distributional delay",
+        "active metabolite",
+        "parent drug",
+        "relative potency",
+        "concentration equivalent",
+        "satellite PK",
+        "model-derived exposure"
+      ],
+      "retrieval_keywords": "hysteresis effect compartment ke0 delayed response biophase turnover active metabolite relative potency parent drug concentration equivalent satellite PK",
+      "knowledge_layer": "general_method",
+      "method_recipe": {
+        "estimand_and_scope": "Estimate the rate of delay (ke0) or turnover rates (kin/kout) and the concentration-effect relationship (Emax, EC50) to describe the time course of effect relative to plasma concentration.",
+        "input_contract": "Requires paired Cp and E data over time. Cp may be directly measured or derived from a qualified PK model (e.g., population PK anchored by sparse samples). For metabolite models, requires Cp_parent and Cp_metabolite.",
+        "applicability_and_prerequisites": "Applicable when exposure-response data suggest a temporal delay. Require informative PK/PD observations and a qualified exposure model sufficient for the stated question; a dense numerical prediction grid does not add experimental information. If Cp is predicted, declare model structure, anchoring data and uncertainty; retain unresolved mechanisms when the data do not discriminate.",
+        "definitions_units_basis_window": "Effect-site source case: dCe_site/dt=ke0*(Cp-Ce_site); E=E0+Emax*Ce_site/(EC50+Ce_site). ke0 is 1/time; Cp and Ce_site are concentration; E and E0 are response units. Turnover is a separate conditional family: use GEN002:MATH01–MATH08 for the four verified input/loss inhibition/stimulation equations rather than the raw equations. Active-metabolite source case: C_equiv=Cd+Cm*Rel.Pot (EXTA003:MATH01); C_equiv is a potency-equivalent concentration, not automatically the effect-site state Ce_site.",
+        "procedure": "1. Align Cp(t) and E(t) times and inspect for a delay. 2. Fit or assess a direct relationship as a comparator. 3. Where supported, evaluate effect-site delay with stated initial Ce_site and ke0 units. 4. Test turnover only with the verified GEN002 equations and response baseline; test metabolite contribution only when measured/qualified parent and metabolite data exist. 5. Compare predictive adequacy, residuals and identifiability, retaining mechanism uncertainty when alternatives are indistinguishable.",
+        "formula_and_parameterization": "Effect-site source case: dCe_site/dt=ke0*(Cp-Ce_site); E=E0+Emax*Ce_site/(EC50+Ce_site). ke0 is 1/time; Cp and Ce_site are concentration; E and E0 are response units. Turnover is a separate conditional family: use GEN002:MATH01–MATH08 for the four verified input/loss inhibition/stimulation equations rather than the raw equations. Active-metabolite source case: C_equiv=Cd+Cm*Rel.Pot (EXTA003:MATH01); C_equiv is a potency-equivalent concentration, not automatically the effect-site state Ce_site.",
+        "uncertainty_and_identifiability": "Model misspecification can lead to biased ke0 or kout estimates. Identifiability of ke0 vs. kout may be limited if Cp and E are not sampled densely enough. If Cp is model-derived, uncertainty in the PK model propagates to PD parameters.",
+        "diagnostics_and_failure_modes": "If no model fits well, consider tolerance, sensitization, or unmeasured covariates. If metabolite data is missing, do not assume metabolite contribution; report parent-only model with caveats.",
+        "missing_input_and_partial_fallback": "If no model fits well, consider tolerance, sensitization, or unmeasured covariates. If metabolite data is missing, do not assume metabolite contribution; report parent-only model with caveats.",
+        "output_and_interpretation": "ke0 is the fitted effect-site equilibration rate in the selected structural model; kout is a response-turnover loss constant if a turnover model is fitted. Relative fit may favor one structure for prediction, but does not itself identify a biological delay mechanism.",
+        "worked_example_and_counterexample": "Synthetic arithmetic: Cp=10 ng/mL, Ce_site=2 ng/mL and ke0=0.5 h^-1 give dCe_site/dt=4 ng/mL/h. If E0=5, Emax=10 and EC50=2 ng/mL, the cited effect link gives E=10 response units at this instant. This only checks equations; model discrimination requires an observed time course and appropriate competing evidence. Counterexample: A better-fitting effect-site model does not prove distributional delay over turnover or metabolite alternatives."
+      },
+      "claim_support": [
+        {
+          "claim": "Effect compartment model equation: dCe/dt = ke0 * (Cp - Ce).",
+          "scope": "General PK/PD modeling principle.",
+          "evidence_chunk_ids": [
+            "GEN003:MATH05"
+          ]
+        },
+        {
+          "claim": "Direct effect model equation: E = E0 + (Emax * Ce) / (EC50 + Ce).",
+          "scope": "General PK/PD modeling principle.",
+          "evidence_chunk_ids": [
+            "GEN003:MATH06"
+          ]
+        },
+        {
+          "claim": "Hysteresis is a diagnostic for delay, not proof of distribution delay; other mechanisms like turnover or metabolites must be considered.",
+          "scope": "General PK/PD modeling principle.",
+          "evidence_chunk_ids": [
+            "GEN001:0021",
+            "GEN001:0022",
+            "GEN003:0031"
+          ]
+        },
+        {
+          "claim": "The source-case parent/metabolite potency-equivalent concentration is Cd + Cm*Rel.Pot; it is not automatically the effect-compartment state.",
+          "scope": "Conditional source illustration requiring qualified relative potency and compatible concentration bases; not a universal active-metabolite formula.",
+          "evidence_chunk_ids": [
+            "EXTA003:MATH01",
+            "EXTA003:0005"
+          ]
+        },
+        {
+          "claim": "Satellite PK models anchored by sparse samples can provide qualified Cp(t) drivers for PD modeling when direct sampling is infeasible.",
+          "scope": "Source illustration of a qualified input-driver construction; applicability must be established for the current design.",
+          "evidence_chunk_ids": [
+            "GEN003:0014",
+            "GEN003:0015"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "GEN003:MATH05",
+        "GEN003:MATH06",
+        "GEN003:0014",
+        "GEN003:0031",
+        "GEN001:0021",
+        "GEN001:0022",
+        "EXTA003:0005",
+        "EXTA003:0006",
+        "EXTA003:0007",
+        "EXTA003:MATH01",
+        "EXTA003:0001",
+        "GEN002:MATH01",
+        "GEN002:MATH08",
+        "GEN002:0002",
+        "GEN003:0015",
+        "GEN002:MATH02",
+        "GEN002:MATH03",
+        "GEN002:MATH04",
+        "GEN002:MATH05",
+        "GEN002:MATH06",
+        "GEN002:MATH07"
+      ],
+      "id": "round10_reviewed_v2_G06:K01",
+      "topics": [
+        "pkpd"
+      ],
+      "required_branches": [],
+      "source_ids": [
+        "EXTA003",
+        "GEN001",
+        "GEN002",
+        "GEN003"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G06",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "example_is_synthetic": "The numerical values (ke0=0.5 h^-1) are illustrative. The structural equations are source-supported."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

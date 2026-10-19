@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Per-MIC PTA Definition and Calculation Basis",
+      "topics": [
+        "pta"
+      ],
+      "claim": "Probability of Target Attainment (PTA) is the probability that at least a specific value of a PK/PD target (PDT) is achieved at a certain MIC. It is calculated by simulating individual exposures (e.g., via Monte Carlo) and determining the proportion of simulated individuals whose exposure index (e.g., fAUC/MIC or %fT>MIC) meets or exceeds the target value for that specific MIC.",
+      "conditions": [
+        "Requires a qualified PK model with explicit parameter/distribution assumptions.",
+        "Requires a qualified PD target with defined endpoint, index basis (free/total), and time window.",
+        "Applicable when prospective probability of target attainment is needed for specified regimens and susceptibility values.",
+        "Must separate uncertainty in parameter estimates from variability between individuals."
+      ],
+      "required_inputs": [
+        "Qualified PK scenario with explicit parameter/distribution assumptions.",
+        "Qualified PD target with endpoint, index basis, and window.",
+        "Specified regimens and susceptibility values (MICs).",
+        "Explicit human-variability assumptions if human observations are unavailable."
+      ],
+      "limitations": [
+        "PTA is not probability of clinical cure.",
+        "Does not establish observed human inter-individual variability (IIV) from animal IIV or parameter standard errors.",
+        "Cannot validate human PK/PD in the absence of independent human observations.",
+        "Abstract-only or partial excerpts do not support full methodological validation."
+      ],
+      "downstream_use": "Use to determine if a specific dosing regimen achieves a predefined microbiological target for a given MIC, informing dose selection or breakpoint determination.",
+      "evidence_chunk_ids": [
+        "REF_007:0042",
+        "IN_PTA:0008",
+        "SUP014:0025"
+      ],
+      "id": "round2_Q01:K01",
+      "origin_job": "round2_Q01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_PTA",
+        "REF_007",
+        "SUP014"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "Q01",
+      "retrieval_keywords": "Per-MIC PTA definition: exposure distribution, target, basis and window",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

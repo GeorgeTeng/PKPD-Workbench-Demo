@@ -1,0 +1,79 @@
+{
+  "reviewer": "CURRENT_AGENT_ACTUAL_IMAGE_INSPECTION",
+  "decision": "TEST_RENDERING_DEMONSTRATED_WITH_LABEL_ISSUE",
+  "images_inspected": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\EDA_Cleaned_Subset_TEST_20261016\\ev\\F001.png",
+      "sha256": "498a68dfabe3fc950c077514fe24da685d370260f5d22da47dc0948064561d8c"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\EDA_Cleaned_Subset_TEST_20261016\\ev\\F002.png",
+      "sha256": "6f58c2e6dbe51c3d9b1533b4e078fe0e77b3a3533cd0c6d20c2ed4d80e5f0070"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\EDA_Cleaned_Subset_TEST_20261016\\ev\\F003.png",
+      "sha256": "4e4aede11bd4e6b09953d87ef4a7c1310593579079ddb87c8ba3061529efc700"
+    }
+  ],
+  "source_values_and_plotted_marks_verified": true,
+  "latest_cleaned_cells_verified": 113,
+  "figure_checks": [
+    {
+      "figure_id": "F001",
+      "kind": "PK_OBSERVED_MEAN_POINTS",
+      "source_rows": 8,
+      "plotted_marks": 8,
+      "not_determined_marks": 0,
+      "png": {
+        "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\EDA_Cleaned_Subset_TEST_20261016\\ev\\F001.png",
+        "sha256": "498a68dfabe3fc950c077514fe24da685d370260f5d22da47dc0948064561d8c"
+      }
+    },
+    {
+      "figure_id": "F002",
+      "kind": "PD_REPORTED_MEAN_SD_BY_DOSE",
+      "source_rows": 8,
+      "plotted_marks": 7,
+      "not_determined_marks": 1,
+      "png": {
+        "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\EDA_Cleaned_Subset_TEST_20261016\\ev\\F002.png",
+        "sha256": "6f58c2e6dbe51c3d9b1533b4e078fe0e77b3a3533cd0c6d20c2ed4d80e5f0070"
+      }
+    },
+    {
+      "figure_id": "F003",
+      "kind": "MIC_STRAIN_POINTS",
+      "source_rows": 3,
+      "plotted_marks": 3,
+      "not_determined_marks": 0,
+      "png": {
+        "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\EDA_Cleaned_Subset_TEST_20261016\\ev\\F003.png",
+        "sha256": "4e4aede11bd4e6b09953d87ef4a7c1310593579079ddb87c8ba3061529efc700"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "figure_id": "F001",
+      "severity": "INTERPRETATION_LABEL",
+      "detail": "The fixed renderer labels x as Time after single dose (h); the supplied test explicitly leaves a precise dose-relative origin unestablished. Use source-reported plotted time or qualify this origin before scientific use."
+    },
+    {
+      "figure_id": "F002",
+      "severity": "PRESENTATION",
+      "detail": "n=ND is faithful to the source but verbose; a shared ND definition would be clearer."
+    },
+    {
+      "figure_id": "F003",
+      "severity": "PRESENTATION",
+      "detail": "All three strain MICs are 0.5 mg/L; a small table would communicate the same information more compactly."
+    }
+  ],
+  "not_covered": [
+    "individual concentration series",
+    "censored time-kill",
+    "population MIC distribution"
+  ],
+  "scope": "Latest cleaned-data subset; real EP call plus TEST EC/EV only. EI/ER and the production EDA scheduler were not run.",
+  "scientific_release": false
+}

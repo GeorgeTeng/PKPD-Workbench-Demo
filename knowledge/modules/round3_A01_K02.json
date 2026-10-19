@@ -1,0 +1,54 @@
+{
+  "cards": [
+    {
+      "title": "Sparse Sampling Data Handling and Bias Conditions",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "For sparse destructive sampling, Phoenix calculates PK parameters from a mean concentration curve derived from unique time points. The Phoenix sparse estimator generates unbiased estimates for batch designs only if equal sample sizes are present per time point; unequal n introduces bias in this specific implementation. Standard errors for AUC (SE_AUClast/SE_AUCall) are computed using linear trapezoidal rules and account for correlations from repeated sampling, but are not output if log trapezoidal rules are specified.",
+      "conditions": [
+        "Data structure must support grouping by unique time points (nominal time recommended).",
+        "AUC calculation must use linear trapezoidal rules for SE_AUC computation to be valid.",
+        "Equal sample sizes per time point are required for unbiased parameter estimates in batch designs."
+      ],
+      "required_inputs": [
+        "Individual subject data with time and concentration.",
+        "Subject IDs to calculate correlations for repeated sampling.",
+        "Explicit selection of linear trapezoidal rule for AUC calculation."
+      ],
+      "limitations": [
+        "Nominal time grouping is a software recommendation for sparse analysis, not a universal substitution rule for actual times.",
+        "SE_AUC calculations depend on AUC being a linear combination of mean concentrations; invalid for log-trapezoidal methods.",
+        "Missing data in the dataset prevents unbiased estimates in sparse routines."
+      ],
+      "downstream_use": "Use mean-curve parameters for group-level PK characterization. Verify design balance (equal n) before interpreting sparse PK estimates. Do not use log-trapezoidal AUC if SE_AUC is required.",
+      "evidence_chunk_ids": [
+        "REF_013:0001",
+        "REF_013:0002",
+        "REF_017:0001",
+        "REF_017:0002",
+        "REF_017:0003"
+      ],
+      "id": "round3_A01:K02",
+      "origin_job": "round3_A01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_013",
+        "REF_017"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "A01",
+      "retrieval_keywords": "NCA endpoints with unreliable terminal slope and sparse destructive sampling",
+      "supersedes": [
+        "round2_A01:K01",
+        "round2_A01:K02",
+        "round2_A01:K03",
+        "round2_A01:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "One-Species Scaling Coefficients for Human CL",
+      "topics": [
+        "translation",
+        "animal_pk"
+      ],
+      "claim": "Data-driven one-species methods for predicting human clearance (CL) were derived as: CL(human)/kg = 0.152 x CL(rat)/kg, CL(human)/kg = 0.410 x CL(dog)/kg, and CL(human)/kg = 0.407 x CL(monkey)/kg. The monkey method coefficient (0.407) was similar to the monkey LBF method (0.467), while rat (0.152) and dog (0.410) coefficients differed significantly from their respective LBF methods (0.247 and 0.700).",
+      "conditions": [
+        "Applicable for prospective human CL prediction when only one animal species data is available.",
+        "Coefficients are specific to the dataset (n=102) and method derivation.",
+        "Not a universal constant; applicability depends on compound class and similarity to training set."
+      ],
+      "required_inputs": [
+        "Animal CL data (rat, dog, or monkey) normalized to body weight (CL/kg).",
+        "Human body weight (implied by /kg normalization in formula)."
+      ],
+      "limitations": [
+        "Abstract-only source; full methodology for coefficient derivation not visible.",
+        "Coefficients are fixed values from this specific study; not validated for all drug classes.",
+        "Does not account for protein binding or specific metabolic pathways beyond the aggregate CL data."
+      ],
+      "downstream_use": "Use these specific linear scaling factors as candidate methods for human CL prediction in translation modules, comparing against standard allometric scaling.",
+      "evidence_chunk_ids": [
+        "REF_005:0001"
+      ],
+      "id": "source_REF_005:K01",
+      "origin_job": "source_REF_005",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

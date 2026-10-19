@@ -1,0 +1,38 @@
+{
+  "cards": [
+    {
+      "title": "NA and BLQ Interaction in Data Cleaning",
+      "topics": [
+        "data_eda",
+        "animal_pk"
+      ],
+      "claim": "NA concentrations are processed before BLQ values. The specific method used to handle NA values can alter the classification of subsequent points as BLQ or 'middle' BLQ, thereby influencing the final cleaned dataset.",
+      "conditions": [
+        "NA handling is delegated to `clean.conc.na()`.",
+        "The interaction between NA handling and BLQ classification is explicit in the documentation."
+      ],
+      "required_inputs": [
+        "NA handling strategy (`conc.na`)"
+      ],
+      "limitations": [
+        "The specific logic of `clean.conc.na` is not detailed in this excerpt, only its precedence.",
+        "Users must be aware that changing NA handling changes BLQ classification."
+      ],
+      "downstream_use": "Ensuring reproducible data cleaning pipelines where missing data and censored data are not conflated or mishandled due to processing order.",
+      "evidence_chunk_ids": [
+        "REF_012:0001"
+      ],
+      "id": "source_REF_012:K02",
+      "origin_job": "source_REF_012",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_012"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

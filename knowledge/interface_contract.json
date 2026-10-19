@@ -1,0 +1,31 @@
+{
+  "version": "pkpd-layered-context/0.4.0-offline-candidate",
+  "implementation": "layered_context.py:build_context",
+  "activation": "OFFLINE_REVIEW_ONLY",
+  "input": {
+    "query": "Method/decision terms; drug names not automatically injected",
+    "stage": "data_eda|animal_pk|pkpd|translation|human_simulation|pta",
+    "project_context": "Caller-supplied object with mandatory objective and optional constraints, drug identity, approved decisions and source bindings; never imported from historical IN_* files",
+    "allowed_source_ids": "Explicit nonempty known source scope",
+    "branches": "Explicit optional antibacterial, hepatic_ivive or turnover_pd branches; missing branch excludes conditional cards",
+    "example_query": "Optional original-source identity lookup only; no removed compound-case cards are returned.",
+    "allow_draft": "Required true for local evaluation",
+    "consumer_route": "Only method_background, data.requirements or data.necessity; full coverage/review and human summary are rejected"
+  },
+  "output_layers": [
+    "general_methods",
+    "applicability_and_examples",
+    "project_context"
+  ],
+  "provenance": "Cited full chunks and original hashes are verified. Library, adapter and request/project context hashes returned. Assemble before request identity in a future production adapter review.",
+  "legacy": "Only retained drug-agnostic method/reference cards are present in the active catalog. Legacy layer designation remains an approval/routing boundary, not an indication of retained compound cases.",
+  "limits": "Default32768/max48000 background characters; up to3 requested methods by default. Verify full cited evidence; compact redundant source acquisition metadata only. Budget skips explicit.",
+  "known_limitations": [
+    "Method and alias based lexical retrieval, not complete semantic search",
+    "Drug-specific metadata may be incomplete for old sources and remains unknown",
+    "General library coverage is still pending scientific sufficiency review",
+    "No production gateway wiring or execution approval"
+  ],
+  "budget_change_reason": "Measured recipe+full original evidence exceeded18000chars for7/8 EDA cards. Keep full cited excerpts and scientific/applicability metadata; omit redundant acquisition history from prompt, retaining hashed full registry. E04 full payload measured32024 characters, so default32768 retains its complete evidence.",
+  "change": "Only add Chinese 肝脏 -> hepatic alias; original and candidate actual round7 twelve-query presence both passed; relevance ranking clarified."
+}

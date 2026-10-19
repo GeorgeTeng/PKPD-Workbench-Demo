@@ -1,0 +1,48 @@
+{
+  "cards": [
+    {
+      "title": "EDA Descriptive Calculations and Provenance",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "EDA may execute descriptive formulas only when definitions are established, inputs are available, and no new scientific assumptions are introduced. Operations include unit conversion, dose normalization (using known nonzero dose), and response transformations (e.g., log10 of positive counts). Order of operations matters: mean(C_i/D_i) differs from mean(C_i)/mean(D_i). Dose normalization alone does not establish dose proportionality. Censoring is carried as a bound/interval, not an exact point.",
+      "conditions": [
+        "Source summaries are retained without reconstructing unobserved individual values.",
+        "Zero-dose controls remain unnormalized.",
+        "No arbitrary constants are added to zero or censored counts.",
+        "Technical repeats do not increase biological n; pools remain pools."
+      ],
+      "required_inputs": [
+        "Established formula definition and source.",
+        "Known, nonzero, compatible dose for normalization.",
+        "Verified quantitative measurements for maximums.",
+        "Stated denominator and unit basis for ratios."
+      ],
+      "limitations": [
+        "EDA does not perform AUC integration, terminal-slope selection, or inferential uncertainty estimation.",
+        "Missing SD is not zero; unavailable SD is not imputed.",
+        "Group baselines do not create individual pairing."
+      ],
+      "downstream_use": "Provides labeled, provenance-tracked descriptive inputs for later NCA or model fitting. Does not authorize model-based inference.",
+      "evidence_chunk_ids": [
+        "IN_EDA:0002",
+        "IN_EDA:0003",
+        "IN_EDA:0004"
+      ],
+      "id": "round2_D04:K01",
+      "origin_job": "round2_D04",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D04",
+      "retrieval_keywords": "Descriptive transformations versus model-dependent integration or inference",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

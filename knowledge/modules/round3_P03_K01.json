@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Defining Effect Targets via Baseline (E0) and Model Parameters",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "PK/PD targets (stasis, log-kill) are derived from the inhibitory sigmoid Emax model parameters (E0, Emax, EC50, Hill coefficient). 'Stasis' is defined as the exposure where the bacterial burden at 24h equals the burden at the start of treatment (B0). A 1-log or 2-log kill target is calculated as B0 minus 1 or 2 log10 CFU. E0 is the model parameter representing the effect in the absence of drug. Reachability of a target depends on whether the fitted response range (E0 - Emax) covers the target value (B0 - k); do not infer reachability from Emax < k alone.",
+      "conditions": [
+        "Applicable when fitting dose-response data to an Emax model.",
+        "Requires precise measurement of bacterial burden at time 0 (B0) and at the end of treatment, distinguishing these observations from the fitted model parameter E0.",
+        "Source-specific: E0 is the model parameter representing the effect in the absence of drug. B0 is the mean log10 CFU/thigh at 0h in untreated controls (baseline burden)."
+      ],
+      "required_inputs": [
+        "Provenance: Untreated control bacterial counts at t=0 (baseline) and t=end.",
+        "Units: log10 CFU per unit (e.g., CFU/thigh).",
+        "Prerequisites: Fitted Emax model parameters (E0, Emax, EC50, Hill coefficient)."
+      ],
+      "limitations": [
+        "A target is 'not achieved' if the required exposure exceeds the maximum tolerated dose; this does not prove the effect is biologically impossible at higher exposures.",
+        "B0 must be measured, not assumed to be the inoculum size if growth occurred in controls. E0 is a fitted parameter, not a direct measurement.",
+        "Do not substitute total drug concentration for free drug (fAUC) without verified binding data."
+      ],
+      "downstream_use": "Calculate specific fAUC/MIC or fCmax/MIC values required to achieve stasis or specific log-kill reductions for regimen design.",
+      "evidence_chunk_ids": [
+        "ARTICLE_S02:0021",
+        "SUP007:0014",
+        "ARTICLE_S02:0002"
+      ],
+      "id": "round3_P03:K01",
+      "origin_job": "round3_P03",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "ARTICLE_S02",
+        "SUP007"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "P03",
+      "retrieval_keywords": "Stasis, 1-log and 2-log kill targets depend on baseline, time, endpoint and censoring",
+      "supersedes": [
+        "round2_P03:K01",
+        "round2_P03:K02",
+        "round2_P03:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

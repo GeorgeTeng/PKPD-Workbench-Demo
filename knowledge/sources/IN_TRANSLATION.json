@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later translation-module review only; not loaded by Data requirements agents.",
+  "source_library": {
+    "version": "1.0.0-draft.6",
+    "sha256": "480f60ff8f95dd87025a1f6f261ffa207c969b189acf567c2a884729b339f552",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.6.json"
+  },
+  "approval_boundary": "Approval covers the shortened data-coverage profile only. The retained original translation-method and result-evaluation content remains pending separate scientific review and is not enabled for execution.",
+  "sources": [
+    {
+      "id": "S05",
+      "title": "Tang et al. (2007): Interspecies prediction of human drug clearance based on scaling data from one or two animal species",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17646280/",
+      "locator": "Abstract; DOI 10.1124/dmd.107.016188",
+      "type": "PRIMARY_METHOD_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Calibrated one-/two-species approaches have method-specific evidence. This does not authorize arbitrary fixed exponents or make a species count a validation result."
+    },
+    {
+      "id": "S06",
+      "title": "Ring et al. (2011): PhRMA CPCDC initiative, part 3: prediction methods of human clearance",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21541938/",
+      "locator": "Abstract; DOI 10.1002/jps.22552",
+      "type": "PRIMARY_COMPARATIVE_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Allometry and IVIVE require different inputs and binding conventions. IV CL comparison involved 19 drugs; applicability to a new drug remains to be assessed."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP005",
+      "destination": "ANIMAL_TO_HUMAN_TRANSLATION",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "source_profile_sha256": "f94661358e90a679675e5247294171a55dff68c9c8504291167150b726b8f12c",
+      "reference_profile": {
+        "id": "MP005",
+        "name": "Empirical interspecies parameter extrapolation",
+        "family": "TRANSLATION",
+        "outputs": [
+          "predicted human CL",
+          "predicted human Vss"
+        ],
+        "applies_when": "The project requests animal-to-human parameter prediction by a specified empirical scaling method.",
+        "required_inputs": [
+          "Qualified animal estimates for the exact parameter and their provenance",
+          "Body weights and units compatible with the selected scaling equation",
+          "Justified species/parameter comparability and an explicit method specification"
+        ],
+        "conditional_inputs": [
+          "Method-specific correction factors, binding data or external calibration evidence",
+          "A project-specified minimum qualified species count, assessed separately for every parameter"
+        ],
+        "acceptable_alternatives": [
+          "NCA-derived and compartmental estimates may both contribute after parameter-specific qualification",
+          "Alternative scaling methods can be candidates only when their own conditions and project permissions are met"
+        ],
+        "preflight_checks": [
+          "Count unique qualified species, not tables, doses or duplicate publications",
+          "Do not pool CL/F with absolute CL or Vz with Vss",
+          "Separate proposed methods from published project requirements"
+        ],
+        "post_analysis_checks": [
+          "Inspect extrapolation sensitivity and uncertainty; distinguish animal internal checks from human validation"
+        ],
+        "missing_effect": "An unmet parameter-specific prerequisite blocks that prediction, while supported upstream calculations remain available.",
+        "not_established": [
+          "A universal minimum species count",
+          "A validated human prediction from good animal regression fit",
+          "A calibration coefficient transferable to every drug"
+        ],
+        "needed_at": "BEFORE_TRANSLATION",
+        "source_ids": [
+          "S05",
+          "S06"
+        ]
+      }
+    }
+  ]
+}

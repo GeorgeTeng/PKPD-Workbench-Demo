@@ -1,0 +1,122 @@
+{
+  "version": "DATA_HUMAN_SUMMARY_3.0",
+  "summary": {
+    "request_sha256": "e660b8a406be864024934fae8bc35b214c93ec785b371375bb3fcfbf9e6c627c",
+    "decision": "CONDITIONAL_PASS",
+    "headline": "Proceed with eligible animal PK curves and within-panel PD targets; hold the shared PD index comparison.",
+    "rows": {
+      "MODEL_BASED_ANIMAL_PK": {
+        "readiness": "CONDITIONAL",
+        "finding": "S05/S02 mouse group curves are usable for source-specific fitting. The mouse dose basis and S21 rat time origin need resolution; S22 rabbit timing/count discrepancies limit component assessment. These issues constrain the affected sources while mouse group curves can proceed.",
+        "next_step": "Fit eligible curves at their data level; resolve the held timing and dose definitions."
+      },
+      "PD_INDEX_COMPARISON": {
+        "readiness": "NOT_READY",
+        "finding": "S01 Kp-T/Kp-C/Kp-A remain held: plotted pairs lack verified common response identities and marker doses, and dose ranges conflict with tolerability text. S02 Table 3 lacks paired indices. A shared comparison cannot yet be fitted from these sources.",
+        "next_step": "Seek original common-record and regimen mapping before fitting a shared comparison."
+      },
+      "PD_TARGET_ESTIMATION": {
+        "readiness": "CONDITIONAL",
+        "finding": "S01 within-panel published-simulation pairs are candidates, but target effects and reference definitions need selection; obscured markers cannot support numerical fitting. S02 responses lack paired exposure, and S09 strain allocation remains held. Eligible S01 panels can proceed within their published basis.",
+        "next_step": "Define stasis, one-log and two-log effects; assess each eligible panel within its published basis."
+      }
+    },
+    "later_and_optional": "Optional NCA can describe sampled S05/S02 mouse mean peaks; finite AUC and terminal clearance need further inputs. Later PTA needs qualified PK, effect-specific targets and compatible MIC inputs. Neither gates unrelated current work."
+  },
+  "assessment": {
+    "decision": "CONDITIONAL_PASS",
+    "scope": "Data support for the next animal PK and K. pneumoniae PK/PD analyses",
+    "opinion": "Source-specific animal PK fitting can begin conditionally; common-record index ranking remains blocked, while panel-specific target work needs defined effects."
+  },
+  "action_decisions": {
+    "MODEL_BASED_ANIMAL_PK": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S05/S02 mouse group curves usable; S21 rat timing and S22 rabbit held.",
+      "finding": "Source-specific group models can start; rat time origin and mouse dose basis need resolution, and rabbit timing/count discrepancies limit component assessment.",
+      "next_step": "Fit eligible curves at their data level; resolve held source timing and dose definitions.",
+      "gap_ids": [
+        "RQ003:F5",
+        "RQ003:F8",
+        "RQ003:F13",
+        "RQ004:F3",
+        "RQ004:F4"
+      ]
+    },
+    "PD_INDEX_COMPARISON": {
+      "readiness": "NOT_READY",
+      "source_scope": "S01 Kp-T/Kp-C/Kp-A held; S02 Table 3 lacks paired indices.",
+      "finding": "S01 has separate plotted pairs but no verified common response identities or marker doses; its dose ranges conflict with tolerability text.",
+      "next_step": "Seek original common-record and regimen mapping before fitting a shared comparison.",
+      "gap_ids": [
+        "RQ010:C1",
+        "RQ010:F7",
+        "RQ011:F9",
+        "RQ011:C1"
+      ]
+    },
+    "PD_TARGET_ESTIMATION": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S01 within-panel pairs candidate; S02 responses unpaired with exposure; S09 strain allocation held.",
+      "finding": "Each S01 panel has published-simulation exposure-response pairs; target effects and reference definitions need selection, and obscured markers cannot support numerical fitting.",
+      "next_step": "Define stasis, one-log and two-log effects; assess each eligible panel within its published basis.",
+      "gap_ids": [
+        "RQ010:C2",
+        "RQ012:F1",
+        "RQ012:F3",
+        "RQ013:F9"
+      ]
+    },
+    "NCA": {
+      "readiness": "CONDITIONAL",
+      "source_scope": "S05/S02 sampled mouse means candidate; S21 rat and S22 rabbit boundaries held.",
+      "finding": "Sampled mean peaks may be described; finite AUC needs a chosen window and boundary treatment, while terminal clearance needs qualified tail and route-specific inputs.",
+      "next_step": "Specify endpoint and window, then assess each source's boundaries and terminal inputs.",
+      "gap_ids": [
+        "RQ005:F1",
+        "RQ005:F3",
+        "RQ006:F1",
+        "RQ007:F1"
+      ]
+    },
+    "PTA": {
+      "readiness": "LATER",
+      "source_scope": "Prospective K. pneumoniae scenarios pending; surveillance MIC distribution remains separate.",
+      "finding": "PTA awaits a qualified PK source, effect-specific PD target and frozen compatible MIC inputs; a published panel coordinate is no population probability.",
+      "next_step": "Define scenarios after PK and target outputs, then assess variability and MIC-bin coverage.",
+      "gap_ids": [
+        "RQ014:F1",
+        "RQ014:F2",
+        "RQ012:F1"
+      ]
+    }
+  },
+  "bindings": {
+    "direct_runtime": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\research_pipeline\\research_pipeline\\data_direct_runtime.py",
+      "sha256": "5bd588db2c5c45bad968767054c194db86429ae8551037afe70e42b2cb7fe42b"
+    },
+    "governance": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\rules\\general\\workflow_governance.json",
+      "sha256": "93ca683e3ae74b5ecbbdb5c894a20e146aee3a1b4b58eabb6320f2c7361688ed"
+    },
+    "summary_code": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\research_pipeline\\research_pipeline\\data_human_summary_v3.py",
+      "sha256": "32e9b527ab6b1fe99d9a3843f414509891803db6d8d875af276b7193d83427b8"
+    },
+    "necessity": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\assessment09\\necessity\\necessity.json",
+      "sha256": "ec2b3c818adc58b2cc5869ef1c8050eab6b7cc549b67eef80db1020aa1cb7437"
+    },
+    "prepared": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\outputs\\RAG_Compression_Cleaning_20261015_Revision07\\PMB\\assessment09\\human_summary\\prepared.json",
+      "sha256": "62e97e8fa1393744b338dd0b1e71f08bdf33cec40d180be8d989db8e0a5d0619"
+    }
+  },
+  "execution": {
+    "requested_model": "gpt-6-sol",
+    "served_models": [],
+    "test_generator": false
+  },
+  "scientific_approval": false,
+  "downstream_executed": false
+}

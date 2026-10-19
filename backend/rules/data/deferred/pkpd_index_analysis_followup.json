@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later PK/PD index-analysis review only; not loaded by Data requirements agents.",
+  "source_library": {
+    "version": "1.0.0-draft.10",
+    "sha256": "a8339996993da0da5efce0e93ba6e1401bc9c4fb07b6dcd92eda850afb6b5d0a",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.10.json"
+  },
+  "approval_boundary": "Approval covers input requirements and review priority only. Original fitting, comparison and result-evaluation content is retained for separate review and is not enabled for execution.",
+  "sources": [
+    {
+      "id": "S07",
+      "title": "EMA: Use of pharmacokinetics and pharmacodynamics in development of antimicrobial medicinal products",
+      "url": "https://www.ema.europa.eu/system/files/documents/scientific-guideline/wc500210982_en.pdf",
+      "locator": "Nonclinical PK-PD studies; PK-PD targets and target attainment",
+      "type": "GUIDELINE",
+      "checked_on": "2026-10-07",
+      "supports": "Antimicrobial exposure, susceptibility and effect must be linked for the intended use; in vitro and animal infection models can contribute complementary evidence."
+    },
+    {
+      "id": "S08",
+      "title": "Effect of treatment duration on PK/PD indices correlating with ceftazidime efficacy in experimental Klebsiella pneumoniae lung infection",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16940082/",
+      "locator": "Abstract",
+      "type": "PRIMARY_EXPERIMENTAL_STUDY",
+      "checked_on": "2026-10-07",
+      "supports": "Index conclusions depend on treatment duration and the response endpoint; do not transplant the study's winning index or numeric target into another project."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP009",
+      "destination": "PKPD_INDEX_ANALYSIS",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "source_profile_sha256": "c7e7d351e6b8c3e0fdd076b100155e4e5273fd71d7681eaf72d3cc0f50621a1f",
+      "reference_profile": {
+        "id": "MP009",
+        "name": "Antibacterial PK/PD index comparison",
+        "family": "PKPD",
+        "outputs": [
+          "candidate exposure-effect relationships",
+          "index comparison"
+        ],
+        "applies_when": "The objective includes comparing antibacterial exposure indices against a specified measured response.",
+        "required_inputs": [
+          "Defined PD endpoint, baseline/comparator and response window",
+          "Traceable matching between regimen, exposure and biological response",
+          "Index definitions, concentration basis, analysis window and any threshold"
+        ],
+        "conditional_inputs": [
+          "Matched strain susceptibility measurements for MIC-normalized indices",
+          "Binding evidence or free concentrations for free-exposure indices",
+          "Exposure profiles and thresholds for time-above-threshold calculations"
+        ],
+        "acceptable_alternatives": [
+          "Compare non-MIC-normalized exposure measures only if explicitly requested and defined",
+          "In vitro effect data may support their own qualified analysis, without being relabeled as animal efficacy"
+        ],
+        "preflight_checks": [
+          "Assess whether the design can distinguish correlated index candidates",
+          "Separate an exposure summary from an exposure-effect fit and an estimated PD target"
+        ],
+        "post_analysis_checks": [
+          "Compare appropriate fit diagnostics and information criteria on comparable response data; retain uncertainty and endpoint dependence"
+        ],
+        "missing_effect": "Unmatched PD data prevent index ranking but need not block independent PK work.",
+        "not_established": [
+          "A winning index from exposure values alone",
+          "A borrowed MIC, unspoken threshold for fT, or another drug's PD target"
+        ],
+        "needed_at": "BEFORE_INDEX_ANALYSIS",
+        "source_ids": [
+          "S07",
+          "S08"
+        ]
+      }
+    }
+  ]
+}

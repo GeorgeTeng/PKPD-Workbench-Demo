@@ -1,0 +1,72 @@
+{
+  "fields": [
+    "estimand_and_scope",
+    "input_contract",
+    "applicability_and_prerequisites",
+    "definitions_units_basis_window",
+    "procedure",
+    "formula_and_parameterization",
+    "uncertainty_and_identifiability",
+    "diagnostics_and_failure_modes",
+    "missing_input_and_partial_fallback",
+    "output_and_interpretation",
+    "worked_example_and_counterexample"
+  ],
+  "purpose": "Operational review requirements, not preapproved scientific content",
+  "acceptance_standard": {
+    "version": "eda_operational_exemplar_v1",
+    "status": "EDA_EXEMPLAR_ACCEPTED_FOR_OFFLINE_CARD_REVIEW",
+    "user_priority": "Qualify EDA first, then apply equivalent operational precision across all stages.",
+    "hard_gates": [
+      "Original evidence supports scientific claims with exact locators and applicability; citation existence alone fails.",
+      "Field definitions, units, basis, window, independent unit and joins explicit.",
+      "Operational sequence and outputs sufficient without invented scientific choices.",
+      "Censoring, missing inputs, uncertainty, stop and partial fallback explicit.",
+      "Scientific inference separate from engineering convention and project overlay.",
+      "Positive and adversarial worked examples pass; actual output inspected.",
+      "No critical scientific error; no compensating average score."
+    ],
+    "eda_recipe_fields": [
+      "input_contract",
+      "plot_type",
+      "axes_and_units",
+      "grouping_and_connections",
+      "point_and_summary_layers",
+      "censoring_and_missingness",
+      "transformations_and_formula",
+      "uncertainty_and_n",
+      "interpretation_limits",
+      "stop_or_fallback",
+      "implementation_conventions"
+    ],
+    "other_stage_equivalents": {
+      "animal_pk": "estimand, inputs, method applicability, diagnostics, nonidentifiability and outputs",
+      "pkpd": "exposure/response linkage, endpoint reference, model/target scope and uncertainty",
+      "translation": "species/parameter bridge, formula, unit/binding basis, domain and extrapolation uncertainty",
+      "human_simulation": "scenario inputs, population vs parameter uncertainty, correlations and interpretation",
+      "pta": "target/window/basis, distribution, denominator, weights and boundary handling"
+    },
+    "evidence_distinctions": [
+      "direct_original_support",
+      "qualified_method_synthesis",
+      "engineering_display_convention",
+      "project_specific_constraint"
+    ],
+    "promotion_rule": "EDA exemplar must pass semantic and operational probes before standard is promoted. All other cards remain pending until individually reviewed.",
+    "accepted_utc": "2026-10-14T08:34:03.684632+00:00",
+    "exemplar_root": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\deliverables\\PKPD_Knowledge_Qwen_20261013\\round5_reviewed_v5\\knowledge",
+    "acceptance_evidence": "round5_audit/FINAL_EDA_ASSESSMENT.json",
+    "acceptance_evidence_sha256": "70e0f5a1b6cfddd5527d702876afd7b68e540def9b58ced8b5c924d8b60f56c1",
+    "scientific_approval": false,
+    "production_enabled": false,
+    "scope_limitations": [
+      "Eight selected EDA methods and controlled synthetic scenarios only.",
+      "Plot probes are reviewer-implemented from recipes, not an end-to-end blind benchmark of arbitrary AI code generation.",
+      "Remaining stage cards require individual semantic/operational review; legacy 24-query presence is not general translational workflow adequacy.",
+      "Source-specific drug examples remain bounded; target-specific human data absent.",
+      "Scientific approval and production activation not granted."
+    ],
+    "remaining_cards": "PENDING_INDIVIDUAL_REVIEW; no bulk promotion"
+  },
+  "note": "Positive and adversarial synthetic examples must be independently checked after generation. No actual fitting, target-drug parameters or clinical claims."
+}

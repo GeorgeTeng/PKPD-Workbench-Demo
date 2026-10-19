@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Distinction Between Per-MIC PTA and MIC-Weighted CFR",
+      "topics": [
+        "pta",
+        "data_eda"
+      ],
+      "claim": "Per-MIC PTA requires a defined MIC grid and PK/PD target but does not require an observed MIC distribution. MIC-weighted CFR requires a specific organism population, MIC bins, frequencies, and denominator. These are distinct tasks with different input requirements.",
+      "conditions": [
+        "Per-MIC PTA is a conditional probability given an MIC.",
+        "CFR is a population-weighted summary.",
+        "Do not infer a population distribution from a single MIC point."
+      ],
+      "required_inputs": [
+        "For PTA: MIC value/grid, PK model, PD target.",
+        "For CFR: MIC distribution (bins, counts, denominator), PTA at each bin."
+      ],
+      "limitations": [
+        "CFR is invalid if the MIC distribution is not representative of the target population.",
+        "Open-ended bins or omitted isolates must be handled explicitly."
+      ],
+      "downstream_use": "Separate reporting of susceptibility-specific efficacy vs. population-level coverage.",
+      "evidence_chunk_ids": [
+        "IN_NEXT:0030",
+        "IN_NEXT:0031",
+        "IN_EDA:0039"
+      ],
+      "id": "module_pta:K03",
+      "origin_job": "module_pta",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA",
+        "IN_NEXT"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

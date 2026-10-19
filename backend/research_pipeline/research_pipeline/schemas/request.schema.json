@@ -1,0 +1,358 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research pipeline request 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "attachments",
+    "steps"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "request_id": {
+      "$ref": "#/$defs/id"
+    },
+    "context_attachment": {
+      "$ref": "#/$defs/id"
+    },
+    "attachments": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/attachment"
+      }
+    },
+    "search": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "query"
+      ],
+      "properties": {
+        "provider": {
+          "enum": [
+            "online",
+            "local"
+          ]
+        },
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "module",
+          "input",
+          "options"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "module": {
+            "enum": [
+              "pk_longitudinal",
+              "pkpd_index",
+              "data_preparation"
+            ]
+          },
+          "input": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "doses_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "upstream_step": {
+                "$ref": "#/$defs/id"
+              },
+              "upstream_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "table": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "adapter": {
+                    "enum": [
+                      "long_table",
+                      "roberts_fig4b"
+                    ]
+                  },
+                  "sheet": {
+                    "type": "string"
+                  },
+                  "drug": {
+                    "enum": [
+                      "PMB",
+                      "FADDI-365"
+                    ]
+                  },
+                  "header_row": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "column_map": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "reference_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "model_catalog_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "preparation_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "review_attachment": {
+                "$ref": "#/$defs/id"
+              },
+              "prepared_step": {
+                "$ref": "#/$defs/id"
+              },
+              "prepared_dataset": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "options": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "enum": [
+                  "individual",
+                  "population_bolus",
+                  "population_infusion_per_kg",
+                  "profile",
+                  "from_pk",
+                  "endpoint_emax",
+                  "compare_indices"
+                ]
+              },
+              "model_catalog_ids": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "compartments": {
+                "enum": [
+                  1,
+                  2
+                ]
+              },
+              "error_model": {
+                "enum": [
+                  "lognormal",
+                  "additive"
+                ]
+              },
+              "start": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "doses": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object"
+                }
+              },
+              "excluded_statuses": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "BLQ",
+                    "MISSING_CANNULA_BLOCKAGE",
+                    "NOT_SAMPLED"
+                  ]
+                }
+              },
+              "mic_mg_L": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "window_h": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "output_basis": {
+                "enum": [
+                  "free",
+                  "total"
+                ]
+              },
+              "fu": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              },
+              "method": {
+                "enum": [
+                  "linear",
+                  "linear_up_log_down"
+                ]
+              },
+              "step_h": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "index_column": {
+                "type": "string"
+              },
+              "response_column": {
+                "type": "string"
+              },
+              "id_column": {
+                "type": "string"
+              },
+              "direction": {
+                "enum": [
+                  "increasing",
+                  "decreasing"
+                ]
+              },
+              "estimate_hill": {
+                "type": "boolean"
+              },
+              "reference_mode": {
+                "enum": [
+                  "baseline",
+                  "paper_guided"
+                ]
+              },
+              "index_columns": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 8,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "group_column": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "reference_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "drug",
+        "same_drug_only"
+      ],
+      "properties": {
+        "drug": {
+          "type": "string",
+          "minLength": 1
+        },
+        "same_drug_only": {
+          "const": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upload_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "path"
+          ],
+          "not": {
+            "required": [
+              "upload_id"
+            ]
+          }
+        },
+        {
+          "required": [
+            "upload_id"
+          ],
+          "not": {
+            "required": [
+              "path"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

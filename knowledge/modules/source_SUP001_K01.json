@@ -1,0 +1,48 @@
+{
+  "cards": [
+    {
+      "title": "Bias in Parameter Estimates from BQL Handling Methods",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Omission of BQL data causes substantial bias in parameter estimates (e.g., absorption rate constant KA, mean transit time MTT, clearance CL, drug effect SLOP). Substitution with LOQ/2 yields unpredictable bias patterns, sometimes reducing and sometimes inflating bias compared to omission. The M3 method (likelihood-based) generally provides unbiased parameter estimates.",
+      "conditions": [
+        "Applicable to nonlinear mixed-effects models (e.g., NONMEM).",
+        "Validated for BQL occurring in absorption phases, elimination phases, and indirect response PD models.",
+        "Bias magnitude increases with higher LOQ levels and higher percentages of BQL data."
+      ],
+      "required_inputs": [
+        "Concentration data with defined LOQ.",
+        "Structural PK/PD model specification.",
+        "Software capable of likelihood-based estimation (e.g., NONMEM VI with F_FLAG for M3)."
+      ],
+      "limitations": [
+        "M3 method requires longer runtimes and has a lower rate of successful minimization/covariance steps compared to FOCE.",
+        "Results are based on simulation studies; real-world applicability depends on correct structural model specification.",
+        "Laplacian estimation (required for M2/M3 in this study) had higher non-successful termination rates than FOCE."
+      ],
+      "downstream_use": "Select M3 (or equivalent likelihood-based censoring method) as the primary strategy for handling BQL data in population PK/PD modeling to minimize bias. Avoid simple omission or LOQ/2 substitution unless justified by specific constraints.",
+      "evidence_chunk_ids": [
+        "SUP001:0001",
+        "SUP001:0002",
+        "SUP001:0012",
+        "SUP001:0013",
+        "SUP001:0014",
+        "SUP001:0015",
+        "SUP001:0016"
+      ],
+      "id": "source_SUP001:K01",
+      "origin_job": "source_SUP001",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP001"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

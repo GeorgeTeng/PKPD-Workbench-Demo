@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Monte Carlo Integration of Multi-Source Uncertainty",
+      "topics": [
+        "human_simulation",
+        "translation"
+      ],
+      "claim": "Monte Carlo simulation is an effective method to integrate multiple sources of uncertainty (e.g., clearance prediction error, volume of distribution scaling error, PD potency uncertainty) into a single empirical distribution of the predicted human dose. This approach handles both closed-form PK/PD models and complex nonlinear models where analytical solutions are unavailable.",
+      "conditions": [
+        "Requires defining probability distributions (e.g., log-normal) for each uncertain parameter.",
+        "Suitable for ranking compounds or assessing feasibility when point estimates are insufficient.",
+        "Computational feasibility is high for closed-form equations; requires optimization loops for complex ODE models."
+      ],
+      "required_inputs": [
+        "PK parameters (CL, Vss, F) with associated uncertainty ranges.",
+        "PD parameters (MEC, C_ss, receptor occupancy targets) with associated uncertainty ranges.",
+        "PK/PD model structure (e.g., one-compartment, receptor occupancy)."
+      ],
+      "limitations": [
+        "Assumes independence between parameters unless correlations are explicitly modeled (which is often not done due to lack of data).",
+        "Results are prospective scenarios, not validated predictions for a specific target drug."
+      ],
+      "downstream_use": "Generates cumulative probability plots of dose or exposure (Cmax/AUC) to support decision-making in lead optimization and early clinical trial design.",
+      "evidence_chunk_ids": [
+        "SUP011:0005",
+        "SUP011:0013",
+        "SUP011:0025"
+      ],
+      "id": "source_SUP011:K02",
+      "origin_job": "source_SUP011",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

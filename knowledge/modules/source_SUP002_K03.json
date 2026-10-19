@@ -1,0 +1,42 @@
+{
+  "cards": [
+    {
+      "title": "pvcVPC and Variability Correction",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "Prediction- and variability-corrected VPCs (pvcVPC) further normalize the dependent variable by the typical variability (standard deviation) of the prediction-corrected values, accounting for non-constant relative variability across bins.",
+      "conditions": [
+        "Expected relative variability differs between observations within a bin due to parameter dependencies or non-proportional residual error models.",
+        "Used when pcVPC alone is insufficient to account for heteroscedasticity in the corrected data."
+      ],
+      "required_inputs": [
+        "Prediction-corrected dependent variable (pcY).",
+        "Standard deviation of simulated pcY values.",
+        "Median standard deviation of pcY for the specific bin."
+      ],
+      "limitations": [
+        "In the examples investigated, pvcVPCs showed only marginal diagnostic advantage over pcVPCs, possibly due to similar expected variability within bins.",
+        "Adds complexity to the diagnostic plot interpretation."
+      ],
+      "downstream_use": "Advanced model diagnostics where residual error structure or parameter-specific variability contributions need to be explicitly normalized to isolate structural model misspecification.",
+      "evidence_chunk_ids": [
+        "SUP002:0005",
+        "SUP002:0008",
+        "SUP002:0014",
+        "SUP002:0020"
+      ],
+      "id": "source_SUP002:K03",
+      "origin_job": "source_SUP002",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP002"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

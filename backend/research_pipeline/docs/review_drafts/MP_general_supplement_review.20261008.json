@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_GENERAL_SUPPLEMENT",
+  "date": "2026-10-08",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "可以的 不要把适用于polymixinB的放进去 而是应该只放general rules",
+    "accepted_proposal": "Fix stale DA references in MP005 and complete the S08 citation; add four drug-agnostic checks: index-separating regimen design (MP009), infection-model description (MP009), PK-PD animal-state match (MP009), dose basis and analyte composition (MP001, applied in MP003). Drug-specific items stay out of the library and belong in published project rules."
+  },
+  "review_document": "/mnt/project-files/data-part/MP方法画像检查_20261008.md (items A1, A2, B1-B4)",
+  "deferred_items": "B5-B13 of the same review await item-by-item user review.",
+  "library_version": "1.0.0-draft.13",
+  "library_sha256": "b03c0ab5a830d3e2d73fc748e411aebdcb50234c73897391b524d40795cc8173",
+  "changes": [
+    {
+      "id": "A1",
+      "profile": "MP005",
+      "fields": [
+        "required_inputs[0]",
+        "missing_effect"
+      ],
+      "change": "DA001/DA004/DA008 replaced by DR/DC rules and the general data-gap policy after the 2026-10-08 Data agent split."
+    },
+    {
+      "id": "A2",
+      "source": "S08",
+      "fields": [
+        "title",
+        "locator",
+        "checked_on",
+        "supports"
+      ],
+      "change": "Authors, year, journal, DOI and study design added; checked online 2026-10-08."
+    },
+    {
+      "id": "B1",
+      "profile": "MP009",
+      "fields": [
+        "data_checks"
+      ],
+      "change": "Index ranking requires regimens that separate candidate indices; otherwise ranking stays unresolved. No numeric count."
+    },
+    {
+      "id": "B2",
+      "profile": "MP009",
+      "fields": [
+        "conditional_inputs"
+      ],
+      "change": "Infection-model description for in vivo response data."
+    },
+    {
+      "id": "B3",
+      "profile": "MP009",
+      "fields": [
+        "data_checks"
+      ],
+      "change": "Separate PK data must match the PD experiment animal state; mismatch recorded as an applicability question."
+    },
+    {
+      "id": "B4",
+      "profile": "MP001, MP003",
+      "fields": [
+        "data_checks"
+      ],
+      "change": "Dose basis and analyte composition must correspond; conversion factors need a cited source."
+    }
+  ],
+  "scientific_review": "Still DRAFT_PENDING_SCIENTIFIC_REVIEW; this record approves the wording supplement only."
+}

@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_INPUT_SUPPLEMENT_AND_PTA_RELOCATION",
+  "date": "2026-10-07",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "补充一下",
+    "accepted_proposal": "Add conditional desired-effect, window and target-source/estimation-input requirements to MP009. Move MP010 to the later PTA checklist, preserving its unique requirements and treating an uncomputed target as planned output when a downstream estimation task is documented."
+  },
+  "supersedes": {
+    "record": "research_pipeline/docs/review_drafts/MP009_method_review.20261007.json",
+    "scope": "MP009 content and current data-profile menu only; retain earlier review and priority."
+  },
+  "library_version": "1.0.0-draft.12",
+  "library_sha256": "3b4143963e054882e82629a4c01ffbcd3d04941ccbbf9e3699004b25a66ffaba",
+  "profile_sha256": "22c4183cba02475005ea6dc50fbe21afea37087df7bed5ab476d26cbe6983323",
+  "profile": {
+    "id": "MP009",
+    "name": "Data requirements for PK/PD indices and PD targets",
+    "family": "PKPD",
+    "assessment_scope": "DATA_REQUIREMENTS_ONLY",
+    "target_endpoints": [
+      "Project-defined exposure indices",
+      "Project-requested exposure-response index comparison",
+      "Project-requested PD target estimation or use"
+    ],
+    "outputs": [
+      "Task-specific index input coverage",
+      "Exposure-response matching and definition gaps",
+      "Conditional MIC, threshold and PD-target input coverage and gaps"
+    ],
+    "applies_when": "The project requests exposure indices, response-linked index comparison, PD target estimation or a target for later PTA. Distinguish exposure summaries, index ranking and PD target tasks. Reuse existing PK, unit, provenance and MP007 binding assessments rather than repeating them.",
+    "required_inputs": [
+      "The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended.",
+      "For exposure calculations or response-linked fits: source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites."
+    ],
+    "conditional_inputs": [
+      "For exposure-response analysis, index ranking or estimation of a new PD target: the measured PD endpoint, baseline/comparator, response observation time/window and source, plus traceable mapping among regimen, exposure and response.",
+      "If PD target estimation or PTA is requested, specify the desired effect and endpoint window. Identify either a source-supported same-drug target or the matched exposure-response data intended for downstream target estimation. For a reported target, retain its value, index definition, units, free/total basis, exposure window, source and applicability context. A target awaiting estimation is a planned upstream output, not automatically missing data.",
+      "For a time-above-threshold index: the threshold and its definition, exposure profile input, analysis window and whether the output is a duration or percentage. A bare fT label is incomplete.",
+      "Strain-matched MIC with its measurement context, units and source only when an index is MIC-normalized or uses MIC as its threshold.",
+      "For free-exposure indices: use the relevant direct free-concentration or binding-input assessment under MP007."
+    ],
+    "acceptable_alternatives": [
+      "Explicitly requested non-MIC-normalized exposure summaries do not require MIC merely because this is a PK/PD task.",
+      "When response data or matching are unavailable, retain independently supported exposure-summary tasks and the unresolved ranking objective.",
+      "In vitro response data may be registered for their own stated analysis context, without relabeling them as animal efficacy."
+    ],
+    "data_checks": [
+      "Identify whether the task is exposure calculation, index ranking, PD target estimation or use of an existing target. Require matched response data for ranking or new target estimation; do not automatically require raw response data when only a source-supported target is requested.",
+      "Check each index definition and window. Do not infer MIC normalization, an fT threshold or duration-versus-percentage meaning from an abbreviated label.",
+      "For response-linked tasks, map regimen, exposure and PD observations using source-supported relationships. Preserve ambiguity rather than inventing pairs.",
+      "For MIC-dependent tasks, verify that the susceptibility input refers to the relevant strain and measurement context. Do not borrow another drug's MIC or PD target to fill gaps.",
+      "For target tasks, distinguish the measured PD endpoint, desired effect and required index value. Record source-supported target inputs separately from planned estimation outputs. Map a documented later target output to DEFERRED with its producing task and required phase; report missing source data or undefined effects/windows separately. This step does not estimate or qualify the target or establish its applicability to human PTA.",
+      "Report available, absent and unresolved inputs separately by task. Do not fit Emax/Hill models, compute fit statistics or select a winning index in this stage."
+    ],
+    "missing_effect": "Report which index input or exposure-response mapping is missing through the general data-gap policy. Missing PD matching does not block independent PK or exposure-summary work, but exposure values alone do not establish a best index. An uncomputed target with a documented estimation plan is a deferred output. Preserve any missing target definition or estimation inputs as task-specific gaps; do not make them blockers for independent animal PK or exposure-summary tasks.",
+    "not_established": [
+      "A fitted exposure-response relationship, best index, PD target or evidence of clinical efficacy."
+    ],
+    "needed_at": "DATA_REQUIREMENTS_ASSESSMENT",
+    "source_ids": [
+      "S07",
+      "S08"
+    ]
+  },
+  "deferred_reference": {
+    "path": "research_pipeline/research_pipeline/resources/pta_analysis_followup.json",
+    "sha256": "a3f186c59b34394c61119c33bd5bfd573f2f5271547031a0da92e13a8f06e132"
+  },
+  "review_order": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP009",
+    "MP005",
+    "MP006",
+    "MP007",
+    "MP008"
+  ],
+  "ids_renumbered": false,
+  "unchanged_profile_contents": [
+    "MP001",
+    "MP002",
+    "MP003",
+    "MP004",
+    "MP005",
+    "MP006",
+    "MP007",
+    "MP008"
+  ],
+  "scientific_release": false,
+  "historical_runs_modified": false
+}

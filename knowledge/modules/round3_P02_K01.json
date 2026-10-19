@@ -1,0 +1,57 @@
+{
+  "cards": [
+    {
+      "title": "Distinction between Index Discrimination and Target Estimation",
+      "topics": [
+        "pkpd"
+      ],
+      "claim": "Cross-index discrimination and within-index target estimation are separate analytical objectives. Index ranking requires a design that separates correlated indices (e.g., varying frequency vs. total dose) and matched exposure-response data; if the design cannot distinguish indices, ranking remains unresolved. Target estimation for a specific index requires defined effect endpoints and matched data, but a reported target from literature does not require raw response data for its registration. A target awaiting estimation is a deferred output, not missing data.",
+      "conditions": [
+        "Applicable when the project requests either index comparison or PD target estimation.",
+        "For ranking: The experimental design must vary dosing frequency/interval independently of total dose to separate correlated indices.",
+        "For target estimation: Requires source-supported same-drug target or matched exposure-response data.",
+        "Project-specific: MAIN.MP009 explicitly separates 'exposure summaries', 'index ranking', and 'PD target tasks'."
+      ],
+      "required_inputs": [
+        "Defined PD endpoint, baseline/comparator, and response window.",
+        "Traceable mapping between regimen, exposure, and biological response.",
+        "For ranking: Regimens that vary frequency/interval to decouple AUC, Cmax, and T>MIC.",
+        "For target: Specific effect definition (e.g., stasis, 1-log kill) and index definition (units, free/total basis)."
+      ],
+      "limitations": [
+        "Exposure values alone do not establish a 'best' index; matched PD data are required.",
+        "A winning index from one study is not automatically applicable to another compound, organism, endpoint or experimental context.",
+        "Project drafts (IN_MAIN:0045) state that missing PD matching blocks ranking but not independent PK/exposure summaries.",
+        "Abstract-only evidence cannot support unreported methods or specific numeric targets."
+      ],
+      "downstream_use": "Determines whether to proceed with index ranking (if design allows) or defer to a single prespecified index for target estimation. Guides the distinction between registering a literature-reported target versus initiating a new fitting workflow.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0043",
+        "IN_MAIN:0045",
+        "IN_MAIN:0046",
+        "IN_PKPD_INDEX:0008",
+        "SUP007:0022"
+      ],
+      "id": "round3_P02:K01",
+      "origin_job": "round3_P02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_MAIN",
+        "IN_PKPD_INDEX",
+        "SUP007"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "P02",
+      "retrieval_keywords": "Dose fractionation: cross-index discrimination versus within-index target fitting",
+      "supersedes": [
+        "round2_P02:K01",
+        "round2_P02:K02",
+        "round2_P02:K03"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

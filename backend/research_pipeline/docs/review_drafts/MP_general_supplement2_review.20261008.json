@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "status": "USER_APPROVED_GENERAL_SUPPLEMENT",
+  "date": "2026-10-08",
+  "source": {
+    "type": "USER_CLARIFICATION",
+    "quote": "感觉都可以加上 另外要记得我们的目的是DR right？",
+    "accepted_proposal": "Add review items B5-B13 as drug-agnostic data requirements for DR. Each addition states which data, definitions or metadata must be present; none selects a method, sets a numeric threshold or performs a calculation."
+  },
+  "prior_review": "research_pipeline/docs/review_drafts/MP_general_supplement_review.20261008.json (draft.13: A1, A2, B1-B4)",
+  "review_document": "/mnt/project-files/data-part/MP方法画像检查_20261008.md (items B5-B13)",
+  "library_version": "1.0.0-draft.14",
+  "library_sha256": "5e611e0b673bd83af4a4b7adc7e811b3abc6f6a6670c5c2d6a0ccdeac336bdb3",
+  "previous_library_sha256": "b03c0ab5a830d3e2d73fc748e411aebdcb50234c73897391b524d40795cc8173",
+  "changes": [
+    {
+      "id": "B5",
+      "profile": "MP003, MP005",
+      "fields": [
+        "conditional_inputs",
+        "data_checks"
+      ],
+      "change": "Animal characteristics (strain, sex, actual body weight, health or infection state, renal function) when the objective depends on them; MP005 requires the actual body weight per species with its source and no textbook typical weight."
+    },
+    {
+      "id": "B6",
+      "profile": "MP001",
+      "fields": [
+        "data_checks"
+      ],
+      "change": "Time-zero concentration marked observed, assumed or unknown according to administration mode; any back-extrapolation is left to the NCA module."
+    },
+    {
+      "id": "B7",
+      "profile": "MP001",
+      "fields": [
+        "conditional_inputs",
+        "source_ids"
+      ],
+      "change": "Bioanalytical information (assay, matrix, reported LLOQ, validation status, recovery or adsorption) recorded as present or absent, not graded. Source S18 ICH M10 added."
+    },
+    {
+      "id": "B8",
+      "profile": "MP001",
+      "fields": [
+        "conditional_inputs"
+      ],
+      "change": "Site-of-infection matrices (for example epithelial lining fluid, tissue homogenate) need the sampling and correction method and units, and are not pooled with plasma."
+    },
+    {
+      "id": "B9",
+      "profile": "MP011 (new)",
+      "fields": [
+        "all"
+      ],
+      "change": "New profile for urinary excretion and renal clearance data (collection intervals, volume, concentration or amount, dose basis, matching plasma intervals). MP010 stays reserved for the deferred PTA reference. Source S19 PKNCA secondary parameters added; MP008 points to MP011 for renal components."
+    },
+    {
+      "id": "B10",
+      "profile": "MP007",
+      "fields": [
+        "required_inputs[1]",
+        "data_checks"
+      ],
+      "change": "Binding assay species, matrix, temperature and pH; nonspecific binding and recovery recorded when reported."
+    },
+    {
+      "id": "B11",
+      "profile": "MP009",
+      "fields": [
+        "conditional_inputs"
+      ],
+      "change": "MIC context lists method, medium, standard, replicates and the summary value used."
+    },
+    {
+      "id": "B12",
+      "profile": "MP002, MP003",
+      "fields": [
+        "target_endpoints",
+        "data_checks"
+      ],
+      "change": "AUMC and MRT (MP002) and Vz (MP003) become target endpoints only when explicitly requested."
+    },
+    {
+      "id": "B13",
+      "profile": "MP004",
+      "fields": [
+        "conditional_inputs"
+      ],
+      "change": "Multiple dose levels required only when the objective includes characterising nonlinearity."
+    }
+  ],
+  "excluded": "Drug-specific items (section C of the review document) stay out of the library and belong in published project rules.",
+  "code_changes": [
+    "research_pipeline/tests/test_method_profiles.py: profile order and count include MP011",
+    "research_pipeline/docs/interfaces/pkpd_knowledge_layers.json: MP011 in profile_review_order",
+    "data_agents.contract.json, data_requirement_check.contract.json, rules/data/dr_requirements.json notes, rules/README.md row: MP001-MP009 and MP011"
+  ],
+  "verification": "research_pipeline suite: 18 failed, 504 passed, 7 skipped, 2 errors, identical failure list to the pre-change baseline (environment: no R)."
+}

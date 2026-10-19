@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "title": "Independence of Fixed- and Random-Effects Identifiability",
+      "topics": [
+        "animal_pk",
+        "pkpd"
+      ],
+      "claim": "The identifiability of random-effects parameters (variances/covariances) is not strictly dependent on the identifiability of their corresponding fixed-effects parameters. In the cited examples, random-effect parameters were identifiable even when their corresponding fixed-effect parameters were unidentifiable. However, the source notes that in its limited examples, identifiable fixed effects always had identifiable corresponding random effects; the reverse case (identifiable fixed/unidentifiable random) was not demonstrated as a general rule.",
+      "conditions": [
+        "Applies to nonlinear mixed-effects models (population PK/PD).",
+        "Demonstrated in the cited Bateman/Dost model examples under specified fixed/random-effect and covariance structures. Do not infer a symmetric implication or a universal effect of fixing F.",
+        "Source examples show random effects can be identifiable despite unidentifiable fixed effects (e.g., ωV3 identifiable while V3 unidentifiable)."
+      ],
+      "required_inputs": [
+        "Mixed-effects model specification.",
+        "Population Fisher Information Matrix including terms for random effects."
+      ],
+      "limitations": [
+        "No standard rule exists to predict random-effect identifiability from fixed-effect identifiability; each must be assessed.",
+        "Interactions between covariances in the Ω matrix may affect identifiability, which was not fully explored in the source examples.",
+        "The opposite direction was not demonstrated in the limited examples and cannot be inferred from them; assess fixed and random-effect identifiability under the stated candidate model/design."
+      ],
+      "downstream_use": "When building population models, do not assume that fixing a fixed-effect parameter resolves identifiability issues for its associated random-effect parameter. Assess both separately using the FIM criterion, noting that random-effect identifiability can persist even when fixed-effect identifiability fails.",
+      "evidence_chunk_ids": [
+        "SUP003:0010",
+        "SUP003:0011",
+        "SUP003:0014"
+      ],
+      "id": "source_SUP003:K02",
+      "origin_job": "source_SUP003",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

@@ -1,0 +1,40 @@
+{
+  "cards": [
+    {
+      "title": "Steady-State and Sparse Sampling Assumptions in Phoenix NCA",
+      "topics": [
+        "animal_pk",
+        "human_simulation"
+      ],
+      "claim": "Phoenix NCA models 200-202 (plasma/blood) support both single-dose and steady-state data. For steady-state, the computation assumes equal dosing intervals (Tau) for each profile and that data is from a 'final' dose at steady state. Models 210-212 (urine) assume single-dose data. The engine supports rich datasets and sparsely-sampled studies (e.g., toxicokinetics).",
+      "conditions": [
+        "When analyzing steady-state data, Tau must be provided and assumed constant across profiles.",
+        "When analyzing sparse data, the engine's sparse sampling algorithms are applied.",
+        "Urine models (210-212) are restricted to single-dose assumptions."
+      ],
+      "required_inputs": [
+        "Tau (dose interval) for steady-state analysis",
+        "Identification of 'final' dose data points"
+      ],
+      "limitations": [
+        "Assumes equal dosing intervals for steady-state; does not explicitly describe handling of unequal intervals in this excerpt.",
+        "Does not detail the specific algorithm for sparse sampling (e.g., L-FOCE vs. other methods)."
+      ],
+      "downstream_use": "Informs data preparation steps (e.g., ensuring Tau is defined for steady-state studies). Clarifies that urine analysis is limited to single-dose contexts in this software version.",
+      "evidence_chunk_ids": [
+        "REF_016:0001"
+      ],
+      "id": "source_REF_016:K02",
+      "origin_job": "source_REF_016",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_016"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

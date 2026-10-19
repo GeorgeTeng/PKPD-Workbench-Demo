@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "request_id": "parallel_synthetic_001",
+  "attachments": [
+    {
+      "id": "data",
+      "path": "synthetic_pk.json",
+      "role": "pk_observations"
+    },
+    {
+      "id": "endpoints",
+      "path": "synthetic_endpoints.csv",
+      "role": "independent_endpoint_and_candidate_indices"
+    }
+  ],
+  "steps": [
+    {
+      "id": "pk",
+      "module": "pk_longitudinal",
+      "input": {
+        "data_attachment": "data"
+      },
+      "metadata": {
+        "drug": "SyntheticDrug",
+        "species": "synthetic_animal",
+        "matrix": "plasma",
+        "concentration_unit": "mg/L",
+        "time_unit": "h",
+        "dose_unit": "mg",
+        "route": "IV",
+        "concentration_basis": "total",
+        "record_level": "individual",
+        "data_origin": "synthetic",
+        "regimen_type": "single_dose"
+      },
+      "options": {
+        "mode": "individual",
+        "compartments": 1,
+        "doses": [
+          {
+            "time_h": 0,
+            "dose_mg": 100,
+            "duration_h": 0
+          }
+        ],
+        "reference_mode": "baseline"
+      }
+    },
+    {
+      "id": "index",
+      "module": "pkpd_index",
+      "input": {
+        "data_attachment": "endpoints"
+      },
+      "metadata": {
+        "drug": "SyntheticDrug",
+        "data_origin": "synthetic",
+        "response_unit": "arbitrary units",
+        "endpoint_definition": "One independent synthetic response per unit at the common evaluation time.",
+        "index_definitions": {
+          "fAUC_MIC_h": {
+            "unit": "h",
+            "concentration_basis": "free",
+            "window_h": [
+              0,
+              24
+            ]
+          },
+          "fCmax_MIC": {
+            "unit": "1",
+            "concentration_basis": "free",
+            "window_h": [
+              0,
+              24
+            ]
+          },
+          "fT_MIC_percent": {
+            "unit": "%",
+            "concentration_basis": "free",
+            "window_h": [
+              0,
+              24
+            ]
+          }
+        }
+      },
+      "options": {
+        "mode": "compare_indices",
+        "index_columns": [
+          "fAUC_MIC_h",
+          "fCmax_MIC",
+          "fT_MIC_percent"
+        ],
+        "response_column": "response",
+        "id_column": "unit_id",
+        "group_column": "study_id",
+        "direction": "decreasing",
+        "estimate_hill": false
+      }
+    }
+  ]
+}

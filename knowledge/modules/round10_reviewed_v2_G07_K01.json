@@ -1,0 +1,152 @@
+{
+  "cards": [
+    {
+      "title": "Indirect Response (Turnover) PK/PD Models",
+      "claim": "Indirect response models represent drug modulation of response production or loss, with zero-order input and first-order loss in the cited basic models. The untreated stationary reference is R0=kin/kout; it need not equal the actual initial response R(0). An upstream receptor-mediated action can coexist with delayed downstream turnover.",
+      "conditions": [
+        "Applicable when the drug mechanism involves inhibition or stimulation of the synthesis or degradation of a biomarker/response.",
+        "Requires a measurable response variable with a stable baseline (R_0) and a turnover process that can be characterized by first-order loss and zero-order production.",
+        "A direct or receptor-mediated initial action does not exclude a delayed downstream turnover response; apply this branch when the measured response can plausibly follow production/loss dynamics.",
+        "For prospective model discrimination, seek informative baseline, onset, response-extremum and recovery observations across relevant exposures where feasible. Missing phases may limit discrimination rather than make all descriptive or bounded analyses unusable."
+      ],
+      "required_inputs": [
+        "Plasma drug concentration-time profile (C_p).",
+        "Response variable time-course data (R vs. t).",
+        "Baseline response value (R_0) or sufficient pre-dose data to estimate it.",
+        "Initial response state R(0) at the start of the observation window (may differ from R_0 if pre-dosed or non-stationary).",
+        "Mechanistic knowledge about whether input or loss is modulated, if available; otherwise candidate structures may be compared and mechanism left unresolved."
+      ],
+      "limitations": [
+        "Source includes theoretical and simulation-based model exploration; it does not prove identifiability of all four models from sparse clinical data.",
+        "Assumes stationarity (constant k_in and k_out in absence of drug).",
+        "Does not specify target-drug specific parameter values; parameters must be estimated from data.",
+        "Hysteresis observed in data may be due to indirect turnover or other factors (e.g., distribution delay); model selection requires mechanistic justification.",
+        "Dose-dependent shifts in PD-Tmax are model-conditional signatures, not unique biological identifiers; do not infer mechanism solely from Tmax shifts."
+      ],
+      "downstream_use": "Use to fit PK/PD data where there is a delay between peak plasma concentration and peak response, or where response persists after drug clearance. Select the specific model (I-IV) based on whether the drug inhibits/stimulates input or loss.",
+      "method_keywords": [
+        "indirect response",
+        "turnover model",
+        "k_in",
+        "k_out",
+        "production inhibition",
+        "production stimulation",
+        "loss inhibition",
+        "loss stimulation",
+        "baseline response",
+        "hysteresis",
+        "PD-Tmax",
+        "effect compartment"
+      ],
+      "retrieval_keywords": "indirect response turnover kin kout inhibition stimulation input loss PD-Tmax effect compartment",
+      "knowledge_layer": "conditional_method",
+      "method_recipe": {
+        "estimand_and_scope": "Estimate parameters k_in, k_out, IC_50/EC_50, and E_max/S_max to describe the time-course of a response variable R governed by indirect mechanisms.",
+        "input_contract": "Input: C_p(t) (plasma concentration), R(t) (observed response), t (time), R(0) (initial response state). Output: Estimated parameters and model fit.",
+        "applicability_and_prerequisites": "Use mechanistic evidence where available to choose plausible input/loss modulation candidates; otherwise compare supported alternatives without requiring every candidate to be fitted. Informative onset and recovery sampling improves discrimination, while missing phases may leave some parameters or mechanisms unresolved.",
+        "definitions_units_basis_window": "1. Baseline: R_0 = k_in / k_out (Units: Response units). k_in (Response units/time), k_out (1/time).\n2. Model I (Inhibition of Input): dR/dt = k_in * I(t) - k_out * R, where I(t) = 1 - C_p / (C_p + IC_50).\n3. Model II (Inhibition of Loss): dR/dt = k_in - k_out * I(t) * R, where I(t) = 1 - C_p / (C_p + IC_50).\n4. Model III (Stimulation of Input): dR/dt = k_in * S(t) - k_out * R, where S(t) = 1 + (E_max * C_p) / (EC_50 + C_p).\n5. Model IV (Stimulation of Loss): dR/dt = k_in - k_out * S(t) * R, where S(t) = 1 + (E_max * C_p) / (EC_50 + C_p).\nNote: Inhibition factor I(t) ranges 0 to 1. Stimulation factor S(t) ranges 1 to (1+E_max).",
+        "procedure": "1. Define response, baseline and exposure/response time alignment. 2. Define the untreated stationary reference R0=kin/kout. Set R(0)=R0 only when actual treatment history and response state justify equilibrium; otherwise use a justified observed/estimated initial state. 3. Select supported candidates among the four GEN002 input/loss inhibition/stimulation ODEs. 4. Estimate identifiable parameters from observed time courses and compare fit, recovery and plausibility. 5. Retain competing mechanisms when available data do not discriminate.",
+        "formula_and_parameterization": "1. Baseline: R_0 = k_in / k_out (Units: Response units). k_in (Response units/time), k_out (1/time).\n2. Model I (Inhibition of Input): dR/dt = k_in * I(t) - k_out * R, where I(t) = 1 - C_p / (C_p + IC_50).\n3. Model II (Inhibition of Loss): dR/dt = k_in - k_out * I(t) * R, where I(t) = 1 - C_p / (C_p + IC_50).\n4. Model III (Stimulation of Input): dR/dt = k_in * S(t) - k_out * R, where S(t) = 1 + (E_max * C_p) / (EC_50 + C_p).\n5. Model IV (Stimulation of Loss): dR/dt = k_in - k_out * S(t) * R, where S(t) = 1 + (E_max * C_p) / (EC_50 + C_p).\nNote: Inhibition factor I(t) ranges 0 to 1. Stimulation factor S(t) ranges 1 to (1+E_max).",
+        "uncertainty_and_identifiability": "Parameter identifiability may be limited if the response does not return to baseline or if sampling is sparse. Model selection between I-IV may be ambiguous without strong mechanistic prior. Dose-dependent PD-Tmax shifts are model-conditional and do not uniquely identify the mechanism.",
+        "diagnostics_and_failure_modes": "If the model fails to fit, consider: 1. Direct effect models with effect compartment. 2. Non-stationary turnover. 3. Incorrect assumption of inhibition vs. stimulation. Do not force a fit if the mechanism is clearly direct.",
+        "missing_input_and_partial_fallback": "If the model fails to fit, consider: 1. Direct effect models with effect compartment. 2. Non-stationary turnover. 3. Incorrect assumption of inhibition vs. stimulation. Do not force a fit if the mechanism is clearly direct.",
+        "output_and_interpretation": "kin is baseline input in response units/time and kout is baseline first-order loss in 1/time. IC50 or EC50 is the concentration giving half the specified drug-modulation term. In S(t)=1+Emax*C/(EC50+C), dimensionless Emax is the maximal increment and the factor tends to 1+Emax. Good fit supports model adequacy for these data, not unique biological mechanism.",
+        "worked_example_and_counterexample": "Synthetic Example: Drug X inhibits the production of Biomarker Y. Baseline Y_0 = 100 ng/mL. k_out = 0.1 h^-1. Therefore k_in = k_out * R_0 = 10 ng/mL/h. If C_p = IC_50, I(t) = 0.5. dR/dt = 10 * 0.5 - 0.1 * R. At R=100, dR/dt = 5 - 10 = -5 ng/mL/h. Response declines. Counterexample: An observed hysteresis loop alone cannot identify which of the four turnover mechanisms applies."
+      },
+      "claim_support": [
+        {
+          "claim": "Baseline response R_0 is defined by the ratio of production to loss rates.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN002:MATH08",
+            "GEN002:0004"
+          ]
+        },
+        {
+          "claim": "Model I describes inhibition of input (production).",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN002:MATH01",
+            "GEN002:MATH02",
+            "GEN002:MATH03"
+          ]
+        },
+        {
+          "claim": "Model II describes inhibition of loss.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN002:MATH01",
+            "GEN002:MATH02",
+            "GEN002:MATH04"
+          ]
+        },
+        {
+          "claim": "Model III describes stimulation of input.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN002:MATH01",
+            "GEN002:MATH05",
+            "GEN002:MATH06"
+          ]
+        },
+        {
+          "claim": "Model IV describes stimulation of loss.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN002:MATH01",
+            "GEN002:MATH05",
+            "GEN002:MATH07"
+          ]
+        },
+        {
+          "claim": "Indirect response models are distinct from direct effect compartment models and explain hysteresis via turnover.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "GEN002:0002",
+            "GEN002:0015"
+          ]
+        },
+        {
+          "claim": "Dose-dependent PD-Tmax shifts are model-conditional signatures and do not uniquely identify the mechanism.",
+          "scope": "general",
+          "evidence_chunk_ids": [
+            "EXTA003:0005"
+          ]
+        }
+      ],
+      "evidence_chunk_ids": [
+        "GEN002:MATH01",
+        "GEN002:MATH02",
+        "GEN002:MATH03",
+        "GEN002:MATH04",
+        "GEN002:MATH05",
+        "GEN002:MATH06",
+        "GEN002:MATH07",
+        "GEN002:MATH08",
+        "GEN002:0002",
+        "GEN002:0004",
+        "GEN002:0015",
+        "EXTA003:0005",
+        "EXTA003:0007"
+      ],
+      "required_branches": [
+        "turnover_pd"
+      ],
+      "id": "round10_reviewed_v2_G07:K01",
+      "topics": [
+        "pkpd"
+      ],
+      "source_ids": [
+        "EXTA003",
+        "GEN002"
+      ],
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "kind": "method_refinement",
+      "origin_job": "G07",
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "example_is_synthetic": "True. The example uses arbitrary units and parameters to demonstrate the calculation logic, not real data."
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

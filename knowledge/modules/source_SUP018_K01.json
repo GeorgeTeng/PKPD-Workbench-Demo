@@ -1,0 +1,51 @@
+{
+  "cards": [
+    {
+      "title": "Broth Microdilution Method and MIC Definition",
+      "topics": [
+        "data_eda",
+        "pkpd"
+      ],
+      "claim": "For an agent-organism pair for which broth microdilution is the qualified reference method, record the MIC as the lowest antimicrobial concentration meeting the applicable growth-inhibition endpoint, expressed in mg/L or µg/mL. The standard endpoint is complete visible-growth inhibition; method and endpoint applicability must be verified before use.",
+      "conditions": [
+        "Use MH-F broth (Mueller-Hinton broth + 5% lysed horse blood + 20 mg/L β-NAD) for fastidious organisms.",
+        "Standard MH broth for non-fastidious organisms.",
+        "Results must be recorded as MIC values, not just categorical susceptibility."
+      ],
+      "required_inputs": [
+        "Antimicrobial concentration series with units.",
+        "Microorganism identity and the qualified assay method for the agent-organism pair.",
+        "Broth composition, incubation protocol and endpoint definition with method/version provenance."
+      ],
+      "limitations": [
+        "Broth microdilution and complete-inhibition reading are not universal for every agent-organism pair.",
+        "Specific exceptions must be checked in the applicable assay protocol; this generic card does not prescribe those drug-specific procedures.",
+        "Text extraction does not verify visual growth patterns; requires trained manual or calibrated automated reading."
+      ],
+      "downstream_use": "Defines the fundamental data type (MIC in mg/L) and experimental conditions required for PK/PD modeling inputs.",
+      "evidence_chunk_ids": [
+        "SUP018:0003"
+      ],
+      "id": "source_SUP018:K01",
+      "origin_job": "source_SUP018",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP018"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review",
+      "method_keywords": [
+        "MIC",
+        "broth microdilution",
+        "method applicability",
+        "growth inhibition",
+        "mg/L",
+        "µg/mL",
+        "assay provenance"
+      ]
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

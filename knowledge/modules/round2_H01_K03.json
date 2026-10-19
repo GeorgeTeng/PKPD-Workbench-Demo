@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Uncertainty Quantification via Monte Carlo Simulation",
+      "topics": [
+        "human_simulation"
+      ],
+      "claim": "Uncertainty in human dose/exposure predictions should be quantified by integrating uncertainty from all parameter sources using Monte Carlo simulation. Parameters are assigned distributions (e.g., log-normal) rather than point estimates alone. This approach allows communication of the probability of achieving target exposures despite parameter uncertainty.",
+      "conditions": [
+        "Applicable when point estimates are insufficient to convey risk.",
+        "Requires defined distributions for key PK/PD parameters (e.g., CL, Vss, KD, koff).",
+        "No correlations between parameters were assumed in the cited methodological example."
+      ],
+      "required_inputs": [
+        "Point estimates for all PK/PD parameters.",
+        "Defined probability distributions (e.g., log-normal) for each uncertain parameter.",
+        "Number of Monte Carlo iterations (typically >1,000).",
+        "Target exposure metric (e.g., Cmax, AUC, or receptor occupancy threshold)."
+      ],
+      "limitations": [
+        "Methodological example from SUP011 is for a different drug; it does not provide target-drug parameter values.",
+        "Uncertainty in translation (species differences) is a major source of error; human PK uncertainty dominates if animal data is limited.",
+        "Does not validate the model; only quantifies uncertainty given the model structure."
+      ],
+      "downstream_use": "Generate empirical distributions of predicted human dose or exposure to support risk assessment and decision-making under uncertainty.",
+      "evidence_chunk_ids": [
+        "SUP011:0025",
+        "SUP011:0026",
+        "SUP011:0013"
+      ],
+      "id": "round2_H01:K03",
+      "origin_job": "round2_H01",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP011"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "H01",
+      "retrieval_keywords": "Required inputs and scenario status of prospective human regimen simulation",
+      "supersedes": [],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

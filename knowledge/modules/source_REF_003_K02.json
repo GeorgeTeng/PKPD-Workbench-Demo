@@ -1,0 +1,42 @@
+{
+  "cards": [
+    {
+      "title": "Terminal Slope (Lambda Z) Estimation and Diagnostics",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Lambda Z is estimated via linear regression of log concentration (Y) vs. time (X) (or log excretion rate vs. midpoint for urine); lambda_z is the negative fitted slope. Diagnostics include Rsq (goodness of fit), Corr_XY (correlation), and Span (ratio of Lambda Z window to half-life). Parameters like AUCINF and Vz are calculated using either the last observed (obs) or last predicted (pred) concentration/rate.",
+      "conditions": [
+        "Terminal log-linear phase exists",
+        "Sufficient points in terminal phase"
+      ],
+      "required_inputs": [
+        "Time-concentration pairs",
+        "Lambda_z_lower/upper bounds"
+      ],
+      "limitations": [
+        "If Lambda Z cannot be estimated, No_points_lambda_z is set to zero and extrapolated parameters are not computed.",
+        "Span and Rsq are critical for assessing the validity of the terminal slope."
+      ],
+      "downstream_use": "Assessment of NCA model fit quality; determination of whether extrapolated parameters (AUCINF) are reliable.",
+      "evidence_chunk_ids": [
+        "REF_003:0003",
+        "REF_003:0004",
+        "REF_003:0009",
+        "REF_003:0010"
+      ],
+      "id": "source_REF_003:K02",
+      "origin_job": "source_REF_003",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_003"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

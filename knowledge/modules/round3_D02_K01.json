@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "title": "Chromatographic Calibration Curve Validation Criteria",
+      "topics": [
+        "data_eda"
+      ],
+      "claim": "For chromatographic methods, the calibration curve must include a blank sample, a zero sample (blank spiked with internal standard), and at least 6 concentration levels of calibration standards (including LLOQ and ULOQ). Blank and zero samples are excluded from regression equation determination. Back-calculated concentrations must be within ±20% at LLOQ and ±15% at all other levels. At least 75% of calibration standards (minimum 6 levels) must meet these criteria. When replicates are used, at least 50% of standards at each concentration level must also meet the accuracy criterion. A failing calibration standard sample is rejected and the curve re-evaluated. For accuracy and precision validation runs, rejection of all replicates of either the LLOQ or ULOQ calibration standard requires rejection of that run, investigation of the failure, and method revision if necessary.",
+      "conditions": [
+        "Applicable to chromatographic bioanalytical methods.",
+        "Calibration standards must be prepared in the same biological matrix as study samples.",
+        "Regression model and weighting must be defined in written procedures.",
+        "Freshly spiked standards required for at least one assessment; frozen standards allowed within stability period."
+      ],
+      "required_inputs": [
+        "Calibration standard concentrations (nominal).",
+        "Analytical response data for blank, zero, and calibration standards.",
+        "Defined regression model and weighting scheme.",
+        "Internal standard identity and concentration."
+      ],
+      "limitations": [
+        "Source-specific regulatory criteria; not universal project policy.",
+        "Does not define QC acceptance criteria (covered in separate section).",
+        "Does not address study-run acceptance logic beyond calibration curve failure.",
+        "Abstract-only or partial text may omit specific matrix effect handling details."
+      ],
+      "downstream_use": "Use to validate if calibration data meets regulatory acceptance criteria for chromatographic assays. Reject runs if calibration curve fails acceptance criteria. Do not use for QC sample acceptance or study sample quantification logic.",
+      "evidence_chunk_ids": [
+        "REF_018:0022",
+        "REF_018:0023",
+        "REF_018:0024"
+      ],
+      "id": "round3_D02:K01",
+      "origin_job": "round3_D02",
+      "kind": "question_refinement",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_018"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "question_id": "D02",
+      "retrieval_keywords": "BLQ, missing, not sampled, technical failure, above-range and assay qualification",
+      "supersedes": [
+        "round2_D02:K02",
+        "round2_D02:K04"
+      ],
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

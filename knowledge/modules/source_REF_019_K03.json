@@ -1,0 +1,40 @@
+{
+  "cards": [
+    {
+      "title": "Exclusion Propagation in Secondary Parameters",
+      "topics": [
+        "animal_pk",
+        "data_eda"
+      ],
+      "claim": "Exclusions applied to input values (e.g., insufficient points for half-life calculation) propagate to the secondary parameter result. If the reference interval's AUC is excluded due to poor fit or insufficient data, the dependent secondary parameter (e.g., renal clearance) is also excluded with the same reason.",
+      "conditions": [
+        "Exclusions must be set during the calculation phase (within `pk.nca` or interval specification).",
+        "Post-hoc exclusion functions (`exclude_nca_*`) on finished results do not propagate across links."
+      ],
+      "required_inputs": [
+        "Interval specification with exclusion criteria (e.g., `min.hl.points`).",
+        "Correct linkage between requesting and reference intervals."
+      ],
+      "limitations": [
+        "Exclusions applied after calculation do not propagate to linked secondary parameters.",
+        "This behavior distinguishes PKNCA's integrated calculation from post-hoc division of results tables."
+      ],
+      "downstream_use": "Prevents reporting of invalid secondary parameters derived from invalid primary parameters (e.g., renal clearance from an excluded AUC).",
+      "evidence_chunk_ids": [
+        "REF_019:0013",
+        "REF_019:0018"
+      ],
+      "id": "source_REF_019:K03",
+      "origin_job": "source_REF_019",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "REF_019"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

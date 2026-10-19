@@ -1,0 +1,322 @@
+{
+  "document_type": "COMPRESSION_FACT_ASSUMPTION_RECOGNITION_REVIEW",
+  "version": "0.1-draft",
+  "review_date": "2026-10-06",
+  "status": "PROPOSED_PENDING_RULE_BY_RULE_REVIEW",
+  "enabled": false,
+  "owner": "CONTEXT_COMPRESSION",
+  "scope": "Identify and preserve source-stated project facts and modeling premises before compressing their wording. This is a research-informed draft, not an activated classifier or a formal project-rule publisher.",
+  "interpretation": "The proposed rules below are our adaptation of published methods. No reviewed project was shown to provide a validated drop-in PROJECT_FACT/PROJECT_ASSUMPTION classifier for translational PK/PD proposals.",
+  "inherits": {
+    "artifact": "context_compression/ctxcomp/resources/workflow_governance.json",
+    "version": "1.2.0",
+    "ids": [
+      "G001",
+      "G002",
+      "G003",
+      "G004",
+      "G005",
+      "G006",
+      "G007"
+    ],
+    "delivery": "Reuse full applicable shared rules and scientific-preservation details; do not duplicate them as new project R rules.",
+    "preservation_profile": "context_compression/ctxcomp/resources/cc005_details.json"
+  },
+  "responsibility": {
+    "compression": "Own fact/assumption identification, preservation, evidence mapping and uncertainty reporting in its reviewed context.",
+    "project_rules_agent": "Reuse the reviewed context; re-read original sources for obligation extraction and final rule publication. A requirement to use an assumption links to that assumption; it does not establish its empirical truth.",
+    "literature_boundary": "Research sources justify processing proposals only. Do not insert these papers' scientific facts, model assumptions or parameter values into a user's project context."
+  },
+  "sources": [
+    {
+      "id": "SRC01",
+      "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
+      "year": 2024,
+      "url": "https://aclanthology.org/2024.findings-acl.57.pdf",
+      "project_url": "https://github.com/microsoft/LLMLingua",
+      "read_anchor": "Introduction and Section 3, including extractive distillation and token keep/discard labeling.",
+      "method": "Distill extractive compression examples and learn contextual token retention.",
+      "usable_component": "Retain source-aligned content while shortening wording.",
+      "limit": "Not an explicit fact/assumption classification or scientific truth-verification task."
+    },
+    {
+      "id": "SRC02",
+      "title": "Scientific Discourse Tagging for Evidence Extraction",
+      "year": 2021,
+      "url": "https://aclanthology.org/2021.eacl-main.218.pdf",
+      "project_url": "https://github.com/jacklxc/ScientificDiscourseTagging",
+      "read_anchor": "Table 1; problem formulation; sequence-tagging description; author repository input/model documentation.",
+      "method": "Label clauses or sentences using paragraph context, contextual scientific embeddings, attention and a BiLSTM-CRF.",
+      "usable_component": "Separate experimental results, author interpretation, hypotheses and other rhetorical roles before selecting content.",
+      "limit": "Its Fact class is author-relative and broad; Hypothesis is not automatically an adopted modeling assumption. Its taxonomy must not be copied directly into our output."
+    },
+    {
+      "id": "SRC03",
+      "title": "The BioScope corpus: annotation for negation, uncertainty and their scope in biomedical texts",
+      "year": 2008,
+      "url": "https://aclanthology.org/W08-0606.pdf",
+      "project_url": "https://rgai.inf.u-szeged.hu/node/105",
+      "read_anchor": "Section 2 annotation guidance; official annotation and evaluation documentation.",
+      "method": "Annotate linguistic cues and the text spans they modify; assess cue and scope recognition separately.",
+      "usable_component": "Preserve negation and uncertainty around the affected proposition.",
+      "limit": "Hedging identifies uncertainty, not necessarily adoption of an assumption. Absence of a cue does not demonstrate empirical truth."
+    },
+    {
+      "id": "SRC04",
+      "title": "Automatic Identification and Extraction of Assumptions on GitHub",
+      "year": 2023,
+      "url": "https://arxiv.org/html/2303.06822",
+      "read_anchor": "Sections I, III and V-B.",
+      "method": "Use assumption-word matching for self-claimed assumptions and a fine-tuned ALBERT classifier for potential assumptions; retain source records for review.",
+      "usable_component": "Use lexical candidates and contextual review as separate stages; preserve rejected and incomplete assumption statements.",
+      "limit": "Software-repository domain. Potential assumptions need human confirmation; truly implicit assumption inference is explicitly outside the study's scope."
+    },
+    {
+      "id": "SRC05",
+      "title": "Fact or Fiction: Verifying Scientific Claims",
+      "year": 2020,
+      "url": "https://aclanthology.org/2020.emnlp-main.609.pdf",
+      "project_url": "https://github.com/allenai/scifact",
+      "read_anchor": "Section 5 VERISCI baseline and evidence/rationale evaluation definitions.",
+      "method": "Retrieve evidence, select supporting sentences and classify the claim-evidence relation as support, refutation or insufficient information.",
+      "usable_component": "Make source support an explicit check rather than treating a quote match as sufficient.",
+      "limit": "Scientific claim verification differs from faithful proposal compression. Compression must not silently replace a source-stated claim using external literature."
+    },
+    {
+      "id": "SRC06",
+      "title": "Are You Sure That This Happened? Assessing the Factuality Degree of Events in Text",
+      "year": 2012,
+      "url": "https://aclanthology.org/J12-2002.pdf",
+      "read_anchor": "Sections 3.2-3.3: factuality profiles, polarity, epistemic commitment and attributed sources.",
+      "method": "Represent an event's factuality relative to the source making the statement, preserving polarity and degree of commitment.",
+      "usable_component": "Keep attribution, statement status and external verification distinct.",
+      "limit": "Event factuality is a linguistic task; it does not establish real-world truth or project authorization."
+    }
+  ],
+  "proposed_rules": [
+    {
+      "id": "CFA001",
+      "title": "Identify propositions before shortening",
+      "instruction": "Identify meaningful clauses with enough surrounding context to resolve references and conditions before compressing their wording. Keywords may prioritize inspection but must not exclude uncued material from coverage.",
+      "source_ids": [
+        "SRC01",
+        "SRC02"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA002",
+      "title": "Recognize source-stated project facts",
+      "instruction": "Use PROJECT_FACT for source-stated existing project conditions, completed actions or reported findings, with their attribution and information status. The label records what the source asserts, not independently verified truth. Do not classify an assumption, future plan, prediction or hypothetical scenario as an observed fact.",
+      "checks": [
+        "Retain reported versus observed versus estimated status as applicable.",
+        "Do not infer factuality from numbers, confident wording, a Results heading or absence of hedge words.",
+        "A claim appearing in a source can be faithfully extracted even when empirical validation is not available; keep these two support questions separate."
+      ],
+      "source_ids": [
+        "SRC02",
+        "SRC05",
+        "SRC06"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA003",
+      "title": "Recognize an adopted premise and its status",
+      "instruction": "Identify PROJECT_ASSUMPTION when a source presents a proposition as a premise for analysis or modeling. Preserve whether it is adopted for the present analysis, proposed, historical, rejected or unclear. Do not activate it merely because it was mentioned.",
+      "checks": [
+        "Speculation and testable hypotheses are not automatically assumptions adopted by the project.",
+        "Use explicit source meaning even when the exact word assume is absent.",
+        "An inferred unstated premise becomes a review question, not a source-established project assumption.",
+        "An explicit requirement to use a premise remains available to Project Rules Agent for separate rule publication."
+      ],
+      "source_ids": [
+        "SRC02",
+        "SRC04"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA004",
+      "title": "Resolve cue meaning and scope",
+      "instruction": "Evaluate cue phrases in their clause and paragraph context. Preserve negation, modal meaning, temporal status, conditions, exceptions and who asserts the proposition.",
+      "checks": [
+        "Do not assume X is not adoption of X.",
+        "May or could can express uncertainty, capability or permission; should can express a requirement or expectation.",
+        "Observed must still be checked for its subject, tense and scope: will be observed is not a completed observation.",
+        "Do not spread a hedge or negation over unrelated clauses."
+      ],
+      "source_ids": [
+        "SRC03",
+        "SRC04",
+        "SRC06"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA005",
+      "title": "Bind the classification to source evidence",
+      "instruction": "For each retained fact or assumption, link the proposition and decisive qualifiers to the original source span and record the classification basis. Re-check whether the full source meaning supports that classification; string matching alone is insufficient.",
+      "checks": [
+        "Keep evidence quotations and locations in the audit with compact references in the handoff.",
+        "Record project versus literature attribution without importing another study's assumptions.",
+        "Allow supporting context across paragraphs and preserve contradictory source statements rather than silently resolving them."
+      ],
+      "source_ids": [
+        "SRC05",
+        "SRC06"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA006",
+      "title": "Do not force a binary decision",
+      "instruction": "Keep hypotheses, predictions, plans, suggestions and unresolved statement roles distinguishable from facts and adopted assumptions. Preserve ambiguous source content and record a targeted clarification when its interpretation affects the objective or downstream decisions.",
+      "checks": [
+        "Source uncertainty is not itself an extraction error.",
+        "Use the existing id, field, status, needed_at and impact gap contract rather than inventing an assumption.",
+        "Do not demand every later-stage measurement during compression; assess whether the ambiguity prevents faithful handoff now."
+      ],
+      "source_ids": [
+        "SRC02",
+        "SRC03",
+        "SRC04"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA007",
+      "title": "Preserve status during compression",
+      "instruction": "After recognition, shorten wording only if the proposition, attribution, assumption adoption status and applicable scientific qualifiers remain unchanged. Refer to the full approved scientific-preservation profile rather than reducing it to category names.",
+      "checks": [
+        "Do not merge observation and interpretation into one factual claim.",
+        "Do not drop a caveat or status to satisfy a compression ratio.",
+        "Use original sources in the final review, not only the compressed candidate."
+      ],
+      "source_ids": [
+        "SRC01",
+        "SRC02",
+        "SRC03"
+      ],
+      "status": "PROPOSED"
+    },
+    {
+      "id": "CFA008",
+      "title": "Validate classification separately from compression size",
+      "instruction": "Evaluate on human-labeled project material and adversarial examples before activating the new recognition behavior. Assess classification and source-scope preservation separately from token reduction or latency.",
+      "checks": [
+        "Measure fact precision/recall and assumption precision/recall with a confusion matrix.",
+        "Track unsafe promotions: assumption, hypothesis, plan or prediction becoming an observed fact; proposed/rejected assumptions becoming adopted.",
+        "Measure critical qualifier omissions, unsupported additions and evidence-span correctness.",
+        "Split evaluation by project or source document to reduce leakage; use bilingual samples when deployment is bilingual.",
+        "Retain separate faithfulness, completeness and global-conflict outcomes; no runtime accuracy claim until a real held-out evaluation has run."
+      ],
+      "source_ids": [
+        "SRC02",
+        "SRC03",
+        "SRC05"
+      ],
+      "status": "PROPOSED"
+    }
+  ],
+  "cue_lexicon": {
+    "status": "PROPOSED_ADAPTED_EXAMPLES_NOT_VALIDATED; these are cues, never sufficient classification rules",
+    "assumption": [
+      "assume",
+      "assuming",
+      "under the assumption",
+      "for this analysis",
+      "treated as",
+      "held constant",
+      "暂假设",
+      "本次分析视为"
+    ],
+    "factual_reporting": [
+      "measured",
+      "observed",
+      "collected",
+      "reported",
+      "estimated",
+      "已测得",
+      "已收集"
+    ],
+    "speculation": [
+      "may",
+      "might",
+      "could",
+      "suggest",
+      "hypothesize",
+      "可能",
+      "推测"
+    ],
+    "plan_or_obligation": [
+      "will measure",
+      "plan to",
+      "must",
+      "required",
+      "should",
+      "拟测定",
+      "必须"
+    ],
+    "rejection_or_scope": [
+      "do not assume",
+      "no longer assume",
+      "only if",
+      "unless",
+      "not established",
+      "不假设",
+      "仅在"
+    ],
+    "warning": "This bilingual list is our proposed adaptation. It is not a quoted or benchmark-validated lexicon from the papers, and matching it must not gate coverage."
+  },
+  "illustrative_cases": [
+    {
+      "source_text": "The assay measured the unbound fraction as 0.20.",
+      "expected": "PROJECT_FACT with source-reported observation status; not independent verification."
+    },
+    {
+      "source_text": "For this simulation, we assume the unbound fraction is 0.20.",
+      "expected": "PROJECT_ASSUMPTION, adopted for this simulation; not a measured value."
+    },
+    {
+      "source_text": "The unbound fraction may differ between species.",
+      "expected": "Uncertain scientific proposition; not automatically an adopted premise."
+    },
+    {
+      "source_text": "We will measure the human unbound fraction.",
+      "expected": "Planned measurement, not a completed observation."
+    },
+    {
+      "source_text": "Do not assume the unbound fraction is identical across species.",
+      "expected": "A prohibition relevant to later rule extraction; not adoption of equal binding."
+    },
+    {
+      "source_text": "The earlier analysis assumed linearity, but that assumption was rejected.",
+      "expected": "Historical/rejected assumption; do not mark active."
+    },
+    {
+      "source_text": "Use an exponent of 0.75 in the sensitivity scenario.",
+      "expected": "Source-specified scenario premise plus a use requirement; not an empirically verified exponent."
+    },
+    {
+      "source_text": "Clearance increased in the measured data, which may reflect saturable binding.",
+      "expected": "Separate the source-reported finding from speculative interpretation."
+    }
+  ],
+  "proposed_flow": [
+    "Read admissible original materials",
+    "Identify clauses, attribution, conditions and cue scope",
+    "Classify facts, assumptions and other statement roles with evidence",
+    "Compress while preserving the classification and scientific meaning",
+    "Independently re-check source faithfulness, completeness and conflicts",
+    "Publish reviewed context for Project Rules Agent to reuse"
+  ],
+  "evaluation_status": "NOT_RUN: literature review and draft contract only; no implementation, benchmark, live-model run or change to active rules.",
+  "implementation_note": {
+    "date": "2026-10-07",
+    "status": "SELECTED_A_B_C_IMPLEMENTED_FOR_NEW_COMPRESSION_RUNS",
+    "runtime_rules": "../interfaces/context_compression.runtime.json",
+    "implementation": "../../../context_compression/docs/SCIENTIFIC_EXTRACTION_ABC.md",
+    "boundary": "This earlier draft is not the runtime rule pack. Only the approved A/B/C design is active; other draft requirements retain their review status."
+  }
+}

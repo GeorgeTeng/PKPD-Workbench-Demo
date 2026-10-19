@@ -1,0 +1,47 @@
+{
+  "cards": [
+    {
+      "title": "Urinary Excretion and Renal Clearance Data Structure",
+      "topics": [
+        "translation",
+        "animal_pk"
+      ],
+      "claim": "Renal clearance prediction requires urine collection intervals with start/end times relative to dosing, completeness status, volume, and analyte concentration. Interval vs. cumulative quantity must be preserved. Unchanged drug vs. metabolites must be distinguished. A missing interval is not a zero-amount collection.",
+      "conditions": [
+        "Applicable when urinary excretion or renal/nonrenal split is requested.",
+        "Reuse qualified plasma exposure definitions with matched total/free basis, units, and analysis window for the intended translation comparison.",
+        "Calculation belongs to the later analysis module; this stage assesses data requirements."
+      ],
+      "required_inputs": [
+        "Collection intervals (start/end times).",
+        "Urine volume and analyte concentration (or reported amount excreted).",
+        "Dose basis and route.",
+        "Completeness status of each interval."
+      ],
+      "limitations": [
+        "Pooled cage data cannot be treated as individual animal trajectories.",
+        "Missing data is not zero; it is a gap.",
+        "Published same-drug fe/CLR may be used as literature-reported inputs if permissions allow, but are not independently validated."
+      ],
+      "downstream_use": "Supports renal clearance component of total clearance prediction.",
+      "evidence_chunk_ids": [
+        "IN_MAIN:0037",
+        "IN_EDA:0037",
+        "IN_LAYERS:0016"
+      ],
+      "id": "module_translation:K04",
+      "origin_job": "module_translation",
+      "kind": "stage_synthesis",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "IN_EDA",
+        "IN_LAYERS",
+        "IN_MAIN"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

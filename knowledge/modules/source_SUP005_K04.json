@@ -1,0 +1,41 @@
+{
+  "cards": [
+    {
+      "title": "Comparison with Frequentist Methods (Bailer/Yuan)",
+      "topics": [
+        "animal_pk"
+      ],
+      "claim": "The Bayesian NCA approach provides wider, more conservative credible intervals for AUC and partition coefficients compared to Yuan's method (which underestimates variance due to double usage of the last time point) and jackknife resampling (which can be unreliable with small sample sizes). The Bayesian posterior median is a robust estimator for skewed distributions.",
+      "conditions": [
+        "Small sample sizes per time point (e.g., n=4 animals per time point).",
+        "Sparse sampling design where individual trajectories are not observable."
+      ],
+      "required_inputs": [
+        "Simulation or experimental data from serial sacrifice designs.",
+        "Comparison metrics: Bias, Coverage probability of 95% intervals."
+      ],
+      "limitations": [
+        "Bayesian methods require MCMC convergence diagnostics (trace plots, Gelman-Rubin).",
+        "Interpretation of credible intervals differs from confidence intervals (probability statement about the parameter vs. the procedure)."
+      ],
+      "downstream_use": "Justification for using Bayesian NCA over standard software (e.g., WinNonlin) for statistical inference on tissue distribution parameters in preclinical studies.",
+      "evidence_chunk_ids": [
+        "SUP005:0007",
+        "SUP005:0014",
+        "SUP005:0021",
+        "SUP005:0022"
+      ],
+      "id": "source_SUP005:K04",
+      "origin_job": "source_SUP005",
+      "kind": "source_extraction",
+      "status": "DRAFT_PENDING_LOCAL_SCIENTIFIC_REVIEW",
+      "source_ids": [
+        "SUP005"
+      ],
+      "citation_check": "EXISTS_IN_SUPPLIED_TEXT_NOT_ENTAILMENT_VERIFIED",
+      "knowledge_layer": "legacy_pending_layer_review"
+    }
+  ],
+  "status": "ACTIVE_GENERAL_LIBRARY_DRAFT",
+  "note": "Method/reference scope retained; source identity is available in original evidence."
+}

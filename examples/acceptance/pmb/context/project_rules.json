@@ -1,0 +1,319 @@
+{
+  "schema_version": "DEMO_KEY_RULES_1.0",
+  "status": "DEMO_PROVISIONAL_RULES",
+  "rules": [
+    {
+      "id": "R01",
+      "text": "Use PMB as the sole test drug; do not substitute colistin or another antibiotic. Treat the animal and in-vitro workbook as source-shaped tables and notes requiring preparation, not as a ready-made modeling dataset.",
+      "used_in": [
+        "adequacy",
+        "prepare",
+        "dispatch"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "PMB is the sole test drug; colistin and other antibiotics are not substitutes. PMB_source_tables_by_species.xlsx is the single animal and in-vitro data workbook. Its sheets retain source-shaped tables and notes, not a ready-made modeling dataset:"
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "text": "Split mixed source blocks into PK, PD, MIC, validation, and benchmark inputs. Check provenance, units, dose histories, experimental units, and missing fields; identify usable records and unresolved gaps before fitting. Retain source identifiers, units, missing values, and BLQ limits. Do not treat group means or digitized observations as individual animals or invent IDs, variability, exposure-response links, or measurements.",
+      "used_in": [
+        "adequacy",
+        "prepare",
+        "eda",
+        "animal_pk",
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Split the mixed source blocks into PK, PD, MIC, validation, and benchmark inputs. Check provenance, units, dose histories, experimental units, and missing fields. Identify usable records and unresolved gaps before fitting."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep source identifiers, units, missing values, and BLQ limits. Group means and digitized observations are not individual animals. Do not invent IDs, variability, exposure-response links, or missing measurements."
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "text": "Select eligible systemic and, where supported, pulmonary PK models for mouse, rat, and rabbit. Evaluate fit, parameter identifiability, and held-out prediction where the design permits. Use rabbit evidence only insofar as it identifies a model component; otherwise document exclusion or exploratory use, preserving source discrepancies. Do not force unsupported pulmonary or multi-species models.",
+      "used_in": [
+        "animal_pk",
+        "pk_translation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Select eligible systemic and, where supported, pulmonary PK models for mouse, rat and rabbit. Evaluate fit, parameter identifiability, and held-out prediction where the design permits. Use rabbit evidence only to the extent it identifies a model component; document exclusion or exploratory use."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Assess whether these support a model component or only exploratory constraints; preserve source discrepancies."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Do not force unsupported pulmonary or multi-species models."
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "text": "Hold horse data out of model fitting, selection, and scaling. After freezing mouse, rat, and rabbit scaling, predict horse profiles under reported doses and compare them with the held-out figures as an intermediate translation check; record the result without retuning. Document that horse doses are mostly in IU without salt or base correction and that horse binding data are unavailable.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Do not use horse data to fit, select or scale models. After the mouse, rat and rabbit scaling is frozen, use them to test whether it predicts a large-body-weight species. Doses are mostly reported in IU without salt or base correction and no horse binding is available; document these limits."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Freeze the scaling, then predict horse profiles under the reported horse doses and compare them with the held-out horse figures as an intermediate translation check; record the result without retuning."
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "text": "Translate supported animal models using body size, protein binding, and justified physiological relationships. Compare scaling with and without each species. Predict human concentration-time profiles, AUC, and Cmax with uncertainty under specified doses and routes, and freeze those predictions before opening human outcomes.",
+      "used_in": [
+        "pk_translation",
+        "human_validation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Translate supported animal models using body size, protein binding, and justified physiological relationships. Compare scaling with and without each species rather than assuming more species is better."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Predict human concentration-time profiles, AUC, and Cmax with uncertainty under specified doses and routes, and freeze them before opening human outcomes."
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "text": "Keep routes, formulations, analytes, total and unbound drug, and plasma, serum, whole-lung tissue, BAL, and ELF distinct. Record justification for each conversion or physiological bridge. Do not average conflicting mouse or rat binding sources; carry unbound fraction as a sensitivity parameter.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Separate routes, formulations, analytes, total versus unbound drug, and plasma, serum, whole-lung tissue, BAL, and ELF. Every conversion or physiological bridge requires a recorded justification. Binding sources conflict (mouse about 91% versus 97–99% bound; rat 80% versus 92–99%); never average them, and carry fu as a sensitivity parameter."
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "text": "Use eligible K. pneumoniae time-kill data for PD analysis and the surveillance MIC distribution for population-weighted attainment. Do not use that distribution in place of matched strain MICs for exposure-response analysis.",
+      "used_in": [
+        "prepare",
+        "index",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use eligible time-kill data for PD and the MIC distribution for population-weighted attainment; it cannot replace matched strain MICs."
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "text": "Give fAUC/MIC, fCmax/MIC, and fT>MIC equal eligibility and compare each using ordinary Emax and sigmoid Emax/Hill regression. Use the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows, and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability, and identifiability while counting the extra Hill parameter. Do not choose by R² alone or force a winner.",
+      "used_in": [
+        "prepare",
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "For eligible K. pneumoniae data, compare fAUC/MIC, fCmax/MIC, and fT>MIC using ordinary Emax and sigmoid Emax/Hill regression."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Give all three indices equal eligibility and both regression families. Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows, and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability, and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner."
+        }
+      ]
+    },
+    {
+      "id": "R09",
+      "text": "Estimate only supported exposure targets, or report that the data cannot determine a best index or target. Keep stasis, 1-log kill, and 2-log kill targets separate; targets for other pathogens cannot set K. pneumoniae targets.",
+      "used_in": [
+        "index",
+        "pta",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep stasis, 1-log kill, and 2-log kill targets separate; other pathogens cannot set K. pneumoniae targets."
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "text": "Keep published fitted parameters and model-derived results out of primary-analysis starting values, bounds, priors, and rankings; use them for the final benchmark. Do not tune animal models or scaling to human outcomes. Freeze the model, validation criteria, PD targets, and MIC input before their respective validation or dose-simulation steps, and preserve the original validation result if a later model is revised.",
+      "used_in": [
+        "dispatch",
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Published fitted parameters and model-derived results cannot set primary-analysis starting values, bounds, priors, or rankings. Keep them for the final benchmark. Human outcomes cannot tune the animal model or scaling. Freeze the model, validation criteria, PD targets, and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        }
+      ]
+    },
+    {
+      "id": "R11",
+      "text": "Access the separately held human validation data only at task 5, after freezing the animal model, scaling, and predictions. Apply the frozen model to actual human dose histories; compare predicted and observed plasma PK, assess ELF separately when compatible data exist, and report bias, precision, exposure agreement, and predictive uncertainty against criteria fixed before validation.",
+      "used_in": [
+        "dispatch",
+        "pk_translation",
+        "human_validation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Human validation data are not in this package. The 40-patient dataset (230 concentration records, 268 dose events) and human reference tables are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Apply the frozen model to actual human dose histories. Compare predicted and observed plasma PK; assess ELF separately when compatible data exist. Report bias, precision, exposure agreement, and predictive uncertainty against criteria fixed before validation."
+        }
+      ]
+    },
+    {
+      "id": "R12",
+      "text": "Preserve MIC bins, units, counts or proportions, denominators, and censored categories. Derive probabilities transparently, freeze the MIC distribution, and do not silently renormalize incomplete coverage. Report per-MIC PTA separately from MIC-weighted attainment.",
+      "used_in": [
+        "prepare",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Preserve MIC bins, units, counts/proportions, denominators, and censored categories. Derive probabilities transparently and freeze the MIC distribution; never silently renormalize incomplete coverage. Distinguish per-MIC PTA from MIC-weighted attainment."
+        }
+      ]
+    },
+    {
+      "id": "R13",
+      "text": "Only after PK validation and PD qualification, simulate a prespecified human population and dosing scenarios for PTA at each MIC, then report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate only where supported. Include supported PK variability and propagate parameter, binding, PD-target, and MIC uncertainty; do not derive interindividual variability from group summaries. If required inputs are missing, report why PTA is not estimable.",
+      "used_in": [
+        "pta",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "After PK validation and PD qualification, simulate a prespecified human population and dosing scenarios to estimate the probability of target attainment (PTA) at each MIC. Process the MIC distribution and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, uncertainty, and the final published-result benchmark. Deliver the PTA tables/curves, feasibility conclusion, and reproducible code; if required inputs are missing, report why PTA is not estimable."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Include supported PK variability and propagate parameter, binding, PD-target, and MIC uncertainty; group summaries cannot supply invented interindividual variability."
+        }
+      ]
+    },
+    {
+      "id": "R14",
+      "text": "Interpret fit, prediction, and clinical implications at their respective evidence levels: a successful fit does not establish predictive validation, and agreement with human PK does not validate antibacterial efficacy or safety. Preserve failures and data gaps. Save transformations, assumptions, code, seeds, and results.",
+      "used_in": [
+        "animal_pk",
+        "pk_translation",
+        "human_validation",
+        "pta",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "A successful fit is not predictive validation; human PK agreement does not validate antibacterial efficacy or safety. Preserve failures and data gaps. Save transformations, assumptions, code, seeds, and results"
+        }
+      ]
+    },
+    {
+      "id": "R15",
+      "text": "Obtain human review before fitting. This proposal supersedes earlier versions, so do not assume prior approvals carry forward.",
+      "used_in": [
+        "dispatch",
+        "animal_pk",
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "obtain human review before fitting. This proposal supersedes earlier versions; prior approvals do not automatically carry forward."
+        }
+      ]
+    }
+  ],
+  "main_file": "main.json",
+  "base_main_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\handoff\\main.json",
+    "sha256": "52ce93bd0f8c27211dcc2ca3b83d6a3fade83fbb50ba20ed54dc64b603bd5f9d"
+  },
+  "input_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\project_rules\\input.json",
+    "sha256": "61b486cdc36f24e4f6dcd79894575b1ed65e8c6f5fda495535706a7201f453c1"
+  },
+  "candidate_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\project_rules\\extraction\\candidate.json",
+    "sha256": "7ce49e2d5b9652940476a8371914837d5b0fbf7599f444b01c80401e9544c995"
+  },
+  "review_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\project_rules\\published\\acceptance.json",
+    "sha256": "d45a19d2d7826a0f7b639aec2ab6447fa11f65aca5b14861f733b854a0ef1ddb"
+  },
+  "audit_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\project_rules\\published\\rule_audit.json",
+    "sha256": "3a12d682274f8fed9d19fb7c83dc0e3ba51e6ecd6608c64fdc0be42b230791c7"
+  },
+  "scientific_results_accepted": false
+}
