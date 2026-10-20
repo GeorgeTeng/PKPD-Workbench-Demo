@@ -231,6 +231,10 @@ The original Context review remains REVISE for canonical-placement findings in M
 
 All 57 offline integration and local HTTP contract tests passed. The OpenAI-compatible transport was exercised against a local SSE test server; another external model service has not been accepted by these cases. Run the same fresh four-example suite after changing providers. EDA and PK were not executed; technical completion does not establish scientific adequacy or model readiness.
 
+## Label optimization (20 October 2026)
+
+The lightweight Data demo now sends source-focused Label requests and defers modeling/PTA adequacy and requirement matching. A PMB-only comparison reduced Label wall time from 24m 22s to 17m 32s (28.1%), with source coverage and all 161 previously explicit column units unchanged. One mixed-column unit issue was corrected and verified with one additional table call (54 seconds). The final prompt was not rerun across all examples. See the [comparison, review findings and retained evidence](validation/label_comparison_pmb/README.md). These changes are in the source checkout; the existing v0.1.1 portable archive has not been rebuilt.
+
 ## Source layout
 
 - `workspace/`: the approved two-workspace interface and live API bindings.
