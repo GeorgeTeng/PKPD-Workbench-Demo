@@ -1,0 +1,130 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "enum": [
+        "ca9746d69a653abd1e713c2fefec058368186d571cc0884068e63631a7760680"
+      ]
+    },
+    "access": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "REVIEW_DATA",
+              "REFERENCE_ONLY",
+              "DEFERRED",
+              "NEEDS_REVIEW"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rule_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "context_paths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "item_id",
+          "disposition",
+          "reason",
+          "rule_ids",
+          "requirement_ids",
+          "context_paths"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affected_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "needed_material": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_by": {
+            "type": "string",
+            "enum": [
+              "BEFORE_QC",
+              "BEFORE_EDA",
+              "BEFORE_MODELING",
+              "BEFORE_INDEX_ANALYSIS",
+              "BEFORE_TRANSLATION",
+              "BEFORE_PTA",
+              "FINAL_VALIDATION"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "BLOCK",
+              "HUMAN_REVIEW",
+              "FOLLOW_UP"
+            ]
+          }
+        },
+        "required": [
+          "code",
+          "affected_id",
+          "reason",
+          "needed_material",
+          "required_by",
+          "severity"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "request_sha256",
+    "access",
+    "findings"
+  ],
+  "additionalProperties": false
+}

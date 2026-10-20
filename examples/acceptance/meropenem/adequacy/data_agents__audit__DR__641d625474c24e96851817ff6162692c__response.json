@@ -1,0 +1,2261 @@
+{
+  "request_sha256": "8a62697818d4b8958c01028a316c39eb037d9bb3a7f0c352b6ed3e82d156cbba",
+  "tasks": [
+    {
+      "id": "T01",
+      "objective": "Plan preparation and provenance requirements for separate PK, PD, MIC and validation inputs.",
+      "destination": "eda",
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/15/statement",
+          "quote": "Planned preparation splits mixed source blocks into PK, PD, MIC and validation inputs; checks provenance, units, dose histories, analytes, matrices, experimental units and missing fields; and identifies usable records and unresolved gaps before fitting."
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "objective": "Define inputs for eligible animal systemic PK models and conditionally supported pulmonary or CSF components.",
+      "destination": "pk",
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/16/statement",
+          "quote": "Planned animal PK analysis selects eligible systemic models for each species with usable data and adds pulmonary or CSF components only where supported. Evaluate fit, parameter identifiability and held-out prediction where the design permits, and document exclusion or exploratory use of summary-only, figure-only or radiolabel evidence."
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "objective": "Define inputs for animal-to-human translation and prospective human concentration-time, AUC, Cmax and fT>MIC predictions.",
+      "destination": "pk",
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/17/statement",
+          "quote": "Planned human PK translation uses supported animal models, body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming more species is better. Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze these predictions before opening human outcomes."
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "objective": "Define inputs for comparing the three requested PK/PD indices and estimating supported, context-specific exposure targets.",
+      "destination": "index",
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/18/statement",
+          "quote": "For eligible data, the planned PK/PD analysis compares fT>MIC, fAUC/MIC and fCmax/MIC using ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that available data cannot determine a best index or target."
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "objective": "Define requirements for independent human PK validation after the authorized task-5 release.",
+      "destination": "pk",
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/21/statement",
+          "quote": "Planned human validation applies the frozen model to the human-reference doses and infusion conditions, compares predicted and observed plasma PK, and assesses other matrices separately when compatible data exist. Report bias, precision, exposure agreement and predictive uncertainty against the criteria governed by SC030."
+        },
+        {
+          "source": "main:/missing_information/items/4/clarification",
+          "quote": "At task 5, obtain the reference file only after the stated freeze conditions are satisfied, then perform independent validation."
+        }
+      ]
+    },
+    {
+      "id": "T06",
+      "objective": "Define inputs for per-MIC PTA, separate MIC-weighted attainment, supported exploratory dose estimation and the final feasibility conclusion.",
+      "destination": "clinical",
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/22/statement",
+          "quote": "After PK validation and PD qualification, planned simulation uses a prespecified human population and dosing scenarios, including infusion duration, to estimate PTA at each MIC. Process the MIC distribution and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver PTA tables/curves, a feasibility conclusion and reproducible code; if required inputs are missing, explain why PTA is not estimable."
+        }
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "DR001",
+      "task_id": "T01",
+      "description": "Preserve the sole-drug scope and the prohibition on importing another drug's model or parameters.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "test_drug_identity",
+        "source_comparator_identity",
+        "parameter_drug_identity",
+        "model_provenance",
+        "intended_project_use"
+      ],
+      "rule_ids": [
+        "R001"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R001",
+          "quote": "R001: Use meropenem as the sole test drug; imipenem/cilastatin, ertapenem and other source comparators are not substitutes. Do not import the apramycin model or its parameters."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies to preparation and all downstream animal PK, translation and index inputs."
+      ]
+    },
+    {
+      "id": "DR002",
+      "task_id": "T01",
+      "description": "Retain the authorized animal and in-vitro source boundary and plan separation of mixed source blocks without assigning records or asserting coverage.",
+      "kind": "SOURCE_PERMISSION",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "authorized_source_role",
+        "source_identifier",
+        "source_location",
+        "input_role_PK_PD_MIC_or_validation",
+        "source_access_conditions",
+        "unresolved_fields"
+      ],
+      "rule_ids": [
+        "R002"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R002",
+          "quote": "R002: Use Meropenem_source_tables_by_species.xlsx as the single animal and in-vitro data workbook. Split its mixed source blocks into PK, PD, MIC and validation inputs; check provenance, units, dose histories, analytes, matrices, experimental units and missing fields. Identify usable records and unresolved gaps before fitting."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "The workbook role is a project source restriction, not evidence that any requirement is met.",
+        "Record assignment and criterion-level coverage remain for the later authorized access and coverage steps.",
+        "Human validation release remains subject to DR024."
+      ]
+    },
+    {
+      "id": "DR003",
+      "task_id": "T01",
+      "description": "Preserve source evidence level, experimental units, missingness and censoring.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source_identifier_and_location",
+        "original_record_identifier_if_reported",
+        "study_and_regimen_membership",
+        "observed_reported_fitted_or_digitized_status",
+        "individual_or_group_summary_level",
+        "experimental_unit",
+        "units",
+        "missing_value_flags",
+        "detection_limits",
+        "substituted_detection_limit_mean_flag",
+        "reported_uncertainty_definition"
+      ],
+      "rule_ids": [
+        "R003"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R003",
+          "quote": "R003: Preserve source identifiers, units, missing values and detection limits. Do not treat group means, published fitted parameters or digitized points as individual animals. Flag means containing substituted detection-limit values, and do not invent IDs, variability, exposure-response links or missing measurements. Keep conflicting monkey animal counts and doses as printed."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies to every retained record and later transformation.",
+        "Unreported identifiers and measurements remain unresolved.",
+        "Group summaries and digitized points retain their group-level meaning."
+      ]
+    },
+    {
+      "id": "DR004",
+      "task_id": "T01",
+      "description": "Define the identities and biological contexts that must remain distinguishable throughout the analysis.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "species_and_study",
+        "route",
+        "unchanged_meropenem_H4295_or_total_14C",
+        "total_or_unbound_basis",
+        "plasma_serum_whole_blood_ELF_CSF_tissue_fluid_or_homogenate",
+        "per_animal_or_per_kilogram_parameter_basis",
+        "health_infection_immune_renal_and_pregnancy_state",
+        "single_or_repeat_dose_context",
+        "in_vitro_DHPI_evidence_classification"
+      ],
+      "rule_ids": [
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R004",
+          "quote": "R004: Separate routes; unchanged meropenem, H-4295 and total 14C; total and unbound drug; and plasma, serum, whole blood, ELF, CSF, tissue fluid and tissue homogenate. Keep per-animal and per-kilogram parameters apart. Keep neutropenic, renally impaired, septic, infected, pregnant and repeat-dose animals apart from healthy single-dose animals. Do not treat in vitro DHP-I kinetics as PK."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies to preparation, modeling, translation, index analysis, validation and PTA.",
+        "Any proposed compatibility bridge requires DR005."
+      ]
+    },
+    {
+      "id": "DR005",
+      "task_id": "T01",
+      "description": "Require traceable justification for each proposed conversion or physiological bridge.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "original_quantity_and_units",
+        "target_quantity_and_units",
+        "analyte_and_matrix_bases",
+        "source_and_target_biological_context",
+        "conversion_or_bridge_evidence",
+        "assumptions_and_applicability",
+        "transformation_provenance"
+      ],
+      "rule_ids": [
+        "R005"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R005",
+          "quote": "R005: Record a justification for every conversion or physiological bridge. Never average conflicting within-species binding sources; carry fu as a sensitivity parameter."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies only when a conversion or bridge is proposed.",
+        "This requirement does not select or execute a conversion."
+      ]
+    },
+    {
+      "id": "DR006",
+      "task_id": "T01",
+      "description": "Preserve the project's specified source roles and endpoint distinctions as constraints on later assignment.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "core_between_species_comparison_role",
+        "mouse_PK_and_eligible_PD_role",
+        "rat_systemic_PK_role",
+        "response_endpoint_identity",
+        "survival_versus_bacterial_burden"
+      ],
+      "rule_ids": [
+        "R006"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R006",
+          "quote": "R006: Use Cross_species for the core between-species comparison, Mouse for PK and eligible PD analysis, and Rat for systemic PK. Rat survival must not be treated as a bacterial-burden endpoint."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "These roles do not establish record eligibility, completeness or exposure-response matching.",
+        "Survival retains its own endpoint definition."
+      ]
+    },
+    {
+      "id": "DR007",
+      "task_id": "T01",
+      "description": "Retain the unresolved monkey count and dose discrepancies with their original study and record associations.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source_printed_animal_counts",
+        "count_definition_and_experimental_unit",
+        "source_printed_doses_and_units",
+        "dose_basis_and_route",
+        "study_record_and_source_location_associations",
+        "conflicting_statements",
+        "MI003",
+        "MI004"
+      ],
+      "rule_ids": [
+        "R003"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R003",
+          "quote": "Animal counts and doses disagree within the source; keep them as printed."
+        },
+        {
+          "source": "main:/missing_information/items/2/clarification",
+          "quote": "Preserve counts as printed and document the source-specific discrepancy during preparation; do not silently reconcile it."
+        },
+        {
+          "source": "main:/missing_information/items/3/clarification",
+          "quote": "Keep each source dose as printed and document its study and record association; do not substitute an inferred corrected dose."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI003 and MI004 remain separate OPEN CONFLICT items.",
+        "No corrected count or dose is inferred from the overview."
+      ]
+    },
+    {
+      "id": "DR008",
+      "task_id": "T02",
+      "description": "Require component-specific evidence and an explicit eligibility or exploratory-use assessment for animal PK modeling.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "species_and_requested_systemic_component",
+        "requested_pulmonary_or_CSF_component_if_any",
+        "component_specific_evidence_type",
+        "summary_figure_or_radiolabel_limitations",
+        "design_support_for_later_identifiability_and_prediction_assessment",
+        "rabbit_parameter_only_evidence_role",
+        "MI002"
+      ],
+      "rule_ids": [
+        "R007"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R007",
+          "quote": "R007: Select eligible systemic PK models for each species with usable data; add pulmonary or CSF components only where supported. Evaluate fit, parameter identifiability and held-out prediction where the design permits. Document exclusion or exploratory use of summary-only, figure-only or radiolabel evidence. Assess whether rabbit model-parameter-only concentrations support a model component or only exploratory constraints."
+        },
+        {
+          "source": "main:/missing_information/items/1/clarification",
+          "quote": "Assess that support at animal PK modeling and record component eligibility or exploratory-only use."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Pulmonary and CSF components are conditional on relevant support.",
+        "MI002 remains OPEN DEFERRED until the animal PK assessment.",
+        "Fit, identifiability and predictive evaluation are downstream work; their numerical results are not required by this planning step."
+      ]
+    },
+    {
+      "id": "DR009",
+      "task_id": "T02",
+      "description": "Preserve conflicting binding sources and require a documented fu sensitivity treatment.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "species",
+        "source_specific_binding_value_and_definition",
+        "percentage_or_fraction_scale",
+        "binding_source_provenance",
+        "applicability_to_study_matrix_and_state",
+        "fu_sensitivity_plan",
+        "MI006",
+        "MI007"
+      ],
+      "rule_ids": [
+        "R005"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R005",
+          "quote": "R005: Record a justification for every conversion or physiological bridge. Never average conflicting within-species binding sources; carry fu as a sensitivity parameter."
+        },
+        {
+          "source": "main:/missing_information/items/5/clarification",
+          "quote": "Document mouse binding provenance and defensible sensitivity treatment under SC028 without averaging the conflicting values."
+        },
+        {
+          "source": "main:/missing_information/items/6/clarification",
+          "quote": "Document dog binding provenance and defensible sensitivity treatment under SC028 without averaging the conflicting values."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies when binding is used for animal modeling, translation or free-exposure indices.",
+        "MI006 and MI007 remain separate OPEN CONFLICT items.",
+        "No sensitivity calculation or preferred source is selected here."
+      ]
+    },
+    {
+      "id": "DR010",
+      "task_id": "T02",
+      "description": "Require evidence supporting individual PK variability before representing it as empirical population variability.",
+      "kind": "DATA",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "experimental_units",
+        "verified_sampling_structure",
+        "individual_or_summary_evidence_level",
+        "reported_variability_definition",
+        "variability_parameter_provenance",
+        "parameter_uncertainty_distinguished_from_interindividual_variability",
+        "limitations_for_later_PTA",
+        "MI008"
+      ],
+      "rule_ids": [
+        "R003"
+      ],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/32/statement",
+          "quote": "Propagate parameter, binding, PD-target and MIC uncertainty. Do not invent variability; group summaries cannot supply invented interindividual variability."
+        },
+        {
+          "source": "main:/missing_information/items/7/clarification",
+          "quote": "Assess the available experimental units and variability evidence during PK work; distinguish supported variability from uncertainty and retain any limitation for PTA."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI008 remains OPEN DEFERRED.",
+        "Summary-only evidence does not itself supply individual variability.",
+        "This requirement preserves the variability question for PK assessment and later PTA without declaring either feasible."
+      ]
+    },
+    {
+      "id": "DR011",
+      "task_id": "T02",
+      "description": "Require the project-mandated human review before fitting.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "reviewed_analysis_scope",
+        "reviewed_input_and_requirement_versions",
+        "unresolved_items_presented_for_review",
+        "human_review_record",
+        "review_conditions"
+      ],
+      "rule_ids": [
+        "R023"
+      ],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/35/statement",
+          "quote": "Obtain human review before fitting."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies before animal PK fitting and any later fitting within the project.",
+        "This requirements plan does not constitute the required human review."
+      ]
+    },
+    {
+      "id": "DR012",
+      "task_id": "T03",
+      "description": "Define the supported animal inputs and physiological relationships required by the planned translation.",
+      "kind": "DATA",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "animal_model_and_parameter_definitions",
+        "producing_task_T02",
+        "species_study_and_biological_state",
+        "body_size_basis",
+        "protein_binding_basis",
+        "renal_elimination_evidence",
+        "physiological_relationship_provenance",
+        "species_inclusion_and_omission_scenarios",
+        "input_uncertainty_and_limitations"
+      ],
+      "rule_ids": [
+        "R008",
+        "R005"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R008",
+          "quote": "R008: Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation."
+        },
+        {
+          "source": "rule:R005",
+          "quote": "R005: Record a justification for every conversion or physiological bridge. Never average conflicting within-species binding sources; carry fu as a sensitivity parameter."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "T02 model and parameter outputs are planned upstream products, not source measurements or completed qualified estimates.",
+        "No scaling equation, exponent, species minimum or physiological constant is selected here.",
+        "Species inclusion comparisons remain downstream translation work."
+      ]
+    },
+    {
+      "id": "DR013",
+      "task_id": "T03",
+      "description": "Prespecify the human prediction dose and infusion conditions before producing prospective predictions.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "human_prediction_scenario_identifier",
+        "dose_and_units",
+        "dose_basis",
+        "route_and_input_type",
+        "infusion_duration",
+        "dosing_events",
+        "scenario_authorization",
+        "MI013"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        },
+        {
+          "source": "main:/missing_information/items/12/clarification",
+          "quote": "Specify the dose and infusion conditions for prospective human PK prediction before producing and freezing those predictions."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI013 remains OPEN DEFERRED.",
+        "These prospective prediction settings are distinct from the PTA scenarios in MI015.",
+        "Human outcomes cannot be used to choose the prediction settings."
+      ]
+    },
+    {
+      "id": "DR014",
+      "task_id": "T03",
+      "description": "Register the concentration-time profile as a distinct prospective human prediction endpoint.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "endpoint_human_concentration_time_profile",
+        "scenario_link_to_DR013",
+        "analyte",
+        "matrix",
+        "total_or_unbound_basis",
+        "time_origin_and_prediction_horizon",
+        "concentration_and_time_units",
+        "input_dependency_on_T02_and_translation",
+        "uncertainty_output_definition",
+        "prediction_producing_task_T03",
+        "freeze_before_human_outcome_access"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "The profile is a planned T03 calculated output, not an observed human input.",
+        "Scenario and curve definitions must be settled before prediction; no human model structure is selected here."
+      ]
+    },
+    {
+      "id": "DR015",
+      "task_id": "T03",
+      "description": "Register human AUC as a separate prospective endpoint with an explicit exposure window.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "endpoint_human_AUC",
+        "scenario_link_to_DR013",
+        "analyte_matrix_and_concentration_basis",
+        "AUC_units",
+        "time_origin",
+        "requested_exposure_window",
+        "single_dose_or_repeat_dose_context",
+        "prediction_profile_dependency_DR014",
+        "uncertainty_output_definition",
+        "prediction_producing_task_T03",
+        "freeze_before_validation"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "AUC is a planned T03 output.",
+        "The supplied context does not choose a finite interval, AUCtau or AUCinf; the intended endpoint window remains to be defined.",
+        "No integration or extrapolation method is selected."
+      ]
+    },
+    {
+      "id": "DR016",
+      "task_id": "T03",
+      "description": "Register human Cmax as a separate prospective endpoint under the specified dosing input.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "endpoint_human_Cmax",
+        "scenario_link_to_DR013",
+        "analyte_matrix_and_concentration_basis",
+        "concentration_units",
+        "peak_evaluation_interval_and_dose_number",
+        "infusion_or_bolus_context",
+        "prediction_profile_dependency_DR014",
+        "predicted_versus_sampled_peak_definition",
+        "uncertainty_output_definition",
+        "prediction_producing_task_T03",
+        "freeze_before_validation"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Cmax is a planned T03 prediction.",
+        "Any later comparison to an observed sampled maximum must preserve the distinct peak definitions."
+      ]
+    },
+    {
+      "id": "DR017",
+      "task_id": "T03",
+      "description": "Register human fT>MIC as a distinct prospective endpoint linked to free exposure and a specified MIC.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "endpoint_human_fT_greater_than_MIC",
+        "scenario_link_to_DR013",
+        "free_concentration_profile_dependency",
+        "binding_input_dependency",
+        "MIC_value_units_and_identity",
+        "analysis_window_and_time_origin",
+        "duration_or_percentage_definition",
+        "uncertainty_output_definition",
+        "prediction_producing_task_T03",
+        "freeze_before_validation"
+      ],
+      "rule_ids": [
+        "R009",
+        "R012"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        },
+        {
+          "source": "rule:R012",
+          "quote": "Use matched strain MICs for PD and the distributions for population-weighted attainment; a distribution cannot replace matched strain MICs."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "fT>MIC is a planned T03 output.",
+        "MIC scenarios and the analysis window must be specified; no threshold value or percentage convention is inserted.",
+        "Direct free concentrations or applicable binding inputs must support the free-exposure basis."
+      ]
+    },
+    {
+      "id": "DR018",
+      "task_id": "T04",
+      "description": "Keep the early response-evidence question visible before assuming independent index comparison is possible.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "authorized_response_evidence",
+        "response_record_identity_and_data_level",
+        "regimen_to_response_relationship",
+        "regimen_to_exposure_relationship",
+        "strain_MIC_relationship",
+        "free_exposure_basis",
+        "dosing_history",
+        "response_and_exposure_windows",
+        "MI001"
+      ],
+      "rule_ids": [
+        "R003",
+        "R006",
+        "R011"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R011",
+          "quote": "Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner."
+        },
+        {
+          "source": "main:/missing_information/items/0/why_it_matters",
+          "quote": "The proposal explicitly states that no Mouse source gives per-regimen CFU tables; fitted PD summaries do not establish that those observations are supplied."
+        },
+        {
+          "source": "main:/missing_information/items/0/clarification",
+          "quote": "Determine whether the authorized response evidence supports the intended comparisons; otherwise retain this limitation without reconstructing missing observations."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI001 remains OPEN NOT_FOUND, with its adequacy-stage need preserved.",
+        "Fitted PD summaries do not establish regimen-level response observations.",
+        "The later index-analysis requirements remain even if the response-evidence limitation cannot be resolved.",
+        "Independent PK and exposure-summary objectives remain separately specified."
+      ]
+    },
+    {
+      "id": "DR019",
+      "task_id": "T04",
+      "description": "Require a registered comparison rule preserving equal index eligibility, both regression families and the specified comparison basis.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "candidate_indices_fT_greater_than_MIC_fAUC_over_MIC_fCmax_over_MIC",
+        "ordinary_Emax_and_sigmoid_Emax_Hill_families",
+        "organism_and_site_strata",
+        "common_response_records",
+        "common_MIC_free_exposure_dosing_and_window_definitions",
+        "common_likelihood",
+        "registered_selection_rule",
+        "later_reporting_plan_for_R_squared_AIC_BIC_stability_and_identifiability",
+        "extra_Hill_parameter_accounting",
+        "inconclusive_result_option",
+        "MI011"
+      ],
+      "rule_ids": [
+        "R010",
+        "R011"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R010",
+          "quote": "R010: For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC with equal eligibility using both ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        },
+        {
+          "source": "rule:R011",
+          "quote": "Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner."
+        },
+        {
+          "source": "main:/missing_information/items/10/clarification",
+          "quote": "Register the selection rule before PK/PD regression fitting while preserving the comparisons and reporting obligations in SC020."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI011 remains OPEN DEFERRED.",
+        "This is a requirement for a later analysis specification, not a request to fit models or calculate diagnostics in DR.",
+        "No winning index or regression family is presumed."
+      ]
+    },
+    {
+      "id": "DR020",
+      "task_id": "T04",
+      "description": "Keep published PD conclusions from determining primary-analysis initialization, constraints or ranking.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "published_target_and_conclusion_provenance",
+        "primary_starting_value_provenance",
+        "bound_provenance",
+        "prior_provenance",
+        "ranking_rule_provenance",
+        "permitted_use_classification"
+      ],
+      "rule_ids": [
+        "R013"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R013",
+          "quote": "R013: Published PD targets and conclusions in the sources cannot set primary-analysis starting values, bounds, priors or rankings."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies to the primary index and target analyses, including use of source-reported fitted summaries."
+      ]
+    },
+    {
+      "id": "DR021",
+      "task_id": "T03",
+      "description": "Preserve the independence boundary for animal model development and scaling.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "humanized_regimen_flag",
+        "human_PK_derived_design_provenance",
+        "animal_model_development_inputs",
+        "scaling_development_inputs",
+        "human_outcome_access_stage",
+        "freeze_record"
+      ],
+      "rule_ids": [
+        "R014",
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R014",
+          "quote": "R014: Do not use humanized regimens to tune scaling, because they were designed from human PK. Human outcomes cannot tune the animal model or scaling."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies from animal model development through independent human validation.",
+        "Humanized-regimen evidence retains its identity and any separately eligible use; it cannot tune scaling."
+      ]
+    },
+    {
+      "id": "DR022",
+      "task_id": "T04",
+      "description": "Require matched strain MICs and distinct target definitions by effect, organism, infection site and endpoint.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "organism_and_strain",
+        "matched_MIC_value_units_and_source",
+        "infection_site",
+        "measured_response_endpoint",
+        "response_reference_and_window",
+        "desired_effect_stasis_1_log_or_2_log_kill",
+        "target_index_and_units",
+        "target_applicability_context"
+      ],
+      "rule_ids": [
+        "R012"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R012",
+          "quote": "R012: Use matched strain MICs for PD and MIC distributions for population-weighted attainment; a distribution cannot replace matched strain MICs. Keep stasis, 1-log and 2-log kill targets separate. A target from one organism, infection site or endpoint, including thigh CFU, lung ELF, CSF or survival, cannot set another."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies to PD comparison, target estimation and later target use.",
+        "Each supported effect and endpoint retains its own target.",
+        "Distribution-level susceptibility evidence cannot supply a matched strain MIC."
+      ]
+    },
+    {
+      "id": "DR023",
+      "task_id": "T01",
+      "description": "Preserve MIC distribution inputs and establish the denominator and coverage basis before probability processing.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "organism",
+        "MIC_bins_and_units",
+        "bin_counts",
+        "censored_categories",
+        "reported_denominator_if_any",
+        "justified_denominator_basis",
+        "represented_and_potentially_omitted_categories",
+        "coverage_assessment",
+        "probability_derivation_provenance",
+        "MI009",
+        "MI010"
+      ],
+      "rule_ids": [
+        "R018",
+        "R019"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R018",
+          "quote": "R018: Preserve MIC bins, units, counts, denominators and censored categories. Do not interpret the EUCAST distributions as resistance rates; they carry no totals and were compiled to set epidemiological cut-offs."
+        },
+        {
+          "source": "rule:R019",
+          "quote": "R019: Derive MIC probabilities transparently and freeze the MIC distribution. Never silently renormalize incomplete coverage. Distinguish per-MIC PTA from MIC-weighted attainment."
+        },
+        {
+          "source": "main:/missing_information/items/8/clarification",
+          "quote": "Establish and record a justified denominator basis from authorized evidence rather than inventing a supplied total."
+        },
+        {
+          "source": "main:/missing_information/items/9/clarification",
+          "quote": "Assess represented and potentially omitted MIC categories before probability processing, retaining any incomplete coverage explicitly."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI009 remains OPEN NOT_FOUND and MI010 remains OPEN DEFERRED.",
+        "The lack of a coverage assessment does not establish incomplete coverage.",
+        "Probability calculations and acceptance of the resulting distribution are downstream work."
+      ]
+    },
+    {
+      "id": "DR024",
+      "task_id": "T05",
+      "description": "Require the authorized human-reference release at task 5 after the animal model, scaling and predictions are frozen.",
+      "kind": "SOURCE_PERMISSION",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "human_reference_release_authorization",
+        "task_5_release_stage",
+        "animal_model_freeze",
+        "scaling_freeze",
+        "prediction_freeze",
+        "released_reference_identity_and_provenance",
+        "MI005"
+      ],
+      "rule_ids": [
+        "R009",
+        "R014",
+        "R015"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "Human reference tables (label PK statements, a healthy-volunteer study, EUCAST summary PK, and human rows removed from the animal sources) are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen."
+        },
+        {
+          "source": "main:/missing_information/items/4/why_it_matters",
+          "quote": "Human validation data are not in the supplied package. The reference tables described in SC015 are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI005 remains OPEN DEFERRED.",
+        "No human-reference access is authorized by this planning output.",
+        "FINAL_VALIDATION denotes the T05 consuming phase; the stated freeze and release conditions apply before human outcomes are opened."
+      ]
+    },
+    {
+      "id": "DR025",
+      "task_id": "T05",
+      "description": "Require compatible observed human PK and matching reference regimens for independent validation of frozen predictions.",
+      "kind": "DATA",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "authorized_observed_human_PK",
+        "reference_population_and_study_context",
+        "reference_dose_and_dose_basis",
+        "infusion_duration_and_dosing_history",
+        "observation_times_and_time_origin",
+        "analyte_matrix_and_total_free_basis",
+        "observed_endpoint_definitions_and_units",
+        "reported_uncertainty",
+        "frozen_model_and_prediction_dependencies_from_T03",
+        "prediction_observation_correspondence",
+        "compatible_nonplasma_matrix_evidence_if_used"
+      ],
+      "rule_ids": [
+        "R009",
+        "R015"
+      ],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/21/statement",
+          "quote": "Planned human validation applies the frozen model to the human-reference doses and infusion conditions, compares predicted and observed plasma PK, and assesses other matrices separately when compatible data exist. Report bias, precision, exposure agreement and predictive uncertainty against the criteria governed by SC030."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies only after DR024 release conditions are met.",
+        "T03 predictions are planned upstream outputs, not available validated inputs at DR.",
+        "Other matrices are assessed separately only when compatible data exist.",
+        "Reference regimen metadata may support applying the frozen model without tuning it to outcomes."
+      ]
+    },
+    {
+      "id": "DR026",
+      "task_id": "T05",
+      "description": "Prespecify and freeze human PK validation criteria before examining human outcomes.",
+      "kind": "DEFINITION",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "validation_endpoints",
+        "bias_definition",
+        "precision_definition",
+        "exposure_agreement_definition",
+        "predictive_uncertainty_assessment_definition",
+        "acceptance_criteria",
+        "criteria_freeze_record",
+        "MI012"
+      ],
+      "rule_ids": [
+        "R015"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R015",
+          "quote": "R015: Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        },
+        {
+          "source": "main:/missing_information/items/11/clarification",
+          "quote": "Specify and freeze the criteria before human validation under SC030, without using human outcomes to choose them."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI012 remains OPEN DEFERRED.",
+        "The requirement does not supply numerical acceptance thresholds.",
+        "Criteria must be fixed before outcome access and validation assessment."
+      ]
+    },
+    {
+      "id": "DR027",
+      "task_id": "T05",
+      "description": "Preserve original validation results and their input versions if a later model revision occurs.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "original_model_scaling_and_prediction_versions",
+        "original_validation_criteria",
+        "original_validation_result",
+        "revision_identity_and_reason",
+        "revised_result_identity",
+        "relationship_to_original_validation"
+      ],
+      "rule_ids": [
+        "R015"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R015",
+          "quote": "R015: Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Revision-specific fields apply only if a later revision occurs.",
+        "This requirement does not authorize outcome-driven tuning of the original animal model or scaling."
+      ]
+    },
+    {
+      "id": "DR028",
+      "task_id": "T06",
+      "description": "Prespecify the human population to which PTA will refer.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_PTA",
+      "fields": [
+        "target_human_population",
+        "population_characteristics_relevant_to_the_model",
+        "covariate_definitions_and_sources_if_used",
+        "supported_population_variability_basis",
+        "uncertainty_distinguished_from_population_variability",
+        "population_specification_freeze",
+        "MI014",
+        "dependency_on_MI008_assessment"
+      ],
+      "rule_ids": [],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/22/statement",
+          "quote": "After PK validation and PD qualification, planned simulation uses a prespecified human population and dosing scenarios, including infusion duration, to estimate PTA at each MIC. Process the MIC distribution and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver PTA tables/curves, a feasibility conclusion and reproducible code; if required inputs are missing, explain why PTA is not estimable."
+        },
+        {
+          "source": "main:/missing_information/items/13/clarification",
+          "quote": "Prespecify the PTA population before simulation, using only defensible variability support and carrying MI008 as applicable."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI014 remains OPEN DEFERRED.",
+        "Population characteristics and variability are not filled with defaults.",
+        "MI008 remains relevant to the defensibility of population simulation."
+      ]
+    },
+    {
+      "id": "DR029",
+      "task_id": "T06",
+      "description": "Prespecify PTA dosing scenarios independently of prospective human validation-prediction settings.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_PTA",
+      "fields": [
+        "PTA_scenario_identifier",
+        "dose_and_dose_basis",
+        "route_and_input_type",
+        "infusion_duration",
+        "dosing_interval",
+        "dose_count_or_treatment_duration",
+        "exposure_evaluation_window",
+        "population_link_to_DR028",
+        "scenario_freeze",
+        "MI015"
+      ],
+      "rule_ids": [],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/22/statement",
+          "quote": "After PK validation and PD qualification, planned simulation uses a prespecified human population and dosing scenarios, including infusion duration, to estimate PTA at each MIC. Process the MIC distribution and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver PTA tables/curves, a feasibility conclusion and reproducible code; if required inputs are missing, explain why PTA is not estimable."
+        },
+        {
+          "source": "main:/missing_information/items/14/clarification",
+          "quote": "Prespecify the PTA dosing scenarios and infusion durations before simulation; keep this PTA decision distinct from the prospective prediction settings in MI013."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "MI015 remains OPEN DEFERRED.",
+        "No regimen or infusion duration is selected here.",
+        "MI013 does not automatically settle MI015."
+      ]
+    },
+    {
+      "id": "DR030",
+      "task_id": "T06",
+      "description": "Register PK validation and PD qualification as planned upstream dependencies for PTA.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_PTA",
+      "fields": [
+        "translated_human_PK_model_produced_by_T03",
+        "independent_PK_validation_produced_by_T05",
+        "PD_target_and_qualification_produced_by_T04",
+        "target_organism_site_effect_and_endpoint_window",
+        "target_index_units_and_free_total_basis",
+        "target_uncertainty",
+        "model_target_and_MIC_freeze_records",
+        "unresolved_dependency_limitations"
+      ],
+      "rule_ids": [
+        "R015",
+        "R012",
+        "R021"
+      ],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/22/statement",
+          "quote": "After PK validation and PD qualification, planned simulation uses a prespecified human population and dosing scenarios, including infusion duration, to estimate PTA at each MIC. Process the MIC distribution and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver PTA tables/curves, a feasibility conclusion and reproducible code; if required inputs are missing, explain why PTA is not estimable."
+        },
+        {
+          "source": "rule:R015",
+          "quote": "R015: Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "These are deferred products of T03, T04 and T05, not missing raw measurements solely because they are uncomputed.",
+        "PD estimation inputs and effect definitions remain separate requirements.",
+        "If the required products cannot be supported, retain the reason PTA is not estimable."
+      ]
+    },
+    {
+      "id": "DR031",
+      "task_id": "T06",
+      "description": "Define per-MIC PTA separately from distribution-weighted attainment and freeze the applicable MIC inputs.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_PTA",
+      "fields": [
+        "per_MIC_scenario_values_and_units",
+        "organism_specific_MIC_distribution_if_weighting",
+        "bin_probabilities_and_denominator_basis_if_weighting",
+        "coverage_and_censoring_treatment",
+        "probability_derivation_provenance",
+        "frozen_MIC_input_version",
+        "per_MIC_output_definition",
+        "weighted_output_definition",
+        "MI009_and_MI010_dispositions"
+      ],
+      "rule_ids": [
+        "R012",
+        "R018",
+        "R019",
+        "R015"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R019",
+          "quote": "R019: Derive MIC probabilities transparently and freeze the MIC distribution. Never silently renormalize incomplete coverage. Distinguish per-MIC PTA from MIC-weighted attainment."
+        },
+        {
+          "source": "rule:R015",
+          "quote": "R015: Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Distribution probabilities are required for weighted attainment, while per-MIC PTA retains its separate input definition.",
+        "No silent renormalization or resistance-rate interpretation is permitted.",
+        "DR023 addresses the earlier preparation needs; this requirement consumes their documented outcomes."
+      ]
+    },
+    {
+      "id": "DR032",
+      "task_id": "T06",
+      "description": "Require traceable uncertainty inputs for later simulation and exploratory dose estimation.",
+      "kind": "DATA",
+      "required_by": "BEFORE_PTA",
+      "fields": [
+        "parameter_uncertainty_and_source",
+        "binding_uncertainty_and_source",
+        "PD_target_uncertainty_and_source",
+        "MIC_uncertainty_and_source",
+        "dependencies_or_covariance_if_reported",
+        "empirical_variability_support",
+        "unavailable_uncertainty_inputs",
+        "planned_upstream_output_producers"
+      ],
+      "rule_ids": [
+        "R003",
+        "R005",
+        "R021"
+      ],
+      "evidence": [
+        {
+          "source": "main:/scientific_context/items/32/statement",
+          "quote": "Propagate parameter, binding, PD-target and MIC uncertainty. Do not invent variability; group summaries cannot supply invented interindividual variability."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Animal and translated parameter uncertainty is produced or assessed in T02 and T03; target uncertainty is produced or assessed in T04.",
+        "Reported uncertainty, estimated parameter uncertainty and population variability retain distinct meanings.",
+        "Unavailable uncertainty inputs remain explicit; no distributions are invented."
+      ]
+    },
+    {
+      "id": "DR033",
+      "task_id": "T06",
+      "description": "Require a feasibility conclusion, supported deliverables and explicit reporting of failures or non-estimability.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "PTA_tables_and_curves_if_estimable",
+        "separate_MIC_weighted_results_if_estimable",
+        "exploratory_efficacious_dose_and_uncertainty_if_supported",
+        "feasibility_conclusion",
+        "input_gaps_and_failed_branches",
+        "reason_for_non_estimability_if_applicable",
+        "limits_of_PK_and_efficacy_interpretation",
+        "reproducible_code"
+      ],
+      "rule_ids": [
+        "R021",
+        "R022"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R021",
+          "quote": "R021: Include an exploratory efficacious-dose estimate with uncertainty only where supported. Deliver PTA tables/curves, a feasibility conclusion and reproducible code. If required inputs are missing, report why PTA is not estimable."
+        },
+        {
+          "source": "rule:R022",
+          "quote": "R022: Limit conclusions to model feasibility; do not present the result as a clinical dosing recommendation or proof of generalizability. A successful fit is not predictive validation, and human PK agreement does not validate antibacterial efficacy or safety. Preserve failures and data gaps."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Exploratory dose estimation and numerical PTA outputs depend on supported inputs and the applicable upstream gates.",
+        "The feasibility conclusion remains required when a numerical branch is not estimable.",
+        "Human PK agreement does not establish antibacterial efficacy or safety."
+      ]
+    },
+    {
+      "id": "DR034",
+      "task_id": "T01",
+      "description": "Retain reproducibility and unresolved-item provenance throughout the workflow.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source_to_input_mapping",
+        "transformation_history",
+        "assumptions",
+        "code_and_configuration",
+        "seeds_when_used",
+        "results_and_failures",
+        "unresolved_item_identifiers_and_original_context_references",
+        "review_records"
+      ],
+      "rule_ids": [
+        "R023"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R023",
+          "quote": "R023: Save transformations, assumptions, code, seeds and results throughout the workflow. Obtain human review before fitting."
+        },
+        {
+          "source": "main:/scientific_context/items/34/statement",
+          "quote": "Preserve failures and data gaps, and save transformations, assumptions, code, seeds and results."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Applies continuously from preparation through the final handoff.",
+        "Existing R identifiers remain bound to the supplied project-rule artifact and original evidence mappings.",
+        "No unresolved MI item is closed by this requirements-only transformation."
+      ]
+    },
+    {
+      "id": "MC001",
+      "task_id": "T02",
+      "description": "Specify the concentration, dosing and sampling inputs for each requested animal time-course modeling objective.",
+      "kind": "DATA",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "requested_curve_or_parameter_output",
+        "concentration_values_times_and_units",
+        "dosing_events_and_time_origin",
+        "dose_amount_and_basis",
+        "route_and_input_history",
+        "analyte_matrix_and_total_free_basis",
+        "species_study_and_regimen_membership",
+        "sampling_design",
+        "experimental_unit_identifiers_if_verified",
+        "summary_definition_counts_and_reported_variability",
+        "digitization_provenance_if_applicable",
+        "BLQ_LLOQ_and_missingness",
+        "body_weight_if_required",
+        "dose_levels_if_nonlinearity_is_a_requested_objective"
+      ],
+      "rule_ids": [
+        "R007",
+        "R003",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP004",
+          "quote": "Permitted concentration-time observations, dosing events, route, analyte, matrix, concentration basis and units."
+        },
+        {
+          "source": "method:MP004",
+          "quote": "Study/regimen membership, sampling design, data level and available experimental-unit identifiers; identify unverifiable IDs rather than inventing them."
+        },
+        {
+          "source": "rule:R007",
+          "quote": "2. Fit animal PK. Select eligible systemic PK models for each species with usable data, and add pulmonary or CSF components only where supported. Evaluate fit, parameter identifiability and held-out prediction where the design permits. Document exclusion or exploratory use of summary-only, figure-only or radiolabel evidence."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP004"
+      ],
+      "conditions": [
+        "Applies to each animal time-course model requested under T02.",
+        "Group-mean curves may be candidates for exploratory group-level modeling without inferred animal random effects.",
+        "Individual variability requires verified individual-level evidence or other defensible reported variability support.",
+        "Dose-dependent kinetics inputs apply only if that objective is explicitly selected.",
+        "No compartments, residual-error model, estimation engine or numerical sufficiency threshold is chosen."
+      ]
+    },
+    {
+      "id": "MC002",
+      "task_id": "T02",
+      "description": "Specify binding-specific evidence for requested free exposures and binding corrections.",
+      "kind": "DATA",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "requested_unbound_endpoint_or_correction",
+        "direct_free_concentration_fu_or_bound_fraction",
+        "percentage_or_fraction_scale",
+        "species_and_matrix",
+        "measurement_method",
+        "temperature_pH_and_other_reported_conditions",
+        "concentration_range",
+        "nonspecific_binding_recovery_or_mass_balance_if_reported",
+        "source_and_biological_context",
+        "blood_plasma_partition_if_basis_changes",
+        "human_input_source_and_stage_permission_if_applicable"
+      ],
+      "rule_ids": [
+        "R005",
+        "R008",
+        "R010"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP007",
+          "quote": "The requested use and whether the supplied evidence is directly measured unbound concentration, an unbound fraction (fu) or a bound fraction. Preserve explicit percentage versus fractional-scale definitions."
+        },
+        {
+          "source": "method:MP007",
+          "quote": "For binding evidence used as an input: reported measurement method, the species and matrix in which binding was measured, experimental conditions including temperature and pH where reported, and concentration range, linked to the existing source and biological-context metadata."
+        },
+        {
+          "source": "rule:R005",
+          "quote": "R005: Record a justification for every conversion or physiological bridge. Never average conflicting within-species binding sources; carry fu as a sensitivity parameter."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP007"
+      ],
+      "conditions": [
+        "Applies only to requested unbound endpoints or binding corrections.",
+        "Direct unbound measurements do not require fu solely for a total-to-free conversion.",
+        "Blood/plasma partition evidence is conditional on changing that concentration basis.",
+        "Human in-vitro binding evidence requires applicable published project permission; MP007 grants none.",
+        "Missing fu is not replaced by one, and animal fu is not automatically substituted for human fu.",
+        "Independent total-concentration work retains its separate requirements."
+      ]
+    },
+    {
+      "id": "MC003",
+      "task_id": "T03",
+      "description": "Specify cross-species comparability and body-size inputs without imposing a species minimum.",
+      "kind": "DATA",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "parameter_by_distinct_species_inventory",
+        "parameter_definition_units_and_normalization",
+        "source_and_review_status",
+        "study_and_health_or_infection_state",
+        "actual_study_body_weight_and_source_if_size_scaling",
+        "cross_species_compatibility_questions",
+        "additional_inputs_for_explicitly_considered_translation_approaches",
+        "published_project_species_requirement_if_any"
+      ],
+      "rule_ids": [
+        "R008"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP005",
+          "quote": "Actual body weight for each contributing species and study, with its source, when a considered translation approach scales by body size. Do not substitute typical or textbook weights."
+        },
+        {
+          "source": "method:MP005",
+          "quote": "Summarize candidate coverage separately for each parameter and distinct species. Multiple studies, doses, curves or publications from one species do not create additional species."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP005"
+      ],
+      "conditions": [
+        "Applies to the explicitly planned animal-to-human translation.",
+        "Reuse prior per-species parameter metadata rather than repeating extraction.",
+        "Actual study weights are needed when body-size scaling is considered.",
+        "Only inputs required by an explicitly considered translation approach are added.",
+        "The supplied project evidence specifies no numerical species minimum; none is imported.",
+        "Candidate coverage does not qualify parameters or species."
+      ]
+    },
+    {
+      "id": "MC004",
+      "task_id": "T03",
+      "description": "Complete prospective human scenario definitions and identify existing versus planned parameter sources.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "dose_and_dose_basis",
+        "bolus_or_infusion",
+        "infusion_duration_if_applicable",
+        "repeat_dosing_interval_and_count_if_applicable",
+        "curve_concentration_basis",
+        "simulation_time_origin_and_horizon",
+        "target_human_body_weight_if_required",
+        "other_required_scenario_descriptors",
+        "existing_input_sources",
+        "planned_T02_and_T03_parameter_outputs",
+        "inputs_without_identified_sources",
+        "binding_dependency_for_unbound_predictions"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP006",
+          "quote": "The proposed human IV regimen: dose and dose basis, bolus or infusion, applicable infusion duration, and repeat-dosing interval/count where relevant. Unspecified choices remain unresolved."
+        },
+        {
+          "source": "method:MP006",
+          "quote": "The requested curve concentration basis and simulation time horizon, sourced from the project objective or an authorized scenario definition."
+        },
+        {
+          "source": "method:MP006",
+          "quote": "An input-source inventory distinguishing existing inputs, predicted parameters planned from the translation branch, and inputs with no identified source."
+        },
+        {
+          "source": "rule:R009",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP006"
+      ],
+      "conditions": [
+        "Applies to prospective human IV scenarios under T03.",
+        "Repeat-dosing and body-weight fields are required only when relevant to the specified scenario.",
+        "Planned translation parameters are pending outputs rather than missing raw data.",
+        "Protected human in-vivo PK is not requested to complete a prospective scenario.",
+        "Execution settings such as plotting-grid resolution remain downstream."
+      ]
+    },
+    {
+      "id": "MC005",
+      "task_id": "T02",
+      "description": "Specify clearance inputs separately if an absolute or apparent animal clearance parameter is selected for the planned PK or translation task.",
+      "kind": "DATA",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "selected_clearance_parameter_and_intended_use",
+        "CL_versus_CL_over_F_definition",
+        "analyte_specific_dose_and_basis",
+        "route_dosing_times_and_regimen",
+        "matrix_total_free_basis_units_and_data_level",
+        "relevant_concentration_time_inputs_or_permitted_reported_estimate",
+        "late_observation_inputs_for_single_dose_IV_clearance",
+        "verified_steady_state_and_defined_interval_if_interval_clearance",
+        "applicable_bioavailability_evidence_if_absolute_CL_from_extravascular_data",
+        "body_weight_if_normalization_or_scaling",
+        "reported_uncertainty_and_dose_dependence",
+        "literature_estimation_method_and_source_location_if_used"
+      ],
+      "rule_ids": [
+        "R007",
+        "R008",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP003",
+          "quote": "The exact requested parameter and intended use, distinguishing CL from CL/F and Vss from Vz, Vc and apparent volumes."
+        },
+        {
+          "source": "method:MP003",
+          "quote": "Permitted concentration-time data and applicable MP001/MP002 input metadata, or a traceable permitted same-drug published estimate retained as a literature candidate."
+        },
+        {
+          "source": "method:MP003",
+          "quote": "For single-dose IV clearance, data covering the exposure course including late observations relevant to AUCinf. For a steady-state interval approach, evidence of steady state and a proposal-defined interval with matching dose and exposure data."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP003"
+      ],
+      "conditions": [
+        "Applies only if clearance is an explicitly selected T02 or T03 parameter; it does not add a mandatory clearance endpoint.",
+        "Requirements follow the selected route and parameter definition.",
+        "A permitted reported same-drug estimate may remain LITERATURE_REPORTED, NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED.",
+        "A compartmental fit is not required for every clearance candidate.",
+        "AUCinf, clearance calculation and terminal sufficiency remain downstream questions; no formula, terminal interval or regression is selected."
+      ]
+    },
+    {
+      "id": "MC006",
+      "task_id": "T02",
+      "description": "Specify Vss inputs separately if Vss is explicitly selected for the planned PK or translation task.",
+      "kind": "DATA",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "selected_Vss_parameter_and_intended_use",
+        "Vss_definition_distinct_from_Vz_Vc_and_apparent_volumes",
+        "analyte_specific_dose_and_basis",
+        "route_and_input_history",
+        "infusion_duration_and_constant_varying_or_interrupted_input",
+        "concentration_time_inputs_potentially_supporting_exposure_and_moments",
+        "matrix_total_free_basis_units_and_data_level",
+        "body_weight_if_normalized",
+        "permitted_reported_Vss_definition_method_and_source_if_used",
+        "reported_uncertainty_and_unresolved_inputs"
+      ],
+      "rule_ids": [
+        "R007",
+        "R008",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP003",
+          "quote": "For Vss, time-course data potentially supporting the required exposure/moment information and the dosing-input history; infusion duration and whether input was constant, varying or interrupted. Single-dose data are not excluded solely because the parameter name contains steady state."
+        },
+        {
+          "source": "method:MP003",
+          "quote": "NCA input data or published estimates may be candidates without a compartmental fit. This does not qualify the resulting parameter for extrapolation."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP003"
+      ],
+      "conditions": [
+        "Applies only if Vss is explicitly selected; the supplied context does not itself request Vss.",
+        "Clearance or finite-window AUC inputs do not automatically establish Vss inputs.",
+        "Single-dose evidence is not excluded solely by the parameter name.",
+        "No moment calculation, infusion correction or volume substitution is chosen.",
+        "Reported estimates remain candidates subject to project permission and later review."
+      ]
+    },
+    {
+      "id": "MC007",
+      "task_id": "T04",
+      "description": "Specify finite-window exposure inputs when requested index exposures are to be derived from measured concentration-time observations.",
+      "kind": "DATA",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "requested_AUC_endpoint_and_intended_use",
+        "explicit_window_and_time_origin",
+        "analyte_matrix_and_total_free_basis",
+        "concentration_time_values_and_units",
+        "study_profile_and_regimen_membership",
+        "dose_basis_and_dosing_events",
+        "observed_times_boundaries_and_internal_gaps",
+        "boundary_values_observed_reported_estimated_or_unknown",
+        "original_or_digitized_measured_observation_provenance",
+        "sampling_design_and_summary_definition",
+        "counts_and_reported_SD_SE_CI",
+        "variance_or_covariance_if_uncertainty_requested",
+        "BLQ_LLOQ_missingness_and_actual_nominal_time_definitions",
+        "reported_assay_and_stability_context",
+        "site_sampling_and_dilution_or_mass_basis_if_applicable"
+      ],
+      "rule_ids": [
+        "R010",
+        "R003",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP001",
+          "quote": "Each requested endpoint and intended use; proposal-defined AUC window and time origin, with analyte, matrix and total/free concentration basis."
+        },
+        {
+          "source": "method:MP001",
+          "quote": "Require the proposal to define each AUC window by intended use, including AUCtau when relevant. Retain an undefined window as an unresolved definition; do not choose 0-24 h, infinity or a shorter observed interval by default."
+        },
+        {
+          "source": "method:MP001",
+          "quote": "For digitized observations: the source figure, panel/curve, axes and transformations, units, extraction provenance and any existing reconstruction review. Distinguish measured points from fitted or predicted curves."
+        },
+        {
+          "source": "rule:R010",
+          "quote": "4. Determine the PK/PD index. For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC using ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP001"
+      ],
+      "conditions": [
+        "Applies only when a requested finite-window exposure is obtained from measured observations.",
+        "It does not impose NCA on model-predicted or source-reported exposure inputs.",
+        "Digitized measured group means may be group-level candidates; fitted curves are distinguished from measured points.",
+        "No finite interval, integration method, gap filling or boundary treatment is selected.",
+        "Terminal-dependent endpoints are not introduced by this requirement.",
+        "Missing uncertainty inputs are distinguished from missing point-estimate inputs."
+      ]
+    },
+    {
+      "id": "MC008",
+      "task_id": "T05",
+      "description": "Specify observed Cmax inputs if a sampled peak is used in the independent human PK comparison.",
+      "kind": "DATA",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "observed_Cmax_endpoint_and_intended_comparison",
+        "concentration_time_observations_and_units",
+        "sampling_times_and_peak_search_window",
+        "time_origin_and_dose_or_infusion_context",
+        "analyte_matrix_and_total_free_basis",
+        "individual_or_group_summary_level",
+        "summary_definition_and_counts",
+        "source_origin_and_extraction_provenance",
+        "BLQ_LLOQ_and_missingness",
+        "reported_uncertainty_if_comparison_requires_it"
+      ],
+      "rule_ids": [
+        "R009",
+        "R003"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP001",
+          "quote": "Observed Cmax/Tmax refer to sampled concentrations. A group-mean curve does not establish the unobserved true peak or the mean of individual peaks."
+        },
+        {
+          "source": "main:/scientific_context/items/21/statement",
+          "quote": "Planned human validation applies the frozen model to the human-reference doses and infusion conditions, compares predicted and observed plasma PK, and assesses other matrices separately when compatible data exist. Report bias, precision, exposure agreement and predictive uncertainty against the criteria governed by SC030."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP001"
+      ],
+      "conditions": [
+        "Applies only if observed sampled Cmax is an authorized validation endpoint.",
+        "It does not add Tmax as a project endpoint.",
+        "A source-reported peak retains its reported definition and evidence level.",
+        "Human data remain protected until DR024 conditions are met.",
+        "Observed sampled maxima and predicted peaks retain their respective estimands."
+      ]
+    },
+    {
+      "id": "MC009",
+      "task_id": "T04",
+      "description": "Define the fT>MIC input requirements independently of the other candidate indices.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "index_fT_greater_than_MIC",
+        "free_concentration_profile_or_relevant_source_linked_PK",
+        "binding_input_dependency",
+        "strain_matched_MIC_and_units",
+        "threshold_definition",
+        "exposure_window_and_time_origin",
+        "duration_or_percentage_output",
+        "regimen_and_dosing_history",
+        "matched_response_record_relationship",
+        "organism_site_and_endpoint_stratum"
+      ],
+      "rule_ids": [
+        "R010",
+        "R011",
+        "R012"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP009",
+          "quote": "For a time-above-threshold index: the threshold and its definition, exposure profile input, analysis window and whether the output is a duration or percentage. A bare fT label is incomplete."
+        },
+        {
+          "source": "rule:R010",
+          "quote": "R010: For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC with equal eligibility using both ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP009"
+      ],
+      "conditions": [
+        "Applies to the explicitly requested fT>MIC comparison and target task.",
+        "Reuse binding assessment MC002 and matched-response requirements DR018.",
+        "Exposure values alone do not establish index ranking.",
+        "The window and duration-versus-percentage convention remain unresolved until specified."
+      ]
+    },
+    {
+      "id": "MC010",
+      "task_id": "T04",
+      "description": "Define the fAUC/MIC input requirements independently of the other candidate indices.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "index_fAUC_over_MIC",
+        "source_linked_free_AUC_or_PK_input",
+        "AUC_window_and_time_origin",
+        "AUC_units",
+        "strain_matched_MIC_and_units",
+        "ratio_units",
+        "binding_input_dependency",
+        "regimen_and_dosing_history",
+        "matched_response_record_relationship",
+        "organism_site_and_endpoint_stratum"
+      ],
+      "rule_ids": [
+        "R010",
+        "R011",
+        "R012"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP009",
+          "quote": "The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended."
+        },
+        {
+          "source": "method:MP009",
+          "quote": "For exposure calculations or response-linked fits: source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites."
+        },
+        {
+          "source": "rule:R010",
+          "quote": "R010: For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC with equal eligibility using both ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP009"
+      ],
+      "conditions": [
+        "Applies to the explicitly requested fAUC/MIC comparison and target task.",
+        "The AUC window is specified by intended use rather than defaulted.",
+        "Source-reported, model-derived and observation-derived exposure inputs retain distinct provenance.",
+        "MC007 applies only if measured observations are used for finite-window AUC."
+      ]
+    },
+    {
+      "id": "MC011",
+      "task_id": "T04",
+      "description": "Define the fCmax/MIC input requirements independently of the other candidate indices.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "index_fCmax_over_MIC",
+        "source_linked_free_Cmax_or_PK_input",
+        "sampled_reported_or_predicted_peak_definition",
+        "peak_evaluation_window_and_dose_number",
+        "concentration_units",
+        "strain_matched_MIC_and_units",
+        "binding_input_dependency",
+        "regimen_and_dosing_history",
+        "matched_response_record_relationship",
+        "organism_site_and_endpoint_stratum"
+      ],
+      "rule_ids": [
+        "R010",
+        "R011",
+        "R012"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP009",
+          "quote": "The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended."
+        },
+        {
+          "source": "method:MP009",
+          "quote": "For exposure calculations or response-linked fits: source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites."
+        },
+        {
+          "source": "rule:R010",
+          "quote": "R010: For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC with equal eligibility using both ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP009"
+      ],
+      "conditions": [
+        "Applies to the explicitly requested fCmax/MIC comparison and target task.",
+        "Peak definitions must be compatible with the intended common response comparison.",
+        "No observed peak is treated as the unobserved true peak.",
+        "No index is given preference because of source conclusions."
+      ]
+    },
+    {
+      "id": "MC012",
+      "task_id": "T04",
+      "description": "Specify infection-model response context and the source-supported regimen-exposure-response relationships needed for ranking or new target estimation.",
+      "kind": "DATA",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "organism_and_strain",
+        "inoculum",
+        "infection_site",
+        "host_immune_health_and_renal_state",
+        "infection_to_treatment_interval",
+        "treatment_duration",
+        "response_observation_time",
+        "measured_PD_endpoint",
+        "baseline_or_comparator",
+        "response_reference_point",
+        "untreated_growth_controls",
+        "source_supported_regimen_exposure_response_mapping",
+        "dosing_frequency_interval_and_total_dose_design",
+        "PK_PD_experiment_compatibility",
+        "MI001_dependency"
+      ],
+      "rule_ids": [
+        "R010",
+        "R011",
+        "R012",
+        "R003"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP009",
+          "quote": "For exposure-response analysis, index ranking or estimation of a new PD target: the measured PD endpoint, baseline/comparator, response observation time/window and source, plus traceable mapping among regimen, exposure and response."
+        },
+        {
+          "source": "method:MP009",
+          "quote": "For in vivo infection-model response data used for index ranking or target estimation: organism and strain identity, inoculum and infection site, host immune status, the interval between infection and treatment start, treatment duration, the response endpoint and its reference point (for example change from treatment start or from an untreated control, or survival), and untreated growth-control data. Keep each combination of treatment duration and endpoint distinct."
+        },
+        {
+          "source": "method:MP009",
+          "quote": "For index ranking, record whether the regimens vary dosing frequency or interval in addition to total dose, so that the candidate indices do not change only together. If the design does not separate them, keep the ranking unresolved. Do not impose a numeric count of regimens or dose levels."
+        },
+        {
+          "source": "rule:R011",
+          "quote": "Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP009"
+      ],
+      "conditions": [
+        "Applies to response-linked ranking and new PD target estimation.",
+        "The earlier MI001 adequacy question remains governed by DR018.",
+        "Separate PK evidence must be checked for species, strain, biological state, route and dose-range compatibility with the PD experiment.",
+        "No exposure-response links or CFU observations are reconstructed.",
+        "Missing response matching does not remove separately requested PK or exposure-summary work."
+      ]
+    },
+    {
+      "id": "MC013",
+      "task_id": "T04",
+      "description": "Specify strain-matched MIC measurement context for each MIC-dependent index.",
+      "kind": "DATA",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "fields": [
+        "drug_identity",
+        "organism_and_strain_identifier",
+        "MIC_value_and_units",
+        "MIC_source_location",
+        "measurement_method",
+        "medium",
+        "testing_standard",
+        "replicate_count_if_reported",
+        "summary_value_definition",
+        "relationship_to_the_PD_strain",
+        "censoring_or_ambiguity"
+      ],
+      "rule_ids": [
+        "R001",
+        "R012"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP009",
+          "quote": "Strain-matched MIC only when an index is MIC-normalized or uses MIC as its threshold, with its units, source and measurement context: method, medium, testing standard, number of replicates and the summary value used (for example the modal value)."
+        },
+        {
+          "source": "rule:R012",
+          "quote": "Use matched strain MICs for PD and the distributions for population-weighted attainment; a distribution cannot replace matched strain MICs."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP009"
+      ],
+      "conditions": [
+        "Applies because all three requested comparison indices are MIC-dependent.",
+        "Unreported measurement context remains an identified gap rather than an invented value.",
+        "Another drug's MIC or an organism-level distribution cannot supply the matched strain input."
+      ]
+    },
+    {
+      "id": "MC014",
+      "task_id": "T06",
+      "description": "Specify the context and producing task of each target intended for later PTA.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_PTA",
+      "fields": [
+        "desired_effect",
+        "measured_endpoint_and_reference",
+        "organism_and_strain_context",
+        "infection_site",
+        "treatment_and_endpoint_windows",
+        "target_index_value_and_units_when_produced",
+        "free_total_basis",
+        "exposure_window",
+        "target_source_or_producing_task_T04",
+        "target_uncertainty",
+        "applicability_and_qualification_record",
+        "target_freeze"
+      ],
+      "rule_ids": [
+        "R010",
+        "R012",
+        "R013",
+        "R015"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP009",
+          "quote": "For target tasks, distinguish the measured PD endpoint, desired effect and required index value. Record source-supported target inputs separately from planned estimation outputs. Map a documented later target output to DEFERRED with its producing task and required phase; report missing source data or undefined effects/windows separately. This step does not estimate or qualify the target or establish its applicability to human PTA."
+        },
+        {
+          "source": "rule:R010",
+          "quote": "4. Determine the PK/PD index. For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC using ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        },
+        {
+          "source": "rule:R012",
+          "quote": "Keep stasis, 1-log and 2-log kill targets separate; a target from one organism, infection site or endpoint (thigh CFU, lung ELF, CSF, survival) cannot set another."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP009"
+      ],
+      "conditions": [
+        "T04 target estimation and qualification are deferred upstream outputs for T06.",
+        "An uncomputed target is not automatically missing raw data.",
+        "Missing estimation observations, desired-effect definitions or windows remain separate unresolved inputs.",
+        "A literature target cannot bypass the project's independent comparison, anti-leakage or qualification requirements.",
+        "No target is estimated or accepted here."
+      ]
+    },
+    {
+      "id": "MC015",
+      "task_id": "T03",
+      "description": "Specify unchanged urinary excretion inputs if urinary recovery is used to support the planned renal-elimination translation.",
+      "kind": "DATA",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "requested_Ae_or_fe_endpoint_and_collection_extent",
+        "study_species_and_experimental_unit",
+        "urine_collection_start_and_end_times_relative_to_dose",
+        "collection_completeness",
+        "urine_volume_and_analyte_concentration_or_reported_amount",
+        "units",
+        "unchanged_meropenem_versus_metabolite_or_total_14C",
+        "dose_route_and_dose_basis",
+        "cumulative_or_interval_definition",
+        "pooled_or_missing_collection_flags",
+        "reported_estimate_source_and_definition_if_used"
+      ],
+      "rule_ids": [
+        "R008",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP011",
+          "quote": "Urine collection intervals with start and end times relative to dosing, and whether collection was complete for each interval."
+        },
+        {
+          "source": "method:MP011",
+          "quote": "For each interval: urine volume and analyte concentration with units, or a reported amount excreted; the analyte and its relation to the administered dose basis."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP011"
+      ],
+      "conditions": [
+        "Applies only if urinary excretion evidence is selected to support the explicit renal-elimination translation objective.",
+        "A truncated collection does not establish total excretion.",
+        "Amounts are not derived without volume when only concentrations are reported.",
+        "A permitted reported fe estimate retains its literature evidence level and collection definition.",
+        "Missing urine inputs do not block independent plasma-based PK requirements."
+      ]
+    },
+    {
+      "id": "MC016",
+      "task_id": "T03",
+      "description": "Specify renal-clearance inputs if CLR is explicitly selected for renal-elimination translation.",
+      "kind": "DATA",
+      "required_by": "BEFORE_TRANSLATION",
+      "fields": [
+        "selected_CLR_endpoint_and_intended_use",
+        "urinary_unchanged_drug_amount_or_its_source_inputs",
+        "urine_collection_interval",
+        "matching_plasma_exposure_interval",
+        "plasma_exposure_source_or_producing_task_T02",
+        "matching_analyte_matrix_basis_and_units",
+        "dose_and_collection_context",
+        "reported_CLR_definition_source_and_collection_duration_if_used",
+        "unresolved_plasma_urine_correspondence"
+      ],
+      "rule_ids": [
+        "R008",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "method:MP011",
+          "quote": "Plasma exposure over the same intervals when renal clearance is requested, assessed under MP001 and MP003."
+        },
+        {
+          "source": "method:MP011",
+          "quote": "Check that plasma and urine intervals, analytes and units correspond before matching them to renal clearance. Keep unresolved correspondence as a gap."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation."
+        }
+      ],
+      "origin": "METHOD_CANDIDATE",
+      "method_profile_ids": [
+        "MP011"
+      ],
+      "conditions": [
+        "Applies only if CLR is explicitly selected; renal-elimination context alone does not mandate a new CLR calculation.",
+        "Reuse the urine-input requirements in MC015.",
+        "Any calculated plasma exposure is a planned T02 output, distinct from its underlying source inputs.",
+        "A permitted literature CLR remains LITERATURE_REPORTED, NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED.",
+        "No CLR, nonrenal clearance or elimination mechanism is calculated or accepted here."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI001",
+      "reason": "Status NOT_FOUND; resolution_status OPEN; needed_at adequacy; origin main:/missing_information/items/0. Independent exposure-response index comparison cannot assume access to regimen-level CFU observations. The proposal states that no Mouse source gives per-regimen CFU tables; fitted summaries do not establish supplied observations. This does not prove observations cannot exist elsewhere.",
+      "needed_material": "Determine whether the authorized response evidence supports the intended comparisons; otherwise retain this limitation without reconstructing missing observations.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI002",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at pk; origin main:/missing_information/items/1. Rabbit evidence cannot yet be assigned a supported model-component role. The parameter-only concentration evidence requires an animal PK support assessment.",
+      "needed_material": "Assess that support at animal PK modeling and record component eligibility or exploratory-only use.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI003",
+      "reason": "Status CONFLICT; resolution_status OPEN; needed_at prepare; origin main:/missing_information/items/2. Experimental-unit counts cannot be reconciled reliably from the proposal. The competing source counts are not supplied in this input.",
+      "needed_material": "Preserve counts as printed and document the source-specific discrepancy during preparation; do not silently reconcile it.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI004",
+      "reason": "Status CONFLICT; resolution_status OPEN; needed_at prepare; origin main:/missing_information/items/3. Dose assignment and any subsequent dose-based interpretation require resolution or an explicit retained limitation. The reported dose in SC012 does not resolve the source discrepancy.",
+      "needed_material": "Keep each source dose as printed and document its study and record association; do not substitute an inferred corrected dose.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI005",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at validation; origin main:/missing_information/items/4. Observed human PK validation must wait for the authorized reference-data release. The reference file is outside the supplied package and is released only at task 5 after the stated freezes.",
+      "needed_material": "At task 5, obtain the reference file only after the stated freeze conditions are satisfied, then perform independent validation.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI006",
+      "reason": "Status CONFLICT; resolution_status OPEN; needed_at pk; origin main:/missing_information/items/5. A single mouse unbound fraction cannot be selected as an uncontested source value. The applicable interpretation of the conflicting binding sources remains unresolved.",
+      "needed_material": "Document mouse binding provenance and defensible sensitivity treatment under SC028 without averaging the conflicting values.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI007",
+      "reason": "Status CONFLICT; resolution_status OPEN; needed_at pk; origin main:/missing_information/items/6. A single dog unbound fraction cannot be selected as an uncontested source value. The applicable interpretation of the conflicting binding sources remains unresolved.",
+      "needed_material": "Document dog binding provenance and defensible sensitivity treatment under SC028 without averaging the conflicting values.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI008",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at pk; origin main:/missing_information/items/7. Population variability for later simulation cannot be represented as empirically supported until its basis is assessed. Attachment bodies have not been searched in this transformation.",
+      "needed_material": "Assess the available experimental units and variability evidence during PK work; distinguish supported variability from uncertainty and retain any limitation for PTA.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI009",
+      "reason": "Status NOT_FOUND; resolution_status OPEN; needed_at prepare; origin main:/missing_information/items/8. Distribution probabilities lack a directly supplied total denominator. The proposal explicitly states that the EUCAST distributions carry no totals.",
+      "needed_material": "Establish and record a justified denominator basis from authorized evidence rather than inventing a supplied total.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI010",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at prepare; origin main:/missing_information/items/9. A defensible probability distribution cannot be accepted without addressing coverage. The missing assessment outcome does not establish that coverage is incomplete.",
+      "needed_material": "Assess represented and potentially omitted MIC categories before probability processing, retaining any incomplete coverage explicitly.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI011",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at index; origin main:/missing_information/items/10. Index and regression-family selection cannot proceed under an unspecified decision rule. SC020 requires registration before fitting but supplies no actual selection rule.",
+      "needed_material": "Register the selection rule before PK/PD regression fitting while preserving the comparisons and reporting obligations in SC020.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI012",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at validation; origin main:/missing_information/items/11. Human prediction performance cannot receive a prespecified acceptance judgment. Actual acceptance criteria are not supplied.",
+      "needed_material": "Specify and freeze the criteria before human validation under SC030, without using human outcomes to choose them.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI013",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at human_pk; origin main:/missing_information/items/12. Prospective human concentration and exposure predictions lack specified dosing inputs. SC018 requires specified doses and infusion durations.",
+      "needed_material": "Specify the dose and infusion conditions for prospective human PK prediction before producing and freezing those predictions.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI014",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at clinical; origin main:/missing_information/items/13. PTA cannot be interpreted for a defined target population because the human simulation population is not specified.",
+      "needed_material": "Prespecify the PTA population before simulation, using only defensible variability support and carrying MI008 as applicable.",
+      "required_by": "BEFORE_PTA",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_CONTEXT_ITEM",
+      "affected_id": "MI015",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at clinical; origin main:/missing_information/items/14. PTA tables, curves and exploratory dose estimation lack prespecified simulation scenarios. This is distinct from MI013.",
+      "needed_material": "Prespecify the PTA dosing scenarios and infusion durations before simulation; keep this PTA decision distinct from the prospective prediction settings in MI013.",
+      "required_by": "BEFORE_PTA",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "REQUIRED_HUMAN_REVIEW",
+      "affected_id": "DR011",
+      "reason": "main:/scientific_context/items/35/statement requires human review before fitting. This document transformation provides no review record or fitting approval.",
+      "needed_material": "Obtain and retain the required human review of the concrete fitting scope, inputs and unresolved limitations before fitting.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_ENDPOINT_DEFINITION",
+      "affected_id": "DR015",
+      "reason": "main:/scientific_context/items/17/statement requests human AUC but does not specify its exposure window. The requested curve horizon and endpoint windows also remain to be defined for the prospective scenarios.",
+      "needed_material": "Specify each prospective human endpoint's time origin, evaluation window, concentration basis and single-dose or repeat-dose context before prediction.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_INDEX_DEFINITIONS",
+      "affected_id": "MC009",
+      "reason": "SC019 and SC020 name the three free-exposure indices, while the supplied context does not define their exposure windows or the duration-versus-percentage convention for fT>MIC. MP009 requires these definitions separately from response matching.",
+      "needed_material": "Specify the fT>MIC threshold, analysis window and output convention, the fAUC/MIC exposure window, and the fCmax/MIC peak evaluation context using a common matched comparison basis.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "REQUIREMENTS_ONLY_BOUNDARY",
+      "affected_id": "T01",
+      "reason": "The supplied source overviews orient requirement planning but do not establish criterion-level availability, coverage, record joins, scientific adequacy or validated outputs. No permitted source-body inspection or numerical analysis occurs in this transformation.",
+      "needed_material": "Have the later authorized Coverage step check each applicable requirement and relationship against source evidence; retain input gaps and leave readiness and impact decisions to the assigned downstream steps.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

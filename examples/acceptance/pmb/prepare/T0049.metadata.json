@@ -1,298 +1,329 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0049",
-  "role": "MIC",
+  "role": "IN_VITRO_TIME_KILL",
   "metadata": {
-    "role": "MIC",
-    "species": "Carbapenem-resistant K. pneumoniae isolates BRKP28, BRKP61, BRKP67, BRKP76, KP0016-1 and KP0052-1",
-    "matrix": "NOT_FOUND",
-    "exposure_basis": "NOT_FOUND",
-    "record_level": "One row per isolate; MIC and genotype entries",
-    "drug": "PMB; FOF; MEM",
+    "role": "IN_VITRO_TIME_KILL",
+    "species": "K. pneumoniae KP619",
+    "matrix": "Static in-vitro exposure; medium NOT_FOUND",
+    "exposure_basis": "nominal exposure AMT (mg/L); total or unbound basis NOT_FOUND",
+    "record_level": "Source-file ID-linked exposure and response records; independent replicate IDs NOT_FOUND; individual versus summary status NOT_FOUND",
+    "drug": "PMB",
     "route": "NOT_APPLICABLE",
-    "endpoint_window": "MIC endpoint: NOT_FOUND. The separate static time-kill note states sampling at 0,1,2,4,6,8,24 h.",
+    "endpoint_window": "TIME is h; observation times include 0, 1, 2, 4, 6 and 8 with ID-dependent coverage; time origin NOT_FOUND",
     "route_category": "NOT_APPLICABLE",
     "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "INDIVIDUAL",
+    "record_category": "NOT_FOUND",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
-    "analyte": "PMB; FOF; MEM",
-    "dosing_regimen": "NOT_FOUND",
+    "analyte": "PMB",
+    "dosing_regimen": "Static in-vitro exposure",
     "additional_roles": [
+      "MIC",
       "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Isolate",
+        "header": "ID",
         "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "qualifiers": [
+          "Join within source file and ID.",
+          "independent replicate IDs NOT_FOUND."
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:A130",
-            "quote": "Isolate"
+            "source": "F0003:S5:T2:A57",
+            "quote": "ID"
           },
           {
-            "source": "F0003:S5:T5:A131",
-            "quote": "BRKP28"
+            "source": "F0003:S5:T2:A55",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          },
+          {
+            "source": "F0003:S5:T2:A56",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
           }
         ],
         "column": "A"
       },
       {
-        "header": "Carbapenemase",
-        "meaning": "COVARIATE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "AMT",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
+        "qualifiers": [
+          "nominal exposure",
+          "Static in-vitro exposure",
+          "A dot is missing/not applicable."
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:B130",
-            "quote": "Carbapenemase"
+            "source": "F0003:S5:T2:B57",
+            "quote": "AMT"
           },
           {
-            "source": "F0003:S5:T5:B131",
-            "quote": "blaKPC-2"
+            "source": "F0003:S5:T2:A55",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          },
+          {
+            "source": "F0003:S5:T2:A54",
+            "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+          },
+          {
+            "source": "F0003:S5:T2:A56",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
           }
         ],
         "column": "B"
       },
       {
-        "header": "mgrB",
-        "meaning": "COVARIATE",
+        "header": "AMT_CMT",
+        "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "NF non-functional; F functional."
+          "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1."
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:C130",
-            "quote": "mgrB"
+            "source": "F0003:S5:T2:C57",
+            "quote": "AMT_CMT"
           },
           {
-            "source": "F0003:S5:T5:C131",
-            "quote": "NF"
-          },
-          {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
+            "source": "F0003:S5:T2:A55",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
           }
         ],
         "column": "C"
       },
       {
-        "header": "ompK35",
-        "meaning": "COVARIATE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [
-          "NF non-functional; F functional."
-        ],
+        "header": "TIME",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T5:D130",
-            "quote": "ompK35"
+            "source": "F0003:S5:T2:D57",
+            "quote": "TIME"
           },
           {
-            "source": "F0003:S5:T5:D131",
-            "quote": "NF"
-          },
-          {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
+            "source": "F0003:S5:T2:A54",
+            "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
           }
         ],
         "column": "D"
       },
       {
-        "header": "ompK36",
-        "meaning": "COVARIATE",
-        "unit": "NOT_FOUND",
+        "header": "Y",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/mL",
         "qualifiers": [
-          "NF non-functional; F functional."
+          "log10",
+          "A dot is missing/not applicable.",
+          "CENS=1 flags censored Y."
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:E130",
-            "quote": "ompK36"
+            "source": "F0003:S5:T2:E57",
+            "quote": "Y"
           },
           {
-            "source": "F0003:S5:T5:E131",
-            "quote": "NF"
+            "source": "F0003:S5:T2:A54",
+            "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
           },
           {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
+            "source": "F0003:S5:T2:A56",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
           }
         ],
         "column": "E"
       },
       {
-        "header": "ompK37",
-        "meaning": "COVARIATE",
+        "header": "CENS",
+        "meaning": "BLQ_OR_FLAG",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "NF non-functional; F functional."
+          "CENS=1 flags censored Y."
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:F130",
-            "quote": "ompK37"
+            "source": "F0003:S5:T2:F57",
+            "quote": "CENS"
           },
           {
-            "source": "F0003:S5:T5:F134",
-            "quote": "NF"
-          },
-          {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
+            "source": "F0003:S5:T2:A56",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
           }
         ],
         "column": "F"
-      },
-      {
-        "header": "PMB MIC (mg/L)",
-        "meaning": "MIC",
-        "unit": "mg/L",
-        "qualifiers": [
-          "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed."
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S5:T5:G130",
-            "quote": "PMB MIC (mg/L)"
-          },
-          {
-            "source": "F0003:S5:T5:G131",
-            "quote": ">128 R"
-          },
-          {
-            "source": "F0003:S5:T5:G132",
-            "quote": "<0.5 I"
-          },
-          {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
-          }
-        ],
-        "column": "G"
-      },
-      {
-        "header": "FOF MIC (mg/L)",
-        "meaning": "MIC",
-        "unit": "mg/L",
-        "qualifiers": [
-          "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed."
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S5:T5:H130",
-            "quote": "FOF MIC (mg/L)"
-          },
-          {
-            "source": "F0003:S5:T5:H131",
-            "quote": "128 R"
-          },
-          {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
-          }
-        ],
-        "column": "H"
-      },
-      {
-        "header": "MEM MIC (mg/L)",
-        "meaning": "MIC",
-        "unit": "mg/L",
-        "qualifiers": [
-          "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed."
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S5:T5:I130",
-            "quote": "MEM MIC (mg/L)"
-          },
-          {
-            "source": "F0003:S5:T5:I131",
-            "quote": "256 R"
-          },
-          {
-            "source": "F0003:S5:T5:A127",
-            "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
-          }
-        ],
-        "column": "I"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Carbapenem-resistant K. pneumoniae isolates: genotype and MIC",
+      "title": "K. pneumoniae KP619 time-kill",
       "sheet": "In_vitro_MIC",
       "region": {
-        "start_row": 125,
-        "end_row": 136,
+        "start_row": 52,
+        "end_row": 93,
         "left": 1,
-        "right": 9,
-        "header_row": 130,
-        "title": "Carbapenem-resistant K. pneumoniae isolates: genotype and MIC",
+        "right": 6,
+        "header_row": 57,
+        "title": "K. pneumoniae KP619 time-kill",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Carbapenem-resistant K. pneumoniae isolates: genotype and MIC\nS27 | DOI 10.1128/aac.00782-25 | Table 1 (Mahadevan et al. 2025, PMC12888851)\nMICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional.\nStatic time-kill: PMB 0.5, 1, 2, 4, 8, 16, 64 mg/L; inoculum about 10^6 CFU/mL; sampling 0,1,2,4,6,8,24 h; LLOQ 2 log10 CFU/mL.\nPer-time CFU values are in supplementary file SuF1, not retrieved. Published model parameters (Table 2) are reference-only and kept outside this workbook.",
+      "notes": "K. pneumoniae KP619 time-kill\nS13 | DOI 10.1371/journal.pone.0171834 | PB_data_4.txt\nPMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h.\nAMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID.\nA dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND.",
       "column_map": {
-        "c001_isolate": "Isolate",
-        "c002_carbapenemase": "Carbapenemase",
-        "c003_mgrb": "mgrB",
-        "c004_ompk35": "ompK35",
-        "c005_ompk36": "ompK36",
-        "c006_ompk37": "ompK37",
-        "c007_pmb_mic_mg_l": "PMB MIC (mg/L)",
-        "c008_fof_mic_mg_l": "FOF MIC (mg/L)",
-        "c009_mem_mic_mg_l": "MEM MIC (mg/L)"
+        "c001_id": "ID",
+        "c002_amt": "AMT",
+        "c003_amt_cmt": "AMT_CMT",
+        "c004_time": "TIME",
+        "c005_y": "Y",
+        "c006_cens": "CENS"
       }
     },
-    "source_item_id": "F0003:S5:T5",
+    "source_item_id": "F0003:S5:T2",
     "source_evidence": [
       {
-        "source": "F0003:S5:T5:A125",
-        "quote": "Carbapenem-resistant K. pneumoniae isolates: genotype and MIC"
+        "source": "F0003:S5:T2:A52",
+        "quote": "K. pneumoniae KP619 time-kill"
       },
       {
-        "source": "F0003:S5:T5:A126",
-        "quote": "S27 | DOI 10.1128/aac.00782-25 | Table 1 (Mahadevan et al. 2025, PMC12888851)"
+        "source": "F0003:S5:T2:A53",
+        "quote": "S13 | DOI 10.1371/journal.pone.0171834 | PB_data_4.txt"
       },
       {
-        "source": "F0003:S5:T5:A127",
-        "quote": "MICs in mg/L with CLSI (PMB, MEM) or EUCAST E. coli (FOF) interpretation as printed. NF non-functional; F functional."
+        "source": "F0003:S5:T2:A54",
+        "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
       },
       {
-        "source": "F0003:S5:T5:G130",
-        "quote": "PMB MIC (mg/L)"
+        "source": "F0003:S5:T2:A55",
+        "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
       },
       {
-        "source": "F0003:S5:T5:G131",
-        "quote": ">128 R"
+        "source": "F0003:S5:T2:A56",
+        "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
       },
       {
-        "source": "F0003:S5:T5:G132",
-        "quote": "<0.5 I"
+        "source": "F0003:S5:T2:A58",
+        "quote": "1"
       },
       {
-        "source": "F0003:S5:T5:G133",
-        "quote": "8 R"
+        "source": "F0003:S5:T2:B58",
+        "quote": "1e-08"
       },
       {
-        "source": "F0003:S5:T5:A128",
-        "quote": "Static time-kill: PMB 0.5, 1, 2, 4, 8, 16, 64 mg/L; inoculum about 10^6 CFU/mL; sampling 0,1,2,4,6,8,24 h; LLOQ 2 log10 CFU/mL."
+        "source": "F0003:S5:T2:C58",
+        "quote": "2"
       },
       {
-        "source": "F0003:S5:T5:A129",
-        "quote": "Per-time CFU values are in supplementary file SuF1, not retrieved. Published model parameters (Table 2) are reference-only and kept outside this workbook."
+        "source": "F0003:S5:T2:D58",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T2:E58",
+        "quote": "."
+      },
+      {
+        "source": "F0003:S5:T2:A59",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T2:B59",
+        "quote": "."
+      },
+      {
+        "source": "F0003:S5:T2:C59",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T2:D59",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T2:E59",
+        "quote": "6.1875"
+      },
+      {
+        "source": "F0003:S5:T2:F59",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T2:B62",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T2:B67",
+        "quote": "2"
+      },
+      {
+        "source": "F0003:S5:T2:B72",
+        "quote": "4"
+      },
+      {
+        "source": "F0003:S5:T2:B78",
+        "quote": "8"
+      },
+      {
+        "source": "F0003:S5:T2:B85",
+        "quote": "16"
+      },
+      {
+        "source": "F0003:S5:T2:D61",
+        "quote": "2"
+      },
+      {
+        "source": "F0003:S5:T2:E61",
+        "quote": "7.4314"
+      },
+      {
+        "source": "F0003:S5:T2:D66",
+        "quote": "4"
+      },
+      {
+        "source": "F0003:S5:T2:E66",
+        "quote": "7.4579"
+      },
+      {
+        "source": "F0003:S5:T2:D71",
+        "quote": "4"
+      },
+      {
+        "source": "F0003:S5:T2:E71",
+        "quote": "6.9956"
+      },
+      {
+        "source": "F0003:S5:T2:D77",
+        "quote": "6"
+      },
+      {
+        "source": "F0003:S5:T2:E77",
+        "quote": "7.5478"
+      },
+      {
+        "source": "F0003:S5:T2:D84",
+        "quote": "8"
+      },
+      {
+        "source": "F0003:S5:T2:E84",
+        "quote": "7.7559"
+      },
+      {
+        "source": "F0003:S5:T2:D91",
+        "quote": "8"
+      },
+      {
+        "source": "F0003:S5:T2:E91",
+        "quote": "7.3674"
       }
     ],
     "requirement_ids": [
-      "REQ_BENCHMARK_BOUNDARY",
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR021",
+      "DR022",
+      "DR023",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -300,26 +331,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0049.json",
-    "sha256": "d6c75e8a417719f203629013834b48fd4d9ba0b61bafe8f917e8eaa7e75d9c81"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0049.json",
+    "sha256": "b4de1e02b08166f61b377011d83be392b019563f88cb69514bbad9729dd9250c"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 6,
-    "retained_records": 6,
+    "source_records": 34,
+    "retained_records": 34,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

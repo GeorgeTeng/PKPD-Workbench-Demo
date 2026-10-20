@@ -1,192 +1,337 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0005",
-  "role": "MIC",
+  "role": "PD_OBSERVATIONS",
   "metadata": {
-    "role": "MIC",
-    "species": "E. coli; K. pneumoniae",
-    "matrix": "NOT_FOUND",
-    "exposure_basis": "NOT_APPLICABLE",
-    "record_level": "Strain-level reported MIC values",
-    "drug": "PMB",
-    "route": "NOT_APPLICABLE",
-    "endpoint_window": "NOT_FOUND",
-    "route_category": "NOT_APPLICABLE",
-    "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "NOT_APPLICABLE",
+    "role": "PD_OBSERVATIONS",
+    "species": "Mouse; K. pneumoniae FADDI-KP065; mouse strain and host immune status NOT_FOUND",
+    "matrix": "Lung",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Individual terminal lung-burden observations within treatment groups; each mouse contributes one terminal point. Repeated mouse column labels do not establish identity across groups.",
+    "drug": "PMB; Polymyxin B",
+    "route": "IP",
+    "endpoint_window": "pre-treatment at 0 h; vehicle and PMB at 24 h",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "INDIVIDUAL",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_APPLICABLE",
-    "analyte": "PMB",
-    "dosing_regimen": "NOT_APPLICABLE",
+    "dose_basis": "free base",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "45 mg/kg/day free base IP, divided into three doses q8h.",
     "additional_roles": [
+      "DOSING",
+      "MIC",
       "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Species",
-        "meaning": "OTHER",
+        "header": "Group",
+        "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T9:A109",
-            "quote": "Species"
+            "source": "F0003:S1:T5:A66",
+            "quote": "Group"
           },
           {
-            "source": "F0003:S1:T9:A114",
-            "quote": "K. pneumoniae"
+            "source": "F0003:S1:T5:A67",
+            "quote": "Pre-treatment"
+          },
+          {
+            "source": "F0003:S1:T5:A68",
+            "quote": "Vehicle"
+          },
+          {
+            "source": "F0003:S1:T5:A69",
+            "quote": "Polymyxin B (45mg/kg/d)"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Strain",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
+        "header": "Mouse 1",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
         "qualifiers": [
-          "Strain labels below are copied from Table S1."
+          "log10",
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T9:B109",
-            "quote": "Strain"
+            "source": "F0003:S1:T5:B66",
+            "quote": "Mouse 1"
           },
           {
-            "source": "F0003:S1:T9:A107",
-            "quote": "Reported MIC by broth microdilution; units mg/L. Strain labels below are copied from Table S1."
+            "source": "F0003:S1:T5:A64",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
           },
           {
-            "source": "F0003:S1:T9:B114",
-            "quote": "ATCC 43816"
+            "source": "F0003:S1:T5:B67",
+            "quote": "6.59"
+          },
+          {
+            "source": "F0003:S1:T5:B68",
+            "quote": "8.82"
+          },
+          {
+            "source": "F0003:S1:T5:B69",
+            "quote": "7.24"
           }
         ],
         "column": "B"
       },
       {
-        "header": "PMB MIC (mg/L)",
-        "meaning": "MIC",
-        "unit": "mg/L",
+        "header": "Mouse 2",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
         "qualifiers": [
-          "Reported MIC by broth microdilution"
+          "log10",
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T9:C109",
-            "quote": "PMB MIC (mg/L)"
+            "source": "F0003:S1:T5:C66",
+            "quote": "Mouse 2"
           },
           {
-            "source": "F0003:S1:T9:A107",
-            "quote": "Reported MIC by broth microdilution; units mg/L. Strain labels below are copied from Table S1."
+            "source": "F0003:S1:T5:A64",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
           },
           {
-            "source": "F0003:S1:T9:C114",
-            "quote": "0.5"
+            "source": "F0003:S1:T5:C67",
+            "quote": "6.63"
+          },
+          {
+            "source": "F0003:S1:T5:C68",
+            "quote": "8.98"
+          },
+          {
+            "source": "F0003:S1:T5:C69",
+            "quote": "7.26"
           }
         ],
         "column": "C"
       },
       {
-        "header": "Reported resistance summary",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Mouse 3",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "log10",
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T9:D109",
-            "quote": "Reported resistance summary"
+            "source": "F0003:S1:T5:D66",
+            "quote": "Mouse 3"
           },
           {
-            "source": "F0003:S1:T9:D118",
-            "quote": "KPC-3, OmpK35red"
+            "source": "F0003:S1:T5:A64",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T5:D67",
+            "quote": "6.79"
+          },
+          {
+            "source": "F0003:S1:T5:D68",
+            "quote": "8.01"
+          },
+          {
+            "source": "F0003:S1:T5:D69",
+            "quote": "7.84"
           }
         ],
         "column": "D"
+      },
+      {
+        "header": "Mouse 4",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "log10",
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T5:E66",
+            "quote": "Mouse 4"
+          },
+          {
+            "source": "F0003:S1:T5:A64",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T5:E67",
+            "quote": "6.65"
+          },
+          {
+            "source": "F0003:S1:T5:E68",
+            "quote": "8.73"
+          },
+          {
+            "source": "F0003:S1:T5:E69",
+            "quote": "7.07"
+          }
+        ],
+        "column": "E"
+      },
+      {
+        "header": "Mouse 5",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "log10",
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T5:F66",
+            "quote": "Mouse 5"
+          },
+          {
+            "source": "F0003:S1:T5:A64",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T5:F68",
+            "quote": "8.19"
+          }
+        ],
+        "column": "F"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Strain susceptibility in the 2023 mouse study",
+      "title": "Figure 3c — K. pneumoniae FADDI-KP065",
       "sheet": "Mouse",
       "region": {
-        "start_row": 105,
-        "end_row": 120,
+        "start_row": 61,
+        "end_row": 71,
         "left": 1,
-        "right": 4,
-        "header_row": 109,
-        "title": "Strain susceptibility in the 2023 mouse study",
+        "right": 6,
+        "header_row": 66,
+        "title": "Figure 3c — K. pneumoniae FADDI-KP065",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Strain susceptibility in the 2023 mouse study\nS01 | https://doi.org/10.1093/jac/dkad022 | Supplementary Table S1\nReported MIC by broth microdilution; units mg/L. Strain labels below are copied from Table S1.\nE. coli 107 is listed in Table S1, whereas main-text dose-response labels include 71. Do not treat them as aliases.",
+      "notes": "Figure 3c — K. pneumoniae FADDI-KP065\nS21 | DOI 10.1038/s41467-022-29234-3 | Fig. 3a-g original source cells; Fig. 3 caption\nPMB MIC 0.25 mg/L; 45 mg/kg/day free base IP, divided into three doses q8h.\nLung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point.\nOnly PMB and baseline/vehicle arms retained. No matched measured PK for these efficacy regimens.",
       "column_map": {
-        "c001_species": "Species",
-        "c002_strain": "Strain",
-        "c003_pmb_mic_mg_l": "PMB MIC (mg/L)",
-        "c004_reported_resistance_summary": "Reported resistance summary"
+        "c001_group": "Group",
+        "c002_mouse_1": "Mouse 1",
+        "c003_mouse_2": "Mouse 2",
+        "c004_mouse_3": "Mouse 3",
+        "c005_mouse_4": "Mouse 4",
+        "c006_mouse_5": "Mouse 5"
       }
     },
-    "source_item_id": "F0003:S1:T9",
+    "source_item_id": "F0003:S1:T5",
     "source_evidence": [
       {
-        "source": "F0003:S1:T9:A106",
-        "quote": "S01 | https://doi.org/10.1093/jac/dkad022 | Supplementary Table S1"
+        "source": "F0003:S1:T5",
+        "quote": "\"sheet\": \"Mouse\""
       },
       {
-        "source": "F0003:S1:T9:A107",
-        "quote": "Reported MIC by broth microdilution; units mg/L. Strain labels below are copied from Table S1."
+        "source": "F0003:S1:T5:A61",
+        "quote": "Figure 3c — K. pneumoniae FADDI-KP065"
       },
       {
-        "source": "F0003:S1:T9:A110",
-        "quote": "E. coli"
+        "source": "F0003:S1:T5:A62",
+        "quote": "S21 | DOI 10.1038/s41467-022-29234-3 | Fig. 3a-g original source cells; Fig. 3 caption"
       },
       {
-        "source": "F0003:S1:T9:A114",
-        "quote": "K. pneumoniae"
+        "source": "F0003:S1:T5:A63",
+        "quote": "PMB MIC 0.25 mg/L; 45 mg/kg/day free base IP, divided into three doses q8h."
       },
       {
-        "source": "F0003:S1:T9:B114",
-        "quote": "ATCC 43816"
+        "source": "F0003:S1:T5:A64",
+        "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
       },
       {
-        "source": "F0003:S1:T9:C114",
-        "quote": "0.5"
+        "source": "F0003:S1:T5:A65",
+        "quote": "Only PMB and baseline/vehicle arms retained. No matched measured PK for these efficacy regimens."
       },
       {
-        "source": "F0003:S1:T9:A108",
-        "quote": "E. coli 107 is listed in Table S1, whereas main-text dose-response labels include 71. Do not treat them as aliases."
+        "source": "F0003:S1:T5:A69",
+        "quote": "Polymyxin B (45mg/kg/d)"
+      },
+      {
+        "source": "F0003:S1:T5:B67",
+        "quote": "6.59"
+      },
+      {
+        "source": "F0003:S1:T5:B68",
+        "quote": "8.82"
+      },
+      {
+        "source": "F0003:S1:T5:B69",
+        "quote": "7.24"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR020",
+      "DR024",
+      "DR026",
+      "DR027",
+      "DR028"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "45",
+          "unit": "mg/kg/day",
+          "subject": "PMB",
+          "qualifiers": [
+            "free base",
+            "IP",
+            "divided into three doses q8h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T5:A63",
+              "quote": "PMB MIC 0.25 mg/L; 45 mg/kg/day free base IP, divided into three doses q8h."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0005.json",
-    "sha256": "4aec6808eedbe6b0204b13b3d82cac4421221526c3616719cebc4d1458aa8dee"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0005.json",
+    "sha256": "f8904e1e51bb220cba6a8bef712915a2a3c8ba47e78055c03f4adecd54ff7a9f"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 9,
-    "retained_records": 9,
+    "source_records": 3,
+    "retained_records": 3,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

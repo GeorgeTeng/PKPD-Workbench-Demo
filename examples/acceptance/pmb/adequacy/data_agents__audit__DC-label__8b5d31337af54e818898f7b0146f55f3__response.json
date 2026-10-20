@@ -1,0 +1,147 @@
+{
+  "request_sha256": "2c4fa98a0b4810f9fae698ee9d5e6330427fe782774024d9a801d3ad50b052f6",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T4",
+      "role": "SUPPORTING_EVIDENCE",
+      "additional_roles": [
+        "ANIMAL_CHARACTERISTICS"
+      ],
+      "requirement_ids": [
+        "DR001",
+        "DR002",
+        "DR008"
+      ],
+      "species": "neutropenic rabbit KPC-K. pneumoniae pneumonia",
+      "matrix": "plasma or ELF; serial PMB concentrations were not reported",
+      "exposure_basis": "NOT_FOUND",
+      "record_level": "Context record; no concentration is inferred from the reported evidence.",
+      "drug": "PMB",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "This context table identifies rabbit study S09, its infection context and a source-specific concentration-data limitation. It supports drug identity, provenance and a scoped availability limitation under DR001, DR002 and DR008. It supplies no concentration-time observations or numerical efficacy outcomes. The limitation concerns the older S09 source and explicitly does not extend to the newer S22 curves. Matrix categories describe the referenced missing measurements, not available observations.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T4:A38",
+          "quote": "Rabbit study record S09"
+        },
+        {
+          "source": "F0003:S3:T4:A39",
+          "quote": "S09 | DOI 10.1128/AAC.02157-19"
+        },
+        {
+          "source": "F0003:S3:T4:A40",
+          "quote": "Context record; no concentration is inferred from the reported evidence."
+        },
+        {
+          "source": "F0003:S3:T4:A41",
+          "quote": "This gap describes this older source, not the newer S22 rabbit curves also included on this sheet."
+        },
+        {
+          "source": "F0003:S3:T4:A43",
+          "quote": "neutropenic rabbit KPC-K. pneumoniae pneumonia efficacy"
+        },
+        {
+          "source": "F0003:S3:T4:B43",
+          "quote": "no serial PMB concentration table in audited archive"
+        },
+        {
+          "source": "F0003:S3:T4:C43",
+          "quote": "serial PMB plasma or ELF concentrations were not reported"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "MIXED",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "NOT_APPLICABLE",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "PMB",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Evidence",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T4:A42",
+              "quote": "Evidence"
+            },
+            {
+              "source": "F0003:S3:T4:A43",
+              "quote": "neutropenic rabbit KPC-K. pneumoniae pneumonia efficacy"
+            }
+          ]
+        },
+        {
+          "header": "Available data level",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T4:B42",
+              "quote": "Available data level"
+            },
+            {
+              "source": "F0003:S3:T4:B43",
+              "quote": "no serial PMB concentration table in audited archive"
+            }
+          ]
+        },
+        {
+          "header": "Unresolved limitation",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T4:C42",
+              "quote": "Unresolved limitation"
+            },
+            {
+              "source": "F0003:S3:T4:C43",
+              "quote": "serial PMB plasma or ELF concentrations were not reported"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_INPUT_COVERAGE",
+      "affected_id": "DR007",
+      "reason": "UNRESOLVED: Study S09 and its infection context are identified, but this item provides no concentration-time measurements, units, dosing history, route, concentration basis, sampling design, animal identifiers, summary counts, variability or censoring metadata. B43 reports no serial PMB concentration table in the audited archive; C43 reports that serial plasma or ELF concentrations were not reported. A40 prohibits inferring concentrations from this context record.",
+      "needed_material": "Review the separately authorized observation and dosing items for source-backed modeling inputs. Retain missing S09 inputs explicitly and assess any numerical sufficiency only in the downstream animal PK module.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_AVAILABILITY_LIMIT",
+      "affected_id": "MI002",
+      "reason": "MI002 remains NOT_FOUND and OPEN, needed_at adequacy. For DR008, B43 establishes only a reported limit within the audited archive for S09. A41 explicitly excludes newer S22 rabbit curves from this gap. This page does not establish the scope or completeness of the broader public-data search, or absence from unread sources.",
+      "needed_material": "At adequacy, record the scope and consequences of the reported availability limit, preserve the S09/S22 distinction and record an explicit outcome for MI002 before the dependent eligibility decision.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED_COMPONENT_SUPPORT",
+      "affected_id": "MI003",
+      "reason": "MI003 remains DEFERRED and OPEN, needed_at pk. This S09 context record supplies no concentration inputs or component-identifiability assessment. It cannot determine inclusion, exclusion or exploratory use of rabbit evidence under SC011 and DR008.",
+      "needed_material": "Carry MI003 to the animal PK module for assessment of the authorized rabbit inputs and a documented inclusion, exclusion or exploratory-use decision under SC011.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNIDENTIFIED_SOURCE_DISCREPANCIES",
+      "affected_id": "MI004",
+      "reason": "MI004 remains AMBIGUOUS and OPEN, needed_at prepare. No discrepant numerical values, units or conflicting measurement contexts required by DR004 are identified on this page. The stated distinction between older S09 and newer S22 is a scope qualification, not evidence of a numerical conflict.",
+      "needed_material": "At preparation, identify the affected rabbit values with their source locators, study, matrix, units and measurement context. Preserve conflicting values and record an explicit outcome for MI004 before selecting or reconciling source values.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    }
+  ]
+}

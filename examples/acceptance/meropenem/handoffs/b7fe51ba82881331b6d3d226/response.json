@@ -1,0 +1,417 @@
+{
+  "request_sha256": "bd03f26dbcb6463a8f4252c51f3c0cb4ec21b06b2eeb9b3345a8d6b3f750d220",
+  "rules": [
+    {
+      "id": "R001",
+      "text": "Use meropenem as the sole test drug; imipenem/cilastatin, ertapenem and other source comparators are not substitutes. Do not import the apramycin model or its parameters.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Meropenem is the sole test drug; imipenem/cilastatin, ertapenem and other comparators that appear in the sources are not substitutes."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Following the translational objective of Sou et al. (2021), we do not import the apramycin model or its parameters."
+        }
+      ]
+    },
+    {
+      "id": "R002",
+      "text": "Use Meropenem_source_tables_by_species.xlsx as the single animal and in-vitro data workbook. Split its mixed source blocks into PK, PD, MIC and validation inputs; check provenance, units, dose histories, analytes, matrices, experimental units and missing fields. Identify usable records and unresolved gaps before fitting.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Meropenem_source_tables_by_species.xlsx is the single animal and in-vitro data workbook. Its sheets retain source-shaped tables and notes, not a ready-made modeling dataset:"
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "1. Prepare the data. Split the mixed source blocks into PK, PD, MIC and validation inputs. Check provenance, units, dose histories, analytes, matrices, experimental units and missing fields. Identify usable records and unresolved gaps before fitting."
+        }
+      ]
+    },
+    {
+      "id": "R003",
+      "text": "Preserve source identifiers, units, missing values and detection limits. Do not treat group means, published fitted parameters or digitized points as individual animals. Flag means containing substituted detection-limit values, and do not invent IDs, variability, exposure-response links or missing measurements. Keep conflicting monkey animal counts and doses as printed.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "1. Preserve evidence level. Keep source identifiers, units, missing values and detection limits. Group means, published fitted parameters and digitized points are not individual animals. Flag means that contain substituted detection-limit values. Do not invent IDs, variability, exposure-response links or missing measurements."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Animal counts and doses disagree within the source; keep them as printed."
+        }
+      ]
+    },
+    {
+      "id": "R004",
+      "text": "Separate routes; unchanged meropenem, H-4295 and total 14C; total and unbound drug; and plasma, serum, whole blood, ELF, CSF, tissue fluid and tissue homogenate. Keep per-animal and per-kilogram parameters apart. Keep neutropenic, renally impaired, septic, infected, pregnant and repeat-dose animals apart from healthy single-dose animals. Do not treat in vitro DHP-I kinetics as PK.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Separate routes, analytes (unchanged meropenem, H-4295, total 14C), total versus unbound drug, and plasma, serum, whole blood, ELF, CSF, tissue fluid and tissue homogenate. Keep per-animal and per-kilogram parameters apart, and keep neutropenic, renally impaired, septic, infected, pregnant and repeat-dose animals apart from healthy single-dose animals. In vitro DHP-I kinetics are not PK."
+        }
+      ]
+    },
+    {
+      "id": "R005",
+      "text": "Record a justification for every conversion or physiological bridge. Never average conflicting within-species binding sources; carry fu as a sensitivity parameter.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Every conversion or physiological bridge requires a recorded justification. Binding sources conflict within species (for example mouse about 10% versus 24% versus 34% bound; dog below 1% versus 7.5% versus 12%); never average them, and carry fu as a sensitivity parameter."
+        }
+      ]
+    },
+    {
+      "id": "R006",
+      "text": "Use Cross_species for the core between-species comparison, Mouse for PK and eligible PD analysis, and Rat for systemic PK. Rat survival must not be treated as a bacterial-burden endpoint.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use for the core between-species comparison; the guinea pig appears only here."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use for PK and eligible PD analysis; no source gives per-regimen CFU tables."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use for systemic PK; survival is not a bacterial-burden endpoint."
+        }
+      ]
+    },
+    {
+      "id": "R007",
+      "text": "Select eligible systemic PK models for each species with usable data; add pulmonary or CSF components only where supported. Evaluate fit, parameter identifiability and held-out prediction where the design permits. Document exclusion or exploratory use of summary-only, figure-only or radiolabel evidence. Assess whether rabbit model-parameter-only concentrations support a model component or only exploratory constraints.",
+      "used_in": [
+        "animal_pk"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "2. Fit animal PK. Select eligible systemic PK models for each species with usable data, and add pulmonary or CSF components only where supported. Evaluate fit, parameter identifiability and held-out prediction where the design permits. Document exclusion or exploratory use of summary-only, figure-only or radiolabel evidence."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Concentrations are available only as model parameters; assess whether they support a model component or only exploratory constraints."
+        }
+      ]
+    },
+    {
+      "id": "R008",
+      "text": "Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming that more species improves translation.",
+      "used_in": [
+        "pk_translation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming more species is better."
+        }
+      ]
+    },
+    {
+      "id": "R009",
+      "text": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations. Freeze the animal model, scaling and predictions before opening human outcomes. Human reference tables may be released only at task 5, after those freezes.",
+      "used_in": [
+        "pk_translation",
+        "human_validation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Human reference tables (label PK statements, a healthy-volunteer study, EUCAST summary PK, and human rows removed from the animal sources) are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen."
+        }
+      ]
+    },
+    {
+      "id": "R010",
+      "text": "For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC with equal eligibility using both ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target.",
+      "used_in": [
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "4. Determine the PK/PD index. For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC using ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "3. Give all three indices equal eligibility and both regression families."
+        }
+      ]
+    },
+    {
+      "id": "R011",
+      "text": "Compare the three indices on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting. Report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner.",
+      "used_in": [
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner."
+        }
+      ]
+    },
+    {
+      "id": "R012",
+      "text": "Use matched strain MICs for PD and MIC distributions for population-weighted attainment; a distribution cannot replace matched strain MICs. Keep stasis, 1-log and 2-log kill targets separate. A target from one organism, infection site or endpoint, including thigh CFU, lung ELF, CSF or survival, cannot set another.",
+      "used_in": [
+        "prepare",
+        "index",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "Use matched strain MICs for PD and the distributions for population-weighted attainment; a distribution cannot replace matched strain MICs."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Keep stasis, 1-log and 2-log kill targets separate; a target from one organism, infection site or endpoint (thigh CFU, lung ELF, CSF, survival) cannot set another."
+        }
+      ]
+    },
+    {
+      "id": "R013",
+      "text": "Published PD targets and conclusions in the sources cannot set primary-analysis starting values, bounds, priors or rankings.",
+      "used_in": [
+        "index"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Published PD targets and conclusions in the sources cannot set primary-analysis starting values, bounds, priors or rankings."
+        }
+      ]
+    },
+    {
+      "id": "R014",
+      "text": "Do not use humanized regimens to tune scaling, because they were designed from human PK. Human outcomes cannot tune the animal model or scaling.",
+      "used_in": [
+        "animal_pk",
+        "pk_translation",
+        "human_validation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Humanized regimens were designed from human PK; do not use them to tune scaling. Human outcomes cannot tune the animal model or scaling."
+        }
+      ]
+    },
+    {
+      "id": "R015",
+      "text": "Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised.",
+      "used_in": [
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised."
+        }
+      ]
+    },
+    {
+      "id": "R016",
+      "text": "Apply the frozen model to the doses and infusion conditions in the human reference tables. Compare predicted and observed plasma PK; assess other matrices separately when compatible data exist. Report bias, precision, exposure agreement and predictive uncertainty against criteria fixed before validation.",
+      "used_in": [
+        "human_validation"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "5. Validate the human prediction. Apply the frozen model to the doses and infusion conditions in the human reference tables. Compare predicted and observed plasma PK; assess other matrices separately when compatible data exist. Report bias, precision, exposure agreement and predictive uncertainty against criteria fixed before validation."
+        }
+      ]
+    },
+    {
+      "id": "R017",
+      "text": "Only after PK validation and PD qualification, simulate a prespecified human population and dosing scenarios, including infusion duration, to estimate PTA at each MIC. Process the MIC distribution and report distribution-weighted attainment separately.",
+      "used_in": [
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "After PK validation and PD qualification, simulate a prespecified human population and dosing scenarios, including infusion duration, to estimate the probability of target attainment (PTA) at each MIC. Process the MIC distribution and report distribution-weighted attainment separately."
+        }
+      ]
+    },
+    {
+      "id": "R018",
+      "text": "Preserve MIC bins, units, counts, denominators and censored categories. Do not interpret the EUCAST distributions as resistance rates; they carry no totals and were compiled to set epidemiological cut-offs.",
+      "used_in": [
+        "prepare",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Preserve MIC bins, units, counts, denominators and censored categories. The EUCAST distributions carry no totals and were compiled to set epidemiological cut-offs; do not read them as resistance rates."
+        }
+      ]
+    },
+    {
+      "id": "R019",
+      "text": "Derive MIC probabilities transparently and freeze the MIC distribution. Never silently renormalize incomplete coverage. Distinguish per-MIC PTA from MIC-weighted attainment.",
+      "used_in": [
+        "prepare",
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Derive probabilities transparently and freeze the MIC distribution; never silently renormalize incomplete coverage. Distinguish per-MIC PTA from MIC-weighted attainment."
+        }
+      ]
+    },
+    {
+      "id": "R020",
+      "text": "Propagate parameter, binding, PD-target and MIC uncertainty in attainment analyses. Do not invent interindividual variability from group summaries.",
+      "used_in": [
+        "pta"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Propagate parameter, binding, PD-target and MIC uncertainty; group summaries cannot supply invented interindividual variability."
+        }
+      ]
+    },
+    {
+      "id": "R021",
+      "text": "Include an exploratory efficacious-dose estimate with uncertainty only where supported. Deliver PTA tables/curves, a feasibility conclusion and reproducible code. If required inputs are missing, report why PTA is not estimable.",
+      "used_in": [
+        "pta",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0002",
+          "quote": "Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver the PTA tables/curves, feasibility conclusion and reproducible code; if required inputs are missing, report why PTA is not estimable."
+        }
+      ]
+    },
+    {
+      "id": "R022",
+      "text": "Limit conclusions to model feasibility; do not present the result as a clinical dosing recommendation or proof of generalizability. A successful fit is not predictive validation, and human PK agreement does not validate antibacterial efficacy or safety. Preserve failures and data gaps.",
+      "used_in": [
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0001",
+          "quote": "The primary outcome is model feasibility, not a clinical dosing recommendation or proof of generalizability."
+        },
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "A successful fit is not predictive validation; human PK agreement does not validate antibacterial efficacy or safety. Preserve failures and data gaps."
+        }
+      ]
+    },
+    {
+      "id": "R023",
+      "text": "Save transformations, assumptions, code, seeds and results throughout the workflow. Obtain human review before fitting.",
+      "used_in": [
+        "prepare",
+        "animal_pk",
+        "pk_translation",
+        "index",
+        "human_validation",
+        "pta",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0002_P0001",
+          "unit_id": "F0002_P0001_U0003",
+          "quote": "Save transformations, assumptions, code, seeds and results, and obtain human review before fitting."
+        }
+      ]
+    }
+  ]
+}

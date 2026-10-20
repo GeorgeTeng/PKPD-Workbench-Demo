@@ -1,0 +1,138 @@
+{
+  "request_sha256": "bd03f26dbcb6463a8f4252c51f3c0cb4ec21b06b2eeb9b3345a8d6b3f750d220",
+  "payload": {
+    "stage": "project_rules_extract",
+    "operation": "DEMO_KEY_RULES",
+    "instructions": "Extract the key adopted project requirements for a provisional workflow demonstration. Keep complete conditions, prohibitions, timing and exceptions in text. Use exact project-source evidence. Assign only applicable used_in stages. Do not invent data, authority or approval. Do not duplicate the objective or descriptive facts. Return English JSON only. This is one extraction, with completeness and scientific refinement deferred to later review.",
+    "objective": "Evaluate the feasibility of meropenem animal-to-human PK/PD translation and support efficacious-dose estimation (SC001).",
+    "source_units": [
+      {
+        "id": "F0002_P0001_U0001",
+        "source_id": "F0002_P0001",
+        "start_char": 0,
+        "end_char": 3697,
+        "text": "Animal to Human Translation of Meropenem\nFeasibility study   Version 1.0 (draft)   9 October 2026\nObjective and available data\nWe will test whether animal PK and preclinical PK/PD can predict human meropenem exposure and support efficacious-dose estimation. Meropenem is a known-drug test case with existing human PK for independent validation. The primary outcome is model feasibility, not a clinical dosing recommendation or proof of generalizability. Following the translational objective of Sou et al. (2021), we do not import the apramycin model or its parameters.\nDrug and data files. Meropenem is the sole test drug; imipenem/cilastatin, ertapenem and other comparators that appear in the sources are not substitutes. Meropenem_source_tables_by_species.xlsx is the single animal and in-vitro data workbook. Its sheets retain source-shaped tables and notes, not a ready-made modeling dataset:\nCross_species: one study that gave 20 mg/kg IV to mouse, rat, guinea pig, rabbit, beagle dog and rhesus monkey, with digitized mean plasma curves, PK parameters, urinary recovery, dose effect in mice and guinea pigs, tissue levels, renal DHP-I kinetics, and serum binding; a second laboratory's plasma binding table. Use for the core between-species comparison; the guinea pig appears only here.\nMouse: PK parameters and fitted dose-fractionation PD parameters in the neutropenic thigh model (A. baumannii), a humanized-regimen comparison against ESBL E. coli and K. pneumoniae in renally impaired mice, population PK with ELF in a P. aeruginosa pneumonia model, and text-only PK and binding. Use for PK and eligible PD analysis; no source gives per-regimen CFU tables.\nRat: plasma levels after single and 92-day daily IV dosing (some means contain substituted detection-limit values), 14C excretion and urinary metabolite profiles, and PK, target attainment and survival in neutropenic septic rats sampled as whole blood. Use for systemic PK; survival is not a bacterial-burden endpoint.\nRabbit: population PK with plasma and CSF compartments in a P. aeruginosa meningoencephalitis model, and in vitro plasma binding from a preprint. Concentrations are available only as model parameters; assess whether they support a model component or only exploratory constraints.\nDog: 14C and unlabelled PK at 120 mg/kg IV with the open-ring metabolite H-4295, tissue radioactivity, 14-day repeat dosing, and an abstract-only IV and SC study at 20 mg/kg. Separate total radioactivity from unchanged drug.\nMonkey: 14C PK and excretion at 300 mg/kg IV in cynomolgus monkeys, and maternal and fetal plasma levels in pregnant monkeys. Animal counts and doses disagree within the source; keep them as printed.\nIn_vitro_MIC: EUCAST MIC distributions by organism (2009 snapshot), comparative MICs for the A. baumannii thigh isolates, and single-strain MICs stated in the animal studies. Use matched strain MICs for PD and the distributions for population-weighted attainment; a distribution cannot replace matched strain MICs.\nHuman validation data are not in this package. Human reference tables (label PK statements, a healthy-volunteer study, EUCAST summary PK, and human rows removed from the animal sources) are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen.\nOther files. Meropenem_project_proposal.docx defines this task. AGENT_README.md explains package use and known gaps.\nTasks to complete\n1. Prepare the data. Split the mixed source blocks into PK, PD, MIC and validation inputs. Check provenance, units, dose histories, analytes, matrices, experimental units and missing fields. Identify usable records and unresolved gaps before fitting.\n",
+        "text_sha256": "beb68cffa426f8049af2ce11629514868e883e2fd91581b3b6799a43602f8755"
+      },
+      {
+        "id": "F0002_P0001_U0002",
+        "source_id": "F0002_P0001",
+        "start_char": 3697,
+        "end_char": 7223,
+        "text": "2. Fit animal PK. Select eligible systemic PK models for each species with usable data, and add pulmonary or CSF components only where supported. Evaluate fit, parameter identifiability and held-out prediction where the design permits. Document exclusion or exploratory use of summary-only, figure-only or radiolabel evidence.\n3. Predict human PK. Translate supported animal models using body size, protein binding, renal elimination and justified physiological relationships. Compare scaling with and without each species rather than assuming more species is better. Predict human concentration-time profiles, AUC, Cmax and fT>MIC with uncertainty under specified doses and infusion durations, and freeze them before opening human outcomes.\n4. Determine the PK/PD index. For eligible data, compare fT>MIC, fAUC/MIC and fCmax/MIC using ordinary Emax and sigmoid Emax/Hill regression, separately by organism and infection site. Estimate supported exposure targets, or report that the available data cannot determine a best index or target.\n5. Validate the human prediction. Apply the frozen model to the doses and infusion conditions in the human reference tables. Compare predicted and observed plasma PK; assess other matrices separately when compatible data exist. Report bias, precision, exposure agreement and predictive uncertainty against criteria fixed before validation.\n6. Produce PTA and assess feasibility. After PK validation and PD qualification, simulate a prespecified human population and dosing scenarios, including infusion duration, to estimate the probability of target attainment (PTA) at each MIC. Process the MIC distribution and report distribution-weighted attainment separately. Include an exploratory efficacious-dose estimate where supported, with uncertainty. Deliver the PTA tables/curves, feasibility conclusion and reproducible code; if required inputs are missing, report why PTA is not estimable.\nEssential rules\n1. Preserve evidence level. Keep source identifiers, units, missing values and detection limits. Group means, published fitted parameters and digitized points are not individual animals. Flag means that contain substituted detection-limit values. Do not invent IDs, variability, exposure-response links or missing measurements.\n2. Keep biological quantities compatible. Separate routes, analytes (unchanged meropenem, H-4295, total 14C), total versus unbound drug, and plasma, serum, whole blood, ELF, CSF, tissue fluid and tissue homogenate. Keep per-animal and per-kilogram parameters apart, and keep neutropenic, renally impaired, septic, infected, pregnant and repeat-dose animals apart from healthy single-dose animals. In vitro DHP-I kinetics are not PK. Every conversion or physiological bridge requires a recorded justification. Binding sources conflict within species (for example mouse about 10% versus 24% versus 34% bound; dog below 1% versus 7.5% versus 12%); never average them, and carry fu as a sensitivity parameter.\n3. Give all three indices equal eligibility and both regression families. Compare them on the same matched response records, strain MICs, free-exposure basis, dosing histories, time windows and likelihood. Register the selection rule before fitting; report R², AIC/BIC, stability and identifiability, counting the extra Hill parameter. Do not select by R² alone or force a winner. Keep stasis, 1-log and 2-log kill targets separate; a target from one organism, infection site or endpoint (thigh CFU, lung ELF, CSF, survival) cannot set another.\n",
+        "text_sha256": "34ccf9411cd1748027aceaa789a303d2511047b7b0a3345b2f1a278057d60a95"
+      },
+      {
+        "id": "F0002_P0001_U0003",
+        "source_id": "F0002_P0001",
+        "start_char": 7223,
+        "end_char": 8775,
+        "text": "4. Prevent leakage. Published PD targets and conclusions in the sources cannot set primary-analysis starting values, bounds, priors or rankings. Humanized regimens were designed from human PK; do not use them to tune scaling. Human outcomes cannot tune the animal model or scaling. Freeze the model, validation criteria, PD targets and MIC input before their respective validation or dose-simulation steps. Preserve the original validation result if a later model is revised.\n5. Process MIC and PTA explicitly. Preserve MIC bins, units, counts, denominators and censored categories. The EUCAST distributions carry no totals and were compiled to set epidemiological cut-offs; do not read them as resistance rates. Derive probabilities transparently and freeze the MIC distribution; never silently renormalize incomplete coverage. Distinguish per-MIC PTA from MIC-weighted attainment. Propagate parameter, binding, PD-target and MIC uncertainty; group summaries cannot supply invented interindividual variability.\n6. Limit and document conclusions. A successful fit is not predictive validation; human PK agreement does not validate antibacterial efficacy or safety. Preserve failures and data gaps. Save transformations, assumptions, code, seeds and results, and obtain human review before fitting.\nReference: Sou T et al. Model-Informed Drug Development for Antimicrobials: Translational PK and PK/PD Modeling to Predict an Efficacious Human Dose for Apramycin. Clinical Pharmacology & Therapeutics. 2021;109:1063-1073. https://doi.org/10.1002/cpt.2104",
+        "text_sha256": "ee877a999d868a902207cec418ff919260d6b2105b4438cc904da2028f8a0c70"
+      }
+    ],
+    "source_permissions": [
+      {
+        "source_id": "F0002_P0001",
+        "may_read": true,
+        "may_supply_project_authority": true
+      }
+    ],
+    "steps": {
+      "adequacy": "Assess current input requirements and data coverage; planning later outputs is not requiring them now.",
+      "prepare": "Prepare permitted data and preserve provenance, units, experimental identity and missingness.",
+      "eda": "Exploratory analysis, only if that separate workflow step is enabled.",
+      "dispatch": "Assign an approved task, data and applicable constraints to a downstream analysis.",
+      "animal_pk": "Fit, select and evaluate animal PK models.",
+      "pk_translation": "Scale animal models and predict held-out species and human PK before opening validation outcomes.",
+      "index": "Compare PK/PD indices and qualify effect targets.",
+      "human_validation": "After the required freezes, compare frozen human predictions with permitted human observations.",
+      "pta": "After the stated prerequisites, simulate per-MIC and MIC-weighted attainment and its uncertainty.",
+      "clinical": "Interpret and report feasibility, scientific limitations and final benchmarks; use specific validation or PTA steps for their distinct requirements."
+    },
+    "schema": {
+      "type": "object",
+      "properties": {
+        "request_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "used_in": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "adequacy",
+                    "prepare",
+                    "eda",
+                    "dispatch",
+                    "animal_pk",
+                    "pk_translation",
+                    "index",
+                    "human_validation",
+                    "pta",
+                    "clinical"
+                  ]
+                },
+                "minItems": 1
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "source_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "unit_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "source_id",
+                    "unit_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "used_in",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "request_sha256",
+        "rules"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

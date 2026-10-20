@@ -1,6 +1,7 @@
-param([int]$Port = 8772)
+param([int]$Port = 8772, [string]$StateDirectory = '')
 $ErrorActionPreference = 'Stop'
-$receipt = Join-Path $PSScriptRoot "state\server-$Port.json"
+$state = if ($StateDirectory) { [IO.Path]::GetFullPath($StateDirectory) } else { Join-Path $PSScriptRoot 'state' }
+$receipt = Join-Path $state "server-$Port.json"
 if (-not (Test-Path -LiteralPath $receipt)) { Write-Host 'No managed demo process recorded.'; exit 0 }
 $record = Get-Content -LiteralPath $receipt -Raw | ConvertFrom-Json
 $process = Get-Process -Id $record.pid -ErrorAction SilentlyContinue

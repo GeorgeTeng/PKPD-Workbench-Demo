@@ -4,20 +4,20 @@
   "role": "PK_OBSERVATIONS",
   "metadata": {
     "role": "PK_OBSERVATIONS",
-    "species": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g; neutropenic mice",
+    "species": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g; Neutropenic mice",
     "matrix": "urea-corrected ELF via BAL",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "Mouse-labeled concentration columns; cross-time animal identity is unverified. Caption n=3, but early source rows have four slots.",
+    "record_level": "Individual sample-slot concentrations under Mouse 1–Mouse 4 labels; cross-time animal identity is unverified. Caption n=3 conflicts with four early source slots.",
     "drug": "Polymyxin B",
     "route": "SC",
-    "endpoint_window": "0.25 to 24 h sampling times listed; time origin NOT_FOUND",
+    "endpoint_window": "Sampling times 0.25–24 h; time origin NOT_FOUND",
     "route_category": "EXTRAVASCULAR",
     "matrix_category": "INFECTION_SITE",
-    "record_category": "NOT_FOUND",
+    "record_category": "INDIVIDUAL",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
     "analyte": "Polymyxin B",
-    "dosing_regimen": "single dose; 40 mg/kg SC",
+    "dosing_regimen": "single dose",
     "additional_roles": [
       "ANIMAL_CHARACTERISTICS",
       "DOSING",
@@ -50,7 +50,6 @@
         "meaning": "CONCENTRATION",
         "unit": "mg/L",
         "qualifiers": [
-          "Column labels do not verify cross-time identity.",
           "urea-corrected ELF via BAL"
         ],
         "evidence": [
@@ -63,16 +62,16 @@
             "quote": "Polymyxin B 40 mg/kg SC; concentration mg/L; time h; single dose."
           },
           {
-            "source": "F0003:S1:T2:A23",
-            "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
-          },
-          {
             "source": "F0003:S1:T2:A24",
             "quote": "Neutropenic mice; urea-corrected ELF via BAL; caption n=3 but early source rows have four slots. LLOQ numeric value NOT_FOUND."
           },
           {
             "source": "F0003:S1:T2:B26",
             "quote": "0.1"
+          },
+          {
+            "source": "F0003:S1:T2:B36",
+            "quote": "1.13"
           }
         ],
         "column": "B"
@@ -82,7 +81,6 @@
         "meaning": "CONCENTRATION",
         "unit": "mg/L",
         "qualifiers": [
-          "Column labels do not verify cross-time identity.",
           "urea-corrected ELF via BAL"
         ],
         "evidence": [
@@ -95,16 +93,16 @@
             "quote": "Polymyxin B 40 mg/kg SC; concentration mg/L; time h; single dose."
           },
           {
-            "source": "F0003:S1:T2:A23",
-            "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
-          },
-          {
             "source": "F0003:S1:T2:A24",
             "quote": "Neutropenic mice; urea-corrected ELF via BAL; caption n=3 but early source rows have four slots. LLOQ numeric value NOT_FOUND."
           },
           {
             "source": "F0003:S1:T2:C26",
             "quote": "0.248"
+          },
+          {
+            "source": "F0003:S1:T2:C36",
+            "quote": "1.097"
           }
         ],
         "column": "C"
@@ -114,7 +112,6 @@
         "meaning": "CONCENTRATION",
         "unit": "mg/L",
         "qualifiers": [
-          "Column labels do not verify cross-time identity.",
           "urea-corrected ELF via BAL",
           "<LLOQ remains censored",
           "No sampling remains missing"
@@ -133,10 +130,6 @@
             "quote": "<LLOQ remains censored; No sampling remains missing; empty cells remain empty."
           },
           {
-            "source": "F0003:S1:T2:A23",
-            "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
-          },
-          {
             "source": "F0003:S1:T2:A24",
             "quote": "Neutropenic mice; urea-corrected ELF via BAL; caption n=3 but early source rows have four slots. LLOQ numeric value NOT_FOUND."
           },
@@ -147,6 +140,10 @@
           {
             "source": "F0003:S1:T2:D32",
             "quote": "No sampling"
+          },
+          {
+            "source": "F0003:S1:T2:D36",
+            "quote": "1.481"
           }
         ],
         "column": "D"
@@ -156,9 +153,9 @@
         "meaning": "CONCENTRATION",
         "unit": "mg/L",
         "qualifiers": [
-          "Column labels do not verify cross-time identity.",
           "urea-corrected ELF via BAL",
-          "<LLOQ remains censored"
+          "<LLOQ remains censored",
+          "empty cells remain empty"
         ],
         "evidence": [
           {
@@ -172,10 +169,6 @@
           {
             "source": "F0003:S1:T2:A22",
             "quote": "<LLOQ remains censored; No sampling remains missing; empty cells remain empty."
-          },
-          {
-            "source": "F0003:S1:T2:A23",
-            "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
           },
           {
             "source": "F0003:S1:T2:A24",
@@ -251,7 +244,15 @@
         "quote": "0.1"
       },
       {
+        "source": "F0003:S1:T2:C26",
+        "quote": "0.248"
+      },
+      {
         "source": "F0003:S1:T2:D26",
+        "quote": "<LLOQ"
+      },
+      {
+        "source": "F0003:S1:T2:E26",
         "quote": "<LLOQ"
       },
       {
@@ -265,13 +266,23 @@
       {
         "source": "F0003:S1:T2:B36",
         "quote": "1.13"
+      },
+      {
+        "source": "F0003:S1:T2:C36",
+        "quote": "1.097"
+      },
+      {
+        "source": "F0003:S1:T2:D36",
+        "quote": "1.481"
       }
     ],
     "requirement_ids": [
-      "REQ_ANIMAL_INPUT",
-      "REQ_MODEL_DESIGN",
-      "REQ_PREP_BASIS",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR006",
+      "DR007",
+      "DR020"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
@@ -280,7 +291,7 @@
       "unit": "mg/kg",
       "route": "SC",
       "dose_basis": "NOT_FOUND",
-      "dosing_regimen": "single dose; 40 mg/kg SC",
+      "dosing_regimen": "single dose",
       "qualifiers": [
         "SC",
         "single dose"
@@ -298,21 +309,21 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0002.json",
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0002.json",
     "sha256": "d71dd2f3dd9975ab446f27a80ad3adbc53b7294d996ef67a46b048b003ecc113"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {

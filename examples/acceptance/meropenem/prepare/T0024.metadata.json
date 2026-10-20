@@ -1,174 +1,482 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0024",
-  "role": "BINDING",
+  "role": "REPORTED_PARAMETERS",
   "metadata": {
-    "role": "BINDING",
-    "species": "Rabbit; strain and health or infection state NOT_FOUND; rabbit attribution is NOT_VERIFIED",
-    "matrix": "Citrate rabbit plasma",
-    "exposure_basis": "Plasma protein binding expressed as Rabbit binding (%); no directly measured unbound concentration or fu is reported",
-    "record_level": "Concentration-specific binding entries with accompanying ± terms; n and summary-statistic definitions NOT_FOUND",
-    "drug": "Meropenem",
-    "route": "NOT_APPLICABLE",
-    "endpoint_window": "NOT_FOUND",
-    "route_category": "NOT_APPLICABLE",
-    "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "NOT_FOUND",
+    "role": "REPORTED_PARAMETERS",
+    "species": "Male NZW rabbits 2.08-3.78 kg; P. aeruginosa ATCC 27853 meningoencephalitis model; inoculum injected intrathecally. Immune, renal and pregnancy state: NOT_FOUND.",
+    "matrix": "Plasma; CSF",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Reported population PK-PD parameter Mean, Median and SD; clearance and volumes are per animal. Individual animal records and individual parameter estimates are not supplied.",
+    "drug": "meropenem",
+    "route": "IV push (marginal ear vein)",
+    "endpoint_window": "Plasma sampled at 0, 10, 15, 20, 30 min, 1, 2, 4 h; CSF satellite rabbits at 10 min, 30 min, 1 h, 2 h. Sampling time origin: NOT_FOUND. Treatment begins 6 h after inoculation; Results refer to bacterial burden at 30 h after inoculation. Total duration of therapy not stated.",
+    "route_category": "IV_BOLUS",
+    "matrix_category": "MIXED",
+    "record_category": "REPORTED_PARAMETER",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_APPLICABLE",
-    "analyte": "Meropenem",
-    "dosing_regimen": "NOT_APPLICABLE",
+    "dose_basis": "NOT_FOUND",
+    "analyte": "meropenem",
+    "dosing_regimen": "meropenem 5, 10 and 30 mg/kg/dose q8h IV push (marginal ear vein) from 6 h after inoculation. Total duration of therapy not stated (Results refer to bacterial burden at 30 h after inoculation).",
     "additional_roles": [
+      "ANIMAL_CHARACTERISTICS",
+      "DOSING",
+      "MODEL_CATALOG",
       "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Meropenem concentration (µg/mL)",
-        "meaning": "CONCENTRATION",
-        "unit": "µg/mL",
+        "header": "Parameter (units)",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S4:T2:A28",
-            "quote": "Meropenem concentration (µg/mL)"
+            "source": "F0003:S4:T1:A8",
+            "quote": "Parameter (units)"
+          },
+          {
+            "source": "F0003:S4:T1:A9",
+            "quote": "Clearance (L/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A10",
+            "quote": "Vol (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A11",
+            "quote": "K12 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A12",
+            "quote": "K21 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A13",
+            "quote": "K13 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A14",
+            "quote": "K31 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A15",
+            "quote": "Vol CSF (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A16",
+            "quote": "Kgmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A17",
+            "quote": "popmax (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A18",
+            "quote": "kkmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A19",
+            "quote": "Hk"
+          },
+          {
+            "source": "F0003:S4:T1:A20",
+            "quote": "C50k (mg/L)"
+          },
+          {
+            "source": "F0003:S4:T1:A21",
+            "quote": "Initial condition (CFU/mL)"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Rabbit binding (%)",
-        "meaning": "BINDING",
-        "unit": "%",
+        "header": "Mean",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "The source writes \"+\" for \"±\".",
-          "n not reported.",
-          "the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED)"
+          "Mean",
+          "Clearance and volumes are per animal (L/h, L)."
         ],
         "evidence": [
           {
-            "source": "F0003:S4:T2:B28",
-            "quote": "Rabbit binding (%)"
+            "source": "F0003:S4:T1:B8",
+            "quote": "Mean"
           },
           {
-            "source": "F0003:S4:T2:A24",
-            "quote": "Rabbit plasma protein binding by in vitro microdialysis (preprint)"
+            "source": "F0003:S4:T1:B9",
+            "quote": "3.409"
           },
           {
-            "source": "F0003:S4:T2:A26",
-            "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+            "source": "F0003:S4:T1:A9",
+            "quote": "Clearance (L/h)"
           },
           {
-            "source": "F0003:S4:T2:A27",
-            "quote": "The source writes \"+\" for \"±\"."
+            "source": "F0003:S4:T1:A10",
+            "quote": "Vol (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A11",
+            "quote": "K12 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A12",
+            "quote": "K21 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A13",
+            "quote": "K13 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A14",
+            "quote": "K31 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A15",
+            "quote": "Vol CSF (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A16",
+            "quote": "Kgmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A17",
+            "quote": "popmax (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A18",
+            "quote": "kkmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A19",
+            "quote": "Hk"
+          },
+          {
+            "source": "F0003:S4:T1:A20",
+            "quote": "C50k (mg/L)"
+          },
+          {
+            "source": "F0003:S4:T1:A21",
+            "quote": "Initial condition (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A6",
+            "quote": "Three-compartment model (central, peripheral, CSF), Pmetrics. Clearance and volumes are per animal (L/h, L). Concentrations are in Fig. 2 only (not transcribed). Protein binding not reported."
           }
         ],
         "column": "B"
+      },
+      {
+        "header": "Median",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "Median",
+          "Clearance and volumes are per animal (L/h, L)."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S4:T1:C8",
+            "quote": "Median"
+          },
+          {
+            "source": "F0003:S4:T1:C9",
+            "quote": "3.388"
+          },
+          {
+            "source": "F0003:S4:T1:A9",
+            "quote": "Clearance (L/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A10",
+            "quote": "Vol (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A11",
+            "quote": "K12 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A12",
+            "quote": "K21 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A13",
+            "quote": "K13 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A14",
+            "quote": "K31 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A15",
+            "quote": "Vol CSF (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A16",
+            "quote": "Kgmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A17",
+            "quote": "popmax (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A18",
+            "quote": "kkmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A19",
+            "quote": "Hk"
+          },
+          {
+            "source": "F0003:S4:T1:A20",
+            "quote": "C50k (mg/L)"
+          },
+          {
+            "source": "F0003:S4:T1:A21",
+            "quote": "Initial condition (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A6",
+            "quote": "Three-compartment model (central, peripheral, CSF), Pmetrics. Clearance and volumes are per animal (L/h, L). Concentrations are in Fig. 2 only (not transcribed). Protein binding not reported."
+          }
+        ],
+        "column": "C"
+      },
+      {
+        "header": "SD",
+        "meaning": "SUMMARY_STATISTIC",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "SD",
+          "Clearance and volumes are per animal (L/h, L)."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S4:T1:D8",
+            "quote": "SD"
+          },
+          {
+            "source": "F0003:S4:T1:D9",
+            "quote": "0.919"
+          },
+          {
+            "source": "F0003:S4:T1:A9",
+            "quote": "Clearance (L/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A10",
+            "quote": "Vol (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A11",
+            "quote": "K12 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A12",
+            "quote": "K21 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A13",
+            "quote": "K13 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A14",
+            "quote": "K31 (h−1)"
+          },
+          {
+            "source": "F0003:S4:T1:A15",
+            "quote": "Vol CSF (L)"
+          },
+          {
+            "source": "F0003:S4:T1:A16",
+            "quote": "Kgmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A17",
+            "quote": "popmax (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A18",
+            "quote": "kkmax (log10 CFU/mL/h)"
+          },
+          {
+            "source": "F0003:S4:T1:A19",
+            "quote": "Hk"
+          },
+          {
+            "source": "F0003:S4:T1:A20",
+            "quote": "C50k (mg/L)"
+          },
+          {
+            "source": "F0003:S4:T1:A21",
+            "quote": "Initial condition (CFU/mL)"
+          },
+          {
+            "source": "F0003:S4:T1:A6",
+            "quote": "Three-compartment model (central, peripheral, CSF), Pmetrics. Clearance and volumes are per animal (L/h, L). Concentrations are in Fig. 2 only (not transcribed). Protein binding not reported."
+          }
+        ],
+        "column": "D"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Rabbit plasma protein binding by in vitro microdialysis (preprint)",
+      "title": "Population PK-PD parameters, rabbit P. aeruginosa meningoencephalitis model",
       "sheet": "Rabbit",
       "region": {
-        "start_row": 24,
-        "end_row": 31,
+        "start_row": 1,
+        "end_row": 23,
         "left": 1,
-        "right": 2,
-        "header_row": 28,
-        "title": "Rabbit plasma protein binding by in vitro microdialysis (preprint)",
+        "right": 4,
+        "header_row": 8,
+        "title": "Population PK-PD parameters, rabbit P. aeruginosa meningoencephalitis model",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Rabbit plasma protein binding by in vitro microdialysis (preprint)\nS11 | DOI 10.1101/2023.03.23.534048 | Results text (Pesta et al. 2023, bioRxiv preprint, not peer reviewed)\nCitrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file.\nThe source writes \"+\" for \"±\".",
+      "notes": "Population PK-PD parameters, rabbit P. aeruginosa meningoencephalitis model\nS09 | DOI 10.1128/aac.02181-21 | Table 1 (Farrington et al. 2022)\nMale NZW rabbits 2.08-3.78 kg; 300 µL of 1 × 10^5 CFU/mL P. aeruginosa ATCC 27853 injected intrathecally; meropenem 5, 10 and 30 mg/kg/dose q8h IV push (marginal ear vein) from 6 h after inoculation. Total duration of therapy not stated (Results refer to bacterial burden at 30 h after inoculation).\nSerial sacrifice at planned times; rabbits per dose group not stated (Results: \"A total of 51 rabbits\" including controls for meropenem).\nPlasma sampled at 0, 10, 15, 20, 30 min, 1, 2, 4 h (n = 36); CSF satellite rabbits at 10 min, 30 min, 1 h, 2 h (text n = 4 at 10 mg/kg and n = 8 at 30 mg/kg; Fig. 2B says n = 8). LC-MS/MS, LLOQ plasma 0.1 mg/L, CSF 0.01 mg/L.\nThree-compartment model (central, peripheral, CSF), Pmetrics. Clearance and volumes are per animal (L/h, L). Concentrations are in Fig. 2 only (not transcribed). Protein binding not reported.\nText: \"AUCCSF:AUCplasma of 14.3%\". \"an AUC:MIC of 42.57\" refers to the hollow-fiber model, not to rabbits.",
       "column_map": {
-        "c001_meropenem_concentration_g_ml": "Meropenem concentration (µg/mL)",
-        "c002_rabbit_binding": "Rabbit binding (%)"
+        "c001_parameter_units": "Parameter (units)",
+        "c002_mean": "Mean",
+        "c003_median": "Median",
+        "c004_sd": "SD"
       }
     },
-    "source_item_id": "F0003:S4:T2",
+    "source_item_id": "F0003:S4:T1",
     "source_evidence": [
       {
-        "source": "F0003:S4:T2:A24",
-        "quote": "Rabbit plasma protein binding by in vitro microdialysis (preprint)"
+        "source": "F0003:S4:T1:A1",
+        "quote": "Population PK-PD parameters, rabbit P. aeruginosa meningoencephalitis model"
       },
       {
-        "source": "F0003:S4:T2:A25",
-        "quote": "S11 | DOI 10.1101/2023.03.23.534048 | Results text (Pesta et al. 2023, bioRxiv preprint, not peer reviewed)"
+        "source": "F0003:S4:T1:A2",
+        "quote": "S09 | DOI 10.1128/aac.02181-21 | Table 1 (Farrington et al. 2022)"
       },
       {
-        "source": "F0003:S4:T2:A26",
-        "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+        "source": "F0003:S4:T1:A3",
+        "quote": "Male NZW rabbits 2.08-3.78 kg; 300 µL of 1 × 10^5 CFU/mL P. aeruginosa ATCC 27853 injected intrathecally; meropenem 5, 10 and 30 mg/kg/dose q8h IV push (marginal ear vein) from 6 h after inoculation. Total duration of therapy not stated (Results refer to bacterial burden at 30 h after inoculation)."
       },
       {
-        "source": "F0003:S4:T2:A27",
-        "quote": "The source writes \"+\" for \"±\"."
+        "source": "F0003:S4:T1:A4",
+        "quote": "Serial sacrifice at planned times; rabbits per dose group not stated (Results: \"A total of 51 rabbits\" including controls for meropenem)."
       },
       {
-        "source": "F0003:S4:T2:A28",
-        "quote": "Meropenem concentration (µg/mL)"
+        "source": "F0003:S4:T1:A5",
+        "quote": "Plasma sampled at 0, 10, 15, 20, 30 min, 1, 2, 4 h (n = 36); CSF satellite rabbits at 10 min, 30 min, 1 h, 2 h (text n = 4 at 10 mg/kg and n = 8 at 30 mg/kg; Fig. 2B says n = 8). LC-MS/MS, LLOQ plasma 0.1 mg/L, CSF 0.01 mg/L."
       },
       {
-        "source": "F0003:S4:T2:B28",
-        "quote": "Rabbit binding (%)"
+        "source": "F0003:S4:T1:A6",
+        "quote": "Three-compartment model (central, peripheral, CSF), Pmetrics. Clearance and volumes are per animal (L/h, L). Concentrations are in Fig. 2 only (not transcribed). Protein binding not reported."
       },
       {
-        "source": "F0003:S4:T2:A29",
-        "quote": "2.5"
+        "source": "F0003:S4:T1:A7",
+        "quote": "Text: \"AUCCSF:AUCplasma of 14.3%\". \"an AUC:MIC of 42.57\" refers to the hollow-fiber model, not to rabbits."
       },
       {
-        "source": "F0003:S4:T2:B29",
-        "quote": "13.8+9.5"
+        "source": "F0003:S4:T1:A9",
+        "quote": "Clearance (L/h)"
       },
       {
-        "source": "F0003:S4:T2:A30",
-        "quote": "10"
+        "source": "F0003:S4:T1:B9",
+        "quote": "3.409"
       },
       {
-        "source": "F0003:S4:T2:B30",
-        "quote": "11.9+7.3"
+        "source": "F0003:S4:T1:C9",
+        "quote": "3.388"
       },
       {
-        "source": "F0003:S4:T2:A31",
-        "quote": "100"
+        "source": "F0003:S4:T1:D9",
+        "quote": "0.919"
       },
       {
-        "source": "F0003:S4:T2:B31",
-        "quote": "9.7+4.6"
+        "source": "F0003:S4:T1:A16",
+        "quote": "Kgmax (log10 CFU/mL/h)"
+      },
+      {
+        "source": "F0003:S4:T1:B16",
+        "quote": "0.387"
+      },
+      {
+        "source": "F0003:S4:T1:A20",
+        "quote": "C50k (mg/L)"
+      },
+      {
+        "source": "F0003:S4:T1:B20",
+        "quote": "0.075"
       }
     ],
     "requirement_ids": [
-      "DRQ01",
-      "DRQ02",
-      "DRQ03",
-      "DRQ12",
-      "DRQ48"
+      "DR003",
+      "DR004",
+      "DR008",
+      "DR010",
+      "DR020",
+      "DR022",
+      "MC001",
+      "MC003",
+      "MC005",
+      "MC012"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "10",
+          "unit": "mg/kg",
+          "subject": "CSF satellite rabbits",
+          "qualifiers": [
+            "text n = 4 at 10 mg/kg"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S4:T1:A5",
+              "quote": "CSF satellite rabbits at 10 min, 30 min, 1 h, 2 h (text n = 4 at 10 mg/kg and n = 8 at 30 mg/kg; Fig. 2B says n = 8)."
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "30",
+          "unit": "mg/kg",
+          "subject": "CSF satellite rabbits",
+          "qualifiers": [
+            "n = 8 at 30 mg/kg"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S4:T1:A5",
+              "quote": "CSF satellite rabbits at 10 min, 30 min, 1 h, 2 h (text n = 4 at 10 mg/kg and n = 8 at 30 mg/kg; Fig. 2B says n = 8)."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0024.json",
-    "sha256": "be45e7baa23aa27879fb001b828d19821dfea970bf8a988a170a246b6eee26de"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0024.json",
+    "sha256": "db9b49dfa0f1c68592a97a510fc2f42af30f71feb0f2eac4e97268d72facca34"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {
-    "source_records": 3,
-    "retained_records": 3,
+    "source_records": 13,
+    "retained_records": 13,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

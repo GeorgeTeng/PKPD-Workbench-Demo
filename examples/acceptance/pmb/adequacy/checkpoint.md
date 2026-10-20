@@ -5,7 +5,7 @@ Can enter QC: True. Review decision: NOT_RUN_IN_DEMO.
 ## Blocking QC (0)
 
 
-## Conflicts (75)
+## Conflicts (350)
 
 - F0003:S1:T16 (POSSIBLE_DUPLICATE_DATA, FOLLOW_UP): F0003:S1:T16 and F0003:S1:T17 share a column of identical numeric values; they may be copies of one dataset.
 - F0003:S1:T16 (POSSIBLE_DUPLICATE_DATA, FOLLOW_UP): F0003:S1:T16 and F0003:S1:T18 share a column of identical numeric values; they may be copies of one dataset.
@@ -13,75 +13,350 @@ Can enter QC: True. Review decision: NOT_RUN_IN_DEMO.
 - F0003:S1:T17 (POSSIBLE_DUPLICATE_DATA, FOLLOW_UP): F0003:S1:T17 and F0003:S1:T18 share a column of identical numeric values; they may be copies of one dataset.
 - F0003:S1:T17 (POSSIBLE_DUPLICATE_DATA, FOLLOW_UP): F0003:S1:T17 and F0003:S1:T19 share a column of identical numeric values; they may be copies of one dataset.
 - F0003:S1:T18 (POSSIBLE_DUPLICATE_DATA, FOLLOW_UP): F0003:S1:T18 and F0003:S1:T19 share a column of identical numeric values; they may be copies of one dataset.
-- SV0003 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0001:document states Protein binding for mouse as 97–99%; SV0002 gives about 91%.
-- SV0005 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0001:document states Protein binding for rat as 92–99%; SV0004 gives 80%.
-- SV0025 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T8 states dose for PMB as 90; SV0018 gives 45.
-- SV0066 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states n for Caption as >=3; SV0015 gives 3.
-- SV0088 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states Image calibration x for Image calibration as 138,1085 -> 0,12; SV0063 gives 145,1085 -> 0,12.
-- SV0091 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states n for Caption as >=3; SV0015 gives 3.
-- SV0101 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states Image calibration x for x as 1085; SV0100 gives 138.
-- SV0103 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states Image calibration x for x as 12; SV0102 gives 0.
-- SV0109 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states n for Caption as >=3; SV0015 gives 3.
-- SV0113 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states LOQ for ELF as 2; SV0058 gives approximately 2.
-- SV0113 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states LOQ for ELF as 2; SV0083 gives approximately 2.
-- SV0134 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T26 states Calibration x for x as 1038,1380 -> 0,3; SV0127 gives -1,2.
-- SV0157 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0143 gives 4.
-- SV0164 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states SC dose for PMB sulphate, neutropenic thigh-infected mice as 32; SV0136 gives 2.
-- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 32; SV0179 gives 16.
-- SV0181 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 64; SV0179 gives 16.
-- SV0181 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 64; SV0180 gives 32.
-- SV0182 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 4; SV0179 gives 16.
-- SV0182 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 4; SV0180 gives 32.
-- SV0182 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 4; SV0181 gives 64.
-- SV0183 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 8; SV0179 gives 16.
-- SV0183 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 8; SV0180 gives 32.
-- SV0183 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 8; SV0181 gives 64.
-- SV0183 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 8; SV0182 gives 4.
-- SV0184 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 16; SV0180 gives 32.
-- SV0184 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 16; SV0181 gives 64.
-- SV0184 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 16; SV0182 gives 4.
-- SV0184 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB regimens as 16; SV0183 gives 8.
-- SV0192 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S2:T2 states n for Female Sprague-Dawley rats as 6; SV0191 gives 3.
-- SV0193 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S2:T2 states n for Female Sprague-Dawley rats as 3; SV0192 gives 6.
-- SV0211 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states Image calibration x for x as 0,7; SV0102 gives 0.
-- SV0211 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states Image calibration x for x as 0,7; SV0103 gives 12.
-- SV0238 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states Image calibration x for Image calibration as 0,7; SV0063 gives 145,1085 -> 0,12.
-- SV0238 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states Image calibration x for Image calibration as 0,7; SV0088 gives 138,1085 -> 0,12.
-- SV0246 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for Methods as 3-4; SV0055 gives 4/time.
-- SV0246 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for Methods as 3-4; SV0067 gives 4/time.
-- SV0246 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for Methods as 3-4; SV0080 gives 4/time.
-- SV0246 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for Methods as 3-4; SV0110 gives 4/time.
-- SV0247 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for caption as 3; SV0066 gives >=3.
-- SV0247 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for caption as 3; SV0091 gives >=3.
-- SV0247 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for caption as 3; SV0109 gives >=3.
-- SV0250 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states Image calibration x for Image calibration as 1197,1763; SV0237 gives 137,704.
-- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states Image calibration x for Image calibration as 0,7; SV0063 gives 145,1085 -> 0,12.
-- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states Image calibration x for Image calibration as 0,7; SV0088 gives 138,1085 -> 0,12.
-- SV0267 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Tissue/ELF as 3/time; SV0266 gives 3-4/time.
-- SV0273 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states Image calibration x for Image calibration as 1197,1763; SV0237 gives 137,704.
-- SV0274 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states Image calibration x for Image calibration as 0,7; SV0063 gives 145,1085 -> 0,12.
-- SV0274 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states Image calibration x for Image calibration as 0,7; SV0088 gives 138,1085 -> 0,12.
-- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 1; SV0308 gives 0.
-- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 2; SV0308 gives 0.
-- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 2; SV0309 gives 1.
-- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 4; SV0308 gives 0.
-- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 4; SV0309 gives 1.
-- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 4; SV0310 gives 2.
-- SV0312 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 6; SV0308 gives 0.
-- SV0312 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 6; SV0309 gives 1.
-- SV0312 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 6; SV0310 gives 2.
-- SV0312 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 6; SV0311 gives 4.
-- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 8; SV0308 gives 0.
-- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 8; SV0309 gives 1.
-- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 8; SV0310 gives 2.
-- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 8; SV0311 gives 4.
-- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 8; SV0312 gives 6.
-- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 24; SV0308 gives 0.
-- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 24; SV0309 gives 1.
-- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 24; SV0310 gives 2.
-- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 24; SV0311 gives 4.
-- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 24; SV0312 gives 6.
-- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for Static time-kill as 24; SV0313 gives 8.
+- SV0055 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Repeated injections for 2018 thigh dose-fractionation regimens as 24; SV0054 gives 0.
+- SV0057 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Dose for PMB sulphate as 1.67; SV0056 gives 0.83.
+- SV0058 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Dose for PMB sulphate as 3.33; SV0056 gives 0.83.
+- SV0058 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Dose for PMB sulphate as 3.33; SV0057 gives 1.67.
+- SV0059 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Dose for PMB sulphate as 6.67; SV0056 gives 0.83.
+- SV0059 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Dose for PMB sulphate as 6.67; SV0057 gives 1.67.
+- SV0059 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T12 states Dose for PMB sulphate as 6.67; SV0058 gives 3.33.
+- SV0062 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T13 states SC injections for Experiment S02-T3 as 8; SV0061 gives 0.
+- SV0063 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T13 states SC injections for Experiment S02-T3 as 16; SV0061 gives 0.
+- SV0063 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T13 states SC injections for Experiment S02-T3 as 16; SV0062 gives 8.
+- SV0079 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T16 states n for Caption as >=3; SV0007 gives 3.
+- SV0089 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states x for Image calibration as 145; SV0074 gives 145,1085.
+- SV0090 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states x for Image calibration as 1085; SV0074 gives 145,1085.
+- SV0090 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states x for Image calibration as 1085; SV0089 gives 145.
+- SV0092 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states Image calibration for x as 12; SV0091 gives 0.
+- SV0093 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states y for Image calibration as 37; SV0076 gives 37,696.
+- SV0094 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states y for Image calibration as 696; SV0076 gives 37,696.
+- SV0094 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states y for Image calibration as 696; SV0093 gives 37.
+- SV0096 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states Image calibration for y as 10^0; SV0095 gives 10^3.
+- SV0098 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T17 states n for Caption as >=3; SV0007 gives 3.
+- SV0108 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states x for Image calibration as 138; SV0074 gives 145,1085.
+- SV0108 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states x for Image calibration as 138; SV0089 gives 145.
+- SV0108 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states x for Image calibration as 138; SV0090 gives 1085.
+- SV0109 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states x for Image calibration as 1085; SV0074 gives 145,1085.
+- SV0109 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states x for Image calibration as 1085; SV0089 gives 145.
+- SV0109 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states x for Image calibration as 1085; SV0108 gives 138.
+- SV0112 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 969; SV0076 gives 37,696.
+- SV0112 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 969; SV0093 gives 37.
+- SV0112 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 969; SV0094 gives 696.
+- SV0113 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 1632; SV0076 gives 37,696.
+- SV0113 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 1632; SV0093 gives 37.
+- SV0113 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 1632; SV0094 gives 696.
+- SV0113 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states y for Image calibration as 1632; SV0112 gives 969.
+- SV0117 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T18 states n for Caption as >=3; SV0007 gives 3.
+- SV0127 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states x for Image calibration as 138,1085; SV0074 gives 145,1085.
+- SV0127 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states x for Image calibration as 138,1085; SV0089 gives 145.
+- SV0127 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states x for Image calibration as 138,1085; SV0090 gives 1085.
+- SV0127 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states x for Image calibration as 138,1085; SV0108 gives 138.
+- SV0127 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states x for Image calibration as 138,1085; SV0109 gives 1085.
+- SV0128 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states Image calibration for x as 0,12; SV0091 gives 0.
+- SV0128 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states Image calibration for x as 0,12; SV0092 gives 12.
+- SV0129 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states y for Image calibration as 969,1632; SV0076 gives 37,696.
+- SV0129 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states y for Image calibration as 969,1632; SV0093 gives 37.
+- SV0129 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states y for Image calibration as 969,1632; SV0094 gives 696.
+- SV0129 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states y for Image calibration as 969,1632; SV0112 gives 969.
+- SV0129 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states y for Image calibration as 969,1632; SV0113 gives 1632.
+- SV0130 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states Image calibration for y as 10^2,10^-2; SV0095 gives 10^3.
+- SV0130 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states Image calibration for y as 10^2,10^-2; SV0096 gives 10^0.
+- SV0132 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states n for Caption as >=3; SV0007 gives 3.
+- SV0133 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states n for methods as 4/time; SV0080 gives 4.
+- SV0133 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states n for methods as 4/time; SV0099 gives 4.
+- SV0133 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T19 states n for methods as 4/time; SV0118 gives 4.
+- SV0142 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states x for Image calibration as 138,1085; SV0074 gives 145,1085.
+- SV0142 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states x for Image calibration as 138,1085; SV0089 gives 145.
+- SV0142 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states x for Image calibration as 138,1085; SV0090 gives 1085.
+- SV0142 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states x for Image calibration as 138,1085; SV0108 gives 138.
+- SV0142 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states x for Image calibration as 138,1085; SV0109 gives 1085.
+- SV0144 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states y for Image calibration as 969,1632; SV0076 gives 37,696.
+- SV0144 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states y for Image calibration as 969,1632; SV0093 gives 37.
+- SV0144 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states y for Image calibration as 969,1632; SV0094 gives 696.
+- SV0144 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states y for Image calibration as 969,1632; SV0112 gives 969.
+- SV0144 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states y for Image calibration as 969,1632; SV0113 gives 1632.
+- SV0147 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states n for Caption as >=3; SV0007 gives 3.
+- SV0148 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T20 states n for methods as 4; SV0133 gives 4/time.
+- SV0155 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T28 states dose for PMB sulphate as 2; SV0056 gives 0.83.
+- SV0155 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T28 states dose for PMB sulphate as 2; SV0057 gives 1.67.
+- SV0155 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T28 states dose for PMB sulphate as 2; SV0058 gives 3.33.
+- SV0155 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T28 states dose for PMB sulphate as 2; SV0059 gives 6.67.
+- SV0162 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states dose for PMB sulphate as 4; SV0056 gives 0.83.
+- SV0162 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states dose for PMB sulphate as 4; SV0057 gives 1.67.
+- SV0162 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states dose for PMB sulphate as 4; SV0058 gives 3.33.
+- SV0162 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states dose for PMB sulphate as 4; SV0059 gives 6.67.
+- SV0162 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states dose for PMB sulphate as 4; SV0155 gives 2.
+- SV0166 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states x for Calibration as 695; SV0165 gives 116.
+- SV0170 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states y for Calibration as 583; SV0169 gives 14.
+- SV0172 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T29 states log10 concentration for Calibration as -1; SV0171 gives 2.
+- SV0173 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T30 states dose for PMB sulphate as 8; SV0056 gives 0.83.
+- SV0173 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T30 states dose for PMB sulphate as 8; SV0057 gives 1.67.
+- SV0173 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T30 states dose for PMB sulphate as 8; SV0058 gives 3.33.
+- SV0173 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T30 states dose for PMB sulphate as 8; SV0059 gives 6.67.
+- SV0173 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T30 states dose for PMB sulphate as 8; SV0155 gives 2.
+- SV0173 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T30 states dose for PMB sulphate as 8; SV0162 gives 4.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0056 gives 0.83.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0057 gives 1.67.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0058 gives 3.33.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0059 gives 6.67.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0155 gives 2.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0162 gives 4.
+- SV0180 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states dose for PMB sulphate as 16; SV0173 gives 8.
+- SV0183 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states x for Calibration as 116 to 695; SV0165 gives 116.
+- SV0183 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states x for Calibration as 116 to 695; SV0166 gives 695.
+- SV0185 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states y for Calibration as 14 to 583; SV0169 gives 14.
+- SV0185 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states y for Calibration as 14 to 583; SV0170 gives 583.
+- SV0186 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states log10 concentration for Calibration as 2 to -1; SV0171 gives 2.
+- SV0186 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T31 states log10 concentration for Calibration as 2 to -1; SV0172 gives -1.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0056 gives 0.83.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0057 gives 1.67.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0058 gives 3.33.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0059 gives 6.67.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0155 gives 2.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0162 gives 4.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0173 gives 8.
+- SV0187 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states dose for PMB sulphate as 32; SV0180 gives 16.
+- SV0190 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states x for Calibration as 116 to 695; SV0165 gives 116.
+- SV0190 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states x for Calibration as 116 to 695; SV0166 gives 695.
+- SV0192 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states y for Calibration as 14 to 583; SV0169 gives 14.
+- SV0192 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states y for Calibration as 14 to 583; SV0170 gives 583.
+- SV0193 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states log10 concentration for Calibration as 2 to -1; SV0171 gives 2.
+- SV0193 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T32 states log10 concentration for Calibration as 2 to -1; SV0172 gives -1.
+- SV0203 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB as 32; SV0202 gives 16.
+- SV0204 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB as 64; SV0202 gives 16.
+- SV0204 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S1:T36 states total daily dose for PMB as 64; SV0203 gives 32.
+- SV0209 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S2:T1 states dose for Polymyxin B as 1; SV0001 gives 5.
+- SV0216 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S2:T2 states n for Female Sprague-Dawley rats as 6; SV0214 gives 3.
+- SV0218 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S2:T2 states n for Female Sprague-Dawley rats as 3; SV0216 gives 6.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0074 gives 145,1085.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0089 gives 145.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0090 gives 1085.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0108 gives 138.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0109 gives 1085.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0127 gives 138,1085.
+- SV0241 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states x for Image calibration as 137,704; SV0142 gives 138,1085.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0076 gives 37,696.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0093 gives 37.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0094 gives 696.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0112 gives 969.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0113 gives 1632.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0129 gives 969,1632.
+- SV0243 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states y for Image calibration as 148,524; SV0144 gives 969,1632.
+- SV0250 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for Methods as 3-4/time; SV0080 gives 4.
+- SV0250 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for Methods as 3-4/time; SV0099 gives 4.
+- SV0250 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for Methods as 3-4/time; SV0118 gives 4.
+- SV0250 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for Methods as 3-4/time; SV0133 gives 4/time.
+- SV0250 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for Methods as 3-4/time; SV0148 gives 4.
+- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for caption as 3/time; SV0007 gives 3.
+- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for caption as 3/time; SV0079 gives >=3.
+- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for caption as 3/time; SV0098 gives >=3.
+- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for caption as 3/time; SV0117 gives >=3.
+- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for caption as 3/time; SV0132 gives >=3.
+- SV0251 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T8 states n for caption as 3/time; SV0147 gives >=3.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0074 gives 145,1085.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0089 gives 145.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0090 gives 1085.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0108 gives 138.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0109 gives 1085.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0127 gives 138,1085.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0142 gives 138,1085.
+- SV0254 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states x for Image calibration as 1197,1763; SV0241 gives 137,704.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0076 gives 37,696.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0093 gives 37.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0094 gives 696.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0112 gives 969.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0113 gives 1632.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0129 gives 969,1632.
+- SV0256 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T9 states y for Image calibration as 148,524; SV0144 gives 969,1632.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0074 gives 145,1085.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0089 gives 145.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0090 gives 1085.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0108 gives 138.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0109 gives 1085.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0127 gives 138,1085.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0142 gives 138,1085.
+- SV0268 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states x for Image calibration as 137,704; SV0254 gives 1197,1763.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0076 gives 37,696.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0093 gives 37.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0094 gives 696.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0112 gives 969.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0113 gives 1632.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0129 gives 969,1632.
+- SV0270 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states y for Image calibration as 148,524; SV0144 gives 969,1632.
+- SV0278 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T10 states n for Tissue/ELF as 3/time; SV0277 gives 3-4/time.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0074 gives 145,1085.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0089 gives 145.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0090 gives 1085.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0108 gives 138.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0109 gives 1085.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0127 gives 138,1085.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0142 gives 138,1085.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0241 gives 137,704.
+- SV0281 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states x for Image calibration as 1197,1763; SV0268 gives 137,704.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0076 gives 37,696.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0093 gives 37.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0094 gives 696.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0112 gives 969.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0113 gives 1632.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0129 gives 969,1632.
+- SV0283 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states y for Image calibration as 148,524; SV0144 gives 969,1632.
+- SV0290 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states n for Tissue/ELF as 3-4/time; SV0278 gives 3/time.
+- SV0291 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states n for Tissue/ELF as 3/time; SV0277 gives 3-4/time.
+- SV0291 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T11 states n for Tissue/ELF as 3/time; SV0290 gives 3-4/time.
+- SV0295 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 704; SV0294 gives 137.
+- SV0296 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 0; SV0092 gives 12.
+- SV0296 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 0; SV0128 gives 0,12.
+- SV0297 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 7; SV0091 gives 0.
+- SV0297 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 7; SV0092 gives 12.
+- SV0297 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 7; SV0128 gives 0,12.
+- SV0297 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for x as 7; SV0296 gives 0.
+- SV0299 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 524; SV0298 gives 148.
+- SV0300 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^2; SV0095 gives 10^3.
+- SV0300 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^2; SV0096 gives 10^0.
+- SV0300 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^2; SV0130 gives 10^2,10^-2.
+- SV0301 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^-2; SV0095 gives 10^3.
+- SV0301 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^-2; SV0096 gives 10^0.
+- SV0301 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^-2; SV0130 gives 10^2,10^-2.
+- SV0301 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Image calibration for y as 10^-2; SV0300 gives 10^2.
+- SV0305 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.25; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0305 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.25; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0305 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.25; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0305 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.25; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0306 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.5; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0306 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.5; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0306 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.5; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0306 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.5; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0306 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 0.5; SV0305 gives 0.25.
+- SV0307 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0307 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0307 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0307 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0307 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1; SV0305 gives 0.25.
+- SV0307 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1; SV0306 gives 0.5.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0305 gives 0.25.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0306 gives 0.5.
+- SV0308 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 1.5; SV0307 gives 1.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0305 gives 0.25.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0306 gives 0.5.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0307 gives 1.
+- SV0309 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 2; SV0308 gives 1.5.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0305 gives 0.25.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0306 gives 0.5.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0307 gives 1.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0308 gives 1.5.
+- SV0310 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 4; SV0309 gives 2.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0248 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0261 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0275 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0288 gives 0.25,0.5,1,1.5,2,4,6.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0305 gives 0.25.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0306 gives 0.5.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0307 gives 1.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0308 gives 1.5.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0309 gives 2.
+- SV0311 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states nominal blood for New Zealand White rabbits as 6; SV0310 gives 4.
+- SV0312 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Tissue/ELF nominal times for Tissue/ELF as 0.5; SV0289 gives 0.5,2,6.
+- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Tissue/ELF nominal times for Tissue/ELF as 2; SV0289 gives 0.5,2,6.
+- SV0313 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Tissue/ELF nominal times for Tissue/ELF as 2; SV0312 gives 0.5.
+- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Tissue/ELF nominal times for Tissue/ELF as 6; SV0289 gives 0.5,2,6.
+- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Tissue/ELF nominal times for Tissue/ELF as 6; SV0312 gives 0.5.
+- SV0314 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states Tissue/ELF nominal times for Tissue/ELF as 6; SV0313 gives 2.
+- SV0315 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Methods as 3-4; SV0080 gives 4.
+- SV0315 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Methods as 3-4; SV0099 gives 4.
+- SV0315 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Methods as 3-4; SV0118 gives 4.
+- SV0315 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Methods as 3-4; SV0133 gives 4/time.
+- SV0315 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Methods as 3-4; SV0148 gives 4.
+- SV0315 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for Methods as 3-4; SV0250 gives 3-4/time.
+- SV0316 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for caption as 3; SV0079 gives >=3.
+- SV0316 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for caption as 3; SV0098 gives >=3.
+- SV0316 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for caption as 3; SV0117 gives >=3.
+- SV0316 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for caption as 3; SV0132 gives >=3.
+- SV0316 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for caption as 3; SV0147 gives >=3.
+- SV0316 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T12 states n for caption as 3; SV0251 gives 3/time.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0074 gives 145,1085.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0089 gives 145.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0090 gives 1085.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0108 gives 138.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0109 gives 1085.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0127 gives 138,1085.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0142 gives 138,1085.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0241 gives 137,704.
+- SV0319 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states x for Image calibration as 1197,1763; SV0268 gives 137,704.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0076 gives 37,696.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0093 gives 37.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0094 gives 696.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0112 gives 969.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0113 gives 1632.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0129 gives 969,1632.
+- SV0321 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states y for Image calibration as 148,524; SV0144 gives 969,1632.
+- SV0328 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for Methods as 3-4/time; SV0080 gives 4.
+- SV0328 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for Methods as 3-4/time; SV0099 gives 4.
+- SV0328 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for Methods as 3-4/time; SV0118 gives 4.
+- SV0328 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for Methods as 3-4/time; SV0133 gives 4/time.
+- SV0328 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for Methods as 3-4/time; SV0148 gives 4.
+- SV0328 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for Methods as 3-4/time; SV0315 gives 3-4.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0007 gives 3.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0079 gives >=3.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0098 gives >=3.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0117 gives >=3.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0132 gives >=3.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0147 gives >=3.
+- SV0329 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S3:T13 states n for caption as 3/time; SV0316 gives 3.
+- SV0342 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T4 states Static concentrations for PMB monotherapy as 6; SV0341 gives 2.41.
+- SV0347 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 1; SV0346 gives 0.5.
+- SV0348 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 2; SV0346 gives 0.5.
+- SV0348 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 2; SV0347 gives 1.
+- SV0349 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 4; SV0346 gives 0.5.
+- SV0349 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 4; SV0347 gives 1.
+- SV0349 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 4; SV0348 gives 2.
+- SV0350 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 8; SV0346 gives 0.5.
+- SV0350 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 8; SV0347 gives 1.
+- SV0350 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 8; SV0348 gives 2.
+- SV0350 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 8; SV0349 gives 4.
+- SV0351 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 16; SV0346 gives 0.5.
+- SV0351 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 16; SV0347 gives 1.
+- SV0351 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 16; SV0348 gives 2.
+- SV0351 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 16; SV0349 gives 4.
+- SV0351 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 16; SV0350 gives 8.
+- SV0352 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 64; SV0346 gives 0.5.
+- SV0352 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 64; SV0347 gives 1.
+- SV0352 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 64; SV0348 gives 2.
+- SV0352 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 64; SV0349 gives 4.
+- SV0352 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 64; SV0350 gives 8.
+- SV0352 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states PMB for PMB as 64; SV0351 gives 16.
+- SV0355 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 1; SV0354 gives 0.
+- SV0356 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 2; SV0354 gives 0.
+- SV0356 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 2; SV0355 gives 1.
+- SV0357 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 4; SV0354 gives 0.
+- SV0357 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 4; SV0355 gives 1.
+- SV0357 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 4; SV0356 gives 2.
+- SV0358 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 6; SV0354 gives 0.
+- SV0358 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 6; SV0355 gives 1.
+- SV0358 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 6; SV0356 gives 2.
+- SV0358 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 6; SV0357 gives 4.
+- SV0359 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 8; SV0354 gives 0.
+- SV0359 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 8; SV0355 gives 1.
+- SV0359 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 8; SV0356 gives 2.
+- SV0359 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 8; SV0357 gives 4.
+- SV0359 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 8; SV0358 gives 6.
+- SV0360 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 24; SV0354 gives 0.
+- SV0360 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 24; SV0355 gives 1.
+- SV0360 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 24; SV0356 gives 2.
+- SV0360 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 24; SV0357 gives 4.
+- SV0360 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 24; SV0358 gives 6.
+- SV0360 (STATED_VALUE_CONFLICT, HUMAN_REVIEW): F0003:S5:T5 states sampling for PMB as 24; SV0359 gives 8.
 
 ## Items not read (0)
 

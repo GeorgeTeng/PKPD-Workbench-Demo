@@ -1,115 +1,138 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0029",
-  "role": "URINE_EXCRETION",
+  "role": "REPORTED_PARAMETERS",
   "metadata": {
-    "role": "URINE_EXCRETION",
-    "species": "dogs; female; repeat dosing for 14 days; health and infection state NOT_FOUND",
-    "matrix": "urine",
-    "exposure_basis": "% of that day's dose.; total versus unbound basis NOT_FOUND",
-    "record_level": "Mean of 3 dogs; individual observations and individual collection identities NOT_FOUND",
+    "role": "REPORTED_PARAMETERS",
+    "species": "Female dogs; strain, health, infection and renal-function state NOT_FOUND",
+    "matrix": "plasma",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Reported parameter summaries; each value mean ± SE of 3 dogs; individual records and cross-day animal identifiers NOT_FOUND",
     "drug": "Meropenem",
     "route": "IV",
-    "endpoint_window": "urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses.",
+    "endpoint_window": "days 1 and 14; AUC integration limits and T1/2 phase NOT_FOUND",
     "route_category": "NOT_FOUND",
-    "matrix_category": "URINE",
-    "record_category": "GROUP_SUMMARY",
+    "matrix_category": "PLASMA_SERUM_BLOOD",
+    "record_category": "REPORTED_PARAMETER",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_FOUND",
-    "analyte": "Meropenem; H-4295; Total (definition NOT_FOUND)",
-    "dosing_regimen": "120 mg/kg/day IV for 14 days",
+    "dose_basis": "unlabeled meropenem; salt or free-base basis NOT_FOUND",
+    "analyte": "unlabeled meropenem",
+    "dosing_regimen": "120 mg/kg IV once daily for 14 days",
     "additional_roles": [
       "ANIMAL_CHARACTERISTICS",
-      "DOSING"
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Compound",
+        "header": "Parameter",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T5:A77",
-            "quote": "Compound"
+            "source": "F0003:S5:T4:A68",
+            "quote": "Parameter"
           },
           {
-            "source": "F0003:S5:T5:A78",
-            "quote": "Meropenem"
+            "source": "F0003:S5:T4:A69",
+            "quote": "AUC (µg·min/ml)"
           },
           {
-            "source": "F0003:S5:T5:A79",
-            "quote": "H-4295"
+            "source": "F0003:S5:T4:A70",
+            "quote": "T1/2 (min)"
           },
           {
-            "source": "F0003:S5:T5:A80",
-            "quote": "Total"
+            "source": "F0003:S5:T4:A71",
+            "quote": "C0 (mg/ml)"
           }
         ],
         "column": "A"
       },
       {
         "header": "Day 1",
-        "meaning": "OTHER",
-        "unit": "%",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "Mean of 3 dogs",
-          "urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses.",
-          "% of that day's dose."
+          "mean ± SE of 3 dogs",
+          "after the day 1 and day 14 doses"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:B77",
+            "source": "F0003:S5:T4:B68",
             "quote": "Day 1"
           },
           {
-            "source": "F0003:S5:T5:A76",
-            "quote": "a) Mean of 3 dogs (female, 120 mg/kg/day IV for 14 days); urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses. % of that day's dose."
+            "source": "F0003:S5:T4:A69",
+            "quote": "AUC (µg·min/ml)"
           },
           {
-            "source": "F0003:S5:T5:B78",
-            "quote": "63.5"
+            "source": "F0003:S5:T4:A70",
+            "quote": "T1/2 (min)"
           },
           {
-            "source": "F0003:S5:T5:B79",
-            "quote": "38.4"
+            "source": "F0003:S5:T4:A71",
+            "quote": "C0 (mg/ml)"
           },
           {
-            "source": "F0003:S5:T5:B80",
-            "quote": "102"
+            "source": "F0003:S5:T4:A66",
+            "quote": "Female dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized)."
+          },
+          {
+            "source": "F0003:S5:T4:B69",
+            "quote": "34.1 ± 1.6"
+          },
+          {
+            "source": "F0003:S5:T4:B70",
+            "quote": "42 ± 2"
+          },
+          {
+            "source": "F0003:S5:T4:B71",
+            "quote": "1.08 ± 0.08"
           }
         ],
         "column": "B"
       },
       {
         "header": "Day 14",
-        "meaning": "OTHER",
-        "unit": "%",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "Mean of 3 dogs",
-          "urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses.",
-          "% of that day's dose."
+          "mean ± SE of 3 dogs",
+          "after the day 1 and day 14 doses"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T5:C77",
+            "source": "F0003:S5:T4:C68",
             "quote": "Day 14"
           },
           {
-            "source": "F0003:S5:T5:A76",
-            "quote": "a) Mean of 3 dogs (female, 120 mg/kg/day IV for 14 days); urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses. % of that day's dose."
+            "source": "F0003:S5:T4:A69",
+            "quote": "AUC (µg·min/ml)"
           },
           {
-            "source": "F0003:S5:T5:C78",
-            "quote": "61.9"
+            "source": "F0003:S5:T4:A70",
+            "quote": "T1/2 (min)"
           },
           {
-            "source": "F0003:S5:T5:C79",
-            "quote": "40.5"
+            "source": "F0003:S5:T4:A71",
+            "quote": "C0 (mg/ml)"
           },
           {
-            "source": "F0003:S5:T5:C80",
-            "quote": "103"
+            "source": "F0003:S5:T4:A66",
+            "quote": "Female dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized)."
+          },
+          {
+            "source": "F0003:S5:T4:C69",
+            "quote": "27.9 ± 1.1"
+          },
+          {
+            "source": "F0003:S5:T4:C70",
+            "quote": "45 ± 2"
+          },
+          {
+            "source": "F0003:S5:T4:C71",
+            "quote": "0.96 ± 0.06"
           }
         ],
         "column": "C"
@@ -117,107 +140,118 @@
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Urinary excretion on days 1 and 14 of 120 mg/kg/day IV",
+      "title": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV",
       "sheet": "Dog",
       "region": {
-        "start_row": 74,
-        "end_row": 82,
+        "start_row": 64,
+        "end_row": 73,
         "left": 1,
         "right": 3,
-        "header_row": 77,
-        "title": "Urinary excretion on days 1 and 14 of 120 mg/kg/day IV",
+        "header_row": 68,
+        "title": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Urinary excretion on days 1 and 14 of 120 mg/kg/day IV\nS03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 5\na) Mean of 3 dogs (female, 120 mg/kg/day IV for 14 days); urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses. % of that day's dose.",
+      "notes": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV\nS03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 4\nFemale dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized).\nUnits as printed: the table gives AUC in µg·min/ml and C0 in mg/ml; the text gives AUC as 34.1 and 27.9 mg·min/ml and T1/2 42 and 45 min.",
       "column_map": {
-        "c001_compound": "Compound",
+        "c001_parameter": "Parameter",
         "c002_day_1": "Day 1",
         "c003_day_14": "Day 14"
       }
     },
-    "source_item_id": "F0003:S5:T5",
+    "source_item_id": "F0003:S5:T4",
     "source_evidence": [
       {
-        "source": "F0003:S5:T5:A74",
-        "quote": "Urinary excretion on days 1 and 14 of 120 mg/kg/day IV"
+        "source": "F0003:S5:T4:A64",
+        "quote": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV"
       },
       {
-        "source": "F0003:S5:T5:A75",
-        "quote": "S03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 5"
+        "source": "F0003:S5:T4:A65",
+        "quote": "S03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 4"
       },
       {
-        "source": "F0003:S5:T5:A76",
-        "quote": "a) Mean of 3 dogs (female, 120 mg/kg/day IV for 14 days); urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses. % of that day's dose."
+        "source": "F0003:S5:T4:A66",
+        "quote": "Female dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized)."
       },
       {
-        "source": "F0003:S5:T5:A78",
-        "quote": "Meropenem"
+        "source": "F0003:S5:T4:A67",
+        "quote": "Units as printed: the table gives AUC in µg·min/ml and C0 in mg/ml; the text gives AUC as 34.1 and 27.9 mg·min/ml and T1/2 42 and 45 min."
       },
       {
-        "source": "F0003:S5:T5:B78",
-        "quote": "63.5"
+        "source": "F0003:S5:T4:A69",
+        "quote": "AUC (µg·min/ml)"
       },
       {
-        "source": "F0003:S5:T5:C78",
-        "quote": "61.9"
+        "source": "F0003:S5:T4:B69",
+        "quote": "34.1 ± 1.6"
       },
       {
-        "source": "F0003:S5:T5:A79",
-        "quote": "H-4295"
+        "source": "F0003:S5:T4:C69",
+        "quote": "27.9 ± 1.1"
       },
       {
-        "source": "F0003:S5:T5:B79",
-        "quote": "38.4"
+        "source": "F0003:S5:T4:A70",
+        "quote": "T1/2 (min)"
       },
       {
-        "source": "F0003:S5:T5:C79",
-        "quote": "40.5"
+        "source": "F0003:S5:T4:B70",
+        "quote": "42 ± 2"
       },
       {
-        "source": "F0003:S5:T5:A80",
-        "quote": "Total"
+        "source": "F0003:S5:T4:C70",
+        "quote": "45 ± 2"
       },
       {
-        "source": "F0003:S5:T5:B80",
-        "quote": "102"
+        "source": "F0003:S5:T4:A71",
+        "quote": "C0 (mg/ml)"
       },
       {
-        "source": "F0003:S5:T5:C80",
-        "quote": "103"
+        "source": "F0003:S5:T4:B71",
+        "quote": "1.08 ± 0.08"
+      },
+      {
+        "source": "F0003:S5:T4:C71",
+        "quote": "0.96 ± 0.06"
       }
     ],
     "requirement_ids": [
-      "DRQ01",
-      "DRQ02",
-      "DRQ03",
-      "DRQ04",
-      "DRQ13",
-      "DRQ20",
-      "DRQ21"
+      "DR003",
+      "DR004",
+      "DR008",
+      "DR010",
+      "MC001"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
       "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
       "candidates": [
         {
-          "quantity": "dose",
+          "quantity": "NOT_FOUND",
           "value": "120",
           "unit": "mg/kg/day",
-          "subject": "dogs",
+          "subject": "Meropenem",
           "qualifiers": [
-            "female",
-            "IV",
-            "for 14 days"
+            "IV"
           ],
           "evidence": [
             {
-              "source": "F0003:S5:T5:A74",
-              "quote": "Urinary excretion on days 1 and 14 of 120 mg/kg/day IV"
-            },
+              "source": "F0003:S5:T4:A64",
+              "quote": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV"
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "120",
+          "unit": "mg/kg",
+          "subject": "unlabeled meropenem",
+          "qualifiers": [
+            "IV once daily for 14 days"
+          ],
+          "evidence": [
             {
-              "source": "F0003:S5:T5:A76",
-              "quote": "a) Mean of 3 dogs (female, 120 mg/kg/day IV for 14 days); urine every 0.5 h to 2 h, then every 1 h to 7 h after the day 1 and day 14 doses. % of that day's dose."
+              "source": "F0003:S5:T4:A66",
+              "quote": "Female dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized)."
             }
           ]
         }
@@ -228,21 +262,21 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0029.json",
-    "sha256": "ee6e3631358475f5ab52167d0bd8659076053ba3f2d0ff65474eb6402980b517"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0029.json",
+    "sha256": "79a7b6011390db48b0b06307e32752132d5a53c103bd404dab816c08a146a317"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {

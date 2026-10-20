@@ -90,7 +90,8 @@ class DemoContextTests(unittest.TestCase):
             from research_pipeline.workflow_runtime import execute_builtin
             from ctxcomp import providers
             output=folder/'B1/main.json'
-            with patch.object(providers,'run_model',side_effect=AssertionError('Unexpected repeated dispatch')):
+            with patch.dict('os.environ',{'CTXCOMP_DISABLE_RESPONSE_REUSE':'0'}), \
+                 patch.object(providers,'run_model',side_effect=AssertionError('Unexpected repeated dispatch')):
                 execute_builtin({'kind':'compress','options':{'work':str(run)},'outputs':[str(output)]})
             self.assertEqual(read_json(output),main)
             self.assertFalse(read_json(run/'audit/verified_context_reuse.json')['new_model_calls'])

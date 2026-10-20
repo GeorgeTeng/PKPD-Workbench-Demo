@@ -1,0 +1,187 @@
+{
+  "request_sha256": "1d965892630512b29b82544b6ff33c1b0251c265ad5bcd24bb5586856dbde997",
+  "labels": [
+    {
+      "item_id": "F0003:S1:T34",
+      "role": "MIC",
+      "additional_roles": [
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR001",
+        "DR002",
+        "DR024"
+      ],
+      "species": "P. aeruginosa; strains ATCC 27853, PAO1, FADDI-PA022",
+      "matrix": "NOT_FOUND",
+      "exposure_basis": "NOT_FOUND",
+      "record_level": "Strain-level MIC records; replicate count and individual-versus-summary measurement status NOT_FOUND.",
+      "drug": "PMB",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "Body cells provide PMB MIC values of 1 mg/L for each of three named P. aeruginosa strains, supporting susceptibility classification, source provenance and units under DR001 and DR002. For DR024, susceptibility inputs are AVAILABLE_CANDIDATE only for their stated P. aeruginosa context; matched K. pneumoniae susceptibility coverage remains UNRESOLVED. The source expressly excludes both K. pneumoniae MIC identity and a PK sample-to-strain linkage. It does not support a DR020 panel–regimen–strain–MIC–response match or K. pneumoniae target estimation. MIC testing conditions and replicate or summary definitions are unspecified.",
+      "evidence": [
+        {
+          "source": "F0003:S1:T34:A665",
+          "quote": "S05 strain susceptibility"
+        },
+        {
+          "source": "F0003:S1:T34:A666",
+          "quote": "S05 | https://doi.org/10.1128/AAC.00211-17 | Abstract and PK/PD methods"
+        },
+        {
+          "source": "F0003:S1:T34:A667",
+          "quote": "P. aeruginosa MICs from the pulmonary study. Not K. pneumoniae MICs and not a PK sample-to-strain linkage."
+        },
+        {
+          "source": "F0003:S1:T34:A669",
+          "quote": "P. aeruginosa"
+        },
+        {
+          "source": "F0003:S1:T34:B669",
+          "quote": "ATCC 27853"
+        },
+        {
+          "source": "F0003:S1:T34:C669",
+          "quote": "1"
+        },
+        {
+          "source": "F0003:S1:T34:A670",
+          "quote": "P. aeruginosa"
+        },
+        {
+          "source": "F0003:S1:T34:B670",
+          "quote": "PAO1"
+        },
+        {
+          "source": "F0003:S1:T34:C670",
+          "quote": "1"
+        },
+        {
+          "source": "F0003:S1:T34:A671",
+          "quote": "P. aeruginosa"
+        },
+        {
+          "source": "F0003:S1:T34:B671",
+          "quote": "FADDI-PA022"
+        },
+        {
+          "source": "F0003:S1:T34:C671",
+          "quote": "1"
+        },
+        {
+          "source": "F0003:S1:T34:C668",
+          "quote": "PMB MIC (mg/L)"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "NOT_FOUND",
+      "record_category": "NOT_FOUND",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "PMB",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Organism",
+          "meaning": "GROUP_OR_TREATMENT",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T34:A668",
+              "quote": "Organism"
+            },
+            {
+              "source": "F0003:S1:T34:A669",
+              "quote": "P. aeruginosa"
+            },
+            {
+              "source": "F0003:S1:T34:A670",
+              "quote": "P. aeruginosa"
+            },
+            {
+              "source": "F0003:S1:T34:A671",
+              "quote": "P. aeruginosa"
+            }
+          ]
+        },
+        {
+          "header": "Strain",
+          "meaning": "GROUP_OR_TREATMENT",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T34:B668",
+              "quote": "Strain"
+            },
+            {
+              "source": "F0003:S1:T34:B669",
+              "quote": "ATCC 27853"
+            },
+            {
+              "source": "F0003:S1:T34:B670",
+              "quote": "PAO1"
+            },
+            {
+              "source": "F0003:S1:T34:B671",
+              "quote": "FADDI-PA022"
+            }
+          ]
+        },
+        {
+          "header": "PMB MIC (mg/L)",
+          "meaning": "MIC",
+          "unit": "mg/L",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T34:C668",
+              "quote": "PMB MIC (mg/L)"
+            },
+            {
+              "source": "F0003:S1:T34:C669",
+              "quote": "1"
+            },
+            {
+              "source": "F0003:S1:T34:C670",
+              "quote": "1"
+            },
+            {
+              "source": "F0003:S1:T34:C671",
+              "quote": "1"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_PANEL_MATCHING",
+      "affected_id": "MI001",
+      "reason": "MI001, Mouse panel-to-regimen matching, remains AMBIGUOUS with resolution_status OPEN and needed_at prepare; origin main:/missing_information/items/0. Impact: Mouse panels cannot be treated as matched regimen-level exposure-response records without verification. F0003:S1:T34:A667 explicitly states that these are P. aeruginosa MICs, not K. pneumoniae MICs and not a PK sample-to-strain linkage. This page therefore does not resolve DR020. The dependent matching decision remains pending; this finding does not block independent PK work.",
+      "needed_material": "Verify the panel, regimen, strain-MIC and response associations required by SC032, documenting supported matches and unresolved links.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "UNRESOLVED_MIC_CONTEXT",
+      "affected_id": "DR024",
+      "reason": "Three P. aeruginosa strain identities and their PMB MIC values are available in F0003:S1:T34:A669:C671. The reviewed page does not specify susceptibility method, medium, testing standard, replicate count or summary definition. It provides no matched K. pneumoniae MIC or regimen–exposure–response relationship. These are page-scoped unresolved inputs, not proof that the information is absent elsewhere.",
+      "needed_material": "Source-supported MIC testing context and replicate or summary definitions; for K. pneumoniae index analysis, matched K. pneumoniae strain MICs and traceable links to the intended response and exposure records.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "ROUTING_REVIEW_OTHER_PATHOGEN",
+      "affected_id": "F0003:S1:T34",
+      "reason": "F0003:S1:T34:A667 identifies pulmonary-study P. aeruginosa susceptibility data. Retain these records in their stated organism and source context; their downstream supporting or benchmark destination requires independent review. They cannot supply K. pneumoniae MICs or set K. pneumoniae efficacy targets.",
+      "needed_material": "Independent review of an appropriate supporting or benchmark destination, preserving S05 provenance and the explicit organism and linkage limitations.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "HUMAN_REVIEW"
+    }
+  ]
+}

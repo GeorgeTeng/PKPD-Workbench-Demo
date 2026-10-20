@@ -1,0 +1,492 @@
+{
+  "schema_version": "1.1",
+  "rule": "G008",
+  "step": "DEMO_DATA",
+  "input_refs": [
+    {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\B1\\main.json",
+      "sha256": "56fe3aedb8c7fe4d347f57e5590bc6fef72b4cc408697e3cc7c85af9ac7355cb"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\inventory.json",
+      "sha256": "4cb4a4f24659178575c998c110513a194ff89273c062f2fc7db9f7e8826aaa25"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\requirements.json",
+      "sha256": "1efff393f806c6def04a5af28e4baf8cda7bdca325a345295e5ed631cc6372dd"
+    },
+    {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\data_labels.json",
+      "sha256": "0b62bfd2d2184a76681d04f0aee05ea9c533696d27b4d4a9fb904a3bd5108ad5"
+    }
+  ],
+  "items": [
+    {
+      "id": "MI001",
+      "field": "Subsequent modeling requirements",
+      "status": "DEFERRED",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "Later PK modeling requirements cannot be treated as established by this Data preparation run.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\B1\\main.json",
+          "sha256": "56fe3aedb8c7fe4d347f57e5590bc6fef72b4cc408697e3cc7c85af9ac7355cb"
+        }
+      },
+      "record": {
+        "id": "MI001",
+        "field": "Subsequent modeling requirements",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Later PK modeling requirements cannot be treated as established by this Data preparation run.",
+        "why_it_matters": "The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution.",
+        "clarification": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U001",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T1 and F0002:S1:T2 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T1",
+        "reason": "F0002:S1:T1 and F0002:S1:T2 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U002",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T1 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T1",
+        "reason": "F0002:S1:T1 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U003",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T1 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T1",
+        "reason": "F0002:S1:T1 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U004",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T2 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T2",
+        "reason": "F0002:S1:T2 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U005",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T2 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T2",
+        "reason": "F0002:S1:T2 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U006",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T3 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T3",
+        "reason": "F0002:S1:T3 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U007",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T1:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T1:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T1",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T1:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T1:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U008",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T1:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T1:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T1",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T1:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T1:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U009",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T2:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T2:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T2",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T2:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T2:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U010",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T2:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T2:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T2",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T2:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T2:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U011",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T3\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]\"}, {\"source\": \"F0002:S1:T3:A20\", \"quote\": \"参比组\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T3",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T3\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]\"}, {\"source\": \"F0002:S1:T3:A20\", \"quote\": \"参比组\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U012",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T3:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T3:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T3",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T3:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T3:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U013",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T3:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T3:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T3",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T3:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T3:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U014",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "No page described the body columns A.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "LABEL_COLUMN_MISSING",
+        "affected_id": "F0002:S1:T3",
+        "reason": "No page described the body columns A.",
+        "needed_material": "Label these columns or confirm they are not needed.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U015",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T4\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]\"}, {\"source\": \"F0002:S1:T4:O20\", \"quote\": \"reference group\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T4",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T4\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]\"}, {\"source\": \"F0002:S1:T4:O20\", \"quote\": \"reference group\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U016",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T4:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T4:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T4",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T4:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T4:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U017",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T4:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T4:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T4",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T4:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T4:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U018",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "No page described the body columns O.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "LABEL_COLUMN_MISSING",
+        "affected_id": "F0002:S1:T4",
+        "reason": "No page described the body columns O.",
+        "needed_material": "Label these columns or confirm they are not needed.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U019",
+      "field": "DATA",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "User selected technical demo scope. Scientific requirement coverage, model readiness and prediction validity were not assessed in this profile.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "SCIENTIFIC_ADEQUACY_DEFERRED",
+        "affected_id": "DATA",
+        "reason": "User selected technical demo scope. Scientific requirement coverage, model readiness and prediction validity were not assessed in this profile.",
+        "needed_material": "Review requirements and retained source issues before EDA and modeling.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    }
+  ],
+  "open_item_ids": [
+    "MI001",
+    "DEMO_DATA-U001",
+    "DEMO_DATA-U002",
+    "DEMO_DATA-U003",
+    "DEMO_DATA-U004",
+    "DEMO_DATA-U005",
+    "DEMO_DATA-U006",
+    "DEMO_DATA-U007",
+    "DEMO_DATA-U008",
+    "DEMO_DATA-U009",
+    "DEMO_DATA-U010",
+    "DEMO_DATA-U011",
+    "DEMO_DATA-U012",
+    "DEMO_DATA-U013",
+    "DEMO_DATA-U014",
+    "DEMO_DATA-U015",
+    "DEMO_DATA-U016",
+    "DEMO_DATA-U017",
+    "DEMO_DATA-U018",
+    "DEMO_DATA-U019"
+  ]
+}

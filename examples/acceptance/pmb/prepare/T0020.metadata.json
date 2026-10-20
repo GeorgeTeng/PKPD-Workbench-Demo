@@ -1,214 +1,454 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0020",
-  "role": "SUPPORTING_EVIDENCE",
+  "role": "PK_OBSERVATIONS",
   "metadata": {
-    "role": "SUPPORTING_EVIDENCE",
-    "species": "mouse",
-    "matrix": "ELF; Plasma/BALF; Plasma",
-    "exposure_basis": "Plasma fraction unbound; concentration basis NOT_FOUND",
-    "record_level": "Study-level assay and missingness records; no individual concentration observations",
-    "drug": "NOT_FOUND",
-    "route": "IV in the item label IV4.12 ELF; otherwise NOT_FOUND",
-    "endpoint_window": "throughout; time bounds NOT_FOUND",
+    "role": "PK_OBSERVATIONS",
+    "species": "Neutropenic P. aeruginosa lung-infected mice",
+    "matrix": "plasma",
+    "exposure_basis": "Plasma total only; Same-study plasma fu=0.046",
+    "record_level": "Digitized plotted means from terminal samples; Caption mean+/-SD, n>=3; methods n=4/time. No SD or individual IDs recovered.",
+    "drug": "PMB",
+    "route": "IV",
+    "endpoint_window": "Nominal sampling times 0.08333333333333333–6 h; single administration at time 0.",
     "route_category": "NOT_FOUND",
-    "matrix_category": "MIXED",
-    "record_category": "NOT_APPLICABLE",
-    "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_FOUND",
-    "analyte": "NOT_FOUND",
-    "dosing_regimen": "NOT_FOUND",
+    "matrix_category": "PLASMA_SERUM_BLOOD",
+    "record_category": "GROUP_SUMMARY",
+    "observation_source": "DIGITIZED_FROM_FIGURE",
+    "dose_basis": "mg BASE/kg",
+    "analyte": "PMB",
+    "dosing_regimen": "single 4.12 mg/kg at time 0",
     "additional_roles": [
-      "BINDING"
+      "ANIMAL_CHARACTERISTICS",
+      "BINDING",
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Study",
-        "meaning": "GROUP_OR_TREATMENT",
+        "header": "Marker label",
+        "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T27:A560",
-            "quote": "Study"
+            "source": "F0003:S1:T20:A320",
+            "quote": "Marker label"
           },
           {
-            "source": "F0003:S1:T27:A561",
-            "quote": "S05"
+            "source": "F0003:S1:T20:A321",
+            "quote": "S05B-IV-plasma-4.12-01"
+          },
+          {
+            "source": "F0003:S1:T20:A328",
+            "quote": "S05B-IV-plasma-4.12-08"
+          },
+          {
+            "source": "F0003:S1:T20:A315",
+            "quote": "Source means do not establish repeated individual-animal IDs."
           }
         ],
         "column": "A"
       },
       {
-        "header": "Species",
-        "meaning": "COVARIATE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Time (h)",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [
+          "nominal times from PK methods",
+          "single 4.12 mg/kg at time 0"
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T27:B560",
-            "quote": "Species"
+            "source": "F0003:S1:T20:B320",
+            "quote": "Time (h)"
           },
           {
-            "source": "F0003:S1:T27:B561",
-            "quote": "mouse"
+            "source": "F0003:S1:T20:B321",
+            "quote": "0.08333333333333333"
+          },
+          {
+            "source": "F0003:S1:T20:B328",
+            "quote": "6"
+          },
+          {
+            "source": "F0003:S1:T20:A314",
+            "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+          },
+          {
+            "source": "F0003:S1:T20:A310",
+            "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
           }
         ],
         "column": "B"
       },
       {
-        "header": "Item",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Mean (mg/L)",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
+        "qualifiers": [
+          "Mean",
+          "plotted mean, not individual records",
+          "Plasma total only",
+          "DIGITIZED from observed markers, not fitted lines.",
+          "Concentration and pixel time are approximate; no SD or individual IDs recovered.",
+          "Caption mean+/-SD, n>=3; methods n=4/time."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T27:C560",
-            "quote": "Item"
+            "source": "F0003:S1:T20:C320",
+            "quote": "Mean (mg/L)"
           },
           {
-            "source": "F0003:S1:T27:C562",
-            "quote": "Plasma/BALF LOQ (mg/L)"
+            "source": "F0003:S1:T20:C321",
+            "quote": "23.255"
           },
           {
-            "source": "F0003:S1:T27:C563",
-            "quote": "Plasma fraction unbound"
+            "source": "F0003:S1:T20:C328",
+            "quote": "0.273"
+          },
+          {
+            "source": "F0003:S1:T20:A310",
+            "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+          },
+          {
+            "source": "F0003:S1:T20:A311",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          },
+          {
+            "source": "F0003:S1:T20:A315",
+            "quote": "Caption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs."
+          },
+          {
+            "source": "F0003:S1:T20:A316",
+            "quote": "Plasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice."
           }
         ],
         "column": "C"
       },
       {
-        "header": "Value",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
+        "header": "Pixel time (h)",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [
-          "ND/BLQ remain nonnumeric."
+          "Concentration and pixel time are approximate; no SD or individual IDs recovered.",
+          "single 4.12 mg/kg at time 0"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T27:D560",
-            "quote": "Value"
+            "source": "F0003:S1:T20:D320",
+            "quote": "Pixel time (h)"
           },
           {
-            "source": "F0003:S1:T27:A558",
-            "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
+            "source": "F0003:S1:T20:D321",
+            "quote": "0.089"
           },
           {
-            "source": "F0003:S1:T27:D561",
-            "quote": "BLQ throughout"
+            "source": "F0003:S1:T20:D328",
+            "quote": "5.994"
           },
           {
-            "source": "F0003:S1:T27:D562",
-            "quote": "0.1"
+            "source": "F0003:S1:T20:A311",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           },
           {
-            "source": "F0003:S1:T27:D563",
-            "quote": "0.046"
+            "source": "F0003:S1:T20:A310",
+            "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
           }
         ],
         "column": "D"
       },
       {
-        "header": "Meaning",
+        "header": "Pixel x",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "qualifiers": [
+          "origin top-left",
+          "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T27:E560",
-            "quote": "Meaning"
+            "source": "F0003:S1:T20:E320",
+            "quote": "Pixel x"
           },
           {
-            "source": "F0003:S1:T27:E561",
-            "quote": "No numeric curve; do not generate eight zero concentrations"
+            "source": "F0003:S1:T20:E321",
+            "quote": "145"
           },
           {
-            "source": "F0003:S1:T27:E562",
-            "quote": "ELF LOQ approx 2 mg/L; BALF and ELF are different matrices"
+            "source": "F0003:S1:T20:E328",
+            "quote": "611"
           },
           {
-            "source": "F0003:S1:T27:E563",
-            "quote": "Study assay; variability NOT_FOUND; not an ELF fraction"
+            "source": "F0003:S1:T20:A312",
+            "quote": "Image calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left."
+          },
+          {
+            "source": "F0003:S1:T20:A313",
+            "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
           }
         ],
         "column": "E"
+      },
+      {
+        "header": "Pixel y",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "origin top-left",
+          "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T20:F320",
+            "quote": "Pixel y"
+          },
+          {
+            "source": "F0003:S1:T20:F321",
+            "quote": "1074"
+          },
+          {
+            "source": "F0003:S1:T20:F328",
+            "quote": "1394"
+          },
+          {
+            "source": "F0003:S1:T20:A312",
+            "quote": "Image calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left."
+          },
+          {
+            "source": "F0003:S1:T20:A313",
+            "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+          }
+        ],
+        "column": "F"
+      },
+      {
+        "header": "Record status",
+        "meaning": "BLQ_OR_FLAG",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "DIGITIZED_MEAN",
+          "DIGITIZED from observed markers, not fitted lines."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T20:G320",
+            "quote": "Record status"
+          },
+          {
+            "source": "F0003:S1:T20:G321",
+            "quote": "DIGITIZED_MEAN"
+          },
+          {
+            "source": "F0003:S1:T20:G328",
+            "quote": "DIGITIZED_MEAN"
+          },
+          {
+            "source": "F0003:S1:T20:A311",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          }
+        ],
+        "column": "G"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Pulmonary PK source qualification and assay evidence",
+      "title": "Mouse IV 4.12 mg/kg: plasma observed mean curve",
       "sheet": "Mouse",
       "region": {
-        "start_row": 556,
-        "end_row": 565,
+        "start_row": 308,
+        "end_row": 330,
         "left": 1,
-        "right": 5,
-        "header_row": 560,
-        "title": "Pulmonary PK source qualification and assay evidence",
+        "right": 7,
+        "header_row": 320,
+        "title": "Mouse IV 4.12 mg/kg: plasma observed mean curve",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Pulmonary PK source qualification and assay evidence\nS05 | https://doi.org/10.1128/AAC.00211-17 | Methods/Fig.1; S22 | https://doi.org/10.1007/s11095-026-04194-1 | Methods/Fig.2/Supplement\nThese are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric.\nOnly rows for this worksheet species are shown; source column order and values are unchanged.",
+      "notes": "Mouse IV 4.12 mg/kg: plasma observed mean curve\nS05 | https://doi.org/10.1128/AAC.00211-17 | Figure 1, panel B; PDF embedded image\nPMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records.\nDIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered.\nImage calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left.\nSensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD.\nNeutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples.\nCaption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs.\nPlasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice.\nSame-study plasma fu=0.046 is an assay-based mean with no numeric uncertainty recovered. Do not apply to ELF.\nPlasma/BALF LOQ 0.10 mg/L; ELF approximately 2 mg/L after urea correction. IV ELF all BLQ, no pseudo-zero points.\nSource model flagged IV plasma 3 h / IT8.24 plasma 6 h as potential outlier locations; keep all observed means.",
       "column_map": {
-        "c001_study": "Study",
-        "c002_species": "Species",
-        "c003_item": "Item",
-        "c004_value": "Value",
-        "c005_meaning": "Meaning"
+        "c001_marker_label": "Marker label",
+        "c002_time_h": "Time (h)",
+        "c003_mean_mg_l": "Mean (mg/L)",
+        "c004_pixel_time_h": "Pixel time (h)",
+        "c005_pixel_x": "Pixel x",
+        "c006_pixel_y": "Pixel y",
+        "c007_record_status": "Record status"
       }
     },
-    "source_item_id": "F0003:S1:T27",
+    "source_item_id": "F0003:S1:T20",
     "source_evidence": [
       {
-        "source": "F0003:S1:T27:A558",
-        "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
+        "source": "F0003:S1:T20:A309",
+        "quote": "S05 | https://doi.org/10.1128/AAC.00211-17 | Figure 1, panel B; PDF embedded image"
       },
       {
-        "source": "F0003:S1:T27:C561",
-        "quote": "IV4.12 ELF"
+        "source": "F0003:S1:T20:A310",
+        "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
       },
       {
-        "source": "F0003:S1:T27:D561",
-        "quote": "BLQ throughout"
+        "source": "F0003:S1:T20:A311",
+        "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
       },
       {
-        "source": "F0003:S1:T27:C563",
-        "quote": "Plasma fraction unbound"
+        "source": "F0003:S1:T20:A314",
+        "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
       },
       {
-        "source": "F0003:S1:T27:B561",
-        "quote": "mouse"
+        "source": "F0003:S1:T20:A315",
+        "quote": "Caption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs."
+      },
+      {
+        "source": "F0003:S1:T20:A316",
+        "quote": "Plasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice."
+      },
+      {
+        "source": "F0003:S1:T20:A317",
+        "quote": "Same-study plasma fu=0.046 is an assay-based mean with no numeric uncertainty recovered. Do not apply to ELF."
+      },
+      {
+        "source": "F0003:S1:T20:A318",
+        "quote": "Plasma/BALF LOQ 0.10 mg/L; ELF approximately 2 mg/L after urea correction. IV ELF all BLQ, no pseudo-zero points."
+      },
+      {
+        "source": "F0003:S1:T20:A319",
+        "quote": "Source model flagged IV plasma 3 h / IT8.24 plasma 6 h as potential outlier locations; keep all observed means."
+      },
+      {
+        "source": "F0003:S1:T20:A321",
+        "quote": "S05B-IV-plasma-4.12-01"
+      },
+      {
+        "source": "F0003:S1:T20:B321",
+        "quote": "0.08333333333333333"
+      },
+      {
+        "source": "F0003:S1:T20:C321",
+        "quote": "23.255"
+      },
+      {
+        "source": "F0003:S1:T20:C322",
+        "quote": "19.145"
+      },
+      {
+        "source": "F0003:S1:T20:C323",
+        "quote": "11.45"
+      },
+      {
+        "source": "F0003:S1:T20:C324",
+        "quote": "7.341"
+      },
+      {
+        "source": "F0003:S1:T20:C325",
+        "quote": "5.484"
+      },
+      {
+        "source": "F0003:S1:T20:C326",
+        "quote": "3.516"
+      },
+      {
+        "source": "F0003:S1:T20:C327",
+        "quote": "0.414"
+      },
+      {
+        "source": "F0003:S1:T20:C328",
+        "quote": "0.273"
+      },
+      {
+        "source": "F0003:S1:T20:B328",
+        "quote": "6"
+      },
+      {
+        "source": "F0003:S1:T20:D321",
+        "quote": "0.089"
+      },
+      {
+        "source": "F0003:S1:T20:E321",
+        "quote": "145"
+      },
+      {
+        "source": "F0003:S1:T20:F321",
+        "quote": "1074"
+      },
+      {
+        "source": "F0003:S1:T20:G321",
+        "quote": "DIGITIZED_MEAN"
       }
     ],
     "requirement_ids": [
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR006",
+      "DR007",
+      "DR009",
+      "DR011"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "4.12",
+          "unit": "mg/kg",
+          "subject": "Mouse IV 4.12 mg/kg: plasma observed mean curve",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A308",
+              "quote": "Mouse IV 4.12 mg/kg: plasma observed mean curve"
+            }
+          ]
+        },
+        {
+          "quantity": "dose",
+          "value": "4.12",
+          "unit": "mg/kg",
+          "subject": "PMB; mouse; IV",
+          "qualifiers": [
+            "single",
+            "at time 0",
+            "dose in mg BASE/kg"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T20:A310",
+              "quote": "PMB; mouse; IV; single 4.12 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            },
+            {
+              "source": "F0003:S1:T20:A314",
+              "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0020.json",
-    "sha256": "adeebcf1c15dc7f848d0cb2b0b1165a2475444f36b9ef0078bd05cac5ebf8066"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0020.json",
+    "sha256": "65d79def3fac47e49062f008237ac85763fb881bd82bc8ae5ce09e429329f464"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 3,
-    "retained_records": 3,
+    "source_records": 8,
+    "retained_records": 8,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

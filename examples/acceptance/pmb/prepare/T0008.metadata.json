@@ -1,263 +1,300 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0008",
-  "role": "DOSING",
+  "role": "PD_OBSERVATIONS",
   "metadata": {
-    "role": "DOSING",
-    "species": "Mouse; FADDI-KP032; thigh infection model",
-    "matrix": "NOT_APPLICABLE",
+    "role": "PD_OBSERVATIONS",
+    "species": "Mouse; K. pneumoniae FADDI-KP132",
+    "matrix": "Lung",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "Regimen-level rows with curator-assigned labels",
-    "drug": "PMB sulphate",
+    "record_level": "Individual terminal observations within each group; mouse-column labels do not establish animal identity across groups.",
+    "drug": "Polymyxin B",
     "route": "SC",
-    "endpoint_window": "0-24 h relative to first treatment",
+    "endpoint_window": "pre-treatment at 0 h; vehicle and PMB at 24 h.",
     "route_category": "EXTRAVASCULAR",
-    "matrix_category": "NOT_APPLICABLE",
-    "record_category": "NOT_APPLICABLE",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "INDIVIDUAL",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "mg/kg per injection as reported for PMB sulphate",
-    "analyte": "NOT_FOUND",
-    "dosing_regimen": "Treatment starts 2 h after inoculation. Repeated injections occur at 0, tau, ... strictly before 24 h; listed intervals are 24, 12, 8 and 4 h.",
-    "additional_roles": [],
+    "dose_basis": "free base",
+    "analyte": "Polymyxin B",
+    "dosing_regimen": "90 mg/kg/day free base SC, divided into three doses q8h.",
+    "additional_roles": [
+      "DOSING",
+      "MIC",
+      "SUPPORTING_EVIDENCE"
+    ],
     "columns": [
       {
-        "header": "Regimen label",
+        "header": "Group",
         "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
-        "qualifiers": [
-          "Regimen labels are curator-assigned."
-        ],
+        "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T12:A145",
-            "quote": "Regimen label"
+            "source": "F0003:S1:T8:A99",
+            "quote": "Group"
           },
           {
-            "source": "F0003:S1:T12:A146",
-            "quote": "KP032-0.5-q24"
+            "source": "F0003:S1:T8:A100",
+            "quote": "Pre-treatment"
           },
           {
-            "source": "F0003:S1:T12:A143",
-            "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+            "source": "F0003:S1:T8:A101",
+            "quote": "Veichle"
+          },
+          {
+            "source": "F0003:S1:T8:A102",
+            "quote": "Polymyxin B (90mg/kg/d)"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Dose (mg/kg)",
-        "meaning": "DOSE",
-        "unit": "mg/kg",
+        "header": "Mouse 1",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
         "qualifiers": [
-          "Dose is mg/kg per injection as reported for PMB sulphate.",
-          "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained."
+          "pre-treatment at 0 h; vehicle and PMB at 24 h.",
+          "Each mouse contributes one terminal point."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T12:B145",
-            "quote": "Dose (mg/kg)"
+            "source": "F0003:S1:T8:B99",
+            "quote": "Mouse 1"
           },
           {
-            "source": "F0003:S1:T12:A141",
-            "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
+            "source": "F0003:S1:T8:A97",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
           },
           {
-            "source": "F0003:S1:T12:A144",
-            "quote": "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses."
+            "source": "F0003:S1:T8:B100",
+            "quote": "5.29"
+          },
+          {
+            "source": "F0003:S1:T8:B101",
+            "quote": "8.29"
+          },
+          {
+            "source": "F0003:S1:T8:B102",
+            "quote": "7.88"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Interval (h)",
-        "meaning": "TIME",
-        "unit": "h",
+        "header": "Mouse 2",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
         "qualifiers": [
-          "Repeated injections occur at 0, tau, ... strictly before 24 h."
+          "pre-treatment at 0 h; vehicle and PMB at 24 h.",
+          "Each mouse contributes one terminal point."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T12:C145",
-            "quote": "Interval (h)"
+            "source": "F0003:S1:T8:C99",
+            "quote": "Mouse 2"
           },
           {
-            "source": "F0003:S1:T12:C146",
-            "quote": "24"
+            "source": "F0003:S1:T8:A97",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
           },
           {
-            "source": "F0003:S1:T12:A142",
-            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+            "source": "F0003:S1:T8:C100",
+            "quote": "5.57"
+          },
+          {
+            "source": "F0003:S1:T8:C101",
+            "quote": "8.51"
+          },
+          {
+            "source": "F0003:S1:T8:C102",
+            "quote": "8.02"
           }
         ],
         "column": "C"
       },
       {
-        "header": "Strain",
-        "meaning": "GROUP_OR_TREATMENT",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Mouse 3",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h.",
+          "Each mouse contributes one terminal point."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T12:D145",
-            "quote": "Strain"
+            "source": "F0003:S1:T8:D99",
+            "quote": "Mouse 3"
           },
           {
-            "source": "F0003:S1:T12:D146",
-            "quote": "FADDI-KP032"
+            "source": "F0003:S1:T8:A97",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T8:D100",
+            "quote": "5.88"
+          },
+          {
+            "source": "F0003:S1:T8:D101",
+            "quote": "8.51"
+          },
+          {
+            "source": "F0003:S1:T8:D102",
+            "quote": "6.98"
           }
         ],
         "column": "D"
       },
       {
-        "header": "Route",
-        "meaning": "ROUTE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Mouse 4",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h.",
+          "Each mouse contributes one terminal point."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T12:E145",
-            "quote": "Route"
+            "source": "F0003:S1:T8:E99",
+            "quote": "Mouse 4"
           },
           {
-            "source": "F0003:S1:T12:E146",
-            "quote": "SC"
+            "source": "F0003:S1:T8:A97",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T8:E100",
+            "quote": "5.43"
+          },
+          {
+            "source": "F0003:S1:T8:E101",
+            "quote": "8.43"
+          },
+          {
+            "source": "F0003:S1:T8:E102",
+            "quote": "6.57"
           }
         ],
         "column": "E"
-      },
-      {
-        "header": "Window start (h)",
-        "meaning": "TIME",
-        "unit": "h",
-        "qualifiers": [
-          "Window 0-24 h is relative to first treatment."
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S1:T12:F145",
-            "quote": "Window start (h)"
-          },
-          {
-            "source": "F0003:S1:T12:F146",
-            "quote": "0"
-          },
-          {
-            "source": "F0003:S1:T12:A142",
-            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
-          }
-        ],
-        "column": "F"
-      },
-      {
-        "header": "Window end (h)",
-        "meaning": "TIME",
-        "unit": "h",
-        "qualifiers": [
-          "Window 0-24 h is relative to first treatment."
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S1:T12:G145",
-            "quote": "Window end (h)"
-          },
-          {
-            "source": "F0003:S1:T12:G146",
-            "quote": "24"
-          },
-          {
-            "source": "F0003:S1:T12:A142",
-            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
-          }
-        ],
-        "column": "G"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "2018 thigh dose-fractionation regimens",
+      "title": "Figure 3f — K. pneumoniae FADDI-KP132",
       "sheet": "Mouse",
       "region": {
-        "start_row": 139,
-        "end_row": 176,
+        "start_row": 94,
+        "end_row": 104,
         "left": 1,
-        "right": 7,
-        "header_row": 145,
-        "title": "2018 thigh dose-fractionation regimens",
+        "right": 5,
+        "header_row": 99,
+        "title": "Figure 3f — K. pneumoniae FADDI-KP132",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "2018 thigh dose-fractionation regimens\nS02 | https://doi.org/10.1093/jac/dkx409 | Animal infection models and PK/PD studies\nDose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation.\nWindow 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h.\nRegimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots.\nSource rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses.",
+      "notes": "Figure 3f — K. pneumoniae FADDI-KP132\nS21 | DOI 10.1038/s41467-022-29234-3 | Fig. 3a-g original source cells; Fig. 3 caption\nPMB MIC 8 mg/L; 90 mg/kg/day free base SC, divided into three doses q8h.\nLung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point.\nOnly PMB and baseline/vehicle arms retained. No matched measured PK for these efficacy regimens.",
       "column_map": {
-        "c001_regimen_label": "Regimen label",
-        "c002_dose_mg_kg": "Dose (mg/kg)",
-        "c003_interval_h": "Interval (h)",
-        "c004_strain": "Strain",
-        "c005_route": "Route",
-        "c006_window_start_h": "Window start (h)",
-        "c007_window_end_h": "Window end (h)"
+        "c001_group": "Group",
+        "c002_mouse_1": "Mouse 1",
+        "c003_mouse_2": "Mouse 2",
+        "c004_mouse_3": "Mouse 3",
+        "c005_mouse_4": "Mouse 4"
       }
     },
-    "source_item_id": "F0003:S1:T12",
+    "source_item_id": "F0003:S1:T8",
     "source_evidence": [
       {
-        "source": "F0003:S1:T12",
-        "quote": "\"sheet\": \"Mouse\", \"title\": \"2018 thigh dose-fractionation regimens\""
+        "source": "F0003:S1:T8",
+        "quote": "\"sheet\": \"Mouse\""
       },
       {
-        "source": "F0003:S1:T12:A140",
-        "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Animal infection models and PK/PD studies"
+        "source": "F0003:S1:T8:A94",
+        "quote": "Figure 3f — K. pneumoniae FADDI-KP132"
       },
       {
-        "source": "F0003:S1:T12:A141",
-        "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
+        "source": "F0003:S1:T8:A95",
+        "quote": "S21 | DOI 10.1038/s41467-022-29234-3 | Fig. 3a-g original source cells; Fig. 3 caption"
       },
       {
-        "source": "F0003:S1:T12:A142",
-        "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+        "source": "F0003:S1:T8:A96",
+        "quote": "PMB MIC 8 mg/L; 90 mg/kg/day free base SC, divided into three doses q8h."
       },
       {
-        "source": "F0003:S1:T12:A143",
-        "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+        "source": "F0003:S1:T8:A97",
+        "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
       },
       {
-        "source": "F0003:S1:T12:D146",
-        "quote": "FADDI-KP032"
+        "source": "F0003:S1:T8:A98",
+        "quote": "Only PMB and baseline/vehicle arms retained. No matched measured PK for these efficacy regimens."
       },
       {
-        "source": "F0003:S1:T12:E146",
-        "quote": "SC"
+        "source": "F0003:S1:T8:A102",
+        "quote": "Polymyxin B (90mg/kg/d)"
+      },
+      {
+        "source": "F0003:S1:T8:B102",
+        "quote": "7.88"
+      },
+      {
+        "source": "F0003:S1:T8:E102",
+        "quote": "6.57"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR020",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "90",
+          "unit": "mg/kg/day",
+          "subject": "PMB",
+          "qualifiers": [
+            "free base",
+            "SC",
+            "divided into three doses q8h."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T8:A96",
+              "quote": "PMB MIC 8 mg/L; 90 mg/kg/day free base SC, divided into three doses q8h."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0008.json",
-    "sha256": "24344b7f025ac1c7f23d6c16ad58f7495b9c2070f6e45227c27617273e25f23e"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0008.json",
+    "sha256": "2b0b42c0bad1b62465b65bf2d9944aade282667f5468ff294de70abf39610f00"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 29,
-    "retained_records": 29,
+    "source_records": 3,
+    "retained_records": 3,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

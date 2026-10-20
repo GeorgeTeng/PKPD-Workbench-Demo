@@ -349,8 +349,9 @@ def invoke(run, stage, payload, schema, *, model=None, generator=None, check=Non
     directory = Path(run)/'data_agents/audit'/stage/uuid4().hex
     executor = executor_id(model, generator) if check else None
     kept = Path(run)/'data_agents/kept'/(digest({'request_sha256':request['request_sha256'],'executor':executor})+'.json') if executor else None
-    candidates = [(kept, executor)] if kept else []
-    if stage == 'DP' and check and reuse_model and reuse_model != model:
+    no_reuse = os.getenv('CTXCOMP_DISABLE_RESPONSE_REUSE') == '1'
+    candidates = [(kept, executor)] if kept and not no_reuse else []
+    if not no_reuse and stage == 'DP' and check and reuse_model and reuse_model != model:
         prior_executor = executor_id(reuse_model, generator)
         if prior_executor:
             candidates.append((Path(run)/'data_agents/kept'/(digest({
@@ -361,7 +362,7 @@ def invoke(run, stage, payload, schema, *, model=None, generator=None, check=Non
             fail('DATA_AGENT_STALE_RESPONSE','Response does not belong to these exact inputs. Retry this agent.')
         return check(response) is not False if check else False
     try:
-        replay_root=os.getenv('PKPD_DEMO_REUSE_DATA_RUN','').strip()
+        replay_root='' if no_reuse else os.getenv('PKPD_DEMO_REUSE_DATA_RUN','').strip()
         if replay_root and generator is None:
             from ctxcomp.providers import executor_identity
             identity=executor_identity(model)
@@ -445,6 +446,7 @@ def invoke(run, stage, payload, schema, *, model=None, generator=None, check=Non
             import time
             from ctxcomp.providers import executor_identity
             receipt={'request_sha256':request['request_sha256'],**executor_identity(model),'timeout_seconds':timeout,
+                'response_reuse_disabled':no_reuse,
                 'started_at':utcnow(),'status':'STARTED','served_model_verified':False}
             clock=time.perf_counter()
             write_json(directory/'call.json',receipt)
@@ -881,8 +883,10 @@ def assign_access(run, main_path, inventory_path, definition_path, output, **opt
     need_ids=[n['id'] for n in definition['requirements']]
     response=invoke(run,'DR-access',{'operation':'ASSIGN_ACCESS','objective':main['objective'],
         'context_sources':sources,'project_rules':rules,'tasks':definition['tasks'],'requirements':definition['requirements'],
+        'file_registry':[{k:f[k] for k in ('id','name','kind','role','sha256') if k in f} for f in main['data']['files']],
         'inventory':[{'id':i['id'],'file_id':i['file_id'],'kind':i['kind'],'descriptor':i['descriptor']} for i in inv['items']],
         'instructions':'Account for every inventory item with an access label before body review. Do not use drug/species/name heuristics. PROTECTED stays REFERENCE_ONLY; UNASSIGNED stays NEEDS_REVIEW. Apply project-specific holdout and deferred-use restrictions before admitting any table body. Uncertain permissions stay NEEDS_REVIEW. Do not add, remove or rewrite requirements. '
+        'The file_registry binds registered original names to file IDs and content hashes. Use this exact identity mapping to resolve explicit filename permissions in project rules; names alone do not establish scientific content or grant permission. '
         'For each access item, assign candidate requirement_ids and the exact main JSON context_paths needed by its file reviewer. Include applicable permission and scope restrictions in rule_ids; do not send unrelated branch rules. Assign potential matches when metadata are ambiguous, without declaring them fulfilled or excluding a source solely by its filename. The file review must disclose relevant content outside its assigned task as a routing finding. No analyses are executed here.'},ACCESS_DEFINITION,**options)
     exact([x['item_id'] for x in response['access']],[i['id'] for i in inv['items']],'Access labels')
     rule_ids={r['id'] for r in rules}
@@ -1589,6 +1593,7 @@ def execute_preparation(context_path, plan_path, output):
     from .source_preparation import field_name,value_status
     from .preparation_semantics import row_value_statuses,dose_metadata
     from . import preparation_views as views
+    from .demo_data import PROFILE as DEMO_PROFILE
     context,main,inv,labeled=prepared_input(context_path)
     plan=read_json(plan_path);check_ref(plan['context'])
     preparation_checks.verify_frozen(plan.get('input_bindings',[]))
@@ -1614,7 +1619,12 @@ def execute_preparation(context_path, plan_path, output):
         if headers != source_headers:
             fail('DATA_HEADER_INVALID','Descriptor headers do not match source column positions: '+item['id'])
         if len(headers)!=len(set(headers)) or not all(isinstance(h,str) and h.strip() for h in headers):
-            fail('DATA_HEADER_INVALID','Nonempty, unique headers required: '+item['id'])
+            if not (plan.get('demo_profile') == context.get('demo_profile') == DEMO_PROFILE and not mapping['columns']):
+                fail('DATA_HEADER_INVALID','Nonempty, unique headers required: '+item['id'])
+            findings.append({'code':'SOURCE_HEADERS_REQUIRE_REVIEW','affected_id':item['id'],
+                'reason':'Blank, numeric or duplicate headers retained by unique positional field keys, with original headers and cell locators. No semantic mapping was inferred.',
+                'needed_material':'Confirm source column meanings and units before analysis.',
+                'required_by':'BEFORE_EDA','severity':'HUMAN_REVIEW'})
         tid=f'T{len(datasets)+1:04d}';fields={field_name(h,n+1):h for n,h in enumerate(headers)}
         selected={}
         for col in mapping['columns']:

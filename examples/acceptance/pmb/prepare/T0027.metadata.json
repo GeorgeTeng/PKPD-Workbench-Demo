@@ -1,196 +1,252 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0027",
-  "role": "BINDING",
+  "role": "PD_OBSERVATIONS",
   "metadata": {
-    "role": "BINDING",
-    "species": "Mouse",
-    "matrix": "commercial pooled serum (Equitech-Bio)",
-    "exposure_basis": "percent BOUND for polymyxin B1 only",
-    "record_level": "commercial pooled serum (Equitech-Bio); triplicate per concentration; mean ± SD",
-    "drug": "polymyxin B1",
-    "route": "NOT_APPLICABLE",
-    "endpoint_window": "NOT_APPLICABLE",
-    "route_category": "NOT_APPLICABLE",
-    "matrix_category": "PLASMA_SERUM_BLOOD",
-    "record_category": "POOLED",
+    "role": "PD_OBSERVATIONS",
+    "species": "Mouse; strains ATCC BAA-2146, FADDI-KP032 and FADDI-KP042; organism identity and host immune status NOT_FOUND",
+    "matrix": "thigh",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Reported strain-level pretreatment means, SD and n; exact animal/cohort joins were not supplied.",
+    "drug": "NOT_FOUND",
+    "route": "NOT_FOUND",
+    "endpoint_window": "0 h; pretreatment",
+    "route_category": "NOT_FOUND",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "GROUP_SUMMARY",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_APPLICABLE",
-    "analyte": "polymyxin B1",
-    "dosing_regimen": "NOT_APPLICABLE",
+    "dose_basis": "NOT_FOUND",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "NOT_FOUND",
     "additional_roles": [],
     "columns": [
       {
-        "header": "PMB concn (µg/mL)",
-        "meaning": "CONCENTRATION",
-        "unit": "µg/mL",
-        "qualifiers": [
-          "Spiked concentrations 1.25–10 µg/mL."
-        ],
+        "header": "Strain",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T35:A680",
-            "quote": "PMB concn (µg/mL)"
+            "source": "F0003:S1:T33:A659",
+            "quote": "Strain"
           },
           {
-            "source": "F0003:S1:T35:A677",
-            "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            "source": "F0003:S1:T33:A660",
+            "quote": "ATCC BAA-2146"
+          },
+          {
+            "source": "F0003:S1:T33:A661",
+            "quote": "FADDI-KP032"
+          },
+          {
+            "source": "F0003:S1:T33:A662",
+            "quote": "FADDI-KP042"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Mouse ED % bound",
-        "meaning": "BINDING",
-        "unit": "%",
+        "header": "Mean log10 CFU/thigh at 0 h",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/thigh",
         "qualifiers": [
-          "percent BOUND for polymyxin B1 only",
-          "mean ± SD"
+          "Mean",
+          "log10",
+          "at 0 h"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T35:B680",
-            "quote": "Mouse ED % bound"
+            "source": "F0003:S1:T33:B659",
+            "quote": "Mean log10 CFU/thigh at 0 h"
           },
           {
-            "source": "F0003:S1:T35:A676",
-            "quote": "Pure in-vitro spiking of commercial pooled serum (Equitech-Bio); equilibrium dialysis (ED) and ultrafiltration (UF), triplicate per concentration, 37 °C 2 h."
+            "source": "F0003:S1:T33:A655",
+            "quote": "S02 thigh pretreatment bacterial burdens"
           },
           {
-            "source": "F0003:S1:T35:A677",
-            "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            "source": "F0003:S1:T33:B660",
+            "quote": "6.3"
+          },
+          {
+            "source": "F0003:S1:T33:B661",
+            "quote": "6.81"
+          },
+          {
+            "source": "F0003:S1:T33:B662",
+            "quote": "6.92"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Mouse UF % bound",
-        "meaning": "BINDING",
-        "unit": "%",
+        "header": "SD",
+        "meaning": "SUMMARY_STATISTIC",
+        "unit": "log10 CFU/thigh",
         "qualifiers": [
-          "percent BOUND for polymyxin B1 only",
-          "mean ± SD"
+          "SD"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T35:C680",
-            "quote": "Mouse UF % bound"
+            "source": "F0003:S1:T33:C659",
+            "quote": "SD"
           },
           {
-            "source": "F0003:S1:T35:A676",
-            "quote": "Pure in-vitro spiking of commercial pooled serum (Equitech-Bio); equilibrium dialysis (ED) and ultrafiltration (UF), triplicate per concentration, 37 °C 2 h."
+            "source": "F0003:S1:T33:B659",
+            "quote": "Mean log10 CFU/thigh at 0 h"
           },
           {
-            "source": "F0003:S1:T35:A677",
-            "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+            "source": "F0003:S1:T33:A657",
+            "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
+          },
+          {
+            "source": "F0003:S1:T33:C660",
+            "quote": "0.67"
+          },
+          {
+            "source": "F0003:S1:T33:C661",
+            "quote": "0.13"
+          },
+          {
+            "source": "F0003:S1:T33:C662",
+            "quote": "0.13"
           }
         ],
         "column": "C"
+      },
+      {
+        "header": "Reported n",
+        "meaning": "SUMMARY_STATISTIC",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "Reported n"
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T33:D659",
+            "quote": "Reported n"
+          },
+          {
+            "source": "F0003:S1:T33:A657",
+            "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
+          },
+          {
+            "source": "F0003:S1:T33:D660",
+            "quote": "8"
+          },
+          {
+            "source": "F0003:S1:T33:D661",
+            "quote": "12"
+          },
+          {
+            "source": "F0003:S1:T33:D662",
+            "quote": "8"
+          }
+        ],
+        "column": "D"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Mouse serum protein binding of polymyxin B1",
+      "title": "S02 thigh pretreatment bacterial burdens",
       "sheet": "Mouse",
       "region": {
-        "start_row": 674,
-        "end_row": 687,
+        "start_row": 655,
+        "end_row": 664,
         "left": 1,
-        "right": 3,
-        "header_row": 680,
-        "title": "Mouse serum protein binding of polymyxin B1",
+        "right": 4,
+        "header_row": 659,
+        "title": "S02 thigh pretreatment bacterial burdens",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Mouse serum protein binding of polymyxin B1\nS24 | DOI 10.1128/AAC.01815-15 | Table 1 (Abodakpi et al. 2015, PMC4604353)\nPure in-vitro spiking of commercial pooled serum (Equitech-Bio); equilibrium dialysis (ED) and ultrafiltration (UF), triplicate per concentration, 37 °C 2 h.\nValues are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding.\nConflicts with S21 (rat 80% bound, UF) and S02 (mouse about 91%). Do not average sources; treat fu as a sensitivity parameter.\nOnly rows for this worksheet species are shown; human columns are stored in the separate human validation workbook.",
+      "notes": "S02 thigh pretreatment bacterial burdens\nS02 | https://doi.org/10.1093/jac/dkx409 | Results, thigh model\nReported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied.\nThese are not the separate Table 3 comparison-experiment baselines.",
       "column_map": {
-        "c001_pmb_concn_g_ml": "PMB concn (µg/mL)",
-        "c002_mouse_ed_bound": "Mouse ED % bound",
-        "c003_mouse_uf_bound": "Mouse UF % bound"
+        "c001_strain": "Strain",
+        "c002_mean_log10_cfu_thigh_at_0_h": "Mean log10 CFU/thigh at 0 h",
+        "c003_sd": "SD",
+        "c004_reported_n": "Reported n"
       }
     },
-    "source_item_id": "F0003:S1:T35",
+    "source_item_id": "F0003:S1:T33",
     "source_evidence": [
       {
-        "source": "F0003:S1:T35:A674",
-        "quote": "Mouse serum protein binding of polymyxin B1"
+        "source": "F0003:S1:T33",
+        "quote": "\"sheet\": \"Mouse\""
       },
       {
-        "source": "F0003:S1:T35:A676",
-        "quote": "Pure in-vitro spiking of commercial pooled serum (Equitech-Bio); equilibrium dialysis (ED) and ultrafiltration (UF), triplicate per concentration, 37 °C 2 h."
+        "source": "F0003:S1:T33:A655",
+        "quote": "S02 thigh pretreatment bacterial burdens"
       },
       {
-        "source": "F0003:S1:T35:A677",
-        "quote": "Values are percent BOUND for polymyxin B1 only, mean ± SD. Spiked concentrations 1.25–10 µg/mL. Not ELF or tissue binding."
+        "source": "F0003:S1:T33:A656",
+        "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Results, thigh model"
       },
       {
-        "source": "F0003:S1:T35:A678",
-        "quote": "Conflicts with S21 (rat 80% bound, UF) and S02 (mouse about 91%). Do not average sources; treat fu as a sensitivity parameter."
+        "source": "F0003:S1:T33:A657",
+        "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
       },
       {
-        "source": "F0003:S1:T35:A681",
-        "quote": "1.25"
+        "source": "F0003:S1:T33:A658",
+        "quote": "These are not the separate Table 3 comparison-experiment baselines."
       },
       {
-        "source": "F0003:S1:T35:B681",
-        "quote": "99.7 ± 1.0"
+        "source": "F0003:S1:T33:B659",
+        "quote": "Mean log10 CFU/thigh at 0 h"
       },
       {
-        "source": "F0003:S1:T35:C681",
-        "quote": "98.7 ± 0.8"
+        "source": "F0003:S1:T33:A660",
+        "quote": "ATCC BAA-2146"
       },
       {
-        "source": "F0003:S1:T35:A682",
-        "quote": "2.5"
+        "source": "F0003:S1:T33:B660",
+        "quote": "6.3"
       },
       {
-        "source": "F0003:S1:T35:B682",
-        "quote": "99.1 ± 0.2"
+        "source": "F0003:S1:T33:C660",
+        "quote": "0.67"
       },
       {
-        "source": "F0003:S1:T35:C682",
-        "quote": "97.8 ± 1.4"
+        "source": "F0003:S1:T33:D660",
+        "quote": "8"
       },
       {
-        "source": "F0003:S1:T35:A683",
-        "quote": "5"
+        "source": "F0003:S1:T33:A661",
+        "quote": "FADDI-KP032"
       },
       {
-        "source": "F0003:S1:T35:B683",
-        "quote": "99.6 ± 0.04"
+        "source": "F0003:S1:T33:B661",
+        "quote": "6.81"
       },
       {
-        "source": "F0003:S1:T35:C683",
-        "quote": "97.1 ± 1.5"
+        "source": "F0003:S1:T33:C661",
+        "quote": "0.13"
       },
       {
-        "source": "F0003:S1:T35:A684",
-        "quote": "10"
+        "source": "F0003:S1:T33:D661",
+        "quote": "12"
       },
       {
-        "source": "F0003:S1:T35:B684",
-        "quote": "99.2 ± 0.5"
+        "source": "F0003:S1:T33:A662",
+        "quote": "FADDI-KP042"
       },
       {
-        "source": "F0003:S1:T35:C684",
-        "quote": "96.9 ± 1.6"
+        "source": "F0003:S1:T33:B662",
+        "quote": "6.92"
       },
       {
-        "source": "F0003:S1:T35:A685",
-        "quote": "Mean"
+        "source": "F0003:S1:T33:C662",
+        "quote": "0.13"
       },
       {
-        "source": "F0003:S1:T35:B685",
-        "quote": "99.4"
-      },
-      {
-        "source": "F0003:S1:T35:C685",
-        "quote": "97.6"
+        "source": "F0003:S1:T33:D662",
+        "quote": "8"
       }
     ],
     "requirement_ids": [
-      "REQ_BINDING",
-      "REQ_BINDING_CONTEXT"
+      "DR001",
+      "DR002",
+      "DR020",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -198,26 +254,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0027.json",
-    "sha256": "7e4da18927e85ddf5d342eb635d4b3caf2bb02074ebbb2db4aee21bdda9fcf81"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0027.json",
+    "sha256": "3bec4387d5bf4ee6a31931cb4ac60ed0f5d565e06d8e19db2425edd2e61debd6"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 5,
-    "retained_records": 5,
+    "source_records": 3,
+    "retained_records": 3,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

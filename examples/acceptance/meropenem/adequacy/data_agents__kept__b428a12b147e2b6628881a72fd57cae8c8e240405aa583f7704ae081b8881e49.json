@@ -1,0 +1,181 @@
+{
+  "request_sha256": "da0b50c39870d336301721d4cd3a462a02f56cb145f6e277bdcf4d129734506d",
+  "labels": [
+    {
+      "item_id": "F0003:S4:T2",
+      "role": "BINDING",
+      "additional_roles": [
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR003",
+        "DR004",
+        "MC002"
+      ],
+      "species": "Rabbit; rabbit-first assignment NOT_VERIFIED; donor strain and health state NOT_FOUND",
+      "matrix": "Citrate rabbit plasma",
+      "exposure_basis": "Rabbit binding (%); protein-bound percentage, not directly measured unbound concentration or a reported fu",
+      "record_level": "Concentration-specific binding values with accompanying ± terms; n, central statistic, uncertainty definition and experimental unit NOT_FOUND",
+      "drug": "Meropenem",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "The body contains three concentration-specific binding records from in vitro microdialysis, with supporting provenance and limitations. These provide partial evidence for DR003, DR004 and MC002. Availability remains UNRESOLVED because assignment of the paired source values to rabbit is explicitly NOT_VERIFIED. The uncertainty statistic, experimental unit and binding conditions are incompletely defined. No conversion, fu selection or applicability to the rabbit infection study is established.",
+      "evidence": [
+        {
+          "source": "F0003:S4:T2:A24",
+          "quote": "Rabbit plasma protein binding by in vitro microdialysis (preprint)"
+        },
+        {
+          "source": "F0003:S4:T2:A25",
+          "quote": "S11 | DOI 10.1101/2023.03.23.534048 | Results text (Pesta et al. 2023, bioRxiv preprint, not peer reviewed)"
+        },
+        {
+          "source": "F0003:S4:T2:A26",
+          "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+        },
+        {
+          "source": "F0003:S4:T2:A27",
+          "quote": "The source writes \"+\" for \"±\"."
+        },
+        {
+          "source": "F0003:S4:T2:A29",
+          "quote": "2.5"
+        },
+        {
+          "source": "F0003:S4:T2:B29",
+          "quote": "13.8+9.5"
+        },
+        {
+          "source": "F0003:S4:T2:A30",
+          "quote": "10"
+        },
+        {
+          "source": "F0003:S4:T2:B30",
+          "quote": "11.9+7.3"
+        },
+        {
+          "source": "F0003:S4:T2:A31",
+          "quote": "100"
+        },
+        {
+          "source": "F0003:S4:T2:B31",
+          "quote": "9.7+4.6"
+        }
+      ],
+      "route_category": "NOT_APPLICABLE",
+      "matrix_category": "PLASMA_SERUM_BLOOD",
+      "record_category": "NOT_FOUND",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "Meropenem",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Meropenem concentration (µg/mL)",
+          "meaning": "CONCENTRATION",
+          "unit": "µg/mL",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S4:T2:A28",
+              "quote": "Meropenem concentration (µg/mL)"
+            },
+            {
+              "source": "F0003:S4:T2:A29",
+              "quote": "2.5"
+            },
+            {
+              "source": "F0003:S4:T2:A30",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S4:T2:A31",
+              "quote": "100"
+            }
+          ]
+        },
+        {
+          "header": "Rabbit binding (%)",
+          "meaning": "BINDING",
+          "unit": "%",
+          "qualifiers": [
+            "The source writes \"+\" for \"±\"."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S4:T2:B28",
+              "quote": "Rabbit binding (%)"
+            },
+            {
+              "source": "F0003:S4:T2:B29",
+              "quote": "13.8+9.5"
+            },
+            {
+              "source": "F0003:S4:T2:B30",
+              "quote": "11.9+7.3"
+            },
+            {
+              "source": "F0003:S4:T2:B31",
+              "quote": "9.7+4.6"
+            },
+            {
+              "source": "F0003:S4:T2:A27",
+              "quote": "The source writes \"+\" for \"±\"."
+            }
+          ]
+        }
+      ],
+      "stated_values": [
+        {
+          "quantity": "concentration",
+          "value": "10",
+          "unit": "µg/mL",
+          "subject": "rabbit and human values",
+          "qualifiers": [
+            "the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED)"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S4:T2:A26",
+              "quote": "Citrate rabbit plasma; n not reported. The text pairs rabbit and human values in one sentence per concentration; the rabbit-first order is inferred from the 10 µg/mL sentence (NOT_VERIFIED). Human values held in the separate human file."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "SPECIES_ATTRIBUTION_NOT_VERIFIED",
+      "affected_id": "F0003:S4:T2",
+      "reason": "A26 explicitly marks the rabbit-first assignment as inferred and NOT_VERIFIED. The body values exist, but their rabbit attribution remains unresolved; the rabbit header does not independently verify that attribution.",
+      "needed_material": "Authorized source-level confirmation of the rabbit value at each concentration, preserving the paired-sentence provenance and existing human-file access restrictions.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_RECORD_AND_UNCERTAINTY_DEFINITION",
+      "affected_id": "DR003",
+      "reason": "UNRESOLVED: source coordinates, concentrations, binding values and the meaning of the printed '+' marker are available. A26 states 'n not reported'; neither the central statistic, the uncertainty statistic nor the experimental unit is specified. Individual, group-summary or pooled status cannot be established from this page.",
+      "needed_material": "Source-backed definitions of the central values and ± components, sample count, experimental unit and any pooling or replication; retain unknown fields until clarified.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_BINDING_INPUT_COVERAGE",
+      "affected_id": "MC002",
+      "reason": "UNRESOLVED: reported binding percentages, concentration-specific records, citrate plasma, microdialysis and preprint provenance are available. Rabbit attribution is unverified. Temperature, pH, nonspecific binding, recovery or mass balance, donor biological context and applicability to the intended unbound endpoint are not specified on this page. The ± definition is also unresolved. These gaps do not establish that such information is absent elsewhere.",
+      "needed_material": "Verified species attribution and authorized binding-method details, reported experimental conditions, assay recovery information where available, and a documented assessment of applicability to the intended study matrix and unbound endpoint.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI005",
+      "reason": "Human validation data availability and release; status DEFERRED; needed_at validation; resolution_status OPEN; origin main:/missing_information/items/4. Human validation data are not in the supplied package. The reference tables described in SC015 are held in a separate file and released only at task 5, after the animal model, scaling and predictions are frozen. Observed human PK validation must wait for the authorized reference-data release. A26 notes that human values are held separately; it does not establish release authorization or resolve MI005.",
+      "needed_material": "At task 5, obtain the reference file only after the stated freeze conditions are satisfied, then perform independent validation.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

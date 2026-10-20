@@ -1,0 +1,146 @@
+{
+  "request_sha256": "509969d72dfc637f0fd47af9565e8716ba5856d5260261f9cc7bc5c0ba19c1c3",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T6",
+      "role": "SUPPORTING_EVIDENCE",
+      "additional_roles": [],
+      "requirement_ids": [
+        "DR001",
+        "DR002",
+        "DR007",
+        "DR008"
+      ],
+      "species": "Rabbit",
+      "matrix": "tissue including lung",
+      "exposure_basis": "NOT_FOUND",
+      "record_level": "Context record; no concentration is inferred from the reported evidence.",
+      "drug": "PMB",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "S11 is a contextual source record describing single and repeated dose tissue binding, an assay limitation and unavailable numeric concentration inputs. It supplies provenance and source-specific gaps relevant to the assigned requirements, but no concentration observations or numeric binding measurements. Requirement links represent partial contextual support only. The stated gap concerns older S11 and explicitly does not describe newer S22 curves; those curves are not supplied in this item.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T6:A54",
+          "quote": "Rabbit study record S11"
+        },
+        {
+          "source": "F0003:S3:T6:A55",
+          "quote": "S11 | DOI 10.1093/infdis/124.4.394"
+        },
+        {
+          "source": "F0003:S3:T6:A56",
+          "quote": "Context record; no concentration is inferred from the reported evidence."
+        },
+        {
+          "source": "F0003:S3:T6:A57",
+          "quote": "This gap describes this older source, not the newer S22 rabbit curves also included on this sheet."
+        },
+        {
+          "source": "F0003:S3:T6:A59",
+          "quote": "single and repeated dose tissue binding including lung"
+        },
+        {
+          "source": "F0003:S3:T6:B59",
+          "quote": "no serial PMB concentration table in audited archive"
+        },
+        {
+          "source": "F0003:S3:T6:C59",
+          "quote": "old nonspecific microbiological assay and no identified public numeric data file"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "OTHER_TISSUE",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "NOT_APPLICABLE",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "PMB",
+      "dosing_regimen": "single and repeated dose",
+      "columns": [
+        {
+          "header": "Evidence",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T6:A58",
+              "quote": "Evidence"
+            },
+            {
+              "source": "F0003:S3:T6:A59",
+              "quote": "single and repeated dose tissue binding including lung"
+            }
+          ]
+        },
+        {
+          "header": "Available data level",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T6:B58",
+              "quote": "Available data level"
+            },
+            {
+              "source": "F0003:S3:T6:B59",
+              "quote": "no serial PMB concentration table in audited archive"
+            }
+          ]
+        },
+        {
+          "header": "Unresolved limitation",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T6:C58",
+              "quote": "Unresolved limitation"
+            },
+            {
+              "source": "F0003:S3:T6:C59",
+              "quote": "old nonspecific microbiological assay and no identified public numeric data file"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_INPUT_COVERAGE",
+      "affected_id": "DR007",
+      "reason": "UNRESOLVED: S11 provides source identity, tissue context and a qualitative single/repeated dose description. B59 reports no serial PMB concentration table in the audited archive, and C59 reports no identified public numeric data file. This item supplies no concentration-time values, units, dose amounts, route, dosing times, sampling design, experimental-unit identifiers, summary definitions, variability or censoring metadata. These source-specific limitations do not establish absence elsewhere.",
+      "needed_material": "Source-backed S11 numeric observations and associated dosing, sampling, assay and experimental-unit metadata if S11 is proposed as a modeling input; otherwise retain it as contextual evidence and document its exclusion from numeric inputs.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_CARRIED",
+      "affected_id": "MI002",
+      "reason": "Status NOT_FOUND; resolution_status OPEN; needed_at adequacy. Field: Additional public rabbit PMB concentration evidence. The proposal reports that no further public rabbit PMB concentration data were found. This does not establish absence from all sources or unread attachment contents. The reported availability limit must inform the eligibility assessment of rabbit evidence. Origin: main:/missing_information/items/1. This S11 record adds a source-specific archive limitation; A57 explicitly excludes newer S22 curves from that gap.",
+      "needed_material": "At adequacy, record the scope and consequences of this source-reported availability limit and an explicit outcome for MI002. Preserve the distinction between the proposal's reported search limit and this older S11 source limitation.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_ITEM_CARRIED",
+      "affected_id": "MI003",
+      "reason": "Status DEFERRED; resolution_status OPEN; needed_at pk. Field: Rabbit model-component support. The assessment required by SC011 has not been supplied; workbook contents have not been inspected. The decision to include a rabbit model component or retain exploratory constraints remains pending. Origin: main:/missing_information/items/2. Reviewing this contextual item does not resolve component identifiability or establish coverage of the entire workbook.",
+      "needed_material": "At pk, assess component identifiability and record the inclusion, exclusion or exploratory-use decision under SC011, with supporting evidence and rationale. Preserve source discrepancies and the S11/S22 scope distinction.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "ROUTING_REVIEW",
+      "affected_id": "F0003:S3:T6",
+      "reason": "A59 describes tissue binding including lung, while C59 identifies an old nonspecific microbiological assay. This is relevant supporting context for independent binding and assay review, but it contains no numeric binding result and does not establish an unbound fraction or a pulmonary concentration profile.",
+      "needed_material": "Route the S11 binding and assay context for independent relevance review without assigning a new requirement ID or treating it as measured binding input.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

@@ -4,275 +4,385 @@
   "role": "IN_VITRO_TIME_KILL",
   "metadata": {
     "role": "IN_VITRO_TIME_KILL",
-    "species": "KPC-2 K. pneumoniae; isolates 9A, 24A, 27A",
-    "matrix": "Static time-kill in-vitro system; medium NOT_FOUND",
-    "exposure_basis": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax",
-    "record_level": "Mean ± SD of duplicate experiments by isolate, regimen and time",
+    "species": "K. pneumoniae BAA1705",
+    "matrix": "Static in-vitro exposure; medium NOT_FOUND",
+    "exposure_basis": "nominal exposure AMT (mg/L); total or unbound basis NOT_FOUND",
+    "record_level": "Source-file ID-linked nominal exposure and response records; independent replicate IDs NOT_FOUND; individual, pooled or group-summary status NOT_FOUND",
     "drug": "PMB",
     "route": "NOT_APPLICABLE",
-    "endpoint_window": "4 h, 8 h and 24 h; change from 0 h",
+    "endpoint_window": "TIME is h; observation times vary by ID. Time origin and a common response endpoint window are NOT_FOUND.",
     "route_category": "NOT_APPLICABLE",
     "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "GROUP_SUMMARY",
+    "record_category": "NOT_FOUND",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
     "analyte": "PMB",
-    "dosing_regimen": "Static concentrations 2.41 and 6 mg/L",
+    "dosing_regimen": "Static in-vitro exposure",
     "additional_roles": [
       "MIC"
     ],
     "columns": [
       {
-        "header": "KPC-Kp isolate",
+        "header": "ID",
         "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "qualifiers": [
+          "Join within source file and ID.",
+          "independent replicate IDs NOT_FOUND."
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:A116",
-            "quote": "KPC-Kp isolate"
+            "source": "F0003:S5:T1:A6",
+            "quote": "ID"
+          },
+          {
+            "source": "F0003:S5:T1:A4",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          },
+          {
+            "source": "F0003:S5:T1:A5",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+          },
+          {
+            "source": "F0003:S5:T1:A7",
+            "quote": "1"
+          },
+          {
+            "source": "F0003:S5:T1:A8",
+            "quote": "1"
           }
         ],
         "column": "A"
       },
       {
-        "header": "β-Lactamase(s)",
-        "meaning": "COVARIATE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "AMT",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
+        "qualifiers": [
+          "nominal exposure",
+          "AMT_CMT=2 rows carry nominal exposure AMT (mg/L)",
+          "A dot is missing/not applicable."
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:B116",
-            "quote": "β-Lactamase(s)"
+            "source": "F0003:S5:T1:B6",
+            "quote": "AMT"
+          },
+          {
+            "source": "F0003:S5:T1:A4",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          },
+          {
+            "source": "F0003:S5:T1:A5",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+          },
+          {
+            "source": "F0003:S5:T1:B7",
+            "quote": "1"
+          },
+          {
+            "source": "F0003:S5:T1:B8",
+            "quote": "."
+          },
+          {
+            "source": "F0003:S5:T1:B46",
+            "quote": "1e-08"
           }
         ],
         "column": "B"
       },
       {
-        "header": "PMB MIC",
-        "meaning": "MIC",
-        "unit": "mg/L",
-        "qualifiers": [],
+        "header": "AMT_CMT",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1."
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:C116",
-            "quote": "PMB MIC"
+            "source": "F0003:S5:T1:C6",
+            "quote": "AMT_CMT"
           },
           {
-            "source": "F0003:S5:T4:A114",
-            "quote": "Mean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown."
+            "source": "F0003:S5:T1:A4",
+            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+          },
+          {
+            "source": "F0003:S5:T1:C7",
+            "quote": "2"
+          },
+          {
+            "source": "F0003:S5:T1:C8",
+            "quote": "1"
           }
         ],
         "column": "C"
       },
       {
-        "header": "MERO MIC",
-        "meaning": "MIC",
-        "unit": "mg/L",
+        "header": "TIME",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T4:D116",
-            "quote": "MERO MIC"
+            "source": "F0003:S5:T1:D6",
+            "quote": "TIME"
           },
           {
-            "source": "F0003:S5:T4:A114",
-            "quote": "Mean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown."
+            "source": "F0003:S5:T1:A3",
+            "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+          },
+          {
+            "source": "F0003:S5:T1:D8",
+            "quote": "0"
+          },
+          {
+            "source": "F0003:S5:T1:D38",
+            "quote": "24"
           }
         ],
         "column": "D"
       },
       {
-        "header": "RIF MIC",
-        "meaning": "MIC",
-        "unit": "mg/L",
-        "qualifiers": [],
+        "header": "Y",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/mL",
+        "qualifiers": [
+          "log10",
+          "A dot is missing/not applicable.",
+          "CENS=1 flags censored Y."
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:E116",
-            "quote": "RIF MIC"
+            "source": "F0003:S5:T1:E6",
+            "quote": "Y"
           },
           {
-            "source": "F0003:S5:T4:A114",
-            "quote": "Mean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown."
+            "source": "F0003:S5:T1:A3",
+            "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+          },
+          {
+            "source": "F0003:S5:T1:A5",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+          },
+          {
+            "source": "F0003:S5:T1:E8",
+            "quote": "6.193124598"
+          },
+          {
+            "source": "F0003:S5:T1:E14",
+            "quote": "."
+          },
+          {
+            "source": "F0003:S5:T1:E26",
+            "quote": "0"
+          },
+          {
+            "source": "F0003:S5:T1:F26",
+            "quote": "1"
           }
         ],
         "column": "E"
       },
       {
-        "header": "Regimen",
-        "meaning": "GROUP_OR_TREATMENT",
-        "unit": "mg/L",
+        "header": "CENS",
+        "meaning": "BLQ_OR_FLAG",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax."
+          "CENS=1 flags censored Y."
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:F116",
-            "quote": "Regimen"
+            "source": "F0003:S5:T1:F6",
+            "quote": "CENS"
           },
           {
-            "source": "F0003:S5:T4:A113",
-            "quote": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments."
+            "source": "F0003:S5:T1:A5",
+            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+          },
+          {
+            "source": "F0003:S5:T1:F26",
+            "quote": "1"
+          },
+          {
+            "source": "F0003:S5:T1:F14",
+            "quote": "0"
           }
         ],
         "column": "F"
-      },
-      {
-        "header": "4 h",
-        "meaning": "RESPONSE",
-        "unit": "log10 CFU/mL",
-        "qualifiers": [
-          "change in log10 CFU/mL from 0 h",
-          "mean ± SD of duplicate experiments"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S5:T4:G116",
-            "quote": "4 h"
-          },
-          {
-            "source": "F0003:S5:T4:A113",
-            "quote": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments."
-          }
-        ],
-        "column": "G"
-      },
-      {
-        "header": "8 h",
-        "meaning": "RESPONSE",
-        "unit": "log10 CFU/mL",
-        "qualifiers": [
-          "change in log10 CFU/mL from 0 h",
-          "mean ± SD of duplicate experiments"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S5:T4:H116",
-            "quote": "8 h"
-          },
-          {
-            "source": "F0003:S5:T4:A113",
-            "quote": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments."
-          }
-        ],
-        "column": "H"
-      },
-      {
-        "header": "24 h",
-        "meaning": "RESPONSE",
-        "unit": "log10 CFU/mL",
-        "qualifiers": [
-          "change in log10 CFU/mL from 0 h",
-          "mean ± SD of duplicate experiments"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S5:T4:I116",
-            "quote": "24 h"
-          },
-          {
-            "source": "F0003:S5:T4:A113",
-            "quote": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments."
-          }
-        ],
-        "column": "I"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "KPC-2 K. pneumoniae static time-kill, PMB monotherapy",
+      "title": "K. pneumoniae BAA1705 time-kill",
       "sheet": "In_vitro_MIC",
       "region": {
-        "start_row": 111,
-        "end_row": 124,
+        "start_row": 1,
+        "end_row": 51,
         "left": 1,
-        "right": 9,
-        "header_row": 116,
-        "title": "KPC-2 K. pneumoniae static time-kill, PMB monotherapy",
+        "right": 6,
+        "header_row": 6,
+        "title": "K. pneumoniae BAA1705 time-kill",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "KPC-2 K. pneumoniae static time-kill, PMB monotherapy\nS25 | DOI 10.1128/AAC.02023-16 | Table 1 (Bulman et al. 2017, PMC5365650)\nStatic concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments.\nMean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown.\nHollow-fibre CFU time courses (Figure 1) are figure-only and not digitized.",
+      "notes": "K. pneumoniae BAA1705 time-kill\nS13 | DOI 10.1371/journal.pone.0171834 | PB_data_2.txt\nPMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h.\nAMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID.\nA dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND.",
       "column_map": {
-        "c001_kpc_kp_isolate": "KPC-Kp isolate",
-        "c002_lactamase_s": "β-Lactamase(s)",
-        "c003_pmb_mic": "PMB MIC",
-        "c004_mero_mic": "MERO MIC",
-        "c005_rif_mic": "RIF MIC",
-        "c006_regimen": "Regimen",
-        "c007_4_h": "4 h",
-        "c008_8_h": "8 h",
-        "c009_24_h": "24 h"
+        "c001_id": "ID",
+        "c002_amt": "AMT",
+        "c003_amt_cmt": "AMT_CMT",
+        "c004_time": "TIME",
+        "c005_y": "Y",
+        "c006_cens": "CENS"
       }
     },
-    "source_item_id": "F0003:S5:T4",
+    "source_item_id": "F0003:S5:T1",
     "source_evidence": [
       {
-        "source": "F0003:S5:T4:A111",
-        "quote": "KPC-2 K. pneumoniae static time-kill, PMB monotherapy"
+        "source": "F0003:S5:T1:A1",
+        "quote": "K. pneumoniae BAA1705 time-kill"
       },
       {
-        "source": "F0003:S5:T4:A112",
-        "quote": "S25 | DOI 10.1128/AAC.02023-16 | Table 1 (Bulman et al. 2017, PMC5365650)"
+        "source": "F0003:S5:T1:A2",
+        "quote": "S13 | DOI 10.1371/journal.pone.0171834 | PB_data_2.txt"
       },
       {
-        "source": "F0003:S5:T4:A113",
-        "quote": "Static concentrations 2.41 and 6 mg/L chosen as hollow-fibre projected fCmax. Values are change in log10 CFU/mL from 0 h, mean ± SD of duplicate experiments."
+        "source": "F0003:S5:T1:A3",
+        "quote": "PMB MIC 0.5 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
       },
       {
-        "source": "F0003:S5:T4:A114",
-        "quote": "Mean starting inoculum 8.19 ± 0.07 log10 CFU/mL (table footnote). MICs in mg/L. Combination arms (meropenem, rifampin) are omitted; only PMB monotherapy rows shown."
+        "source": "F0003:S5:T1:A4",
+        "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
       },
       {
-        "source": "F0003:S5:T4:A115",
-        "quote": "Hollow-fibre CFU time courses (Figure 1) are figure-only and not digitized."
+        "source": "F0003:S5:T1:A5",
+        "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
       },
       {
-        "source": "F0003:S5:T4:A117",
-        "quote": "9A"
-      },
-      {
-        "source": "F0003:S5:T4:A119",
-        "quote": "24A"
-      },
-      {
-        "source": "F0003:S5:T4:A121",
-        "quote": "27A"
-      },
-      {
-        "source": "F0003:S5:T4:C117",
-        "quote": "0.5"
-      },
-      {
-        "source": "F0003:S5:T4:C121",
+        "source": "F0003:S5:T1:A7",
         "quote": "1"
       },
       {
-        "source": "F0003:S5:T4:F117",
-        "quote": "PMB 2.41"
+        "source": "F0003:S5:T1:B7",
+        "quote": "1"
       },
       {
-        "source": "F0003:S5:T4:F118",
-        "quote": "PMB 6"
+        "source": "F0003:S5:T1:C7",
+        "quote": "2"
       },
       {
-        "source": "F0003:S5:T4:G117",
-        "quote": "−2.93 ± 0.45"
+        "source": "F0003:S5:T1:A8",
+        "quote": "1"
       },
       {
-        "source": "F0003:S5:T4:H117",
-        "quote": "−0.54 ± 0.09"
+        "source": "F0003:S5:T1:C8",
+        "quote": "1"
       },
       {
-        "source": "F0003:S5:T4:I117",
-        "quote": "0.86 ± 0.04"
+        "source": "F0003:S5:T1:D8",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T1:E8",
+        "quote": "6.193124598"
+      },
+      {
+        "source": "F0003:S5:T1:B15",
+        "quote": "2"
+      },
+      {
+        "source": "F0003:S5:T1:B22",
+        "quote": "4"
+      },
+      {
+        "source": "F0003:S5:T1:B30",
+        "quote": "8"
+      },
+      {
+        "source": "F0003:S5:T1:B39",
+        "quote": "0.5"
+      },
+      {
+        "source": "F0003:S5:T1:B46",
+        "quote": "1e-08"
+      },
+      {
+        "source": "F0003:S5:T1:D14",
+        "quote": "16"
+      },
+      {
+        "source": "F0003:S5:T1:E14",
+        "quote": "."
+      },
+      {
+        "source": "F0003:S5:T1:E26",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T1:F26",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T1:E33",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T1:F33",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T1:E34",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T1:F34",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T1:D38",
+        "quote": "24"
+      },
+      {
+        "source": "F0003:S5:T1:E38",
+        "quote": "6.597695186"
+      },
+      {
+        "source": "F0003:S5:T1:A47",
+        "quote": "6"
+      },
+      {
+        "source": "F0003:S5:T1:D47",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S5:T1:E47",
+        "quote": "6.120573931"
+      },
+      {
+        "source": "F0003:S5:T1:D48",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S5:T1:E48",
+        "quote": "6.480006943"
+      },
+      {
+        "source": "F0003:S5:T1:D49",
+        "quote": "2"
+      },
+      {
+        "source": "F0003:S5:T1:E49",
+        "quote": "7.546542663"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR021",
+      "DR022",
+      "DR023",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -280,26 +390,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0048.json",
-    "sha256": "ee40da0bffe4487b941e00de816e04fb44ae56cfb69b4bce73a513f97d4ed5dc"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0048.json",
+    "sha256": "baf2fb3de5fb45800da927af84cca14254c7ca076c814beb0b1bed6690cf1244"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 6,
-    "retained_records": 6,
+    "source_records": 43,
+    "retained_records": 43,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

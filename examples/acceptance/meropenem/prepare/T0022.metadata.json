@@ -1,316 +1,265 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0022",
-  "role": "PD_OBSERVATIONS",
+  "role": "REPORTED_PARAMETERS",
   "metadata": {
-    "role": "PD_OBSERVATIONS",
-    "species": "Rat; infection stated; strain, immune status and renal state NOT_FOUND.",
-    "matrix": "tail-vein blood for CFU sampling only; survival endpoint: NOT_APPLICABLE",
-    "exposure_basis": "Regimen labels state 40%fT > MIC, 100%fT > MIC and 100%fT > 4 × MIC; concentration basis, index window and measured attainment NOT_FOUND.",
-    "record_level": "Group survival summaries and statistical comparisons; n = 12 per group. Individual survival records NOT_FOUND.",
-    "drug": "NOT_FOUND",
+    "role": "REPORTED_PARAMETERS",
+    "species": "Neutropenic rats; septic rats; infected i.p. with 1 × 10^7 CFU; male/female 50/50. Strain, organism, renal state and pregnancy state: NOT_FOUND.",
+    "matrix": "tail-vein whole blood underlying the reported modeled attainment values",
+    "exposure_basis": "fT > MIC and fT > 4 × MIC, reported as percentages; definition of f, free/total concentration basis and binding inputs: NOT_FOUND.",
+    "record_level": "Individual-rat reported exposure summaries determined from measured concentrations and PK modeling. Subject labels 1 through 12 occur alongside four treatment-group columns; correspondence between identically numbered subjects in different groups is NOT_FOUND.",
+    "drug": "meropenem",
     "route": "s.c.",
-    "endpoint_window": "12 h of s.c. treatment from 2 h after infection, then 7 days of observation",
+    "endpoint_window": "Treatment: \"for a period of 12 h\", starting 2 h after infection. Mortality monitoring: 7 days. Concentration sampling: 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Percentage-attainment calculation window: NOT_FOUND.",
     "route_category": "EXTRAVASCULAR",
     "matrix_category": "PLASMA_SERUM_BLOOD",
-    "record_category": "GROUP_SUMMARY",
+    "record_category": "REPORTED_PARAMETER",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
-    "analyte": "NOT_FOUND",
-    "dosing_regimen": "12 h of s.c. treatment from 2 h after infection; 75 mg/kg/q6h, 75 mg/kg/q2.4h, 50 mg/kg/q2.4h, 75 mg/kg/q2h",
+    "analyte": "meropenem",
+    "dosing_regimen": "75 mg/kg/q6h; 75 mg/kg/q2.4h; 50 mg/kg/q2.4h; 75 mg/kg/q2h. \"from 2 h after infection the four groups received the regimens in the header s.c. \\\"for a period of 12 h\\\"; controls got sterile saline.\" Number of administered doses: NOT_FOUND.",
     "additional_roles": [
+      "ANIMAL_CHARACTERISTICS",
       "DOSING",
-      "REPORTED_PARAMETERS",
       "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Statistic",
-        "meaning": "OTHER",
+        "header": "Subject",
+        "meaning": "ANIMAL_ID",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T7:A81",
-            "quote": "Statistic"
+            "source": "F0003:S3:T6:A63",
+            "quote": "Subject"
           },
           {
-            "source": "F0003:S3:T7:A82",
-            "quote": "Log-rank test (p value)"
+            "source": "F0003:S3:T6:A64",
+            "quote": "1"
           },
           {
-            "source": "F0003:S3:T7:A83",
-            "quote": "Median survival time (h)"
-          },
-          {
-            "source": "F0003:S3:T7:A84",
-            "quote": "Hazard ratio (95% CI)"
+            "source": "F0003:S3:T6:A75",
+            "quote": "12"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Control",
-        "meaning": "RESPONSE",
-        "unit": "h",
+        "header": "40%fT > MIC (75 mg/kg/q6h)",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "%",
         "qualifiers": [
-          "Median survival time (h)"
+          "40%fT > MIC",
+          "75 mg/kg/q6h",
+          "determined based on the measured meropenem concentrations and PK modeling"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T7:B81",
-            "quote": "Control"
+            "source": "F0003:S3:T6:B63",
+            "quote": "40%fT > MIC (75 mg/kg/q6h)"
           },
           {
-            "source": "F0003:S3:T7:A83",
-            "quote": "Median survival time (h)"
+            "source": "F0003:S3:T6:B64",
+            "quote": "41.0%"
           },
           {
-            "source": "F0003:S3:T7:B83",
-            "quote": "76.5"
+            "source": "F0003:S3:T6:B73",
+            "quote": "39.1%"
+          },
+          {
+            "source": "F0003:S3:T6:A62",
+            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose."
           }
         ],
         "column": "B"
       },
       {
-        "header": "40%fT > MIC (75 mg/kg/q6h)",
-        "meaning": "RESPONSE",
-        "unit": "NOT_FOUND",
+        "header": "100%fT > MIC (75 mg/kg/q2.4h)",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "%",
         "qualifiers": [
-          "Log-rank test (p value)",
-          "Median survival time (h)",
-          "Hazard ratio (95% CI)"
+          "100%fT > MIC",
+          "75 mg/kg/q2.4h",
+          "determined based on the measured meropenem concentrations and PK modeling"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T7:C81",
-            "quote": "40%fT > MIC (75 mg/kg/q6h)"
+            "source": "F0003:S3:T6:C63",
+            "quote": "100%fT > MIC (75 mg/kg/q2.4h)"
           },
           {
-            "source": "F0003:S3:T7:A82",
-            "quote": "Log-rank test (p value)"
+            "source": "F0003:S3:T6:C64",
+            "quote": "100%"
           },
           {
-            "source": "F0003:S3:T7:A83",
-            "quote": "Median survival time (h)"
+            "source": "F0003:S3:T6:C70",
+            "quote": "92.9%"
           },
           {
-            "source": "F0003:S3:T7:A84",
-            "quote": "Hazard ratio (95% CI)"
-          },
-          {
-            "source": "F0003:S3:T7:C82",
-            "quote": "0.0187"
-          },
-          {
-            "source": "F0003:S3:T7:C83",
-            "quote": "138"
-          },
-          {
-            "source": "F0003:S3:T7:C84",
-            "quote": "0.3306 (0.1240, 0.8814)"
+            "source": "F0003:S3:T6:A62",
+            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose."
           }
         ],
         "column": "C"
       },
       {
-        "header": "100%fT > MIC (75 mg/kg/q2.4h)",
-        "meaning": "RESPONSE",
-        "unit": "NOT_FOUND",
+        "header": "100%fT > MIC (50 mg/kg/q2.4h)",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "%",
         "qualifiers": [
-          "Log-rank test (p value)",
-          "Median survival time (h)",
-          "Hazard ratio (95% CI)"
+          "100%fT > MIC",
+          "50 mg/kg/q2.4h",
+          "determined based on the measured meropenem concentrations and PK modeling"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T7:D81",
-            "quote": "100%fT > MIC (75 mg/kg/q2.4h)"
+            "source": "F0003:S3:T6:D63",
+            "quote": "100%fT > MIC (50 mg/kg/q2.4h)"
           },
           {
-            "source": "F0003:S3:T7:A82",
-            "quote": "Log-rank test (p value)"
+            "source": "F0003:S3:T6:D64",
+            "quote": "100%"
           },
           {
-            "source": "F0003:S3:T7:A83",
-            "quote": "Median survival time (h)"
+            "source": "F0003:S3:T6:D66",
+            "quote": "80.6%"
           },
           {
-            "source": "F0003:S3:T7:A84",
-            "quote": "Hazard ratio (95% CI)"
-          },
-          {
-            "source": "F0003:S3:T7:D82",
-            "quote": "0.0004"
-          },
-          {
-            "source": "F0003:S3:T7:D83",
-            "quote": "Undefined"
-          },
-          {
-            "source": "F0003:S3:T7:D84",
-            "quote": "0.1709 (0.0578, 0.5059)"
+            "source": "F0003:S3:T6:A62",
+            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose."
           }
         ],
         "column": "D"
       },
       {
-        "header": "100%fT > MIC (50 mg/kg/q2.4h)",
-        "meaning": "RESPONSE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [
-          "Log-rank test (p value)",
-          "Median survival time (h)",
-          "Hazard ratio (95% CI)"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S3:T7:E81",
-            "quote": "100%fT > MIC (50 mg/kg/q2.4h)"
-          },
-          {
-            "source": "F0003:S3:T7:A82",
-            "quote": "Log-rank test (p value)"
-          },
-          {
-            "source": "F0003:S3:T7:A83",
-            "quote": "Median survival time (h)"
-          },
-          {
-            "source": "F0003:S3:T7:A84",
-            "quote": "Hazard ratio (95% CI)"
-          },
-          {
-            "source": "F0003:S3:T7:E82",
-            "quote": "0.0051"
-          },
-          {
-            "source": "F0003:S3:T7:E83",
-            "quote": "167"
-          },
-          {
-            "source": "F0003:S3:T7:E84",
-            "quote": "0.2779 (0.1017, 0.7594)"
-          }
-        ],
-        "column": "E"
-      },
-      {
         "header": "100%fT > 4 × MIC (75 mg/kg/q2h)",
-        "meaning": "RESPONSE",
-        "unit": "NOT_FOUND",
+        "meaning": "PARAMETER_VALUE",
+        "unit": "%",
         "qualifiers": [
-          "Log-rank test (p value)",
-          "Median survival time (h)",
-          "Hazard ratio (95% CI)"
+          "100%fT > 4 × MIC",
+          "75 mg/kg/q2h",
+          "determined based on the measured meropenem concentrations and PK modeling"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T7:F81",
+            "source": "F0003:S3:T6:E63",
             "quote": "100%fT > 4 × MIC (75 mg/kg/q2h)"
           },
           {
-            "source": "F0003:S3:T7:A82",
-            "quote": "Log-rank test (p value)"
+            "source": "F0003:S3:T6:E64",
+            "quote": "100%"
           },
           {
-            "source": "F0003:S3:T7:A83",
-            "quote": "Median survival time (h)"
+            "source": "F0003:S3:T6:E75",
+            "quote": "89.6%"
           },
           {
-            "source": "F0003:S3:T7:A84",
-            "quote": "Hazard ratio (95% CI)"
-          },
-          {
-            "source": "F0003:S3:T7:F82",
-            "quote": "0.0008"
-          },
-          {
-            "source": "F0003:S3:T7:F83",
-            "quote": "Undefined"
-          },
-          {
-            "source": "F0003:S3:T7:F84",
-            "quote": "0.2096 (0.0730, 0.6017)"
+            "source": "F0003:S3:T6:A62",
+            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose."
           }
         ],
-        "column": "F"
+        "column": "E"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Survival outcomes vs control (7-day)",
+      "title": "Actual target attainment in individual septic rats",
       "sheet": "Rat",
       "region": {
-        "start_row": 78,
-        "end_row": 84,
+        "start_row": 59,
+        "end_row": 77,
         "left": 1,
-        "right": 6,
-        "header_row": 81,
-        "title": "Survival outcomes vs control (7-day)",
+        "right": 5,
+        "header_row": 63,
+        "title": "Actual target attainment in individual septic rats",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Survival outcomes vs control (7-day)\nS08 | DOI 10.3390/antibiotics11111660 | Table 2\nSame rats: 12 h of s.c. treatment from 2 h after infection, then 7 days of observation; n = 12 per group. Endpoint is survival, not CFU; 100 µL tail-vein blood for CFU \"At 12 h after the treatment\". CI confidence interval. Text: microbiological response \"inconclusive due to irregular bacterial counts in blood samples\".",
+      "notes": "Actual target attainment in individual septic rats\nS08 | DOI 10.3390/antibiotics11111660 | Table 1\nNeutropenic rats infected i.p. with 1 × 10^7 CFU; from 2 h after infection the four groups received the regimens in the header s.c. \"for a period of 12 h\"; controls got sterile saline. 60 rats, 5 groups of 12 (male/female 50/50). Mortality was then monitored for 7 days.\nText: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF.",
       "column_map": {
-        "c001_statistic": "Statistic",
-        "c002_control": "Control",
-        "c003_40_ft_mic_75_mg_kg_q6h": "40%fT > MIC (75 mg/kg/q6h)",
-        "c004_100_ft_mic_75_mg_kg_q2_4h": "100%fT > MIC (75 mg/kg/q2.4h)",
-        "c005_100_ft_mic_50_mg_kg_q2_4h": "100%fT > MIC (50 mg/kg/q2.4h)",
-        "c006_100_ft_4_mic_75_mg_kg_q2h": "100%fT > 4 × MIC (75 mg/kg/q2h)"
+        "c001_subject": "Subject",
+        "c002_40_ft_mic_75_mg_kg_q6h": "40%fT > MIC (75 mg/kg/q6h)",
+        "c003_100_ft_mic_75_mg_kg_q2_4h": "100%fT > MIC (75 mg/kg/q2.4h)",
+        "c004_100_ft_mic_50_mg_kg_q2_4h": "100%fT > MIC (50 mg/kg/q2.4h)",
+        "c005_100_ft_4_mic_75_mg_kg_q2h": "100%fT > 4 × MIC (75 mg/kg/q2h)"
       }
     },
-    "source_item_id": "F0003:S3:T7",
+    "source_item_id": "F0003:S3:T6",
     "source_evidence": [
       {
-        "source": "F0003:S3:T7",
-        "quote": "\"sheet\": \"Rat\""
+        "source": "F0003:S3:T6:A59",
+        "quote": "Actual target attainment in individual septic rats"
       },
       {
-        "source": "F0003:S3:T7:A79",
-        "quote": "S08 | DOI 10.3390/antibiotics11111660 | Table 2"
+        "source": "F0003:S3:T6:A60",
+        "quote": "S08 | DOI 10.3390/antibiotics11111660 | Table 1"
       },
       {
-        "source": "F0003:S3:T7:A80",
-        "quote": "Same rats: 12 h of s.c. treatment from 2 h after infection, then 7 days of observation; n = 12 per group. Endpoint is survival, not CFU; 100 µL tail-vein blood for CFU \"At 12 h after the treatment\". CI confidence interval. Text: microbiological response \"inconclusive due to irregular bacterial counts in blood samples\"."
+        "source": "F0003:S3:T6:A61",
+        "quote": "Neutropenic rats infected i.p. with 1 × 10^7 CFU; from 2 h after infection the four groups received the regimens in the header s.c. \"for a period of 12 h\"; controls got sterile saline. 60 rats, 5 groups of 12 (male/female 50/50). Mortality was then monitored for 7 days."
       },
       {
-        "source": "F0003:S3:T7:B83",
-        "quote": "76.5"
+        "source": "F0003:S3:T6:A62",
+        "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF."
       },
       {
-        "source": "F0003:S3:T7:C82",
-        "quote": "0.0187"
+        "source": "F0003:S3:T6:A64",
+        "quote": "1"
       },
       {
-        "source": "F0003:S3:T7:C83",
-        "quote": "138"
+        "source": "F0003:S3:T6:A75",
+        "quote": "12"
       },
       {
-        "source": "F0003:S3:T7:C84",
-        "quote": "0.3306 (0.1240, 0.8814)"
+        "source": "F0003:S3:T6:B63",
+        "quote": "40%fT > MIC (75 mg/kg/q6h)"
       },
       {
-        "source": "F0003:S3:T7:D83",
-        "quote": "Undefined"
+        "source": "F0003:S3:T6:B64",
+        "quote": "41.0%"
       },
       {
-        "source": "F0003:S3:T7:E83",
-        "quote": "167"
+        "source": "F0003:S3:T6:B73",
+        "quote": "39.1%"
       },
       {
-        "source": "F0003:S3:T7:F83",
-        "quote": "Undefined"
+        "source": "F0003:S3:T6:C63",
+        "quote": "100%fT > MIC (75 mg/kg/q2.4h)"
+      },
+      {
+        "source": "F0003:S3:T6:C64",
+        "quote": "100%"
+      },
+      {
+        "source": "F0003:S3:T6:C70",
+        "quote": "92.9%"
+      },
+      {
+        "source": "F0003:S3:T6:D63",
+        "quote": "100%fT > MIC (50 mg/kg/q2.4h)"
+      },
+      {
+        "source": "F0003:S3:T6:D66",
+        "quote": "80.6%"
+      },
+      {
+        "source": "F0003:S3:T6:E63",
+        "quote": "100%fT > 4 × MIC (75 mg/kg/q2h)"
+      },
+      {
+        "source": "F0003:S3:T6:E75",
+        "quote": "89.6%"
       }
     ],
     "requirement_ids": [
-      "DRQ02",
-      "DRQ03",
-      "DRQ04",
-      "DRQ05",
-      "DRQ30",
-      "DRQ36"
+      "DR003",
+      "DR004",
+      "DR006",
+      "DR020",
+      "DR022",
+      "MC009",
+      "MC012"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -318,26 +267,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0022.json",
-    "sha256": "0726921336cd2847cd751f6f4bb0248e25a9a6c8b83f301b309fb2cf6b35b9b8"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0022.json",
+    "sha256": "4bb8b3cf360668ae94222b7efc87302a94b67bf74cad9e1d686121b131adca54"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {
-    "source_records": 3,
-    "retained_records": 3,
+    "source_records": 12,
+    "retained_records": 12,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

@@ -17,6 +17,59 @@ from fastapi import HTTPException
 
 
 class LightweightTests(unittest.TestCase):
+    def test_raw_demo_preserves_blank_numeric_and_duplicate_headers_by_position(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            source = folder/'source.xlsx'
+            source.write_bytes(b'unchanged source fixture')
+            headers = [None, 1, 1, 'h']
+            values = [headers, ['group', 2, 4, 1], ['group', '=B2', 8, 2]]
+            snapshot = write_json(folder/'snapshot.json', {'kind':'xlsx', 'sheets':[{
+                'name':'Sheet1', 'cells':[{'row':r, 'column':c, 'value':v,
+                    'data_type':'f' if v == '=B2' else 's' if isinstance(v,str) else 'n'}
+                    for r,row in enumerate(values,1) for c,v in enumerate(row,1)]}]})
+            item = {'id':'A', 'file_id':'F1', 'kind':'TABLE', 'source':file_ref(source),
+                'snapshot':file_ref(snapshot), 'sheet_index':0,
+                'region':{'left':1,'right':4,'header_row':1,'end_row':3},
+                'descriptor':{'headers':headers,'title':'Raw table','source_notes':''}}
+            inv = {'items':[item, {**item,'id':'RESTRICTED'}], 'files':[]}
+            label = {**dict.fromkeys(data_agents.LABEL_FIELDS, 'NOT_FOUND'),
+                'item_id':'A','role':'SOURCE_TABLE','additional_roles':[], 'columns':[],
+                'evidence':[],'requirement_ids':[]}
+            labels = {'labels':[label]}
+            main = {'objective':'Preserve raw data'}
+            req = write_json(folder/'requirements.json', {'access':[
+                {'item_id':'A','disposition':'REVIEW_DATA'},
+                {'item_id':'RESTRICTED','disposition':'REFERENCE_ONLY'}]})
+            assessment = write_json(folder/'assessment.json', {'demo_profile':demo_data.PROFILE,
+                'execution_scope':demo_data.SCOPE, 'technical_review':{'executor':'HOST_PROGRAM','decision':'PASS'},
+                'scientific_release':False,'fit_ready':False})
+            context = {'demo_profile':demo_data.PROFILE,'assessment':file_ref(assessment),
+                'requirements':file_ref(req),'labels':file_ref(write_json(folder/'labels.json',labels)),'approval':{}}
+            context_path = write_json(folder/'context.json', context)
+            plan = folder/'plan.json'
+            with patch.object(data_agents,'prepared_input',return_value=(context,main,inv,labels)), \
+                 patch.object(data_agents,'dp_gate_evidence'):
+                demo_data.plan_preparation(folder,context_path,plan)
+                self.assertEqual(json.loads(plan.read_text())['tables'][0]['action'], 'PREPARE')
+                data_agents.execute_preparation(context_path,plan,folder/'out')
+                manifest=json.loads((folder/'out/normalization_manifest.json').read_text())
+                self.assertEqual(len(manifest['datasets']),1)
+                dataset=manifest['datasets'][0]
+                self.assertEqual(list(dataset['metadata']['source_table']['column_map'].values()),headers)
+                self.assertEqual(dataset['summary']['retained_records'],1)
+                self.assertEqual(dataset['summary']['quarantined_records'],1)
+                record=json.loads(Path(dataset['data']['path']).read_text())['records'][0]
+                self.assertEqual(list(record['source_raw_values'].values()),values[1])
+                self.assertEqual(list(record['source_cells'].values()),['A2','B2','C2','D2'])
+                self.assertEqual(json.loads((folder/'out/program_qc.json').read_text())['decision'],'PASS')
+                findings=json.loads((folder/'out/qc_findings.json').read_text())['findings']
+                self.assertIn('SOURCE_HEADERS_REQUIRE_REVIEW',[f['code'] for f in findings])
+                strict=json.loads(plan.read_text());strict.pop('demo_profile')
+                strict_path=write_json(folder/'strict.json',strict)
+                with self.assertRaisesRegex(ValueError,'Nonempty, unique headers'):
+                    data_agents.execute_preparation(context_path,strict_path,folder/'strict-out')
+
     def fixture(self, folder):
         main = {'objective': 'Preserve source data.', 'data': {'files': []}}
         inv = {'items': [{'id': 'A', 'kind': 'TABLE'}], 'findings': []}

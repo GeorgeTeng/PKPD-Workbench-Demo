@@ -1,0 +1,410 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "enum": [
+        "01aa395e4181b7041efbd02f711470e42dbe8f9916ca9fa577bdf08836f24d2c"
+      ]
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "PK_OBSERVATIONS",
+              "PD_OBSERVATIONS",
+              "DOSING",
+              "MIC",
+              "BINDING",
+              "IN_VITRO_TIME_KILL",
+              "URINE_EXCRETION",
+              "IN_VITRO_CLEARANCE",
+              "REPORTED_PARAMETERS",
+              "ANIMAL_CHARACTERISTICS",
+              "MODEL_CATALOG",
+              "SUPPORTING_EVIDENCE",
+              "SOURCE_TABLE"
+            ]
+          },
+          "additional_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "PK_OBSERVATIONS",
+                "PD_OBSERVATIONS",
+                "DOSING",
+                "MIC",
+                "BINDING",
+                "IN_VITRO_TIME_KILL",
+                "URINE_EXCRETION",
+                "IN_VITRO_CLEARANCE",
+                "REPORTED_PARAMETERS",
+                "ANIMAL_CHARACTERISTICS",
+                "MODEL_CATALOG",
+                "SUPPORTING_EVIDENCE",
+                "SOURCE_TABLE"
+              ]
+            },
+            "minItems": 0
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "species": {
+            "type": "string",
+            "minLength": 1
+          },
+          "matrix": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exposure_basis": {
+            "type": "string",
+            "minLength": 1
+          },
+          "record_level": {
+            "type": "string",
+            "minLength": 1
+          },
+          "drug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "route": {
+            "type": "string",
+            "minLength": 1
+          },
+          "endpoint_window": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "source",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "route_category": {
+            "type": "string",
+            "enum": [
+              "IV_BOLUS",
+              "IV_INFUSION",
+              "EXTRAVASCULAR",
+              "NOT_APPLICABLE",
+              "MIXED",
+              "NOT_FOUND"
+            ]
+          },
+          "matrix_category": {
+            "type": "string",
+            "enum": [
+              "PLASMA_SERUM_BLOOD",
+              "URINE",
+              "INFECTION_SITE",
+              "OTHER_TISSUE",
+              "IN_VITRO_SYSTEM",
+              "NOT_APPLICABLE",
+              "MIXED",
+              "NOT_FOUND"
+            ]
+          },
+          "record_category": {
+            "type": "string",
+            "enum": [
+              "INDIVIDUAL",
+              "GROUP_SUMMARY",
+              "POOLED",
+              "REPORTED_PARAMETER",
+              "NOT_APPLICABLE",
+              "MIXED",
+              "NOT_FOUND"
+            ]
+          },
+          "observation_source": {
+            "type": "string",
+            "enum": [
+              "SOURCE_VALUES",
+              "DIGITIZED_FROM_FIGURE",
+              "NOT_APPLICABLE",
+              "MIXED",
+              "NOT_FOUND"
+            ]
+          },
+          "dose_basis": {
+            "type": "string",
+            "minLength": 1
+          },
+          "analyte": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dosing_regimen": {
+            "type": "string",
+            "minLength": 1
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "header": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "meaning": {
+                  "type": "string",
+                  "enum": [
+                    "TIME",
+                    "CONCENTRATION",
+                    "DOSE",
+                    "ROUTE",
+                    "ANIMAL_ID",
+                    "GROUP_OR_TREATMENT",
+                    "RESPONSE",
+                    "MIC",
+                    "BINDING",
+                    "URINE_VOLUME",
+                    "URINE_AMOUNT",
+                    "PARAMETER_VALUE",
+                    "SUMMARY_STATISTIC",
+                    "REPLICATE",
+                    "BLQ_OR_FLAG",
+                    "COVARIATE",
+                    "OTHER"
+                  ]
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "qualifiers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 0
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "quote": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "source",
+                      "quote"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "header",
+                "meaning",
+                "unit",
+                "qualifiers",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "stated_values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "subject": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "qualifiers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 0
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "quote": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "source",
+                      "quote"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "quantity",
+                "value",
+                "unit",
+                "subject",
+                "qualifiers",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "item_id",
+          "role",
+          "additional_roles",
+          "requirement_ids",
+          "species",
+          "matrix",
+          "exposure_basis",
+          "record_level",
+          "drug",
+          "route",
+          "endpoint_window",
+          "reason",
+          "evidence",
+          "route_category",
+          "matrix_category",
+          "record_category",
+          "observation_source",
+          "dose_basis",
+          "analyte",
+          "dosing_regimen",
+          "columns",
+          "stated_values"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affected_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "needed_material": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_by": {
+            "type": "string",
+            "enum": [
+              "BEFORE_QC",
+              "BEFORE_EDA",
+              "BEFORE_MODELING",
+              "BEFORE_INDEX_ANALYSIS",
+              "BEFORE_TRANSLATION",
+              "BEFORE_PTA",
+              "FINAL_VALIDATION"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "BLOCK",
+              "HUMAN_REVIEW",
+              "FOLLOW_UP"
+            ]
+          }
+        },
+        "required": [
+          "code",
+          "affected_id",
+          "reason",
+          "needed_material",
+          "required_by",
+          "severity"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "request_sha256",
+    "labels",
+    "findings"
+  ],
+  "additionalProperties": false
+}

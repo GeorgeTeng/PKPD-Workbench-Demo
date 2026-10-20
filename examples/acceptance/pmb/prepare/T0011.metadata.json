@@ -4,35 +4,41 @@
   "role": "BINDING",
   "metadata": {
     "role": "BINDING",
-    "species": "mouse",
-    "matrix": "plasma",
-    "exposure_basis": "percent BOUND",
-    "record_level": "pooled plasma samples",
-    "drug": "PMB",
-    "route": "NOT_APPLICABLE",
+    "species": "Mouse; S01: Infected treated mice; S02: Spiked pooled infected-neutropenic mouse plasma; strain NOT_FOUND",
+    "matrix": "Plasma",
+    "exposure_basis": "S01: Unbound, Mean (%); S02: Bound, Mean (%)",
+    "record_level": "Study-specific means and SD; S02 explicitly uses pooled plasma. Sample counts, replicate identities and S01 pooling status are NOT_FOUND.",
+    "drug": "NOT_FOUND",
+    "route": "NOT_FOUND",
     "endpoint_window": "NOT_FOUND",
-    "route_category": "NOT_APPLICABLE",
+    "route_category": "NOT_FOUND",
     "matrix_category": "PLASMA_SERUM_BLOOD",
-    "record_category": "POOLED",
+    "record_category": "MIXED",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
-    "analyte": "PMB",
+    "analyte": "NOT_FOUND",
     "dosing_regimen": "NOT_FOUND",
-    "additional_roles": [],
+    "additional_roles": [
+      "SUPPORTING_EVIDENCE"
+    ],
     "columns": [
       {
-        "header": "Species",
-        "meaning": "COVARIATE",
+        "header": "Study",
+        "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T15:A212",
-            "quote": "Species"
+            "source": "F0003:S1:T11:A134",
+            "quote": "Study"
           },
           {
-            "source": "F0003:S1:T15:A213",
-            "quote": "mouse"
+            "source": "F0003:S1:T11:A135",
+            "quote": "S01"
+          },
+          {
+            "source": "F0003:S1:T11:A136",
+            "quote": "S02"
           }
         ],
         "column": "A"
@@ -42,86 +48,80 @@
         "meaning": "BINDING",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "Values below are percent BOUND."
+          "Unbound",
+          "Bound"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T15:B212",
+            "source": "F0003:S1:T11:B134",
             "quote": "Reported measure"
           },
           {
-            "source": "F0003:S1:T15:B213",
-            "quote": "Bound"
+            "source": "F0003:S1:T11:B135",
+            "quote": "Unbound"
           },
           {
-            "source": "F0003:S1:T15:A209",
-            "quote": "Values below are percent BOUND. Derive fu as 1-bound/100; uncertainty of these binding percentages is not reported here."
+            "source": "F0003:S1:T11:B136",
+            "quote": "Bound"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Value (%)",
+        "header": "Mean (%)",
         "meaning": "BINDING",
         "unit": "%",
         "qualifiers": [
-          "Values below are percent BOUND."
+          "Mean",
+          "Unbound",
+          "Bound"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T15:C212",
-            "quote": "Value (%)"
+            "source": "F0003:S1:T11:C134",
+            "quote": "Mean (%)"
           },
           {
-            "source": "F0003:S1:T15:C213",
-            "quote": "95"
+            "source": "F0003:S1:T11:B135",
+            "quote": "Unbound"
           },
           {
-            "source": "F0003:S1:T15:A209",
-            "quote": "Values below are percent BOUND. Derive fu as 1-bound/100; uncertainty of these binding percentages is not reported here."
+            "source": "F0003:S1:T11:C135",
+            "quote": "20"
+          },
+          {
+            "source": "F0003:S1:T11:B136",
+            "quote": "Bound"
+          },
+          {
+            "source": "F0003:S1:T11:C136",
+            "quote": "91.4"
           }
         ],
         "column": "C"
       },
       {
-        "header": "Uncertainty",
+        "header": "SD (percentage points)",
         "meaning": "SUMMARY_STATISTIC",
-        "unit": "NOT_FOUND",
+        "unit": "percentage points",
         "qualifiers": [
-          "uncertainty of these binding percentages is not reported here."
+          "SD"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T15:D212",
-            "quote": "Uncertainty"
+            "source": "F0003:S1:T11:D134",
+            "quote": "SD (percentage points)"
           },
           {
-            "source": "F0003:S1:T15:D213",
-            "quote": "NOT_REPORTED"
+            "source": "F0003:S1:T11:D135",
+            "quote": "4"
           },
           {
-            "source": "F0003:S1:T15:A209",
-            "quote": "Values below are percent BOUND. Derive fu as 1-bound/100; uncertainty of these binding percentages is not reported here."
+            "source": "F0003:S1:T11:D136",
+            "quote": "1.65"
           }
         ],
         "column": "D"
-      },
-      {
-        "header": "Matrix",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
-        "evidence": [
-          {
-            "source": "F0003:S1:T15:E212",
-            "quote": "Matrix"
-          },
-          {
-            "source": "F0003:S1:T15:E213",
-            "quote": "plasma"
-          }
-        ],
-        "column": "E"
       },
       {
         "header": "Method",
@@ -130,12 +130,37 @@
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T15:F212",
+            "source": "F0003:S1:T11:E134",
             "quote": "Method"
           },
           {
-            "source": "F0003:S1:T15:F213",
-            "quote": "Ultrafiltration / LC-MS/MS"
+            "source": "F0003:S1:T11:E135",
+            "quote": "Ultrafiltration; adsorption-corrected"
+          },
+          {
+            "source": "F0003:S1:T11:E136",
+            "quote": "Ultracentrifugation"
+          }
+        ],
+        "column": "E"
+      },
+      {
+        "header": "Plasma material",
+        "meaning": "COVARIATE",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "evidence": [
+          {
+            "source": "F0003:S1:T11:F134",
+            "quote": "Plasma material"
+          },
+          {
+            "source": "F0003:S1:T11:F135",
+            "quote": "Infected treated mice"
+          },
+          {
+            "source": "F0003:S1:T11:F136",
+            "quote": "Spiked pooled infected-neutropenic mouse plasma"
           }
         ],
         "column": "F"
@@ -143,70 +168,109 @@
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Rodent plasma protein binding in the 2022 source study",
+      "title": "Mouse plasma protein binding",
       "sheet": "Mouse",
       "region": {
-        "start_row": 205,
-        "end_row": 215,
+        "start_row": 130,
+        "end_row": 138,
         "left": 1,
         "right": 6,
-        "header_row": 212,
-        "title": "Rodent plasma protein binding in the 2022 source study",
+        "header_row": 134,
+        "title": "Mouse plasma protein binding",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Rodent plasma protein binding in the 2022 source study\nS21 | DOI 10.1038/s41467-022-29234-3 | Results: Efficacy and pharmacokinetics of F365; Methods: Pharmacokinetic studies\nPMB values only. Pooled species plasma was spiked with PMB and assessed by ultrafiltration with LC-MS/MS.\nThe methods report n=3 pooled plasma samples per species; this is not three independent PK animals.\nValues below are percent BOUND. Derive fu as 1-bound/100; uncertainty of these binding percentages is not reported here.\nUse only for an explicitly reviewed S21 species-matched plasma calculation. Not for S01/S02, ELF or whole-lung tissue.\nOnly rows for this worksheet species are shown; source column order and values are unchanged.",
+      "notes": "Mouse plasma protein binding\nS01 | https://doi.org/10.1093/jac/dkad022 | Protein binding; S02 | https://doi.org/10.1093/jac/dkx409 | Results\nThese are study-specific measurements. The two assays and plasma preparation procedures differ.\nDo not borrow a free fraction between studies or use plasma fu as ELF/tissue fu. Percent is not fraction.",
       "column_map": {
-        "c001_species": "Species",
+        "c001_study": "Study",
         "c002_reported_measure": "Reported measure",
-        "c003_value": "Value (%)",
-        "c004_uncertainty": "Uncertainty",
-        "c005_matrix": "Matrix",
-        "c006_method": "Method"
+        "c003_mean": "Mean (%)",
+        "c004_sd_percentage_points": "SD (percentage points)",
+        "c005_method": "Method",
+        "c006_plasma_material": "Plasma material"
       }
     },
-    "source_item_id": "F0003:S1:T15",
+    "source_item_id": "F0003:S1:T11",
     "source_evidence": [
       {
-        "source": "F0003:S1:T15:A207",
-        "quote": "PMB values only. Pooled species plasma was spiked with PMB and assessed by ultrafiltration with LC-MS/MS."
+        "source": "F0003:S1:T11:A130",
+        "quote": "Mouse plasma protein binding"
       },
       {
-        "source": "F0003:S1:T15:A208",
-        "quote": "The methods report n=3 pooled plasma samples per species; this is not three independent PK animals."
+        "source": "F0003:S1:T11:A131",
+        "quote": "S01 | https://doi.org/10.1093/jac/dkad022 | Protein binding; S02 | https://doi.org/10.1093/jac/dkx409 | Results"
       },
       {
-        "source": "F0003:S1:T15:A209",
-        "quote": "Values below are percent BOUND. Derive fu as 1-bound/100; uncertainty of these binding percentages is not reported here."
+        "source": "F0003:S1:T11:A132",
+        "quote": "These are study-specific measurements. The two assays and plasma preparation procedures differ."
       },
       {
-        "source": "F0003:S1:T15:A213",
-        "quote": "mouse"
+        "source": "F0003:S1:T11:A133",
+        "quote": "Do not borrow a free fraction between studies or use plasma fu as ELF/tissue fu. Percent is not fraction."
       },
       {
-        "source": "F0003:S1:T15:B213",
+        "source": "F0003:S1:T11:A135",
+        "quote": "S01"
+      },
+      {
+        "source": "F0003:S1:T11:B135",
+        "quote": "Unbound"
+      },
+      {
+        "source": "F0003:S1:T11:C134",
+        "quote": "Mean (%)"
+      },
+      {
+        "source": "F0003:S1:T11:C135",
+        "quote": "20"
+      },
+      {
+        "source": "F0003:S1:T11:D134",
+        "quote": "SD (percentage points)"
+      },
+      {
+        "source": "F0003:S1:T11:D135",
+        "quote": "4"
+      },
+      {
+        "source": "F0003:S1:T11:E135",
+        "quote": "Ultrafiltration; adsorption-corrected"
+      },
+      {
+        "source": "F0003:S1:T11:F135",
+        "quote": "Infected treated mice"
+      },
+      {
+        "source": "F0003:S1:T11:A136",
+        "quote": "S02"
+      },
+      {
+        "source": "F0003:S1:T11:B136",
         "quote": "Bound"
       },
       {
-        "source": "F0003:S1:T15:C213",
-        "quote": "95"
+        "source": "F0003:S1:T11:C136",
+        "quote": "91.4"
       },
       {
-        "source": "F0003:S1:T15:D213",
-        "quote": "NOT_REPORTED"
+        "source": "F0003:S1:T11:D136",
+        "quote": "1.65"
       },
       {
-        "source": "F0003:S1:T15:E213",
-        "quote": "plasma"
+        "source": "F0003:S1:T11:E136",
+        "quote": "Ultracentrifugation"
       },
       {
-        "source": "F0003:S1:T15:F213",
-        "quote": "Ultrafiltration / LC-MS/MS"
+        "source": "F0003:S1:T11:F136",
+        "quote": "Spiked pooled infected-neutropenic mouse plasma"
       }
     ],
     "requirement_ids": [
-      "REQ_BINDING",
-      "REQ_BINDING_CONTEXT"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR009",
+      "DR011"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -214,26 +278,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0011.json",
-    "sha256": "d1c50c4c3341a17ee5be5c3b198134440ef7624439af2c0ab7efdaf622a7a73a"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0011.json",
+    "sha256": "09991321b138670f3274109831fb2ea326744a33c90327df06a3a8d108829f36"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 1,
-    "retained_records": 1,
+    "source_records": 2,
+    "retained_records": 2,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

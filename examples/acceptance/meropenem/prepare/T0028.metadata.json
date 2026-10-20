@@ -1,23 +1,23 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0028",
-  "role": "REPORTED_PARAMETERS",
+  "role": "PK_OBSERVATIONS",
   "metadata": {
-    "role": "REPORTED_PARAMETERS",
-    "species": "Female dogs",
-    "matrix": "plasma",
-    "exposure_basis": "NOT_FOUND",
-    "record_level": "Reported AUC, T1/2 and C0; each value mean ± SE of 3 dogs.",
-    "drug": "meropenem",
+    "role": "PK_OBSERVATIONS",
+    "species": "Male dogs; strain and health or infection state NOT_FOUND",
+    "matrix": "Kidney; Plasma; Mesentric lymph node; Gall bladder; Caecum; Lung; Stomach; Pancreas; Skin; Tongue; Testis; Large intestine; Pituitary; Cervical lymph node; Liver; Bile; Adrenal gland; Small intestine; Fat (white); Heart; Spleen; Muscle; Eye; Bone (marrow); Tyroid gland; Brain; Cerebrospinal fluid",
+    "exposure_basis": "Total radioactivity (µg eq/g), not unchanged drug. Total or unbound drug basis NOT_FOUND.",
+    "record_level": "one dog per time point; destructive sampling; animal identifiers NOT_FOUND",
+    "drug": "[14C]meropenem",
     "route": "IV",
-    "endpoint_window": "days 1 and 14; AUC integration window NOT_FOUND",
+    "endpoint_window": "5 min, 45 min or 6 h; time after administration",
     "route_category": "NOT_FOUND",
-    "matrix_category": "PLASMA_SERUM_BLOOD",
-    "record_category": "REPORTED_PARAMETER",
+    "matrix_category": "MIXED",
+    "record_category": "INDIVIDUAL",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
-    "analyte": "unlabeled meropenem",
-    "dosing_regimen": "unlabeled meropenem 120 mg/kg IV once daily for 14 days",
+    "analyte": "Total radioactivity",
+    "dosing_regimen": "NOT_FOUND",
     "additional_roles": [
       "ANIMAL_CHARACTERISTICS",
       "DOSING",
@@ -25,258 +25,386 @@
     ],
     "columns": [
       {
-        "header": "Parameter",
+        "header": "Tissue",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T4:A68",
-            "quote": "Parameter"
+            "source": "F0003:S5:T3:A34",
+            "quote": "Tissue"
           },
           {
-            "source": "F0003:S5:T4:A69",
-            "quote": "AUC (µg·min/ml)"
+            "source": "F0003:S5:T3:A35",
+            "quote": "Kidney"
           },
           {
-            "source": "F0003:S5:T4:A70",
-            "quote": "T1/2 (min)"
+            "source": "F0003:S5:T3:A36",
+            "quote": "Plasma"
           },
           {
-            "source": "F0003:S5:T4:A71",
-            "quote": "C0 (mg/ml)"
+            "source": "F0003:S5:T3:A61",
+            "quote": "Cerebrospinal fluid"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Day 1",
-        "meaning": "PARAMETER_VALUE",
-        "unit": "NOT_FOUND",
+        "header": "5 min a)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg eq/g",
         "qualifiers": [
-          "mean ± SE of 3 dogs"
+          "Total radioactivity (µg eq/g), not unchanged drug.",
+          "a) time after administration"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:B68",
-            "quote": "Day 1"
+            "source": "F0003:S5:T3:B34",
+            "quote": "5 min a)"
           },
           {
-            "source": "F0003:S5:T4:A69",
-            "quote": "AUC (µg·min/ml)"
+            "source": "F0003:S5:T3:A33",
+            "quote": "Total radioactivity (µg eq/g), not unchanged drug. Male dogs given [14C]meropenem 120 mg/kg IV, one dog per time point, killed with IV pentobarbital at 5 min, 45 min or 6 h. a) time after administration; b) not available; c) not detectable (limit of detection for brain = 0.2 µg eq/g)."
           },
           {
-            "source": "F0003:S5:T4:A70",
-            "quote": "T1/2 (min)"
+            "source": "F0003:S5:T3:B35",
+            "quote": "1387"
           },
           {
-            "source": "F0003:S5:T4:A71",
-            "quote": "C0 (mg/ml)"
-          },
-          {
-            "source": "F0003:S5:T4:A66",
-            "quote": "Each value mean ± SE of 3 dogs."
-          },
-          {
-            "source": "F0003:S5:T4:B69",
-            "quote": "34.1 ± 1.6"
-          },
-          {
-            "source": "F0003:S5:T4:B70",
-            "quote": "42 ± 2"
-          },
-          {
-            "source": "F0003:S5:T4:B71",
-            "quote": "1.08 ± 0.08"
+            "source": "F0003:S5:T3:B61",
+            "quote": "< 1"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Day 14",
-        "meaning": "PARAMETER_VALUE",
-        "unit": "NOT_FOUND",
+        "header": "45 min",
+        "meaning": "CONCENTRATION",
+        "unit": "µg eq/g",
         "qualifiers": [
-          "mean ± SE of 3 dogs"
+          "Total radioactivity (µg eq/g), not unchanged drug.",
+          "time after administration"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T4:C68",
-            "quote": "Day 14"
+            "source": "F0003:S5:T3:C34",
+            "quote": "45 min"
           },
           {
-            "source": "F0003:S5:T4:A69",
-            "quote": "AUC (µg·min/ml)"
+            "source": "F0003:S5:T3:A33",
+            "quote": "Total radioactivity (µg eq/g), not unchanged drug. Male dogs given [14C]meropenem 120 mg/kg IV, one dog per time point, killed with IV pentobarbital at 5 min, 45 min or 6 h. a) time after administration; b) not available; c) not detectable (limit of detection for brain = 0.2 µg eq/g)."
           },
           {
-            "source": "F0003:S5:T4:A70",
-            "quote": "T1/2 (min)"
+            "source": "F0003:S5:T3:C35",
+            "quote": "1278"
           },
           {
-            "source": "F0003:S5:T4:A71",
-            "quote": "C0 (mg/ml)"
-          },
-          {
-            "source": "F0003:S5:T4:A66",
-            "quote": "Each value mean ± SE of 3 dogs."
-          },
-          {
-            "source": "F0003:S5:T4:C69",
-            "quote": "27.9 ± 1.1"
-          },
-          {
-            "source": "F0003:S5:T4:C70",
-            "quote": "45 ± 2"
-          },
-          {
-            "source": "F0003:S5:T4:C71",
-            "quote": "0.96 ± 0.06"
+            "source": "F0003:S5:T3:C61",
+            "quote": "2"
           }
         ],
         "column": "C"
+      },
+      {
+        "header": "6 h",
+        "meaning": "CONCENTRATION",
+        "unit": "µg eq/g",
+        "qualifiers": [
+          "Total radioactivity (µg eq/g), not unchanged drug.",
+          "time after administration",
+          "b) not available",
+          "c) not detectable (limit of detection for brain = 0.2 µg eq/g)"
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S5:T3:D34",
+            "quote": "6 h"
+          },
+          {
+            "source": "F0003:S5:T3:A33",
+            "quote": "Total radioactivity (µg eq/g), not unchanged drug. Male dogs given [14C]meropenem 120 mg/kg IV, one dog per time point, killed with IV pentobarbital at 5 min, 45 min or 6 h. a) time after administration; b) not available; c) not detectable (limit of detection for brain = 0.2 µg eq/g)."
+          },
+          {
+            "source": "F0003:S5:T3:D35",
+            "quote": "112"
+          },
+          {
+            "source": "F0003:S5:T3:D47",
+            "quote": "— b)"
+          },
+          {
+            "source": "F0003:S5:T3:D53",
+            "quote": "< 1"
+          },
+          {
+            "source": "F0003:S5:T3:D59",
+            "quote": "< 1"
+          },
+          {
+            "source": "F0003:S5:T3:D60",
+            "quote": "ND c)"
+          },
+          {
+            "source": "F0003:S5:T3:D61",
+            "quote": "< 1"
+          }
+        ],
+        "column": "D"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV",
+      "title": "Tissue 14C after [14C]meropenem 120 mg/kg IV",
       "sheet": "Dog",
       "region": {
-        "start_row": 64,
-        "end_row": 73,
+        "start_row": 31,
+        "end_row": 63,
         "left": 1,
-        "right": 3,
-        "header_row": 68,
-        "title": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV",
+        "right": 4,
+        "header_row": 34,
+        "title": "Tissue 14C after [14C]meropenem 120 mg/kg IV",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV\nS03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 4\nFemale dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized).\nUnits as printed: the table gives AUC in µg·min/ml and C0 in mg/ml; the text gives AUC as 34.1 and 27.9 mg·min/ml and T1/2 42 and 45 min.",
+      "notes": "Tissue 14C after [14C]meropenem 120 mg/kg IV\nS03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 3\nTotal radioactivity (µg eq/g), not unchanged drug. Male dogs given [14C]meropenem 120 mg/kg IV, one dog per time point, killed with IV pentobarbital at 5 min, 45 min or 6 h. a) time after administration; b) not available; c) not detectable (limit of detection for brain = 0.2 µg eq/g).",
       "column_map": {
-        "c001_parameter": "Parameter",
-        "c002_day_1": "Day 1",
-        "c003_day_14": "Day 14"
+        "c001_tissue": "Tissue",
+        "c002_5_min_a": "5 min a)",
+        "c003_45_min": "45 min",
+        "c004_6_h": "6 h"
       }
     },
-    "source_item_id": "F0003:S5:T4",
+    "source_item_id": "F0003:S5:T3",
     "source_evidence": [
       {
-        "source": "F0003:S5:T4:A65",
-        "quote": "S03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 4"
+        "source": "F0003:S5:T3:A31",
+        "quote": "Tissue 14C after [14C]meropenem 120 mg/kg IV"
       },
       {
-        "source": "F0003:S5:T4:A66",
-        "quote": "Female dogs n = 3, unlabeled meropenem 120 mg/kg IV once daily for 14 days; plasma sampled at set times after the day 1 and day 14 doses. Each value mean ± SE of 3 dogs. Concentration curves for days 1 and 14 are in Fig. 3 only (not digitized)."
+        "source": "F0003:S5:T3:A32",
+        "quote": "S03 | DOI 10.11250/chemotherapy1953.40.Supplement1_145 | Table 3"
       },
       {
-        "source": "F0003:S5:T4:A67",
-        "quote": "Units as printed: the table gives AUC in µg·min/ml and C0 in mg/ml; the text gives AUC as 34.1 and 27.9 mg·min/ml and T1/2 42 and 45 min."
+        "source": "F0003:S5:T3:A33",
+        "quote": "Total radioactivity (µg eq/g), not unchanged drug. Male dogs given [14C]meropenem 120 mg/kg IV, one dog per time point, killed with IV pentobarbital at 5 min, 45 min or 6 h. a) time after administration; b) not available; c) not detectable (limit of detection for brain = 0.2 µg eq/g)."
       },
       {
-        "source": "F0003:S5:T4:A69",
-        "quote": "AUC (µg·min/ml)"
+        "source": "F0003:S5:T3:A35",
+        "quote": "Kidney"
       },
       {
-        "source": "F0003:S5:T4:B69",
-        "quote": "34.1 ± 1.6"
+        "source": "F0003:S5:T3:A36",
+        "quote": "Plasma"
       },
       {
-        "source": "F0003:S5:T4:C69",
-        "quote": "27.9 ± 1.1"
+        "source": "F0003:S5:T3:A37",
+        "quote": "Mesentric lymph node"
       },
       {
-        "source": "F0003:S5:T4:A70",
-        "quote": "T1/2 (min)"
+        "source": "F0003:S5:T3:A38",
+        "quote": "Gall bladder"
       },
       {
-        "source": "F0003:S5:T4:B70",
-        "quote": "42 ± 2"
+        "source": "F0003:S5:T3:A39",
+        "quote": "Caecum"
       },
       {
-        "source": "F0003:S5:T4:C70",
-        "quote": "45 ± 2"
+        "source": "F0003:S5:T3:A40",
+        "quote": "Lung"
       },
       {
-        "source": "F0003:S5:T4:A71",
-        "quote": "C0 (mg/ml)"
+        "source": "F0003:S5:T3:A41",
+        "quote": "Stomach"
       },
       {
-        "source": "F0003:S5:T4:B71",
-        "quote": "1.08 ± 0.08"
+        "source": "F0003:S5:T3:A42",
+        "quote": "Pancreas"
       },
       {
-        "source": "F0003:S5:T4:C71",
-        "quote": "0.96 ± 0.06"
+        "source": "F0003:S5:T3:A43",
+        "quote": "Skin"
+      },
+      {
+        "source": "F0003:S5:T3:A44",
+        "quote": "Tongue"
+      },
+      {
+        "source": "F0003:S5:T3:A45",
+        "quote": "Testis"
+      },
+      {
+        "source": "F0003:S5:T3:A46",
+        "quote": "Large intestine"
+      },
+      {
+        "source": "F0003:S5:T3:A47",
+        "quote": "Pituitary"
+      },
+      {
+        "source": "F0003:S5:T3:A48",
+        "quote": "Cervical lymph node"
+      },
+      {
+        "source": "F0003:S5:T3:A49",
+        "quote": "Liver"
+      },
+      {
+        "source": "F0003:S5:T3:A50",
+        "quote": "Bile"
+      },
+      {
+        "source": "F0003:S5:T3:A51",
+        "quote": "Adrenal gland"
+      },
+      {
+        "source": "F0003:S5:T3:A52",
+        "quote": "Small intestine"
+      },
+      {
+        "source": "F0003:S5:T3:A53",
+        "quote": "Fat (white)"
+      },
+      {
+        "source": "F0003:S5:T3:A54",
+        "quote": "Heart"
+      },
+      {
+        "source": "F0003:S5:T3:A55",
+        "quote": "Spleen"
+      },
+      {
+        "source": "F0003:S5:T3:A56",
+        "quote": "Muscle"
+      },
+      {
+        "source": "F0003:S5:T3:A57",
+        "quote": "Eye"
+      },
+      {
+        "source": "F0003:S5:T3:A58",
+        "quote": "Bone (marrow)"
+      },
+      {
+        "source": "F0003:S5:T3:A59",
+        "quote": "Tyroid gland"
+      },
+      {
+        "source": "F0003:S5:T3:A60",
+        "quote": "Brain"
+      },
+      {
+        "source": "F0003:S5:T3:A61",
+        "quote": "Cerebrospinal fluid"
+      },
+      {
+        "source": "F0003:S5:T3:B36",
+        "quote": "560"
+      },
+      {
+        "source": "F0003:S5:T3:C36",
+        "quote": "235"
+      },
+      {
+        "source": "F0003:S5:T3:D36",
+        "quote": "5"
+      },
+      {
+        "source": "F0003:S5:T3:B40",
+        "quote": "157"
+      },
+      {
+        "source": "F0003:S5:T3:C40",
+        "quote": "78"
+      },
+      {
+        "source": "F0003:S5:T3:D40",
+        "quote": "3"
+      },
+      {
+        "source": "F0003:S5:T3:B61",
+        "quote": "< 1"
+      },
+      {
+        "source": "F0003:S5:T3:C61",
+        "quote": "2"
+      },
+      {
+        "source": "F0003:S5:T3:D61",
+        "quote": "< 1"
+      },
+      {
+        "source": "F0003:S5:T3:D47",
+        "quote": "— b)"
+      },
+      {
+        "source": "F0003:S5:T3:D53",
+        "quote": "< 1"
+      },
+      {
+        "source": "F0003:S5:T3:D59",
+        "quote": "< 1"
+      },
+      {
+        "source": "F0003:S5:T3:D60",
+        "quote": "ND c)"
       }
     ],
     "requirement_ids": [
-      "DRQ01",
-      "DRQ02",
-      "DRQ03",
-      "DRQ04",
-      "DRQ08",
-      "DRQ17"
+      "DR003",
+      "DR004",
+      "DR008",
+      "DR010",
+      "MC001"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
-      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
-      "candidates": [
+      "status": "SOURCE_STATED",
+      "value": "120",
+      "unit": "mg/kg",
+      "route": "IV",
+      "dose_basis": "NOT_FOUND",
+      "dosing_regimen": "NOT_FOUND",
+      "qualifiers": [
+        "Male dogs",
+        "IV"
+      ],
+      "evidence": [
         {
-          "quantity": "NOT_FOUND",
-          "value": "120",
-          "unit": "mg/kg/day",
-          "subject": "Meropenem",
-          "qualifiers": [
-            "IV"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S5:T4:A64",
-              "quote": "Meropenem PK on days 1 and 14 of 120 mg/kg/day IV"
-            }
-          ]
+          "source": "F0003:S5:T3:A31",
+          "quote": "Tissue 14C after [14C]meropenem 120 mg/kg IV"
         },
         {
-          "quantity": "NOT_FOUND",
-          "value": "120",
-          "unit": "mg/kg",
-          "subject": "unlabeled meropenem",
-          "qualifiers": [
-            "IV once daily for 14 days"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S5:T4:A66",
-              "quote": "unlabeled meropenem 120 mg/kg IV once daily for 14 days"
-            }
-          ]
+          "source": "F0003:S5:T3:A33",
+          "quote": "Male dogs given [14C]meropenem 120 mg/kg IV"
         }
       ],
+      "applicability": "SOURCE_TABLE_ONLY",
       "per_record_assignment": false
     },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0028.json",
-    "sha256": "6ff12c9062e6f9d3d747d81eac367715273c71951da9730cfa0f81323c33e4c8"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0028.json",
+    "sha256": "de1933fa2b3f8398bf072594ac41a5e38dae69504d9428981b5fb67feae59f05"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {
-    "source_records": 3,
-    "retained_records": 3,
+    "source_records": 27,
+    "retained_records": 27,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

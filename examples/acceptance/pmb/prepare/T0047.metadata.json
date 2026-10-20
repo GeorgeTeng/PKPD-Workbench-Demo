@@ -1,125 +1,277 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0047",
-  "role": "MIC",
+  "role": "SUPPORTING_EVIDENCE",
   "metadata": {
-    "role": "MIC",
-    "species": "K. pneumoniae",
-    "matrix": "NOT_FOUND",
+    "role": "SUPPORTING_EVIDENCE",
+    "species": "rabbit",
+    "matrix": "Plasma; lung",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "aggregate MIC frequencies",
+    "record_level": "Context/missingness records; article/supplement support group-mean digitization only",
     "drug": "NOT_FOUND",
-    "route": "NOT_APPLICABLE",
+    "route": "SC (SC lung Fig.2 vs S5 Cmax); NOT_FOUND for other rows",
     "endpoint_window": "NOT_FOUND",
-    "route_category": "NOT_APPLICABLE",
-    "matrix_category": "NOT_FOUND",
-    "record_category": "GROUP_SUMMARY",
-    "observation_source": "SOURCE_VALUES",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "MIXED",
+    "record_category": "NOT_APPLICABLE",
+    "observation_source": "NOT_APPLICABLE",
     "dose_basis": "NOT_FOUND",
     "analyte": "NOT_FOUND",
     "dosing_regimen": "NOT_FOUND",
     "additional_roles": [],
     "columns": [
       {
-        "header": "MIC (mg/L)",
-        "meaning": "MIC",
-        "unit": "mg/L",
+        "header": "Study",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T3:A98",
-            "quote": "MIC (mg/L)"
+            "source": "F0003:S3:T14:A191",
+            "quote": "Study"
           },
           {
-            "source": "F0003:S5:T3:A99",
-            "quote": "0.125"
-          },
-          {
-            "source": "F0003:S5:T3:A108",
-            "quote": ">32"
+            "source": "F0003:S3:T14:A192",
+            "quote": "S22"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Percentage",
-        "meaning": "SUMMARY_STATISTIC",
-        "unit": "Percentage",
-        "qualifiers": [
-          "Frequencies are reported percentages",
-          "The reported percentages sum to 99.57. The discrepancy remains unresolved."
-        ],
+        "header": "Species",
+        "meaning": "COVARIATE",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T3:B98",
-            "quote": "Percentage"
+            "source": "F0003:S3:T14:B191",
+            "quote": "Species"
           },
           {
-            "source": "F0003:S5:T3:A96",
-            "quote": "652 isolates; MIC50=MIC90=0.5 mg/L. Frequencies are reported percentages; retain without renormalization."
-          },
-          {
-            "source": "F0003:S5:T3:A97",
-            "quote": "The reported percentages sum to 99.57. The discrepancy remains unresolved."
-          },
-          {
-            "source": "F0003:S5:T3:B99",
-            "quote": "0.46"
+            "source": "F0003:S3:T14:B192",
+            "quote": "rabbit"
           }
         ],
         "column": "B"
+      },
+      {
+        "header": "Item",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "evidence": [
+          {
+            "source": "F0003:S3:T14:C191",
+            "quote": "Item"
+          },
+          {
+            "source": "F0003:S3:T14:C192",
+            "quote": "Plasma protocol vs figure"
+          },
+          {
+            "source": "F0003:S3:T14:C193",
+            "quote": "SC lung Fig.2 vs S5 Cmax"
+          },
+          {
+            "source": "F0003:S3:T14:C194",
+            "quote": "Measured rabbit plasma fu"
+          },
+          {
+            "source": "F0003:S3:T14:C195",
+            "quote": "Individual concentration data"
+          }
+        ],
+        "column": "C"
+      },
+      {
+        "header": "Value",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "evidence": [
+          {
+            "source": "F0003:S3:T14:D191",
+            "quote": "Value"
+          },
+          {
+            "source": "F0003:S3:T14:D192",
+            "quote": "UNRESOLVED"
+          },
+          {
+            "source": "F0003:S3:T14:D193",
+            "quote": "UNRESOLVED"
+          },
+          {
+            "source": "F0003:S3:T14:D194",
+            "quote": "NOT_FOUND"
+          },
+          {
+            "source": "F0003:S3:T14:D195",
+            "quote": "NOT_FOUND"
+          }
+        ],
+        "column": "D"
+      },
+      {
+        "header": "Meaning",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "evidence": [
+          {
+            "source": "F0003:S3:T14:E191",
+            "quote": "Meaning"
+          },
+          {
+            "source": "F0003:S3:T14:E192",
+            "quote": "Plotted times/count inconsistent with seven nominal blood times"
+          },
+          {
+            "source": "F0003:S3:T14:E193",
+            "quote": "Figure approx 0.78 mg/L vs reported 0.41 mg/L; do not rescale"
+          },
+          {
+            "source": "F0003:S3:T14:E194",
+            "quote": "Model uses borrowed value; not observed rabbit binding"
+          },
+          {
+            "source": "F0003:S3:T14:E195",
+            "quote": "Article/supplement support group-mean digitization only"
+          }
+        ],
+        "column": "E"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "K. pneumoniae surveillance MIC distribution",
-      "sheet": "In_vitro_MIC",
+      "title": "Pulmonary PK source qualification and assay evidence",
+      "sheet": "Rabbit",
       "region": {
-        "start_row": 94,
-        "end_row": 110,
+        "start_row": 187,
+        "end_row": 195,
         "left": 1,
-        "right": 2,
-        "header_row": 98,
-        "title": "K. pneumoniae surveillance MIC distribution",
+        "right": 5,
+        "header_row": 191,
+        "title": "Pulmonary PK source qualification and assay evidence",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "K. pneumoniae surveillance MIC distribution\nS14 | DOI 10.3389/fphar.2021.785893 | aggregate MIC frequencies\n652 isolates; MIC50=MIC90=0.5 mg/L. Frequencies are reported percentages; retain without renormalization.\nThe reported percentages sum to 99.57. The discrepancy remains unresolved.",
+      "notes": "Pulmonary PK source qualification and assay evidence\nS05 | https://doi.org/10.1128/AAC.00211-17 | Methods/Fig.1; S22 | https://doi.org/10.1007/s11095-026-04194-1 | Methods/Fig.2/Supplement\nThese are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric.\nOnly rows for this worksheet species are shown; source column order and values are unchanged.",
       "column_map": {
-        "c001_mic_mg_l": "MIC (mg/L)",
-        "c002_percentage": "Percentage"
+        "c001_study": "Study",
+        "c002_species": "Species",
+        "c003_item": "Item",
+        "c004_value": "Value",
+        "c005_meaning": "Meaning"
       }
     },
-    "source_item_id": "F0003:S5:T3",
+    "source_item_id": "F0003:S3:T14",
     "source_evidence": [
       {
-        "source": "F0003:S5:T3:A94",
-        "quote": "K. pneumoniae surveillance MIC distribution"
+        "source": "F0003:S3:T14:A187",
+        "quote": "Pulmonary PK source qualification and assay evidence"
       },
       {
-        "source": "F0003:S5:T3:A95",
-        "quote": "S14 | DOI 10.3389/fphar.2021.785893 | aggregate MIC frequencies"
+        "source": "F0003:S3:T14:A188",
+        "quote": "S05 | https://doi.org/10.1128/AAC.00211-17 | Methods/Fig.1; S22 | https://doi.org/10.1007/s11095-026-04194-1 | Methods/Fig.2/Supplement"
       },
       {
-        "source": "F0003:S5:T3:A96",
-        "quote": "652 isolates; MIC50=MIC90=0.5 mg/L. Frequencies are reported percentages; retain without renormalization."
+        "source": "F0003:S3:T14:A189",
+        "quote": "These are context/missingness records, not additional concentration observations. ND/BLQ remain nonnumeric."
       },
       {
-        "source": "F0003:S5:T3:A97",
-        "quote": "The reported percentages sum to 99.57. The discrepancy remains unresolved."
+        "source": "F0003:S3:T14:A190",
+        "quote": "Only rows for this worksheet species are shown; source column order and values are unchanged."
       },
       {
-        "source": "F0003:S5:T3:A108",
-        "quote": ">32"
+        "source": "F0003:S3:T14:A192",
+        "quote": "S22"
       },
       {
-        "source": "F0003:S5:T3:B99",
-        "quote": "0.46"
+        "source": "F0003:S3:T14:B192",
+        "quote": "rabbit"
+      },
+      {
+        "source": "F0003:S3:T14:C192",
+        "quote": "Plasma protocol vs figure"
+      },
+      {
+        "source": "F0003:S3:T14:D192",
+        "quote": "UNRESOLVED"
+      },
+      {
+        "source": "F0003:S3:T14:E192",
+        "quote": "Plotted times/count inconsistent with seven nominal blood times"
+      },
+      {
+        "source": "F0003:S3:T14:A193",
+        "quote": "S22"
+      },
+      {
+        "source": "F0003:S3:T14:B193",
+        "quote": "rabbit"
+      },
+      {
+        "source": "F0003:S3:T14:C193",
+        "quote": "SC lung Fig.2 vs S5 Cmax"
+      },
+      {
+        "source": "F0003:S3:T14:D193",
+        "quote": "UNRESOLVED"
+      },
+      {
+        "source": "F0003:S3:T14:E193",
+        "quote": "Figure approx 0.78 mg/L vs reported 0.41 mg/L; do not rescale"
+      },
+      {
+        "source": "F0003:S3:T14:A194",
+        "quote": "S22"
+      },
+      {
+        "source": "F0003:S3:T14:B194",
+        "quote": "rabbit"
+      },
+      {
+        "source": "F0003:S3:T14:C194",
+        "quote": "Measured rabbit plasma fu"
+      },
+      {
+        "source": "F0003:S3:T14:D194",
+        "quote": "NOT_FOUND"
+      },
+      {
+        "source": "F0003:S3:T14:E194",
+        "quote": "Model uses borrowed value; not observed rabbit binding"
+      },
+      {
+        "source": "F0003:S3:T14:A195",
+        "quote": "S22"
+      },
+      {
+        "source": "F0003:S3:T14:B195",
+        "quote": "rabbit"
+      },
+      {
+        "source": "F0003:S3:T14:C195",
+        "quote": "Individual concentration data"
+      },
+      {
+        "source": "F0003:S3:T14:D195",
+        "quote": "NOT_FOUND"
+      },
+      {
+        "source": "F0003:S3:T14:E195",
+        "quote": "Article/supplement support group-mean digitization only"
       }
     ],
     "requirement_ids": [
-      "REQ_PREP_SOURCE",
-      "REQ_PTA_MIC"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR004",
+      "DR007",
+      "DR008",
+      "DR011"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -127,26 +279,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0047.json",
-    "sha256": "98b9991678fea2f857bdc4b2bf9fa7541324e6856291158af1b706aef2794386"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0047.json",
+    "sha256": "6f743d77f7af65608df228cd79fb899c4279c5886b047c8c2fe52b5456c59581"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 10,
-    "retained_records": 10,
+    "source_records": 4,
+    "retained_records": 4,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

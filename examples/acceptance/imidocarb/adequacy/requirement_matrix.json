@@ -1,0 +1,487 @@
+{
+  "demo_profile": "SOURCE_PRESERVING_DEMO_1.0",
+  "status": "NOT_ASSESSED_IN_DEMO",
+  "requirements": [
+    {
+      "id": "DRQ001",
+      "task_id": "TASK001",
+      "description": "Maintain the published source-use boundary: the designated workbook supplies observations, the notes supply cited context, and article conclusions retain their historical evidence status.",
+      "kind": "SOURCE_PERMISSION",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "designated observational source",
+        "context-only source",
+        "source-use restrictions",
+        "historical conclusion attribution"
+      ],
+      "rule_ids": [
+        "R001"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R001",
+          "quote": "R001: Use Imidocarb_cattle_source.xlsx as the supplied observational source and Imidocarb_source_notes.txt only as cited source context. Treat the article's conclusions as historical statements, not validation by this workflow. Do not browse for or add external data."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Apply throughout this Data preparation run.",
+        "Source designation does not establish file accessibility, input coverage or scientific adequacy.",
+        "Do not browse for or add external data."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ002",
+      "task_id": "TASK001",
+      "description": "Require a register identifying every supplied file and its recorded hash.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "supplied file identity",
+        "file hash"
+      ],
+      "rule_ids": [
+        "R002"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R002",
+          "quote": "R002: Register every supplied file and its hash."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Include every supplied file; registration does not expand its permitted use."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ003",
+      "task_id": "TASK001",
+      "description": "Require a source-linked inventory of workbook tables and their original measurement, identity, timing and summary structure.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "workbook table identity",
+        "original headers",
+        "sampling times",
+        "animal IDs",
+        "formulation groups",
+        "measurement values",
+        "units when stated",
+        "summary columns",
+        "formula columns"
+      ],
+      "rule_ids": [
+        "R003",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R003",
+          "quote": "R003: Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+        },
+        {
+          "source": "rule:R004",
+          "quote": "R004: Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        },
+        {
+          "source": "main:/study/regimen",
+          "quote": "NOT_FOUND"
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Preserve source relationships between tables, headers, times, IDs, groups and values without inferring unsupported bindings.",
+        "Record units only when stated; retain missing or ambiguous metadata.",
+        "The context regimen is unspecified; do not invent dosing events, a time origin or an analysis window."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ004",
+      "task_id": "TASK001",
+      "description": "Preserve literal source values and cell-level provenance while distinguishing individual observations from reported summaries.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "raw value",
+        "original cell coordinate",
+        "source formula",
+        "missing metadata",
+        "ambiguous metadata",
+        "individual observation or reported summary classification"
+      ],
+      "rule_ids": [
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R004",
+          "quote": "R004: Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Apply to every retained observation, reported summary and formula.",
+        "Preserve uncertainty in classification when the source does not establish the record type."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ005",
+      "task_id": "TASK001",
+      "description": "Require explicit source bindings before joining tables or treating repeated IDs across groups as a shared subject identity.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source-local animal ID",
+        "formulation group",
+        "table identity",
+        "explicit source binding for any proposed join or cross-group identity"
+      ],
+      "rule_ids": [
+        "R005"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R005",
+          "quote": "R005: Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Apply whenever cross-table joins or cross-group subject relationships are considered.",
+        "Without an explicit binding, retain separate source scopes and the unresolved identity."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ006",
+      "task_id": "TASK001",
+      "description": "Require source-bound labels, literal tables, a data dictionary and a cleaning record as reviewable Data preparation artifacts.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source-bound labels",
+        "literal tables",
+        "data dictionary",
+        "cleaning record"
+      ],
+      "rule_ids": [
+        "R006"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R006",
+          "quote": "R006: Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Labels and dictionary entries must preserve source meaning and unresolved metadata.",
+        "Artifact creation does not authorize prohibited transformations."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ007",
+      "task_id": "TASK001",
+      "description": "Apply the explicit transformation prohibitions throughout Data preparation.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "concentration values",
+        "blank cells",
+        "source formulas",
+        "individual records",
+        "original units",
+        "group orientation",
+        "group separation",
+        "cleaning actions"
+      ],
+      "rule_ids": [
+        "R007"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R007",
+          "quote": "R007: Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Do not impute concentrations or reinterpret blanks as zero.",
+        "Do not recompute source formulas, average records, convert units, transpose or pool groups."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ008",
+      "task_id": "TASK001",
+      "description": "Require an unresolved ledger that keeps uncertain structure, sampling identity, formula results and metadata bindings visible through the Data handoff.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "unresolved item ID",
+        "affected table structure",
+        "affected sampling identity",
+        "affected formula result",
+        "affected metadata binding",
+        "source reference",
+        "status",
+        "needed phase",
+        "impact",
+        "resolution status"
+      ],
+      "rule_ids": [
+        "R008",
+        "R011"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R008",
+          "quote": "R008: Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review."
+        },
+        {
+          "source": "rule:R011",
+          "quote": "R011: Defer missing modeling requirements for subsequent human review rather than silently resolving them."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Preserve unresolved information without silently inferring a resolution.",
+        "Forward MI001 with its existing identity, deferred status, meaning and PK timing."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ009",
+      "task_id": "TASK001",
+      "description": "Retain the Context review checkpoint and its output signatures.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "Context review checkpoint",
+        "review outcome",
+        "reviewed output signatures",
+        "approval mode"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "R009: Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Automatic approval is authorized only within this technical demo.",
+        "Retain the checkpoint even when demo automatic approval is used."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ010",
+      "task_id": "TASK001",
+      "description": "Require the QC report, Data handoff and recorded Data review checkpoint with output signatures before completing this run.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "QC report",
+        "Data handoff",
+        "Data review checkpoint",
+        "review outcome",
+        "reviewed output signatures",
+        "approval mode",
+        "forwarded unresolved ledger"
+      ],
+      "rule_ids": [
+        "R006",
+        "R008",
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R006",
+          "quote": "R006: Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        },
+        {
+          "source": "rule:R009",
+          "quote": "R009: Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "The run ends after source-preserving Data preparation and its recorded review gate.",
+        "Automatic approval remains limited to this technical demo.",
+        "Review completion does not close deferred modeling requirements or establish scientific validity."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ011",
+      "task_id": "TASK001",
+      "description": "Maintain the current run's authorization boundary throughout preparation and handoff.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "authorized stage scope",
+        "downstream-use restrictions",
+        "scientific release restriction"
+      ],
+      "rule_ids": [
+        "R010"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R010",
+          "quote": "R010: No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run."
+        },
+        {
+          "source": "main:/objective",
+          "quote": "Organize the supplied imidocarb cattle workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run ends after source-preserving Data preparation and its recorded review gate."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Later descriptive EDA and PK modeling are intended downstream uses, not execution permissions for this run.",
+        "Do not introduce analytical endpoints, numerical sufficiency criteria or scientific acceptance claims."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    },
+    {
+      "id": "DRQ012",
+      "task_id": "TASK001",
+      "description": "Carry MI001 to subsequent human review and obtain and record the missing modeling requirements before PK modeling.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "subsequent modeling requirements",
+        "recorded human review decision",
+        "MI001 resolution evidence"
+      ],
+      "rule_ids": [
+        "R011",
+        "R010"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R011",
+          "quote": "R011: Defer missing modeling requirements for subsequent human review rather than silently resolving them."
+        },
+        {
+          "source": "main:/missing_information/items/0/id",
+          "quote": "MI001"
+        },
+        {
+          "source": "main:/missing_information/items/0/status",
+          "quote": "DEFERRED"
+        },
+        {
+          "source": "main:/missing_information/items/0/needed_at",
+          "quote": "pk"
+        },
+        {
+          "source": "main:/missing_information/items/0/resolution_status",
+          "quote": "OPEN"
+        },
+        {
+          "source": "main:/missing_information/items/0/impact",
+          "quote": "Later PK modeling requirements cannot be treated as established by this Data preparation run."
+        },
+        {
+          "source": "main:/missing_information/items/0/clarification",
+          "quote": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "This is a deferred downstream prerequisite, not a requirement to complete modeling design during Data preparation.",
+        "Do not select method profiles or establish method-specific input obligations in place of the required human review.",
+        "Retain the item as open until a recorded, authorized resolution supports the dependent modeling decision."
+      ],
+      "status": "UNRESOLVED",
+      "coverage_status": "NOT_ASSESSED_IN_DEMO",
+      "source_ids": [],
+      "reason": "Retained for later scientific review.",
+      "needed_material": "Review source-backed coverage before the dependent analysis.",
+      "deferred_outputs": []
+    }
+  ],
+  "scientific_release": false
+}

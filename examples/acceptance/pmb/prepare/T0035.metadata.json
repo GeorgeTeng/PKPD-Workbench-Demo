@@ -1,155 +1,440 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0035",
-  "role": "SUPPORTING_EVIDENCE",
+  "role": "PD_OBSERVATIONS",
   "metadata": {
-    "role": "SUPPORTING_EVIDENCE",
-    "species": "neonatal rabbit",
-    "matrix": "NOT_FOUND",
+    "role": "PD_OBSERVATIONS",
+    "species": "Neutropenic New Zealand White rabbits; K. pneumoniae 39427/39428",
+    "matrix": "Lung; pulmonary infection outcomes",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "Context record",
+    "record_level": "Group means ± SEM; no strain-resolved allocation in extracted summaries; repeated control values do not establish independent control cohorts.",
     "drug": "PMB",
-    "route": "intrapulmonary",
-    "endpoint_window": "NOT_FOUND",
-    "route_category": "EXTRAVASCULAR",
-    "matrix_category": "NOT_FOUND",
-    "record_category": "NOT_APPLICABLE",
-    "observation_source": "NOT_APPLICABLE",
+    "route": "IV",
+    "endpoint_window": "Treatment course (days): 7 and 14; exact response observation time relative to treatment and dosing is NOT_FOUND.",
+    "route_category": "NOT_FOUND",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "GROUP_SUMMARY",
+    "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
     "analyte": "NOT_FOUND",
-    "dosing_regimen": "NOT_FOUND",
-    "additional_roles": [],
+    "dosing_regimen": "2.5 mg/kg loading then 1.5 mg/kg q12h IV.",
+    "additional_roles": [
+      "ANIMAL_CHARACTERISTICS",
+      "DOSING",
+      "MIC"
+    ],
     "columns": [
       {
-        "header": "Evidence",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
+        "header": "Treatment course (days)",
+        "meaning": "TIME",
+        "unit": "days",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T5:A50",
-            "quote": "Evidence"
+            "source": "F0003:S3:T2:A15",
+            "quote": "Treatment course (days)"
           },
           {
-            "source": "F0003:S3:T5:A51",
-            "quote": "neonatal rabbit intrapulmonary PMB with surfactant"
+            "source": "F0003:S3:T2:A16",
+            "quote": "7"
+          },
+          {
+            "source": "F0003:S3:T2:A22",
+            "quote": "14"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Available data level",
-        "meaning": "OTHER",
+        "header": "Group",
+        "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T5:B50",
-            "quote": "Available data level"
+            "source": "F0003:S3:T2:B15",
+            "quote": "Group"
           },
           {
-            "source": "F0003:S3:T5:B51",
-            "quote": "no serial PMB concentration table in audited archive"
+            "source": "F0003:S3:T2:B16",
+            "quote": "PMB"
+          },
+          {
+            "source": "F0003:S3:T2:B17",
+            "quote": "UNTREATED_CONTROL"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Unresolved limitation",
+        "header": "Endpoint",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T5:C50",
-            "quote": "Unresolved limitation"
+            "source": "F0003:S3:T2:C15",
+            "quote": "Endpoint"
           },
           {
-            "source": "F0003:S3:T5:C51",
-            "quote": "different pathogen and no serial PK profile"
+            "source": "F0003:S3:T2:C16",
+            "quote": "lung_bacterial_burden"
+          },
+          {
+            "source": "F0003:S3:T2:C18",
+            "quote": "lung_weight"
+          },
+          {
+            "source": "F0003:S3:T2:C20",
+            "quote": "pulmonary_hemorrhage_score"
+          },
+          {
+            "source": "F0003:S3:T2:C22",
+            "quote": "lung_bacterial_burden"
+          },
+          {
+            "source": "F0003:S3:T2:C24",
+            "quote": "lung_weight"
+          },
+          {
+            "source": "F0003:S3:T2:C26",
+            "quote": "pulmonary_hemorrhage_score"
           }
         ],
         "column": "C"
+      },
+      {
+        "header": "Mean",
+        "meaning": "RESPONSE",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "Mean",
+          "Values are group means ± SEM",
+          "no strain-resolved allocation in extracted summaries."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S3:T2:D15",
+            "quote": "Mean"
+          },
+          {
+            "source": "F0003:S3:T2:A13",
+            "quote": "PMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries."
+          },
+          {
+            "source": "F0003:S3:T2:F16",
+            "quote": "log10 CFU/g"
+          },
+          {
+            "source": "F0003:S3:T2:F18",
+            "quote": "g"
+          },
+          {
+            "source": "F0003:S3:T2:F20",
+            "quote": "score"
+          },
+          {
+            "source": "F0003:S3:T2:D16",
+            "quote": "0.96"
+          },
+          {
+            "source": "F0003:S3:T2:D17",
+            "quote": "3.08"
+          },
+          {
+            "source": "F0003:S3:T2:D18",
+            "quote": "17.64"
+          },
+          {
+            "source": "F0003:S3:T2:D19",
+            "quote": "29.89"
+          },
+          {
+            "source": "F0003:S3:T2:D20",
+            "quote": "1.44"
+          },
+          {
+            "source": "F0003:S3:T2:D21",
+            "quote": "5.3"
+          },
+          {
+            "source": "F0003:S3:T2:D22",
+            "quote": "0.71"
+          },
+          {
+            "source": "F0003:S3:T2:D23",
+            "quote": "3.08"
+          },
+          {
+            "source": "F0003:S3:T2:D24",
+            "quote": "19.53"
+          },
+          {
+            "source": "F0003:S3:T2:D25",
+            "quote": "31.89"
+          },
+          {
+            "source": "F0003:S3:T2:D26",
+            "quote": "0.75"
+          },
+          {
+            "source": "F0003:S3:T2:D27",
+            "quote": "5.3"
+          }
+        ],
+        "column": "D"
+      },
+      {
+        "header": "SEM",
+        "meaning": "SUMMARY_STATISTIC",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "SEM",
+          "Values are group means ± SEM",
+          "no strain-resolved allocation in extracted summaries."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S3:T2:E15",
+            "quote": "SEM"
+          },
+          {
+            "source": "F0003:S3:T2:A13",
+            "quote": "PMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries."
+          },
+          {
+            "source": "F0003:S3:T2:F16",
+            "quote": "log10 CFU/g"
+          },
+          {
+            "source": "F0003:S3:T2:F18",
+            "quote": "g"
+          },
+          {
+            "source": "F0003:S3:T2:F20",
+            "quote": "score"
+          },
+          {
+            "source": "F0003:S3:T2:E16",
+            "quote": "0.32"
+          },
+          {
+            "source": "F0003:S3:T2:E17",
+            "quote": "0.3"
+          },
+          {
+            "source": "F0003:S3:T2:E18",
+            "quote": "2.32"
+          },
+          {
+            "source": "F0003:S3:T2:E19",
+            "quote": "1.95"
+          },
+          {
+            "source": "F0003:S3:T2:E20",
+            "quote": "0.53"
+          },
+          {
+            "source": "F0003:S3:T2:E21",
+            "quote": "0.21"
+          },
+          {
+            "source": "F0003:S3:T2:E22",
+            "quote": "0.23"
+          },
+          {
+            "source": "F0003:S3:T2:E23",
+            "quote": "0.3"
+          },
+          {
+            "source": "F0003:S3:T2:E24",
+            "quote": "1.8"
+          },
+          {
+            "source": "F0003:S3:T2:E25",
+            "quote": "1.98"
+          },
+          {
+            "source": "F0003:S3:T2:E26",
+            "quote": "0.25"
+          },
+          {
+            "source": "F0003:S3:T2:E27",
+            "quote": "0.21"
+          }
+        ],
+        "column": "E"
+      },
+      {
+        "header": "Unit",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "evidence": [
+          {
+            "source": "F0003:S3:T2:F15",
+            "quote": "Unit"
+          },
+          {
+            "source": "F0003:S3:T2:F16",
+            "quote": "log10 CFU/g"
+          },
+          {
+            "source": "F0003:S3:T2:F18",
+            "quote": "g"
+          },
+          {
+            "source": "F0003:S3:T2:F20",
+            "quote": "score"
+          }
+        ],
+        "column": "F"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Rabbit study record S10",
+      "title": "Rabbit pulmonary infection outcomes",
       "sheet": "Rabbit",
       "region": {
-        "start_row": 46,
-        "end_row": 53,
+        "start_row": 10,
+        "end_row": 29,
         "left": 1,
-        "right": 3,
-        "header_row": 50,
-        "title": "Rabbit study record S10",
+        "right": 6,
+        "header_row": 15,
+        "title": "Rabbit pulmonary infection outcomes",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Rabbit study record S10\nS10 | DOI 10.1159/000475877\nContext record; no concentration is inferred from the reported evidence.\nThis gap describes this older source, not the newer S22 rabbit curves also included on this sheet.",
+      "notes": "Rabbit pulmonary infection outcomes\nS09 | DOI 10.1128/AAC.02157-19 | Results and Figures 3–4\nNeutropenic New Zealand White rabbits; K. pneumoniae 39427/39428; PMB MIC 0.5 mg/L for both strains.\nPMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries.\nControl values are preserved as reported for each comparison; repeated values do not establish independent control cohorts.",
       "column_map": {
-        "c001_evidence": "Evidence",
-        "c002_available_data_level": "Available data level",
-        "c003_unresolved_limitation": "Unresolved limitation"
+        "c001_treatment_course_days": "Treatment course (days)",
+        "c002_group": "Group",
+        "c003_endpoint": "Endpoint",
+        "c004_mean": "Mean",
+        "c005_sem": "SEM",
+        "c006_unit": "Unit"
       }
     },
-    "source_item_id": "F0003:S3:T5",
+    "source_item_id": "F0003:S3:T2",
     "source_evidence": [
       {
-        "source": "F0003:S3:T5:A47",
-        "quote": "S10 | DOI 10.1159/000475877"
+        "source": "F0003:S3:T2:A10",
+        "quote": "Rabbit pulmonary infection outcomes"
       },
       {
-        "source": "F0003:S3:T5:A48",
-        "quote": "Context record; no concentration is inferred from the reported evidence."
+        "source": "F0003:S3:T2:A11",
+        "quote": "S09 | DOI 10.1128/AAC.02157-19 | Results and Figures 3–4"
       },
       {
-        "source": "F0003:S3:T5:A49",
-        "quote": "This gap describes this older source, not the newer S22 rabbit curves also included on this sheet."
+        "source": "F0003:S3:T2:A12",
+        "quote": "Neutropenic New Zealand White rabbits; K. pneumoniae 39427/39428; PMB MIC 0.5 mg/L for both strains."
       },
       {
-        "source": "F0003:S3:T5:A51",
-        "quote": "neonatal rabbit intrapulmonary PMB with surfactant"
+        "source": "F0003:S3:T2:A13",
+        "quote": "PMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries."
       },
       {
-        "source": "F0003:S3:T5:B51",
-        "quote": "no serial PMB concentration table in audited archive"
+        "source": "F0003:S3:T2:A14",
+        "quote": "Control values are preserved as reported for each comparison; repeated values do not establish independent control cohorts."
       },
       {
-        "source": "F0003:S3:T5:C51",
-        "quote": "different pathogen and no serial PK profile"
+        "source": "F0003:S3:T2:B16",
+        "quote": "PMB"
+      },
+      {
+        "source": "F0003:S3:T2:B17",
+        "quote": "UNTREATED_CONTROL"
+      },
+      {
+        "source": "F0003:S3:T2:C16",
+        "quote": "lung_bacterial_burden"
+      },
+      {
+        "source": "F0003:S3:T2:C18",
+        "quote": "lung_weight"
+      },
+      {
+        "source": "F0003:S3:T2:C20",
+        "quote": "pulmonary_hemorrhage_score"
+      },
+      {
+        "source": "F0003:S3:T2:A16",
+        "quote": "7"
+      },
+      {
+        "source": "F0003:S3:T2:A22",
+        "quote": "14"
       }
     ],
     "requirement_ids": [
-      "REQ_PREP_SOURCE",
-      "REQ_RABBIT_SCOPE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "loading",
+          "value": "2.5",
+          "unit": "mg/kg",
+          "subject": "PMB",
+          "qualifiers": [
+            "loading",
+            "IV"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A13",
+              "quote": "PMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries."
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "1.5",
+          "unit": "mg/kg",
+          "subject": "PMB",
+          "qualifiers": [
+            "q12h",
+            "IV"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A13",
+              "quote": "PMB: 2.5 mg/kg loading then 1.5 mg/kg q12h IV. Values are group means ± SEM; no strain-resolved allocation in extracted summaries."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0035.json",
-    "sha256": "8c8cffcf0522e1481023a660e7a8111f69509af36b560feb9425cad1575cb966"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0035.json",
+    "sha256": "f3edaaeb201e65b58d9db80741cea8cefda1a174a069ed8e3caf1d662a50f72a"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 1,
-    "retained_records": 1,
+    "source_records": 12,
+    "retained_records": 12,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

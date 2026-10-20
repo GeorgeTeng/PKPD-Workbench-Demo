@@ -4,255 +4,298 @@
   "role": "REPORTED_PARAMETERS",
   "metadata": {
     "role": "REPORTED_PARAMETERS",
-    "species": "Neutropenic rats infected i.p. with 1 × 10^7 CFU; individual septic rats; male/female 50/50. Strain and infecting organism: NOT_FOUND.",
-    "matrix": "tail-vein whole blood, used for the underlying concentration measurements; concentrations are not supplied in this table",
-    "exposure_basis": "fT > MIC and fT > 4 × MIC, expressed as percentages and determined using measured meropenem concentrations and PK modeling; direct free-concentration measurement and binding-correction definitions: NOT_FOUND",
-    "record_level": "Individual-subject reported exposure percentages in four separate regimen columns, with Subject values 1 through 12. Cross-regimen subject identity is not established.",
-    "drug": "meropenem",
+    "species": "SPF Sprague-Dawley rats 180-220 g, half male/half female; neutropenic septic rats; P. aeruginosa ATCC 9027",
+    "matrix": "WHOLE BLOOD; free plasma concentration",
+    "exposure_basis": "WHOLE BLOOD measurements converted to free plasma concentration with PPB and BPR; measured whole-blood total/unbound basis NOT_FOUND",
+    "record_level": "Reported parameter, PPB, BPR and MIC values; PK in 6 septic rats; PPB n = 3; individual records, summary definitions and variability estimates NOT_FOUND",
+    "drug": "Meropenem",
     "route": "s.c.",
-    "endpoint_window": "Treatment began 2 h after infection and continued \"for a period of 12 h\". The percentage time denominator is NOT_FOUND. Mortality monitoring for 7 days is described, but mortality results are not provided.",
+    "endpoint_window": "Sampling 0.083, 0.167, 0.5, 1, 1.5, 2, 4 h from the tail vein; sampling time origin NOT_FOUND",
     "route_category": "EXTRAVASCULAR",
     "matrix_category": "PLASMA_SERUM_BLOOD",
     "record_category": "REPORTED_PARAMETER",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
-    "analyte": "meropenem",
-    "dosing_regimen": "40%fT > MIC (75 mg/kg/q6h); 100%fT > MIC (75 mg/kg/q2.4h); 100%fT > MIC (50 mg/kg/q2.4h); 100%fT > 4 × MIC (75 mg/kg/q2h). From 2 h after infection, s.c. \"for a period of 12 h\"; controls got sterile saline.",
+    "analyte": "Meropenem",
+    "dosing_regimen": "a single 100 mg/kg s.c. dose 2 h after infection",
     "additional_roles": [
       "ANIMAL_CHARACTERISTICS",
+      "BINDING",
       "DOSING",
+      "MIC",
       "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Subject",
-        "meaning": "ANIMAL_ID",
+        "header": "Parameter",
+        "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T6:A63",
-            "quote": "Subject"
+            "source": "F0003:S3:T5:A50",
+            "quote": "Parameter"
           },
           {
-            "source": "F0003:S3:T6:A64",
-            "quote": "1"
+            "source": "F0003:S3:T5:A51",
+            "quote": "Apparent volume of distribution (Vd)"
           },
           {
-            "source": "F0003:S3:T6:A75",
-            "quote": "12"
+            "source": "F0003:S3:T5:A52",
+            "quote": "Absorption rate constant (Ka)"
+          },
+          {
+            "source": "F0003:S3:T5:A53",
+            "quote": "Elimination rate constant (Ke)"
+          },
+          {
+            "source": "F0003:S3:T5:A54",
+            "quote": "Plasma protein binding (PPB)"
+          },
+          {
+            "source": "F0003:S3:T5:A55",
+            "quote": "Blood-to-plasma ratio (BPR)"
+          },
+          {
+            "source": "F0003:S3:T5:A56",
+            "quote": "MIC of P. aeruginosa ATCC 9027"
           }
         ],
         "column": "A"
       },
       {
-        "header": "40%fT > MIC (75 mg/kg/q6h)",
+        "header": "Value as printed",
         "meaning": "PARAMETER_VALUE",
-        "unit": "%",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "40%fT > MIC",
-          "75 mg/kg/q6h",
-          "determined based on the measured meropenem concentrations and PK modeling"
+          "Vd is in L (per animal), not L/kg.",
+          "n = 3"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T6:B63",
-            "quote": "40%fT > MIC (75 mg/kg/q6h)"
+            "source": "F0003:S3:T5:B50",
+            "quote": "Value as printed"
           },
           {
-            "source": "F0003:S3:T6:B64",
-            "quote": "41.0%"
+            "source": "F0003:S3:T5:B51",
+            "quote": "0.326 L"
           },
           {
-            "source": "F0003:S3:T6:A62",
-            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF."
+            "source": "F0003:S3:T5:B52",
+            "quote": "3.602 h−1"
+          },
+          {
+            "source": "F0003:S3:T5:B53",
+            "quote": "3.212 h−1"
+          },
+          {
+            "source": "F0003:S3:T5:B54",
+            "quote": "15% (ultrafiltration, 30K MWCO, n = 3, 10 μg/mL)"
+          },
+          {
+            "source": "F0003:S3:T5:B55",
+            "quote": "0.65"
+          },
+          {
+            "source": "F0003:S3:T5:B56",
+            "quote": "0.125 mg/L"
+          },
+          {
+            "source": "F0003:S3:T5:A49",
+            "quote": "Vd is in L (per animal), not L/kg."
           }
         ],
         "column": "B"
-      },
-      {
-        "header": "100%fT > MIC (75 mg/kg/q2.4h)",
-        "meaning": "PARAMETER_VALUE",
-        "unit": "%",
-        "qualifiers": [
-          "100%fT > MIC",
-          "75 mg/kg/q2.4h",
-          "determined based on the measured meropenem concentrations and PK modeling"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S3:T6:C63",
-            "quote": "100%fT > MIC (75 mg/kg/q2.4h)"
-          },
-          {
-            "source": "F0003:S3:T6:C64",
-            "quote": "100%"
-          },
-          {
-            "source": "F0003:S3:T6:A62",
-            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF."
-          }
-        ],
-        "column": "C"
-      },
-      {
-        "header": "100%fT > MIC (50 mg/kg/q2.4h)",
-        "meaning": "PARAMETER_VALUE",
-        "unit": "%",
-        "qualifiers": [
-          "100%fT > MIC",
-          "50 mg/kg/q2.4h",
-          "determined based on the measured meropenem concentrations and PK modeling"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S3:T6:D63",
-            "quote": "100%fT > MIC (50 mg/kg/q2.4h)"
-          },
-          {
-            "source": "F0003:S3:T6:D64",
-            "quote": "100%"
-          },
-          {
-            "source": "F0003:S3:T6:A62",
-            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF."
-          }
-        ],
-        "column": "D"
-      },
-      {
-        "header": "100%fT > 4 × MIC (75 mg/kg/q2h)",
-        "meaning": "PARAMETER_VALUE",
-        "unit": "%",
-        "qualifiers": [
-          "100%fT > 4 × MIC",
-          "75 mg/kg/q2h",
-          "determined based on the measured meropenem concentrations and PK modeling"
-        ],
-        "evidence": [
-          {
-            "source": "F0003:S3:T6:E63",
-            "quote": "100%fT > 4 × MIC (75 mg/kg/q2h)"
-          },
-          {
-            "source": "F0003:S3:T6:E64",
-            "quote": "100%"
-          },
-          {
-            "source": "F0003:S3:T6:A62",
-            "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF."
-          }
-        ],
-        "column": "E"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Actual target attainment in individual septic rats",
+      "title": "Meropenem PK and protein binding in neutropenic septic rats",
       "sheet": "Rat",
       "region": {
-        "start_row": 59,
-        "end_row": 77,
+        "start_row": 45,
+        "end_row": 58,
         "left": 1,
-        "right": 5,
-        "header_row": 63,
-        "title": "Actual target attainment in individual septic rats",
+        "right": 2,
+        "header_row": 50,
+        "title": "Meropenem PK and protein binding in neutropenic septic rats",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Actual target attainment in individual septic rats\nS08 | DOI 10.3390/antibiotics11111660 | Table 1\nNeutropenic rats infected i.p. with 1 × 10^7 CFU; from 2 h after infection the four groups received the regimens in the header s.c. \"for a period of 12 h\"; controls got sterile saline. 60 rats, 5 groups of 12 (male/female 50/50). Mortality was then monitored for 7 days.\nText: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF.",
+      "notes": "Meropenem PK and protein binding in neutropenic septic rats\nS08 | DOI 10.3390/antibiotics11111660 | Results 2.3 and Methods 4.5 text (Wang et al. 2022)\nSPF Sprague-Dawley rats 180-220 g, half male/half female; cyclophosphamide i.p. 100 mg/kg day 0 and 75 mg/kg day 4; P. aeruginosa ATCC 9027 1 × 10^7 CFU i.p.; PK in 6 septic rats given a single 100 mg/kg s.c. dose 2 h after infection.\nSampling 0.083, 0.167, 0.5, 1, 1.5, 2, 4 h from the tail vein; 10 µL WHOLE BLOOD by UPLC-PDA (curve 0.3-150 µg/mL), converted to free plasma concentration with PPB and BPR. Measured concentrations are in Supplementary Table S1 (not accessible).\nVd is in L (per animal), not L/kg.",
       "column_map": {
-        "c001_subject": "Subject",
-        "c002_40_ft_mic_75_mg_kg_q6h": "40%fT > MIC (75 mg/kg/q6h)",
-        "c003_100_ft_mic_75_mg_kg_q2_4h": "100%fT > MIC (75 mg/kg/q2.4h)",
-        "c004_100_ft_mic_50_mg_kg_q2_4h": "100%fT > MIC (50 mg/kg/q2.4h)",
-        "c005_100_ft_4_mic_75_mg_kg_q2h": "100%fT > 4 × MIC (75 mg/kg/q2h)"
+        "c001_parameter": "Parameter",
+        "c002_value_as_printed": "Value as printed"
       }
     },
-    "source_item_id": "F0003:S3:T6",
+    "source_item_id": "F0003:S3:T5",
     "source_evidence": [
       {
-        "source": "F0003:S3:T6:A59",
-        "quote": "Actual target attainment in individual septic rats"
+        "source": "F0003:S3:T5:A45",
+        "quote": "Meropenem PK and protein binding in neutropenic septic rats"
       },
       {
-        "source": "F0003:S3:T6:A60",
-        "quote": "S08 | DOI 10.3390/antibiotics11111660 | Table 1"
+        "source": "F0003:S3:T5:A46",
+        "quote": "S08 | DOI 10.3390/antibiotics11111660 | Results 2.3 and Methods 4.5 text (Wang et al. 2022)"
       },
       {
-        "source": "F0003:S3:T6:A61",
-        "quote": "Neutropenic rats infected i.p. with 1 × 10^7 CFU; from 2 h after infection the four groups received the regimens in the header s.c. \"for a period of 12 h\"; controls got sterile saline. 60 rats, 5 groups of 12 (male/female 50/50). Mortality was then monitored for 7 days."
+        "source": "F0003:S3:T5:A47",
+        "quote": "SPF Sprague-Dawley rats 180-220 g, half male/half female; cyclophosphamide i.p. 100 mg/kg day 0 and 75 mg/kg day 4; P. aeruginosa ATCC 9027 1 × 10^7 CFU i.p.; PK in 6 septic rats given a single 100 mg/kg s.c. dose 2 h after infection."
       },
       {
-        "source": "F0003:S3:T6:A62",
-        "quote": "Text: values were \"determined based on the measured meropenem concentrations and PK modeling\", using 10 µL tail-vein whole blood at 0.083, 0.5, 1.5 h after the first dose and 0.167, 1, 2 h after the last dose. Those concentrations are in Supplementary Table S1 (not accessible). Table checked against the PDF."
+        "source": "F0003:S3:T5:A48",
+        "quote": "Sampling 0.083, 0.167, 0.5, 1, 1.5, 2, 4 h from the tail vein; 10 µL WHOLE BLOOD by UPLC-PDA (curve 0.3-150 µg/mL), converted to free plasma concentration with PPB and BPR. Measured concentrations are in Supplementary Table S1 (not accessible)."
       },
       {
-        "source": "F0003:S3:T6:A64",
-        "quote": "1"
+        "source": "F0003:S3:T5:A49",
+        "quote": "Vd is in L (per animal), not L/kg."
       },
       {
-        "source": "F0003:S3:T6:A75",
-        "quote": "12"
+        "source": "F0003:S3:T5:A51",
+        "quote": "Apparent volume of distribution (Vd)"
       },
       {
-        "source": "F0003:S3:T6:B64",
-        "quote": "41.0%"
+        "source": "F0003:S3:T5:B51",
+        "quote": "0.326 L"
       },
       {
-        "source": "F0003:S3:T6:B65",
-        "quote": "78.1%"
+        "source": "F0003:S3:T5:A52",
+        "quote": "Absorption rate constant (Ka)"
       },
       {
-        "source": "F0003:S3:T6:C70",
-        "quote": "92.9%"
+        "source": "F0003:S3:T5:B52",
+        "quote": "3.602 h−1"
       },
       {
-        "source": "F0003:S3:T6:D66",
-        "quote": "80.6%"
+        "source": "F0003:S3:T5:A53",
+        "quote": "Elimination rate constant (Ke)"
       },
       {
-        "source": "F0003:S3:T6:E75",
-        "quote": "89.6%"
+        "source": "F0003:S3:T5:B53",
+        "quote": "3.212 h−1"
+      },
+      {
+        "source": "F0003:S3:T5:A54",
+        "quote": "Plasma protein binding (PPB)"
+      },
+      {
+        "source": "F0003:S3:T5:B54",
+        "quote": "15% (ultrafiltration, 30K MWCO, n = 3, 10 μg/mL)"
+      },
+      {
+        "source": "F0003:S3:T5:A55",
+        "quote": "Blood-to-plasma ratio (BPR)"
+      },
+      {
+        "source": "F0003:S3:T5:B55",
+        "quote": "0.65"
+      },
+      {
+        "source": "F0003:S3:T5:A56",
+        "quote": "MIC of P. aeruginosa ATCC 9027"
+      },
+      {
+        "source": "F0003:S3:T5:B56",
+        "quote": "0.125 mg/L"
       }
     ],
     "requirement_ids": [
-      "DRQ01",
-      "DRQ02",
-      "DRQ03",
-      "DRQ04",
-      "DRQ05",
-      "DRQ09",
-      "DRQ30",
-      "DRQ32",
-      "DRQ36"
+      "DR003",
+      "DR004",
+      "DR005",
+      "DR006",
+      "DR008",
+      "DR010",
+      "MC001",
+      "MC002",
+      "MC009",
+      "MC010",
+      "MC011"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "100",
+          "unit": "mg/kg",
+          "subject": "cyclophosphamide",
+          "qualifiers": [
+            "i.p.",
+            "day 0"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T5:A47",
+              "quote": "cyclophosphamide i.p. 100 mg/kg day 0 and 75 mg/kg day 4"
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "75",
+          "unit": "mg/kg",
+          "subject": "cyclophosphamide",
+          "qualifiers": [
+            "i.p.",
+            "day 4"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T5:A47",
+              "quote": "cyclophosphamide i.p. 100 mg/kg day 0 and 75 mg/kg day 4"
+            }
+          ]
+        },
+        {
+          "quantity": "dose",
+          "value": "100",
+          "unit": "mg/kg",
+          "subject": "Meropenem",
+          "qualifiers": [
+            "single",
+            "s.c.",
+            "2 h after infection"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T5:A45",
+              "quote": "Meropenem PK and protein binding in neutropenic septic rats"
+            },
+            {
+              "source": "F0003:S3:T5:A47",
+              "quote": "PK in 6 septic rats given a single 100 mg/kg s.c. dose 2 h after infection."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0021.json",
-    "sha256": "c70e6cdb98e339889b6666b27e44451cb9ca4e8a11f266a10de92c18dc7c3684"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0021.json",
+    "sha256": "0b346d34ea18ac3cf47e1afae579a9ab2c5455da39045ffe4bd8b6f9732b8986"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {
-    "source_records": 12,
-    "retained_records": 12,
+    "source_records": 6,
+    "retained_records": 6,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

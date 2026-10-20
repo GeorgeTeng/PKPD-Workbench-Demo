@@ -1,0 +1,941 @@
+{
+  "session_id": "flow_7ec9121582334a98a331931f35dbceda",
+  "read_only": true,
+  "scientific_release": false,
+  "calls": [
+    {
+      "id": "1b1012e3d88813f21f30aa8c",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DC-label",
+      "sender": "Permitted source + requirements",
+      "receiver": "Data label agent",
+      "purpose": "Extract source-backed labels and unresolved definitions.",
+      "status": "RETURNED",
+      "request_sha256": "63fce58d0f18bed0d3dfb22d2c552014e58d19447a8e7e4d4baa21d1e3c0d88a",
+      "elapsed_seconds": 84.481,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 102933,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/request.json",
+          "sha256": "7cd3639ba79233b7649a09fe0dd0a6827981ccc8420f6905e7889ab76e8ace40",
+          "local_path": "1b1012e3d88813f21f30aa8c/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 14263,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/response.json",
+          "sha256": "ce29375ceda6c33f8ce7bb7f7d2c4ac3ce9a92d092ea907732329a48207afe79",
+          "local_path": "1b1012e3d88813f21f30aa8c/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 459,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/call.json",
+          "sha256": "2d43222886159f8970e225751d1178733655a585083a31fbddcb5db7e7151a78",
+          "local_path": "1b1012e3d88813f21f30aa8c/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 102933,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-request.json",
+          "sha256": "7cd3639ba79233b7649a09fe0dd0a6827981ccc8420f6905e7889ab76e8ace40",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 14263,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-response.json",
+          "sha256": "ce29375ceda6c33f8ce7bb7f7d2c4ac3ce9a92d092ea907732329a48207afe79",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 100777,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-model_input.json",
+          "sha256": "c52a040e35a78a5334aad00df7ae10a32f367dfb257fed60d1d8d3bcc03eaa22",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 71781,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-model_prompt.txt",
+          "sha256": "0954af816bdc01ee018880921a3baf3c7a25295750e3e39cd377ccb3af71ed17",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 5431,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-context_manifest.json",
+          "sha256": "3b8f51bb8df6ea1cd6ec6b91ec2f9a57e396651094f7ebcc2e22f485541d12b3",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 32049,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-projection_manifest.json",
+          "sha256": "d05a4e69ba2084b20ec93a922113d7f1413b3cd3ade9a53aa3aaa12aeaf1be76",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 993,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-budget.json",
+          "sha256": "bb6683456161f8b4fb81cdca3afcd5029f9caebf456b14324acba3615e7fe702",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 11193,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-transport_schema.json",
+          "sha256": "1e2b262b49f361faaaf50caca2ea9a05b5a4913a5b2712fe6d8a1c4a821808c0",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 346,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/assembled-status.json",
+          "sha256": "b5dbe4f847435dbd35a697799b78f4fd2b87270d200832c9bfd7b07bc13e009a",
+          "local_path": "1b1012e3d88813f21f30aa8c/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 334,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/1b1012e3d88813f21f30aa8c/files/provider-call.json",
+          "sha256": "31c81a1c1fdbd9169a781a8160d68114e1ca2ce1160835879ee12e6b5689e72f",
+          "local_path": "1b1012e3d88813f21f30aa8c/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "712d719d6f1efd1dcd8f7a86",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DC-label",
+      "sender": "Permitted source + requirements",
+      "receiver": "Data label agent",
+      "purpose": "Extract source-backed labels and unresolved definitions.",
+      "status": "RETURNED",
+      "request_sha256": "10cf0f15b4bab895da15ed9f202f3e45512b6b64658d45fbdf338f1329621ca1",
+      "elapsed_seconds": 83.724,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 102813,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/request.json",
+          "sha256": "ecdeca9bcac354675f427a9496929929e7fc7b724b97ae5263631d58b1b3579f",
+          "local_path": "712d719d6f1efd1dcd8f7a86/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 14236,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/response.json",
+          "sha256": "7c3e9e797359556bae0c56473aedd380b06c23e0c5ef011a6a0d2220850f6109",
+          "local_path": "712d719d6f1efd1dcd8f7a86/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 459,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/call.json",
+          "sha256": "42687abdb2d42e47cb78de7db03758f0d8c6e244504d4c50c8e0be1610fecaa7",
+          "local_path": "712d719d6f1efd1dcd8f7a86/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 102813,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-request.json",
+          "sha256": "ecdeca9bcac354675f427a9496929929e7fc7b724b97ae5263631d58b1b3579f",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 14236,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-response.json",
+          "sha256": "7c3e9e797359556bae0c56473aedd380b06c23e0c5ef011a6a0d2220850f6109",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 100657,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-model_input.json",
+          "sha256": "264cffdf5fab4a26496a82037f8b0629366bfe57f9b06773b5d89fa483f5c6dd",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 71643,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-model_prompt.txt",
+          "sha256": "cdd4d6a4ee248a88b093b8510877234510eab137c03b4615d6d320c12050558e",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 5431,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-context_manifest.json",
+          "sha256": "d498705d8948218f1206f980d373cd757fae09455cebe33a11b52710dd5f45a8",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 32049,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-projection_manifest.json",
+          "sha256": "f9bac1e196e77c89d3e6c09280d47d1732599473cc2fc34a6f0c3b8c3ef44649",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 993,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-budget.json",
+          "sha256": "cbca000d4ff531e2e877bdb141989c3f102b1a5e08d8bf2a1eea7496ad1b7e85",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 11193,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-transport_schema.json",
+          "sha256": "34e2257b1dcbd50922898d7031dcc345ead240cb14c929d77cc612cdb6fbd0d7",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 346,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/assembled-status.json",
+          "sha256": "229fbf0b6a22c553c55ec85b8c49fab9ba80df8cf292950a4a0c9b5202c01ee9",
+          "local_path": "712d719d6f1efd1dcd8f7a86/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 334,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/712d719d6f1efd1dcd8f7a86/files/provider-call.json",
+          "sha256": "98050e5d44adb7fcb04ea8661a53a6e9501f2d77fd4428873943a7869e3a2678",
+          "local_path": "712d719d6f1efd1dcd8f7a86/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "a18eab625a4acf0cc5c387fd",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DC-label",
+      "sender": "Permitted source + requirements",
+      "receiver": "Data label agent",
+      "purpose": "Extract source-backed labels and unresolved definitions.",
+      "status": "RETURNED",
+      "request_sha256": "24fd1583f58cfa7979a9eafe748ba1869222036bcbed09d7160db848b1ed6bd5",
+      "elapsed_seconds": 104.743,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 102958,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/request.json",
+          "sha256": "19e19f32cd805fafc4fc7d0eaf4b33871dce781d41dec7f915d9d7fa6abb5aed",
+          "local_path": "a18eab625a4acf0cc5c387fd/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 17013,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/response.json",
+          "sha256": "338ce4f7d915a126430644ec271966976de58d38540ffed286f181aaeda306f9",
+          "local_path": "a18eab625a4acf0cc5c387fd/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 460,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/call.json",
+          "sha256": "62548bb4e7ee554e14d92ef0bae58286119805c3ad6c3ed016c9ef57765313d3",
+          "local_path": "a18eab625a4acf0cc5c387fd/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 102958,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-request.json",
+          "sha256": "19e19f32cd805fafc4fc7d0eaf4b33871dce781d41dec7f915d9d7fa6abb5aed",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 17013,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-response.json",
+          "sha256": "338ce4f7d915a126430644ec271966976de58d38540ffed286f181aaeda306f9",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 100802,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-model_input.json",
+          "sha256": "87b2882e7217bbd62dcc25b51e7b14b73c5d73f6c8deff46f379d1671dbfe417",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 71797,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-model_prompt.txt",
+          "sha256": "d5b7c4244a31a8136f14eebe7059cbe829c526b1de7eef0177f086082fd18b0c",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 5431,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-context_manifest.json",
+          "sha256": "ffc89e3d5a201e3d744a7ce7bf55812f937fe3b33fe736fd725db63a0f5a73a2",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 32049,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-projection_manifest.json",
+          "sha256": "24cf20431e31f1e0e50d0e1395bf6da12f719fb4c90878fc473a54736600ed08",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 993,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-budget.json",
+          "sha256": "ab3b841b9748d6c9b1a7ccf388dcd03058e446cc751ca82e49683b3b7012f436",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 11193,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-transport_schema.json",
+          "sha256": "2e0094cbcd63d2f86ebf22fed83bc549e634799b218a4f81e56f1caf0686ee51",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 346,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/assembled-status.json",
+          "sha256": "24cbc064ab5c6280a019005dcf7510bd2bf36a5436d470025ff8a26f10f90ca3",
+          "local_path": "a18eab625a4acf0cc5c387fd/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 334,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/a18eab625a4acf0cc5c387fd/files/provider-call.json",
+          "sha256": "689323bd9f69d658da31e257b033ba3d3c311f7f119948919e14b7f4ca2bfb07",
+          "local_path": "a18eab625a4acf0cc5c387fd/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "e9f163b381dd83f3b8dc95e3",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DC-label",
+      "sender": "Permitted source + requirements",
+      "receiver": "Data label agent",
+      "purpose": "Extract source-backed labels and unresolved definitions.",
+      "status": "RETURNED",
+      "request_sha256": "a8d8fa2104143018606d1c07ede2dd3a63d3fadca9a11f0fa8e698702a5fa4c5",
+      "elapsed_seconds": 72.44,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 102805,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/request.json",
+          "sha256": "51ba7f14d4e519b82960e9397e03c035514620159a5ba6c18c01e3271d6d2182",
+          "local_path": "e9f163b381dd83f3b8dc95e3/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 14102,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/response.json",
+          "sha256": "8f554225fbc4d1883825b0d3a365853f90c27550b7d643c2ad5a4fe1580060dc",
+          "local_path": "e9f163b381dd83f3b8dc95e3/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 458,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/call.json",
+          "sha256": "00da0a7cabd872811792537acae07353621d38d2dfedc2ef9e8db203f0d0c191",
+          "local_path": "e9f163b381dd83f3b8dc95e3/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 102805,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-request.json",
+          "sha256": "51ba7f14d4e519b82960e9397e03c035514620159a5ba6c18c01e3271d6d2182",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 14102,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-response.json",
+          "sha256": "8f554225fbc4d1883825b0d3a365853f90c27550b7d643c2ad5a4fe1580060dc",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 100649,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-model_input.json",
+          "sha256": "9ed46cb328e610f9815a4a9c4bff17734a39d8d041e096bad577941ba07c18ba",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 71644,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-model_prompt.txt",
+          "sha256": "cf0ceceaf757edc25ae6da4ce298eb12c588c3b9e85df6555311a6f4a0b85807",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 5431,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-context_manifest.json",
+          "sha256": "015c121475136a3af99fa22a4b60adff5b0b25bc6981b5b74da1078e39dc264b",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 32049,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-projection_manifest.json",
+          "sha256": "bcb04ea1d7a09c78ea7edce8376f86b120de98839867be237cd2a8bc337e30ff",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 993,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-budget.json",
+          "sha256": "72086a7e32392bf19e57c5afb3a5847cc3390a7a9c3f28b6bd15efb1aba7e23c",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 11193,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-transport_schema.json",
+          "sha256": "5a24f84772990f8b2c76151fbce95837ff11eeb98b644bc829631585a94e0f46",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 346,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/assembled-status.json",
+          "sha256": "76f39a743b778a01a717bebcaeac15ca6457637b10ec235abb92c3a237b794c2",
+          "local_path": "e9f163b381dd83f3b8dc95e3/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 334,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e9f163b381dd83f3b8dc95e3/files/provider-call.json",
+          "sha256": "9b82d00340f1b64aea708291caec3c3b4727e9fea02da8f88db472ac02dd1e3e",
+          "local_path": "e9f163b381dd83f3b8dc95e3/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "e5de5bb28404b4ec2d938b29",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DC-split",
+      "sender": "Registered upstream inputs",
+      "receiver": "DC-split",
+      "purpose": "Inspect the exact retained request and response.",
+      "status": "RETURNED",
+      "request_sha256": "878ed47ff39ce7a74a9495d431c708e205cb2c2750e4b79746cdd3fab7b73bb2",
+      "elapsed_seconds": 25.405,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 53538,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/request.json",
+          "sha256": "ebf28b6847ec200d48155fc045f65f5fb95db6d1527a6963a6140e6ee1cf9941",
+          "local_path": "e5de5bb28404b4ec2d938b29/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 1707,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/response.json",
+          "sha256": "5fc3f63ee200b8f6b5f357ac1912997d3b888411adce37d786021b6f554128ae",
+          "local_path": "e5de5bb28404b4ec2d938b29/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 459,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/call.json",
+          "sha256": "917f6ad9a68131ac9a2d6ccab5fa1859c458c52fc9fcaf6bac6a73314eac273d",
+          "local_path": "e5de5bb28404b4ec2d938b29/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 53538,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-request.json",
+          "sha256": "ebf28b6847ec200d48155fc045f65f5fb95db6d1527a6963a6140e6ee1cf9941",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 1707,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-response.json",
+          "sha256": "5fc3f63ee200b8f6b5f357ac1912997d3b888411adce37d786021b6f554128ae",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 56481,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-model_input.json",
+          "sha256": "8daec161098a93886d7de7bf5c2a72c5b6893e5c76df9c8eaae1de3046a1a283",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 43739,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-model_prompt.txt",
+          "sha256": "dfb10dcb24e6d75f2394d92ed8dbb532cf00d29fd07a62dd2df5b3a5f21a9a54",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 3870,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-context_manifest.json",
+          "sha256": "9a9aaf149641d0fe55edc43fcefd1e859e67cdf00837b93cdcae9a1a136274aa",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 7597,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-projection_manifest.json",
+          "sha256": "b8d15b1e562c2462ed92ebe5842735e3c3cd9d5000d1544355a3d7bb5534d960",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 993,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-budget.json",
+          "sha256": "ba676f042498a4ee8e7657bffe9e16c8a76a80fb894cb3d7106de698989074c5",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 3305,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-transport_schema.json",
+          "sha256": "c9a6e259c186345bf544de28a7f074719ed8ff13d60021a30b09168f4d0085a4",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 337,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/assembled-status.json",
+          "sha256": "5fba0c9b98e89c049618c4f3a7e716bce85374d1dfc1f01ef8e642a0ec26da36",
+          "local_path": "e5de5bb28404b4ec2d938b29/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 334,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/e5de5bb28404b4ec2d938b29/files/provider-call.json",
+          "sha256": "e695379b6e10a75426c78f5f3bb75c5b7ebf3828926a012d5647739e2307cd14",
+          "local_path": "e5de5bb28404b4ec2d938b29/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "9ae40de9e4cd30769b9f8a96",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DR",
+      "sender": "Reviewed Context + Rules",
+      "receiver": "Data requirement agent",
+      "purpose": "Define task-specific input requirements.",
+      "status": "RETURNED",
+      "request_sha256": "4a23642a9d63b94728e09976f92e10bd87c02669131bb494f626f3f277605c25",
+      "elapsed_seconds": 92.033,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 140874,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/request.json",
+          "sha256": "afff16e328a7a70b37231be5a5e13214f5db9cc86cea2af4a9e2595550281bcb",
+          "local_path": "9ae40de9e4cd30769b9f8a96/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 17282,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/response.json",
+          "sha256": "e82477c08ce581c109bbe002a9b5d263b648c53dd8487f1947409c05558492bb",
+          "local_path": "9ae40de9e4cd30769b9f8a96/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 459,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/call.json",
+          "sha256": "dc8830da7d8fc681a3d39e63bf53086fc2722fa1681114483dd7c64f9b1d6d07",
+          "local_path": "9ae40de9e4cd30769b9f8a96/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 140874,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-request.json",
+          "sha256": "afff16e328a7a70b37231be5a5e13214f5db9cc86cea2af4a9e2595550281bcb",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 17282,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-response.json",
+          "sha256": "e82477c08ce581c109bbe002a9b5d263b648c53dd8487f1947409c05558492bb",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 146237,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-model_input.json",
+          "sha256": "8f203881f8b99ee105e3ff9467603e47ee321354e0bc75efd5172a8f16837c56",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 101771,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-model_prompt.txt",
+          "sha256": "0145a3f7628e213b545ffe3f6b6057ca5cb9ef81ff624e786de0509f1501b491",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 4103,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-context_manifest.json",
+          "sha256": "34bfb66dba38cc896adcf7bfa0b6cd5770c7f93fc0647145043f042565d83c2f",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 15352,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-projection_manifest.json",
+          "sha256": "6146c27652b71bcdc91ef12862939e5da4747d807f54c51ff2dc717bb32c35b0",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 998,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-budget.json",
+          "sha256": "af1f3d0105c5d66ac5abfc5c5d77514b4da1a39fa0a8c2072fabb6bba8f0c223",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 112836,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-transport_schema.json",
+          "sha256": "c1e0a8bda065bb21c77db7c5fc9564657003f93c32b5383fa46bacb056f7fd96",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 313,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/assembled-status.json",
+          "sha256": "6862712f0176bc5b73d0fac134ac75c1e30eb804014ed56e987e6cd915c7fc85",
+          "local_path": "9ae40de9e4cd30769b9f8a96/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 335,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/9ae40de9e4cd30769b9f8a96/files/provider-call.json",
+          "sha256": "eb5c9815cfd77ebbb3751d76ddf73774612c5bd4851a13dbe7ec1edb81db31cd",
+          "local_path": "9ae40de9e4cd30769b9f8a96/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "60ba363c60ef32a8f9658989",
+      "job_id": "PMB_UI_20261020_050146_e74634",
+      "current_job": false,
+      "stage": "DR-access",
+      "sender": "Requirements + inventory",
+      "receiver": "Source access agent",
+      "purpose": "Assign permitted, deferred and reference-only sources.",
+      "status": "RETURNED",
+      "request_sha256": "3ff1ab52ebd13fc20691927c302f93124af59fcd6500687883a181d7af92570a",
+      "elapsed_seconds": 90.493,
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 84044,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/request.json",
+          "sha256": "dd0a161e1c4a51d3befa1e3a3a3a741099d4da7032c798863d5bbf89d8ab2cc6",
+          "local_path": "60ba363c60ef32a8f9658989/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 10544,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/response.json",
+          "sha256": "1447906b8aed9610b1b2f8c5a5cb16af919c13b5962fef0285712951414ff71f",
+          "local_path": "60ba363c60ef32a8f9658989/response.json"
+        },
+        {
+          "name": "call.json",
+          "bytes": 459,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/call.json",
+          "sha256": "0b3dbc8600a978ae0e604f87cca1374154d4295746e51451c048689d7f1fe9b8",
+          "local_path": "60ba363c60ef32a8f9658989/call.json"
+        },
+        {
+          "name": "assembled-request.json",
+          "bytes": 84044,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-request.json",
+          "sha256": "dd0a161e1c4a51d3befa1e3a3a3a741099d4da7032c798863d5bbf89d8ab2cc6",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-request.json"
+        },
+        {
+          "name": "assembled-response.json",
+          "bytes": 10544,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-response.json",
+          "sha256": "1447906b8aed9610b1b2f8c5a5cb16af919c13b5962fef0285712951414ff71f",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-response.json"
+        },
+        {
+          "name": "assembled-model_input.json",
+          "bytes": 83944,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-model_input.json",
+          "sha256": "a0c53c116bf3676e24be64dc83b3cf530e51a4b67945c6988cd8fd1a9bcad7db",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-model_input.json"
+        },
+        {
+          "name": "assembled-model_prompt.txt",
+          "bytes": 64928,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-model_prompt.txt",
+          "sha256": "caec4fff23ad5fdf066672294c6726997f8b62e33b0a02e8c5c3ee33919ba1ac",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-model_prompt.txt"
+        },
+        {
+          "name": "assembled-context_manifest.json",
+          "bytes": 4666,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-context_manifest.json",
+          "sha256": "8df788dcc3c30e4506903800931a227ca5022ab0baa5c67ad0cd4ff75601ebaf",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-context_manifest.json"
+        },
+        {
+          "name": "assembled-projection_manifest.json",
+          "bytes": 11337,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-projection_manifest.json",
+          "sha256": "ca4a1e2928cf20370976eaa141475fc5d7ff0b1b3c12eda72496e347eb3a6875",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-projection_manifest.json"
+        },
+        {
+          "name": "assembled-budget.json",
+          "bytes": 993,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-budget.json",
+          "sha256": "b9377680634980680017ea98b9b71d80ca030068d3f7cfc4ec6212f2036d3bd5",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-budget.json"
+        },
+        {
+          "name": "assembled-transport_schema.json",
+          "bytes": 3045,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-transport_schema.json",
+          "sha256": "2d99a74c16fc99c6e69ba47465836953e172f2c14bc7d219d221ff5bbb51ca78",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-transport_schema.json"
+        },
+        {
+          "name": "assembled-status.json",
+          "bytes": 551,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/assembled-status.json",
+          "sha256": "a242247c5775d0819d71e538a3ef55cead64169c664266dfd91d6112227b33c7",
+          "local_path": "60ba363c60ef32a8f9658989/assembled-status.json"
+        },
+        {
+          "name": "provider-call.json",
+          "bytes": 334,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/60ba363c60ef32a8f9658989/files/provider-call.json",
+          "sha256": "04ed5679f4cbc46cf9bae9134fbeac6313583c2eef9cbf7789c76861fb2ad6da",
+          "local_path": "60ba363c60ef32a8f9658989/provider-call.json"
+        }
+      ]
+    },
+    {
+      "id": "c9669ad249018f5e44b0f62c",
+      "job_id": "PMB_UI_20261020_045824_b91ead",
+      "current_job": false,
+      "stage": "context",
+      "sender": "Registered upstream inputs",
+      "receiver": "context",
+      "purpose": "Inspect the exact retained request and response.",
+      "status": "RESPONSE_RECORDED",
+      "request_sha256": "2641ebcb4ecaf1bbeb2a04f96978a93fb5175b1118172988716d6c1bb89a8d9a",
+      "elapsed_seconds": null,
+      "requested_model": null,
+      "reasoning_effort": null,
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 173961,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/request.json",
+          "sha256": "783dac496e26d51c884b74656b302b6dc0fb848cb2674c5c73d3de8ac8b991d0",
+          "local_path": "c9669ad249018f5e44b0f62c/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 16167,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/response.json",
+          "sha256": "fb95502068b69cbddabb3e09e48b9ccca145540bcadfc965e2173d550d0d2de4",
+          "local_path": "c9669ad249018f5e44b0f62c/response.json"
+        },
+        {
+          "name": "model_input.json",
+          "bytes": 151126,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/model_input.json",
+          "sha256": "c6b069a9d1ca16a638f1eb2681d7f2c856340eb4afec072550a17279368a09c9",
+          "local_path": "c9669ad249018f5e44b0f62c/model_input.json"
+        },
+        {
+          "name": "model_prompt.txt",
+          "bytes": 108416,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/model_prompt.txt",
+          "sha256": "77972a54204c96c6eaeab18bdc9c34dcc818cadc0f8aba43b7f54bc416080b00",
+          "local_path": "c9669ad249018f5e44b0f62c/model_prompt.txt"
+        },
+        {
+          "name": "context_manifest.json",
+          "bytes": 4451,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/context_manifest.json",
+          "sha256": "02f17d8645abe4031ab94903dd75f4041370fd848b02d8b79dc23cd377feddde",
+          "local_path": "c9669ad249018f5e44b0f62c/context_manifest.json"
+        },
+        {
+          "name": "projection_manifest.json",
+          "bytes": 40535,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/projection_manifest.json",
+          "sha256": "5c406bf14df0e52b92eae3f3fc53cdb9777716be8cbbb69257e99f256f650d13",
+          "local_path": "c9669ad249018f5e44b0f62c/projection_manifest.json"
+        },
+        {
+          "name": "budget.json",
+          "bytes": 997,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/budget.json",
+          "sha256": "a384781df86a746f967d8253c5b58ece3a76453008310368ed1e948e707054eb",
+          "local_path": "c9669ad249018f5e44b0f62c/budget.json"
+        },
+        {
+          "name": "transport_schema.json",
+          "bytes": 12698,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c9669ad249018f5e44b0f62c/files/transport_schema.json",
+          "sha256": "44c1c1a01ccb457d86079da77df8b6cd23720fd38e1badf3e8d9c25d39c1ca3c",
+          "local_path": "c9669ad249018f5e44b0f62c/transport_schema.json"
+        }
+      ]
+    },
+    {
+      "id": "fb3ee7b43b30bca9ddbe0c1d",
+      "job_id": "PMB_UI_20261020_045824_b91ead",
+      "current_job": false,
+      "stage": "context_review",
+      "sender": "Registered upstream inputs",
+      "receiver": "context_review",
+      "purpose": "Inspect the exact retained request and response.",
+      "status": "RESPONSE_RECORDED",
+      "request_sha256": "784de2bb064820a18572e02fa5707792904d16f368814f89ee89b7e716ce591c",
+      "elapsed_seconds": null,
+      "requested_model": null,
+      "reasoning_effort": null,
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 185230,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/request.json",
+          "sha256": "a066108059e3063b41186fada365209b9d93183df4c13bf9cb5273ee3c04469f",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 11050,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/response.json",
+          "sha256": "e3e22aaea7c3d8e5cc8ee0a341be59355a5fd728e828c71cb0cf07dc53df96a7",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/response.json"
+        },
+        {
+          "name": "model_input.json",
+          "bytes": 160625,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/model_input.json",
+          "sha256": "16092480b59b928f66c56333c04ffdb159159c98d405a32779236915b5ec3485",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/model_input.json"
+        },
+        {
+          "name": "model_prompt.txt",
+          "bytes": 115760,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/model_prompt.txt",
+          "sha256": "826917abadc3c37b7eed9d77b112cd7a0d16df89c9b7a801a20e9c364c27463e",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/model_prompt.txt"
+        },
+        {
+          "name": "context_manifest.json",
+          "bytes": 5153,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/context_manifest.json",
+          "sha256": "303be22d6b4a11c14a693c86ecbd4476d19ea61f04b7f0b31c6f9b03896e9cf1",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/context_manifest.json"
+        },
+        {
+          "name": "projection_manifest.json",
+          "bytes": 41547,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/projection_manifest.json",
+          "sha256": "e9a5bc6cea7bd73ae29a64c839600e0d42360944914c8a9f131847620b620c21",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/projection_manifest.json"
+        },
+        {
+          "name": "budget.json",
+          "bytes": 997,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/budget.json",
+          "sha256": "86bc7ab83e78944d7887fb439b9bb70035c6c1023fe5b608ea60321d7d9ff124",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/budget.json"
+        },
+        {
+          "name": "transport_schema.json",
+          "bytes": 6646,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/fb3ee7b43b30bca9ddbe0c1d/files/transport_schema.json",
+          "sha256": "6508c23c663ae02bb3510ea65e9c80d9709356bac7630417d710969f59807e56",
+          "local_path": "fb3ee7b43b30bca9ddbe0c1d/transport_schema.json"
+        }
+      ]
+    },
+    {
+      "id": "c3d7ae00ec73d64a2c29c50a",
+      "job_id": "PMB_UI_20261020_045824_b91ead",
+      "current_job": false,
+      "stage": "Project Rules",
+      "sender": "Registered upstream inputs",
+      "receiver": "Project Rules",
+      "purpose": "Inspect the exact retained request and response.",
+      "status": "RESPONSE_RECORDED",
+      "request_sha256": "8a827c5be50f3a07eccedf185579c726c63693380040b9dc91411e4f34b8a492",
+      "elapsed_seconds": null,
+      "requested_model": null,
+      "reasoning_effort": null,
+      "timeout_seconds": null,
+      "files": [
+        {
+          "name": "request.json",
+          "bytes": 8008,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c3d7ae00ec73d64a2c29c50a/files/request.json",
+          "sha256": "8be9e44eb7577a6a54f1c80dff5e43e0f5aedb0ac0d9ed61d26ff0f58dba7303",
+          "local_path": "c3d7ae00ec73d64a2c29c50a/request.json"
+        },
+        {
+          "name": "response.json",
+          "bytes": 6116,
+          "url": "/workspace-api/workflow/flow_7ec9121582334a98a331931f35dbceda/handoffs/c3d7ae00ec73d64a2c29c50a/files/response.json",
+          "sha256": "4526156d9136f31d91f908865c4e06c001156fbcba0472b1108b320f0fd7c386",
+          "local_path": "c3d7ae00ec73d64a2c29c50a/response.json"
+        }
+      ]
+    }
+  ],
+  "selection": "Jobs bound to accepted stage artifacts; original paths remain read-only references."
+}

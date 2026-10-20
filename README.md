@@ -16,7 +16,7 @@ To stop an active scientific workflow, use **Pause** in its detailed workflow co
 
 Browsing the library, RAG and ContextBuilder explanations, source inspection and recorded figures work locally without model calls. **Live Context and Data labelling require a configured model provider and network connectivity.** The default provider uses the Codex CLI on PATH with an authenticated account. Credentials and account configuration are not included.
 
-The default execution configuration is **`gpt-6.1-sol` with `high` reasoning effort**. Requested identity is recorded in the invocation and stage-cache identity; it is not proof of the provider's served model identity. Historical PMB artifacts retain their original `gpt-6-sol` identity. To start explicitly:
+The default execution configuration is **`gpt-6.1-sol` with `high` reasoning effort**. Requested identity is recorded in the invocation and stage-cache identity; it is not proof of the provider's served model identity. To start explicitly:
 
 ```powershell
 .\start-demo.ps1 -Port 8772 -Provider codex -Model gpt-6.1-sol -ReasoningEffort high
@@ -26,7 +26,7 @@ Live Context, key-Rules and Data model calls have no default execution timeout. 
 
 ## Demonstration sequence
 
-1. Open **File intake** and import the PMB, Meropenem or Voriconazole example. The ZIP download beside each example contains the exact three source files used in the original project demonstration.
+1. Open **File intake** and import PMB, Meropenem, Voriconazole or Imidocarb. Each ZIP contains the exact files listed in `examples/inputs/manifest.json`. Imidocarb adds an unmodified cattle source workbook and attributed source notes.
 2. Run **File intake**. Registration, extraction coverage and file hashes are deterministic local I/O. This step does not invoke ContextBuilder, RAG, a model or the scientific scheduler.
 3. Open **Context & Project Rules**, run Context and inspect the source-bound results. Compression completes before one key-Rules extraction. This demo uses `DEMO_PROVISIONAL_RULES`: exact source quotes and hashes are checked, and automatic acceptance is explicitly recorded. Independent Rules review and content refinement are deferred; no independent PASS is fabricated. The main interface shows the Human checkpoint.
 4. Approve the Context checkpoint to unlock **Data Assessment & Preparation**. Run the lightweight Data profile, review its scope, then run preparation and handoff. The Data scope and completed-Data checkpoints remain visible even when the acceptance script automatically approves them. Decisions remain bound to output signatures.
@@ -51,7 +51,7 @@ File registration -> Context -> key Rules -> Context Human gate
 
 Inventory and requirement definition currently run in parallel, before the access plan and source labels. The label-first cards in the overview describe the intended design, not an additional execution route.
 
-The model reads permitted sources and produces requirements/labels. The host then verifies source hashes, access and label accounting, exports the original columns, retains raw cell values and locators, trims outer whitespace with a change log, and checks the actual retained/quarantined records. It performs no inferred joins, imputation, duplicate averaging or automatic scientific unit normalization in this profile. Ambiguous headers are held for review. Formula/error records remain explicit in quarantine.
+The model reads permitted sources and produces requirements/labels. Registered original names, file IDs and hashes are supplied together so explicit filename permissions in Rules can be resolved. The host then verifies source hashes, access and label accounting, exports original columns, retains raw cell values and locators, trims outer whitespace with a change log, and checks actual retained/quarantined records. Blank, numeric or duplicate headers are retained using unique positional field keys, with the original headers in the column map and a review finding; no column meaning is inferred. This raw demo performs no inferred joins, imputation, duplicate averaging or scientific unit normalization. Formula/error records remain explicit in quarantine.
 
 When column-level unit or qualifier annotations are not copied from the cited source, this profile leaves them unresolved and records a Human-review finding. For example, a parameter table with different units on different rows has no assumed common column unit. Annotations that cannot be bound to the current table header remain unmapped review findings rather than being assigned to another column. Original rows, row-specific source wording and raw model responses remain available; these annotations and source-layout boundaries must be reviewed before analysis.
 
@@ -59,7 +59,7 @@ Full requirement coverage, method applicability, model readiness and predictive 
 
 Context still receives an independent source review. In this demo, a sole canonical-placement issue (such as repeated wording) can be deferred only when every record and source-unit completeness/faithfulness verdict and every other review check is preserved, with no critical errors or new-content fixes. The original `REVISE` and unchanged candidate remain bound to `demo_context_review.json`; both the receipt and original review appear in Context outputs, and their findings continue into Data and its unresolved ledger. This is technical continuation, not an independent review PASS. Full mode rejects this deferral, and missing content, changed meaning, uncertainty or conflicting conditions still block progression.
 
-The full assessment implementation is retained separately in `backend/research_pipeline/research_pipeline/data_agents.py`; this release does not claim it passed the three-example acceptance. The oversized full-review request from the earlier PMB attempt is retained in local history, not recast as a successful scientific review.
+The full scientific assessment implementation remains in `backend/research_pipeline/research_pipeline/data_agents.py`; it is outside this technical-demo acceptance.
 
 When a stated-value annotation combines a note with table-body evidence, fields supported only by the body remain unresolved in this technical profile. For example, a number may occur in a note while its unit occurs only in a table row. The note annotation does not adopt that unit automatically; the source table retains it, and `STATED_LOCATION_UNRESOLVED` records the proposed field for Human review before analysis. Invalid source citations still block processing.
 
@@ -94,7 +94,7 @@ $env:CTXCOMP_OPENAI_API_KEY = "replace-with-your-local-key"
 
 The adapter appends `/chat/completions`; do not include that suffix in `-ApiBase`. It expects SSE `data:` events containing `choices[].delta.content` and a final `[DONE]`. This adapter is not a Responses-API adapter. Provider-specific optional request fields can be supplied as JSON in `CTXCOMP_OPENAI_EXTRA`; `CTXCOMP_OPENAI_RESPONSE_FORMAT=json_object` is available only when supported by the selected server. API keys are read from `CTXCOMP_OPENAI_API_KEY`, never from the frontend or committed configuration. Claude Code is also selectable with `-Provider claude -Model "your-claude-model"` when its CLI is installed/authenticated.
 
-Check the effective settings at `/workspace-api/capabilities`. A replacement model must produce the same validated JSON contracts and exact source citations. Similar outcomes mean source preservation, comparable scoped labels/findings and matching workflow boundaries—not byte-identical prose. Schema, evidence, permissions and QC checks continue to apply after a provider change. An arbitrary new endpoint is not considered verified until the three-example suite passes against it.
+Check the effective settings at `/workspace-api/capabilities`. A replacement model must produce the same validated JSON contracts and exact source citations. Similar outcomes mean source preservation, comparable scoped labels/findings and matching workflow boundaries—not byte-identical prose. Schema, evidence, permissions and QC checks continue to apply after a provider change. An arbitrary new endpoint is not considered verified until fresh acceptance passes against it.
 
 ### Main endpoints
 
@@ -103,7 +103,7 @@ Check the effective settings at `/workspace-api/capabilities`. A replacement mod
 | `GET /demo-api/health` | Server health; this does not claim workflow completion |
 | `GET /workspace-api/capabilities` | Effective provider/model and supported scope |
 | `GET /workspace-api/examples` | Actual input ZIPs, checksums and download links |
-| `POST /workspace-api/examples/{pmb|meropenem|voriconazole}/import` | Register an example and return its workflow ID |
+| `POST /workspace-api/examples/{pmb|meropenem|voriconazole|imidocarb}/import` | Register an example and return its workflow ID |
 | `POST /workspace-api/imports` | Upload one ZIP as multipart field `file` |
 | `GET /ui-api/workflow/sessions/{id}` | Stage states, output signatures, artifacts and Human decisions |
 | `POST /ui-api/workflow/sessions/{id}/nodes/{node}/start` | Start `intake`, `context`, `adequacy` or `prepare` when the native gate permits |
@@ -145,15 +145,15 @@ Deterministic steps have stage artifacts rather than invented model-call records
 
 | Content | Included scope |
 | --- | --- |
-| Example inputs | Three ZIPs, each with the proposal, source workbook and `AGENT_README.md`; package and member SHA-256 values in `examples/inputs/manifest.json` |
+| Example inputs | Four ZIPs with proposals, original source workbooks and `AGENT_README.md`; Imidocarb also includes attributed source notes. Package and member SHA-256 values are in `examples/inputs/manifest.json`. |
 | Knowledge snapshot | `round12_general_reviewed_v1`: 255 cards, 80 source documents, 31 general/conditional method cards; scientific approval remains pending |
-| Recorded Data review | 58 scoped tables, 499 retained source rows, no quarantined rows; descriptive EDA scope, `fit_ready=false` |
-| Recorded findings | 20 findings: 12 human-review items and 8 follow-up items |
+| Current Data review | Four source-bound technical runs from different code versions under `examples/acceptance/`; actual counts and timings appear below, with `fit_ready=false`. |
+| Findings and Human gates | Every current run retains its own unresolved findings and three signature-bound automatic demo approvals. |
 | EDA / PK previews | Three EDA subset-test figures and five PK diagnostic figures; no accepted PK model is implied |
 
-The raw PMB workbook yields 63 source-table regions before scope review. This differs from the 58-table recorded preparation snapshot. Source organization is not scientific adequacy or readiness.
+Inventory, admission and preparation counts describe different steps. Restricted or unresolved sources remain in the inventory and review records; a prepared dataset count is not a scientific adequacy claim.
 
-The release also includes the three newly accepted technical runs under `examples/acceptance/`. Open [the acceptance review index](examples/acceptance/index.html) from the extracted folder, or `/examples/acceptance/` on the running server. It links each example's Context, Rules, requirements, labels, Data report, QC, cleaning log, unresolved issues and signature-bound checkpoint records. These snapshots retain their original file references and are read-only; import an input ZIP for a new live run.
+The release also includes the four verified technical runs under `examples/acceptance/`. Open [the acceptance review index](examples/acceptance/index.html) from the extracted folder, or `/examples/acceptance/` on the running server. It links each example's Context, Rules, requirements, labels, Data report, QC, cleaning log, unresolved issues and signature-bound checkpoint records. These snapshots retain their original file references and are read-only; import an input ZIP for a new live run.
 
 Review notes in the Data page are stored locally in SQLite and tied to the recorded report hash. They do not change live workflow permissions. Live checkpoint decisions use the original workflow controls. Automatic Human-gate approval is available only in the explicit acceptance script described below; its decisions are technical test progression, not independent human scientific review or release.
 
@@ -173,39 +173,63 @@ Run the real model-backed acceptance through Data, with explicit authorization t
 
 This performs real Context, Rules and Data requirement/label calls and can consume account usage. It records failures and checkpoint decisions; the command above does not request Context revision loops. It never runs EDA or PK. An integration test pass alone does not establish a successful model-backed run. Only an acceptance report with `status=PASSED_THROUGH_DATA` establishes completion of this technical demonstration.
 
-Run all three actual examples sequentially:
+Run all four examples **from scratch**, with no response reuse, no resume and no manual repair:
 
 ```powershell
-.\runtime\python.exe -I -B -X utf8 tests\run_three_examples.py --approve-test-gates --output-dir state\acceptance\three_examples_sol61 --expected-model gpt-6.1-sol --expected-effort high
+$round = Get-Date -Format 'yyyyMMdd-HHmmss'
+$state = Join-Path $PWD "state\fresh-$round"
+$report = Join-Path $PWD "state\acceptance\fresh-$round"
+.\start-demo.ps1 -Port 8774 -NoBrowser -StateDirectory $state -Provider codex -Model gpt-6.1-sol -ReasoningEffort high
+.\runtime\python.exe -I -B -X utf8 tests\run_fresh_examples.py --base http://127.0.0.1:8774 --state-root "$state" --output-dir "$report" --approve-test-gates
 ```
 
-Use the same output directory to resume after a fix. Completed examples are re-verified, not automatically re-executed. The suite checks stage completion, all three signature-bound Human gates, source/artifact hashes, actual prepared records, retained findings, requested model identity, and the downstream execution boundary. Its success status is `ALL_THREE_PASSED_THROUGH_DATA`. Use the expected provider model name when testing a replacement endpoint; provider reasoning settings may differ.
+The server disables response reuse by default, even if an old Data replay path exists in the environment. The driver rejects old sessions, requires one start per stage, verifies fresh call receipts and all three visible Human gates per example, and checks actual source/data artifacts and the unchanged code/input snapshot. Success is `ALL_FOUR_PASSED_FRESH_THROUGH_DATA`. Failed rounds remain available; fix code and rerun all four in a new state directory. See [the fresh acceptance guide](docs/fresh-acceptance.md).
 
-For OpenAI-compatible or Claude providers, whose transport receipts do not record the Codex-specific reasoning field, use a fresh output directory and `--expected-effort none`:
+The accepted release includes [runtime_summary.csv](examples/acceptance/runtime_summary.csv) and [runtime_summary.json](examples/acceptance/runtime_summary.json). They record each example's total wall time, workflow stages, Context generation/review, Rules, requirements, access and parallel label calls, with UTC timestamps and source-receipt hashes. Model rows are nested inside workflow rows; cumulative parallel-call time must not be added to elapsed wall time. Totals include scheduling and final verification, and exclude earlier diagnostic rounds. These are observed client-side durations, not a guarantee of runtime with another provider.
 
-```powershell
-.\runtime\python.exe -I -B -X utf8 tests\run_three_examples.py --approve-test-gates --output-dir state\acceptance\replacement_api --expected-model "your-provider-model" --expected-effort none
-```
+After changing to an OpenAI-compatible or Claude provider, start a new server and new state directory using that provider's exact model name, then run the same fresh driver with `--expected-model "your-provider-model" --expected-effort none`. These transports do not record the Codex-specific effort field. A contract-compatible local transport test does not verify the quality of another external model.
 
-Before editing backend code or rules, pause/finish active jobs: plans freeze code and input hashes. Explicitly retry a stopped stage after changes so it gets a new plan. Do not overwrite old artifacts or edit historical success/failure receipts.
+Before editing backend code or Rules, finish or pause active jobs: plans freeze code and input hashes. Never overwrite historical outputs or edit success/failure receipts. The older `run_three_examples.py` remains a resumable diagnostic tool; it is not the fresh four-example acceptance. Historical response reuse is an explicit opt-in server mode (`--allow-response-reuse`), and the fresh driver rejects it.
 
-An explicitly selected recovery run may reuse completed model responses with an identical request and executor identity. Each reuse retains source hashes and a receipt, and current stage validation runs again. Unsupported stated-value annotations remain `NOT_FOUND` with Human-review findings; source quotations and the original model response are preserved. Automatic checkpoint approval does not resolve those scientific findings.
+## Current verified Data results
 
-## Verified release results
+All four packaged examples have completed the technical workflow through Data. PMB, Meropenem and Voriconazole come from `fresh03`; Imidocarb comes from `fresh05`, after fixes for registered filename identity and preservation of blank/numeric source headers. **These results come from different code versions, not one unchanged-code four-case suite.** The user stopped the redundant full rerun. Each selected case had one attempt, no response reuse, no resume and no manual output repair. Requested model: `gpt-6.1-sol / high`; provider-served identity was not reported. The source records below cover admitted preparation scope; restricted or unresolved sources remain in the inventory and review records.
 
-All three examples passed the technical workflow through Data on 2026-10-19. The source values below cover the admitted preparation scope; restricted or unresolved sources remain in their inventory and review records.
+| Example | Prepared datasets | Source records | Retained records | Quarantined | Human gates recorded | Total wall time |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| PMB | 52 | 364 | 364 | 0 | 3/3 | 48 min 43 sec |
+| Meropenem | 36 | 293 | 293 | 0 | 3/3 | 42 min 32 sec |
+| Voriconazole | 12 | 75 | 75 | 0 | 3/3 | 32 min 03 sec |
+| Imidocarb (cattle) | 4 | 56 | 56 | 0 | 3/3 | 8 min 43 sec |
 
-| Example | Prepared datasets | Source records | Retained records | Quarantined | Human gates recorded |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| PMB | 49 | 417 | 417 | 0 | 3/3 |
-| Meropenem | 35 | 286 | 286 | 0 | 3/3 |
-| Voriconazole | 11 | 62 | 62 | 0 | 3/3 |
+Each duration includes scheduling and final verification; there is no combined suite wall time for this collection. Open [the current result index](examples/acceptance/index.html) for findings, prepared tables, original Human-gate records and agent-to-agent request details. The [runtime CSV](examples/acceptance/runtime_summary.csv) and [runtime JSON](examples/acceptance/runtime_summary.json) break down workflow and model-call time with source-receipt hashes. Failed diagnostic and user-stopped rounds are recorded separately in [diagnostic_timings.csv](validation/diagnostic_timings.csv); they are excluded from the selected-case durations.
 
-Open `http://127.0.0.1:8772/examples/acceptance/index.html` for the three-example overview, searchable findings, prepared-table downloads, and original checkpoint evidence. For offline review, open [examples/acceptance/index.html](examples/acceptance/index.html). The original model responses, source references and unresolved findings remain available in each run's records.
+The largest PMB cost was source labeling: 52 model calls with four concurrent workers took **24 min 22 sec** of its **48 min 43 sec** total. Context generation took 8 min 50 sec; Data preparation and handoff took 22 sec. Label calls must not be summed as elapsed wall time. See [runtime_profile.csv](validation/runtime_profile.csv) for the stage comparison. No new model runs were launched to prepare this release.
 
-The acceptance reused PMB's retained model evidence and executed fresh Meropenem and Voriconazole model stages with requested `gpt-6.1-sol` / `high`. Debugging retries reused only responses matching the exact request and executor; the records distinguish those reuses. Provider-served model identity was not reported. Voriconazole retains the original Context `REVISE` for repeated wording through the explicit technical-demo deferral described above; the candidate and open review findings were not changed.
+| Example | Context, review and Rules | Data requirements and labels | Preparation, QC and handoff | Total |
+| --- | ---: | ---: | ---: | ---: |
+| PMB | 13m 11s | 35m 00s | 22s | 48m 43s |
+| Meropenem | 12m 06s | 29m 53s | 21s | 42m 32s |
+| Voriconazole | 15m 22s | 16m 22s | 16s | 32m 03s |
+| Imidocarb | 3m 21s | 5m 03s | 15s | 8m 43s |
 
-All 49 offline integration and local HTTP contract tests passed. The OpenAI-compatible transport was exercised against a local SSE test server; an alternative external model service has not been accepted by these runs. Run the same three-example suite after changing providers. EDA and PK were not executed, and these results do not establish scientific adequacy or model readiness.
+Totals also include intake, scheduling and final verification. Model calls below are nested inside the workflow stages above; do not add both tables together.
+
+| PMB step | Purpose | Wall time |
+| --- | --- | ---: |
+| Context generation | Compress the project sources | 8m 50s |
+| Context review | Check meaning, omissions and conditions | 2m 38s |
+| Rules extraction | Extract key project constraints | 1m 27s |
+| Requirements | Identify the needed data | 5m 34s |
+| Source access | Determine which sources may be reviewed | 4m 49s |
+| Source labels | 52 model calls with four concurrent workers | **24m 22s** |
+| Preparation, QC and handoff | Preserve source values and generate outputs | 22s |
+
+The later duplicate PMB attempt was stopped by the user after 9m 10s; it is excluded from these completed-case times. Its earlier status message saying Context review was still running is no longer current.
+
+The original Context review remains REVISE for canonical-placement findings in Meropenem. The existing technical-demo deferral preserves the unchanged candidate and every review finding; it is not an independent review PASS.
+
+All 57 offline integration and local HTTP contract tests passed. The OpenAI-compatible transport was exercised against a local SSE test server; another external model service has not been accepted by these cases. Run the same fresh four-example suite after changing providers. EDA and PK were not executed; technical completion does not establish scientific adequacy or model readiness.
 
 ## Source layout
 

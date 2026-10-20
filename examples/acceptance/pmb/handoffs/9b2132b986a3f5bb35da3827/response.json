@@ -1,0 +1,141 @@
+{
+  "request_sha256": "2f2d120129eb40fa6e535f015f3dce7789a0c993346ebb180a7b1ccb18329668",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T5",
+      "role": "SUPPORTING_EVIDENCE",
+      "additional_roles": [
+        "ANIMAL_CHARACTERISTICS",
+        "DOSING"
+      ],
+      "requirement_ids": [
+        "DR001",
+        "DR002",
+        "DR007",
+        "DR008"
+      ],
+      "species": "neonatal rabbit; different pathogen (identity NOT_FOUND)",
+      "matrix": "NOT_FOUND",
+      "exposure_basis": "NOT_FOUND",
+      "record_level": "Context record; no concentration is inferred from the reported evidence.",
+      "drug": "PMB",
+      "route": "intrapulmonary",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "S10 is a context record describing neonatal rabbit intrapulmonary PMB with surfactant. It explicitly reports no serial PMB concentration table in the audited archive and a different pathogen with no serial PK profile. Requirement links identify supported identity, provenance and input-gap evidence, not fulfilled modeling requirements. This limitation concerns older S10 only; the note distinguishes newer S22 curves, whose measurements are not supplied in this item.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T5:A46",
+          "quote": "Rabbit study record S10"
+        },
+        {
+          "source": "F0003:S3:T5:A47",
+          "quote": "S10 | DOI 10.1159/000475877"
+        },
+        {
+          "source": "F0003:S3:T5:A48",
+          "quote": "Context record; no concentration is inferred from the reported evidence."
+        },
+        {
+          "source": "F0003:S3:T5:A49",
+          "quote": "This gap describes this older source, not the newer S22 rabbit curves also included on this sheet."
+        },
+        {
+          "source": "F0003:S3:T5:A51",
+          "quote": "neonatal rabbit intrapulmonary PMB with surfactant"
+        },
+        {
+          "source": "F0003:S3:T5:B51",
+          "quote": "no serial PMB concentration table in audited archive"
+        },
+        {
+          "source": "F0003:S3:T5:C51",
+          "quote": "different pathogen and no serial PK profile"
+        }
+      ],
+      "route_category": "EXTRAVASCULAR",
+      "matrix_category": "NOT_FOUND",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "NOT_APPLICABLE",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "PMB",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Evidence",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T5:A50",
+              "quote": "Evidence"
+            },
+            {
+              "source": "F0003:S3:T5:A51",
+              "quote": "neonatal rabbit intrapulmonary PMB with surfactant"
+            }
+          ]
+        },
+        {
+          "header": "Available data level",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T5:B50",
+              "quote": "Available data level"
+            },
+            {
+              "source": "F0003:S3:T5:B51",
+              "quote": "no serial PMB concentration table in audited archive"
+            }
+          ]
+        },
+        {
+          "header": "Unresolved limitation",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T5:C50",
+              "quote": "Unresolved limitation"
+            },
+            {
+              "source": "F0003:S3:T5:C51",
+              "quote": "different pathogen and no serial PK profile"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "SOURCE_SCOPED_PK_INPUT_GAP",
+      "affected_id": "DR007",
+      "reason": "F0003:S3:T5:B51 reports no serial PMB concentration table in the audited archive for S10; C51 reports a different pathogen and no serial PK profile. The item supplies context and route information, but no concentration-time measurements, dose amount, schedule, sampling design or experimental-unit identifiers. A49 explicitly excludes newer S22 curves from this gap.",
+      "needed_material": "Retain S10 as supporting context. Any proposed use as a PK modeling input requires source-backed measurements and their dosing, sampling, matrix, concentration-basis and experimental-unit metadata; assess S22 separately from its own evidence.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_MI002",
+      "affected_id": "MI002",
+      "reason": "MI002 remains NOT_FOUND, resolution_status OPEN, needed_at adequacy, from main:/missing_information/items/1. The proposal reports that no further public rabbit PMB concentration data were found; this does not establish absence from all sources or unread attachment contents. This item's audited-archive limitation concerns older S10 only and cannot establish the scope or completeness of the broader public search.",
+      "needed_material": "At adequacy, record the reported search scope, its eligibility consequences and an explicit outcome for MI002. Preserve the distinction between the S10 archive gap, the broader reported availability limit and separately assessed S22 evidence.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_ITEM_MI003",
+      "affected_id": "MI003",
+      "reason": "MI003 remains DEFERRED, resolution_status OPEN, needed_at pk, from main:/missing_information/items/2. Assessment of rabbit model-component support under SC011 has not been supplied. This S10 context record does not resolve component identifiability or establish an inclusion, exclusion or exploratory-use decision.",
+      "needed_material": "Carry MI003 to the PK stage unchanged. Assess the permitted rabbit inputs under SC011 and record the component-support decision and rationale, preserving source discrepancies. Any determination requiring fitting remains downstream T02 work.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

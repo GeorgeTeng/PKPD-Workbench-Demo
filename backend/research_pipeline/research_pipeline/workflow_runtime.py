@@ -616,6 +616,8 @@ def execute_builtin(c):
         shared = os.environ.get('CTXCOMP_STAGE_CACHE', '').strip()
         shared = None if shared.lower() in {'', 'off', '0', 'none'} else shared
         _, compression_state = load_run(work)
+        if os.getenv('CTXCOMP_DISABLE_RESPONSE_REUSE') == '1' and compression_state['accepted']:
+            raise ValueError('Response reuse is disabled: create a fresh run instead of reusing Context')
         if not fresh and 'context_review' in compression_state['accepted']:
             # A complete retained handoff needs verification, not another dispatch
             # into a prior failed model session. The original ledger is immutable.

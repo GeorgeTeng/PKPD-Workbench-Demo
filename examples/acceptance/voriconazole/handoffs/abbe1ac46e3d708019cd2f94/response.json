@@ -1,0 +1,189 @@
+{
+  "request_sha256": "4c12835bc22601332bfa50ccee9e1c3f49907f1b03ec2698b8e709efdb006c40",
+  "labels": [
+    {
+      "item_id": "F0003:S2:T5",
+      "role": "REPORTED_PARAMETERS",
+      "additional_roles": [
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR02",
+        "DR03",
+        "DR04",
+        "DR16"
+      ],
+      "species": "rats; healthy and infected",
+      "matrix": "plasma and brain; individual AUC matrix assignments NOT_VERIFIED",
+      "exposure_basis": "total plasma and free brain are stated for the unavailable concentration-time curves; fT is labelled free brain/free plasma; individual AUC concentration bases remain unverified",
+      "record_level": "Reported trapezoidal AUC and fT values with undefined ± terms; individual-animal or group-summary derivation NOT_FOUND",
+      "drug": "NOT_FOUND",
+      "route": "NOT_FOUND",
+      "endpoint_window": "Methods define AUC as 0 to infinity; time unit and dosing origin NOT_FOUND",
+      "reason": "UNRESOLVED partial support for DR02, DR03, DR04 and DR16: retain the reported values, source identity, ratio definition and limitations for preparation review. AUC values cannot yet be assigned to specific matrix/state combinations. Healthy and infected rat fT entries are explicitly distinguished. Neither row supplies concentration-time observations or verified individual records. Eligibility for modeling and translation remains unresolved.",
+      "evidence": [
+        {
+          "source": "F0003:S2:T5:A83",
+          "quote": "Plasma and brain AUC and brain penetration (text)"
+        },
+        {
+          "source": "F0003:S2:T5:A84",
+          "quote": "S07 | DOI 10.1128/AAC.00321-17 | Results text"
+        },
+        {
+          "source": "F0003:S2:T5:A85",
+          "quote": "Concentration-time curves (total plasma, free brain) are in Fig. 1 only (not digitized). The sentence does not label which AUC belongs to which matrix and group; the order healthy plasma, healthy brain, infected plasma, infected brain is inferred from the sentence (NOT_VERIFIED). Methods define AUC as 0 to infinity."
+        },
+        {
+          "source": "F0003:S2:T5:A87",
+          "quote": "AUC (trapezoidal)"
+        },
+        {
+          "source": "F0003:S2:T5:B87",
+          "quote": "\"The AUC values determined by trapezoidal rule for plasma and tissue in healthy and infected animals were 20.52 ± 8.45 μg · h/ml, 5.69 ± 1.51 μg · h/ml, 24.71 ± 7.54 μg · h/ml, and 13.80 ± 1.53 μg · h/ml, respectively.\""
+        },
+        {
+          "source": "F0003:S2:T5:A88",
+          "quote": "fT (free brain/free plasma)"
+        },
+        {
+          "source": "F0003:S2:T5:B88",
+          "quote": "\"which were 0.85 ± 0.22 for healthy and 1.86 ± 1.05 for infected rats (P < 0.05)\""
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "MIXED",
+      "record_category": "REPORTED_PARAMETER",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "NOT_FOUND",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "Item",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S2:T5:A86",
+              "quote": "Item"
+            },
+            {
+              "source": "F0003:S2:T5:A87",
+              "quote": "AUC (trapezoidal)"
+            },
+            {
+              "source": "F0003:S2:T5:A88",
+              "quote": "fT (free brain/free plasma)"
+            }
+          ]
+        },
+        {
+          "header": "As printed",
+          "meaning": "PARAMETER_VALUE",
+          "unit": "μg · h/ml",
+          "qualifiers": [
+            "0 to infinity",
+            "free brain/free plasma"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T5:B86",
+              "quote": "As printed"
+            },
+            {
+              "source": "F0003:S2:T5:B87",
+              "quote": "\"The AUC values determined by trapezoidal rule for plasma and tissue in healthy and infected animals were 20.52 ± 8.45 μg · h/ml, 5.69 ± 1.51 μg · h/ml, 24.71 ± 7.54 μg · h/ml, and 13.80 ± 1.53 μg · h/ml, respectively.\""
+            },
+            {
+              "source": "F0003:S2:T5:A85",
+              "quote": "Methods define AUC as 0 to infinity."
+            },
+            {
+              "source": "F0003:S2:T5:A88",
+              "quote": "fT (free brain/free plasma)"
+            },
+            {
+              "source": "F0003:S2:T5:B88",
+              "quote": "\"which were 0.85 ± 0.22 for healthy and 1.86 ± 1.05 for infected rats (P < 0.05)\""
+            }
+          ]
+        }
+      ],
+      "stated_values": [
+        {
+          "quantity": "AUC",
+          "value": "0 to infinity",
+          "unit": "NOT_FOUND",
+          "subject": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S2:T5:A85",
+              "quote": "Methods define AUC as 0 to infinity."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "AUC_ASSIGNMENTS_NOT_VERIFIED",
+      "affected_id": "F0003:S2:T5",
+      "reason": "A85 explicitly identifies the proposed healthy plasma, healthy brain, infected plasma and infected brain ordering as inferred and NOT_VERIFIED. B87 supports retaining the printed AUC values but does not verify their individual assignments. Group- or matrix-specific use remains blocked.",
+      "needed_material": "Authorized source evidence explicitly linking each printed AUC value to its matrix, concentration basis and healthy or infected group.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "IDENTITY_AND_COMPATIBILITY_METADATA_UNRESOLVED",
+      "affected_id": "DR02",
+      "reason": "S07 and its DOI are supplied, but this page does not identify the drug/analyte, dose, dose basis, route, regimen, treatment day, assay, strain, immune state, infection definition, meningitis status, grapefruit-juice exposure or comedication. DR01 identity and scope compliance cannot be established from this item alone. Unstated conditions remain unknown.",
+      "needed_material": "Source-linked study metadata establishing drug identity and the applicable dosing, biological-state, matrix, assay and experimental-unit definitions before downstream grouping or reuse.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SUMMARY_AND_UNIT_DEFINITIONS_UNRESOLVED",
+      "affected_id": "DR03",
+      "reason": "The ± terms in B87 and B88 have no stated statistical definition, sample count or experimental-unit derivation. The As printed column contains AUC entries in μg · h/ml and fT entries without an explicit unit; the column unit applies only to the AUC row. Detection-limit and missingness metadata are NOT_FOUND. Do not interpret these entries as individual observations or infer SD, SEM or other variability definitions.",
+      "needed_material": "Definitions of the central values and ± terms, sample counts, sampling units, fT unit convention and any applicable censoring or missingness information.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONCENTRATION_TIME_INPUTS_NOT_AVAILABLE_ON_PAGE",
+      "affected_id": "DR09",
+      "reason": "A85 states that concentration-time curves are in Fig. 1 only and are not digitized. This page contains reported parameters rather than timed concentration observations, so it supplies no directly usable concentration-time modeling records. This does not establish absence elsewhere.",
+      "needed_material": "Authorized measured concentration-time records or separately authorized figure extraction with provenance, together with dosing events, time units/origin and sampling structure.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "TRANSLATION_COVERAGE_UNRESOLVED",
+      "affected_id": "DR16",
+      "reason": "This item contributes reported rat AUC and brain/free-plasma ratio context only. Actual study body weight, verified parameter-to-matrix assignments and approach-specific translation inputs are NOT_FOUND. These entries do not establish qualified species coverage or validated human prediction.",
+      "needed_material": "Reuse the reviewed parameter inventory; obtain verified parameter definitions and study body weights where body-size scaling is considered, plus only the additional inputs required by the explicitly considered translation approach.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNASSIGNED_BRAIN_PENETRATION_MATERIAL",
+      "affected_id": "F0003:S2:T5",
+      "reason": "A88 and B88 report fT labelled free brain/free plasma for healthy and infected rats, including P < 0.05. No assigned requirement specifically establishes its downstream brain-penetration use. Retain this material for independent relevance review without inventing a requirement or treating fT as protein binding or time above MIC.",
+      "needed_material": "Independent routing decision on the relevance and permitted use of the reported brain-penetration ratio.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_RETAINED",
+      "affected_id": "MI005",
+      "reason": "MI005 remains DEFERRED, resolution_status OPEN, needed_at adequacy. Its supplied origin is main:/missing_information/items/4. Record-level usability and unresolved gaps must be established before fitting; the supplied context states that registered attachment bodies remain NOT_SEARCHED in that operation. This candidate label does not close MI005 or complete the SC014 preparation review.",
+      "needed_material": "Complete the authorized preparation review in SC014 and provide record-level usability decisions and unresolved findings, including review of the limitations identified for this item.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    }
+  ]
+}

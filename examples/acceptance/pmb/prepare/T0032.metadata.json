@@ -1,202 +1,424 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0032",
-  "role": "REPORTED_PARAMETERS",
+  "role": "PK_OBSERVATIONS",
   "metadata": {
-    "role": "REPORTED_PARAMETERS",
-    "species": "Rabbit",
-    "matrix": "NOT_FOUND",
+    "role": "PK_OBSERVATIONS",
+    "species": "Female Sprague-Dawley rats 225–250 g; health or infection state NOT_FOUND",
+    "matrix": "Serum; Kidney, Muscle, Liver, Heart, Lung, Spleen and Brain tissue homogenates",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "Exposure summaries; uncertainty type not stated",
+    "record_level": "Summary mean ± SD. Terminal sampling: each time point is a different group.",
     "drug": "PMB",
-    "route": "IV for the previously studied PMB regimen; NOT_FOUND for the efficacy regimen",
-    "endpoint_window": "AUC_0_12h; NOT_FOUND for Cmax",
+    "route": "IV via jugular cannula; bolus or infusion NOT_FOUND",
+    "endpoint_window": "3, 6 and 24 h; time origin NOT_FOUND",
     "route_category": "NOT_FOUND",
-    "matrix_category": "NOT_FOUND",
-    "record_category": "REPORTED_PARAMETER",
+    "matrix_category": "MIXED",
+    "record_category": "GROUP_SUMMARY",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_FOUND",
-    "analyte": "PMB",
-    "dosing_regimen": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h.",
+    "dose_basis": "salt/base basis not stated",
+    "analyte": "PMB sulfate (USP)",
+    "dosing_regimen": "single IV 3 mg/kg via jugular cannula",
     "additional_roles": [
-      "DOSING",
-      "SUPPORTING_EVIDENCE"
+      "ANIMAL_CHARACTERISTICS",
+      "DOSING"
     ],
     "columns": [
       {
-        "header": "Measure",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
+        "header": "Time (h)",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T1:A5",
-            "quote": "Measure"
+            "source": "F0003:S2:T2:A23",
+            "quote": "Time (h)"
           },
           {
-            "source": "F0003:S3:T1:A6",
-            "quote": "AUC_0_12h"
+            "source": "F0003:S2:T2:A24",
+            "quote": "3"
           },
           {
-            "source": "F0003:S3:T1:A7",
-            "quote": "Cmax"
+            "source": "F0003:S2:T2:A25",
+            "quote": "6"
+          },
+          {
+            "source": "F0003:S2:T2:A26",
+            "quote": "24"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Value",
-        "meaning": "PARAMETER_VALUE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Serum (µg/mL)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/mL",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group.",
+          "<LLOQ retained."
+        ],
         "evidence": [
           {
-            "source": "F0003:S3:T1:B5",
-            "quote": "Value"
+            "source": "F0003:S2:T2:B23",
+            "quote": "Serum (µg/mL)"
           },
           {
-            "source": "F0003:S3:T1:A6",
-            "quote": "AUC_0_12h"
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
           },
           {
-            "source": "F0003:S3:T1:D6",
-            "quote": "mg*h/L"
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
           },
           {
-            "source": "F0003:S3:T1:A7",
-            "quote": "Cmax"
+            "source": "F0003:S2:T2:B24",
+            "quote": "1.46 ± 0.38"
           },
           {
-            "source": "F0003:S3:T1:D7",
-            "quote": "mg/L"
+            "source": "F0003:S2:T2:B25",
+            "quote": "0.69 ± 0.29"
+          },
+          {
+            "source": "F0003:S2:T2:B26",
+            "quote": "<LLOQ"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Reported ±",
-        "meaning": "SUMMARY_STATISTIC",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Kidney (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
         "evidence": [
           {
-            "source": "F0003:S3:T1:C5",
-            "quote": "Reported ±"
+            "source": "F0003:S2:T2:C23",
+            "quote": "Kidney (µg/g)"
           },
           {
-            "source": "F0003:S3:T1:A4",
-            "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
           },
           {
-            "source": "F0003:S3:T1:D6",
-            "quote": "mg*h/L"
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
           },
           {
-            "source": "F0003:S3:T1:D7",
-            "quote": "mg/L"
+            "source": "F0003:S2:T2:C24",
+            "quote": "10.57 ± 1.21"
+          },
+          {
+            "source": "F0003:S2:T2:C25",
+            "quote": "11.32 ± 5.06"
+          },
+          {
+            "source": "F0003:S2:T2:C26",
+            "quote": "0.76 ± 0.41"
           }
         ],
         "column": "C"
       },
       {
-        "header": "Unit",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Muscle (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
         "evidence": [
           {
-            "source": "F0003:S3:T1:D5",
-            "quote": "Unit"
+            "source": "F0003:S2:T2:D23",
+            "quote": "Muscle (µg/g)"
           },
           {
-            "source": "F0003:S3:T1:D6",
-            "quote": "mg*h/L"
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
           },
           {
-            "source": "F0003:S3:T1:D7",
-            "quote": "mg/L"
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+          },
+          {
+            "source": "F0003:S2:T2:D24",
+            "quote": "1.31 ± 0.41"
+          },
+          {
+            "source": "F0003:S2:T2:D25",
+            "quote": "0.77 ± 0.34"
+          },
+          {
+            "source": "F0003:S2:T2:D26",
+            "quote": "0.53 ± 0.18"
           }
         ],
         "column": "D"
+      },
+      {
+        "header": "Liver (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S2:T2:E23",
+            "quote": "Liver (µg/g)"
+          },
+          {
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+          },
+          {
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+          },
+          {
+            "source": "F0003:S2:T2:E24",
+            "quote": "1.10 ± 0.29"
+          },
+          {
+            "source": "F0003:S2:T2:E25",
+            "quote": "0.82 ± 0.24"
+          },
+          {
+            "source": "F0003:S2:T2:E26",
+            "quote": "0.13 ± 0.04"
+          }
+        ],
+        "column": "E"
+      },
+      {
+        "header": "Heart (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S2:T2:F23",
+            "quote": "Heart (µg/g)"
+          },
+          {
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+          },
+          {
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+          },
+          {
+            "source": "F0003:S2:T2:F24",
+            "quote": "1.50 ± 0.78"
+          },
+          {
+            "source": "F0003:S2:T2:F25",
+            "quote": "0.57 ± 0.18"
+          },
+          {
+            "source": "F0003:S2:T2:F26",
+            "quote": "0.28 ± 0.06"
+          }
+        ],
+        "column": "F"
+      },
+      {
+        "header": "Lung (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S2:T2:G23",
+            "quote": "Lung (µg/g)"
+          },
+          {
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+          },
+          {
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+          },
+          {
+            "source": "F0003:S2:T2:G24",
+            "quote": "4.93 ± 3.71"
+          },
+          {
+            "source": "F0003:S2:T2:G25",
+            "quote": "1.33 ± 0.41"
+          },
+          {
+            "source": "F0003:S2:T2:G26",
+            "quote": "0.25 ± 0.04"
+          }
+        ],
+        "column": "G"
+      },
+      {
+        "header": "Spleen (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S2:T2:H23",
+            "quote": "Spleen (µg/g)"
+          },
+          {
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+          },
+          {
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+          },
+          {
+            "source": "F0003:S2:T2:H24",
+            "quote": "0.86 ± 0.43"
+          },
+          {
+            "source": "F0003:S2:T2:H25",
+            "quote": "1.11 ± 0.50"
+          },
+          {
+            "source": "F0003:S2:T2:H26",
+            "quote": "0.50 ± 0.07"
+          }
+        ],
+        "column": "H"
+      },
+      {
+        "header": "Brain (µg/g)",
+        "meaning": "CONCENTRATION",
+        "unit": "µg/g",
+        "qualifiers": [
+          "Summary mean ± SD.",
+          "tissues µg/g homogenate.",
+          "n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods).",
+          "Terminal sampling: each time point is a different group."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S2:T2:I23",
+            "quote": "Brain (µg/g)"
+          },
+          {
+            "source": "F0003:S2:T2:A21",
+            "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
+          },
+          {
+            "source": "F0003:S2:T2:A22",
+            "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
+          },
+          {
+            "source": "F0003:S2:T2:I24",
+            "quote": "0.04 ± 0.04"
+          },
+          {
+            "source": "F0003:S2:T2:I25",
+            "quote": "0.02 ± 0.02"
+          },
+          {
+            "source": "F0003:S2:T2:I26",
+            "quote": "0.01 ± 0.02"
+          }
+        ],
+        "column": "I"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Rabbit PMB exposure summaries",
-      "sheet": "Rabbit",
+      "title": "Rat serum and tissue homogenates (biodistribution)",
+      "sheet": "Rat",
       "region": {
-        "start_row": 1,
-        "end_row": 9,
+        "start_row": 19,
+        "end_row": 28,
         "left": 1,
-        "right": 4,
-        "header_row": 5,
-        "title": "Rabbit PMB exposure summaries",
+        "right": 9,
+        "header_row": 23,
+        "title": "Rat serum and tissue homogenates (biodistribution)",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Rabbit PMB exposure summaries\nS09 | DOI 10.1128/AAC.02157-19 | treatment-groups methods\nPreviously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples.\nThe efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated.",
+      "notes": "Rat serum and tissue homogenates (biodistribution)\nS07 | DOI 10.1128/AAC.02445-15 | Table 2 (Manchandani et al. 2016, PMC4750689)\nPMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate.\nFemale Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained.",
       "column_map": {
-        "c001_measure": "Measure",
-        "c002_value": "Value",
-        "c003_reported": "Reported ±",
-        "c004_unit": "Unit"
+        "c001_time_h": "Time (h)",
+        "c002_serum_g_ml": "Serum (µg/mL)",
+        "c003_kidney_g_g": "Kidney (µg/g)",
+        "c004_muscle_g_g": "Muscle (µg/g)",
+        "c005_liver_g_g": "Liver (µg/g)",
+        "c006_heart_g_g": "Heart (µg/g)",
+        "c007_lung_g_g": "Lung (µg/g)",
+        "c008_spleen_g_g": "Spleen (µg/g)",
+        "c009_brain_g_g": "Brain (µg/g)"
       }
     },
-    "source_item_id": "F0003:S3:T1",
+    "source_item_id": "F0003:S2:T2",
     "source_evidence": [
       {
-        "source": "F0003:S3:T1:A1",
-        "quote": "Rabbit PMB exposure summaries"
+        "source": "F0003:S2:T2:A19",
+        "quote": "Rat serum and tissue homogenates (biodistribution)"
       },
       {
-        "source": "F0003:S3:T1:A2",
-        "quote": "S09 | DOI 10.1128/AAC.02157-19 | treatment-groups methods"
+        "source": "F0003:S2:T2:A20",
+        "quote": "S07 | DOI 10.1128/AAC.02445-15 | Table 2 (Manchandani et al. 2016, PMC4750689)"
       },
       {
-        "source": "F0003:S3:T1:A3",
-        "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
+        "source": "F0003:S2:T2:A21",
+        "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
       },
       {
-        "source": "F0003:S3:T1:A4",
-        "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
+        "source": "F0003:S2:T2:A22",
+        "quote": "Female Sprague-Dawley rats 225–250 g; n=3 at 3 h, n=6 at 6 h, n=3 at 24 h (methods). Terminal sampling: each time point is a different group. <LLOQ retained."
       },
       {
-        "source": "F0003:S3:T1:A6",
-        "quote": "AUC_0_12h"
+        "source": "F0003:S2:T2:B24",
+        "quote": "1.46 ± 0.38"
       },
       {
-        "source": "F0003:S3:T1:B6",
-        "quote": "35.87"
+        "source": "F0003:S2:T2:B26",
+        "quote": "<LLOQ"
       },
       {
-        "source": "F0003:S3:T1:C6",
-        "quote": "1.24"
-      },
-      {
-        "source": "F0003:S3:T1:D6",
-        "quote": "mg*h/L"
-      },
-      {
-        "source": "F0003:S3:T1:A7",
-        "quote": "Cmax"
-      },
-      {
-        "source": "F0003:S3:T1:B7",
-        "quote": "14.4"
-      },
-      {
-        "source": "F0003:S3:T1:C7",
-        "quote": "0.97"
-      },
-      {
-        "source": "F0003:S3:T1:D7",
-        "quote": "mg/L"
+        "source": "F0003:S2:T2:G24",
+        "quote": "4.93 ± 3.71"
       }
     ],
     "requirement_ids": [
-      "REQ_MODEL_DESIGN",
-      "REQ_PREP_SOURCE",
-      "REQ_RABBIT_SCOPE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR006",
+      "DR007",
+      "DR013",
+      "DR039"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
@@ -204,59 +426,17 @@
       "candidates": [
         {
           "quantity": "NOT_FOUND",
-          "value": "1",
+          "value": "3",
           "unit": "mg/kg",
-          "subject": "Previously studied PMB",
+          "subject": "PMB sulfate (USP)",
           "qualifiers": [
-            "IV q12h"
+            "single IV 3 mg/kg via jugular cannula",
+            "salt/base basis not stated."
           ],
           "evidence": [
             {
-              "source": "F0003:S3:T1:A3",
-              "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
-            }
-          ]
-        },
-        {
-          "quantity": "NOT_FOUND",
-          "value": "2",
-          "unit": "mg/kg/day",
-          "subject": "Previously studied PMB",
-          "qualifiers": [],
-          "evidence": [
-            {
-              "source": "F0003:S3:T1:A3",
-              "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
-            }
-          ]
-        },
-        {
-          "quantity": "loading",
-          "value": "2.5",
-          "unit": "mg/kg",
-          "subject": "The efficacy experiment below",
-          "qualifiers": [
-            "loading"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S3:T1:A4",
-              "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
-            }
-          ]
-        },
-        {
-          "quantity": "NOT_FOUND",
-          "value": "1.5",
-          "unit": "mg/kg",
-          "subject": "The efficacy experiment below",
-          "qualifiers": [
-            "q12h"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S3:T1:A4",
-              "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
+              "source": "F0003:S2:T2:A21",
+              "quote": "PMB sulfate (USP) single IV 3 mg/kg via jugular cannula; salt/base basis not stated. Summary mean ± SD. Serum µg/mL; tissues µg/g homogenate."
             }
           ]
         }
@@ -267,26 +447,26 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0032.json",
-    "sha256": "b165c329ac77a6f3d491f104e72c551dcf3e07ec1c4dc9d1f3bf5b3557091b13"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0032.json",
+    "sha256": "6bf1e49aa78860ad2006f98605be1e3753ab00f156896df0a6f95be55f6624f0"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 2,
-    "retained_records": 2,
+    "source_records": 3,
+    "retained_records": 3,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

@@ -1,186 +1,160 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0012",
-  "role": "PK_OBSERVATIONS",
+  "role": "DOSING",
   "metadata": {
-    "role": "PK_OBSERVATIONS",
-    "species": "Neutropenic P. aeruginosa lung-infected mice",
-    "matrix": "ELF",
-    "exposure_basis": "ELF concentration after urea correction; total or unbound basis for ELF NOT_FOUND",
-    "record_level": "Digitized plotted mean; terminal samples; not individual records",
+    "role": "DOSING",
+    "species": "Mouse; strain FADDI-KP032; thigh infection context. Host strain and immune status: NOT_FOUND.",
+    "matrix": "NOT_APPLICABLE",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Regimen definitions with curator-assigned labels; animal identifiers and response records are not supplied.",
     "drug": "PMB",
-    "route": "IT",
-    "endpoint_window": "Time (h) rows from 0.25 through 12; single dose at time 0",
+    "route": "SC",
+    "endpoint_window": "Window 0-24 h is relative to first treatment. Response observation time: NOT_FOUND.",
     "route_category": "EXTRAVASCULAR",
-    "matrix_category": "INFECTION_SITE",
-    "record_category": "GROUP_SUMMARY",
-    "observation_source": "DIGITIZED_FROM_FIGURE",
-    "dose_basis": "mg BASE/kg",
-    "analyte": "PMB",
-    "dosing_regimen": "single 4.12 mg/kg at time 0",
+    "matrix_category": "NOT_APPLICABLE",
+    "record_category": "NOT_APPLICABLE",
+    "observation_source": "SOURCE_VALUES",
+    "dose_basis": "mg/kg per injection as reported for PMB sulphate",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "Interval (h): 24, 12, 8, 4. Treatment starts 2 h after inoculation. Repeated injections occur at 0, tau, ... strictly before 24 h.",
     "additional_roles": [
-      "ANIMAL_CHARACTERISTICS",
-      "BINDING",
-      "DOSING",
       "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "Marker label",
-        "meaning": "OTHER",
+        "header": "Regimen label",
+        "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "qualifiers": [
+          "Regimen labels are curator-assigned."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T16:A228",
-            "quote": "Marker label"
+            "source": "F0003:S1:T12:A145",
+            "quote": "Regimen label"
           },
           {
-            "source": "F0003:S1:T16:A229",
-            "quote": "S05A-IT-ELF-4.12-01"
+            "source": "F0003:S1:T12:A143",
+            "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
           }
         ],
         "column": "A"
       },
       {
-        "header": "Time (h)",
-        "meaning": "TIME",
-        "unit": "h",
+        "header": "Dose (mg/kg)",
+        "meaning": "DOSE",
+        "unit": "mg/kg",
         "qualifiers": [
-          "nominal times from PK methods; terminal samples.",
-          "single 4.12 mg/kg at time 0."
+          "per injection",
+          "as reported for PMB sulphate",
+          "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained.",
+          "Do not infer exact unrounded daily doses."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T16:B228",
-            "quote": "Time (h)"
+            "source": "F0003:S1:T12:B145",
+            "quote": "Dose (mg/kg)"
           },
           {
-            "source": "F0003:S1:T16:B229",
-            "quote": "0.25"
+            "source": "F0003:S1:T12:A141",
+            "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
           },
           {
-            "source": "F0003:S1:T16:A222",
-            "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
-          },
-          {
-            "source": "F0003:S1:T16:A218",
-            "quote": "PMB; mouse; IT; single 4.12 mg/kg at time 0. Matrix: ELF; plotted mean, not individual records."
+            "source": "F0003:S1:T12:A144",
+            "quote": "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses."
           }
         ],
         "column": "B"
       },
       {
-        "header": "Mean (mg/L)",
-        "meaning": "CONCENTRATION",
-        "unit": "mg/L",
+        "header": "Interval (h)",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [
-          "plotted mean, not individual records.",
-          "DIGITIZED from observed markers, not fitted lines.",
-          "Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          "Repeated injections occur at 0, tau, ... strictly before 24 h."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T16:C228",
-            "quote": "Mean (mg/L)"
+            "source": "F0003:S1:T12:C145",
+            "quote": "Interval (h)"
           },
           {
-            "source": "F0003:S1:T16:C229",
-            "quote": "107.238"
-          },
-          {
-            "source": "F0003:S1:T16:A218",
-            "quote": "PMB; mouse; IT; single 4.12 mg/kg at time 0. Matrix: ELF; plotted mean, not individual records."
-          },
-          {
-            "source": "F0003:S1:T16:A219",
-            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+            "source": "F0003:S1:T12:A142",
+            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
           }
         ],
         "column": "C"
       },
       {
-        "header": "Pixel time (h)",
-        "meaning": "TIME",
-        "unit": "h",
-        "qualifiers": [
-          "Concentration and pixel time are approximate; no SD or individual IDs recovered."
-        ],
+        "header": "Strain",
+        "meaning": "GROUP_OR_TREATMENT",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T16:D228",
-            "quote": "Pixel time (h)"
+            "source": "F0003:S1:T12:D145",
+            "quote": "Strain"
           },
           {
-            "source": "F0003:S1:T16:D229",
-            "quote": "0.255"
-          },
-          {
-            "source": "F0003:S1:T16:A219",
-            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+            "source": "F0003:S1:T12:D146",
+            "quote": "FADDI-KP032"
           }
         ],
         "column": "D"
       },
       {
-        "header": "Pixel x",
-        "meaning": "OTHER",
+        "header": "Route",
+        "meaning": "ROUTE",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T16:E228",
-            "quote": "Pixel x"
+            "source": "F0003:S1:T12:E145",
+            "quote": "Route"
           },
           {
-            "source": "F0003:S1:T16:E229",
-            "quote": "165"
-          },
-          {
-            "source": "F0003:S1:T16:A220",
-            "quote": "Image calibration x=145,1085 -> 0,12 h; y=37,696 -> 10^3,10^0 mg/L; origin top-left."
+            "source": "F0003:S1:T12:E146",
+            "quote": "SC"
           }
         ],
         "column": "E"
       },
       {
-        "header": "Pixel y",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Window start (h)",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [
+          "relative to first treatment"
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T16:F228",
-            "quote": "Pixel y"
+            "source": "F0003:S1:T12:F145",
+            "quote": "Window start (h)"
           },
           {
-            "source": "F0003:S1:T16:F229",
-            "quote": "250"
-          },
-          {
-            "source": "F0003:S1:T16:A220",
-            "quote": "Image calibration x=145,1085 -> 0,12 h; y=37,696 -> 10^3,10^0 mg/L; origin top-left."
+            "source": "F0003:S1:T12:A142",
+            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
           }
         ],
         "column": "F"
       },
       {
-        "header": "Record status",
-        "meaning": "BLQ_OR_FLAG",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Window end (h)",
+        "meaning": "TIME",
+        "unit": "h",
+        "qualifiers": [
+          "relative to first treatment",
+          "Repeated injections occur at 0, tau, ... strictly before 24 h."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T16:G228",
-            "quote": "Record status"
+            "source": "F0003:S1:T12:G145",
+            "quote": "Window end (h)"
           },
           {
-            "source": "F0003:S1:T16:G229",
-            "quote": "DIGITIZED_MEAN"
-          },
-          {
-            "source": "F0003:S1:T16:A219",
-            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+            "source": "F0003:S1:T12:A142",
+            "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
           }
         ],
         "column": "G"
@@ -188,121 +162,136 @@
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Mouse IT 4.12 mg/kg: ELF observed mean curve",
+      "title": "2018 thigh dose-fractionation regimens",
       "sheet": "Mouse",
       "region": {
-        "start_row": 216,
-        "end_row": 238,
+        "start_row": 139,
+        "end_row": 176,
         "left": 1,
         "right": 7,
-        "header_row": 228,
-        "title": "Mouse IT 4.12 mg/kg: ELF observed mean curve",
+        "header_row": 145,
+        "title": "2018 thigh dose-fractionation regimens",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Mouse IT 4.12 mg/kg: ELF observed mean curve\nS05 | https://doi.org/10.1128/AAC.00211-17 | Figure 1, panel A; PDF embedded image\nPMB; mouse; IT; single 4.12 mg/kg at time 0. Matrix: ELF; plotted mean, not individual records.\nDIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered.\nImage calibration x=145,1085 -> 0,12 h; y=37,696 -> 10^3,10^0 mg/L; origin top-left.\nSensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD.\nNeutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples.\nCaption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs.\nPlasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice.\nSame-study plasma fu=0.046 is an assay-based mean with no numeric uncertainty recovered. Do not apply to ELF.\nPlasma/BALF LOQ 0.10 mg/L; ELF approximately 2 mg/L after urea correction. IV ELF all BLQ, no pseudo-zero points.\nSource model flagged IV plasma 3 h / IT8.24 plasma 6 h as potential outlier locations; keep all observed means.",
+      "notes": "2018 thigh dose-fractionation regimens\nS02 | https://doi.org/10.1093/jac/dkx409 | Animal infection models and PK/PD studies\nDose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation.\nWindow 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h.\nRegimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots.\nSource rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses.",
       "column_map": {
-        "c001_marker_label": "Marker label",
-        "c002_time_h": "Time (h)",
-        "c003_mean_mg_l": "Mean (mg/L)",
-        "c004_pixel_time_h": "Pixel time (h)",
-        "c005_pixel_x": "Pixel x",
-        "c006_pixel_y": "Pixel y",
-        "c007_record_status": "Record status"
+        "c001_regimen_label": "Regimen label",
+        "c002_dose_mg_kg": "Dose (mg/kg)",
+        "c003_interval_h": "Interval (h)",
+        "c004_strain": "Strain",
+        "c005_route": "Route",
+        "c006_window_start_h": "Window start (h)",
+        "c007_window_end_h": "Window end (h)"
       }
     },
-    "source_item_id": "F0003:S1:T16",
+    "source_item_id": "F0003:S1:T12",
     "source_evidence": [
       {
-        "source": "F0003:S1:T16:A218",
-        "quote": "PMB; mouse; IT; single 4.12 mg/kg at time 0. Matrix: ELF; plotted mean, not individual records."
+        "source": "F0003:S1:T12",
+        "quote": "\"sheet\": \"Mouse\""
       },
       {
-        "source": "F0003:S1:T16:A219",
-        "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+        "source": "F0003:S1:T12:A139",
+        "quote": "2018 thigh dose-fractionation regimens"
       },
       {
-        "source": "F0003:S1:T16:A222",
-        "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+        "source": "F0003:S1:T12:A140",
+        "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Animal infection models and PK/PD studies"
       },
       {
-        "source": "F0003:S1:T16:B229",
-        "quote": "0.25"
+        "source": "F0003:S1:T12:A141",
+        "quote": "Dose is mg/kg per injection as reported for PMB sulphate. Treatment starts 2 h after inoculation."
       },
       {
-        "source": "F0003:S1:T16:B236",
+        "source": "F0003:S1:T12:A142",
+        "quote": "Window 0-24 h is relative to first treatment. Repeated injections occur at 0, tau, ... strictly before 24 h."
+      },
+      {
+        "source": "F0003:S1:T12:A143",
+        "quote": "Regimen labels are curator-assigned. No individual CFU-to-regimen numeric mapping was located; Figure 4a/S1 are plots."
+      },
+      {
+        "source": "F0003:S1:T12:A144",
+        "quote": "Source rounding of 0.83, 1.67, 3.33 and 6.67 is retained. Do not infer exact unrounded daily doses."
+      },
+      {
+        "source": "F0003:S1:T12:A146",
+        "quote": "KP032-0.5-q24"
+      },
+      {
+        "source": "F0003:S1:T12:B146",
+        "quote": "0.5"
+      },
+      {
+        "source": "F0003:S1:T12:C146",
+        "quote": "24"
+      },
+      {
+        "source": "F0003:S1:T12:D146",
+        "quote": "FADDI-KP032"
+      },
+      {
+        "source": "F0003:S1:T12:E146",
+        "quote": "SC"
+      },
+      {
+        "source": "F0003:S1:T12:F146",
+        "quote": "0"
+      },
+      {
+        "source": "F0003:S1:T12:G146",
+        "quote": "24"
+      },
+      {
+        "source": "F0003:S1:T12:C151",
         "quote": "12"
       },
       {
-        "source": "F0003:S1:T16:C229",
-        "quote": "107.238"
+        "source": "F0003:S1:T12:C157",
+        "quote": "8"
       },
       {
-        "source": "F0003:S1:T16:C236",
-        "quote": "20.255"
+        "source": "F0003:S1:T12:C169",
+        "quote": "4"
       }
     ],
     "requirement_ids": [
-      "REQ_ANIMAL_INPUT",
-      "REQ_MODEL_DESIGN",
-      "REQ_PREP_BASIS",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR020",
+      "DR021",
+      "DR022",
+      "DR023",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": {
-      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
-      "candidates": [
-        {
-          "quantity": "dose",
-          "value": "4.12",
-          "unit": "mg/kg",
-          "subject": "Mouse IT 4.12 mg/kg: ELF observed mean curve",
-          "qualifiers": [
-            "single 4.12 mg/kg at time 0.",
-            "dose in mg BASE/kg"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S1:T16:A216",
-              "quote": "Mouse IT 4.12 mg/kg: ELF observed mean curve"
-            },
-            {
-              "source": "F0003:S1:T16:A218",
-              "quote": "PMB; mouse; IT; single 4.12 mg/kg at time 0. Matrix: ELF; plotted mean, not individual records."
-            },
-            {
-              "source": "F0003:S1:T16:A222",
-              "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
-            }
-          ]
-        }
-      ],
-      "per_record_assignment": false
-    },
+    "dose": "NOT_FOUND",
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0012.json",
-    "sha256": "581f09be2986bbe430081282e23da1f8427b474291e0678c9ad34d621b8a2e32"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0012.json",
+    "sha256": "5f5be0ad253e7659811e23ea732f0d33a71df1b6bb4217b6bd5b762c582e9e4e"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 8,
-    "retained_records": 8,
+    "source_records": 29,
+    "retained_records": 29,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

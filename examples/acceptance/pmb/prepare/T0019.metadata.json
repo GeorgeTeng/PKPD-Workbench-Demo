@@ -1,118 +1,162 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0019",
-  "role": "PD_OBSERVATIONS",
+  "role": "PK_OBSERVATIONS",
   "metadata": {
-    "role": "PD_OBSERVATIONS",
-    "species": "Neutropenic mouse thigh; K. pneumoniae 104",
-    "matrix": "mouse thigh",
-    "exposure_basis": "fAUC_MIC_h; fu=0.20 already applied; exposure coordinates from the published PK simulation",
-    "record_level": "Visible single-thigh markers; not a complete individual dataset; animal IDs and cross-panel point IDs NOT_FOUND",
-    "drug": "NOT_FOUND",
-    "route": "SC",
-    "endpoint_window": "change from pretreatment to 24 h; same-study 0-24 h exposure",
+    "role": "PK_OBSERVATIONS",
+    "species": "Neutropenic P. aeruginosa lung-infected mice",
+    "matrix": "plasma",
+    "exposure_basis": "Plasma total only",
+    "record_level": "plotted mean, not individual records; terminal samples; no SD or individual IDs recovered",
+    "drug": "PMB",
+    "route": "IT",
+    "endpoint_window": "Time (h): 0.25, 0.5, 1, 2, 3, 4, 6, 12; nominal times from PK methods",
     "route_category": "EXTRAVASCULAR",
-    "matrix_category": "INFECTION_SITE",
-    "record_category": "NOT_FOUND",
+    "matrix_category": "PLASMA_SERUM_BLOOD",
+    "record_category": "GROUP_SUMMARY",
     "observation_source": "DIGITIZED_FROM_FIGURE",
-    "dose_basis": "NOT_FOUND",
-    "analyte": "NOT_FOUND",
-    "dosing_regimen": "NOT_FOUND",
-    "additional_roles": [],
+    "dose_basis": "mg BASE/kg",
+    "analyte": "PMB",
+    "dosing_regimen": "single 8.24 mg/kg at time 0",
+    "additional_roles": [
+      "ANIMAL_CHARACTERISTICS",
+      "BINDING",
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
+    ],
     "columns": [
       {
-        "header": "Panel marker",
+        "header": "Marker label",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "visible single-thigh markers, NOT a complete individual dataset"
+          "plotted mean, not individual records",
+          "no SD or individual IDs recovered"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:A529",
-            "quote": "Panel marker"
+            "source": "F0003:S1:T19:A297",
+            "quote": "Marker label"
           },
           {
-            "source": "F0003:S1:T26:A520",
-            "quote": "These are visible single-thigh markers, NOT a complete individual dataset. Overlap hides counts; no invented duplicate dots."
+            "source": "F0003:S1:T19:A298",
+            "quote": "S05B-IT-plasma-8.24-01"
           },
           {
-            "source": "F0003:S1:T26:A530",
-            "quote": "S01-Kp-A-01"
+            "source": "F0003:S1:T19:A305",
+            "quote": "S05B-IT-plasma-8.24-08"
+          },
+          {
+            "source": "F0003:S1:T19:A287",
+            "quote": "PMB; mouse; IT; single 8.24 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+          },
+          {
+            "source": "F0003:S1:T19:A288",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           }
         ],
         "column": "A"
       },
       {
-        "header": "Index coordinate",
-        "meaning": "OTHER",
+        "header": "Time (h)",
+        "meaning": "TIME",
         "unit": "h",
         "qualifiers": [
-          "same-study 0-24 h exposure",
-          "fu=0.20 already applied",
-          "Exposure coordinates come from the published PK simulation, not an independently fitted current model."
+          "nominal times from PK methods",
+          "single 8.24 mg/kg at time 0"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:B529",
-            "quote": "Index coordinate"
+            "source": "F0003:S1:T19:B297",
+            "quote": "Time (h)"
           },
           {
-            "source": "F0003:S1:T26:C530",
-            "quote": "h"
+            "source": "F0003:S1:T19:B298",
+            "quote": "0.25"
           },
           {
-            "source": "F0003:S1:T26:A517",
-            "quote": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h"
+            "source": "F0003:S1:T19:B305",
+            "quote": "12"
           },
           {
-            "source": "F0003:S1:T26:A519",
-            "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            "source": "F0003:S1:T19:A291",
+            "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
           },
           {
-            "source": "F0003:S1:T26:A521",
-            "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+            "source": "F0003:S1:T19:A287",
+            "quote": "PMB; mouse; IT; single 8.24 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
           }
         ],
         "column": "B"
       },
       {
-        "header": "X unit",
-        "meaning": "OTHER",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "header": "Mean (mg/L)",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
+        "qualifiers": [
+          "Mean",
+          "DIGITIZED from observed markers, not fitted lines",
+          "Concentration and pixel time are approximate",
+          "no SD or individual IDs recovered",
+          "Plasma total only",
+          "Caption mean+/-SD, n>=3; methods n=4/time"
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:C529",
-            "quote": "X unit"
+            "source": "F0003:S1:T19:C297",
+            "quote": "Mean (mg/L)"
           },
           {
-            "source": "F0003:S1:T26:C530",
-            "quote": "h"
+            "source": "F0003:S1:T19:C298",
+            "quote": "21.695"
+          },
+          {
+            "source": "F0003:S1:T19:C305",
+            "quote": "0.489"
+          },
+          {
+            "source": "F0003:S1:T19:A288",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          },
+          {
+            "source": "F0003:S1:T19:A292",
+            "quote": "Caption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs."
+          },
+          {
+            "source": "F0003:S1:T19:A293",
+            "quote": "Plasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice."
           }
         ],
         "column": "C"
       },
       {
-        "header": "Delta log10 CFU",
-        "meaning": "RESPONSE",
-        "unit": "log10 CFU",
+        "header": "Pixel time (h)",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [
-          "change from pretreatment to 24 h",
-          "Approximate digitization only; pixel tolerance +/-2."
+          "Concentration and pixel time are approximate",
+          "DIGITIZED from observed markers, not fitted lines"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:D529",
-            "quote": "Delta log10 CFU"
+            "source": "F0003:S1:T19:D297",
+            "quote": "Pixel time (h)"
           },
           {
-            "source": "F0003:S1:T26:A519",
-            "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+            "source": "F0003:S1:T19:D298",
+            "quote": "0.266"
           },
           {
-            "source": "F0003:S1:T26:A526",
-            "quote": "Approximate digitization only; pixel tolerance +/-2. No fitted curve, R2 label or model-predicted response is extracted."
+            "source": "F0003:S1:T19:D305",
+            "quote": "12"
+          },
+          {
+            "source": "F0003:S1:T19:A288",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          },
+          {
+            "source": "F0003:S1:T19:A289",
+            "quote": "Image calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left."
           }
         ],
         "column": "D"
@@ -122,16 +166,29 @@
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "Approximate digitization only; pixel tolerance +/-2."
+          "origin top-left",
+          "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:E529",
+            "source": "F0003:S1:T19:E297",
             "quote": "Pixel x"
           },
           {
-            "source": "F0003:S1:T26:A526",
-            "quote": "Approximate digitization only; pixel tolerance +/-2. No fitted curve, R2 label or model-predicted response is extracted."
+            "source": "F0003:S1:T19:E298",
+            "quote": "159"
+          },
+          {
+            "source": "F0003:S1:T19:E305",
+            "quote": "1085"
+          },
+          {
+            "source": "F0003:S1:T19:A289",
+            "quote": "Image calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left."
+          },
+          {
+            "source": "F0003:S1:T19:A290",
+            "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
           }
         ],
         "column": "E"
@@ -141,48 +198,57 @@
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "Approximate digitization only; pixel tolerance +/-2."
+          "origin top-left",
+          "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:F529",
+            "source": "F0003:S1:T19:F297",
             "quote": "Pixel y"
           },
           {
-            "source": "F0003:S1:T26:A526",
-            "quote": "Approximate digitization only; pixel tolerance +/-2. No fitted curve, R2 label or model-predicted response is extracted."
+            "source": "F0003:S1:T19:F298",
+            "quote": "1079"
+          },
+          {
+            "source": "F0003:S1:T19:F305",
+            "quote": "1352"
+          },
+          {
+            "source": "F0003:S1:T19:A289",
+            "quote": "Image calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left."
+          },
+          {
+            "source": "F0003:S1:T19:A290",
+            "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
           }
         ],
         "column": "F"
       },
       {
-        "header": "X status",
+        "header": "Record status",
         "meaning": "BLQ_OR_FLAG",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "Log-axis left-edge markers are unresolved display/censor locations, not verified positive exposure or established zero-dose controls.",
-          "OVERLAP_OR_AXIS_REVIEW flags close/axis-obscured features; multiplicity uncertain. Exclude these from numerical diagnostics."
+          "DIGITIZED_MEAN",
+          "DIGITIZED from observed markers, not fitted lines"
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T26:G529",
-            "quote": "X status"
+            "source": "F0003:S1:T19:G297",
+            "quote": "Record status"
           },
           {
-            "source": "F0003:S1:T26:A524",
-            "quote": "Log-axis left-edge markers are unresolved display/censor locations, not verified positive exposure or established zero-dose controls."
+            "source": "F0003:S1:T19:G298",
+            "quote": "DIGITIZED_MEAN"
           },
           {
-            "source": "F0003:S1:T26:A525",
-            "quote": "OVERLAP_OR_AXIS_REVIEW flags close/axis-obscured features; multiplicity uncertain. Exclude these from numerical diagnostics."
+            "source": "F0003:S1:T19:G305",
+            "quote": "DIGITIZED_MEAN"
           },
           {
-            "source": "F0003:S1:T26:G530",
-            "quote": "AT_LEFT_LOG_AXIS_UNRESOLVED"
-          },
-          {
-            "source": "F0003:S1:T26:G544",
-            "quote": "OVERLAP_OR_AXIS_REVIEW"
+            "source": "F0003:S1:T19:A288",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           }
         ],
         "column": "G"
@@ -190,96 +256,184 @@
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h",
+      "title": "Mouse IT 8.24 mg/kg: plasma observed mean curve",
       "sheet": "Mouse",
       "region": {
-        "start_row": 517,
-        "end_row": 555,
+        "start_row": 285,
+        "end_row": 307,
         "left": 1,
         "right": 7,
-        "header_row": 529,
-        "title": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h",
+        "header_row": 297,
+        "title": "Mouse IT 8.24 mg/kg: plasma observed mean curve",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h\nS01 | https://doi.org/10.1093/jac/dkad022 | Figure 2; panel Kp-A; PDF embedded image\nNeutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied.\nThese are visible single-thigh markers, NOT a complete individual dataset. Overlap hides counts; no invented duplicate dots.\nExposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication.\nOnly study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND.\nDO NOT join panels by rank, nearest response or assumed dose. Different recovered point sets cannot support AIC/BIC index ranking.\nLog-axis left-edge markers are unresolved display/censor locations, not verified positive exposure or established zero-dose controls.\nOVERLAP_OR_AXIS_REVIEW flags close/axis-obscured features; multiplicity uncertain. Exclude these from numerical diagnostics.\nApproximate digitization only; pixel tolerance +/-2. No fitted curve, R2 label or model-predicted response is extracted.\nCalibration x=1038,1380 -> 0,3 log10; y=444,672 -> 4,-2 log10 CFU.\nUse for isolated descriptive Emax/Hill shape diagnostics, not primary independently selected best index; dose-range conflict remains.",
+      "notes": "Mouse IT 8.24 mg/kg: plasma observed mean curve\nS05 | https://doi.org/10.1128/AAC.00211-17 | Figure 1, panel B; PDF embedded image\nPMB; mouse; IT; single 8.24 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records.\nDIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered.\nImage calibration x=138,1085 -> 0,12 h; y=969,1632 -> 10^2,10^-2 mg/L; origin top-left.\nSensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD.\nNeutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples.\nCaption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs.\nPlasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice.\nSame-study plasma fu=0.046 is an assay-based mean with no numeric uncertainty recovered. Do not apply to ELF.\nPlasma/BALF LOQ 0.10 mg/L; ELF approximately 2 mg/L after urea correction. IV ELF all BLQ, no pseudo-zero points.\nSource model flagged IV plasma 3 h / IT8.24 plasma 6 h as potential outlier locations; keep all observed means.",
       "column_map": {
-        "c001_panel_marker": "Panel marker",
-        "c002_index_coordinate": "Index coordinate",
-        "c003_x_unit": "X unit",
-        "c004_delta_log10_cfu": "Delta log10 CFU",
+        "c001_marker_label": "Marker label",
+        "c002_time_h": "Time (h)",
+        "c003_mean_mg_l": "Mean (mg/L)",
+        "c004_pixel_time_h": "Pixel time (h)",
         "c005_pixel_x": "Pixel x",
         "c006_pixel_y": "Pixel y",
-        "c007_x_status": "X status"
+        "c007_record_status": "Record status"
       }
     },
-    "source_item_id": "F0003:S1:T26",
+    "source_item_id": "F0003:S1:T19",
     "source_evidence": [
       {
-        "source": "F0003:S1:T26:A517",
-        "quote": "2023 fractionation scatter: K. pneumoniae 104; fAUC_MIC_h"
+        "source": "F0003:S1:T19:A286",
+        "quote": "S05 | https://doi.org/10.1128/AAC.00211-17 | Figure 1, panel B; PDF embedded image"
       },
       {
-        "source": "F0003:S1:T26:A518",
-        "quote": "S01 | https://doi.org/10.1093/jac/dkad022 | Figure 2; panel Kp-A; PDF embedded image"
+        "source": "F0003:S1:T19:A287",
+        "quote": "PMB; mouse; IT; single 8.24 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
       },
       {
-        "source": "F0003:S1:T26:A519",
-        "quote": "Neutropenic mouse thigh; SC; same-study 0-24 h exposure vs change from pretreatment to 24 h; fu=0.20 already applied."
+        "source": "F0003:S1:T19:A288",
+        "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
       },
       {
-        "source": "F0003:S1:T26:A520",
-        "quote": "These are visible single-thigh markers, NOT a complete individual dataset. Overlap hides counts; no invented duplicate dots."
+        "source": "F0003:S1:T19:A291",
+        "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
       },
       {
-        "source": "F0003:S1:T26:A521",
-        "quote": "Exposure coordinates come from the published PK simulation, not an independently fitted current model. No extra fu multiplication."
+        "source": "F0003:S1:T19:A292",
+        "quote": "Caption mean+/-SD, n>=3; methods n=4/time. Source means do not establish repeated individual-animal IDs."
       },
       {
-        "source": "F0003:S1:T26:A522",
-        "quote": "Only study/strain/window matching is established. Per-marker doses, animal IDs and cross-panel point IDs are NOT_FOUND."
+        "source": "F0003:S1:T19:A293",
+        "quote": "Plasma total only: exclude the separately plotted calculated unbound copy to avoid counting observations twice."
       },
       {
-        "source": "F0003:S1:T26:B530",
-        "quote": "1.0204"
+        "source": "F0003:S1:T19:A294",
+        "quote": "Same-study plasma fu=0.046 is an assay-based mean with no numeric uncertainty recovered. Do not apply to ELF."
       },
       {
-        "source": "F0003:S1:T26:D530",
-        "quote": "3.263"
+        "source": "F0003:S1:T19:A295",
+        "quote": "Plasma/BALF LOQ 0.10 mg/L; ELF approximately 2 mg/L after urea correction. IV ELF all BLQ, no pseudo-zero points."
+      },
+      {
+        "source": "F0003:S1:T19:A296",
+        "quote": "Source model flagged IV plasma 3 h / IT8.24 plasma 6 h as potential outlier locations; keep all observed means."
+      },
+      {
+        "source": "F0003:S1:T19:A298",
+        "quote": "S05B-IT-plasma-8.24-01"
+      },
+      {
+        "source": "F0003:S1:T19:B298",
+        "quote": "0.25"
+      },
+      {
+        "source": "F0003:S1:T19:C298",
+        "quote": "21.695"
+      },
+      {
+        "source": "F0003:S1:T19:G298",
+        "quote": "DIGITIZED_MEAN"
+      },
+      {
+        "source": "F0003:S1:T19:B299",
+        "quote": "0.5"
+      },
+      {
+        "source": "F0003:S1:T19:B300",
+        "quote": "1"
+      },
+      {
+        "source": "F0003:S1:T19:B301",
+        "quote": "2"
+      },
+      {
+        "source": "F0003:S1:T19:B302",
+        "quote": "3"
+      },
+      {
+        "source": "F0003:S1:T19:B303",
+        "quote": "4"
+      },
+      {
+        "source": "F0003:S1:T19:B304",
+        "quote": "6"
+      },
+      {
+        "source": "F0003:S1:T19:C304",
+        "quote": "1.258"
+      },
+      {
+        "source": "F0003:S1:T19:B305",
+        "quote": "12"
+      },
+      {
+        "source": "F0003:S1:T19:C305",
+        "quote": "0.489"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_DEFS",
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR006",
+      "DR007",
+      "DR009",
+      "DR011"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "dose",
+          "value": "8.24",
+          "unit": "mg/kg",
+          "subject": "PMB; mouse; IT",
+          "qualifiers": [
+            "single 8.24 mg/kg at time 0",
+            "dose in mg BASE/kg"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T19:A285",
+              "quote": "Mouse IT 8.24 mg/kg: plasma observed mean curve"
+            },
+            {
+              "source": "F0003:S1:T19:A287",
+              "quote": "PMB; mouse; IT; single 8.24 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+            },
+            {
+              "source": "F0003:S1:T19:A291",
+              "quote": "Neutropenic P. aeruginosa lung-infected mice; dose in mg BASE/kg; nominal times from PK methods; terminal samples."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0019.json",
-    "sha256": "fdeba4315bb2dd7e6b42cc5adfa4cb753feb77685e2cf2434d1f0cd85b40be27"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0019.json",
+    "sha256": "d28451d1c77932b39838d1fa2f2305482f2b50bf40b1d2365becc4f14d6b071a"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 24,
-    "retained_records": 24,
+    "source_records": 8,
+    "retained_records": 8,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

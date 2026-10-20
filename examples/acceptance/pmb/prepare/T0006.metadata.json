@@ -1,187 +1,307 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0006",
-  "role": "MIC",
+  "role": "PD_OBSERVATIONS",
   "metadata": {
-    "role": "MIC",
-    "species": "K. pneumoniae; FADDI-KP032, ATCC BAA-2146, FADDI-KP042",
-    "matrix": "Broth; composition NOT_FOUND",
-    "exposure_basis": "NOT_APPLICABLE",
-    "record_level": "Strain-level MIC values; replicate count NOT_FOUND",
-    "drug": "PMB",
-    "route": "NOT_APPLICABLE",
-    "endpoint_window": "NOT_FOUND",
-    "route_category": "NOT_APPLICABLE",
-    "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "NOT_APPLICABLE",
+    "role": "PD_OBSERVATIONS",
+    "species": "Mouse; P. aeruginosa FADDI-PA102; lung infection context",
+    "matrix": "Lung",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Individual terminal bacterial-burden observations within each treatment arm. Mouse-number headers do not establish identity across arms.",
+    "drug": "Polymyxin B",
+    "route": "SC",
+    "endpoint_window": "pre-treatment at 0 h; vehicle and PMB at 24 h",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "INFECTION_SITE",
+    "record_category": "INDIVIDUAL",
     "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_APPLICABLE",
-    "analyte": "PMB",
-    "dosing_regimen": "NOT_APPLICABLE",
-    "additional_roles": [],
+    "dose_basis": "free base",
+    "analyte": "NOT_FOUND",
+    "dosing_regimen": "90 mg/kg/day free base SC, divided into three doses q8h.",
+    "additional_roles": [
+      "DOSING",
+      "MIC"
+    ],
     "columns": [
       {
-        "header": "Species",
-        "meaning": "COVARIATE",
-        "unit": "NOT_FOUND",
-        "qualifiers": [],
-        "evidence": [
-          {
-            "source": "F0003:S1:T10:A124",
-            "quote": "Species"
-          },
-          {
-            "source": "F0003:S1:T10:A125",
-            "quote": "K. pneumoniae"
-          }
-        ],
-        "column": "A"
-      },
-      {
-        "header": "Strain",
+        "header": "Group",
         "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T10:B124",
-            "quote": "Strain"
+            "source": "F0003:S1:T6:A77",
+            "quote": "Group"
           },
           {
-            "source": "F0003:S1:T10:B125",
-            "quote": "FADDI-KP032"
+            "source": "F0003:S1:T6:A78",
+            "quote": "Pre-treatment"
           },
           {
-            "source": "F0003:S1:T10:B126",
-            "quote": "ATCC BAA-2146"
+            "source": "F0003:S1:T6:A79",
+            "quote": "Vehicle"
           },
           {
-            "source": "F0003:S1:T10:B127",
-            "quote": "FADDI-KP042"
+            "source": "F0003:S1:T6:A80",
+            "quote": "Polymyxin B (90mg/kg/d)"
+          }
+        ],
+        "column": "A"
+      },
+      {
+        "header": "Mouse 1",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T6:B77",
+            "quote": "Mouse 1"
+          },
+          {
+            "source": "F0003:S1:T6:A75",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T6:B78",
+            "quote": "7.12"
+          },
+          {
+            "source": "F0003:S1:T6:B79",
+            "quote": "7.98"
+          },
+          {
+            "source": "F0003:S1:T6:B80",
+            "quote": "7.28"
           }
         ],
         "column": "B"
       },
       {
-        "header": "PMB MIC (mg/L)",
-        "meaning": "MIC",
-        "unit": "mg/L",
-        "qualifiers": [],
+        "header": "Mouse 2",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
         "evidence": [
           {
-            "source": "F0003:S1:T10:C124",
-            "quote": "PMB MIC (mg/L)"
+            "source": "F0003:S1:T6:C77",
+            "quote": "Mouse 2"
           },
           {
-            "source": "F0003:S1:T10:C125",
-            "quote": "0.5"
+            "source": "F0003:S1:T6:A75",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
           },
           {
-            "source": "F0003:S1:T10:C126",
-            "quote": "0.5"
+            "source": "F0003:S1:T6:C78",
+            "quote": "7.16"
           },
           {
-            "source": "F0003:S1:T10:C127",
-            "quote": "0.5"
+            "source": "F0003:S1:T6:C79",
+            "quote": "7.9"
+          },
+          {
+            "source": "F0003:S1:T6:C80",
+            "quote": "7.23"
           }
         ],
         "column": "C"
+      },
+      {
+        "header": "Mouse 3",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T6:D77",
+            "quote": "Mouse 3"
+          },
+          {
+            "source": "F0003:S1:T6:A75",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T6:D78",
+            "quote": "7.28"
+          },
+          {
+            "source": "F0003:S1:T6:D79",
+            "quote": "7.37"
+          },
+          {
+            "source": "F0003:S1:T6:D80",
+            "quote": "7.74"
+          }
+        ],
+        "column": "D"
+      },
+      {
+        "header": "Mouse 4",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T6:E77",
+            "quote": "Mouse 4"
+          },
+          {
+            "source": "F0003:S1:T6:A75",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T6:E78",
+            "quote": "7.32"
+          },
+          {
+            "source": "F0003:S1:T6:E79",
+            "quote": "7.46"
+          }
+        ],
+        "column": "E"
+      },
+      {
+        "header": "Mouse 5",
+        "meaning": "RESPONSE",
+        "unit": "log10 CFU/lung",
+        "qualifiers": [
+          "pre-treatment at 0 h; vehicle and PMB at 24 h",
+          "Each mouse contributes one terminal point."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T6:F77",
+            "quote": "Mouse 5"
+          },
+          {
+            "source": "F0003:S1:T6:A75",
+            "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
+          },
+          {
+            "source": "F0003:S1:T6:F79",
+            "quote": "7.31"
+          }
+        ],
+        "column": "F"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Strain susceptibility in the 2018 mouse study",
+      "title": "Figure 3d — P. aeruginosa FADDI-PA102",
       "sheet": "Mouse",
       "region": {
-        "start_row": 121,
-        "end_row": 129,
+        "start_row": 72,
+        "end_row": 82,
         "left": 1,
-        "right": 3,
-        "header_row": 124,
-        "title": "Strain susceptibility in the 2018 mouse study",
+        "right": 6,
+        "header_row": 77,
+        "title": "Figure 3d — P. aeruginosa FADDI-PA102",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Strain susceptibility in the 2018 mouse study\nS02 | https://doi.org/10.1093/jac/dkx409 | Materials and methods\nBroth microdilution in untreated polystyrene trays without polysorbate 80. PMB values only.",
+      "notes": "Figure 3d — P. aeruginosa FADDI-PA102\nS21 | DOI 10.1038/s41467-022-29234-3 | Fig. 3a-g original source cells; Fig. 3 caption\nPMB MIC 4 mg/L; 90 mg/kg/day free base SC, divided into three doses q8h.\nLung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point.\nOnly PMB and baseline/vehicle arms retained. No matched measured PK for these efficacy regimens.",
       "column_map": {
-        "c001_species": "Species",
-        "c002_strain": "Strain",
-        "c003_pmb_mic_mg_l": "PMB MIC (mg/L)"
+        "c001_group": "Group",
+        "c002_mouse_1": "Mouse 1",
+        "c003_mouse_2": "Mouse 2",
+        "c004_mouse_3": "Mouse 3",
+        "c005_mouse_4": "Mouse 4",
+        "c006_mouse_5": "Mouse 5"
       }
     },
-    "source_item_id": "F0003:S1:T10",
+    "source_item_id": "F0003:S1:T6",
     "source_evidence": [
       {
-        "source": "F0003:S1:T10:A121",
-        "quote": "Strain susceptibility in the 2018 mouse study"
+        "source": "F0003:S1:T6:A72",
+        "quote": "Figure 3d — P. aeruginosa FADDI-PA102"
       },
       {
-        "source": "F0003:S1:T10:A122",
-        "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Materials and methods"
+        "source": "F0003:S1:T6:A73",
+        "quote": "S21 | DOI 10.1038/s41467-022-29234-3 | Fig. 3a-g original source cells; Fig. 3 caption"
       },
       {
-        "source": "F0003:S1:T10:A123",
-        "quote": "Broth microdilution in untreated polystyrene trays without polysorbate 80. PMB values only."
+        "source": "F0003:S1:T6:A74",
+        "quote": "PMB MIC 4 mg/L; 90 mg/kg/day free base SC, divided into three doses q8h."
       },
       {
-        "source": "F0003:S1:T10:A125",
-        "quote": "K. pneumoniae"
+        "source": "F0003:S1:T6:A75",
+        "quote": "Lung burden log10 CFU/lung: pre-treatment at 0 h; vehicle and PMB at 24 h. Each mouse contributes one terminal point."
       },
       {
-        "source": "F0003:S1:T10:B125",
-        "quote": "FADDI-KP032"
+        "source": "F0003:S1:T6:A76",
+        "quote": "Only PMB and baseline/vehicle arms retained. No matched measured PK for these efficacy regimens."
       },
       {
-        "source": "F0003:S1:T10:B126",
-        "quote": "ATCC BAA-2146"
+        "source": "F0003:S1:T6:A80",
+        "quote": "Polymyxin B (90mg/kg/d)"
       },
       {
-        "source": "F0003:S1:T10:B127",
-        "quote": "FADDI-KP042"
-      },
-      {
-        "source": "F0003:S1:T10:C124",
-        "quote": "PMB MIC (mg/L)"
-      },
-      {
-        "source": "F0003:S1:T10:C125",
-        "quote": "0.5"
-      },
-      {
-        "source": "F0003:S1:T10:C126",
-        "quote": "0.5"
-      },
-      {
-        "source": "F0003:S1:T10:C127",
-        "quote": "0.5"
+        "source": "F0003:S1:T6:B80",
+        "quote": "7.28"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR020",
+      "DR024"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "90",
+          "unit": "mg/kg/day",
+          "subject": "PMB",
+          "qualifiers": [
+            "free base",
+            "SC",
+            "divided into three doses q8h."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T6:A74",
+              "quote": "PMB MIC 4 mg/L; 90 mg/kg/day free base SC, divided into three doses q8h."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0006.json",
-    "sha256": "f0585402f3ca752d0ad66e440aee4474ac793fd7392b3b7d1c70fb8c015ec301"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0006.json",
+    "sha256": "b86b0a823dabf9215b6164e7cfa232cb8bbb9dd7641bc23f397833addd70af53"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {

@@ -181,7 +181,7 @@ class ConnectedTests(unittest.TestCase):
             def generate(request,**kwargs): return {'request_sha256':request['request_sha256']}
             with patch.object(agents,'codex_generate',side_effect=generate):
                 original=agents.invoke(root/'prior','DR-access',{},obj(request_sha256=S),model='gpt-6-sol')
-            with patch.dict('os.environ',{'PKPD_DEMO_REUSE_DATA_RUN':str(root/'prior')}), \
+            with patch.dict('os.environ',{'PKPD_DEMO_REUSE_DATA_RUN':str(root/'prior'),'CTXCOMP_DISABLE_RESPONSE_REUSE':'0'}), \
                  patch.object(agents,'codex_generate',side_effect=AssertionError('Repeated model call')):
                 self.assertEqual(agents.invoke(root/'next','DR-access',{},obj(request_sha256=S),model='gpt-6-sol'),original)
                 with self.assertRaisesRegex(AssertionError,'Repeated model call'):
@@ -421,19 +421,19 @@ class ConnectedTests(unittest.TestCase):
     def test_examples_are_byte_bound_and_parseable(self):
         import hashlib
         examples = self.client.get('/workspace-api/examples').json()
-        self.assertEqual({e['id'] for e in examples}, {'pmb', 'meropenem', 'voriconazole'})
+        self.assertEqual({e['id'] for e in examples}, {'pmb', 'meropenem', 'voriconazole', 'imidocarb'})
         for example in examples:
             with self.subTest(example=example['id']):
                 data = self.client.get(example['url']).content
                 self.assertEqual(hashlib.sha256(data).hexdigest(), example['sha256'])
                 with ZipFile(io.BytesIO(data)) as archive:
-                    self.assertEqual(len(archive.namelist()), 3)
+                    self.assertEqual(len(archive.namelist()), len(example['members']))
                     for member in example['members']:
                         self.assertEqual(hashlib.sha256(archive.read(member['name'])).hexdigest(), member['sha256'])
                 imported = self.client.post('/workspace-api/examples/' + example['id'] + '/import').json()
                 response = self.client.post('/workspace-api/imports/' + imported['id'] + '/inspect')
                 self.assertEqual(response.status_code, 200, response.text)
-                self.assertEqual(len(response.json()['manifest']['files']), 3)
+                self.assertEqual(len(response.json()['manifest']['files']), len(example['members']))
                 self.assertEqual(response.json()['scientific_qc'], 'NOT_RUN')
                 self.assertFalse(response.json()['scientific_approval'])
 

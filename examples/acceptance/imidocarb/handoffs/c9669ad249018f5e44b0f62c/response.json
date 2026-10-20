@@ -1,0 +1,452 @@
+{
+  "request_sha256": "2641ebcb4ecaf1bbeb2a04f96978a93fb5175b1118172988716d6c1bb89a8d9a",
+  "context": {
+    "version": "3.0",
+    "objective": "Organize the supplied imidocarb cattle workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run ends after source-preserving Data preparation and its recorded review gate.",
+    "study": {
+      "drug": "Imidocarb (SC001).",
+      "regimen": "NOT_FOUND",
+      "population": "Cattle (SC001).",
+      "system": "Supplied observational workbook (SC001).",
+      "measurements": "Planned inventory of workbook measurements and summaries (SC005).",
+      "methods": "Source-preserving Data preparation and signed review checkpoints (SC008, SC011)."
+    },
+    "data": {
+      "available": [],
+      "required": []
+    },
+    "rules": [],
+    "checks": [],
+    "uncertainties": [
+      "[MI001]"
+    ]
+  },
+  "scientific_context": {
+    "version": "2.0",
+    "items": [
+      {
+        "id": "SC001",
+        "statement": "The imidocarb cattle proposal designates Imidocarb_cattle_source.xlsx as the supplied observational source.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC002",
+        "statement": "Use Imidocarb_source_notes.txt only as cited source context.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC003",
+        "statement": "The article's conclusions are historical statements, not validation by this workflow.",
+        "science": {
+          "role": "FACT",
+          "evidence_status": "SOURCE_REPORTED",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC004",
+        "statement": "Do not browse for or add external data.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC005",
+        "statement": "Register every supplied file and its hash. Identify workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC006",
+        "statement": "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC007",
+        "statement": "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC008",
+        "statement": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC009",
+        "statement": "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC010",
+        "statement": "Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC011",
+        "statement": "Retain Context and Data review checkpoints with output signatures.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC012",
+        "statement": "Automatic approval is authorized only for this technical demo.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      },
+      {
+        "id": "SC013",
+        "statement": "This run authorizes no EDA, parameter estimation, bioequivalence calculation, human translation or scientific release.",
+        "science": {
+          "role": "REQUIREMENT",
+          "evidence_status": "NOT_APPLICABLE",
+          "method_refs": [],
+          "adoption_relations": [],
+          "relations": []
+        }
+      }
+    ],
+    "potential_questions": []
+  },
+  "missing_information": {
+    "schema_version": "1.0",
+    "items": [
+      {
+        "id": "MI001",
+        "field": "Subsequent modeling requirements",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Later PK modeling requirements cannot be treated as established by this Data preparation run.",
+        "why_it_matters": "The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution.",
+        "clarification": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+        "resolution_status": "OPEN"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "id": "/objective",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0002",
+          "quote": "Organize the supplied imidocarb cattle source workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run stops after source-preserving Data preparation and its recorded review gate."
+        }
+      ],
+      "reason": "Preserves the overall objective, later intended uses and current stopping boundary."
+    },
+    {
+      "id": "/study/drug",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0001",
+          "quote": "# Imidocarb cattle PK data organization proposal"
+        }
+      ],
+      "reason": "The proposal title identifies imidocarb; SC001 retains its source association."
+    },
+    {
+      "id": "/study/regimen",
+      "status": "NOT_FOUND",
+      "citations": [],
+      "reason": "No dosing component is stated in the supplied proposal. Attachment bodies were not inspected."
+    },
+    {
+      "id": "/study/population",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0001",
+          "quote": "# Imidocarb cattle PK data organization proposal"
+        }
+      ],
+      "reason": "The proposal identifies cattle; SC001 preserves that project scope."
+    },
+    {
+      "id": "/study/system",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "Use Imidocarb_cattle_source.xlsx as the supplied observational source."
+        }
+      ],
+      "reason": "Identifies the declared source role without asserting inspection of the workbook."
+    },
+    {
+      "id": "/study/measurements",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+        }
+      ],
+      "reason": "Describes the planned inventory, with detailed requirements owned by SC005."
+    },
+    {
+      "id": "/study/methods",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        },
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Retain Context and Data review checkpoints with output signatures."
+        }
+      ],
+      "reason": "Supports the preparation and review orientation and its scientific item references."
+    },
+    {
+      "id": "SC001",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0001",
+          "quote": "# Imidocarb cattle PK data organization proposal"
+        },
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "Use Imidocarb_cattle_source.xlsx as the supplied observational source."
+        }
+      ],
+      "reason": "Preserves the workbook's declared role and project identity."
+    },
+    {
+      "id": "SC002",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "Use Imidocarb_source_notes.txt only as cited source context."
+        }
+      ],
+      "reason": "Preserves the notes file's distinct role and its only-use restriction."
+    },
+    {
+      "id": "SC003",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "The article's conclusions are historical statements, not validation by this workflow."
+        }
+      ],
+      "reason": "Preserves the historical status and absence of workflow validation attribution."
+    },
+    {
+      "id": "SC004",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "Do not browse for or add external data."
+        }
+      ],
+      "reason": "Preserves the source's external-data prohibition."
+    },
+    {
+      "id": "SC005",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Register every supplied file and its hash. Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+        }
+      ],
+      "reason": "Preserves registration and every named inventory attribute, including conditional unit availability."
+    },
+    {
+      "id": "SC006",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        }
+      ],
+      "reason": "Preserves source representations, unresolved metadata and individual-versus-summary distinctions."
+    },
+    {
+      "id": "SC007",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding."
+        }
+      ],
+      "reason": "Preserves cross-group identity and table-joining restrictions."
+    },
+    {
+      "id": "SC008",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        }
+      ],
+      "reason": "Preserves all named preparation outputs."
+    },
+    {
+      "id": "SC009",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups."
+        }
+      ],
+      "reason": "Preserves every prohibited transformation and the distinction between blanks and zero."
+    },
+    {
+      "id": "SC010",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review."
+        }
+      ],
+      "reason": "Preserves conditional ledger obligations without asserting that these uncertainties have already been found."
+    },
+    {
+      "id": "SC011",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Retain Context and Data review checkpoints with output signatures."
+        }
+      ],
+      "reason": "Preserves both review checkpoints and their signature requirement."
+    },
+    {
+      "id": "SC012",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Automatic approval is authorized only for this technical demo."
+        }
+      ],
+      "reason": "Preserves the permission's technical-demo limitation as source content."
+    },
+    {
+      "id": "SC013",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run."
+        }
+      ],
+      "reason": "Preserves every named activity outside the current run's authorization."
+    },
+    {
+      "id": "MI001",
+      "status": "EXPLICIT",
+      "citations": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Missing modeling requirements remain deferred for subsequent human review rather than silently resolved."
+        }
+      ],
+      "reason": "Supports a deferred requirements issue for subsequent modeling, without inventing a search history or attachment-data deficiency."
+    },
+    {
+      "id": "/uncertainties/0",
+      "status": "REFERENCE",
+      "citations": [],
+      "reason": "References the open deferred modeling-requirements item MI001."
+    }
+  ]
+}

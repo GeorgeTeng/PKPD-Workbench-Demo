@@ -4,13 +4,13 @@
   "role": "URINE_EXCRETION",
   "metadata": {
     "role": "URINE_EXCRETION",
-    "species": "mouse ICR male 20-25 g; rat SD male 190-200 g; guinea pig Hartley male 350-450 g; rabbit Japanese white male 2.4-3.0 kg; dog beagle male 8.7-13.5 kg; monkey rhesus male 6.0-7.3 kg. Health and infection state: NOT_FOUND.",
+    "species": "mouse ICR male 20-25 g; rat SD male 190-200 g; guinea pig Hartley male 350-450 g; rabbit Japanese white male 2.4-3.0 kg; dog beagle male 8.7-13.5 kg; monkey rhesus male 6.0-7.3 kg. Health, infection, immune, renal and pregnancy states: NOT_FOUND.",
     "matrix": "urine",
-    "exposure_basis": "Urinary excretion of unchanged meropenem, expressed as % of dose. Total versus unbound basis: NOT_FOUND.",
-    "record_level": "Species-level summaries with printed n and ± values; the summary statistic and SD/SE definition are unspecified. Individual collection records and pooling status: NOT_FOUND.",
+    "exposure_basis": "% of dose; unchanged meropenem; total or unbound basis: NOT_FOUND",
+    "record_level": "Species-level summaries with n and ± values; individual animal identifiers and the definition of the ± statistic are NOT_FOUND.",
     "drug": "Meropenem",
     "route": "IV bolus",
-    "endpoint_window": "0-6 h; 6-24 h; b) 0-8 h urine for Beagle dog and Rhesus monkey. The Total column does not establish complete excretion or a common collection endpoint across all species.",
+    "endpoint_window": "0-6 h and 6-24 h headers; b) 0-8 h urine applies to Beagle dog and Rhesus monkey first-interval values. Total is reported, but collection completeness is NOT_FOUND.",
     "route_category": "IV_BOLUS",
     "matrix_category": "URINE",
     "record_category": "GROUP_SUMMARY",
@@ -28,7 +28,9 @@
         "header": "Species (n)",
         "meaning": "GROUP_OR_TREATMENT",
         "unit": "NOT_FOUND",
-        "qualifiers": [],
+        "qualifiers": [
+          "n"
+        ],
         "evidence": [
           {
             "source": "F0003:S1:T4:A51",
@@ -39,6 +41,22 @@
             "quote": "Mouse (3)"
           },
           {
+            "source": "F0003:S1:T4:A53",
+            "quote": "Rat (3)"
+          },
+          {
+            "source": "F0003:S1:T4:A54",
+            "quote": "Guinea pig (4)"
+          },
+          {
+            "source": "F0003:S1:T4:A55",
+            "quote": "Rabbit (4)"
+          },
+          {
+            "source": "F0003:S1:T4:A56",
+            "quote": "Beagle dog (5)"
+          },
+          {
             "source": "F0003:S1:T4:A57",
             "quote": "Rhesus monkey (3)"
           }
@@ -47,13 +65,12 @@
       },
       {
         "header": "0-6 h",
-        "meaning": "PARAMETER_VALUE",
+        "meaning": "URINE_AMOUNT",
         "unit": "% of dose",
         "qualifiers": [
-          "0-6 h",
           "unchanged meropenem",
           "after 20 mg/kg IV",
-          "b) 0-8 h urine.",
+          "b) 0-8 h urine",
           "Mean ± SD/SE not specified in the table."
         ],
         "evidence": [
@@ -74,6 +91,18 @@
             "quote": "32.7 ± 7.0"
           },
           {
+            "source": "F0003:S1:T4:B53",
+            "quote": "24.7 ± 6.6"
+          },
+          {
+            "source": "F0003:S1:T4:B54",
+            "quote": "41.7 ± 5.5"
+          },
+          {
+            "source": "F0003:S1:T4:B55",
+            "quote": "34.6 ± 1.9"
+          },
+          {
             "source": "F0003:S1:T4:B56",
             "quote": "49.1 ± 8.4 b)"
           },
@@ -86,10 +115,9 @@
       },
       {
         "header": "6-24 h",
-        "meaning": "PARAMETER_VALUE",
+        "meaning": "URINE_AMOUNT",
         "unit": "% of dose",
         "qualifiers": [
-          "6-24 h",
           "unchanged meropenem",
           "after 20 mg/kg IV",
           "a) not tested",
@@ -113,6 +141,14 @@
             "quote": "1.4 ± 0.9"
           },
           {
+            "source": "F0003:S1:T4:C53",
+            "quote": "0.3 ± 0.3"
+          },
+          {
+            "source": "F0003:S1:T4:C54",
+            "quote": "0.7 ± 0.4"
+          },
+          {
             "source": "F0003:S1:T4:C55",
             "quote": "— a)"
           },
@@ -129,9 +165,10 @@
       },
       {
         "header": "Total",
-        "meaning": "PARAMETER_VALUE",
+        "meaning": "URINE_AMOUNT",
         "unit": "% of dose",
         "qualifiers": [
+          "Total",
           "unchanged meropenem",
           "after 20 mg/kg IV",
           "Mean ± SD/SE not specified in the table."
@@ -152,6 +189,18 @@
           {
             "source": "F0003:S1:T4:D52",
             "quote": "34.1 ± 6.1"
+          },
+          {
+            "source": "F0003:S1:T4:D53",
+            "quote": "25.0 ± 6.6"
+          },
+          {
+            "source": "F0003:S1:T4:D54",
+            "quote": "42.5 ± 5.9"
+          },
+          {
+            "source": "F0003:S1:T4:D55",
+            "quote": "34.6 ± 1.9"
           },
           {
             "source": "F0003:S1:T4:D56",
@@ -214,96 +263,24 @@
         "quote": "Abstract lists urinary excretion as 34.1, 25.0, 42。5, 34.6, 25.7および49.8% (dog 49.8 in the abstract vs 49.1 in this table; printed as is)."
       },
       {
-        "source": "F0003:S1:T4:A52",
-        "quote": "Mouse (3)"
-      },
-      {
-        "source": "F0003:S1:T4:B52",
-        "quote": "32.7 ± 7.0"
-      },
-      {
-        "source": "F0003:S1:T4:C52",
-        "quote": "1.4 ± 0.9"
-      },
-      {
         "source": "F0003:S1:T4:D52",
         "quote": "34.1 ± 6.1"
-      },
-      {
-        "source": "F0003:S1:T4:A53",
-        "quote": "Rat (3)"
-      },
-      {
-        "source": "F0003:S1:T4:B53",
-        "quote": "24.7 ± 6.6"
-      },
-      {
-        "source": "F0003:S1:T4:C53",
-        "quote": "0.3 ± 0.3"
       },
       {
         "source": "F0003:S1:T4:D53",
         "quote": "25.0 ± 6.6"
       },
       {
-        "source": "F0003:S1:T4:A54",
-        "quote": "Guinea pig (4)"
-      },
-      {
-        "source": "F0003:S1:T4:B54",
-        "quote": "41.7 ± 5.5"
-      },
-      {
-        "source": "F0003:S1:T4:C54",
-        "quote": "0.7 ± 0.4"
-      },
-      {
         "source": "F0003:S1:T4:D54",
         "quote": "42.5 ± 5.9"
-      },
-      {
-        "source": "F0003:S1:T4:A55",
-        "quote": "Rabbit (4)"
-      },
-      {
-        "source": "F0003:S1:T4:B55",
-        "quote": "34.6 ± 1.9"
-      },
-      {
-        "source": "F0003:S1:T4:C55",
-        "quote": "— a)"
       },
       {
         "source": "F0003:S1:T4:D55",
         "quote": "34.6 ± 1.9"
       },
       {
-        "source": "F0003:S1:T4:A56",
-        "quote": "Beagle dog (5)"
-      },
-      {
-        "source": "F0003:S1:T4:B56",
-        "quote": "49.1 ± 8.4 b)"
-      },
-      {
-        "source": "F0003:S1:T4:C56",
-        "quote": "—"
-      },
-      {
         "source": "F0003:S1:T4:D56",
         "quote": "49.1 ± 8.4"
-      },
-      {
-        "source": "F0003:S1:T4:A57",
-        "quote": "Rhesus monkey (3)"
-      },
-      {
-        "source": "F0003:S1:T4:B57",
-        "quote": "25.7 ± 12.1 b)"
-      },
-      {
-        "source": "F0003:S1:T4:C57",
-        "quote": "—"
       },
       {
         "source": "F0003:S1:T4:D57",
@@ -311,13 +288,11 @@
       }
     ],
     "requirement_ids": [
-      "DRQ01",
-      "DRQ02",
-      "DRQ03",
-      "DRQ04",
-      "DRQ13",
-      "DRQ20",
-      "DRQ21"
+      "DR003",
+      "DR004",
+      "DR006",
+      "DR012",
+      "MC015"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
@@ -327,35 +302,19 @@
           "quantity": "dose",
           "value": "20",
           "unit": "mg/kg",
-          "subject": "meropenem",
-          "qualifiers": [
-            "after 20 mg/kg IV"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S1:T4:A45",
-              "quote": "Table 3 — urinary excretion of unchanged meropenem after 20 mg/kg IV (% of dose)"
-            }
-          ]
-        },
-        {
-          "quantity": "dose",
-          "value": "20",
-          "unit": "mg/kg",
           "subject": "all species",
           "qualifiers": [
-            "Meropenem",
             "single IV bolus",
             "salt/hydrate basis not stated"
           ],
           "evidence": [
             {
-              "source": "F0003:S1:T4:A47",
-              "quote": "Meropenem 20 mg/kg single IV bolus in all species (salt/hydrate basis not stated); plasma assayed by bioassay; time in min."
-            },
-            {
               "source": "F0003:S1:T4:A45",
               "quote": "Table 3 — urinary excretion of unchanged meropenem after 20 mg/kg IV (% of dose)"
+            },
+            {
+              "source": "F0003:S1:T4:A47",
+              "quote": "Meropenem 20 mg/kg single IV bolus in all species (salt/hydrate basis not stated); plasma assayed by bioassay; time in min."
             }
           ]
         }
@@ -366,21 +325,21 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0004.json",
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0004.json",
     "sha256": "01a4a8a649dda20dde019e44a5638834170c789542c3b381c077bc061ffca812"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {

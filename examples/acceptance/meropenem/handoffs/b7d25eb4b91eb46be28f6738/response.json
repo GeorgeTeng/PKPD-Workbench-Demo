@@ -1,0 +1,198 @@
+{
+  "request_sha256": "98bccb13cdc1eca727b304e584dd5d5b4d2f18159f9d84f6e956a076ab02b181",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T2",
+      "role": "PK_OBSERVATIONS",
+      "additional_roles": [
+        "REPORTED_PARAMETERS",
+        "DOSING",
+        "ANIMAL_CHARACTERISTICS",
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR003",
+        "DR004",
+        "DR006",
+        "DR008",
+        "DR010",
+        "MC001",
+        "MC005"
+      ],
+      "species": "Male rats; strain, body weight, health, infection and renal-function state NOT_FOUND",
+      "matrix": "plasma",
+      "exposure_basis": "14C: total radioactivity, µg eq/ml; unchanged meropenem (HPLC): total or unbound basis NOT_FOUND",
+      "record_level": "Text-reported concentrations and approximate half-lives. Fig. 2 is described as mean ± SE of 3 rats, figure only and not digitized; the text values are not explicitly identified as those group means or as individual observations.",
+      "drug": "Meropenem",
+      "route": "IV",
+      "endpoint_window": "Meropenem: 2 min and by 2 h; 14C (total radioactivity): 24 h. Half-life estimation windows and explicit sampling time origin NOT_FOUND.",
+      "reason": "The body contains plasma concentration statements, approximate reported half-lives and a detection-limit statement after a stated single IV dose. Unchanged meropenem and total radioactivity remain separate. Numeric statements in B16 and B17 are retained as table-body evidence, rather than duplicated as stated_values. These heterogeneous narrative cells do not define a single column-wide measurement unit. Requirement links represent partial input support only; individual variability, full concentration-time coverage and downstream model or clearance adequacy remain unresolved.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T2:A12",
+          "quote": "Single-dose [14C]meropenem 120 mg/kg IV — values stated in text"
+        },
+        {
+          "source": "F0003:S3:T2:A13",
+          "quote": "S02 | DOI 10.11250/chemotherapy1953.40.Supplement1_132 | Results text p.134-135 and Fig. 2"
+        },
+        {
+          "source": "F0003:S3:T2:A14",
+          "quote": "Male rats; plasma 14C (total radioactivity, µg eq/ml) and unchanged meropenem (HPLC). Fig. 2: mean ± SE of 3 rats (figure only, not digitized)."
+        },
+        {
+          "source": "F0003:S3:T2:A16",
+          "quote": "Meropenem"
+        },
+        {
+          "source": "F0003:S3:T2:B16",
+          "quote": "402 µg/ml at 2 min, then half-life about 7 min; below the detection limit (0.3 µg/ml) by 2 h"
+        },
+        {
+          "source": "F0003:S3:T2:A17",
+          "quote": "14C (total radioactivity)"
+        },
+        {
+          "source": "F0003:S3:T2:B17",
+          "quote": "declined more slowly (T1/2 about 23 min); 0.2 µg eq/ml at 24 h"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "PLASMA_SERUM_BLOOD",
+      "record_category": "MIXED",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "unchanged meropenem (HPLC); 14C (total radioactivity)",
+      "dosing_regimen": "Single-dose [14C]meropenem 120 mg/kg IV",
+      "columns": [
+        {
+          "header": "Analyte",
+          "meaning": "GROUP_OR_TREATMENT",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A15",
+              "quote": "Analyte"
+            },
+            {
+              "source": "F0003:S3:T2:A16",
+              "quote": "Meropenem"
+            },
+            {
+              "source": "F0003:S3:T2:A17",
+              "quote": "14C (total radioactivity)"
+            }
+          ]
+        },
+        {
+          "header": "Statement (translated from Japanese, numbers as printed)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [
+            "translated from Japanese, numbers as printed",
+            "below the detection limit (0.3 µg/ml) by 2 h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:B15",
+              "quote": "Statement (translated from Japanese, numbers as printed)"
+            },
+            {
+              "source": "F0003:S3:T2:B16",
+              "quote": "402 µg/ml at 2 min, then half-life about 7 min; below the detection limit (0.3 µg/ml) by 2 h"
+            },
+            {
+              "source": "F0003:S3:T2:B17",
+              "quote": "declined more slowly (T1/2 about 23 min); 0.2 µg eq/ml at 24 h"
+            }
+          ]
+        }
+      ],
+      "stated_values": [
+        {
+          "quantity": "Single-dose",
+          "value": "120",
+          "unit": "mg/kg",
+          "subject": "[14C]meropenem",
+          "qualifiers": [
+            "Single-dose",
+            "IV"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A12",
+              "quote": "Single-dose [14C]meropenem 120 mg/kg IV — values stated in text"
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "3",
+          "unit": "rats",
+          "subject": "Fig. 2",
+          "qualifiers": [
+            "mean ± SE",
+            "figure only, not digitized"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T2:A14",
+              "quote": "Male rats; plasma 14C (total radioactivity, µg eq/ml) and unchanged meropenem (HPLC). Fig. 2: mean ± SE of 3 rats (figure only, not digitized)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED_EVIDENCE_LEVEL_AND_SAMPLING",
+      "affected_id": "DR003",
+      "reason": "Source location, text values, concentration units, a detection limit and the figure's mean ± SE definition and count are available. Individual identifiers, cross-time sampling structure, aggregation of the text values, numerical SE values and any substituted-detection-limit mean flag are NOT_FOUND. The below-detection statement is censored information, not zero or a measurement equal to the limit.",
+      "needed_material": "Clarify the experimental units and sampling design, the relationship of the text values to Fig. 2, and any relevant missingness or substitution conventions before assigning record-level meaning during preparation.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_INPUT_DEFINITIONS",
+      "affected_id": "DR004",
+      "reason": "Male rats, plasma, single-dose IV administration and separate unchanged-meropenem and total-radioactivity identities are supported. IV bolus versus infusion, dose chemical basis, unchanged-drug total versus unbound basis, strain, actual weight and health or renal state are NOT_FOUND. Total radioactivity cannot be treated as unchanged meropenem.",
+      "needed_material": "Retain the analytes separately and obtain the missing administration, dose-basis, concentration-basis and animal-context definitions where required for the intended use.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_COMPONENT_EVIDENCE_ASSESSMENT",
+      "affected_id": "DR008",
+      "reason": "This item supports the rat systemic-PK source role under DR006 and documents text-only, figure-only and radiolabel limitations. It supplies no pulmonary or CSF measurements, full digitized curve or component eligibility assessment. These limitations do not establish model eligibility or exclusion.",
+      "needed_material": "At animal PK assessment, determine the permitted role of the available unchanged-drug text observations and separate radiolabel evidence, and document eligibility or exploratory-only use without inventing figure values.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI008",
+      "reason": "MI008 remains status DEFERRED, needed_at pk, resolution_status OPEN, with origin main:/missing_information/items/7. For DR010, the available variability evidence is a description of Fig. 2 as mean ± SE of 3 rats; numerical SE values, individual observations, verified sampling structure and individual-variability parameter provenance are NOT_FOUND on this page. This does not establish empirical population PK variability. The limitation remains consequential for later PTA.",
+      "needed_material": "During PK work, assess available experimental units and defensible variability evidence, distinguish parameter uncertainty from interindividual variability, and explicitly record the MI008 outcome while retaining any limitation for PTA.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_MODELING_INPUT_COVERAGE",
+      "affected_id": "MC001",
+      "reason": "The item provides sparse text-reported plasma concentrations, approximate half-lives, a dose and IV route. Full concentration-time records, explicit time origin, detailed input history, verified sampling design, individual identifiers and numerical summary variability are NOT_FOUND. Fig. 2 is explicitly figure only and not digitized.",
+      "needed_material": "Obtain or clarify permitted concentration-time and sampling metadata for the requested rat systemic model. Leave numerical sufficiency, structural choices and identifiability assessment to animal PK work.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "CONDITIONAL_CLEARANCE_INPUT_GAP",
+      "affected_id": "MC005",
+      "reason": "If clearance is explicitly selected, the stated single IV dose and separate plasma concentration statements provide partial candidate inputs. A selected clearance definition, analyte-specific dose basis, complete unchanged-drug exposure-course inputs, late quantifiable unchanged-drug observations, actual body weight and a reported clearance estimate or estimation method are NOT_FOUND. The 24 h observation is total radioactivity and cannot fill the unchanged-drug late-observation gap. Approximate half-lives do not resolve clearance input sufficiency.",
+      "needed_material": "Confirm whether clearance is selected and obtain the applicable dose definitions and permitted unchanged-drug time-course inputs or a traceable reported clearance estimate. Assess exposure-course adequacy downstream without calculating clearance at this step.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

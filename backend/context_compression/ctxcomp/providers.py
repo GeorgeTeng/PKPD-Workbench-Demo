@@ -538,6 +538,11 @@ def run_model(run, model=None, attempts=1, generator=codex_generate, stop_after=
     (status STAGE_READY). fresh: stages that call the model even when a stored answer exists."""
     from uuid import uuid4
     from . import stage_cache
+    if os.getenv('CTXCOMP_DISABLE_RESPONSE_REUSE') == '1':
+        if load_run(run)[1].get('accepted'):
+            raise ValueError('Response reuse is disabled: create a fresh run instead of resuming accepted Context stages')
+        shared_cache = None
+        fresh = STAGES
     if attempts != 1:
         raise ValueError("attempts must be 1: automatic retries are disabled; stop on first error")
     if stop_after not in {"context_review", "pipeline_review"}:

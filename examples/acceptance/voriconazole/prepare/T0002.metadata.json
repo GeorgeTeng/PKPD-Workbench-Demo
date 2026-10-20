@@ -6,11 +6,11 @@
     "role": "REPORTED_PARAMETERS",
     "species": "Female CD-1 mice 20-22 g, 4-5 weeks, NON-neutropenic; disseminated aspergillosis (A. fumigatus AZN 8196 i.v.).",
     "matrix": "lithium-heparin plasma",
-    "exposure_basis": "Reported AUC, Dose-normalized AUC, fAUC, CLss/F, Cmin, Cmax, Tmax and t1/2. Total versus unbound basis of the concentration parameters and the definition and derivation of fAUC are NOT_FOUND. Binding notes explicitly report unbound fractions on a percentage scale.",
-    "record_level": "Dose-group reported PK parameters; ultrafiltration binding evidence from pooled plasma, with per-dosing-arm fractions and a combined geometric mean. Individual animal identifiers and individual concentration records are NOT_FOUND.",
+    "exposure_basis": "Reported AUC, Dose-normalized AUC and fAUC; percentage unbound voriconazole fraction in pooled plasma. Total/unbound basis of the other PK parameters is NOT_FOUND.",
+    "record_level": "Published dose-group PK parameters and pooled-plasma binding summaries; individual animal identifiers and individual concentration-time records are NOT_FOUND.",
     "drug": "voriconazole",
     "route": "oral gavage",
-    "endpoint_window": "DAY 2 OF TREATMENT; methods: \"immediately before administration of voriconazole and at 0, 0.5, 1, 2, 4, 6, 9, and 24 h postdosing\"; text: \"8 time points\". AUC integration window and parameter-specific estimation windows are NOT_FOUND.",
+    "endpoint_window": "DAY 2 OF TREATMENT; sampling immediately before administration and at stated postdosing times through 24 h. AUC integration limits and Cmin/Cmax assessment windows are NOT_FOUND.",
     "route_category": "EXTRAVASCULAR",
     "matrix_category": "PLASMA_SERUM_BLOOD",
     "record_category": "MIXED",
@@ -81,12 +81,16 @@
         "unit": "mg·h/liter·kg",
         "qualifiers": [
           "Dose-normalized",
-          "The AUC normalized to a dose of 10 mg/kg resulted in ratios of 0.31, 1.75, and 3.68"
+          "normalized to a dose of 10 mg/kg"
         ],
         "evidence": [
           {
             "source": "F0003:S1:T2:C22",
             "quote": "Dose-normalized AUC (mg·h/liter·kg)"
+          },
+          {
+            "source": "F0003:S1:T2:A20",
+            "quote": "The AUC normalized to a dose of 10 mg/kg resulted in ratios of 0.31, 1.75, and 3.68"
           },
           {
             "source": "F0003:S1:T2:C23",
@@ -99,10 +103,6 @@
           {
             "source": "F0003:S1:T2:C25",
             "quote": "3.68"
-          },
-          {
-            "source": "F0003:S1:T2:A20",
-            "quote": "The AUC normalized to a dose of 10 mg/kg resulted in ratios of 0.31, 1.75, and 3.68"
           }
         ],
         "column": "C"
@@ -111,13 +111,15 @@
         "header": "fAUC (mg·h/liter·kg)",
         "meaning": "PARAMETER_VALUE",
         "unit": "mg·h/liter·kg",
-        "qualifiers": [
-          "The fAUC column unit is printed as \"mg·h/liter·kg\", the same as the dose-normalized AUC column."
-        ],
+        "qualifiers": [],
         "evidence": [
           {
             "source": "F0003:S1:T2:D22",
             "quote": "fAUC (mg·h/liter·kg)"
+          },
+          {
+            "source": "F0003:S1:T2:A20",
+            "quote": "The fAUC column unit is printed as \"mg·h/liter·kg\", the same as the dose-normalized AUC column."
           },
           {
             "source": "F0003:S1:T2:D23",
@@ -130,10 +132,6 @@
           {
             "source": "F0003:S1:T2:D25",
             "quote": "88"
-          },
-          {
-            "source": "F0003:S1:T2:A20",
-            "quote": "The fAUC column unit is printed as \"mg·h/liter·kg\", the same as the dose-normalized AUC column."
           }
         ],
         "column": "D"
@@ -294,12 +292,12 @@
     "source_item_id": "F0003:S1:T2",
     "source_evidence": [
       {
-        "source": "F0003:S1:T2:A17",
-        "quote": "Pharmacokinetic parameters of voriconazole after doses of 10 to 80 mg/kg by oral gavage"
-      },
-      {
         "source": "F0003:S1:T2:A18",
         "quote": "S03 | DOI 10.1128/AAC.00606-10 | Table 2 (checked against the PDF)"
+      },
+      {
+        "source": "F0003:S1:T2:A17",
+        "quote": "Pharmacokinetic parameters of voriconazole after doses of 10 to 80 mg/kg by oral gavage"
       },
       {
         "source": "F0003:S1:T2:A19",
@@ -312,19 +310,46 @@
       {
         "source": "F0003:S1:T2:A21",
         "quote": "Unbound fraction by ultrafiltration of pooled 1, 2, 4 h plasma (n = 3 per dosing arm): \"26.51%, 33.28%, and 30.59% for the 10-, 40-, and 80-mg/kg groups\"; \"geometric mean unbound voriconazole fraction for all groups combined (n = 9) was 29.97% (95% confidence interval [95% CI], 27.56 to 32.59%)\". Discussion: \"29.87% (standard deviation, 2.9%)\"."
+      },
+      {
+        "source": "F0003:S1:T2:B23",
+        "quote": "3.05"
+      },
+      {
+        "source": "F0003:S1:T2:B24",
+        "quote": "70.12"
+      },
+      {
+        "source": "F0003:S1:T2:B25",
+        "quote": "294.61"
+      },
+      {
+        "source": "F0003:S1:T2:D23",
+        "quote": "0.911"
+      },
+      {
+        "source": "F0003:S1:T2:D24",
+        "quote": "20.94"
+      },
+      {
+        "source": "F0003:S1:T2:D25",
+        "quote": "88"
       }
     ],
     "requirement_ids": [
-      "DRQ001",
-      "DRQ002",
-      "DRQ003",
-      "DRQ008",
-      "DRQ010",
-      "DRQ011",
-      "DRQ012",
-      "DRQ013",
-      "DRQ023",
-      "DRQ024"
+      "DR01",
+      "DR02",
+      "DR03",
+      "DR04",
+      "DR08",
+      "DR09",
+      "DR10",
+      "DR11",
+      "DR12",
+      "DR13",
+      "DR16",
+      "DR27",
+      "DR29"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
@@ -347,11 +372,13 @@
         },
         {
           "quantity": "NOT_FOUND",
-          "value": "80",
+          "value": "10, 40 or 80",
           "unit": "mg/kg",
           "subject": "Voriconazole oral solution",
           "qualifiers": [
-            "by gavage once daily"
+            "by gavage",
+            "once daily",
+            "from 24 h after infection"
           ],
           "evidence": [
             {
@@ -364,7 +391,7 @@
           "quantity": "dose",
           "value": "10",
           "unit": "mg/kg",
-          "subject": "AUC",
+          "subject": "The AUC",
           "qualifiers": [
             "normalized to a dose of 10 mg/kg"
           ],
@@ -382,21 +409,21 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_120823_b983bb\\data_preparation\\normalized\\T0002.json",
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_043136_8ceab4\\data_preparation\\normalized\\T0002.json",
     "sha256": "e6424153fc62f7581681458a7955593e8720f8d6b3fba8de585d04715a649e61"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112449_467620\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035952_f631f9\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "6f8c27df1e49e2ba15615c193e78fcc404e6696b332421a68e17568e3bd0725e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112449_467620\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035952_f631f9\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "4cbba62208e5c769cb2d45fb126a300d85ddf5a2721204452b27b34078195417"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_120823_b983bb\\data_agents\\preparation_plan.json",
-      "sha256": "cc09c6d1e7ac4fda129f2f7c4b2f970f335eb03e4edb4060eef913cdd73f731b"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_043136_8ceab4\\data_agents\\preparation_plan.json",
+      "sha256": "7303e83777a163a5a4db470f9db1fea76352475913bc87a8a505965594792299"
     }
   ],
   "summary": {

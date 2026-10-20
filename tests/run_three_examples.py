@@ -353,7 +353,7 @@ def main():
     active_item = None
     try:
         available = json.loads(fetch(args.base, '/workspace-api/examples'))
-        require({e['id'] for e in available} == set(EXAMPLES), 'Actual example IDs differ from the expected three')
+        require(set(EXAMPLES) <= {e['id'] for e in available}, 'An expected example is missing from the catalog')
         report['packaged_examples'] = available
         save()
         for example in EXAMPLES:

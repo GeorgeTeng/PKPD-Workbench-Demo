@@ -1,159 +1,293 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0034",
-  "role": "SUPPORTING_EVIDENCE",
+  "role": "REPORTED_PARAMETERS",
   "metadata": {
-    "role": "SUPPORTING_EVIDENCE",
-    "species": "neutropenic rabbit KPC-K. pneumoniae pneumonia",
+    "role": "REPORTED_PARAMETERS",
+    "species": "Rabbit",
     "matrix": "NOT_FOUND",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "Context record",
+    "record_level": "Reported exposure summaries; uncertainty type, sample counts and experimental-unit identifiers NOT_FOUND.",
     "drug": "PMB",
-    "route": "NOT_FOUND",
-    "endpoint_window": "NOT_FOUND",
+    "route": "IV",
+    "endpoint_window": "AUC_0_12h; Cmax window NOT_FOUND; sampling time origin NOT_FOUND.",
     "route_category": "NOT_FOUND",
     "matrix_category": "NOT_FOUND",
-    "record_category": "NOT_APPLICABLE",
-    "observation_source": "NOT_APPLICABLE",
+    "record_category": "REPORTED_PARAMETER",
+    "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
     "analyte": "PMB",
-    "dosing_regimen": "NOT_FOUND",
-    "additional_roles": [],
+    "dosing_regimen": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h.",
+    "additional_roles": [
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
+    ],
     "columns": [
       {
-        "header": "Evidence",
+        "header": "Measure",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T4:A42",
-            "quote": "Evidence"
+            "source": "F0003:S3:T1:A5",
+            "quote": "Measure"
           },
           {
-            "source": "F0003:S3:T4:A43",
-            "quote": "neutropenic rabbit KPC-K. pneumoniae pneumonia efficacy"
+            "source": "F0003:S3:T1:A6",
+            "quote": "AUC_0_12h"
+          },
+          {
+            "source": "F0003:S3:T1:A7",
+            "quote": "Cmax"
           }
         ],
         "column": "A"
       },
       {
-        "header": "Available data level",
-        "meaning": "OTHER",
+        "header": "Value",
+        "meaning": "PARAMETER_VALUE",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T4:B42",
-            "quote": "Available data level"
+            "source": "F0003:S3:T1:B5",
+            "quote": "Value"
           },
           {
-            "source": "F0003:S3:T4:B43",
-            "quote": "no serial PMB concentration table in audited archive"
+            "source": "F0003:S3:T1:A6",
+            "quote": "AUC_0_12h"
+          },
+          {
+            "source": "F0003:S3:T1:B6",
+            "quote": "35.87"
+          },
+          {
+            "source": "F0003:S3:T1:D6",
+            "quote": "mg*h/L"
+          },
+          {
+            "source": "F0003:S3:T1:A7",
+            "quote": "Cmax"
+          },
+          {
+            "source": "F0003:S3:T1:B7",
+            "quote": "14.4"
+          },
+          {
+            "source": "F0003:S3:T1:D7",
+            "quote": "mg/L"
           }
         ],
         "column": "B"
       },
       {
-        "header": "Unresolved limitation",
+        "header": "Reported ±",
+        "meaning": "SUMMARY_STATISTIC",
+        "unit": "NOT_FOUND",
+        "qualifiers": [
+          "Reported ±",
+          "Uncertainty type for PK summaries is not stated."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S3:T1:C5",
+            "quote": "Reported ±"
+          },
+          {
+            "source": "F0003:S3:T1:A6",
+            "quote": "AUC_0_12h"
+          },
+          {
+            "source": "F0003:S3:T1:C6",
+            "quote": "1.24"
+          },
+          {
+            "source": "F0003:S3:T1:D6",
+            "quote": "mg*h/L"
+          },
+          {
+            "source": "F0003:S3:T1:A7",
+            "quote": "Cmax"
+          },
+          {
+            "source": "F0003:S3:T1:C7",
+            "quote": "0.97"
+          },
+          {
+            "source": "F0003:S3:T1:D7",
+            "quote": "mg/L"
+          },
+          {
+            "source": "F0003:S3:T1:A4",
+            "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
+          }
+        ],
+        "column": "C"
+      },
+      {
+        "header": "Unit",
         "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T4:C42",
-            "quote": "Unresolved limitation"
+            "source": "F0003:S3:T1:D5",
+            "quote": "Unit"
           },
           {
-            "source": "F0003:S3:T4:C43",
-            "quote": "serial PMB plasma or ELF concentrations were not reported"
+            "source": "F0003:S3:T1:D6",
+            "quote": "mg*h/L"
+          },
+          {
+            "source": "F0003:S3:T1:D7",
+            "quote": "mg/L"
           }
         ],
-        "column": "C"
+        "column": "D"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Rabbit study record S09",
+      "title": "Rabbit PMB exposure summaries",
       "sheet": "Rabbit",
       "region": {
-        "start_row": 38,
-        "end_row": 45,
+        "start_row": 1,
+        "end_row": 9,
         "left": 1,
-        "right": 3,
-        "header_row": 42,
-        "title": "Rabbit study record S09",
+        "right": 4,
+        "header_row": 5,
+        "title": "Rabbit PMB exposure summaries",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Rabbit study record S09\nS09 | DOI 10.1128/AAC.02157-19\nContext record; no concentration is inferred from the reported evidence.\nThis gap describes this older source, not the newer S22 rabbit curves also included on this sheet.",
+      "notes": "Rabbit PMB exposure summaries\nS09 | DOI 10.1128/AAC.02157-19 | treatment-groups methods\nPreviously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples.\nThe efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated.",
       "column_map": {
-        "c001_evidence": "Evidence",
-        "c002_available_data_level": "Available data level",
-        "c003_unresolved_limitation": "Unresolved limitation"
+        "c001_measure": "Measure",
+        "c002_value": "Value",
+        "c003_reported": "Reported ±",
+        "c004_unit": "Unit"
       }
     },
-    "source_item_id": "F0003:S3:T4",
+    "source_item_id": "F0003:S3:T1",
     "source_evidence": [
       {
-        "source": "F0003:S3:T4:A38",
-        "quote": "Rabbit study record S09"
+        "source": "F0003:S3:T1:A1",
+        "quote": "Rabbit PMB exposure summaries"
       },
       {
-        "source": "F0003:S3:T4:A39",
-        "quote": "S09 | DOI 10.1128/AAC.02157-19"
+        "source": "F0003:S3:T1:A2",
+        "quote": "S09 | DOI 10.1128/AAC.02157-19 | treatment-groups methods"
       },
       {
-        "source": "F0003:S3:T4:A40",
-        "quote": "Context record; no concentration is inferred from the reported evidence."
+        "source": "F0003:S3:T1:A3",
+        "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
       },
       {
-        "source": "F0003:S3:T4:A41",
-        "quote": "This gap describes this older source, not the newer S22 rabbit curves also included on this sheet."
-      },
-      {
-        "source": "F0003:S3:T4:A43",
-        "quote": "neutropenic rabbit KPC-K. pneumoniae pneumonia efficacy"
-      },
-      {
-        "source": "F0003:S3:T4:B43",
-        "quote": "no serial PMB concentration table in audited archive"
-      },
-      {
-        "source": "F0003:S3:T4:C43",
-        "quote": "serial PMB plasma or ELF concentrations were not reported"
+        "source": "F0003:S3:T1:A4",
+        "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
       }
     ],
     "requirement_ids": [
-      "REQ_PREP_SOURCE",
-      "REQ_RABBIT_SCOPE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR007",
+      "DR008"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "1",
+          "unit": "mg/kg",
+          "subject": "Previously studied PMB",
+          "qualifiers": [
+            "IV",
+            "q12h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A3",
+              "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "2",
+          "unit": "mg/kg/day",
+          "subject": "Previously studied PMB",
+          "qualifiers": [
+            "IV",
+            "q12h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A3",
+              "quote": "Previously studied PMB 1 mg/kg IV q12h (2 mg/kg/day). These are summaries, not concentration–time samples."
+            }
+          ]
+        },
+        {
+          "quantity": "loading",
+          "value": "2.5",
+          "unit": "mg/kg",
+          "subject": "The efficacy experiment below",
+          "qualifiers": [
+            "loading"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A4",
+              "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "1.5",
+          "unit": "mg/kg",
+          "subject": "The efficacy experiment below",
+          "qualifiers": [
+            "q12h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A4",
+              "quote": "The efficacy experiment below instead used 2.5 mg/kg loading then 1.5 mg/kg q12h. Uncertainty type for PK summaries is not stated."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0034.json",
-    "sha256": "6a446638accc38c8618b9682cbd453f84c7ba857d7c074484d251bc371b8a31a"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0034.json",
+    "sha256": "2f0ee85fa646f663ff16c00fc61566d3611401483464ca59484f5877980a661f"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 1,
-    "retained_records": 1,
+    "source_records": 2,
+    "retained_records": 2,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

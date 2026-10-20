@@ -4,13 +4,13 @@
   "role": "REPORTED_PARAMETERS",
   "metadata": {
     "role": "REPORTED_PARAMETERS",
-    "species": "healthy and infected rats",
-    "matrix": "plasma and tissue; total plasma, free brain; free brain/free plasma",
-    "exposure_basis": "total plasma, free brain; fT (free brain/free plasma). Assignment of individual AUC values to matrix and group is NOT_VERIFIED.",
-    "record_level": "Reported AUC and brain-penetration summaries for healthy and infected animals; individual-animal records, sample size and the meaning of ± are NOT_FOUND.",
+    "species": "rats; healthy and infected",
+    "matrix": "plasma and brain; individual AUC matrix assignments NOT_VERIFIED",
+    "exposure_basis": "total plasma and free brain are stated for the unavailable concentration-time curves; fT is labelled free brain/free plasma; individual AUC concentration bases remain unverified",
+    "record_level": "Reported trapezoidal AUC and fT values with undefined ± terms; individual-animal or group-summary derivation NOT_FOUND",
     "drug": "NOT_FOUND",
     "route": "NOT_FOUND",
-    "endpoint_window": "Methods define AUC as 0 to infinity. The fT endpoint window is NOT_FOUND.",
+    "endpoint_window": "Methods define AUC as 0 to infinity; time unit and dosing origin NOT_FOUND",
     "route_category": "NOT_FOUND",
     "matrix_category": "MIXED",
     "record_category": "REPORTED_PARAMETER",
@@ -48,7 +48,7 @@
         "meaning": "PARAMETER_VALUE",
         "unit": "μg · h/ml",
         "qualifiers": [
-          "trapezoidal rule",
+          "0 to infinity",
           "free brain/free plasma"
         ],
         "evidence": [
@@ -59,6 +59,10 @@
           {
             "source": "F0003:S2:T5:B87",
             "quote": "\"The AUC values determined by trapezoidal rule for plasma and tissue in healthy and infected animals were 20.52 ± 8.45 μg · h/ml, 5.69 ± 1.51 μg · h/ml, 24.71 ± 7.54 μg · h/ml, and 13.80 ± 1.53 μg · h/ml, respectively.\""
+          },
+          {
+            "source": "F0003:S2:T5:A85",
+            "quote": "Methods define AUC as 0 to infinity."
           },
           {
             "source": "F0003:S2:T5:A88",
@@ -95,12 +99,20 @@
     "source_item_id": "F0003:S2:T5",
     "source_evidence": [
       {
+        "source": "F0003:S2:T5:A83",
+        "quote": "Plasma and brain AUC and brain penetration (text)"
+      },
+      {
         "source": "F0003:S2:T5:A84",
         "quote": "S07 | DOI 10.1128/AAC.00321-17 | Results text"
       },
       {
         "source": "F0003:S2:T5:A85",
         "quote": "Concentration-time curves (total plasma, free brain) are in Fig. 1 only (not digitized). The sentence does not label which AUC belongs to which matrix and group; the order healthy plasma, healthy brain, infected plasma, infected brain is inferred from the sentence (NOT_VERIFIED). Methods define AUC as 0 to infinity."
+      },
+      {
+        "source": "F0003:S2:T5:A87",
+        "quote": "AUC (trapezoidal)"
       },
       {
         "source": "F0003:S2:T5:B87",
@@ -116,9 +128,10 @@
       }
     ],
     "requirement_ids": [
-      "DRQ002",
-      "DRQ003",
-      "DRQ013"
+      "DR02",
+      "DR03",
+      "DR04",
+      "DR16"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -126,21 +139,21 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_120823_b983bb\\data_preparation\\normalized\\T0009.json",
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_043136_8ceab4\\data_preparation\\normalized\\T0009.json",
     "sha256": "3cf0894d5382ea16ddd4a18d3152e2518210383605bd90665e792e1c709e5c43"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112449_467620\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035952_f631f9\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "6f8c27df1e49e2ba15615c193e78fcc404e6696b332421a68e17568e3bd0725e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112449_467620\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035952_f631f9\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "4cbba62208e5c769cb2d45fb126a300d85ddf5a2721204452b27b34078195417"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_120823_b983bb\\data_agents\\preparation_plan.json",
-      "sha256": "cc09c6d1e7ac4fda129f2f7c4b2f970f335eb03e4edb4060eef913cdd73f731b"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_043136_8ceab4\\data_agents\\preparation_plan.json",
+      "sha256": "7303e83777a163a5a4db470f9db1fea76352475913bc87a8a505965594792299"
     }
   ],
   "summary": {

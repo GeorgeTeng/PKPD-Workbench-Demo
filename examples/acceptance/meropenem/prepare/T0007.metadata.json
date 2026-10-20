@@ -4,27 +4,28 @@
   "role": "IN_VITRO_CLEARANCE",
   "metadata": {
     "role": "IN_VITRO_CLEARANCE",
-    "species": "Mouse; Rat; Guinea pig; Rabbit; Beagle dog; Rhesus monkey. Strain and health or infection state: NOT_FOUND.",
-    "matrix": "10% lung homogenate; In vitro incubation",
-    "exposure_basis": "Residual %; reference denominator and total or unbound basis: NOT_FOUND.",
-    "record_level": "Species-labelled in vitro residual percentages and reported T1/2 values; replicate, individual, pooled and group-summary status of residual measurements: NOT_FOUND.",
+    "species": "Mouse; Rat; Guinea pig; Rabbit; Beagle dog; Rhesus monkey. In vitro incubation; donor health and infection state NOT_FOUND.",
+    "matrix": "10% lung homogenate",
+    "exposure_basis": "Residual %; total or unbound basis NOT_FOUND",
+    "record_level": "Species-level residual percentages with experimental-unit and summary definitions NOT_FOUND; T1/2 values are reported parameters.",
     "drug": "meropenem",
     "route": "NOT_APPLICABLE",
-    "endpoint_window": "In vitro incubation: 1 min, 60 min, 120 min, 240 min",
+    "endpoint_window": "Residual % at 1 min; 60 min; 120 min; 240 min; T1/2 (min)",
     "route_category": "NOT_APPLICABLE",
     "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "MIXED",
+    "record_category": "NOT_FOUND",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
     "analyte": "meropenem",
     "dosing_regimen": "NOT_FOUND",
     "additional_roles": [
-      "REPORTED_PARAMETERS"
+      "REPORTED_PARAMETERS",
+      "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
         "header": "Species",
-        "meaning": "GROUP_OR_TREATMENT",
+        "meaning": "COVARIATE",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
@@ -48,7 +49,8 @@
         "meaning": "RESPONSE",
         "unit": "%",
         "qualifiers": [
-          "Residual % at 1 min"
+          "at 1 min",
+          "In vitro incubation"
         ],
         "evidence": [
           {
@@ -60,8 +62,8 @@
             "quote": "105"
           },
           {
-            "source": "F0003:S1:T7:A100",
-            "quote": "Table 6 — stability of meropenem in 10% lung homogenate"
+            "source": "F0003:S1:T7:A102",
+            "quote": "In vitro incubation, initial concentration 20 µg/ml (footnote a). b) not detected, assay limit below 0.5 µg/ml."
           }
         ],
         "column": "B"
@@ -71,8 +73,8 @@
         "meaning": "RESPONSE",
         "unit": "%",
         "qualifiers": [
-          "Residual %",
-          "60 min"
+          "60 min",
+          "In vitro incubation"
         ],
         "evidence": [
           {
@@ -86,6 +88,10 @@
           {
             "source": "F0003:S1:T7:C104",
             "quote": "70.2"
+          },
+          {
+            "source": "F0003:S1:T7:A102",
+            "quote": "In vitro incubation, initial concentration 20 µg/ml (footnote a). b) not detected, assay limit below 0.5 µg/ml."
           }
         ],
         "column": "C"
@@ -95,8 +101,8 @@
         "meaning": "RESPONSE",
         "unit": "%",
         "qualifiers": [
-          "Residual %",
-          "120 min"
+          "120 min",
+          "In vitro incubation"
         ],
         "evidence": [
           {
@@ -110,6 +116,10 @@
           {
             "source": "F0003:S1:T7:D104",
             "quote": "40"
+          },
+          {
+            "source": "F0003:S1:T7:A102",
+            "quote": "In vitro incubation, initial concentration 20 µg/ml (footnote a). b) not detected, assay limit below 0.5 µg/ml."
           }
         ],
         "column": "D"
@@ -119,8 +129,8 @@
         "meaning": "RESPONSE",
         "unit": "%",
         "qualifiers": [
-          "Residual %",
           "240 min",
+          "In vitro incubation",
           "N.D. b)",
           "b) not detected, assay limit below 0.5 µg/ml."
         ],
@@ -163,8 +173,8 @@
             "quote": "84"
           },
           {
-            "source": "F0003:S1:T7:F107",
-            "quote": "247"
+            "source": "F0003:S1:T7:F105",
+            "quote": "42"
           }
         ],
         "column": "F"
@@ -213,30 +223,6 @@
         "quote": "Mouse"
       },
       {
-        "source": "F0003:S1:T7:A105",
-        "quote": "Rat"
-      },
-      {
-        "source": "F0003:S1:T7:A106",
-        "quote": "Guinea pig"
-      },
-      {
-        "source": "F0003:S1:T7:A107",
-        "quote": "Rabbit"
-      },
-      {
-        "source": "F0003:S1:T7:A108",
-        "quote": "Beagle dog"
-      },
-      {
-        "source": "F0003:S1:T7:A109",
-        "quote": "Rhesus monkey"
-      },
-      {
-        "source": "F0003:S1:T7:B103",
-        "quote": "Residual % at 1 min"
-      },
-      {
         "source": "F0003:S1:T7:B104",
         "quote": "105"
       },
@@ -253,26 +239,77 @@
         "quote": "15.1"
       },
       {
-        "source": "F0003:S1:T7:E105",
-        "quote": "N.D. b)"
-      },
-      {
-        "source": "F0003:S1:T7:F103",
-        "quote": "T1/2 (min)"
-      },
-      {
         "source": "F0003:S1:T7:F104",
         "quote": "84"
       },
       {
+        "source": "F0003:S1:T7:A105",
+        "quote": "Rat"
+      },
+      {
+        "source": "F0003:S1:T7:B105",
+        "quote": "102"
+      },
+      {
+        "source": "F0003:S1:T7:E105",
+        "quote": "N.D. b)"
+      },
+      {
+        "source": "F0003:S1:T7:F105",
+        "quote": "42"
+      },
+      {
+        "source": "F0003:S1:T7:A106",
+        "quote": "Guinea pig"
+      },
+      {
+        "source": "F0003:S1:T7:B106",
+        "quote": "97.6"
+      },
+      {
+        "source": "F0003:S1:T7:F106",
+        "quote": "976"
+      },
+      {
+        "source": "F0003:S1:T7:A107",
+        "quote": "Rabbit"
+      },
+      {
+        "source": "F0003:S1:T7:B107",
+        "quote": "99.8"
+      },
+      {
         "source": "F0003:S1:T7:F107",
         "quote": "247"
+      },
+      {
+        "source": "F0003:S1:T7:A108",
+        "quote": "Beagle dog"
+      },
+      {
+        "source": "F0003:S1:T7:B108",
+        "quote": "105"
+      },
+      {
+        "source": "F0003:S1:T7:F108",
+        "quote": "1000"
+      },
+      {
+        "source": "F0003:S1:T7:A109",
+        "quote": "Rhesus monkey"
+      },
+      {
+        "source": "F0003:S1:T7:B109",
+        "quote": "98.7"
+      },
+      {
+        "source": "F0003:S1:T7:F109",
+        "quote": "209"
       }
     ],
     "requirement_ids": [
-      "DRQ01",
-      "DRQ02",
-      "DRQ03"
+      "DR003",
+      "DR004"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": "NOT_FOUND",
@@ -280,21 +317,21 @@
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_preparation\\normalized\\T0007.json",
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_preparation\\normalized\\T0007.json",
     "sha256": "a503dbc37ea0900a469fab7fbcde97f56aec689f84cb347df307569d2872aeb3"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "50651a29c222da63ff3561aafc979b15663465b53a81befe2b99f8c9ecc4ab9e"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101347_23bb3a\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "8b0786d9a7ca4e902e8017f5c23a3375a5d0338dc2392c98fd5b64563b600aeb"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_112304_a3aa19\\data_agents\\preparation_plan.json",
-      "sha256": "247a60f31b3328b3e29c04846b517218ab9262a22b79d8c21a62dcf387c805ff"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_035921_ac5766\\data_agents\\preparation_plan.json",
+      "sha256": "1d8511f55d03992d7d49bbffbd9c3d0ad7079b1fae51d6b1a64c2513d7e14403"
     }
   ],
   "summary": {

@@ -1,0 +1,162 @@
+{
+  "request_sha256": "8a827c5be50f3a07eccedf185579c726c63693380040b9dc91411e4f34b8a492",
+  "payload": {
+    "stage": "project_rules_extract",
+    "operation": "DEMO_KEY_RULES",
+    "instructions": "Extract the key adopted project requirements for a provisional workflow demonstration. Keep complete conditions, prohibitions, timing and exceptions in text. Use exact project-source evidence. Assign only applicable used_in stages. Do not invent data, authority or approval. Do not duplicate the objective or descriptive facts. Return English JSON only. This is one extraction, with completeness and scientific refinement deferred to later review.",
+    "objective": "Organize the supplied imidocarb cattle workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run ends after source-preserving Data preparation and its recorded review gate.",
+    "source_units": [
+      {
+        "id": "F0003_P0001_U0001",
+        "source_id": "F0003_P0001",
+        "start_char": 0,
+        "end_char": 50,
+        "text": "# Imidocarb cattle PK data organization proposal\n\n",
+        "text_sha256": "42bd5e9fb193421fe8e8373e28f84852526b7d58106ddb67383380671f3253d9"
+      },
+      {
+        "id": "F0003_P0001_U0002",
+        "source_id": "F0003_P0001",
+        "start_char": 50,
+        "end_char": 278,
+        "text": "## Objective\nOrganize the supplied imidocarb cattle source workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run stops after source-preserving Data preparation and its recorded review gate.\n\n",
+        "text_sha256": "b172e46336ec03ff6c0a27c7c84a8dbb6e607be7c946e992f0d2ebda2eae9bb6"
+      },
+      {
+        "id": "F0003_P0001_U0003",
+        "source_id": "F0003_P0001",
+        "start_char": 278,
+        "end_char": 558,
+        "text": "## Authorized inputs\nUse Imidocarb_cattle_source.xlsx as the supplied observational source. Use Imidocarb_source_notes.txt only as cited source context. The article's conclusions are historical statements, not validation by this workflow. Do not browse for or add external data.\n\n",
+        "text_sha256": "f2e407a5effae7d9fa3e5da8944c0e39aca77d0300db31a5aa6cfd952835fb1b"
+      },
+      {
+        "id": "F0003_P0001_U0004",
+        "source_id": "F0003_P0001",
+        "start_char": 558,
+        "end_char": 1065,
+        "text": "## Data requirements\nRegister every supplied file and its hash. Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns. Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries. Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding.\n\n",
+        "text_sha256": "b1520703b5afb18576900c4d1fb168f1351f247c66b53322b18f8a2c50a0ddec"
+      },
+      {
+        "id": "F0003_P0001_U0005",
+        "source_id": "F0003_P0001",
+        "start_char": 1065,
+        "end_char": 1515,
+        "text": "## Allowed preparation and unresolved issues\nCreate source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff. Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups. Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review.\n\n",
+        "text_sha256": "f592941c059f12f47b066631bcdbfc2c0405fa4d6e9276c9ebc07453dbf074c0"
+      },
+      {
+        "id": "F0003_P0001_U0006",
+        "source_id": "F0003_P0001",
+        "start_char": 1515,
+        "end_char": 1908,
+        "text": "## Review and execution boundary\nRetain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo. No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run. Missing modeling requirements remain deferred for subsequent human review rather than silently resolved.\n",
+        "text_sha256": "9d610e5543c76ae8a57aa7630ec699a110a933c134648a5ea2e59ec3944d7ae0"
+      }
+    ],
+    "source_permissions": [
+      {
+        "source_id": "F0003_P0001",
+        "may_read": true,
+        "may_supply_project_authority": true
+      }
+    ],
+    "steps": {
+      "adequacy": "Assess current input requirements and data coverage; planning later outputs is not requiring them now.",
+      "prepare": "Prepare permitted data and preserve provenance, units, experimental identity and missingness.",
+      "eda": "Exploratory analysis, only if that separate workflow step is enabled.",
+      "dispatch": "Assign an approved task, data and applicable constraints to a downstream analysis.",
+      "animal_pk": "Fit, select and evaluate animal PK models.",
+      "pk_translation": "Scale animal models and predict held-out species and human PK before opening validation outcomes.",
+      "index": "Compare PK/PD indices and qualify effect targets.",
+      "human_validation": "After the required freezes, compare frozen human predictions with permitted human observations.",
+      "pta": "After the stated prerequisites, simulate per-MIC and MIC-weighted attainment and its uncertainty.",
+      "clinical": "Interpret and report feasibility, scientific limitations and final benchmarks; use specific validation or PTA steps for their distinct requirements."
+    },
+    "schema": {
+      "type": "object",
+      "properties": {
+        "request_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "used_in": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "adequacy",
+                    "prepare",
+                    "eda",
+                    "dispatch",
+                    "animal_pk",
+                    "pk_translation",
+                    "index",
+                    "human_validation",
+                    "pta",
+                    "clinical"
+                  ]
+                },
+                "minItems": 1
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "source_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "unit_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "source_id",
+                    "unit_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "used_in",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "request_sha256",
+        "rules"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

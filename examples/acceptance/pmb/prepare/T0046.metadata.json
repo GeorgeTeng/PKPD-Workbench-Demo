@@ -1,262 +1,401 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0046",
-  "role": "IN_VITRO_TIME_KILL",
+  "role": "PK_OBSERVATIONS",
   "metadata": {
-    "role": "IN_VITRO_TIME_KILL",
-    "species": "K. pneumoniae KP619",
-    "matrix": "Static in-vitro exposure; medium NOT_FOUND",
-    "exposure_basis": "nominal exposure AMT (mg/L)",
-    "record_level": "ID-linked in-vitro observation rows; independent replicate IDs NOT_FOUND",
+    "role": "PK_OBSERVATIONS",
+    "species": "New Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; health or infection state NOT_FOUND",
+    "matrix": "whole lung",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "plotted mean, not individual records; no SD or individual IDs recovered",
     "drug": "PMB",
-    "route": "NOT_APPLICABLE",
-    "endpoint_window": "TIME values span 0 to 8 h across IDs; time origin NOT_FOUND",
-    "route_category": "NOT_APPLICABLE",
-    "matrix_category": "IN_VITRO_SYSTEM",
-    "record_category": "NOT_FOUND",
-    "observation_source": "SOURCE_VALUES",
+    "route": "IT",
+    "endpoint_window": "0.5,2,6 h",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "OTHER_TISSUE",
+    "record_category": "GROUP_SUMMARY",
+    "observation_source": "DIGITIZED_FROM_FIGURE",
     "dose_basis": "NOT_FOUND",
     "analyte": "PMB",
-    "dosing_regimen": "Static in-vitro exposure",
+    "dosing_regimen": "single 2 mg/kg at time 0",
     "additional_roles": [
-      "MIC"
+      "ANIMAL_CHARACTERISTICS",
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
-        "header": "ID",
-        "meaning": "GROUP_OR_TREATMENT",
+        "header": "Marker label",
+        "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S5:T2:A57",
-            "quote": "ID"
+            "source": "F0003:S3:T13:A181",
+            "quote": "Marker label"
           },
           {
-            "source": "F0003:S5:T2:A55",
-            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+            "source": "F0003:S3:T13:A182",
+            "quote": "S22B-IT-whole_lung-2-01"
           },
           {
-            "source": "F0003:S5:T2:A56",
-            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+            "source": "F0003:S3:T13:A183",
+            "quote": "S22B-IT-whole_lung-2-02"
           },
           {
-            "source": "F0003:S5:T2:A58",
-            "quote": "1"
+            "source": "F0003:S3:T13:A184",
+            "quote": "S22B-IT-whole_lung-2-03"
+          },
+          {
+            "source": "F0003:S3:T13:A173",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           }
         ],
         "column": "A"
       },
       {
-        "header": "AMT",
-        "meaning": "CONCENTRATION",
-        "unit": "mg/L",
+        "header": "Time (h)",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [
-          "nominal exposure AMT (mg/L)",
-          "A dot is missing/not applicable."
+          "single 2 mg/kg at time 0"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T2:B57",
-            "quote": "AMT"
+            "source": "F0003:S3:T13:B181",
+            "quote": "Time (h)"
           },
           {
-            "source": "F0003:S5:T2:A55",
-            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+            "source": "F0003:S3:T13:B182",
+            "quote": "0.5"
           },
           {
-            "source": "F0003:S5:T2:A56",
-            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+            "source": "F0003:S3:T13:B183",
+            "quote": "2"
           },
           {
-            "source": "F0003:S5:T2:B58",
-            "quote": "1e-08"
+            "source": "F0003:S3:T13:B184",
+            "quote": "6"
+          },
+          {
+            "source": "F0003:S3:T13:A172",
+            "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
           }
         ],
         "column": "B"
       },
       {
-        "header": "AMT_CMT",
-        "meaning": "BLQ_OR_FLAG",
-        "unit": "NOT_FOUND",
+        "header": "Mean (mg/L)",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
         "qualifiers": [
-          "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1."
+          "Mean",
+          "plotted mean, not individual records",
+          "DIGITIZED from observed markers, not fitted lines",
+          "Concentration and pixel time are approximate",
+          "no SD or individual IDs recovered"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T2:C57",
-            "quote": "AMT_CMT"
+            "source": "F0003:S3:T13:C181",
+            "quote": "Mean (mg/L)"
           },
           {
-            "source": "F0003:S5:T2:A55",
-            "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+            "source": "F0003:S3:T13:C182",
+            "quote": "6.434"
           },
           {
-            "source": "F0003:S5:T2:C58",
-            "quote": "2"
+            "source": "F0003:S3:T13:C183",
+            "quote": "1.8"
           },
           {
-            "source": "F0003:S5:T2:C59",
-            "quote": "1"
+            "source": "F0003:S3:T13:C184",
+            "quote": "3.488"
+          },
+          {
+            "source": "F0003:S3:T13:A172",
+            "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+          },
+          {
+            "source": "F0003:S3:T13:A173",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           }
         ],
         "column": "C"
       },
       {
-        "header": "TIME",
+        "header": "Pixel time (h)",
         "meaning": "TIME",
         "unit": "h",
-        "qualifiers": [],
+        "qualifiers": [
+          "Concentration and pixel time are approximate",
+          "single 2 mg/kg at time 0"
+        ],
         "evidence": [
           {
-            "source": "F0003:S5:T2:D57",
-            "quote": "TIME"
+            "source": "F0003:S3:T13:D181",
+            "quote": "Pixel time (h)"
           },
           {
-            "source": "F0003:S5:T2:A54",
-            "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+            "source": "F0003:S3:T13:D182",
+            "quote": "0.495"
           },
           {
-            "source": "F0003:S5:T2:D91",
-            "quote": "8"
+            "source": "F0003:S3:T13:D183",
+            "quote": "2.004"
+          },
+          {
+            "source": "F0003:S3:T13:D184",
+            "quote": "5.998"
+          },
+          {
+            "source": "F0003:S3:T13:A173",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          },
+          {
+            "source": "F0003:S3:T13:A172",
+            "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
           }
         ],
         "column": "D"
       },
       {
-        "header": "Y",
-        "meaning": "RESPONSE",
-        "unit": "log10 CFU/mL",
+        "header": "Pixel x",
+        "meaning": "OTHER",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "log10",
-          "A dot is missing/not applicable."
+          "origin top-left"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T2:E57",
-            "quote": "Y"
+            "source": "F0003:S3:T13:E181",
+            "quote": "Pixel x"
           },
           {
-            "source": "F0003:S5:T2:A54",
-            "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+            "source": "F0003:S3:T13:E182",
+            "quote": "1237"
           },
           {
-            "source": "F0003:S5:T2:A56",
-            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+            "source": "F0003:S3:T13:E183",
+            "quote": "1359"
           },
           {
-            "source": "F0003:S5:T2:E59",
-            "quote": "6.1875"
+            "source": "F0003:S3:T13:E184",
+            "quote": "1682"
+          },
+          {
+            "source": "F0003:S3:T13:A174",
+            "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
           }
         ],
         "column": "E"
       },
       {
-        "header": "CENS",
-        "meaning": "BLQ_OR_FLAG",
+        "header": "Pixel y",
+        "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [
-          "CENS=1 flags censored Y."
+          "origin top-left"
         ],
         "evidence": [
           {
-            "source": "F0003:S5:T2:F57",
-            "quote": "CENS"
+            "source": "F0003:S3:T13:F181",
+            "quote": "Pixel y"
           },
           {
-            "source": "F0003:S5:T2:A56",
-            "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+            "source": "F0003:S3:T13:F182",
+            "quote": "260"
           },
           {
-            "source": "F0003:S5:T2:F59",
-            "quote": "0"
+            "source": "F0003:S3:T13:F183",
+            "quote": "312"
+          },
+          {
+            "source": "F0003:S3:T13:F184",
+            "quote": "285"
+          },
+          {
+            "source": "F0003:S3:T13:A174",
+            "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
           }
         ],
         "column": "F"
+      },
+      {
+        "header": "Record status",
+        "meaning": "BLQ_OR_FLAG",
+        "unit": "NOT_FOUND",
+        "qualifiers": [],
+        "evidence": [
+          {
+            "source": "F0003:S3:T13:G181",
+            "quote": "Record status"
+          },
+          {
+            "source": "F0003:S3:T13:G182",
+            "quote": "SOURCE_REVIEW"
+          },
+          {
+            "source": "F0003:S3:T13:G183",
+            "quote": "SOURCE_REVIEW"
+          },
+          {
+            "source": "F0003:S3:T13:G184",
+            "quote": "SOURCE_REVIEW"
+          }
+        ],
+        "column": "G"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "K. pneumoniae KP619 time-kill",
-      "sheet": "In_vitro_MIC",
+      "title": "Rabbit IT 2 mg/kg: whole lung observed mean curve",
+      "sheet": "Rabbit",
       "region": {
-        "start_row": 52,
-        "end_row": 93,
+        "start_row": 170,
+        "end_row": 186,
         "left": 1,
-        "right": 6,
-        "header_row": 57,
-        "title": "K. pneumoniae KP619 time-kill",
+        "right": 7,
+        "header_row": 181,
+        "title": "Rabbit IT 2 mg/kg: whole lung observed mean curve",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "K. pneumoniae KP619 time-kill\nS13 | DOI 10.1371/journal.pone.0171834 | PB_data_4.txt\nPMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h.\nAMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID.\nA dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND.",
+      "notes": "Rabbit IT 2 mg/kg: whole lung observed mean curve\nS22 | https://doi.org/10.1007/s11095-026-04194-1 | Figure 2, panel B; PDF embedded image\nPMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records.\nDIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered.\nImage calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left.\nSensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD.\nNew Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; nominal blood 0.25,0.5,1,1.5,2,4,6 h.\nFigure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times.\nTissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered.\nExploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F.\nSC whole-lung Fig.2 peak differs from Table S5 Cmax. Do not rescale or silently reconcile. No measured rabbit fu located.",
       "column_map": {
-        "c001_id": "ID",
-        "c002_amt": "AMT",
-        "c003_amt_cmt": "AMT_CMT",
-        "c004_time": "TIME",
-        "c005_y": "Y",
-        "c006_cens": "CENS"
+        "c001_marker_label": "Marker label",
+        "c002_time_h": "Time (h)",
+        "c003_mean_mg_l": "Mean (mg/L)",
+        "c004_pixel_time_h": "Pixel time (h)",
+        "c005_pixel_x": "Pixel x",
+        "c006_pixel_y": "Pixel y",
+        "c007_record_status": "Record status"
       }
     },
-    "source_item_id": "F0003:S5:T2",
+    "source_item_id": "F0003:S3:T13",
     "source_evidence": [
       {
-        "source": "F0003:S5:T2:A53",
-        "quote": "S13 | DOI 10.1371/journal.pone.0171834 | PB_data_4.txt"
+        "source": "F0003:S3:T13:A170",
+        "quote": "Rabbit IT 2 mg/kg: whole lung observed mean curve"
       },
       {
-        "source": "F0003:S5:T2:A54",
-        "quote": "PMB MIC 64 mg/L by broth microdilution. Static in-vitro exposure; Y is log10 CFU/mL and TIME is h."
+        "source": "F0003:S3:T13:A171",
+        "quote": "S22 | https://doi.org/10.1007/s11095-026-04194-1 | Figure 2, panel B; PDF embedded image"
       },
       {
-        "source": "F0003:S5:T2:A55",
-        "quote": "AMT_CMT=2 rows carry nominal exposure AMT (mg/L); observation rows use AMT_CMT=1. Join within source file and ID."
+        "source": "F0003:S3:T13:A172",
+        "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
       },
       {
-        "source": "F0003:S5:T2:A56",
-        "quote": "A dot is missing/not applicable. CENS=1 flags censored Y. The 1e-8 control exposure is retained exactly; independent replicate IDs NOT_FOUND."
+        "source": "F0003:S3:T13:A173",
+        "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
       },
       {
-        "source": "F0003:S5:T2:E59",
-        "quote": "6.1875"
+        "source": "F0003:S3:T13:A174",
+        "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
       },
       {
-        "source": "F0003:S5:T2:E91",
-        "quote": "7.3674"
+        "source": "F0003:S3:T13:A175",
+        "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+      },
+      {
+        "source": "F0003:S3:T13:A176",
+        "quote": "New Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; nominal blood 0.25,0.5,1,1.5,2,4,6 h."
+      },
+      {
+        "source": "F0003:S3:T13:A177",
+        "quote": "Figure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times."
+      },
+      {
+        "source": "F0003:S3:T13:A178",
+        "quote": "Tissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered."
+      },
+      {
+        "source": "F0003:S3:T13:A179",
+        "quote": "Exploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F."
+      },
+      {
+        "source": "F0003:S3:T13:A180",
+        "quote": "SC whole-lung Fig.2 peak differs from Table S5 Cmax. Do not rescale or silently reconcile. No measured rabbit fu located."
+      },
+      {
+        "source": "F0003:S3:T13:B182",
+        "quote": "0.5"
+      },
+      {
+        "source": "F0003:S3:T13:C182",
+        "quote": "6.434"
+      },
+      {
+        "source": "F0003:S3:T13:B184",
+        "quote": "6"
+      },
+      {
+        "source": "F0003:S3:T13:C184",
+        "quote": "3.488"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR004",
+      "DR006",
+      "DR007",
+      "DR008",
+      "DR011"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "NOT_FOUND",
+          "value": "2",
+          "unit": "mg/kg",
+          "subject": "Rabbit IT",
+          "qualifiers": [
+            "single",
+            "at time 0"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T13:A170",
+              "quote": "Rabbit IT 2 mg/kg: whole lung observed mean curve"
+            },
+            {
+              "source": "F0003:S3:T13:A172",
+              "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0046.json",
-    "sha256": "badf1ef29180e63931c55bea425d17ecacb90672095bf3909427107c0d9dc4d2"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0046.json",
+    "sha256": "e20ce91a11b191184854aea5e898d728176eb6bf4631a69a13df3c098c5e8303"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 34,
-    "retained_records": 34,
+    "source_records": 3,
+    "retained_records": 3,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

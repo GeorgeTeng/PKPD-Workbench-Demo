@@ -4,23 +4,24 @@
   "role": "PK_OBSERVATIONS",
   "metadata": {
     "role": "PK_OBSERVATIONS",
-    "species": "Female Swiss mice, 7 weeks",
+    "species": "Female Swiss mice",
     "matrix": "plasma",
     "exposure_basis": "NOT_FOUND",
-    "record_level": "Mouse-labelled concentration values; cross-time identity unverified",
+    "record_level": "Concentration values under Mouse 1, Mouse 2 and Mouse 3; experimental-unit and cross-time identity remain unverified. Summary and pooling status NOT_FOUND.",
     "drug": "Polymyxin B",
     "route": "IP",
-    "endpoint_window": "NOT_FOUND",
+    "endpoint_window": "Sampling times are tabulated in h; time origin NOT_FOUND.",
     "route_category": "EXTRAVASCULAR",
     "matrix_category": "PLASMA_SERUM_BLOOD",
-    "record_category": "INDIVIDUAL",
+    "record_category": "NOT_FOUND",
     "observation_source": "SOURCE_VALUES",
     "dose_basis": "NOT_FOUND",
     "analyte": "Polymyxin B",
     "dosing_regimen": "single dose",
     "additional_roles": [
       "ANIMAL_CHARACTERISTICS",
-      "DOSING"
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
     ],
     "columns": [
       {
@@ -32,6 +33,18 @@
           {
             "source": "F0003:S1:T1:A7",
             "quote": "Time (h)"
+          },
+          {
+            "source": "F0003:S1:T1:A3",
+            "quote": "Polymyxin B 5 mg/kg IP; concentration mg/L; time h; single dose."
+          },
+          {
+            "source": "F0003:S1:T1:A8",
+            "quote": "0.28"
+          },
+          {
+            "source": "F0003:S1:T1:A16",
+            "quote": "7.57"
           }
         ],
         "column": "A"
@@ -43,7 +56,7 @@
         "qualifiers": [
           "<LLOQ remains censored",
           "No sampling remains missing",
-          "empty cells remain empty"
+          "empty cells remain empty."
         ],
         "evidence": [
           {
@@ -61,6 +74,10 @@
           {
             "source": "F0003:S1:T1:B8",
             "quote": "8.21"
+          },
+          {
+            "source": "F0003:S1:T1:B16",
+            "quote": "0.37"
           }
         ],
         "column": "B"
@@ -72,7 +89,7 @@
         "qualifiers": [
           "<LLOQ remains censored",
           "No sampling remains missing",
-          "empty cells remain empty"
+          "empty cells remain empty."
         ],
         "evidence": [
           {
@@ -90,6 +107,10 @@
           {
             "source": "F0003:S1:T1:C8",
             "quote": "8.26"
+          },
+          {
+            "source": "F0003:S1:T1:C16",
+            "quote": "0.36"
           }
         ],
         "column": "C"
@@ -101,7 +122,7 @@
         "qualifiers": [
           "<LLOQ remains censored",
           "No sampling remains missing",
-          "empty cells remain empty"
+          "empty cells remain empty."
         ],
         "evidence": [
           {
@@ -119,6 +140,10 @@
           {
             "source": "F0003:S1:T1:D8",
             "quote": "8.3"
+          },
+          {
+            "source": "F0003:S1:T1:D16",
+            "quote": "0.36"
           }
         ],
         "column": "D"
@@ -195,57 +220,65 @@
       {
         "source": "F0003:S1:T1:B16",
         "quote": "0.37"
+      },
+      {
+        "source": "F0003:S1:T1:C16",
+        "quote": "0.36"
+      },
+      {
+        "source": "F0003:S1:T1:D16",
+        "quote": "0.36"
       }
     ],
     "requirement_ids": [
-      "REQ_ANIMAL_INPUT",
-      "REQ_MODEL_DESIGN",
-      "REQ_PREP_BASIS",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR006",
+      "DR007",
+      "DR013",
+      "DR020"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
-      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
-      "candidates": [
+      "status": "SOURCE_STATED",
+      "value": "5",
+      "unit": "mg/kg",
+      "route": "IP",
+      "dose_basis": "NOT_FOUND",
+      "dosing_regimen": "single dose",
+      "qualifiers": [
+        "IP",
+        "single dose"
+      ],
+      "evidence": [
         {
-          "quantity": "dose",
-          "value": "5",
-          "unit": "mg/kg",
-          "subject": "Female Swiss mice",
-          "qualifiers": [],
-          "evidence": [
-            {
-              "source": "F0003:S1:T1:A3",
-              "quote": "Polymyxin B 5 mg/kg IP; concentration mg/L; time h; single dose."
-            },
-            {
-              "source": "F0003:S1:T1:A5",
-              "quote": "Female Swiss mice, 7 weeks, reported body-weight range 22–28 g. Column labels do not verify cross-time identity."
-            }
-          ]
+          "source": "F0003:S1:T1:A3",
+          "quote": "Polymyxin B 5 mg/kg IP; concentration mg/L; time h; single dose."
         }
       ],
+      "applicability": "SOURCE_TABLE_ONLY",
       "per_record_assignment": false
     },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0001.json",
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0001.json",
     "sha256": "a0dc2381eb78f6bdfba16af63f1f3f1395bfef22dc01188f86a2220c772cd039"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {

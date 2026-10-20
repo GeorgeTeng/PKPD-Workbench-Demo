@@ -1,0 +1,166 @@
+{
+  "request_sha256": "8a827c5be50f3a07eccedf185579c726c63693380040b9dc91411e4f34b8a492",
+  "rules": [
+    {
+      "id": "R001",
+      "text": "Use Imidocarb_cattle_source.xlsx as the supplied observational source and Imidocarb_source_notes.txt only as cited source context. Treat the article's conclusions as historical statements, not validation by this workflow. Do not browse for or add external data.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "Use Imidocarb_cattle_source.xlsx as the supplied observational source. Use Imidocarb_source_notes.txt only as cited source context. The article's conclusions are historical statements, not validation by this workflow. Do not browse for or add external data."
+        }
+      ]
+    },
+    {
+      "id": "R002",
+      "text": "Register every supplied file and its hash.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Register every supplied file and its hash."
+        }
+      ]
+    },
+    {
+      "id": "R003",
+      "text": "Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+        }
+      ]
+    },
+    {
+      "id": "R004",
+      "text": "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        }
+      ]
+    },
+    {
+      "id": "R005",
+      "text": "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding."
+        }
+      ]
+    },
+    {
+      "id": "R006",
+      "text": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        }
+      ]
+    },
+    {
+      "id": "R007",
+      "text": "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups."
+        }
+      ]
+    },
+    {
+      "id": "R008",
+      "text": "Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review."
+        }
+      ]
+    },
+    {
+      "id": "R009",
+      "text": "Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo."
+        }
+      ]
+    },
+    {
+      "id": "R010",
+      "text": "No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run.",
+      "used_in": [
+        "prepare",
+        "eda",
+        "animal_pk",
+        "pk_translation",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run."
+        }
+      ]
+    },
+    {
+      "id": "R011",
+      "text": "Defer missing modeling requirements for subsequent human review rather than silently resolving them.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Missing modeling requirements remain deferred for subsequent human review rather than silently resolved."
+        }
+      ]
+    }
+  ]
+}

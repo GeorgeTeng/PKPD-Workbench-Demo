@@ -30,6 +30,9 @@ def connect_workspace(app, root, state):
         """Resume an unchanged, eligible prior review after a demo policy update."""
         if request.confirmed is not True:
             raise HTTPException(422, 'Confirm technical demo continuation with the original review retained.')
+        import os
+        if os.getenv('CTXCOMP_DISABLE_RESPONSE_REUSE') == '1':
+            raise HTTPException(409, 'Response reuse is disabled. Import the inputs into a fresh workflow.')
         from ctxcomp.engine import load_run, accepted_response
         from ctxcomp.lean_compression import content, validate_candidate, validate_review, request as review_request
         from ctxcomp.demo_review import eligible
@@ -71,6 +74,9 @@ def connect_workspace(app, root, state):
         """Recollect a completed compression after its missing Rules are supplied."""
         if request.confirmed is not True:
             raise HTTPException(422, 'Confirm recovery of the retained, verified Context.')
+        import os
+        if os.getenv('CTXCOMP_DISABLE_RESPONSE_REUSE') == '1':
+            raise HTTPException(409, 'Response reuse is disabled. Import the inputs into a fresh workflow.')
         from ctxcomp.engine import verify_context
         from research_pipeline.project_rule_agent import verify_published, file_ref
         canvas = app.state.canvas
@@ -104,8 +110,9 @@ def connect_workspace(app, root, state):
 
     @app.get('/workspace-api/capabilities')
     def capabilities():
+        import os
         from ctxcomp.providers import executor_identity
-        return {'version': 'connected-20261019', 'live': ['intake', 'source_tables', 'context_compression', 'data_assessment', 'data_preparation', 'review_notes'],
+        return {'version': 'connected-20261019', 'response_reuse_disabled': os.getenv('CTXCOMP_DISABLE_RESPONSE_REUSE') == '1', 'live': ['intake', 'source_tables', 'context_compression', 'data_assessment', 'data_preparation', 'review_notes'],
                 'knowledge_pages': {'rag': 'EXPLANATION_ONLY', 'context_builder': 'EXPLANATION_ONLY'},
                 'execution_stop': 'data', 'handoff_inspection': 'READ_ONLY_CURRENT_AND_PRIOR_ATTEMPTS',
                 'data_profile': 'SOURCE_PRESERVING_DEMO_1.0', 'scientific_adequacy': 'DEFERRED_TO_DOWNSTREAM_REVIEW',

@@ -1,0 +1,138 @@
+{
+  "request_sha256": "c9640d7599a25f884dd5ddac0e22dc669fdc4efbeda66563230e4b819d606b24",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T7",
+      "role": "SUPPORTING_EVIDENCE",
+      "additional_roles": [],
+      "requirement_ids": [
+        "DR001",
+        "DR002",
+        "DR007",
+        "DR008"
+      ],
+      "species": "Rabbit",
+      "matrix": "tissue",
+      "exposure_basis": "NOT_FOUND",
+      "record_level": "Context record; no concentration is inferred from the reported evidence.",
+      "drug": "PMB",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "S12 is a context and limitation record concerning repeated dose tissue binding and release. It supplies source identity and PMB context for DR001 and DR002, but no concentration observations or binding measurements. DR007 and DR008 remain UNRESOLVED: the body reports no serial PMB concentration table in the audited archive, no identified public numeric data file, and mass-balance concerns with a secondary reproduction. These limitations concern older S12 only; the note explicitly excludes newer S22 rabbit curves from this gap. This page does not establish component identifiability or the broader availability of rabbit data.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T7:A62",
+          "quote": "Rabbit study record S12"
+        },
+        {
+          "source": "F0003:S3:T7:A63",
+          "quote": "S12 | DOI 10.1016/S0022-3565(25)29468-X"
+        },
+        {
+          "source": "F0003:S3:T7:A64",
+          "quote": "Context record; no concentration is inferred from the reported evidence."
+        },
+        {
+          "source": "F0003:S3:T7:A65",
+          "quote": "This gap describes this older source, not the newer S22 rabbit curves also included on this sheet."
+        },
+        {
+          "source": "F0003:S3:T7:A67",
+          "quote": "repeated dose tissue binding and release"
+        },
+        {
+          "source": "F0003:S3:T7:B67",
+          "quote": "no serial PMB concentration table in audited archive"
+        },
+        {
+          "source": "F0003:S3:T7:C67",
+          "quote": "no identified public numeric data file; secondary reproduction has mass-balance concerns"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "OTHER_TISSUE",
+      "record_category": "NOT_APPLICABLE",
+      "observation_source": "NOT_APPLICABLE",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "PMB",
+      "dosing_regimen": "repeated dose",
+      "columns": [
+        {
+          "header": "Evidence",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T7:A66",
+              "quote": "Evidence"
+            },
+            {
+              "source": "F0003:S3:T7:A67",
+              "quote": "repeated dose tissue binding and release"
+            }
+          ]
+        },
+        {
+          "header": "Available data level",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T7:B66",
+              "quote": "Available data level"
+            },
+            {
+              "source": "F0003:S3:T7:B67",
+              "quote": "no serial PMB concentration table in audited archive"
+            }
+          ]
+        },
+        {
+          "header": "Unresolved limitation",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T7:C66",
+              "quote": "Unresolved limitation"
+            },
+            {
+              "source": "F0003:S3:T7:C67",
+              "quote": "no identified public numeric data file; secondary reproduction has mass-balance concerns"
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "SOURCE_LIMITATION_REQUIRES_REVIEW",
+      "affected_id": "F0003:S3:T7",
+      "reason": "B67 reports no serial PMB concentration table in the audited archive; C67 reports no identified public numeric data file and mass-balance concerns with a secondary reproduction. A65 expressly limits this gap to older S12 and excludes newer S22 curves. No measurements or quantitative discrepancy assessment are supplied here.",
+      "needed_material": "Before accepting dependent input coverage, review the S12 availability limitation and reported secondary-reproduction concerns, retaining their source-specific scope. Keep DR007 and DR008 input and component-support questions unresolved where evidence is missing.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "OPEN_ITEM_CARRIED",
+      "affected_id": "MI002",
+      "reason": "Additional public rabbit PMB concentration evidence: status NOT_FOUND; resolution_status OPEN; needed_at adequacy. Origin: main:/missing_information/items/1. The proposal reports that no further public rabbit PMB concentration data were found. This does not establish absence from all sources or unread attachment contents. The reported availability limit must inform the eligibility assessment of rabbit evidence. This S12-only page does not resolve the broader item.",
+      "needed_material": "Record the scope and consequences of this source-reported availability limit during adequacy assessment. Forward MI002 unchanged for an explicit outcome at that decision.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "OPEN_ITEM_CARRIED",
+      "affected_id": "MI003",
+      "reason": "Rabbit model-component support: status DEFERRED; resolution_status OPEN; needed_at pk. Origin: main:/missing_information/items/2. The assessment required by SC011 has not been supplied; workbook contents have not been inspected. The decision to include a rabbit model component or retain exploratory constraints remains pending. This page supplies context and limitations, not a component-identifiability determination.",
+      "needed_material": "Assess component identifiability and record the inclusion, exclusion or exploratory-use decision under SC011. Forward MI003 unchanged to pk; any determination requiring fitting remains later T02 work.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

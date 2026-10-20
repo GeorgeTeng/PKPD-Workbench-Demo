@@ -1,0 +1,467 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "3.0",
+          "type": "string"
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "study": {
+          "type": "object",
+          "properties": {
+            "drug": {
+              "type": "string",
+              "minLength": 1
+            },
+            "regimen": {
+              "type": "string",
+              "minLength": 1
+            },
+            "population": {
+              "type": "string",
+              "minLength": 1
+            },
+            "system": {
+              "type": "string",
+              "minLength": 1
+            },
+            "measurements": {
+              "type": "string",
+              "minLength": 1
+            },
+            "methods": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "drug",
+            "regimen",
+            "population",
+            "system",
+            "measurements",
+            "methods"
+          ],
+          "additionalProperties": false
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "available": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0,
+              "maxItems": 0
+            },
+            "required": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0,
+              "maxItems": 0
+            }
+          },
+          "required": [
+            "available",
+            "required"
+          ],
+          "additionalProperties": false
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "maxItems": 0
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\[(?:MI|PQ)[0-9]+\\]$"
+          }
+        }
+      },
+      "required": [
+        "version",
+        "objective",
+        "study",
+        "data",
+        "rules",
+        "checks",
+        "uncertainties"
+      ],
+      "additionalProperties": false
+    },
+    "scientific_context": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "const": "2.0"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "science": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "FACT",
+                      "RESULT",
+                      "HYPOTHESIS",
+                      "ASSUMPTION",
+                      "METHOD",
+                      "IMPLICATION",
+                      "OBJECTIVE",
+                      "REQUIREMENT",
+                      "OTHER",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "evidence_status": {
+                    "type": "string",
+                    "enum": [
+                      "OBSERVED",
+                      "ESTIMATED",
+                      "PREDICTED",
+                      "SOURCE_REPORTED",
+                      "ASSUMED",
+                      "NOT_APPLICABLE",
+                      "NOT_FOUND",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "method_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 0
+                  },
+                  "adoption_relations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "target_id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "used_for": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "conditions": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 0
+                        }
+                      },
+                      "required": [
+                        "target_id",
+                        "used_for",
+                        "conditions"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  },
+                  "relations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "USES",
+                            "TESTS",
+                            "SUPPORTS",
+                            "CONTRADICTS",
+                            "INTERPRETS"
+                          ]
+                        },
+                        "target_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "target_id"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "role",
+                  "evidence_status",
+                  "method_refs",
+                  "adoption_relations",
+                  "relations"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "science"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "potential_questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "origin": {
+                "type": "string",
+                "const": "MODEL_INFERENCE"
+              },
+              "status": {
+                "type": "string",
+                "const": "PENDING_CONFIRMATION"
+              },
+              "needed_at": {
+                "type": "string",
+                "minLength": 1
+              },
+              "impact": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "reason",
+              "origin",
+              "status",
+              "needed_at",
+              "impact"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "version",
+        "items",
+        "potential_questions"
+      ],
+      "additionalProperties": false
+    },
+    "missing_information": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^MI[0-9]{3,}$"
+              },
+              "field": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "NOT_FOUND",
+                  "SEARCH_INCOMPLETE",
+                  "DEFERRED",
+                  "AMBIGUOUS",
+                  "CONFLICT"
+                ]
+              },
+              "needed_at": {
+                "type": "string",
+                "enum": [
+                  "context",
+                  "adequacy",
+                  "prepare",
+                  "eda",
+                  "pk",
+                  "index",
+                  "human_pk",
+                  "validation",
+                  "clinical"
+                ]
+              },
+              "impact": {
+                "type": "string",
+                "minLength": 1
+              },
+              "why_it_matters": {
+                "type": "string",
+                "minLength": 1
+              },
+              "clarification": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resolution_status": {
+                "type": "string",
+                "enum": [
+                  "OPEN"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "field",
+              "status",
+              "needed_at",
+              "impact",
+              "why_it_matters",
+              "clarification",
+              "resolution_status"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "EXPLICIT",
+              "NOT_FOUND",
+              "MODEL_INFERENCE",
+              "REFERENCE"
+            ]
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unit_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "source_id",
+                "unit_id",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "citations",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "request_sha256",
+    "context",
+    "scientific_context",
+    "missing_information",
+    "evidence"
+  ],
+  "additionalProperties": false
+}

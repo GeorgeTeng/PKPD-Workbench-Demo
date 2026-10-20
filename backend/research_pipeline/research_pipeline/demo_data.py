@@ -114,10 +114,8 @@ def plan_preparation(run, context_path, output, **_):
     for item in inv['items']:
         if item['kind'] != 'TABLE' or item['id'] not in allowed:
             continue
-        headers = item['descriptor']['headers']
-        usable = all(isinstance(h, str) and h.strip() for h in headers) and len(headers) == len(set(headers))
-        tables.append({'item_id': item['id'], 'action': 'PREPARE' if usable else 'HOLD', 'columns': [], 'evidence': [],
-            'reason': 'Preserve original columns and raw values; no unit conversion, inference, joining or imputation.' if usable else 'Ambiguous headers require source review; table held without changing its source.'})
+        tables.append({'item_id': item['id'], 'action': 'PREPARE', 'columns': [], 'evidence': [],
+            'reason': 'Preserve original headers and raw values by column position; no unit conversion, inference, joining or imputation.'})
     bindings = preparation_checks.freeze_refs(file_ref(context_path), context, main, inv, req, labels)
     write_json(output, {'schema_version': da.VERSION, 'demo_profile': PROFILE, 'executor': 'HOST_PROGRAM',
         'context': file_ref(context_path), 'human_approval': context['approval'], 'input_bindings': bindings,

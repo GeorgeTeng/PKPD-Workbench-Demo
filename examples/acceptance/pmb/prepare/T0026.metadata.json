@@ -1,234 +1,325 @@
 {
   "schema_version": "1.0",
   "dataset_id": "T0026",
-  "role": "PD_OBSERVATIONS",
+  "role": "PK_OBSERVATIONS",
   "metadata": {
-    "role": "PD_OBSERVATIONS",
-    "species": "Mouse; host strain and immune status NOT_FOUND",
-    "matrix": "thigh",
-    "exposure_basis": "NOT_APPLICABLE",
-    "record_level": "Reported strain-level time-zero mean, SD and n; exact animal/cohort joins were not supplied",
-    "drug": "NOT_FOUND",
-    "route": "NOT_FOUND",
-    "endpoint_window": "pretreatment; at 0 h",
-    "route_category": "NOT_FOUND",
-    "matrix_category": "INFECTION_SITE",
+    "role": "PK_OBSERVATIONS",
+    "species": "neutropenic thigh-infected mice; strain NOT_FOUND",
+    "matrix": "plasma",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "Digitized observed group means; source states 3 or 4 mice/time. Point labels identify digitized points, not animals. Point-specific n and numerical SD were not recovered.",
+    "drug": "PMB",
+    "route": "SC",
+    "endpoint_window": "Time (h): 0.5181 to 11.9793; time origin NOT_FOUND. Times are calibrated from plot coordinates, not nominal sampling times.",
+    "route_category": "EXTRAVASCULAR",
+    "matrix_category": "PLASMA_SERUM_BLOOD",
     "record_category": "GROUP_SUMMARY",
-    "observation_source": "SOURCE_VALUES",
-    "dose_basis": "NOT_FOUND",
-    "analyte": "NOT_FOUND",
-    "dosing_regimen": "NOT_FOUND",
-    "additional_roles": [],
+    "observation_source": "DIGITIZED_FROM_FIGURE",
+    "dose_basis": "as-reported PMB sulphate",
+    "analyte": "PMB sulphate",
+    "dosing_regimen": "Single SC dose",
+    "additional_roles": [
+      "ANIMAL_CHARACTERISTICS",
+      "DOSING",
+      "SUPPORTING_EVIDENCE"
+    ],
     "columns": [
       {
-        "header": "Strain",
-        "meaning": "GROUP_OR_TREATMENT",
+        "header": "Point label",
+        "meaning": "OTHER",
         "unit": "NOT_FOUND",
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S1:T33:A659",
-            "quote": "Strain"
+            "source": "F0003:S1:T32:A644",
+            "quote": "Point label"
           },
           {
-            "source": "F0003:S1:T33:A660",
-            "quote": "ATCC BAA-2146"
+            "source": "F0003:S1:T32:A645",
+            "quote": "S02-PK-32-01"
+          },
+          {
+            "source": "F0003:S1:T32:A652",
+            "quote": "S02-PK-32-08"
+          },
+          {
+            "source": "F0003:S1:T32:A639",
+            "quote": "Observed mean symbols digitized from the published figure, not individual raw observations or fitted curves."
           }
         ],
         "column": "A"
       },
       {
-        "header": "Mean log10 CFU/thigh at 0 h",
-        "meaning": "RESPONSE",
-        "unit": "log10 CFU/thigh",
+        "header": "Time (h)",
+        "meaning": "TIME",
+        "unit": "h",
         "qualifiers": [
-          "Mean",
-          "at 0 h",
-          "pretreatment"
+          "Time is calibrated from plot coordinates, not snapped to nominal sampling times."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T33:B659",
-            "quote": "Mean log10 CFU/thigh at 0 h"
+            "source": "F0003:S1:T32:B644",
+            "quote": "Time (h)"
           },
           {
-            "source": "F0003:S1:T33:A655",
-            "quote": "S02 thigh pretreatment bacterial burdens"
+            "source": "F0003:S1:T32:A641",
+            "quote": "Time is calibrated from plot coordinates, not snapped to nominal sampling times. +/-2-pixel sensitivity is not biological SD."
           },
           {
-            "source": "F0003:S1:T33:B660",
-            "quote": "6.3"
+            "source": "F0003:S1:T32:B645",
+            "quote": "0.5181"
+          },
+          {
+            "source": "F0003:S1:T32:B652",
+            "quote": "11.9793"
           }
         ],
         "column": "B"
       },
       {
-        "header": "SD",
-        "meaning": "SUMMARY_STATISTIC",
-        "unit": "NOT_FOUND",
+        "header": "Mean plasma concentration (mg/L)",
+        "meaning": "CONCENTRATION",
+        "unit": "mg/L",
         "qualifiers": [
-          "SD"
+          "Mean",
+          "Observed mean symbols digitized from the published figure, not individual raw observations or fitted curves.",
+          "Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T33:C659",
-            "quote": "SD"
+            "source": "F0003:S1:T32:C644",
+            "quote": "Mean plasma concentration (mg/L)"
           },
           {
-            "source": "F0003:S1:T33:A657",
-            "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
+            "source": "F0003:S1:T32:A639",
+            "quote": "Observed mean symbols digitized from the published figure, not individual raw observations or fitted curves."
           },
           {
-            "source": "F0003:S1:T33:C660",
-            "quote": "0.67"
+            "source": "F0003:S1:T32:A640",
+            "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+          },
+          {
+            "source": "F0003:S1:T32:C645",
+            "quote": "13.9917"
+          },
+          {
+            "source": "F0003:S1:T32:C652",
+            "quote": "2.2924"
           }
         ],
         "column": "C"
       },
       {
-        "header": "Reported n",
-        "meaning": "SUMMARY_STATISTIC",
-        "unit": "NOT_FOUND",
+        "header": "Figure x (pixel)",
+        "meaning": "OTHER",
+        "unit": "pixel",
         "qualifiers": [
-          "Reported n"
+          "+/-2-pixel sensitivity is not biological SD."
         ],
         "evidence": [
           {
-            "source": "F0003:S1:T33:D659",
-            "quote": "Reported n"
+            "source": "F0003:S1:T32:D644",
+            "quote": "Figure x (pixel)"
           },
           {
-            "source": "F0003:S1:T33:D660",
-            "quote": "8"
+            "source": "F0003:S1:T32:D645",
+            "quote": "141"
+          },
+          {
+            "source": "F0003:S1:T32:D652",
+            "quote": "694"
+          },
+          {
+            "source": "F0003:S1:T32:A641",
+            "quote": "Time is calibrated from plot coordinates, not snapped to nominal sampling times. +/-2-pixel sensitivity is not biological SD."
+          },
+          {
+            "source": "F0003:S1:T32:A642",
+            "quote": "Calibration: x=116 to 695 pixels is 0 to 720 min; y=14 to 583 pixels is log10 concentration=2 to -1 mg/L."
           }
         ],
         "column": "D"
+      },
+      {
+        "header": "Figure y (pixel)",
+        "meaning": "OTHER",
+        "unit": "pixel",
+        "qualifiers": [
+          "+/-2-pixel sensitivity is not biological SD."
+        ],
+        "evidence": [
+          {
+            "source": "F0003:S1:T32:E644",
+            "quote": "Figure y (pixel)"
+          },
+          {
+            "source": "F0003:S1:T32:E645",
+            "quote": "176"
+          },
+          {
+            "source": "F0003:S1:T32:E652",
+            "quote": "325"
+          },
+          {
+            "source": "F0003:S1:T32:A641",
+            "quote": "Time is calibrated from plot coordinates, not snapped to nominal sampling times. +/-2-pixel sensitivity is not biological SD."
+          },
+          {
+            "source": "F0003:S1:T32:A642",
+            "quote": "Calibration: x=116 to 695 pixels is 0 to 720 min; y=14 to 583 pixels is log10 concentration=2 to -1 mg/L."
+          }
+        ],
+        "column": "E"
       }
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "S02 thigh pretreatment bacterial burdens",
+      "title": "S02 Figure 1: SC 32 mg/kg plasma mean concentrations (digitized)",
       "sheet": "Mouse",
       "region": {
-        "start_row": 655,
-        "end_row": 664,
+        "start_row": 637,
+        "end_row": 654,
         "left": 1,
-        "right": 4,
-        "header_row": 659,
-        "title": "S02 thigh pretreatment bacterial burdens",
+        "right": 5,
+        "header_row": 644,
+        "title": "S02 Figure 1: SC 32 mg/kg plasma mean concentrations (digitized)",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "S02 thigh pretreatment bacterial burdens\nS02 | https://doi.org/10.1093/jac/dkx409 | Results, thigh model\nReported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied.\nThese are not the separate Table 3 comparison-experiment baselines.",
+      "notes": "S02 Figure 1: SC 32 mg/kg plasma mean concentrations (digitized)\nS02 | https://doi.org/10.1093/jac/dkx409 | Figure 1\nObserved mean symbols digitized from the published figure, not individual raw observations or fitted curves.\nSingle SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered.\nTime is calibrated from plot coordinates, not snapped to nominal sampling times. +/-2-pixel sensitivity is not biological SD.\nCalibration: x=116 to 695 pixels is 0 to 720 min; y=14 to 583 pixels is log10 concentration=2 to -1 mg/L.\nSource image SHA256: cbc618ebe7bd4b51ccd9f1a1823772be2d93345ffa1d88f9d4b9135902d5a1d7",
       "column_map": {
-        "c001_strain": "Strain",
-        "c002_mean_log10_cfu_thigh_at_0_h": "Mean log10 CFU/thigh at 0 h",
-        "c003_sd": "SD",
-        "c004_reported_n": "Reported n"
+        "c001_point_label": "Point label",
+        "c002_time_h": "Time (h)",
+        "c003_mean_plasma_concentration_mg_l": "Mean plasma concentration (mg/L)",
+        "c004_figure_x_pixel": "Figure x (pixel)",
+        "c005_figure_y_pixel": "Figure y (pixel)"
       }
     },
-    "source_item_id": "F0003:S1:T33",
+    "source_item_id": "F0003:S1:T32",
     "source_evidence": [
       {
-        "source": "F0003:S1:T33:A655",
-        "quote": "S02 thigh pretreatment bacterial burdens"
+        "source": "F0003:S1:T32:A637",
+        "quote": "S02 Figure 1: SC 32 mg/kg plasma mean concentrations (digitized)"
       },
       {
-        "source": "F0003:S1:T33:A656",
-        "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Results, thigh model"
+        "source": "F0003:S1:T32:A638",
+        "quote": "S02 | https://doi.org/10.1093/jac/dkx409 | Figure 1"
       },
       {
-        "source": "F0003:S1:T33:A657",
-        "quote": "Reported time-zero mean +/- SD and n, not untreated 24-hour controls. Exact animal/cohort joins were not supplied."
+        "source": "F0003:S1:T32:A639",
+        "quote": "Observed mean symbols digitized from the published figure, not individual raw observations or fitted curves."
       },
       {
-        "source": "F0003:S1:T33:A658",
-        "quote": "These are not the separate Table 3 comparison-experiment baselines."
+        "source": "F0003:S1:T32:A640",
+        "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
       },
       {
-        "source": "F0003:S1:T33:A660",
-        "quote": "ATCC BAA-2146"
+        "source": "F0003:S1:T32:A641",
+        "quote": "Time is calibrated from plot coordinates, not snapped to nominal sampling times. +/-2-pixel sensitivity is not biological SD."
       },
       {
-        "source": "F0003:S1:T33:A661",
-        "quote": "FADDI-KP032"
+        "source": "F0003:S1:T32:A642",
+        "quote": "Calibration: x=116 to 695 pixels is 0 to 720 min; y=14 to 583 pixels is log10 concentration=2 to -1 mg/L."
       },
       {
-        "source": "F0003:S1:T33:A662",
-        "quote": "FADDI-KP042"
+        "source": "F0003:S1:T32:A643",
+        "quote": "Source image SHA256: cbc618ebe7bd4b51ccd9f1a1823772be2d93345ffa1d88f9d4b9135902d5a1d7"
       },
       {
-        "source": "F0003:S1:T33:B659",
-        "quote": "Mean log10 CFU/thigh at 0 h"
+        "source": "F0003:S1:T32:A645",
+        "quote": "S02-PK-32-01"
       },
       {
-        "source": "F0003:S1:T33:B660",
-        "quote": "6.3"
+        "source": "F0003:S1:T32:B645",
+        "quote": "0.5181"
       },
       {
-        "source": "F0003:S1:T33:B661",
-        "quote": "6.81"
+        "source": "F0003:S1:T32:C645",
+        "quote": "13.9917"
       },
       {
-        "source": "F0003:S1:T33:B662",
-        "quote": "6.92"
+        "source": "F0003:S1:T32:B646",
+        "quote": "0.9948"
       },
       {
-        "source": "F0003:S1:T33:C660",
-        "quote": "0.67"
+        "source": "F0003:S1:T32:C646",
+        "quote": "19.1846"
       },
       {
-        "source": "F0003:S1:T33:C661",
-        "quote": "0.13"
+        "source": "F0003:S1:T32:A652",
+        "quote": "S02-PK-32-08"
       },
       {
-        "source": "F0003:S1:T33:C662",
-        "quote": "0.13"
+        "source": "F0003:S1:T32:B652",
+        "quote": "11.9793"
       },
       {
-        "source": "F0003:S1:T33:D660",
-        "quote": "8"
-      },
-      {
-        "source": "F0003:S1:T33:D661",
-        "quote": "12"
-      },
-      {
-        "source": "F0003:S1:T33:D662",
-        "quote": "8"
+        "source": "F0003:S1:T32:C652",
+        "quote": "2.2924"
       }
     ],
     "requirement_ids": [
-      "REQ_INDEX_METHOD_INPUTS",
-      "REQ_PD_MATCHING",
-      "REQ_PREP_SOURCE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR006",
+      "DR007",
+      "DR013",
+      "DR020",
+      "DR039"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
-    "dose": "NOT_FOUND",
+    "dose": {
+      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
+      "candidates": [
+        {
+          "quantity": "dose",
+          "value": "32",
+          "unit": "mg/kg",
+          "subject": "PMB sulphate",
+          "qualifiers": [
+            "Single SC dose",
+            "as-reported PMB sulphate",
+            "neutropenic thigh-infected mice"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S1:T32:A637",
+              "quote": "S02 Figure 1: SC 32 mg/kg plasma mean concentrations (digitized)"
+            },
+            {
+              "source": "F0003:S1:T32:A640",
+              "quote": "Single SC dose, as-reported PMB sulphate, neutropenic thigh-infected mice. Source states 3 or 4 mice/time; point-specific n and numerical SD were not recovered."
+            }
+          ]
+        }
+      ],
+      "per_record_assignment": false
+    },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0026.json",
-    "sha256": "aee225f902dab600ed0fcb23427f54c8cc0f58cd1670e883b6fa0af7a99a98de"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0026.json",
+    "sha256": "c72deb5564776444b66938fc76d1cbbc4eeaeeec98a91d3d11c9e008c0bf8699"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 3,
-    "retained_records": 3,
+    "source_records": 8,
+    "retained_records": 8,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}

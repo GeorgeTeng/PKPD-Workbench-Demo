@@ -1,0 +1,190 @@
+{
+  "request_sha256": "e01e8ceaa758d469118e5bb07c9387fa0b483271e8f8f1affe4d263e51145c7b",
+  "labels": [
+    {
+      "item_id": "F0003:S2:T4",
+      "role": "REPORTED_PARAMETERS",
+      "additional_roles": [
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR001",
+        "DR003",
+        "DR018",
+        "DR021",
+        "DR024",
+        "MC009"
+      ],
+      "species": "Mice; strain and health or infection state NOT_FOUND",
+      "matrix": "NOT_FOUND",
+      "exposure_basis": "fT>MIC (%); explicit free/total concentration definition NOT_FOUND",
+      "record_level": "Reported modeled exposure-index values by MIC threshold; individual animal identities and uncertainty NOT_FOUND",
+      "drug": "Meropenem; Ertapenem (comparator drug)",
+      "route": "NOT_FOUND",
+      "endpoint_window": "NOT_FOUND",
+      "reason": "The table supplies mouse fT>MIC percentages across MIC thresholds for meropenem and comparator ertapenem. The note identifies modeling provenance, so these are reported modeled exposure summaries rather than measured concentrations or CFU responses. Humanized-regimen identity is explicit, but its dose schedule is unspecified. Requirement links represent partial source-backed input availability only; response matching, strain-matched susceptibility, exposure definitions and human-reference release conditions remain unresolved.",
+      "evidence": [
+        {
+          "source": "F0003:S2:T4:A68",
+          "quote": "fT>MIC in mice by MIC (humanized regimen)"
+        },
+        {
+          "source": "F0003:S2:T4:A69",
+          "quote": "S05 | DOI 10.1128/aac.00752-06 | Table 2"
+        },
+        {
+          "source": "F0003:S2:T4:A70",
+          "quote": "Mouse columns only; footnote b: derived from WinNonLin modeling. The two human columns of this table are held in the separate human file. Ertapenem column is a comparator drug."
+        },
+        {
+          "source": "F0003:S2:T4:A71",
+          "quote": "MIC (µg/ml)"
+        },
+        {
+          "source": "F0003:S2:T4:B71",
+          "quote": "Meropenem fT>MIC (%) Mice"
+        },
+        {
+          "source": "F0003:S2:T4:C71",
+          "quote": "Ertapenem fT>MIC (%) Mice"
+        },
+        {
+          "source": "F0003:S2:T4:A72",
+          "quote": "0.008"
+        },
+        {
+          "source": "F0003:S2:T4:B72",
+          "quote": "100"
+        },
+        {
+          "source": "F0003:S2:T4:C72",
+          "quote": "93"
+        },
+        {
+          "source": "F0003:S2:T4:A84",
+          "quote": "32"
+        },
+        {
+          "source": "F0003:S2:T4:B84",
+          "quote": "5"
+        },
+        {
+          "source": "F0003:S2:T4:C84",
+          "quote": "0"
+        }
+      ],
+      "route_category": "NOT_FOUND",
+      "matrix_category": "NOT_FOUND",
+      "record_category": "REPORTED_PARAMETER",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "Meropenem; Ertapenem",
+      "dosing_regimen": "NOT_FOUND",
+      "columns": [
+        {
+          "header": "MIC (µg/ml)",
+          "meaning": "MIC",
+          "unit": "µg/ml",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S2:T4:A71",
+              "quote": "MIC (µg/ml)"
+            },
+            {
+              "source": "F0003:S2:T4:A68",
+              "quote": "fT>MIC in mice by MIC (humanized regimen)"
+            }
+          ]
+        },
+        {
+          "header": "Meropenem fT>MIC (%) Mice",
+          "meaning": "PARAMETER_VALUE",
+          "unit": "%",
+          "qualifiers": [
+            "derived from WinNonLin modeling"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T4:B71",
+              "quote": "Meropenem fT>MIC (%) Mice"
+            },
+            {
+              "source": "F0003:S2:T4:A70",
+              "quote": "Mouse columns only; footnote b: derived from WinNonLin modeling. The two human columns of this table are held in the separate human file. Ertapenem column is a comparator drug."
+            }
+          ]
+        },
+        {
+          "header": "Ertapenem fT>MIC (%) Mice",
+          "meaning": "PARAMETER_VALUE",
+          "unit": "%",
+          "qualifiers": [
+            "derived from WinNonLin modeling"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T4:C71",
+              "quote": "Ertapenem fT>MIC (%) Mice"
+            },
+            {
+              "source": "F0003:S2:T4:A70",
+              "quote": "Mouse columns only; footnote b: derived from WinNonLin modeling. The two human columns of this table are held in the separate human file. Ertapenem column is a comparator drug."
+            }
+          ]
+        }
+      ],
+      "stated_values": []
+    }
+  ],
+  "findings": [
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "MI001",
+      "reason": "MI001 remains OPEN, status NOT_FOUND, needed_at adequacy. This page provides modeled fT>MIC percentages but no per-regimen CFU observations, response reference or observation window. It cannot establish the matched response records required by DR018 or resolve independent index comparison.",
+      "needed_material": "Authorized regimen-level response evidence with traceable regimen, exposure, strain MIC and endpoint relationships, or an explicit adequacy-stage decision retaining the limitation without reconstructing observations.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "MC009",
+      "reason": "Percentage output and MIC threshold units are available. The exposure window, time origin, explicit free-concentration definition, binding dependency, underlying PK linkage, doses, route and schedule are NOT_FOUND. Rows vary MIC thresholds and do not establish dose fractionation or matched response records.",
+      "needed_material": "Source-backed index definitions, exposure window and time origin, relevant PK and binding inputs, dosing history and response linkage before dependent index analysis.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "MC013",
+      "reason": "The MIC column supplies threshold values in µg/ml, but organism, strain, susceptibility method, medium, testing standard, replicate count and summary definition are NOT_FOUND. It does not establish strain-matched MIC measurements or satisfy the matching component of DR022.",
+      "needed_material": "Susceptibility evidence identifying the meropenem PD strain, its matched MIC and measurement context; retain organism, infection-site, response-reference and effect-target gaps separately.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED",
+      "affected_id": "DR021",
+      "reason": "A68 explicitly identifies a humanized regimen. This page does not supply its human-PK design provenance, exact dosing history or freeze records. The humanized-regimen evidence remains subject to the prohibition on tuning scaling.",
+      "needed_material": "Preserve the humanized-regimen flag and obtain source-backed design provenance and dosing history for any separately eligible use; verify permitted development inputs before modeling.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI005",
+      "reason": "MI005 remains OPEN, status DEFERRED, needed_at validation. A70 states that the human columns are held in a separate human file; this page supplies no human validation observations or release authorization. DR024 retains the task-5 release condition after animal-model, scaling and prediction freezes.",
+      "needed_material": "Authorized task-5 release of the identified human reference file after the required freezes, followed by independent validation.",
+      "required_by": "FINAL_VALIDATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SCOPE_RESTRICTION",
+      "affected_id": "DR001",
+      "reason": "C71 and A70 identify ertapenem as a comparator. Its modeled percentages must retain that identity and cannot substitute for meropenem inputs. Neither comparator values nor this table establish an approved model or parameter transfer.",
+      "needed_material": "Maintain separate drug identities and retain the meropenem-only project-use restriction during preparation.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

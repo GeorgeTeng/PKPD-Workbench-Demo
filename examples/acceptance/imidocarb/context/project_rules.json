@@ -1,0 +1,189 @@
+{
+  "schema_version": "DEMO_KEY_RULES_1.0",
+  "status": "DEMO_PROVISIONAL_RULES",
+  "rules": [
+    {
+      "id": "R001",
+      "text": "Use Imidocarb_cattle_source.xlsx as the supplied observational source and Imidocarb_source_notes.txt only as cited source context. Treat the article's conclusions as historical statements, not validation by this workflow. Do not browse for or add external data.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0003",
+          "quote": "Use Imidocarb_cattle_source.xlsx as the supplied observational source. Use Imidocarb_source_notes.txt only as cited source context. The article's conclusions are historical statements, not validation by this workflow. Do not browse for or add external data."
+        }
+      ]
+    },
+    {
+      "id": "R002",
+      "text": "Register every supplied file and its hash.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Register every supplied file and its hash."
+        }
+      ]
+    },
+    {
+      "id": "R003",
+      "text": "Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+        }
+      ]
+    },
+    {
+      "id": "R004",
+      "text": "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        }
+      ]
+    },
+    {
+      "id": "R005",
+      "text": "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0004",
+          "quote": "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding."
+        }
+      ]
+    },
+    {
+      "id": "R006",
+      "text": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        }
+      ]
+    },
+    {
+      "id": "R007",
+      "text": "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups."
+        }
+      ]
+    },
+    {
+      "id": "R008",
+      "text": "Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review.",
+      "used_in": [
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0005",
+          "quote": "Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review."
+        }
+      ]
+    },
+    {
+      "id": "R009",
+      "text": "Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo."
+        }
+      ]
+    },
+    {
+      "id": "R010",
+      "text": "No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run.",
+      "used_in": [
+        "prepare",
+        "eda",
+        "animal_pk",
+        "pk_translation",
+        "clinical"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run."
+        }
+      ]
+    },
+    {
+      "id": "R011",
+      "text": "Defer missing modeling requirements for subsequent human review rather than silently resolving them.",
+      "used_in": [
+        "adequacy",
+        "prepare"
+      ],
+      "evidence": [
+        {
+          "source_id": "F0003_P0001",
+          "unit_id": "F0003_P0001_U0006",
+          "quote": "Missing modeling requirements remain deferred for subsequent human review rather than silently resolved."
+        }
+      ]
+    }
+  ],
+  "main_file": "main.json",
+  "base_main_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\context_work\\handoff\\main.json",
+    "sha256": "e16e5b6389cbb7e0247db438a1a6f2275868020816457fe8ff17d03865b900fb"
+  },
+  "input_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\project_rules\\input.json",
+    "sha256": "44d4c844758b679890939ae4ebcf1cd767a7eb461a22832e33d6f1d4ed8ba0fe"
+  },
+  "candidate_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\project_rules\\extraction\\candidate.json",
+    "sha256": "4526156d9136f31d91f908865c4e06c001156fbcba0472b1108b320f0fd7c386"
+  },
+  "review_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\project_rules\\published\\acceptance.json",
+    "sha256": "908347a19b66a94c242d43752c54f93d60b3cfe3c0a6b0eec2b9a6e213bf176c"
+  },
+  "audit_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\project_rules\\published\\rule_audit.json",
+    "sha256": "3b9f89c3d1fab56f559a36de49dc6b3038bfd5e26b94c072a7f25ad0dea67f83"
+  },
+  "scientific_results_accepted": false
+}

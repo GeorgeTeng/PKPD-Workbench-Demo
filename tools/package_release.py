@@ -1,21 +1,24 @@
-"""Build a portable release after all three real through-Data acceptances pass.
+"""Build a portable release after the real through-Data acceptance suite passes.
 
 Runtime state, credentials and failed-run logs never enter the distribution.
 The accepted evidence remains a read-only snapshot, not a relocatable live run.
 """
 import argparse
+import csv
+from datetime import datetime
 import hashlib
 import importlib.util
 from html import escape
 import json
 from pathlib import Path
-from urllib.request import urlopen
 from urllib.parse import quote
 from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED = {'.git', '.venv', '.pytest_cache', '__pycache__'}
 EXAMPLES = {'pmb', 'meropenem', 'voriconazole'}
+FRESH_EXAMPLES = EXAMPLES | {'imidocarb'}
+TITLES = {'pmb':'PMB', 'meropenem':'Meropenem', 'voriconazole':'Voriconazole', 'imidocarb':'Imidocarb (cattle)'}
 NODES = {'intake', 'context', 'adequacy', 'prepare'}
 
 
@@ -41,15 +44,39 @@ def files():
 
 def accepted_examples(report):
     """Require the independently verified suite and its actual driver results."""
-    if report.get('status') != 'ALL_THREE_PASSED_THROUGH_DATA':
-        raise ValueError('Release blocked: all three examples must pass through Data.')
+    fresh = report.get('status') == 'ALL_FOUR_PASSED_FRESH_THROUGH_DATA'
+    collection = report.get('status') == 'FOUR_VERIFIED_DATA_EXAMPLES'
+    if not (fresh or collection) and report.get('status') != 'ALL_THREE_PASSED_THROUGH_DATA':
+        raise ValueError('Release blocked: the complete example suite must pass through Data.')
     if report.get('eda_executed') or report.get('pk_executed') or report.get('scientific_release'):
         raise ValueError('Release blocked: acceptance exceeded the technical Data boundary.')
     examples = report.get('examples', [])
-    if len(examples) != 3 or {item['example'] for item in examples} != EXAMPLES:
-        raise ValueError('Release blocked: expected exactly PMB, Meropenem and Voriconazole.')
+    expected = FRESH_EXAMPLES if fresh or collection else EXAMPLES
+    if len(examples) != len(expected) or {item['example'] for item in examples} != expected:
+        raise ValueError('Release blocked: example set does not match the acceptance mode.')
+    if fresh:
+        if not all(report.get(k) is True for k in ('code_unchanged','no_reuse_verified','response_reuse_disabled')):
+            raise ValueError('Fresh release lacks the unchanged-code and no-reuse verification')
+        if report.get('manual_repairs') != 0 or report.get('automatic_retries') != 0:
+            raise ValueError('Fresh release contains repairs or retries')
     accepted = []
     for item in examples:
+        if collection:
+            ref = item['source_report']
+            raw = Path(ref['path']).read_bytes()
+            if sha(raw) != ref['sha256']:
+                raise ValueError('Collected source report changed')
+            source = json.loads(raw)
+            original = next(i for i in source['examples'] if i['example'] == item['example'])
+            if (original.get('status') != 'PASSED_THROUGH_DATA' or
+                    item['state_root'] != source['state_root'] or
+                    {k:v for k,v in item.items() if k not in {'source_report','state_root','source_round'}} != original):
+                raise ValueError('Collected example differs from its verified source record')
+        if (fresh or collection) and (len(item.get('attempts', [])) != 1 or not item.get('model_calls') or
+                      not all(c.get('new_or_changed') and c.get('status') == 'RETURNED' and
+                              c.get('requested_model') == 'gpt-6.1-sol' and
+                              c.get('requested_reasoning_effort') == 'high' for c in item['model_calls'])):
+            raise ValueError('Fresh release contains non-fresh or unexpected model calls')
         driver = json.loads(Path(item['driver_report']).read_text(encoding='utf-8-sig'))
         if item.get('status') != 'PASSED_THROUGH_DATA' or driver.get('status') != 'PASSED_THROUGH_DATA':
             raise ValueError('Release blocked: incomplete example ' + item['example'])
@@ -79,7 +106,7 @@ def write_review_index(evidence, report):
     cards = []
     for item in report['examples']:
         name = item['example']
-        title = {'pmb':'PMB', 'meropenem':'Meropenem', 'voriconazole':'Voriconazole'}[name]
+        title = TITLES[name]
         gate_titles = {'context':'Context review', 'adequacy':'Data scope review', 'prepare':'Completed Data review'}
         gates = ''.join(f'<li><b>{escape(gate_titles[g["node"]])}</b> — automatically approved for this demo'
                         f'<small>Output signature: {escape(g["output_signature"])}</small></li>' for g in item['gates'])
@@ -87,6 +114,12 @@ def write_review_index(evidence, report):
         requested_models = sorted({c['requested_model'] for c in calls if c.get('requested_model')})
         model_note = ('Requested models in source receipts: ' + ', '.join(requested_models) +
                       '. Original receipts distinguish fresh calls and reused outputs; requested identity does not verify the served model.')
+        if report.get('no_reuse_verified') or report.get('status') == 'FOUR_VERIFIED_DATA_EXAMPLES':
+            elapsed = int((datetime.fromisoformat(item['finished_at'].replace('Z', '+00:00')) -
+                           datetime.fromisoformat(item['started_at'].replace('Z', '+00:00'))).total_seconds())
+            model_note = (f'Elapsed: {elapsed // 60} min {elapsed % 60:02d} sec, including verification. '
+                          'Fresh model calls; requested gpt-6.1-sol / high. No response reuse, resume or manual repair. '
+                          'Provider-served identity was not reported.')
         counts = item['data_report']['summary']
         deferred = ''
         if (evidence/name/'context/demo_context_review.json').is_file():
@@ -126,7 +159,97 @@ a{color:#2f614d}.flow{display:block;overflow-wrap:anywhere;margin-top:26px}foote
 <div class="grid">''' + ''.join(cards) + '''</div><footer>
 <a href="three_examples_acceptance.json">Independent verification report</a> · <a href="../inputs/manifest.json">Input ZIPs and checksums</a>
 <p>This is a read-only snapshot. References retain their original paths and hashes. Import an example into the running workbench to create a fresh workflow; these files do not resume the original session.</p></footer></main></html>'''
+    if report.get('no_reuse_verified'):
+        page = page.replace('Three examples, through Data.', 'Four fresh examples, through Data.').replace(
+            'three_examples_acceptance.json', 'fresh_examples_acceptance.json').replace(
+            'repeat(3,minmax(0,1fr))', 'repeat(2,minmax(0,1fr))')
+    elif report.get('status') == 'FOUR_VERIFIED_DATA_EXAMPLES':
+        page = page.replace('Three examples, through Data.', 'Four verified examples, through Data.').replace(
+            'three_examples_acceptance.json', 'verified_examples.json').replace(
+            'repeat(3,minmax(0,1fr))', 'repeat(2,minmax(0,1fr))').replace(
+            '<div class="note"><b>Technical demonstration scope.</b>',
+            '<div class="note"><b>Results from different code versions.</b> The three original examples passed in an earlier fresh round; Imidocarb passed after two scoped Data fixes. The user stopped the redundant full rerun. This collection is not a four-case run on one unchanged code version.<br><b>Technical demonstration scope.</b>')
     (evidence/'index.html').write_text(page, encoding='utf-8')
+
+
+def write_timings(evidence, report, accepted, state_root):
+    """Summarize recorded wall time; never add parallel call durations to totals."""
+    rows, sources = [], {}
+    def instant(value):
+        return datetime.fromisoformat(value.replace('Z', '+00:00'))
+    def read(path):
+        data = path.read_bytes()
+        value = json.loads(data)
+        key = str(path.resolve())
+        fields = ('status', 'stage', 'at', 'started_at', 'finished_at', 'elapsed_seconds',
+                  'last_checked_at', 'cli_process_exited_at', 'cli_exit_elapsed_seconds')
+        sources[key] = {'sha256': sha(data), 'timing_fields': {k: value[k] for k in fields if k in value}}
+        return value, key
+    def add(example, level, step, start, end, refs, calls='', cumulative=''):
+        elapsed = (instant(end) - instant(start)).total_seconds()
+        if elapsed < 0:
+            raise ValueError('Negative recorded duration: ' + step)
+        rows.append(dict(example=example, level=level, step=step, started_at_utc=start,
+                         finished_at_utc=end, wall_seconds=round(elapsed, 3), model_calls=calls,
+                         cumulative_call_seconds=cumulative, evidence_paths='; '.join(refs)))
+    collection = report.get('status') == 'FOUR_VERIFIED_DATA_EXAMPLES'
+    _, suite_ref = read(evidence/('verified_examples.json' if collection else 'fresh_examples_acceptance.json'))
+    for name, driver in accepted:
+        item = next(i for i in report['examples'] if i['example'] == name)
+        _, driver_ref = read(Path(item['driver_report']))
+        sources[driver_ref]['timing_events'] = [
+            {k: e[k] for k in ('at', 'event', 'node') if k in e}
+            for e in driver['events'] if e['event'] in ('STARTED', 'COMPLETED', 'AUTOMATIC_GATE')]
+        add(name, 'total', 'Complete example including verification', item['started_at'],
+            item['finished_at'], [suite_ref])
+        intake = next(n['state'] for n in driver['final_session']['nodes'] if n['id'] == 'intake')
+        item_state = Path(item.get('state_root', state_root))
+        receipt, ref = read(item_state/'workbench_state/workbench_jobs'/intake['job_id']/'receipts/intake.json')
+        add(name, 'workflow', 'File intake', receipt['started_at'], receipt['finished_at'], [ref], 0, 0)
+        for node, title in [('context', 'Context and Rules'), ('adequacy', 'Data requirements and labels'),
+                            ('prepare', 'Data preparation and handoff')]:
+            start = next(e['at'] for e in driver['events'] if e['event'] == 'STARTED' and e['node'] == node)
+            end = next(e['at'] for e in driver['events'] if e['event'] == 'COMPLETED' and e['node'] == node)
+            add(name, 'workflow', title, start, end, [driver_ref])
+        groups = {}
+        for entry in item['model_calls']:
+            path = Path(entry['path'])
+            if 'data_agents' in path.parts and 'audit' in path.parts:
+                step = {'DR': 'Data requirements', 'DR-access': 'Source access',
+                        'DC-split': 'Source table boundaries',
+                        'DC-label': 'Data labels (parallel batch)'}.get(
+                            path.parent.parent.name, path.parent.parent.name)
+                value, ref = read(path)
+                start, end = value['started_at'], value['finished_at']
+            elif ('context_work' in path.parts and path.parent.name in ('context', 'context_review')) or (
+                    'project_rules' in path.parts and path.parent.name == 'model_call'):
+                step = {'context': 'Context generation', 'context_review': 'Context review'}.get(
+                    path.parent.name, 'Key Rules extraction')
+                value, ref = read(path.with_name('progress.json'))
+                start, end = value['started_at'], value['cli_process_exited_at']
+            else:
+                continue  # Provider receipts duplicate the native Data call receipts.
+            groups.setdefault(step, []).append((start, end, float(value['elapsed_seconds']), ref))
+        for step, calls in sorted(groups.items(), key=lambda item: min(instant(c[0]) for c in item[1])):
+            add(name, 'model', step, min(c[0] for c in calls), max(c[1] for c in calls),
+                [c[3] for c in calls], len(calls), round(sum(c[2] for c in calls), 3))
+    notes = ('Final accepted round only; earlier diagnostic rounds are excluded. Workflow rows include '
+             'scheduling, polling and automatic gate recording. Model rows are nested inside workflow rows '
+             'and measure client-observed call duration, not server compute time. Parallel call durations '
+             'are reported separately and must not be added to wall time. Source timing fields are copied '
+             'from the referenced receipts; SHA-256 values bind their original files. All timestamps are UTC.')
+    if collection:
+        notes = notes.replace('Final accepted round only; earlier diagnostic rounds are excluded.',
+            'Completed examples from different code versions, not one unchanged-code suite. Failed and user-stopped attempts are excluded and recorded separately in validation/diagnostic_timings.csv.')
+    (evidence/'runtime_summary.json').write_text(json.dumps(
+        {'notes': notes, 'suite_started_at': report.get('started_at'), 'suite_finished_at': report.get('finished_at'),
+         'suite_wall_seconds': (instant(report['finished_at']) - instant(report['started_at'])).total_seconds()
+                              if report.get('finished_at') and report.get('started_at') else None,
+         'rows': rows, 'source_receipts': sources}, indent=2), encoding='utf-8')
+    with (evidence/'runtime_summary.csv').open('w', encoding='utf-8-sig', newline='') as output:
+        writer = csv.DictWriter(output, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def write_example_review(destination, item, driver):
@@ -147,7 +270,7 @@ def write_example_review(destination, item, driver):
         cells=[dataset['id'],metadata.get('source_item_id',''),metadata.get('species',''),
                dataset['role'],str(dataset['summary']['retained_records'])]
         tables.append('<tr>'+''.join('<td>'+escape(str(v))+'</td>' for v in cells)+'<td>'+' · '.join(links)+'</td></tr>')
-    title={'pmb':'PMB','meropenem':'Meropenem','voriconazole':'Voriconazole'}[item['example']]
+    title=TITLES[item['example']]
     page='''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>'''+title+''' · Data review evidence</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f3f6f3;color:#20382f;font:15px/1.55 system-ui,sans-serif}
@@ -169,7 +292,7 @@ th{background:#eaf1eb;position:sticky;top:0}td:nth-child(4),td:nth-child(5){min-
     (destination/'review.html').write_text(page,encoding='utf-8')
 
 
-def export_handoffs(destination, session, item, base):
+def export_handoffs(destination, session, item, base, state=None):
     """Export allowlisted requests for the jobs supplying the accepted outputs."""
     jobs=set()
     def add_job(path):
@@ -184,7 +307,7 @@ def export_handoffs(destination, session, item, base):
                 add_job(ref['path'])
     spec=importlib.util.spec_from_file_location('release_handoffs',ROOT/'demo/handoffs.py')
     adapter=importlib.util.module_from_spec(spec);spec.loader.exec_module(adapter)
-    state=ROOT/'state'
+    state=Path(state) if state else ROOT/'state'
     stored=json.loads((state/'workbench_state/canvas_sessions'/session['session_id']/'session.json').read_text(encoding='utf-8'))
     index={'session_id':session['session_id'],'read_only':True,'scientific_release':False,
            'calls':adapter.handoff_index(state,stored)}
@@ -229,14 +352,19 @@ def main():
     args = parser.parse_args()
     report = json.loads(args.acceptance.read_text(encoding='utf-8'))
     accepted = accepted_examples(report)
+    fresh = report.get('no_reuse_verified') is True
+    collection = report.get('status') == 'FOUR_VERIFIED_DATA_EXAMPLES'
+    state_root = Path(report['state_root']) if fresh else ROOT/'state'
     if args.output.resolve().is_relative_to(ROOT):
         raise SystemExit('Choose an output ZIP outside the demo folder.')
     evidence = ROOT/'examples/acceptance'
     evidence.mkdir(parents=True, exist_ok=True)
-    (evidence/'three_examples_acceptance.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+    report_name = 'verified_examples.json' if collection else 'fresh_examples_acceptance.json' if fresh else 'three_examples_acceptance.json'
+    (evidence/report_name).write_text(json.dumps(report, indent=2), encoding='utf-8')
     for example, driver in accepted:
         session = driver['final_session']
         item=next(i for i in report['examples'] if i['example']==example)
+        item_state = Path(item.get('state_root', state_root))
         sources={(a['node'],a['name'],a['sha256']):Path(a['local_path']) for a in item['verified_artifacts']}
         destination_root = evidence/example
         destination_root.mkdir(parents=True, exist_ok=True)
@@ -252,7 +380,7 @@ def main():
                 if destination.is_file() and sha(destination.read_bytes()) == artifact['sha256']:
                     continue
                 source=sources[(node['id'],name,artifact['sha256'])].resolve()
-                if not source.is_relative_to((ROOT/'state/workbench_outputs').resolve()):
+                if not source.is_relative_to((item_state/'workbench_outputs').resolve()):
                     raise ValueError('Accepted artifact outside registered output root')
                 data=source.read_bytes()
                 if sha(data) != artifact['sha256']:
@@ -262,8 +390,16 @@ def main():
         print(json.dumps({'event': 'ACCEPTED_EVIDENCE_EXPORTED', 'example': example,
                           'session_id': session['session_id']}), flush=True)
         write_example_review(destination_root,next(i for i in report['examples'] if i['example']==example),driver)
-        export_handoffs(destination_root,session,next(i for i in report['examples'] if i['example']==example),args.base)
+        export_handoffs(destination_root,session,item,args.base,item_state)
     write_review_index(evidence, report)
+    if fresh or collection:
+        write_timings(evidence, report, accepted, state_root)
+        index = evidence/'index.html'
+        index.write_text(index.read_text(encoding='utf-8').replace('<footer>',
+            '<footer><p><a href="runtime_summary.csv">Runtime table (CSV)</a> · '
+            '<a href="runtime_summary.json">Runtime details and source receipts</a></p>'), encoding='utf-8')
+        for path in evidence.rglob('*.html'):
+            path.write_text(path.read_text(encoding='utf-8').replace('Three-example overview','Four-example overview'),encoding='utf-8')
     (evidence/'README.txt').write_text(
         'Recorded technical acceptance through Data. Human gates were automatically passed with explicit user authorization. '
         'This is not independent human scientific review or model release. Original path references and hashes are preserved; '

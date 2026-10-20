@@ -1,0 +1,776 @@
+{
+  "request_sha256": "5cc42d725a990a3661945a47e6d1c4f0b085227988d9f3ac31fb897462252f80",
+  "labels": [
+    {
+      "item_id": "F0003:S3:T1",
+      "role": "REPORTED_PARAMETERS",
+      "additional_roles": [
+        "BINDING",
+        "DOSING",
+        "ANIMAL_CHARACTERISTICS",
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR01",
+        "DR02",
+        "DR03",
+        "DR04",
+        "DR05",
+        "DR12",
+        "DR13",
+        "DR16"
+      ],
+      "species": "Mouse, rat, rabbit, guinea pig and dog are named, but column-to-species mapping is NOT_VERIFIED. Proposed mapping: col1 mouse, col2 rat male, col3 rat female, col4 rabbit, col5 guinea pig, col6 dog. Strain and health or infection state: NOT_FOUND.",
+      "matrix": "Plasma for LPP protein binding; matrix for the PK parameters: NOT_FOUND.",
+      "exposure_basis": "LPP = plasma protein binding (%). Total versus unbound basis of Cmax and ASC: NOT_FOUND. The meaning and scale of f are NOT_FOUND.",
+      "record_level": "Secondary reported PK parameters and binding percentages, with sex and n recorded in table-body cells. Individual observations, parameter estimation methods and summary-statistic definitions are NOT_FOUND.",
+      "drug": "voriconazol",
+      "route": "Administração iv; Administração oral. IV bolus versus infusion: NOT_FOUND. Oral administration technique: NOT_FOUND.",
+      "endpoint_window": "ASC0-t; AUC end time t and multiple-dose sampling day are NOT_FOUND.",
+      "reason": "Partial source-backed support for the linked requirements; their complete satisfaction remains UNRESOLVED. This secondary table contains reported binding, doses, Cmax, tmax, single-dose ASC and multiple-dose ASC, rather than concentration-time observations. Original-paper verification and column-to-species mapping remain unresolved. Columns contain heterogeneous row-defined quantities, so no single unit or measurement meaning applies to each value column; row-specific units and definitions are preserved in the parameter-column evidence. Body n values are retained without assigning them to every parameter. Use is restricted to documented low-confidence context or sensitivity analysis, never the sole basis for a species model. No species-specific coverage, free-exposure conversion, parameter qualification or human predictive validity is established.",
+      "evidence": [
+        {
+          "source": "F0003:S3:T1:A1",
+          "quote": "SECONDARY, LOW CONFIDENCE: multi-species PK table adapted from Roffey et al. 2003"
+        },
+        {
+          "source": "F0003:S3:T1:A2",
+          "quote": "S01 | No DOI; de Araujo BV 2008 doctoral thesis, UFRGS, lume.ufrgs.br/bitstream/handle/10183/12602/000628550.pdf | Tabela 2.5 / \"Tabela 5.\" p.26; adapted from Roffey SJ et al. Drug Metab Dispos 2003;31:731-741, DOI 10.1124/dmd.31.6.731 (original not accessed)"
+        },
+        {
+          "source": "F0003:S3:T1:A3",
+          "quote": "SECONDARY SOURCE. A thesis reproduction of Roffey 2003 (\"Adaptado de ROFFEY et al., 2003\"); the original paper was not available, so no value here has been checked against it. Treat every value as low confidence."
+        },
+        {
+          "source": "F0003:S3:T1:A4",
+          "quote": "Title: \"Parâmetros farmacocinéticos do voriconazol em diversas espécies animais.\" Header as extracted has 5 species names (Camundongo | Rato | Coelho | Cobaio | Cão) but 6 data columns, because rat has male and female columns."
+        },
+        {
+          "source": "F0003:S3:T1:A5",
+          "quote": "Column mapping by header order is NOT_VERIFIED: col1 mouse, col2 rat male, col3 rat female, col4 rabbit, col5 guinea pig, col6 dog. Two text extractions gave opposite n for col4 and col5 (rabbit n = 1 and guinea pig n = 3, or the reverse). The dog binding of 51% is also quoted in a horse study."
+        },
+        {
+          "source": "F0003:S3:T1:A6",
+          "quote": "Footnote: \"*=Ligação as Proteínas Plasmáticas; u = dose única; m = dose múltipla (uma vez ao dia por 10 dias), exceto para cobaio (3 vezes ao dia).\" ASC = AUC; LPP = plasma protein binding (%). Decimal commas are Portuguese (41,7 means 41.7)."
+        },
+        {
+          "source": "F0003:S3:T1:A7",
+          "quote": "\"f\" has no unit or definition in the table; two values exceed 100. AUC end time t, multiple-dose sampling day, formulation and matrix are not given."
+        },
+        {
+          "source": "F0003:S3:T1:B10",
+          "quote": "67"
+        },
+        {
+          "source": "F0003:S3:T1:B13",
+          "quote": "41,7"
+        },
+        {
+          "source": "F0003:S3:T1:B14",
+          "quote": "8"
+        },
+        {
+          "source": "F0003:S3:T1:B17",
+          "quote": "12,4"
+        }
+      ],
+      "route_category": "MIXED",
+      "matrix_category": "PLASMA_SERUM_BLOOD",
+      "record_category": "REPORTED_PARAMETER",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "NOT_FOUND",
+      "dosing_regimen": "u = dose única; m = dose múltipla (uma vez ao dia por 10 dias), exceto para cobaio (3 vezes ao dia).",
+      "columns": [
+        {
+          "header": "Parâmetros",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A8",
+              "quote": "Parâmetros"
+            },
+            {
+              "source": "F0003:S3:T1:A9",
+              "quote": "Gênero"
+            },
+            {
+              "source": "F0003:S3:T1:A10",
+              "quote": "LPP* (%)"
+            },
+            {
+              "source": "F0003:S3:T1:A11",
+              "quote": "Administração iv"
+            },
+            {
+              "source": "F0003:S3:T1:A12",
+              "quote": "Dose (mg/kg)"
+            },
+            {
+              "source": "F0003:S3:T1:A13",
+              "quote": "ASC0-t (μg·h/mL)u"
+            },
+            {
+              "source": "F0003:S3:T1:A14",
+              "quote": "ASC0-t (μg·h/mL)m"
+            },
+            {
+              "source": "F0003:S3:T1:A15",
+              "quote": "Administração oral"
+            },
+            {
+              "source": "F0003:S3:T1:A16",
+              "quote": "Dose (mg/kg)"
+            },
+            {
+              "source": "F0003:S3:T1:A17",
+              "quote": "Cmax (μg/mL)"
+            },
+            {
+              "source": "F0003:S3:T1:A18",
+              "quote": "tmax (h)"
+            },
+            {
+              "source": "F0003:S3:T1:A19",
+              "quote": "ASC0-t (μg·h/mL)u"
+            },
+            {
+              "source": "F0003:S3:T1:A20",
+              "quote": "ASC0-t (μg·h/mL)m"
+            },
+            {
+              "source": "F0003:S3:T1:A21",
+              "quote": "f"
+            },
+            {
+              "source": "F0003:S3:T1:A6",
+              "quote": "Footnote: \"*=Ligação as Proteínas Plasmáticas; u = dose única; m = dose múltipla (uma vez ao dia por 10 dias), exceto para cobaio (3 vezes ao dia).\" ASC = AUC; LPP = plasma protein binding (%). Decimal commas are Portuguese (41,7 means 41.7)."
+            }
+          ]
+        },
+        {
+          "header": "col1 (Camundongo?)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:B8",
+              "quote": "col1 (Camundongo?)"
+            },
+            {
+              "source": "F0003:S3:T1:B9",
+              "quote": "Macho (n = 3)"
+            },
+            {
+              "source": "F0003:S3:T1:B10",
+              "quote": "67"
+            },
+            {
+              "source": "F0003:S3:T1:B12",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S3:T1:B13",
+              "quote": "41,7"
+            },
+            {
+              "source": "F0003:S3:T1:B14",
+              "quote": "8"
+            },
+            {
+              "source": "F0003:S3:T1:B16",
+              "quote": "30"
+            },
+            {
+              "source": "F0003:S3:T1:B17",
+              "quote": "12,4"
+            },
+            {
+              "source": "F0003:S3:T1:B18",
+              "quote": "2"
+            },
+            {
+              "source": "F0003:S3:T1:B19",
+              "quote": "98,8"
+            },
+            {
+              "source": "F0003:S3:T1:B20",
+              "quote": "35,3"
+            },
+            {
+              "source": "F0003:S3:T1:B21",
+              "quote": "81"
+            }
+          ]
+        },
+        {
+          "header": "col2 (Rato?)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:C8",
+              "quote": "col2 (Rato?)"
+            },
+            {
+              "source": "F0003:S3:T1:C9",
+              "quote": "Macho (n = 2)"
+            },
+            {
+              "source": "F0003:S3:T1:C10",
+              "quote": "66"
+            },
+            {
+              "source": "F0003:S3:T1:C12",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S3:T1:C13",
+              "quote": "18,6"
+            },
+            {
+              "source": "F0003:S3:T1:C14",
+              "quote": "6,7"
+            },
+            {
+              "source": "F0003:S3:T1:C16",
+              "quote": "30"
+            },
+            {
+              "source": "F0003:S3:T1:C17",
+              "quote": "9,5"
+            },
+            {
+              "source": "F0003:S3:T1:C18",
+              "quote": "6"
+            },
+            {
+              "source": "F0003:S3:T1:C19",
+              "quote": "90"
+            },
+            {
+              "source": "F0003:S3:T1:C20",
+              "quote": "32,3"
+            },
+            {
+              "source": "F0003:S3:T1:C21",
+              "quote": "159"
+            }
+          ]
+        },
+        {
+          "header": "col3 (Rato?)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:D8",
+              "quote": "col3 (Rato?)"
+            },
+            {
+              "source": "F0003:S3:T1:D9",
+              "quote": "Fêmea (n = 2)"
+            },
+            {
+              "source": "F0003:S3:T1:D10",
+              "quote": "66"
+            },
+            {
+              "source": "F0003:S3:T1:D12",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S3:T1:D13",
+              "quote": "81,6"
+            },
+            {
+              "source": "F0003:S3:T1:D14",
+              "quote": "13,9"
+            },
+            {
+              "source": "F0003:S3:T1:D16",
+              "quote": "30"
+            },
+            {
+              "source": "F0003:S3:T1:D17",
+              "quote": "16,7"
+            },
+            {
+              "source": "F0003:S3:T1:D18",
+              "quote": "1"
+            },
+            {
+              "source": "F0003:S3:T1:D19",
+              "quote": "215,6"
+            },
+            {
+              "source": "F0003:S3:T1:D20",
+              "quote": "57,4"
+            },
+            {
+              "source": "F0003:S3:T1:D21",
+              "quote": "88"
+            }
+          ]
+        },
+        {
+          "header": "col4 (Coelho?)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:E8",
+              "quote": "col4 (Coelho?)"
+            },
+            {
+              "source": "F0003:S3:T1:E9",
+              "quote": "Fêmea (n = 3)"
+            },
+            {
+              "source": "F0003:S3:T1:E10",
+              "quote": "60"
+            },
+            {
+              "source": "F0003:S3:T1:E12",
+              "quote": "3"
+            },
+            {
+              "source": "F0003:S3:T1:E13",
+              "quote": "1,1"
+            },
+            {
+              "source": "F0003:S3:T1:E14",
+              "quote": "1,6"
+            },
+            {
+              "source": "F0003:S3:T1:E16",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S3:T1:E17",
+              "quote": "1"
+            },
+            {
+              "source": "F0003:S3:T1:E18",
+              "quote": "1"
+            },
+            {
+              "source": "F0003:S3:T1:E19",
+              "quote": "3,2"
+            },
+            {
+              "source": "F0003:S3:T1:E20",
+              "quote": "4,4"
+            },
+            {
+              "source": "F0003:S3:T1:E21",
+              "quote": "87"
+            }
+          ]
+        },
+        {
+          "header": "col5 (Cobaio?)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:F8",
+              "quote": "col5 (Cobaio?)"
+            },
+            {
+              "source": "F0003:S3:T1:F9",
+              "quote": "Fêmea (n = 1)"
+            },
+            {
+              "source": "F0003:S3:T1:F10",
+              "quote": "45"
+            },
+            {
+              "source": "F0003:S3:T1:F12",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S3:T1:F13",
+              "quote": "38,5"
+            },
+            {
+              "source": "F0003:S3:T1:F14",
+              "quote": "22"
+            },
+            {
+              "source": "F0003:S3:T1:F16",
+              "quote": "10"
+            },
+            {
+              "source": "F0003:S3:T1:F17",
+              "quote": "4,1"
+            },
+            {
+              "source": "F0003:S3:T1:F18",
+              "quote": "8"
+            },
+            {
+              "source": "F0003:S3:T1:F19",
+              "quote": "29"
+            },
+            {
+              "source": "F0003:S3:T1:F20",
+              "quote": "32,3"
+            },
+            {
+              "source": "F0003:S3:T1:F21",
+              "quote": "75"
+            }
+          ]
+        },
+        {
+          "header": "col6 (Cão?)",
+          "meaning": "OTHER",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:G8",
+              "quote": "col6 (Cão?)"
+            },
+            {
+              "source": "F0003:S3:T1:G9",
+              "quote": "Macho/Fêmea (n = 4)"
+            },
+            {
+              "source": "F0003:S3:T1:G10",
+              "quote": "51"
+            },
+            {
+              "source": "F0003:S3:T1:G12",
+              "quote": "3"
+            },
+            {
+              "source": "F0003:S3:T1:G13",
+              "quote": "32,1"
+            },
+            {
+              "source": "F0003:S3:T1:G14",
+              "quote": "17,9"
+            },
+            {
+              "source": "F0003:S3:T1:G16",
+              "quote": "6"
+            },
+            {
+              "source": "F0003:S3:T1:G17",
+              "quote": "6,5"
+            },
+            {
+              "source": "F0003:S3:T1:G18",
+              "quote": "3"
+            },
+            {
+              "source": "F0003:S3:T1:G19",
+              "quote": "88,8"
+            },
+            {
+              "source": "F0003:S3:T1:G20",
+              "quote": "52,2"
+            },
+            {
+              "source": "F0003:S3:T1:G21",
+              "quote": "138"
+            }
+          ]
+        }
+      ],
+      "stated_values": [
+        {
+          "quantity": "species names",
+          "value": "5",
+          "unit": "NOT_FOUND",
+          "subject": "Header as extracted",
+          "qualifiers": [
+            "Camundongo | Rato | Coelho | Cobaio | Cão"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A4",
+              "quote": "Title: \"Parâmetros farmacocinéticos do voriconazol em diversas espécies animais.\" Header as extracted has 5 species names (Camundongo | Rato | Coelho | Cobaio | Cão) but 6 data columns, because rat has male and female columns."
+            }
+          ]
+        },
+        {
+          "quantity": "data columns",
+          "value": "6",
+          "unit": "NOT_FOUND",
+          "subject": "Header as extracted",
+          "qualifiers": [
+            "because rat has male and female columns"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A4",
+              "quote": "Title: \"Parâmetros farmacocinéticos do voriconazol em diversas espécies animais.\" Header as extracted has 5 species names (Camundongo | Rato | Coelho | Cobaio | Cão) but 6 data columns, because rat has male and female columns."
+            }
+          ]
+        },
+        {
+          "quantity": "n",
+          "value": "1",
+          "unit": "NOT_FOUND",
+          "subject": "rabbit",
+          "qualifiers": [
+            "Two text extractions gave opposite n for col4 and col5",
+            "rabbit n = 1 and guinea pig n = 3, or the reverse"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A5",
+              "quote": "Column mapping by header order is NOT_VERIFIED: col1 mouse, col2 rat male, col3 rat female, col4 rabbit, col5 guinea pig, col6 dog. Two text extractions gave opposite n for col4 and col5 (rabbit n = 1 and guinea pig n = 3, or the reverse). The dog binding of 51% is also quoted in a horse study."
+            }
+          ]
+        },
+        {
+          "quantity": "n",
+          "value": "3",
+          "unit": "NOT_FOUND",
+          "subject": "guinea pig",
+          "qualifiers": [
+            "Two text extractions gave opposite n for col4 and col5",
+            "rabbit n = 1 and guinea pig n = 3, or the reverse"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A5",
+              "quote": "Column mapping by header order is NOT_VERIFIED: col1 mouse, col2 rat male, col3 rat female, col4 rabbit, col5 guinea pig, col6 dog. Two text extractions gave opposite n for col4 and col5 (rabbit n = 1 and guinea pig n = 3, or the reverse). The dog binding of 51% is also quoted in a horse study."
+            }
+          ]
+        },
+        {
+          "quantity": "binding",
+          "value": "51",
+          "unit": "%",
+          "subject": "dog",
+          "qualifiers": [
+            "also quoted in a horse study"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A5",
+              "quote": "The dog binding of 51% is also quoted in a horse study."
+            }
+          ]
+        },
+        {
+          "quantity": "dose múltipla",
+          "value": "uma",
+          "unit": "vez ao dia",
+          "subject": "m",
+          "qualifiers": [
+            "exceto para cobaio (3 vezes ao dia)"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A6",
+              "quote": "Footnote: \"*=Ligação as Proteínas Plasmáticas; u = dose única; m = dose múltipla (uma vez ao dia por 10 dias), exceto para cobaio (3 vezes ao dia).\" ASC = AUC; LPP = plasma protein binding (%). Decimal commas are Portuguese (41,7 means 41.7)."
+            }
+          ]
+        },
+        {
+          "quantity": "dose múltipla",
+          "value": "10",
+          "unit": "dias",
+          "subject": "m",
+          "qualifiers": [
+            "uma vez ao dia",
+            "exceto para cobaio (3 vezes ao dia)"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A6",
+              "quote": "Footnote: \"*=Ligação as Proteínas Plasmáticas; u = dose única; m = dose múltipla (uma vez ao dia por 10 dias), exceto para cobaio (3 vezes ao dia).\" ASC = AUC; LPP = plasma protein binding (%). Decimal commas are Portuguese (41,7 means 41.7)."
+            }
+          ]
+        },
+        {
+          "quantity": "dose múltipla",
+          "value": "3",
+          "unit": "vezes ao dia",
+          "subject": "cobaio",
+          "qualifiers": [
+            "exceto para cobaio (3 vezes ao dia)"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A6",
+              "quote": "Footnote: \"*=Ligação as Proteínas Plasmáticas; u = dose única; m = dose múltipla (uma vez ao dia por 10 dias), exceto para cobaio (3 vezes ao dia).\" ASC = AUC; LPP = plasma protein binding (%). Decimal commas are Portuguese (41,7 means 41.7)."
+            }
+          ]
+        },
+        {
+          "quantity": "values",
+          "value": "two",
+          "unit": "NOT_FOUND",
+          "subject": "\"f\"",
+          "qualifiers": [
+            "two values exceed 100"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A7",
+              "quote": "\"f\" has no unit or definition in the table; two values exceed 100."
+            }
+          ]
+        },
+        {
+          "quantity": "\"f\"",
+          "value": "100",
+          "unit": "NOT_FOUND",
+          "subject": "\"f\"",
+          "qualifiers": [
+            "two values exceed 100",
+            "has no unit or definition in the table"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A7",
+              "quote": "\"f\" has no unit or definition in the table; two values exceed 100."
+            }
+          ]
+        },
+        {
+          "quantity": "Decimal commas",
+          "value": "41,7",
+          "unit": "NOT_FOUND",
+          "subject": "NOT_FOUND",
+          "qualifiers": [
+            "Decimal commas are Portuguese (41,7 means 41.7)."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A6",
+              "quote": "Decimal commas are Portuguese (41,7 means 41.7)."
+            }
+          ]
+        },
+        {
+          "quantity": "Decimal commas",
+          "value": "41.7",
+          "unit": "NOT_FOUND",
+          "subject": "NOT_FOUND",
+          "qualifiers": [
+            "Decimal commas are Portuguese (41,7 means 41.7)."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S3:T1:A6",
+              "quote": "Decimal commas are Portuguese (41,7 means 41.7)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "SOURCE_UNAVAILABLE",
+      "affected_id": "MI001",
+      "reason": "Original-paper provenance for SC009 remains NOT_FOUND, resolution_status OPEN, needed_at adequacy. F0003:S3:T1:A2-A3 explicitly state that the original Roffey paper was not accessed and no value was verified against it. First-hand verification remains unavailable; DC-label does not close or accept this limitation.",
+      "needed_material": "At the responsible adequacy review, record an explicit outcome using authorized readable original-paper evidence or the permitted provenance limitation under SC010 and R03. No additional source search is authorized here.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "AMBIGUOUS_SPECIES_MAPPING",
+      "affected_id": "MI002",
+      "reason": "Secondary-table column-to-species mapping remains AMBIGUOUS, resolution_status OPEN, needed_at prepare. F0003:S3:T1:A5 labels the proposed mapping NOT_VERIFIED, and B8-G8 retain question marks. Species-specific input coverage cannot be established from this mapping.",
+      "needed_material": "Verify mapping from authorized provenance at prepare, or retain the unresolved mapping and SC010 restrictions with an explicit reviewed outcome. Keep values attached to their original column identities.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "CONFLICTING_SAMPLE_COUNTS",
+      "affected_id": "F0003:S3:T1",
+      "reason": "A5 reports rabbit n = 1 and guinea pig n = 3, or the reverse. E9 states Fêmea (n = 3), while F9 states Fêmea (n = 1). With mapping unresolved, neither species assignment nor an alternative n is adopted.",
+      "needed_material": "Independent review of A5, E8-E9 and F8-F9, retaining both reported alternatives and determining whether any authorized evidence resolves the count-to-species relationship before species-specific use.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SECONDARY_USE_RESTRICTION",
+      "affected_id": "DR05",
+      "reason": "Secondary status, decimal convention and provenance limitations are supported by A1-A7. Actual intended use and use-or-exclusion rationale are UNRESOLVED. This table cannot serve as the sole basis for a species model under R03 and SC010.",
+      "needed_material": "Document exclusion, low-confidence contextual use or a specific sensitivity use at preparation, preserving the secondary label and unresolved provenance and mapping limitations throughout downstream handoffs.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_SCOPE_PARTIAL",
+      "affected_id": "DR01",
+      "reason": "The title identifies voriconazol and A2 identifies secondary source S01. The supplied item does not itself state the parent workbook filename. This page supports drug identity and secondary-source attribution, without independently establishing every source-permission field.",
+      "needed_material": "Retain the supplied item identity and authorized registration relationship to Voriconazole_source_tables_by_species.xlsx for independent scope review. Do not infer authorization for the cited thesis, original paper or horse study.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "RECORD_USABILITY_UNRESOLVED",
+      "affected_id": "DR02",
+      "reason": "Body values establish reported parameters, binding, doses and sex/n records. Assay, exact analyte, formulation, dose chemical basis, PK matrix, AUC end time, multiple-dose sampling day, parameter derivation and record usability decisions are NOT_FOUND. Source availability does not establish usable modeling records.",
+      "needed_material": "Record preparation-level usability decisions and reasons for each retained source-shaped record, preserving missing metadata and routing unresolved modeling applicability to the downstream module without inventing measurements.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "EVIDENCE_LEVEL_LIMITATION",
+      "affected_id": "DR03",
+      "reason": "The item supplies secondary reported parameters, not individual concentration-time observations. Sex and n occur in body cells, but means, variability, pooling, animal identities and measured-versus-model-derived parameter status are NOT_FOUND. Notes repeat binding 51 and give a decimal-format example that numerically repeats B13; these are not independent measurements.",
+      "needed_material": "Preserve the reported-parameter evidence level, literal decimal commas and original coordinates. Keep note values separately for confirmation; do not create individual animals, variability or independent observations from n, repeated wording or formatting examples.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "COMPATIBILITY_METADATA_UNRESOLVED",
+      "affected_id": "DR04",
+      "reason": "IV and oral blocks and u/m regimens are stated. IV input type, oral technique, PK concentration basis, PK matrix, assay, exact treatment day, immune/infection state, meningitis, grapefruit-juice exposure and comedication are NOT_FOUND. A7 explicitly identifies missing matrix and multiple-dose sampling day. Missing context does not establish absence of these conditions.",
+      "needed_material": "Keep route blocks, doses and single/multiple-dose records distinct during preparation. Preserve unknown compatibility fields and require source-supported justification before any grouping, transfer or conversion.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "MI004",
+      "reason": "Conflicting mouse binding sources remain CONFLICT, resolution_status OPEN, needed_at pk. Supplied SC023 retains mouse 78% bound in serum, mouse 29.97% unbound in plasma, mouse 67% in the secondary table, and rat 64-66%. This page has 67 in B10 and 66 in C10/D10, but their species mapping is unverified. DR12 applicability and intended-analysis decisions remain UNRESOLVED.",
+      "needed_material": "At pk, determine source applicability for each analysis, preserving source, matrix, definition and scale differences and recording an explicit outcome. Apply SC024 and R06: never average the sources; carry fu as a sensitivity parameter. No conversion or sensitivity computation is performed here.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "BINDING_INPUTS_UNRESOLVED",
+      "affected_id": "DR13",
+      "reason": "A10 and A6 support plasma protein binding on a percentage scale, with body values in B10-G10. These are binding percentages rather than directly measured free concentrations or an explicitly reported fu. Measurement method, concentration range, temperature, pH, other conditions, recovery, nonspecific binding and mass balance are NOT_FOUND. Species applicability remains unresolved.",
+      "needed_material": "Before binding-dependent use, establish the requested correction and source applicability and obtain authorized supporting definitions and conditions where required, or retain the gaps. Assess blood/plasma partition only if the intended use changes that basis. Preserve independently supported total-exposure work.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "TRANSLATION_COVERAGE_UNRESOLVED",
+      "affected_id": "DR16",
+      "reason": "The table provides candidate reported parameter values with dose, route and regimen distinctions, but unverified mapping prevents a supported parameter-by-species inventory. Actual study body weights, health/infection state, PK matrix, exposure basis, exact AUC windows and approach-specific correction or calibration inputs are NOT_FOUND. No qualified species count is established.",
+      "needed_material": "Before translation, reuse the reviewed parameter inventory, resolve or explicitly limit species mapping, assess comparability and obtain actual study body weights if the considered approach uses body size. Request only inputs needed by an explicitly considered approach; retain supported preparation and animal PK work.",
+      "required_by": "BEFORE_TRANSLATION",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNDEFINED_PARAMETER_ROUTING",
+      "affected_id": "F0003:S3:T1",
+      "reason": "A21 labels f without a unit or definition; A7 explicitly preserves that ambiguity. C21 contains 159 and G21 contains 138. No assigned requirement establishes that f denotes bioavailability, a percentage or an unbound fraction.",
+      "needed_material": "Route the undefined f row to independent review without inventing a requirement ID. Retain its literal values and unknown definition and unit; exclude it from defined-parameter coverage until its meaning is supported.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    }
+  ]
+}

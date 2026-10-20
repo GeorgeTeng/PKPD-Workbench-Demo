@@ -1,0 +1,257 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "REVISE",
+            "NEEDS_REVIEW"
+          ]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "faithfulness": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "completeness": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "faithfulness",
+              "completeness",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "source_units": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "unit_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "record_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "unit_id",
+              "verdict",
+              "record_ids",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "verdict",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "critical_errors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "fixes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "target": {
+                "type": "string",
+                "enum": [
+                  "/objective",
+                  "/study/drug",
+                  "/study/regimen",
+                  "/study/population",
+                  "/study/system",
+                  "/study/measurements",
+                  "/study/methods",
+                  "/uncertainties/0",
+                  "SC001",
+                  "SC002",
+                  "SC003",
+                  "SC004",
+                  "SC005",
+                  "SC006",
+                  "SC007",
+                  "SC008",
+                  "SC009",
+                  "SC010",
+                  "SC011",
+                  "SC012",
+                  "SC013",
+                  "MI001",
+                  "NEW"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "citations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "source_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "unit_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "source_id",
+                    "unit_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "reason",
+              "citations"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "decision",
+        "reviewer",
+        "records",
+        "source_units",
+        "checks",
+        "critical_errors",
+        "fixes",
+        "limitations"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "request_sha256",
+    "candidate_sha256",
+    "review"
+  ],
+  "additionalProperties": false
+}

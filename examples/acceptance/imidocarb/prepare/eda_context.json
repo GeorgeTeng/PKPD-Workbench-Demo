@@ -1,0 +1,1225 @@
+{
+  "schema_version": "2.0",
+  "module": "eda",
+  "demo_profile": "SOURCE_PRESERVING_DEMO_1.0",
+  "status": "PENDING_SCIENTIFIC_REVIEW",
+  "allowed_action": "INSPECT_SOURCE_DATA_ONLY",
+  "execution_authorized": false,
+  "scientific_release": false,
+  "fit_ready": false,
+  "files": [],
+  "inspection_manifest": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_preparation\\normalization_manifest.json",
+    "sha256": "5edb6510b17d6e25f93536a71f4124db3621572768d42d23bfdede1624b1bc89"
+  },
+  "task_requirements": [
+    {
+      "id": "DRQ001",
+      "task_id": "TASK001",
+      "description": "Maintain the published source-use boundary: the designated workbook supplies observations, the notes supply cited context, and article conclusions retain their historical evidence status.",
+      "kind": "SOURCE_PERMISSION",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "designated observational source",
+        "context-only source",
+        "source-use restrictions",
+        "historical conclusion attribution"
+      ],
+      "rule_ids": [
+        "R001"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R001",
+          "quote": "R001: Use Imidocarb_cattle_source.xlsx as the supplied observational source and Imidocarb_source_notes.txt only as cited source context. Treat the article's conclusions as historical statements, not validation by this workflow. Do not browse for or add external data."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Apply throughout this Data preparation run.",
+        "Source designation does not establish file accessibility, input coverage or scientific adequacy.",
+        "Do not browse for or add external data."
+      ]
+    },
+    {
+      "id": "DRQ002",
+      "task_id": "TASK001",
+      "description": "Require a register identifying every supplied file and its recorded hash.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "supplied file identity",
+        "file hash"
+      ],
+      "rule_ids": [
+        "R002"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R002",
+          "quote": "R002: Register every supplied file and its hash."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Include every supplied file; registration does not expand its permitted use."
+      ]
+    },
+    {
+      "id": "DRQ003",
+      "task_id": "TASK001",
+      "description": "Require a source-linked inventory of workbook tables and their original measurement, identity, timing and summary structure.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "workbook table identity",
+        "original headers",
+        "sampling times",
+        "animal IDs",
+        "formulation groups",
+        "measurement values",
+        "units when stated",
+        "summary columns",
+        "formula columns"
+      ],
+      "rule_ids": [
+        "R003",
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R003",
+          "quote": "R003: Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+        },
+        {
+          "source": "rule:R004",
+          "quote": "R004: Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        },
+        {
+          "source": "main:/study/regimen",
+          "quote": "NOT_FOUND"
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Preserve source relationships between tables, headers, times, IDs, groups and values without inferring unsupported bindings.",
+        "Record units only when stated; retain missing or ambiguous metadata.",
+        "The context regimen is unspecified; do not invent dosing events, a time origin or an analysis window."
+      ]
+    },
+    {
+      "id": "DRQ004",
+      "task_id": "TASK001",
+      "description": "Preserve literal source values and cell-level provenance while distinguishing individual observations from reported summaries.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "raw value",
+        "original cell coordinate",
+        "source formula",
+        "missing metadata",
+        "ambiguous metadata",
+        "individual observation or reported summary classification"
+      ],
+      "rule_ids": [
+        "R004"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R004",
+          "quote": "R004: Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Apply to every retained observation, reported summary and formula.",
+        "Preserve uncertainty in classification when the source does not establish the record type."
+      ]
+    },
+    {
+      "id": "DRQ005",
+      "task_id": "TASK001",
+      "description": "Require explicit source bindings before joining tables or treating repeated IDs across groups as a shared subject identity.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source-local animal ID",
+        "formulation group",
+        "table identity",
+        "explicit source binding for any proposed join or cross-group identity"
+      ],
+      "rule_ids": [
+        "R005"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R005",
+          "quote": "R005: Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Apply whenever cross-table joins or cross-group subject relationships are considered.",
+        "Without an explicit binding, retain separate source scopes and the unresolved identity."
+      ]
+    },
+    {
+      "id": "DRQ006",
+      "task_id": "TASK001",
+      "description": "Require source-bound labels, literal tables, a data dictionary and a cleaning record as reviewable Data preparation artifacts.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "source-bound labels",
+        "literal tables",
+        "data dictionary",
+        "cleaning record"
+      ],
+      "rule_ids": [
+        "R006"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R006",
+          "quote": "R006: Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Labels and dictionary entries must preserve source meaning and unresolved metadata.",
+        "Artifact creation does not authorize prohibited transformations."
+      ]
+    },
+    {
+      "id": "DRQ007",
+      "task_id": "TASK001",
+      "description": "Apply the explicit transformation prohibitions throughout Data preparation.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "concentration values",
+        "blank cells",
+        "source formulas",
+        "individual records",
+        "original units",
+        "group orientation",
+        "group separation",
+        "cleaning actions"
+      ],
+      "rule_ids": [
+        "R007"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R007",
+          "quote": "R007: Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Do not impute concentrations or reinterpret blanks as zero.",
+        "Do not recompute source formulas, average records, convert units, transpose or pool groups."
+      ]
+    },
+    {
+      "id": "DRQ008",
+      "task_id": "TASK001",
+      "description": "Require an unresolved ledger that keeps uncertain structure, sampling identity, formula results and metadata bindings visible through the Data handoff.",
+      "kind": "DATA",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "unresolved item ID",
+        "affected table structure",
+        "affected sampling identity",
+        "affected formula result",
+        "affected metadata binding",
+        "source reference",
+        "status",
+        "needed phase",
+        "impact",
+        "resolution status"
+      ],
+      "rule_ids": [
+        "R008",
+        "R011"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R008",
+          "quote": "R008: Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review."
+        },
+        {
+          "source": "rule:R011",
+          "quote": "R011: Defer missing modeling requirements for subsequent human review rather than silently resolving them."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Preserve unresolved information without silently inferring a resolution.",
+        "Forward MI001 with its existing identity, deferred status, meaning and PK timing."
+      ]
+    },
+    {
+      "id": "DRQ009",
+      "task_id": "TASK001",
+      "description": "Retain the Context review checkpoint and its output signatures.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "Context review checkpoint",
+        "review outcome",
+        "reviewed output signatures",
+        "approval mode"
+      ],
+      "rule_ids": [
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R009",
+          "quote": "R009: Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Automatic approval is authorized only within this technical demo.",
+        "Retain the checkpoint even when demo automatic approval is used."
+      ]
+    },
+    {
+      "id": "DRQ010",
+      "task_id": "TASK001",
+      "description": "Require the QC report, Data handoff and recorded Data review checkpoint with output signatures before completing this run.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "FINAL_VALIDATION",
+      "fields": [
+        "QC report",
+        "Data handoff",
+        "Data review checkpoint",
+        "review outcome",
+        "reviewed output signatures",
+        "approval mode",
+        "forwarded unresolved ledger"
+      ],
+      "rule_ids": [
+        "R006",
+        "R008",
+        "R009"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R006",
+          "quote": "R006: Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+        },
+        {
+          "source": "rule:R009",
+          "quote": "R009: Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo."
+        },
+        {
+          "source": "rule:R008",
+          "quote": "R008: Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "The run ends after source-preserving Data preparation and its recorded review gate.",
+        "Automatic approval remains limited to this technical demo.",
+        "Review completion does not close deferred modeling requirements or establish scientific validity."
+      ]
+    },
+    {
+      "id": "DRQ011",
+      "task_id": "TASK001",
+      "description": "Maintain the current run's authorization boundary throughout preparation and handoff.",
+      "kind": "METHOD_REQUIREMENT",
+      "required_by": "BEFORE_QC",
+      "fields": [
+        "authorized stage scope",
+        "downstream-use restrictions",
+        "scientific release restriction"
+      ],
+      "rule_ids": [
+        "R010"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R010",
+          "quote": "R010: No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run."
+        },
+        {
+          "source": "main:/objective",
+          "quote": "Organize the supplied imidocarb cattle workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run ends after source-preserving Data preparation and its recorded review gate."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "Later descriptive EDA and PK modeling are intended downstream uses, not execution permissions for this run.",
+        "Do not introduce analytical endpoints, numerical sufficiency criteria or scientific acceptance claims."
+      ]
+    },
+    {
+      "id": "DRQ012",
+      "task_id": "TASK001",
+      "description": "Carry MI001 to subsequent human review and obtain and record the missing modeling requirements before PK modeling.",
+      "kind": "DEFINITION",
+      "required_by": "BEFORE_MODELING",
+      "fields": [
+        "subsequent modeling requirements",
+        "recorded human review decision",
+        "MI001 resolution evidence"
+      ],
+      "rule_ids": [
+        "R011",
+        "R010"
+      ],
+      "evidence": [
+        {
+          "source": "rule:R011",
+          "quote": "R011: Defer missing modeling requirements for subsequent human review rather than silently resolving them."
+        },
+        {
+          "source": "main:/missing_information/items/0/id",
+          "quote": "MI001"
+        },
+        {
+          "source": "main:/missing_information/items/0/status",
+          "quote": "DEFERRED"
+        },
+        {
+          "source": "main:/missing_information/items/0/needed_at",
+          "quote": "pk"
+        },
+        {
+          "source": "main:/missing_information/items/0/resolution_status",
+          "quote": "OPEN"
+        },
+        {
+          "source": "main:/missing_information/items/0/impact",
+          "quote": "Later PK modeling requirements cannot be treated as established by this Data preparation run."
+        },
+        {
+          "source": "main:/missing_information/items/0/clarification",
+          "quote": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling."
+        }
+      ],
+      "origin": "PROJECT_EXPLICIT",
+      "method_profile_ids": [],
+      "conditions": [
+        "This is a deferred downstream prerequisite, not a requirement to complete modeling design during Data preparation.",
+        "Do not select method profiles or establish method-specific input obligations in place of the required human review.",
+        "Retain the item as open until a recorded, authorized resolution supports the dependent modeling decision."
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "code": "POSSIBLE_DUPLICATE_DATA",
+      "affected_id": "F0002:S1:T1",
+      "reason": "F0002:S1:T1 and F0002:S1:T2 share a column of identical numeric values; they may be copies of one dataset.",
+      "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "POSSIBLE_DUPLICATE_DATA",
+      "affected_id": "F0002:S1:T1",
+      "reason": "F0002:S1:T1 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+      "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "POSSIBLE_DUPLICATE_DATA",
+      "affected_id": "F0002:S1:T1",
+      "reason": "F0002:S1:T1 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "POSSIBLE_DUPLICATE_DATA",
+      "affected_id": "F0002:S1:T2",
+      "reason": "F0002:S1:T2 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+      "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "POSSIBLE_DUPLICATE_DATA",
+      "affected_id": "F0002:S1:T2",
+      "reason": "F0002:S1:T2 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "POSSIBLE_DUPLICATE_DATA",
+      "affected_id": "F0002:S1:T3",
+      "reason": "F0002:S1:T3 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "DEFERRED_MODELING_REQUIREMENTS",
+      "affected_id": "MI001",
+      "reason": "The item at main:/missing_information/items/0 concerns Subsequent modeling requirements, has status DEFERRED, needed_at pk and resolution_status OPEN. Later PK modeling requirements cannot be treated as established by this Data preparation run. Specific modeling endpoints and method applicability remain unsettled.",
+      "needed_material": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling. Preserve MI001 in the Data unresolved ledger and handoff without changing its identity, status, meaning or origin.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED_MODELING_REQUIREMENTS",
+      "affected_id": "MI001",
+      "reason": "Carry MI001 unchanged: field Subsequent modeling requirements; status DEFERRED; resolution_status OPEN; needed_at pk. Later PK modeling requirements cannot be treated as established by this Data preparation run. The proposal explicitly leaves their resolution to subsequent human review.",
+      "needed_material": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling. Preserve MI001 in the unresolved ledger and handoff until an authorized resolution is recorded.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MEASUREMENT_METADATA_NOT_FOUND",
+      "affected_id": "F0002:S1:T1",
+      "reason": "Animal-indexed body values are available, but their measured quantity and units are unspecified. This page also lacks source-bound drug, analyte, species, matrix, exposure basis, dose, route and regimen metadata. Project context alone cannot establish those bindings, so DRQ003 and DRQ004 remain partially supported.",
+      "needed_material": "Human review of authorized source evidence identifying the measurement quantity, original units and applicable study metadata, or explicit retention of these fields as unresolved.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "TABLE_SCOPE_AND_FORMULA_INPUTS_UNRESOLVED",
+      "affected_id": "F0002:S1:T1",
+      "reason": "The item descriptor gives Sheet1!A1:N16, while supplied source units also include AVG and SD columns AC and AD. Their formulas reference C:AB, but no O:AB cells are supplied. The contents or emptiness of those referenced cells and the relationship of the summary columns to the declared table boundary cannot be established. Cached formula results remain unvalidated and were not recomputed.",
+      "needed_material": "A source-bound reconciliation of the table boundary, AC/AD membership and the referenced O:AB cells, preserving formulas and cached values unchanged.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "GROUP_AND_SAMPLING_BINDING_UNRESOLVED",
+      "affected_id": "F0002:S1:T1",
+      "reason": "A3 states 试验组 and columns C:N have animal ID headers, but the supplied page does not explicitly define the group entry's row coverage, formulation identity, sampling design or time origin. Animal IDs remain local to this item; no cross-group or cross-table subject identity is established.",
+      "needed_material": "Authorized source evidence or recorded human review clarifying group coverage, formulation, sampling identity and time origin; retain unresolved bindings without filling blank cells or joining tables.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI001",
+      "reason": "Carried from main:/missing_information/items/0: field=Subsequent modeling requirements; status=DEFERRED; resolution_status=OPEN; needed_at=pk. Impact: Later PK modeling requirements cannot be treated as established by this Data preparation run. The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution.",
+      "needed_material": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T1",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T1:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T1:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T1",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T1:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T1:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MEASUREMENT_AND_IDENTITY_UNRESOLVED",
+      "affected_id": "F0002:S1:T2",
+      "reason": "Headers 13 through 24 have numeric body values, but the reviewed item does not define their measurement type, units or experimental units. Animal IDs, individual versus pooled versus group-summary status, and serial sampling identity cannot be established. Species, drug, analyte, matrix, route, regimen, dose basis, exposure basis and time origin are also unspecified. DRQ003 and DRQ004 therefore remain partially supported and unresolved.",
+      "needed_material": "Human review of authorized source definitions and explicit bindings for the numbered columns, measurement metadata, sampling identity and time origin. Preserve separate source scopes and unresolved metadata until reviewed.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "TABLE_AND_FORMULA_SCOPE_AMBIGUOUS",
+      "affected_id": "F0002:S1:T2",
+      "reason": "The descriptor identifies Sheet1!O1:AB16, while supplied AVG and SD cells occupy AC2:AD16. Their formulas reference C:AB, extending outside the described table and including its group and time columns. The intended summary population and binding to this table are unestablished. Cached results are supplied source values, not independently verified results.",
+      "needed_material": "Human review of table boundaries and the intended source binding of AC:AD and formula input ranges. Retain all supplied formulas, cached values and coordinates unchanged; do not evaluate or repair formulas.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI001",
+      "reason": "Field: Subsequent modeling requirements. Status: DEFERRED. Resolution status: OPEN. Needed_at: pk. Later PK modeling requirements cannot be treated as established by this Data preparation run. The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution. Origin: main:/missing_information/items/0.",
+      "needed_material": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T2",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T2:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T2:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T2",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T2:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T2:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MEASUREMENT_METADATA_UNRESOLVED",
+      "affected_id": "F0002:S1:T3",
+      "reason": "DRQ003 and DRQ004 are partially supported by numeric body values, times, animal IDs and formula summaries. This item does not identify the measured quantity or its units, analyte, drug, species, matrix, exposure basis, dose basis, route, regimen or time origin. Project context alone does not establish those bindings for these cells.",
+      "needed_material": "Source-supported metadata bindings or recorded human clarification; preserve unspecified fields as NOT_FOUND until resolved.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "TABLE_BOUNDARY_AND_FORMULA_SCOPE_UNRESOLVED",
+      "affected_id": "F0002:S1:T3",
+      "reason": "The descriptor gives Sheet1!A18:N33, but supplied summary cells are in AC:AD. Their formulas reference C:AB, including O:AB, which are not supplied in this item. The complete input membership and relationship of those summaries to the displayed animal columns cannot be established. Cached values are retained as supplied, without evaluation or validation.",
+      "needed_material": "Independent review of the table boundary, summary-column association and source formula dependencies using authorized source evidence; preserve formulas and cached values unchanged.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_HEADER_NOT_FOUND",
+      "affected_id": "F0002:S1:T3",
+      "reason": "Column A contains the group label 参比组 at A20, but no header cell for column A is supplied. Its column entry preserves this gap as NOT_FOUND and cannot provide the required lowest-header-cell binding.",
+      "needed_material": "Recorded review of the unheaded group column and its row scope; retain A20 provenance without inventing a header or propagating its label silently.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI001",
+      "reason": "Field: Subsequent modeling requirements. Status: DEFERRED. Needed_at: pk. Resolution_status: OPEN. Origin: main:/missing_information/items/0. Later PK modeling requirements cannot be treated as established by this Data preparation run. The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution.",
+      "needed_material": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T3",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T3\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]\"}, {\"source\": \"F0002:S1:T3:A20\", \"quote\": \"参比组\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T3",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T3:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T3:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T3",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T3:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T3:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "LABEL_COLUMN_MISSING",
+      "affected_id": "F0002:S1:T3",
+      "reason": "No page described the body columns A.",
+      "needed_material": "Label these columns or confirm they are not needed.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_MEASUREMENT_AND_IDENTITY_METADATA",
+      "affected_id": "F0002:S1:T4",
+      "reason": "DRQ003 and DRQ004 are partially supported. Time values in h, the reference group label, numeric series and source summaries are available. The reviewed item does not define the measured quantity, measurement units, drug/analyte, species, matrix, exposure basis, route, regimen or time origin. Headers 37–48 are not explicitly identified as animal IDs, and individual, pooled and serial sampling relationships are unresolved.",
+      "needed_material": "Independent review of source-backed definitions and explicit bindings for the numeric series, headers 37–48, reference group and time origin. Preserve NOT_FOUND fields and source-local scopes until supported.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MISSING_COLUMN_HEADER",
+      "affected_id": "F0002:S1:T4",
+      "reason": "Column O contains O20 'reference group', but no header cell for that column is supplied; the descriptor records a null header. The column is retained with header NOT_FOUND, so its required header-cell position cannot be established.",
+      "needed_material": "Independent structural review to establish the source-supported role and extent of column O and document the absent header without inventing a header or cell.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "UNRESOLVED_SUMMARY_SCOPE_AND_FORMULA_BINDING",
+      "affected_id": "F0002:S1:T4",
+      "reason": "The descriptor gives Sheet1!O18:AB33, while supplied summary cells occupy AC19:AD33. Their formulas reference C:AB, extending beyond the item and spanning its time column P. The source does not establish which experimental units these summaries represent or validate their cached results. No formula was evaluated.",
+      "needed_material": "Independent review of the summary-column association, formula input scope and cached-value provenance using authorized source evidence. Preserve every formula and cached value literally; do not recompute or assign the summaries solely to headers 37–48.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "DEFERRED",
+      "affected_id": "MI001",
+      "reason": "Origin: main:/missing_information/items/0. Field: Subsequent modeling requirements. Status: DEFERRED. needed_at: pk. resolution_status: OPEN. Impact: Later PK modeling requirements cannot be treated as established by this Data preparation run. The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution.",
+      "needed_material": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T4",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T4\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]\"}, {\"source\": \"F0002:S1:T4:O20\", \"quote\": \"reference group\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T4",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T4:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T4:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "COLUMN_POSITION_UNRESOLVED",
+      "affected_id": "F0002:S1:T4",
+      "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T4:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T4:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "LABEL_COLUMN_MISSING",
+      "affected_id": "F0002:S1:T4",
+      "reason": "No page described the body columns O.",
+      "needed_material": "Label these columns or confirm they are not needed.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "SCIENTIFIC_ADEQUACY_DEFERRED",
+      "affected_id": "DATA",
+      "reason": "User selected technical demo scope. Scientific requirement coverage, model readiness and prediction validity were not assessed in this profile.",
+      "needed_material": "Review requirements and retained source issues before EDA and modeling.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_HEADERS_REQUIRE_REVIEW",
+      "affected_id": "F0002:S1:T1",
+      "reason": "Blank, numeric or duplicate headers retained by unique positional field keys, with original headers and cell locators. No semantic mapping was inferred.",
+      "needed_material": "Confirm source column meanings and units before analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_HEADERS_REQUIRE_REVIEW",
+      "affected_id": "F0002:S1:T2",
+      "reason": "Blank, numeric or duplicate headers retained by unique positional field keys, with original headers and cell locators. No semantic mapping was inferred.",
+      "needed_material": "Confirm source column meanings and units before analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_HEADERS_REQUIRE_REVIEW",
+      "affected_id": "F0002:S1:T3",
+      "reason": "Blank, numeric or duplicate headers retained by unique positional field keys, with original headers and cell locators. No semantic mapping was inferred.",
+      "needed_material": "Confirm source column meanings and units before analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "SOURCE_HEADERS_REQUIRE_REVIEW",
+      "affected_id": "F0002:S1:T4",
+      "reason": "Blank, numeric or duplicate headers retained by unique positional field keys, with original headers and cell locators. No semantic mapping was inferred.",
+      "needed_material": "Confirm source column meanings and units before analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    }
+  ],
+  "unresolved_items": [
+    {
+      "id": "MI001",
+      "field": "Subsequent modeling requirements",
+      "status": "DEFERRED",
+      "needed_at": "pk",
+      "phase": "BEFORE_MODELING",
+      "impact": "Later PK modeling requirements cannot be treated as established by this Data preparation run.",
+      "origin": {
+        "step": "context_compression",
+        "artifact": {
+          "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\B1\\main.json",
+          "sha256": "56fe3aedb8c7fe4d347f57e5590bc6fef72b4cc408697e3cc7c85af9ac7355cb"
+        }
+      },
+      "record": {
+        "id": "MI001",
+        "field": "Subsequent modeling requirements",
+        "status": "DEFERRED",
+        "needed_at": "pk",
+        "impact": "Later PK modeling requirements cannot be treated as established by this Data preparation run.",
+        "why_it_matters": "The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution.",
+        "clarification": "Obtain and record the missing modeling requirements through subsequent human review before PK modeling.",
+        "resolution_status": "OPEN"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U001",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T1 and F0002:S1:T2 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T1",
+        "reason": "F0002:S1:T1 and F0002:S1:T2 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U002",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T1 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T1",
+        "reason": "F0002:S1:T1 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U003",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T1 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T1",
+        "reason": "F0002:S1:T1 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U004",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T2 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T2",
+        "reason": "F0002:S1:T2 and F0002:S1:T3 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U005",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T2 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T2",
+        "reason": "F0002:S1:T2 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U006",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "F0002:S1:T3 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "POSSIBLE_DUPLICATE_DATA",
+        "affected_id": "F0002:S1:T3",
+        "reason": "F0002:S1:T3 and F0002:S1:T4 share a column of identical numeric values; they may be copies of one dataset.",
+        "needed_material": "Confirm whether both sources hold the same animals or measurements before combining them.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U007",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T1:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T1:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T1",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T1:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T1:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U008",
+      "field": "F0002:S1:T1",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T1:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T1:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T1",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T1:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T1:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T1:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U009",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T2:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T2:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T2",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AC2\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T2:AC3\", \"quote\": \"formula =AVERAGE(C3:AB3) (not evaluated; cached value 185.366668)\"}, {\"source\": \"F0002:S1:T2:AC16\", \"quote\": \"formula =AVERAGE(C16:AB16) (not evaluated; cached value 14.268000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U010",
+      "field": "F0002:S1:T2",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T2:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T2:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T2",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T2:AD2\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T2:AD3\", \"quote\": \"formula =STDEV(C3:AB3) (not evaluated; cached value 51.158246180085875)\"}, {\"source\": \"F0002:S1:T2:AD16\", \"quote\": \"formula =STDEV(C16:AB16) (not evaluated; cached value 17.297223283906966)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U011",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T3\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]\"}, {\"source\": \"F0002:S1:T3:A20\", \"quote\": \"参比组\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T3",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T3\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]\"}, {\"source\": \"F0002:S1:T3:A20\", \"quote\": \"参比组\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U012",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T3:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T3:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T3",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T3:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T3:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U013",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T3:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T3:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T3",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T3:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T3:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T3:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U014",
+      "field": "F0002:S1:T3",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "No page described the body columns A.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "LABEL_COLUMN_MISSING",
+        "affected_id": "F0002:S1:T3",
+        "reason": "No page described the body columns A.",
+        "needed_material": "Label these columns or confirm they are not needed.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U015",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T4\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]\"}, {\"source\": \"F0002:S1:T4:O20\", \"quote\": \"reference group\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T4",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"NOT_FOUND\", \"meaning\": \"GROUP_OR_TREATMENT\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [], \"evidence\": [{\"source\": \"F0002:S1:T4\", \"quote\": \"\\\"headers\\\": [null, \\\"h\\\", 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]\"}, {\"source\": \"F0002:S1:T4:O20\", \"quote\": \"reference group\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U016",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T4:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T4:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T4",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"AVG\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"AVG\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AC19\", \"quote\": \"AVG\"}, {\"source\": \"F0002:S1:T4:AC20\", \"quote\": \"formula =AVERAGE(C20:AB20) (not evaluated; cached value 180.846668)\"}, {\"source\": \"F0002:S1:T4:AC33\", \"quote\": \"formula =AVERAGE(C33:AB33) (not evaluated; cached value 15.904000000000002)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U017",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T4:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T4:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "COLUMN_POSITION_UNRESOLVED",
+        "affected_id": "F0002:S1:T4",
+        "reason": "A proposed column could not be bound to the current table header: {\"header\": \"SD\", \"meaning\": \"SUMMARY_STATISTIC\", \"unit\": \"NOT_FOUND\", \"qualifiers\": [\"SD\"], \"evidence\": [{\"source\": \"F0002:S1:T4:AD19\", \"quote\": \"SD\"}, {\"source\": \"F0002:S1:T4:AD20\", \"quote\": \"formula =STDEV(C20:AB20) (not evaluated; cached value 48.3490324883095)\"}, {\"source\": \"F0002:S1:T4:AD33\", \"quote\": \"formula =STDEV(C33:AB33) (not evaluated; cached value 16.982012051972326)\"}]}. It remains an unmapped annotation; no column position or source relationship is inferred.",
+        "needed_material": "Review linked notes, nested tables and the source layout before applying these annotations. Original source rows and the raw model response remain available.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U018",
+      "field": "F0002:S1:T4",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "No page described the body columns O.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "LABEL_COLUMN_MISSING",
+        "affected_id": "F0002:S1:T4",
+        "reason": "No page described the body columns O.",
+        "needed_material": "Label these columns or confirm they are not needed.",
+        "required_by": "BEFORE_QC",
+        "severity": "FOLLOW_UP"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    },
+    {
+      "id": "DEMO_DATA-U019",
+      "field": "DATA",
+      "status": "OPEN_FINDING",
+      "needed_at": "BEFORE_EDA",
+      "phase": "BEFORE_EDA",
+      "impact": "User selected technical demo scope. Scientific requirement coverage, model readiness and prediction validity were not assessed in this profile.",
+      "origin": {
+        "step": "DEMO_DATA",
+        "artifact": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050146_e74634\\adequacy\\adequacy.json"
+      },
+      "record": {
+        "code": "SCIENTIFIC_ADEQUACY_DEFERRED",
+        "affected_id": "DATA",
+        "reason": "User selected technical demo scope. Scientific requirement coverage, model readiness and prediction validity were not assessed in this profile.",
+        "needed_material": "Review requirements and retained source issues before EDA and modeling.",
+        "required_by": "BEFORE_EDA",
+        "severity": "HUMAN_REVIEW"
+      },
+      "resolution_status": "OPEN",
+      "history": []
+    }
+  ],
+  "accepted_limitations": [],
+  "unresolved_ledger": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_preparation\\unresolved_ledger.json",
+    "sha256": "b30a1b002b4b6d1682c0d6ab0bbdae918886413eb099197c3f8133135fbb2b3a"
+  },
+  "rules_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\project_rules\\published\\project_rules.json",
+    "sha256": "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40"
+  },
+  "preparation_evidence": {
+    "plan": {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_agents\\preparation_plan.json",
+      "sha256": "198ebe134eaafe1cd7200b7099250a98d4c247104840cd0754fe187a77a2ce11"
+    },
+    "cleaning_log": {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_preparation\\cleaning_log.json",
+      "sha256": "6b920ada5e5b231c32f2b12f53d89cad647527380bb6df7c3bf0d27da7fea63d"
+    },
+    "program_qc": {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_preparation\\program_qc.json",
+      "sha256": "e19ddb6300ca3bf1047ca889e75e0dfdc831df7081a47394eb1fd774f2030707"
+    },
+    "data_dictionary": {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_preparation\\data_dictionary.json",
+      "sha256": "5f64c85d27278429958c46bdb78e33ed7799bf8054992ec9e5f0f2c5dc79495c"
+    },
+    "qc_findings": {
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_050649_375009\\data_preparation\\qc_findings.json",
+      "sha256": "56808bd553d2dda4485a67f5b10765d3ad25d205c639400c6d969b077c8dd691"
+    }
+  }
+}

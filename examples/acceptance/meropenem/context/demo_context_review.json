@@ -1,0 +1,32 @@
+{
+  "profile": "DEMO_CONTEXT_CANONICAL_PLACEMENT_1.0",
+  "scope": "THROUGH_DATA_TECHNICAL_DEMO_ONLY",
+  "original_review_decision": "REVISE",
+  "candidate_sha256": "8e4e404b6c735fa290f456aacf17dadb4b62c64ae16b8e4e830c3f0e0627ebae",
+  "review_ref": {
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031720_f82e8d\\context_work\\accepted\\context_review.7a9251fc44c46461.json",
+    "sha256": "bd3ee79854c38d5f58a13072237f869ad932b5e09b0a700b81b4906117faa3d5"
+  },
+  "review_sha256": "7a9251fc44c464611714415ff17d28e174a96b6a58507de2ff3603588eff4ae2",
+  "candidate_changed": false,
+  "independent_review_passed": false,
+  "scientific_release": false,
+  "findings": [
+    {
+      "code": "CONTEXT_CANONICAL_PLACEMENT_DEFERRED",
+      "affected_id": "canonical_placement_no_duplicate_gaps",
+      "reason": "SC019 owns comparison using ordinary Emax and sigmoid Emax/Hill regression, while SC020 repeats the same operation as 'evaluate both regression families.' Keep that procedure once in SC019 and retain SC020's distinct equal-eligibility and comparison safeguards. Gap ownership otherwise remains appropriately separated.",
+      "needed_material": "Resolve the retained Context review finding before scientific analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "CONTEXT_CANONICAL_PLACEMENT_DEFERRED",
+      "affected_id": "SC020",
+      "reason": "Remove the repeated operation 'and evaluate both regression families.' SC019 already owns the full two-family comparison procedure. Retain SC020's equal eligibility for all three indices, matched-comparison conditions, prespecified selection rule, diagnostics, Hill-parameter accounting and prohibitions; its existing SC019 reference supplies the shared procedure.",
+      "needed_material": "Resolve the retained Context review finding before scientific analysis.",
+      "required_by": "BEFORE_EDA",
+      "severity": "HUMAN_REVIEW"
+    }
+  ]
+}

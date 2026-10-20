@@ -1,0 +1,2878 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "enum": [
+        "4a23642a9d63b94728e09976f92e10bd87c02669131bb494f626f3f277605c25"
+      ]
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "objective": {
+            "type": "string",
+            "minLength": 1
+          },
+          "destination": {
+            "type": "string",
+            "enum": [
+              "pk",
+              "index",
+              "eda",
+              "clinical",
+              "other"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/projectEvidence"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "objective",
+          "destination",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "task_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "DATA",
+                  "DEFINITION",
+                  "SOURCE_PERMISSION",
+                  "METHOD_REQUIREMENT"
+                ]
+              },
+              "required_by": {
+                "type": "string",
+                "enum": [
+                  "BEFORE_QC",
+                  "BEFORE_EDA",
+                  "BEFORE_MODELING",
+                  "BEFORE_INDEX_ANALYSIS",
+                  "BEFORE_TRANSLATION",
+                  "BEFORE_PTA",
+                  "FINAL_VALIDATION"
+                ]
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "rule_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/projectEvidence"
+                },
+                "minItems": 1
+              },
+              "origin": {
+                "type": "string",
+                "enum": [
+                  "PROJECT_EXPLICIT"
+                ]
+              },
+              "method_profile_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "id",
+              "task_id",
+              "description",
+              "kind",
+              "required_by",
+              "fields",
+              "rule_ids",
+              "evidence",
+              "origin",
+              "method_profile_ids",
+              "conditions"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "task_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "DATA",
+                  "DEFINITION",
+                  "METHOD_REQUIREMENT"
+                ]
+              },
+              "required_by": {
+                "type": "string",
+                "enum": [
+                  "BEFORE_QC",
+                  "BEFORE_EDA",
+                  "BEFORE_MODELING",
+                  "BEFORE_INDEX_ANALYSIS",
+                  "BEFORE_TRANSLATION",
+                  "BEFORE_PTA",
+                  "FINAL_VALIDATION"
+                ]
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "rule_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/projectEvidence"
+                    },
+                    {
+                      "$ref": "#/$defs/methodEvidence"
+                    }
+                  ]
+                },
+                "minItems": 1
+              },
+              "origin": {
+                "type": "string",
+                "enum": [
+                  "METHOD_CANDIDATE"
+                ]
+              },
+              "method_profile_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              },
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "id",
+              "task_id",
+              "description",
+              "kind",
+              "required_by",
+              "fields",
+              "rule_ids",
+              "evidence",
+              "origin",
+              "method_profile_ids",
+              "conditions"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 0
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affected_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "needed_material": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_by": {
+            "type": "string",
+            "enum": [
+              "BEFORE_QC",
+              "BEFORE_EDA",
+              "BEFORE_MODELING",
+              "BEFORE_INDEX_ANALYSIS",
+              "BEFORE_TRANSLATION",
+              "BEFORE_PTA",
+              "FINAL_VALIDATION"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "BLOCK",
+              "HUMAN_REVIEW",
+              "FOLLOW_UP"
+            ]
+          }
+        },
+        "required": [
+          "code",
+          "affected_id",
+          "reason",
+          "needed_material",
+          "required_by",
+          "severity"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "request_sha256",
+    "tasks",
+    "requirements",
+    "findings"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "projectEvidence": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/version"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "3.2"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/objective"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Organize the supplied imidocarb cattle workbook into a traceable Data handoff for later descriptive EDA and PK modeling. This run ends after source-preserving Data preparation and its recorded review gate."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/study/drug"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Imidocarb (SC001)."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/study/regimen"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_FOUND"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/study/population"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Cattle (SC001)."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/study/system"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Supplied observational workbook (SC001)."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/study/measurements"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Planned inventory of workbook measurements and summaries (SC005)."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/study/methods"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Source-preserving Data preparation and signed review checkpoints (SC008, SC011)."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/uncertainties/0"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "[MI001]"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/rule_publication"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "PROJECT_RULES_AGENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/version"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "2.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/0/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC001"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/0/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "The imidocarb cattle proposal designates Imidocarb_cattle_source.xlsx as the supplied observational source."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/0/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "FACT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/0/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SOURCE_REPORTED"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/1/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC002"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/1/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Use Imidocarb_source_notes.txt only as cited source context."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/1/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/1/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/2/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC003"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/2/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "The article's conclusions are historical statements, not validation by this workflow."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/2/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "FACT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/2/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SOURCE_REPORTED"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/3/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC004"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/3/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Do not browse for or add external data."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/3/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/3/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/4/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC005"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/4/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Register every supplied file and its hash. Identify workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/4/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/4/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/5/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC006"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/5/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/5/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/5/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/6/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC007"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/6/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/6/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/6/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/7/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC008"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/7/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/7/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/7/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/8/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC009"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/8/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/8/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/8/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/9/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC010"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/9/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/9/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/9/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/10/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC011"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/10/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Retain Context and Data review checkpoints with output signatures."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/10/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/10/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/11/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC012"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/11/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Automatic approval is authorized only for this technical demo."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/11/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/11/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/12/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "SC013"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/12/statement"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "This run authorizes no EDA, parameter estimation, bioequivalence calculation, human translation or scientific release."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/12/science/role"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "REQUIREMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/scientific_context/items/12/science/evidence_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/schema_version"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/id"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MI001"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/field"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Subsequent modeling requirements"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "DEFERRED"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/needed_at"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "pk"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/impact"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Later PK modeling requirements cannot be treated as established by this Data preparation run."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/why_it_matters"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "The proposal explicitly leaves missing modeling requirements to subsequent human review rather than permitting their silent resolution."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/clarification"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "Obtain and record the missing modeling requirements through subsequent human review before PK modeling."
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/missing_information/items/0/resolution_status"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "OPEN"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/project_rules_ref/path"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh05\\workbench_outputs\\PMB_UI_20261020_045824_b91ead\\project_rules\\published\\project_rules.json"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "main:/project_rules_ref/sha256"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R001"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R001",
+                "R001: Use Imidocarb_cattle_source.xlsx as the supplied observational source and Imidocarb_source_notes.txt only as cited source context. Treat the article's conclusions as historical statements, not validation by this workflow. Do not browse for or add external data.",
+                "adequacy",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0003",
+                "Use Imidocarb_cattle_source.xlsx as the supplied observational source. Use Imidocarb_source_notes.txt only as cited source context. The article's conclusions are historical statements, not validation by this workflow. Do not browse for or add external data.",
+                "/rules/0",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R009"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R009",
+                "R009: Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo.",
+                "adequacy",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0006",
+                "Retain Context and Data review checkpoints with output signatures. Automatic approval is authorized only for this technical demo.",
+                "/rules/8",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R011"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R011",
+                "R011: Defer missing modeling requirements for subsequent human review rather than silently resolving them.",
+                "adequacy",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0006",
+                "Missing modeling requirements remain deferred for subsequent human review rather than silently resolved.",
+                "/rules/10",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R002"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R002",
+                "R002: Register every supplied file and its hash.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0004",
+                "Register every supplied file and its hash.",
+                "/rules/1",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R003"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R003",
+                "R003: Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0004",
+                "Identify the workbook tables, original headers, sampling times, animal IDs, formulation groups, measurement values, units when stated, and summary/formula columns.",
+                "/rules/2",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R004"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R004",
+                "R004: Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0004",
+                "Preserve raw values, original cell coordinates, formulas, and missing or ambiguous metadata. Keep individual observations distinct from reported summaries.",
+                "/rules/3",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R005"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R005",
+                "R005: Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0004",
+                "Do not infer a global subject identity from repeated IDs across groups or join tables without an explicit source binding.",
+                "/rules/4",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R006"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R006",
+                "R006: Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0005",
+                "Create source-bound labels, literal tables, a data dictionary, a cleaning record, a QC report and a handoff.",
+                "/rules/5",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R007"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R007",
+                "R007: Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0005",
+                "Do not impute concentrations, reinterpret blanks as zero, recompute source formulas, average records, convert units, transpose or pool the groups.",
+                "/rules/6",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R008"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R008",
+                "R008: Keep any uncertain table structure, sampling identity, formula result or metadata binding visible in the unresolved ledger for later review.",
+                "prepare",
+                "F0003_P0001",
+                "F0003_P0001_U0005",
+                "Any uncertain table structure, sampling identity, formula result or metadata binding must remain visible in the unresolved ledger for later review.",
+                "/rules/7",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "rule:R010"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "R010",
+                "R010: No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run.",
+                "prepare",
+                "eda",
+                "animal_pk",
+                "pk_translation",
+                "clinical",
+                "F0003_P0001",
+                "F0003_P0001_U0006",
+                "No EDA, parameter estimation, bioequivalence calculation, human translation or scientific release is authorized by this run.",
+                "/rules/9",
+                "C:\\\\Users\\\\georg\\\\Documents\\\\Transitioanl PKPD Context Engineering\\\\demo\\\\state\\\\fresh05\\\\workbench_outputs\\\\PMB_UI_20261020_045824_b91ead\\\\project_rules\\\\published\\\\project_rules.json",
+                "4cd8cedb59eba4ca396c0e7dbd6799ba28286f8c804a2ef4886d09ae58771b40",
+                "DEMO_KEY_RULES_1.0"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "methodEvidence": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP001"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP001",
+                "Data requirements for observed peaks and finite-window NCA",
+                "NCA",
+                "observed Cmax",
+                "observed Tmax",
+                "finite-window AUC",
+                "The project requests observed peak summaries or finite-window exposure. Check input definitions, permitted source data and sampling coverage separately for each endpoint. Numerical NCA methods and result evaluation belong to the later analysis module.",
+                "Each requested endpoint and intended use; proposal-defined AUC window and time origin, with analyte, matrix and total/free concentration basis.",
+                "Permitted concentration-time data with units, study/profile membership and dosing context.",
+                "Source origin, data level and sampling design: original versus digitized data; individual versus group summary; serial, destructive or mixed sampling.",
+                "Dose amount and dose basis when the objective requires normalization or comparison; dosing times and single-dose, repeated-dose or verified steady-state context where they define the window.",
+                "For digitized observations: the source figure, panel/curve, axes and transformations, units, extraction provenance and any existing reconstruction review. Distinguish measured points from fitted or predicted curves.",
+                "For group summaries: arithmetic/geometric mean or median, contributing sample counts and reported SD/SE/CI definitions; variance/covariance information if uncertainty is requested. Missing uncertainty information is distinct from missing point-estimate inputs.",
+                "BLQ/LLOQ, missing-value flags and actual versus nominal time definitions where relevant. If these are unspecified, retain the ambiguity.",
+                "Bioanalytical context where reported: assay method, measured matrix (plasma, serum or blood), calibration range and LLOQ, validation status, and any reported stability, recovery or adsorption problem. Record whether this information exists; do not grade the assay.",
+                "For site-of-infection or tissue matrices: sampling method, any dilution correction (for example urea-based correction of lavage fluid), tissue mass or volume basis and units. Keep these concentrations separate from plasma or serum concentrations.",
+                "Digitized measured group means may be candidate data for group-level NCA. Preserve their provenance and limitations; do not manufacture individual observations.",
+                "Record available evidence or an existing reviewed plan for unobserved boundaries. If resolution requires an analytical method, mark it for the NCA module rather than selecting or testing that method here.",
+                "Match available data to every requested endpoint. Do not infer coverage from filenames, headers, row count or the availability of another endpoint.",
+                "Require the proposal to define each AUC window by intended use, including AUCtau when relevant. Retain an undefined window as an unresolved definition; do not choose 0-24 h, infinity or a shorter observed interval by default.",
+                "List observed times, window boundaries and internal unsampled intervals. Distinguish observed, source-reported estimated and unobserved boundary values. Do not fill gaps or select integration or boundary-treatment methods.",
+                "Keep studies, regimens, matrices, individual records and group-summary curves distinct. Do not interchange arithmetic means, geometric means and medians.",
+                "Observed Cmax/Tmax refer to sampled concentrations. A group-mean curve does not establish the unobserved true peak or the mean of individual peaks.",
+                "Retain BLQ and missingness without substitution. Report unavailable uncertainty inputs separately from unavailable inputs for a point estimate.",
+                "Check that the dose basis and the measured analyte correspond: salt versus free base, mass versus activity units, and, for multi-component substances, which components the dose and the assay each refer to. A conversion factor needs a cited source; retain an unresolved basis rather than converting.",
+                "Identify the time-zero condition implied by route and input: an unobserved initial concentration after bolus dosing, the end of infusion for infusions, and pre-dose concentrations for repeated dosing. Record whether each boundary value is observed, source-assumed or unknown; leave any back-extrapolation to the NCA module.",
+                "Report input coverage and gaps for each requested endpoint. A missing definition or unresolved coverage prevents declaring its input requirements met; retain independent supported input matches and route method-dependent questions to NCA analysis.",
+                "Completed NCA, reliable numerical exposure or an approved integration/boundary method.",
+                "Individual trajectories, individual variability or uncertainty reconstructed from group means.",
+                "A universal sampling-count threshold or permission to replace the requested endpoint.",
+                "PK_OBSERVATIONS",
+                "DOSING",
+                "REPORTED_PARAMETERS",
+                "OBJECTIVE",
+                "DIGITIZED_FROM_FIGURE",
+                "NONE",
+                "GROUP_SUMMARY",
+                "INFECTION_SITE",
+                "OTHER_TISSUE",
+                "S03",
+                "S04",
+                "S10",
+                "S12",
+                "S13",
+                "S17",
+                "S18",
+                "DATA_REQUIREMENTS_ONLY",
+                "Endpoint-specific input requirement and matched source evidence",
+                "Input availability status, limitations and unresolved definitions",
+                "Missing material, affected task or endpoint, required phase and next action",
+                "DATA_REQUIREMENTS_ASSESSMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP002"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP002",
+                "Data requirements for terminal-dependent NCA endpoints",
+                "NCA",
+                "lambda_z",
+                "terminal half-life",
+                "AUCinf",
+                "terminal extrapolated area within a specified finite window",
+                "AUMC and MRT when explicitly requested",
+                "A requested endpoint needs terminal-phase information. Inherit the relevant MP001 input requirements and inspect available late-time data. Terminal-interval selection, regression and extrapolation are deferred to NCA analysis.",
+                "The requested endpoint, window or extrapolation extent, time origin and data-level definitions, retaining unresolved MP001 inputs.",
+                "Late concentration-time observations with source membership, units, quantifiability and reported BLQ/LLOQ information.",
+                "Dosing times and infusion duration or history needed to interpret the late observations in relation to ongoing or subsequent input.",
+                "Available absorption/input information for extravascular dosing when needed to interpret late observations.",
+                "Replicate counts and reported uncertainty, variance or covariance information if uncertainty is a requested output.",
+                "For MRT or Vss, retain the additional time/input information required by MP003. Data available for AUC alone do not establish all moment-dependent input requirements.",
+                "Original numerical data or traceable digitized measured observations may be candidates at their actual data level.",
+                "Keep independently supported MP001 input matches when terminal-dependent inputs are incomplete; do not substitute their endpoints for the original target.",
+                "Inventory late sample times, concentrations, quantifiable observations, gaps and known dosing/input events. Do not declare the last few observations a valid terminal phase merely because they are last.",
+                "Check whether endpoint and timing definitions are explicit and compatible with the source records. Do not silently change the requested exposure window.",
+                "Identify absent late data or unresolved absorption, dosing and quantifiability information. If sufficiency requires a fitted slope or extrapolation diagnostic, report it as unresolved for downstream analysis.",
+                "Assess available inputs separately for each terminal-dependent endpoint without imposing a universal point count or calculating regression, residuals or tail fractions.",
+                "Identify affected terminal-dependent endpoints and the missing data or definition. Input availability permits further assessment only; the current step cannot certify a usable terminal estimate. Preserve independent finite-window data matches.",
+                "A selected terminal interval, fitted lambda_z, calculated tail contribution or accepted terminal estimate.",
+                "An elimination mechanism, individual parameter distribution or human predictive validity.",
+                "PK_OBSERVATIONS",
+                "DOSING",
+                "EXTRAVASCULAR",
+                "NONE",
+                "OBJECTIVE",
+                "S02",
+                "S03",
+                "DATA_REQUIREMENTS_ONLY",
+                "Endpoint-specific input requirement and matched source evidence",
+                "Input availability status, limitations and unresolved definitions",
+                "Missing material, affected task or endpoint, required phase and next action",
+                "DATA_REQUIREMENTS_ASSESSMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP003"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP003",
+                "Data requirements for animal CL and Vss",
+                "NCA",
+                "CL",
+                "Vss",
+                "explicitly requested apparent parameters such as CL/F",
+                "Vz when explicitly requested",
+                "The objective requests animal disposition parameters. Inspect the data or permitted reported estimates available for each parameter. Do not calculate parameters, qualify results or count qualified species in this step.",
+                "The exact requested parameter and intended use, distinguishing CL from CL/F and Vss from Vz, Vc and apparent volumes.",
+                "Permitted concentration-time data and applicable MP001/MP002 input metadata, or a traceable permitted same-drug published estimate retained as a literature candidate.",
+                "Route, analyte-specific dose and dose basis, dosing times, regimen, units, biological matrix, total/free basis and actual data level.",
+                "For single-dose IV clearance, data covering the exposure course including late observations relevant to AUCinf. For a steady-state interval approach, evidence of steady state and a proposal-defined interval with matching dose and exposure data.",
+                "For Vss, time-course data potentially supporting the required exposure/moment information and the dosing-input history; infusion duration and whether input was constant, varying or interrupted. Single-dose data are not excluded solely because the parameter name contains steady state.",
+                "A source-supported applicable bioavailability estimate if absolute CL is requested from extravascular evidence; otherwise retain the distinction from CL/F.",
+                "Formation/systemic-input information and active-moiety or molecular-weight basis when the measured analyte is formed from the administered parent/prodrug.",
+                "Body weight when dose/parameter normalization or later scaling requires it; relevant dose-dependence information and reported uncertainty where available or required by the objective.",
+                "Characteristics of the contributing animals as reported: species, strain, sex, actual body weight, and health, infection or renal-function state. Record unreported characteristics as gaps; do not assume healthy or typical animals.",
+                "NCA input data or published estimates may be candidates without a compartmental fit. This does not qualify the resulting parameter for extrapolation.",
+                "When project permissions allow, same-drug published CL/Vss without original curves may enter as LITERATURE_REPORTED, NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED. Retain citation/page/table, parameter definition, study/dose context, estimation method, reported uncertainty and missing information.",
+                "A group-summary point estimate without reliable uncertainty remains a candidate with an explicit uncertainty gap. Preserve the required later human use review; do not count it as a qualified species here.",
+                "Map inputs separately to CL and Vss; availability for one does not establish availability for the other. An available finite-window AUC does not automatically meet a request requiring exposure to infinity.",
+                "Check route, analyte input, matrix, free/total basis, weight normalization and units against the requested parameter. Do not merge incompatible definitions.",
+                "Check whether dose refers to the measured analyte or its parent/prodrug. Missing formation information may leave absolute analyte clearance unresolved while exposure data remain usable.",
+                "Preserve group-level parameter meaning, reported dose dependence and unresolved input-history information. Do not choose or test a clearance, moment or infusion-correction formula.",
+                "For a literature-only candidate, identify what is actually reported and what cannot be independently checked without underlying data. Candidate registration is not parameter validation or species qualification.",
+                "Apply the MP001 dose-basis and analyte-composition check to every dose used for a requested parameter. An unresolved basis leaves the dose-dependent inputs for that parameter unresolved.",
+                "Map Vz separately from CL and Vss: it depends on the terminal-phase inputs assessed under MP002.",
+                "Record which input or definition is missing for each parameter, its intended use and the required next action. Retain available candidates and independent input matches; parameter qualification and the project-specific species minimum are assessed later.",
+                "Calculated or accepted CL/Vss, a compartmental curve shape, or qualification for human extrapolation.",
+                "Absolute clearance from an extravascular dose without applicable F, or interchangeability of Vss, Vz and Vc.",
+                "A known uncertainty distribution merely because a candidate was registered or reviewed.",
+                "PK_OBSERVATIONS",
+                "DOSING",
+                "REPORTED_PARAMETERS",
+                "ANIMAL_CHARACTERISTICS",
+                "DATA",
+                "OBJECTIVE",
+                "EXTRAVASCULAR",
+                "NONE",
+                "REPORTED_PARAMETER",
+                "S03",
+                "S13",
+                "S14",
+                "S15",
+                "S16",
+                "DATA_REQUIREMENTS_ONLY",
+                "Endpoint-specific input requirement and matched source evidence",
+                "Input availability status, limitations and unresolved definitions",
+                "Missing material, affected task or endpoint, required phase and next action",
+                "DATA_REQUIREMENTS_ASSESSMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP011"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP011",
+                "Data requirements for urinary excretion and renal clearance",
+                "NCA",
+                "DATA_REQUIREMENTS_ONLY",
+                "Amount and fraction of dose excreted unchanged in urine (Ae, fe)",
+                "Renal clearance (CLR)",
+                "Nonrenal clearance by difference when explicitly requested",
+                "Endpoint-specific input requirement and matched source evidence",
+                "Input availability status, limitations and unresolved definitions",
+                "Missing material, affected task or endpoint, required phase and next action",
+                "The project requests urinary excretion, renal clearance or a renal/nonrenal split of clearance. Reuse the MP001 and MP003 definitions for plasma exposure, dose basis and analyte; inspect only urine-specific inputs. Calculation belongs to the later analysis module.",
+                "Urine collection intervals with start and end times relative to dosing, and whether collection was complete for each interval.",
+                "For each interval: urine volume and analyte concentration with units, or a reported amount excreted; the analyte and its relation to the administered dose basis.",
+                "The dose, route and dose basis that fe refers to.",
+                "Plasma exposure over the same intervals when renal clearance is requested, assessed under MP001 and MP003.",
+                "Total clearance from MP003 when nonrenal clearance by difference is requested.",
+                "Metabolite or conjugate measurements in urine when the objective separates unchanged drug from metabolites.",
+                "Published same-drug fe or CLR may enter as LITERATURE_REPORTED, NOT_RECALCULATED and NOT_INDEPENDENTLY_VALIDATED when project permissions allow, with source, definition, collection duration and missing information.",
+                "Distinguish concentrations from amounts and cumulative from interval values. Do not derive an amount without a recorded volume.",
+                "Compare the collection duration with the requested endpoint. Excretion up to the last collection is not total excretion; do not extrapolate it here.",
+                "Check that plasma and urine intervals, analytes and units correspond before matching them to renal clearance. Keep unresolved correspondence as a gap.",
+                "Record missing, pooled or incomplete collections and the experimental unit (individual animal or pooled cage) without inventing animal IDs.",
+                "Report the affected excretion or clearance endpoint and its missing urine input through the general data-gap policy. Missing urine data do not block plasma-based PK work.",
+                "Calculated fe, CLR or nonrenal clearance.",
+                "Complete excretion from a truncated collection, or an elimination mechanism.",
+                "DATA_REQUIREMENTS_ASSESSMENT",
+                "URINE_EXCRETION",
+                "PK_OBSERVATIONS",
+                "DOSING",
+                "OBJECTIVE",
+                "NONE",
+                "S03",
+                "S19"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP004"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP004",
+                "Data requirements for animal PK modeling",
+                "COMPARTMENTAL_PK",
+                "animal concentration-time model",
+                "animal PK parameters requested by the project",
+                "The objective requests an animal time-course model. Check the available modeling inputs and unresolved design information. Model selection, fitting and result evaluation belong to the animal PK module.",
+                "Requested modeling objective, parameter or curve outputs and intended use.",
+                "Permitted concentration-time observations, dosing events, route, analyte, matrix, concentration basis and units.",
+                "Study/regimen membership, sampling design, data level and available experimental-unit identifiers; identify unverifiable IDs rather than inventing them.",
+                "Infusion duration/input history, extravascular dosing information, or covariates such as body weight when required by the stated objective.",
+                "Verified individual-level records and sampling structure when individual or population variability is requested. Do not impose dense repeated sampling for every animal as a universal input rule.",
+                "Summary definition, counts and reported variability for group-summary curves; source extraction details for digitized observations; BLQ/LLOQ and missingness metadata where relevant.",
+                "Concentration-time data at more than one dose level when the objective includes characterizing dose-dependent (nonlinear) kinetics. Do not impose a number of dose levels.",
+                "Measured group-mean curves may be candidate inputs for exploratory group-level modeling with stated limitations, without inferred animal random effects.",
+                "Keep data potentially supporting a separate NCA objective available when modeling inputs are incomplete; do not replace the requested modeling objective silently.",
+                "Map available concentration, timing, dose, route and grouping information to the stated modeling objective. Report actual coverage and missing phases or dose levels without a universal row-count threshold.",
+                "Distinguish individual records, destructive sampling and group summaries. Unverified cross-time IDs do not establish individual trajectories.",
+                "Keep study and regimen identities. Identify compatibility questions for later model design; do not pool incompatible sources or treat every source curve as a separate mandatory model.",
+                "If input sufficiency depends on a structural model or numerical assessment, retain the uncertainty for the animal PK module. Do not choose compartments, error models, estimation engines or diagnostic thresholds here.",
+                "Report available modeling inputs, task-specific gaps and the data or clarification needed. A positive input assessment permits the next preparation/design step only and does not approve fitting or its results.",
+                "An accepted structural model, convergence, parameter identifiability, uncertainty or a valid human prediction.",
+                "Animal IIV from group means or unverified IDs.",
+                "Automatic preference for additional compartments or a completed model comparison.",
+                "PK_OBSERVATIONS",
+                "DOSING",
+                "ANIMAL_CHARACTERISTICS",
+                "OBJECTIVE",
+                "NONE",
+                "S01",
+                "S09",
+                "DATA_REQUIREMENTS_ONLY",
+                "Endpoint-specific input requirement and matched source evidence",
+                "Input availability status, limitations and unresolved definitions",
+                "Missing material, affected task or endpoint, required phase and next action",
+                "DATA_REQUIREMENTS_ASSESSMENT"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP009"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP009",
+                "Data requirements for PK/PD indices and PD targets",
+                "PKPD",
+                "DATA_REQUIREMENTS_ONLY",
+                "Project-defined exposure indices",
+                "Project-requested exposure-response index comparison",
+                "Project-requested PD target estimation or use",
+                "Task-specific index input coverage",
+                "Exposure-response matching and definition gaps",
+                "Conditional MIC, threshold and PD-target input coverage and gaps",
+                "The project requests exposure indices, response-linked index comparison, PD target estimation or a target for later PTA. Distinguish exposure summaries, index ranking and PD target tasks. Reuse existing PK, unit, provenance and MP007 binding assessments rather than repeating them.",
+                "The project-defined task and candidate index definitions, exposure windows and concentration basis; specify whether MIC normalization is intended.",
+                "For exposure calculations or response-linked fits: source-linked PK observations or reported exposure inputs relevant to the requested indices, retaining their existing evidence status and unresolved prerequisites.",
+                "For exposure-response analysis, index ranking or estimation of a new PD target: the measured PD endpoint, baseline/comparator, response observation time/window and source, plus traceable mapping among regimen, exposure and response.",
+                "If PD target estimation or PTA is requested, specify the desired effect and endpoint window. Identify either a source-supported same-drug target or the matched exposure-response data intended for downstream target estimation. For a reported target, retain its value, index definition, units, free/total basis, exposure window, source and applicability context. A target awaiting estimation is a planned upstream output, not automatically missing data.",
+                "For a time-above-threshold index: the threshold and its definition, exposure profile input, analysis window and whether the output is a duration or percentage. A bare fT label is incomplete.",
+                "Strain-matched MIC only when an index is MIC-normalized or uses MIC as its threshold, with its units, source and measurement context: method, medium, testing standard, number of replicates and the summary value used (for example the modal value).",
+                "For free-exposure indices: use the relevant direct free-concentration or binding-input assessment under MP007.",
+                "For in vivo infection-model response data used for index ranking or target estimation: organism and strain identity, inoculum and infection site, host immune status, the interval between infection and treatment start, treatment duration, the response endpoint and its reference point (for example change from treatment start or from an untreated control, or survival), and untreated growth-control data. Keep each combination of treatment duration and endpoint distinct.",
+                "Explicitly requested non-MIC-normalized exposure summaries do not require MIC merely because this is a PK/PD task.",
+                "When response data or matching are unavailable, retain independently supported exposure-summary tasks and the unresolved ranking objective.",
+                "In vitro response data may be registered for their own stated analysis context, without relabeling them as animal efficacy.",
+                "Identify whether the task is exposure calculation, index ranking, PD target estimation or use of an existing target. Require matched response data for ranking or new target estimation; do not automatically require raw response data when only a source-supported target is requested.",
+                "Check each index definition and window. Do not infer MIC normalization, an fT threshold or duration-versus-percentage meaning from an abbreviated label.",
+                "For response-linked tasks, map regimen, exposure and PD observations using source-supported relationships. Preserve ambiguity rather than inventing pairs.",
+                "For MIC-dependent tasks, verify that the susceptibility input refers to the relevant strain and measurement context. Do not borrow another drug's MIC or PD target to fill gaps.",
+                "For target tasks, distinguish the measured PD endpoint, desired effect and required index value. Record source-supported target inputs separately from planned estimation outputs. Map a documented later target output to DEFERRED with its producing task and required phase; report missing source data or undefined effects/windows separately. This step does not estimate or qualify the target or establish its applicability to human PTA.",
+                "For index ranking, record whether the regimens vary dosing frequency or interval in addition to total dose, so that the candidate indices do not change only together. If the design does not separate them, keep the ranking unresolved. Do not impose a numeric count of regimens or dose levels.",
+                "When exposure for the PD regimens comes from separate PK data, check whether those data match the PD experiment in species, strain, infection or health state, route and dose range. Record any mismatch as an applicability question; do not assume exposure transfers between animal states.",
+                "Report available, absent and unresolved inputs separately by task. Do not fit Emax/Hill models, compute fit statistics or select a winning index in this stage.",
+                "Report which index input or exposure-response mapping is missing through the general data-gap policy. Missing PD matching does not block independent PK or exposure-summary work, but exposure values alone do not establish a best index. An uncomputed target with a documented estimation plan is a deferred output. Preserve any missing target definition or estimation inputs as task-specific gaps; do not make them blockers for independent animal PK or exposure-summary tasks.",
+                "A fitted exposure-response relationship, best index, PD target or evidence of clinical efficacy.",
+                "DATA_REQUIREMENTS_ASSESSMENT",
+                "PD_OBSERVATIONS",
+                "MIC",
+                "PK_OBSERVATIONS",
+                "DOSING",
+                "IN_VITRO_TIME_KILL",
+                "REPORTED_PARAMETERS",
+                "OBJECTIVE",
+                "NONE",
+                "DATA",
+                "S07",
+                "S08"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP005"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP005",
+                "Cross-species data coverage",
+                "TRANSLATION",
+                "DATA_REQUIREMENTS_ONLY",
+                "Project-requested human parameter predictions",
+                "Parameter-by-species candidate coverage",
+                "Cross-species comparability gaps",
+                "Translation-specific missing inputs and required phase",
+                "The project requests animal-to-human parameter translation. Reuse the per-species input inventory and definitions assessed under MP003 and applicable profiles; assess only the additional cross-species coverage needs.",
+                "The existing parameter-by-species input inventory with source and review status; reuse MP003 definitions and the DR/DC requirement and matching rules instead of re-extracting or repeating them.",
+                "The project-specific translation objective and any published species-coverage requirement, including the phase at which it applies.",
+                "Additional correction factors, calibration evidence or other inputs required by a translation approach explicitly considered in the project. Refer binding and in vitro input details to their relevant profiles; do not select a method or require every possible method here.",
+                "Actual body weight for each contributing species and study, with its source, when a considered translation approach scales by body size. Do not substitute typical or textbook weights.",
+                "Retain the source and review statuses already assigned under MP003. Uncomputed source data and unqualified reported estimates may contribute to candidate coverage without becoming qualified parameters.",
+                "Summarize candidate coverage separately for each parameter and distinct species. Multiple studies, doses, curves or publications from one species do not create additional species.",
+                "Use the existing parameter definitions, units and study metadata to flag cross-species comparability questions. Do not repeat their extraction or silently treat incompatible definitions as interchangeable.",
+                "Identify only the extra inputs required by explicitly considered translation approaches; retain unresolved approach-dependent needs as questions for the translation module.",
+                "Report candidate coverage against any project-specific species requirement, keeping candidate counts separate from later confirmed qualified-species counts. Do not turn a before-translation requirement into a blocker for supported upstream data preparation or animal analysis.",
+                "Record the health or infection state of the animals behind each candidate parameter. Parameters from animals in different states are a comparability question, not interchangeable inputs.",
+                "Report affected parameters, coverage gaps and translation-specific missing material through the general data-gap policy. Retain supported upstream work; final parameter qualification and species-count acceptance occur before translation.",
+                "A universal species minimum, qualified parameters, an approved extrapolation method or a validated human prediction.",
+                "DATA_REQUIREMENTS_ASSESSMENT",
+                "REPORTED_PARAMETERS",
+                "PK_OBSERVATIONS",
+                "ANIMAL_CHARACTERISTICS",
+                "OBJECTIVE",
+                "NONE",
+                "S05",
+                "S06"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP006"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP006",
+                "Human PK simulation input definitions",
+                "TRANSLATION",
+                "DATA_REQUIREMENTS_ONLY",
+                "Project-requested prospective human IV concentration-time scenarios",
+                "Human dosing and curve-definition coverage",
+                "Existing versus planned input sources",
+                "Scenario-specific missing definitions and required phase",
+                "The project requests a prospective human IV PK curve. Reuse the registered parameter definitions, units, provenance and gaps; inspect only the additional simulation-scenario definitions and input sources.",
+                "The proposed human IV regimen: dose and dose basis, bolus or infusion, applicable infusion duration, and repeat-dosing interval/count where relevant. Unspecified choices remain unresolved.",
+                "The requested curve concentration basis and simulation time horizon, sourced from the project objective or an authorized scenario definition.",
+                "An input-source inventory distinguishing existing inputs, predicted parameters planned from the translation branch, and inputs with no identified source.",
+                "Target human body weight or other scenario descriptors only when required by the intended dosing/scaling task; do not insert typical values by default.",
+                "For an unbound curve, link the applicable binding-data requirement to MP007 rather than repeating its detailed checks.",
+                "A planned output from the translation branch is a pending input, not missing raw data or an already available qualified estimate. Record its producer and the phase when it is needed.",
+                "Check whether regimen and curve definitions are explicit and consistent with the requested scenario; list unresolved choices without selecting them.",
+                "Reuse prior parameter/source assessments and distinguish prospective human predictions from animal estimates and target-drug human observations. Apply existing project source permissions; do not request target-drug human in vivo PK observations merely to complete a prospective scenario.",
+                "Distinguish inputs already supplied, planned downstream outputs and unidentified sources. Do not require an accepted human structure, a complete predicted parameter set or a completed simulation at this stage.",
+                "Keep simulation settings such as plotting time-grid resolution for the execution module. Record missing scientific scenario definitions as needed before simulation, without blocking otherwise supported animal data preparation.",
+                "Report missing scenario definitions and input sources with their affected scenario and before-simulation timing. Use the general data-gap policy; preserve supported upstream animal work.",
+                "A selected human model, accepted parameters, a simulated curve, quantified human variability or human predictive validation.",
+                "DATA_REQUIREMENTS_ASSESSMENT",
+                "REPORTED_PARAMETERS",
+                "OBJECTIVE",
+                "NONE",
+                "S09",
+                "S01"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP007"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP007",
+                "Data requirements for binding and unbound exposure",
+                "IN_VITRO_PK",
+                "DATA_REQUIREMENTS_ONLY",
+                "Project-requested unbound exposures or binding corrections",
+                "Binding/free-concentration input availability",
+                "Definition and applicability gaps",
+                "Affected unbound endpoint and missing supporting material",
+                "Enable only when the objective requests unbound exposure or a binding correction. Reuse the registered analyte, species, matrix and source metadata; inspect only binding-specific input definitions and coverage.",
+                "The requested use and whether the supplied evidence is directly measured unbound concentration, an unbound fraction (fu) or a bound fraction. Preserve explicit percentage versus fractional-scale definitions.",
+                "For binding evidence used as an input: reported measurement method, the species and matrix in which binding was measured, experimental conditions including temperature and pH where reported, and concentration range, linked to the existing source and biological-context metadata.",
+                "Blood/plasma partition information only when the intended task changes the concentration basis between blood and plasma.",
+                "Directly measured unbound concentrations may supply an unbound-exposure input without requiring fu solely for a total-to-free conversion.",
+                "Reviewed human-source in vitro binding evidence may be a candidate input when the published project permissions allow its use at the intended stage.",
+                "Distinguish free concentration, unbound fraction and bound fraction, including percent versus fractional scale. Flag ambiguous definitions rather than guessing or converting them here.",
+                "Check whether measurement method, conditions and concentration range are recorded and relevant to the intended use. Preserve concentration-specific records and unresolved applicability; do not assume one value applies to every concentration or matrix.",
+                "For separation-based methods such as ultrafiltration or equilibrium dialysis, record any reported nonspecific binding, recovery or mass balance. Missing recovery information is a gap, not evidence that the value is accurate.",
+                "Do not fill a missing fu with one or automatically substitute animal fu for a human input. Keep human-source in vitro evidence distinct from target-drug human in vivo PK observations under the existing access rules.",
+                "Identify only the missing input for the requested unbound endpoint or correction. Do not fit a binding model, perform a concentration conversion or assess conversion sensitivity in this stage.",
+                "Report the affected unbound endpoint or binding correction and its missing input through the general data-gap policy. Retain independently supported total-concentration work.",
+                "An accepted binding model, completed free-exposure conversion, validated applicability or permission to access protected data.",
+                "DATA_REQUIREMENTS_ASSESSMENT",
+                "BINDING",
+                "OBJECTIVE",
+                "NONE",
+                "DATA",
+                "S06",
+                "S07"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "method:MP008"
+              ]
+            },
+            "quote": {
+              "type": "string",
+              "enum": [
+                "MP008",
+                "Data requirements for in vitro clearance translation",
+                "IN_VITRO_PK",
+                "DATA_REQUIREMENTS_ONLY",
+                "Project-requested clearance predictions supported by in vitro hepatic metabolism evidence",
+                "In vitro clearance-input coverage",
+                "Normalization and experimental-condition gaps",
+                "Method-dependent additional inputs and evidence scope",
+                "Enable only when the project considers and permits in vitro metabolism evidence for clearance prediction. Reuse the existing biological-context, provenance and access metadata. This profile checks inputs for the hepatic IVIVE branch; it does not predict clearance.",
+                "The experimental system, such as microsomes or hepatocytes, and the reported result type: original time-series observations, metabolic stability, half-life or reported intrinsic clearance (CLint).",
+                "The reported units and normalization basis, including protein amount or cell count where applicable, linked to the result definition.",
+                "Recorded concentration range, incubation timing and experimental conditions relevant to the intended use, with unspecified information retained as a gap.",
+                "Scaling factors or physiological inputs only when required by an approach explicitly considered in the project; retain their source and unresolved applicability without selecting an equation or inserting defaults.",
+                "Incubation or plasma/blood binding inputs only when required by that approach. Reference MP007 for binding-specific checks rather than repeating them.",
+                "Original observations and reported in vitro estimates may be registered at their actual evidence level; neither is automatically an accepted clearance-prediction input.",
+                "An independently supported animal-based branch may continue when the optional hepatic-IVIVE inputs are unavailable.",
+                "Identify what was measured or reported and in which experimental system. Do not interchange stability, half-life and intrinsic-clearance results without preserving their definitions.",
+                "Check that the result units and protein/cell normalization basis are explicit. Flag incompatible or unspecified bases rather than directly combining or converting them here.",
+                "Record available assay conditions and their relevance to the proposed use; list missing conditions or uncertainty about applicability.",
+                "Check only the additional inputs required by the project-considered approach. Do not choose an extrapolation equation, fill physiological constants or test prediction accuracy in this stage.",
+                "Label the elimination component represented by the evidence. Evidence limited to hepatic metabolism does not by itself establish complete input coverage for total systemic clearance. Renal and other components are registered under their own profiles, such as MP011.",
+                "Report the affected IVIVE candidate and its missing material through the general data-gap policy. Missing optional in vitro inputs do not block independent animal PK analysis.",
+                "A calculated or validated clearance prediction, complete total-clearance evidence from a hepatic component alone, or a requirement to build PBPK.",
+                "DATA_REQUIREMENTS_ASSESSMENT",
+                "IN_VITRO_CLEARANCE",
+                "OBJECTIVE",
+                "NONE",
+                "S06"
+              ]
+            }
+          },
+          "required": [
+            "source",
+            "quote"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

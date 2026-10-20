@@ -12,6 +12,7 @@ for folder in ('backend/context_compression', 'backend/research_pipeline'):
 
 
 def create_app(state=None):
+    os.environ.setdefault('CTXCOMP_DISABLE_RESPONSE_REUSE', '1')
     os.environ.setdefault('PKPD_DEMO_PROVISIONAL_RULES', '1')
     os.environ.setdefault('PKPD_DEMO_LIGHTWEIGHT_DATA', '1')
     from demo.api import create_app as factory
@@ -49,8 +50,11 @@ if __name__ == '__main__':
     parser.add_argument('--provider', choices=['codex', 'openai', 'claude'], default='codex')
     parser.add_argument('--model')
     parser.add_argument('--api-base', help='OpenAI-compatible base URL including /v1; credentials use environment variables.')
+    parser.add_argument('--allow-response-reuse', action='store_true',
+                        help='Opt into historical response caches. Disabled for fresh acceptance.')
     parser.add_argument('--reasoning-effort', choices=['low','medium','high','xhigh','max','ultra'], default='high')
     args = parser.parse_args()
+    os.environ['CTXCOMP_DISABLE_RESPONSE_REUSE'] = '0' if args.allow_response_reuse else '1'
     try:
         configure_model(args.provider, args.model, args.reasoning_effort, args.api_base)
     except ValueError as exc:

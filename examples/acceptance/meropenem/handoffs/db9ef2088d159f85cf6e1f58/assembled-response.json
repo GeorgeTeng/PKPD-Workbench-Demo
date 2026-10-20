@@ -1,0 +1,764 @@
+{
+  "request_sha256": "79c7fb4e1ce2de39d5d476ce69a97bab781f705696f6b210eaff27dbfa933916",
+  "labels": [
+    {
+      "item_id": "F0003:S2:T3",
+      "role": "MIC",
+      "additional_roles": [
+        "REPORTED_PARAMETERS",
+        "DOSING",
+        "BINDING",
+        "ANIMAL_CHARACTERISTICS",
+        "SUPPORTING_EVIDENCE"
+      ],
+      "requirement_ids": [
+        "DR001",
+        "DR003",
+        "DR004",
+        "DR006",
+        "DR009",
+        "DR018",
+        "DR021",
+        "DR022",
+        "MC002",
+        "MC009",
+        "MC012",
+        "MC013"
+      ],
+      "species": "Neutropenic female ICR mice about 25 g; made renally impaired with uranyl nitrate; mouse thigh infection involving E. coli and K. pneumoniae isolates, with ESBL and non-ESBL isolates. ATCC 25922 is also listed. Binding is assumed for mice and humans.",
+      "matrix": "Serum for supporting PK; MIC testing medium and binding measurement matrix NOT_FOUND.",
+      "exposure_basis": "Reported Meropenem fT>MIC (%) and Ertapenem fT>MIC (%) in mice; Protein binding 8% assumed for mice and humans. Direct unbound concentrations NOT_FOUND.",
+      "record_level": "Per-isolate MIC summaries, described as median of >=3 MIC experiments, and source-reported per-isolate fT>MIC percentages; assumed binding and study-design notes. No individual-animal concentration or CFU records are supplied.",
+      "drug": "Meropenem; Ertapenem comparator",
+      "route": "Meropenem s.c.; Ertapenem route NOT_FOUND. Cyclophosphamide and uranyl nitrate i.p. are animal-preparation treatments.",
+      "endpoint_window": "Treatment from 2 h after inoculation; meropenem regimen repeated every 8 h over 24 h; thighs harvested at 24 h. The denominator window for reported fT>MIC (%) is NOT_FOUND.",
+      "reason": "AVAILABLE_CANDIDATE inputs comprise isolate-linked meropenem MIC summaries and reported fT>MIC percentages, with comparator columns, an assumed binding percentage and humanized-regimen context. Assigned requirements are supported only for these available fields and restrictions. UNRESOLVED inputs include the dose discrepancy, binding applicability, MIC measurement context, explicit fT>MIC evaluation window and source-linked exposure profiles. The note explicitly states that per-isolate CFU changes are not transcribed, so this item supplies no matched response observations for index ranking or new target estimation. Humanized design cannot establish permission to tune scaling.",
+      "evidence": [
+        {
+          "source": "F0003:S2:T3:A26",
+          "quote": "MICs and fT>MIC of ESBL and non-ESBL isolates, humanized regimen in mouse thigh"
+        },
+        {
+          "source": "F0003:S2:T3:A27",
+          "quote": "S05 | DOI 10.1128/aac.00752-06 | Table 1 (DeRyke et al. 2007)"
+        },
+        {
+          "source": "F0003:S2:T3:A28",
+          "quote": "Neutropenic female ICR mice about 25 g (cyclophosphamide 150 mg/kg day -4 and 100 mg/kg day -1 i.p.) made renally impaired with uranyl nitrate 5 mg/kg i.p. 3 days before inoculation. Thigh inoculum about 10^5 CFU/ml standard (10^7 CFU/ml high inoculum for three isolates); treatment from 2 h after inoculation."
+        },
+        {
+          "source": "F0003:S2:T3:A29",
+          "quote": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml) at 0, 1.5, 3, 5 h, repeated every 8 h over 24 h, to mimic human 1 g q8h (Fig. 1 legend says 60/30/20/5); groups of 3 mice; thighs harvested at 24 h. Ertapenem comparator regimen 50 mg/kg q6h. Serum PK by HPLC; sampling times and n per time not stated."
+        },
+        {
+          "source": "F0003:S2:T3:A30",
+          "quote": "Protein binding 8% assumed for mice and humans. Footnotes: a median of >=3 MIC experiments; b fT>MIC in mice; c non-ESBL isolate; d removed from analysis (no infection established); e difference between meropenem and ertapenem efficacies."
+        },
+        {
+          "source": "F0003:S2:T3:A31",
+          "quote": "Ertapenem columns are a comparator drug. Per-isolate CFU changes are in Fig. 3 only (not transcribed). Non-doubling MICs (e.g. 0.047) printed as is."
+        },
+        {
+          "source": "F0003:S2:T3:A34",
+          "quote": "E. coli 120"
+        },
+        {
+          "source": "F0003:S2:T3:C34",
+          "quote": "0.03"
+        },
+        {
+          "source": "F0003:S2:T3:D34",
+          "quote": "93"
+        },
+        {
+          "source": "F0003:S2:T3:E34",
+          "quote": "0.03"
+        },
+        {
+          "source": "F0003:S2:T3:F34",
+          "quote": "77"
+        },
+        {
+          "source": "F0003:S2:T3:A43",
+          "quote": "K. pneumoniae 225"
+        },
+        {
+          "source": "F0003:S2:T3:C43",
+          "quote": "0.047"
+        },
+        {
+          "source": "F0003:S2:T3:D43",
+          "quote": "90"
+        },
+        {
+          "source": "F0003:S2:T3:B41",
+          "quote": "d"
+        },
+        {
+          "source": "F0003:S2:T3:B56",
+          "quote": "e"
+        }
+      ],
+      "route_category": "EXTRAVASCULAR",
+      "matrix_category": "PLASMA_SERUM_BLOOD",
+      "record_category": "MIXED",
+      "observation_source": "SOURCE_VALUES",
+      "dose_basis": "NOT_FOUND",
+      "analyte": "Meropenem; Ertapenem",
+      "dosing_regimen": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml) at 0, 1.5, 3, 5 h, repeated every 8 h over 24 h, to mimic human 1 g q8h (Fig. 1 legend says 60/30/20/5); groups of 3 mice; thighs harvested at 24 h. Ertapenem comparator regimen 50 mg/kg q6h.",
+      "columns": [
+        {
+          "header": "Isolate",
+          "meaning": "GROUP_OR_TREATMENT",
+          "unit": "NOT_FOUND",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A32",
+              "quote": "Isolate"
+            },
+            {
+              "source": "F0003:S2:T3:A33",
+              "quote": "ATCC 25922"
+            },
+            {
+              "source": "F0003:S2:T3:A34",
+              "quote": "E. coli 120"
+            },
+            {
+              "source": "F0003:S2:T3:A43",
+              "quote": "K. pneumoniae 225"
+            }
+          ]
+        },
+        {
+          "header": "Footnote",
+          "meaning": "BLQ_OR_FLAG",
+          "unit": "NOT_FOUND",
+          "qualifiers": [
+            "c non-ESBL isolate",
+            "d removed from analysis (no infection established)",
+            "e difference between meropenem and ertapenem efficacies"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:B32",
+              "quote": "Footnote"
+            },
+            {
+              "source": "F0003:S2:T3:B33",
+              "quote": "c"
+            },
+            {
+              "source": "F0003:S2:T3:B41",
+              "quote": "d"
+            },
+            {
+              "source": "F0003:S2:T3:B56",
+              "quote": "e"
+            },
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "Protein binding 8% assumed for mice and humans. Footnotes: a median of >=3 MIC experiments; b fT>MIC in mice; c non-ESBL isolate; d removed from analysis (no infection established); e difference between meropenem and ertapenem efficacies."
+            }
+          ]
+        },
+        {
+          "header": "Meropenem MIC (µg/ml)",
+          "meaning": "MIC",
+          "unit": "µg/ml",
+          "qualifiers": [
+            "median of >=3 MIC experiments",
+            "Non-doubling MICs (e.g. 0.047) printed as is."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:C32",
+              "quote": "Meropenem MIC (µg/ml)"
+            },
+            {
+              "source": "F0003:S2:T3:C34",
+              "quote": "0.03"
+            },
+            {
+              "source": "F0003:S2:T3:C38",
+              "quote": "0.047"
+            },
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "Protein binding 8% assumed for mice and humans. Footnotes: a median of >=3 MIC experiments; b fT>MIC in mice; c non-ESBL isolate; d removed from analysis (no infection established); e difference between meropenem and ertapenem efficacies."
+            },
+            {
+              "source": "F0003:S2:T3:A31",
+              "quote": "Ertapenem columns are a comparator drug. Per-isolate CFU changes are in Fig. 3 only (not transcribed). Non-doubling MICs (e.g. 0.047) printed as is."
+            }
+          ]
+        },
+        {
+          "header": "Meropenem fT>MIC (%)",
+          "meaning": "PARAMETER_VALUE",
+          "unit": "%",
+          "qualifiers": [
+            "fT>MIC in mice",
+            "Protein binding 8% assumed for mice and humans."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:D32",
+              "quote": "Meropenem fT>MIC (%)"
+            },
+            {
+              "source": "F0003:S2:T3:D34",
+              "quote": "93"
+            },
+            {
+              "source": "F0003:S2:T3:D65",
+              "quote": "5"
+            },
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "Protein binding 8% assumed for mice and humans. Footnotes: a median of >=3 MIC experiments; b fT>MIC in mice; c non-ESBL isolate; d removed from analysis (no infection established); e difference between meropenem and ertapenem efficacies."
+            }
+          ]
+        },
+        {
+          "header": "Ertapenem MIC (µg/ml)",
+          "meaning": "MIC",
+          "unit": "µg/ml",
+          "qualifiers": [
+            "median of >=3 MIC experiments",
+            "Ertapenem columns are a comparator drug."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:E32",
+              "quote": "Ertapenem MIC (µg/ml)"
+            },
+            {
+              "source": "F0003:S2:T3:E33",
+              "quote": "0.008"
+            },
+            {
+              "source": "F0003:S2:T3:E65",
+              "quote": "128"
+            },
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "Protein binding 8% assumed for mice and humans. Footnotes: a median of >=3 MIC experiments; b fT>MIC in mice; c non-ESBL isolate; d removed from analysis (no infection established); e difference between meropenem and ertapenem efficacies."
+            },
+            {
+              "source": "F0003:S2:T3:A31",
+              "quote": "Ertapenem columns are a comparator drug. Per-isolate CFU changes are in Fig. 3 only (not transcribed). Non-doubling MICs (e.g. 0.047) printed as is."
+            }
+          ]
+        },
+        {
+          "header": "Ertapenem fT>MIC (%)",
+          "meaning": "PARAMETER_VALUE",
+          "unit": "%",
+          "qualifiers": [
+            "fT>MIC in mice",
+            "Ertapenem columns are a comparator drug."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:F32",
+              "quote": "Ertapenem fT>MIC (%)"
+            },
+            {
+              "source": "F0003:S2:T3:F34",
+              "quote": "77"
+            },
+            {
+              "source": "F0003:S2:T3:F57",
+              "quote": "0"
+            },
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "Protein binding 8% assumed for mice and humans. Footnotes: a median of >=3 MIC experiments; b fT>MIC in mice; c non-ESBL isolate; d removed from analysis (no infection established); e difference between meropenem and ertapenem efficacies."
+            },
+            {
+              "source": "F0003:S2:T3:A31",
+              "quote": "Ertapenem columns are a comparator drug. Per-isolate CFU changes are in Fig. 3 only (not transcribed). Non-doubling MICs (e.g. 0.047) printed as is."
+            }
+          ]
+        }
+      ],
+      "stated_values": [
+        {
+          "quantity": "about",
+          "value": "25",
+          "unit": "g",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "about"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "Neutropenic female ICR mice about 25 g"
+            }
+          ]
+        },
+        {
+          "quantity": "cyclophosphamide",
+          "value": "150",
+          "unit": "mg/kg",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "day -4",
+            "i.p."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "cyclophosphamide 150 mg/kg day -4 and 100 mg/kg day -1 i.p."
+            }
+          ]
+        },
+        {
+          "quantity": "day",
+          "value": "-4",
+          "unit": "day",
+          "subject": "cyclophosphamide",
+          "qualifiers": [
+            "150 mg/kg",
+            "i.p."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "cyclophosphamide 150 mg/kg day -4 and 100 mg/kg day -1 i.p."
+            }
+          ]
+        },
+        {
+          "quantity": "cyclophosphamide",
+          "value": "100",
+          "unit": "mg/kg",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "day -1",
+            "i.p."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "cyclophosphamide 150 mg/kg day -4 and 100 mg/kg day -1 i.p."
+            }
+          ]
+        },
+        {
+          "quantity": "day",
+          "value": "-1",
+          "unit": "day",
+          "subject": "cyclophosphamide",
+          "qualifiers": [
+            "100 mg/kg",
+            "i.p."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "cyclophosphamide 150 mg/kg day -4 and 100 mg/kg day -1 i.p."
+            }
+          ]
+        },
+        {
+          "quantity": "uranyl nitrate",
+          "value": "5",
+          "unit": "mg/kg",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "made renally impaired",
+            "i.p.",
+            "3 days before inoculation"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "made renally impaired with uranyl nitrate 5 mg/kg i.p. 3 days before inoculation."
+            }
+          ]
+        },
+        {
+          "quantity": "before inoculation",
+          "value": "3",
+          "unit": "days",
+          "subject": "uranyl nitrate",
+          "qualifiers": [
+            "before inoculation",
+            "5 mg/kg i.p."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "uranyl nitrate 5 mg/kg i.p. 3 days before inoculation."
+            }
+          ]
+        },
+        {
+          "quantity": "Thigh inoculum",
+          "value": "10^5",
+          "unit": "CFU/ml",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "about",
+            "standard"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "Thigh inoculum about 10^5 CFU/ml standard (10^7 CFU/ml high inoculum for three isolates)"
+            }
+          ]
+        },
+        {
+          "quantity": "high inoculum",
+          "value": "10^7",
+          "unit": "CFU/ml",
+          "subject": "three isolates",
+          "qualifiers": [
+            "high inoculum for three isolates"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "10^7 CFU/ml high inoculum for three isolates"
+            }
+          ]
+        },
+        {
+          "quantity": "isolates",
+          "value": "three",
+          "unit": "NOT_FOUND",
+          "subject": "high inoculum",
+          "qualifiers": [
+            "10^7 CFU/ml"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "10^7 CFU/ml high inoculum for three isolates"
+            }
+          ]
+        },
+        {
+          "quantity": "treatment",
+          "value": "2",
+          "unit": "h",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "from",
+            "after inoculation"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A28",
+              "quote": "treatment from 2 h after inoculation."
+            }
+          ]
+        },
+        {
+          "quantity": "Meropenem",
+          "value": "65, 30, 20, 5",
+          "unit": "mg/kg",
+          "subject": "Neutropenic female ICR mice",
+          "qualifiers": [
+            "s.c.",
+            "at 0, 1.5, 3, 5 h",
+            "repeated every 8 h over 24 h",
+            "Fig. 1 legend says 60/30/20/5"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml) at 0, 1.5, 3, 5 h, repeated every 8 h over 24 h, to mimic human 1 g q8h (Fig. 1 legend says 60/30/20/5)"
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "0.2",
+          "unit": "ml",
+          "subject": "Meropenem",
+          "qualifiers": [
+            "s.c."
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml)"
+            }
+          ]
+        },
+        {
+          "quantity": "at",
+          "value": "0, 1.5, 3, 5",
+          "unit": "h",
+          "subject": "Meropenem",
+          "qualifiers": [
+            "65, 30, 20, 5 mg/kg",
+            "repeated every 8 h over 24 h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml) at 0, 1.5, 3, 5 h, repeated every 8 h over 24 h"
+            }
+          ]
+        },
+        {
+          "quantity": "repeated every",
+          "value": "8",
+          "unit": "h",
+          "subject": "Meropenem",
+          "qualifiers": [
+            "repeated every",
+            "over 24 h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "repeated every 8 h over 24 h"
+            }
+          ]
+        },
+        {
+          "quantity": "over",
+          "value": "24",
+          "unit": "h",
+          "subject": "Meropenem",
+          "qualifiers": [
+            "repeated every 8 h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "repeated every 8 h over 24 h"
+            }
+          ]
+        },
+        {
+          "quantity": "Meropenem",
+          "value": "1",
+          "unit": "g",
+          "subject": "human",
+          "qualifiers": [
+            "to mimic human",
+            "q8h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml) at 0, 1.5, 3, 5 h, repeated every 8 h over 24 h, to mimic human 1 g q8h"
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "q8h",
+          "unit": "NOT_FOUND",
+          "subject": "human",
+          "qualifiers": [
+            "to mimic human",
+            "1 g"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "to mimic human 1 g q8h"
+            }
+          ]
+        },
+        {
+          "quantity": "Fig. 1 legend says",
+          "value": "60/30/20/5",
+          "unit": "NOT_FOUND",
+          "subject": "Meropenem",
+          "qualifiers": [
+            "Fig. 1 legend says"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Meropenem 65, 30, 20, 5 mg/kg s.c. (0.2 ml) at 0, 1.5, 3, 5 h, repeated every 8 h over 24 h, to mimic human 1 g q8h (Fig. 1 legend says 60/30/20/5)"
+            }
+          ]
+        },
+        {
+          "quantity": "groups",
+          "value": "3",
+          "unit": "mice",
+          "subject": "groups",
+          "qualifiers": [],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "groups of 3 mice"
+            }
+          ]
+        },
+        {
+          "quantity": "thighs harvested",
+          "value": "24",
+          "unit": "h",
+          "subject": "thighs",
+          "qualifiers": [
+            "harvested at"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "thighs harvested at 24 h"
+            }
+          ]
+        },
+        {
+          "quantity": "Ertapenem comparator regimen",
+          "value": "50",
+          "unit": "mg/kg",
+          "subject": "Ertapenem",
+          "qualifiers": [
+            "comparator regimen",
+            "q6h"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Ertapenem comparator regimen 50 mg/kg q6h."
+            }
+          ]
+        },
+        {
+          "quantity": "NOT_FOUND",
+          "value": "q6h",
+          "unit": "NOT_FOUND",
+          "subject": "Ertapenem",
+          "qualifiers": [
+            "comparator regimen",
+            "50 mg/kg"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A29",
+              "quote": "Ertapenem comparator regimen 50 mg/kg q6h."
+            }
+          ]
+        },
+        {
+          "quantity": "Protein binding",
+          "value": "8",
+          "unit": "%",
+          "subject": "mice and humans",
+          "qualifiers": [
+            "assumed"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "Protein binding 8% assumed for mice and humans."
+            }
+          ]
+        },
+        {
+          "quantity": "MIC experiments",
+          "value": ">=3",
+          "unit": "NOT_FOUND",
+          "subject": "MIC",
+          "qualifiers": [
+            "median of >=3 MIC experiments"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A30",
+              "quote": "a median of >=3 MIC experiments"
+            }
+          ]
+        },
+        {
+          "quantity": "Non-doubling MICs",
+          "value": "0.047",
+          "unit": "NOT_FOUND",
+          "subject": "NOT_FOUND",
+          "qualifiers": [
+            "e.g.",
+            "printed as is"
+          ],
+          "evidence": [
+            {
+              "source": "F0003:S2:T3:A31",
+              "quote": "Non-doubling MICs (e.g. 0.047) printed as is."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "MI001_OPEN_NOT_FOUND",
+      "affected_id": "MI001",
+      "reason": "MI001 remains OPEN NOT_FOUND, needed_at adequacy. F0003:S2:T3:A31 explicitly says per-isolate CFU changes are in Fig. 3 only and are not transcribed. MIC and reported fT>MIC rows do not supply regimen-level CFU observations or matched response records. Independent index comparison and new target estimation remain pending; this does not block independently supported PK or exposure-summary assessment.",
+      "needed_material": "At the adequacy gate, assess authorized response evidence and record an explicit outcome for MI001. Obtain source-supported response observations and regimen-exposure-response links if authorized, or retain the limitation under the applicable gate without reconstructing observations.",
+      "required_by": "BEFORE_QC",
+      "severity": "BLOCK"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "affected_id": "F0003:S2:T3",
+      "reason": "F0003:S2:T3:A29 reports meropenem 65, 30, 20, 5 mg/kg but also records that the Fig. 1 legend says 60/30/20/5. The first dose differs; neither schedule can be silently adopted.",
+      "needed_material": "Human review of the source-specific dosing discrepancy and a documented disposition retaining both printed schedules and their provenance.",
+      "required_by": "BEFORE_QC",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "MI006_OPEN_CONFLICT",
+      "affected_id": "MI006",
+      "reason": "MI006 remains OPEN CONFLICT, needed_at pk. F0003:S2:T3:A30 supplies an assumed protein-binding value of 8% for mice and humans, not a binding measurement. This source-specific assumption does not resolve the mouse binding-source conflict or establish an uncontested mouse fu.",
+      "needed_material": "Preserve binding provenance and the unresolved conflict; document the applicable review and defensible fu sensitivity treatment under SC028 without averaging sources. Measurement method, matrix, conditions, concentration range and recovery information are NOT_FOUND in this item.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "HUMAN_REVIEW"
+    },
+    {
+      "code": "UNRESOLVED_FT_INPUT_COVERAGE",
+      "affected_id": "MC009",
+      "reason": "Isolate-linked meropenem MICs and reported fT>MIC percentages are available, with mouse attribution in A30. The explicit percentage denominator window, time origin, calculation provenance and supporting concentration-time profile are NOT_FOUND. A29 identifies serum PK by HPLC but states that sampling times and n per time are not stated. The 24 h treatment duration does not by itself define the fT>MIC denominator.",
+      "needed_material": "Source-supported fT>MIC definition and evaluation window, relevant PK or reported exposure provenance, and linkage to the reviewed dosing history and binding assumption. Keep input coverage UNRESOLVED pending downstream assessment.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_MIC_MEASUREMENT_CONTEXT",
+      "affected_id": "MC013",
+      "reason": "Body rows provide isolate identifiers and meropenem MIC values in µg/ml; A30 describes a median of >=3 MIC experiments. MIC method, medium, testing standard and exact replicate counts are NOT_FOUND. ATCC 25922 has no organism name in its row. No CFU records are supplied to verify response matching.",
+      "needed_material": "Retain the available isolate-specific MIC summaries and obtain authorized source evidence for missing measurement context and any required strain-to-response relationship. Do not substitute ertapenem MICs or a susceptibility distribution.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "UNRESOLVED_INFECTION_MODEL_LINKAGE",
+      "affected_id": "MC012",
+      "reason": "A28-A29 provide host immune and renal state, inoculum descriptions, treatment-start timing, treatment duration, group size and harvest time. The three high-inoculum isolates are not identified. Baseline or comparator CFU values, untreated growth controls, response reference definition and source-supported exposure-response mapping are NOT_FOUND. Footnote d marks removal for no established infection and must remain attached to its isolate rows.",
+      "needed_material": "Preserve the available design context and exclusion markers; obtain authorized high-inoculum assignments, response definitions, controls and matching evidence before response-linked analysis. Retain the MI001 dependency and assess whether the dosing design can distinguish candidate indices without fitting at this stage.",
+      "required_by": "BEFORE_INDEX_ANALYSIS",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "HUMANIZED_REGIMEN_BOUNDARY",
+      "affected_id": "DR021",
+      "reason": "A29 explicitly states that the mouse meropenem regimen was designed to mimic human 1 g q8h. This is humanized-regimen design context, not observed human PK or an independent basis for tuning animal-to-human scaling.",
+      "needed_material": "Carry the humanized-regimen flag and design provenance into downstream input assignment and enforce R014 before animal-model or scaling development.",
+      "required_by": "BEFORE_MODELING",
+      "severity": "FOLLOW_UP"
+    },
+    {
+      "code": "COMPARATOR_AND_RECORD_LEVEL_PRESERVATION",
+      "affected_id": "DR001",
+      "reason": "Ertapenem MIC and fT>MIC values are comparator records, including explicit zero fT>MIC values. MIC medians, reported exposure percentages, assumed binding and groups of 3 mice do not establish individual-animal observations. The note's 0.047 example repeats MIC values present in table rows without naming an isolate.",
+      "needed_material": "Keep comparator columns separate from meropenem inputs; preserve literal zeros, exclusion flags, summary levels and the unassigned-subject MIC example. Confirm text-derived values separately during preparation without inventing animal identities or response links.",
+      "required_by": "BEFORE_QC",
+      "severity": "FOLLOW_UP"
+    }
+  ]
+}

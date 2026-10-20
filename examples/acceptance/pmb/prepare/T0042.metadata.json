@@ -4,15 +4,15 @@
   "role": "PK_OBSERVATIONS",
   "metadata": {
     "role": "PK_OBSERVATIONS",
-    "species": "New Zealand White rabbits, 4-6 months; health or infection state NOT_FOUND",
-    "matrix": "whole lung",
-    "exposure_basis": "DIGITIZED from observed markers; plotted mean; concentration approximate; total or unbound basis NOT_FOUND",
-    "record_level": "Plotted mean, not individual records; no SD or individual IDs recovered",
+    "species": "New Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; health or infection state NOT_FOUND",
+    "matrix": "plasma",
+    "exposure_basis": "NOT_FOUND",
+    "record_level": "plotted mean, not individual records.",
     "drug": "PMB",
-    "route": "SC",
-    "endpoint_window": "0.5, 2, 6 h",
+    "route": "IT",
+    "endpoint_window": "Digitized plotted sampling times from 0.087 to 5.998 h; single administration at time 0.",
     "route_category": "EXTRAVASCULAR",
-    "matrix_category": "OTHER_TISSUE",
+    "matrix_category": "PLASMA_SERUM_BLOOD",
     "record_category": "GROUP_SUMMARY",
     "observation_source": "DIGITIZED_FROM_FIGURE",
     "dose_basis": "NOT_FOUND",
@@ -31,12 +31,20 @@
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T12:A164",
+            "source": "F0003:S3:T9:A108",
             "quote": "Marker label"
           },
           {
-            "source": "F0003:S3:T12:A165",
-            "quote": "S22A-SC-whole_lung-2-01"
+            "source": "F0003:S3:T9:A109",
+            "quote": "S22B-IT-plasma-2-01"
+          },
+          {
+            "source": "F0003:S3:T9:A116",
+            "quote": "S22B-IT-plasma-2-08"
+          },
+          {
+            "source": "F0003:S3:T9:A100",
+            "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           }
         ],
         "column": "A"
@@ -46,16 +54,29 @@
         "meaning": "TIME",
         "unit": "h",
         "qualifiers": [
-          "single 2 mg/kg at time 0"
+          "single 2 mg/kg at time 0",
+          "Preserve plotted times; do not snap them to nominal times."
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T12:B164",
+            "source": "F0003:S3:T9:B108",
             "quote": "Time (h)"
           },
           {
-            "source": "F0003:S3:T12:A155",
-            "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+            "source": "F0003:S3:T9:B109",
+            "quote": "0.087"
+          },
+          {
+            "source": "F0003:S3:T9:B116",
+            "quote": "5.998"
+          },
+          {
+            "source": "F0003:S3:T9:A99",
+            "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+          },
+          {
+            "source": "F0003:S3:T9:A104",
+            "quote": "Figure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times."
           }
         ],
         "column": "B"
@@ -65,21 +86,30 @@
         "meaning": "CONCENTRATION",
         "unit": "mg/L",
         "qualifiers": [
-          "plotted mean, not individual records",
+          "Mean",
+          "plotted mean, not individual records.",
           "DIGITIZED from observed markers, not fitted lines.",
           "Concentration and pixel time are approximate; no SD or individual IDs recovered."
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T12:C164",
+            "source": "F0003:S3:T9:C108",
             "quote": "Mean (mg/L)"
           },
           {
-            "source": "F0003:S3:T12:A155",
-            "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+            "source": "F0003:S3:T9:C109",
+            "quote": "5.036"
           },
           {
-            "source": "F0003:S3:T12:A156",
+            "source": "F0003:S3:T9:C116",
+            "quote": "0.542"
+          },
+          {
+            "source": "F0003:S3:T9:A99",
+            "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
+          },
+          {
+            "source": "F0003:S3:T9:A100",
             "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
           }
         ],
@@ -90,16 +120,29 @@
         "meaning": "TIME",
         "unit": "h",
         "qualifiers": [
-          "Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          "Concentration and pixel time are approximate; no SD or individual IDs recovered.",
+          "origin top-left"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T12:D164",
+            "source": "F0003:S3:T9:D108",
             "quote": "Pixel time (h)"
           },
           {
-            "source": "F0003:S3:T12:A156",
+            "source": "F0003:S3:T9:D109",
+            "quote": "0.087"
+          },
+          {
+            "source": "F0003:S3:T9:D116",
+            "quote": "5.998"
+          },
+          {
+            "source": "F0003:S3:T9:A100",
             "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
+          },
+          {
+            "source": "F0003:S3:T9:A101",
+            "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
           }
         ],
         "column": "D"
@@ -107,22 +150,26 @@
       {
         "header": "Pixel x",
         "meaning": "OTHER",
-        "unit": "pixels",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+          "origin top-left"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T12:E164",
+            "source": "F0003:S3:T9:E108",
             "quote": "Pixel x"
           },
           {
-            "source": "F0003:S3:T12:A157",
-            "quote": "Image calibration x=137,704 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
+            "source": "F0003:S3:T9:E109",
+            "quote": "1204"
           },
           {
-            "source": "F0003:S3:T12:A158",
-            "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+            "source": "F0003:S3:T9:E116",
+            "quote": "1682"
+          },
+          {
+            "source": "F0003:S3:T9:A101",
+            "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
           }
         ],
         "column": "E"
@@ -130,22 +177,26 @@
       {
         "header": "Pixel y",
         "meaning": "OTHER",
-        "unit": "pixels",
+        "unit": "NOT_FOUND",
         "qualifiers": [
-          "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+          "origin top-left"
         ],
         "evidence": [
           {
-            "source": "F0003:S3:T12:F164",
+            "source": "F0003:S3:T9:F108",
             "quote": "Pixel y"
           },
           {
-            "source": "F0003:S3:T12:A157",
-            "quote": "Image calibration x=137,704 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
+            "source": "F0003:S3:T9:F109",
+            "quote": "270"
           },
           {
-            "source": "F0003:S3:T12:A158",
-            "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
+            "source": "F0003:S3:T9:F116",
+            "quote": "361"
+          },
+          {
+            "source": "F0003:S3:T9:A101",
+            "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
           }
         ],
         "column": "F"
@@ -157,11 +208,15 @@
         "qualifiers": [],
         "evidence": [
           {
-            "source": "F0003:S3:T12:G164",
+            "source": "F0003:S3:T9:G108",
             "quote": "Record status"
           },
           {
-            "source": "F0003:S3:T12:G165",
+            "source": "F0003:S3:T9:G109",
+            "quote": "SOURCE_REVIEW"
+          },
+          {
+            "source": "F0003:S3:T9:G116",
             "quote": "SOURCE_REVIEW"
           }
         ],
@@ -170,19 +225,19 @@
     ],
     "permission": "DEVELOPMENT_CANDIDATE",
     "source_table": {
-      "title": "Rabbit SC 2 mg/kg: whole lung observed mean curve",
+      "title": "Rabbit IT 2 mg/kg: plasma observed mean curve",
       "sheet": "Rabbit",
       "region": {
-        "start_row": 153,
-        "end_row": 169,
+        "start_row": 97,
+        "end_row": 118,
         "left": 1,
         "right": 7,
-        "header_row": 164,
-        "title": "Rabbit SC 2 mg/kg: whole lung observed mean curve",
+        "header_row": 108,
+        "title": "Rabbit IT 2 mg/kg: plasma observed mean curve",
         "boundary_method": "SOURCE_TITLE_AND_DOI_ANCHOR",
         "note_regions": []
       },
-      "notes": "Rabbit SC 2 mg/kg: whole lung observed mean curve\nS22 | https://doi.org/10.1007/s11095-026-04194-1 | Figure 2, panel A; PDF embedded image\nPMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records.\nDIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered.\nImage calibration x=137,704 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left.\nSensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD.\nNew Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; nominal blood 0.25,0.5,1,1.5,2,4,6 h.\nFigure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times.\nTissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered.\nExploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F.\nSC whole-lung Fig.2 peak differs from Table S5 Cmax. Do not rescale or silently reconcile. No measured rabbit fu located.",
+      "notes": "Rabbit IT 2 mg/kg: plasma observed mean curve\nS22 | https://doi.org/10.1007/s11095-026-04194-1 | Figure 2, panel B; PDF embedded image\nPMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records.\nDIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered.\nImage calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left.\nSensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD.\nNew Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; nominal blood 0.25,0.5,1,1.5,2,4,6 h.\nFigure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times.\nTissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered.\nExploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F.\nSC whole-lung Fig.2 peak differs from Table S5 Cmax. Do not rescale or silently reconcile. No measured rabbit fu located.",
       "column_map": {
         "c001_marker_label": "Marker label",
         "c002_time_h": "Time (h)",
@@ -193,106 +248,128 @@
         "c007_record_status": "Record status"
       }
     },
-    "source_item_id": "F0003:S3:T12",
+    "source_item_id": "F0003:S3:T9",
     "source_evidence": [
       {
-        "source": "F0003:S3:T12:A154",
-        "quote": "S22 | https://doi.org/10.1007/s11095-026-04194-1 | Figure 2, panel A; PDF embedded image"
+        "source": "F0003:S3:T9:A98",
+        "quote": "S22 | https://doi.org/10.1007/s11095-026-04194-1 | Figure 2, panel B; PDF embedded image"
       },
       {
-        "source": "F0003:S3:T12:A155",
-        "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
+        "source": "F0003:S3:T9:A99",
+        "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
       },
       {
-        "source": "F0003:S3:T12:A156",
+        "source": "F0003:S3:T9:A100",
         "quote": "DIGITIZED from observed markers, not fitted lines. Concentration and pixel time are approximate; no SD or individual IDs recovered."
       },
       {
-        "source": "F0003:S3:T12:B165",
-        "quote": "0.5"
+        "source": "F0003:S3:T9:B109",
+        "quote": "0.087"
       },
       {
-        "source": "F0003:S3:T12:C165",
-        "quote": "0.783"
+        "source": "F0003:S3:T9:C109",
+        "quote": "5.036"
       },
       {
-        "source": "F0003:S3:T12:B166",
-        "quote": "2"
+        "source": "F0003:S3:T9:B116",
+        "quote": "5.998"
       },
       {
-        "source": "F0003:S3:T12:C166",
-        "quote": "0.236"
+        "source": "F0003:S3:T9:C116",
+        "quote": "0.542"
       },
       {
-        "source": "F0003:S3:T12:B167",
-        "quote": "6"
+        "source": "F0003:S3:T9:A101",
+        "quote": "Image calibration x=1197,1763 -> 0,7 h; y=148,524 -> 10^2,10^-2 mg/L; origin top-left."
       },
       {
-        "source": "F0003:S3:T12:C167",
-        "quote": "0.137"
+        "source": "F0003:S3:T9:A102",
+        "quote": "Sensitivity allowance +/-2 pixels is a digitization tolerance, NOT a confidence interval or biological SD."
       },
       {
-        "source": "F0003:S3:T12:A161",
+        "source": "F0003:S3:T9:A103",
+        "quote": "New Zealand White rabbits, 4-6 months, 3.31+/-0.31 kg; nominal blood 0.25,0.5,1,1.5,2,4,6 h."
+      },
+      {
+        "source": "F0003:S3:T9:A104",
+        "quote": "Figure plasma times/count differ from blood protocol, especially SC. Preserve plotted times; do not snap them to nominal times."
+      },
+      {
+        "source": "F0003:S3:T9:A105",
         "quote": "Tissue/ELF nominal times 0.5,2,6 h. Methods n=3-4/time; caption n=3/time. Error-bar definition not recovered."
       },
       {
-        "source": "F0003:S3:T12:A163",
+        "source": "F0003:S3:T9:A106",
+        "quote": "Exploratory descriptive candidate only, pending source reconciliation; no individual population PK or absolute SC CL without F."
+      },
+      {
+        "source": "F0003:S3:T9:A107",
         "quote": "SC whole-lung Fig.2 peak differs from Table S5 Cmax. Do not rescale or silently reconcile. No measured rabbit fu located."
+      },
+      {
+        "source": "F0003:S3:T9:G109",
+        "quote": "SOURCE_REVIEW"
       }
     ],
     "requirement_ids": [
-      "REQ_ANIMAL_INPUT",
-      "REQ_PREP_BASIS",
-      "REQ_PREP_SOURCE",
-      "REQ_RABBIT_SCOPE"
+      "DR001",
+      "DR002",
+      "DR003",
+      "DR004",
+      "DR006",
+      "DR007",
+      "DR008",
+      "DR013"
     ],
     "independent_animal_count": "NOT_ESTABLISHED",
     "dose": {
-      "status": "SOURCE_REPORTED_APPLICABILITY_UNRESOLVED",
-      "candidates": [
+      "status": "SOURCE_STATED",
+      "value": "2",
+      "unit": "mg/kg",
+      "route": "IT",
+      "dose_basis": "NOT_FOUND",
+      "dosing_regimen": "single 2 mg/kg at time 0",
+      "qualifiers": [
+        "IT",
+        "single 2 mg/kg at time 0"
+      ],
+      "evidence": [
         {
-          "quantity": "NOT_FOUND",
-          "value": "2",
-          "unit": "mg/kg",
-          "subject": "NOT_FOUND",
-          "qualifiers": [
-            "single",
-            "at time 0"
-          ],
-          "evidence": [
-            {
-              "source": "F0003:S3:T12:A155",
-              "quote": "PMB; rabbit; SC; single 2 mg/kg at time 0. Matrix: whole lung; plotted mean, not individual records."
-            }
-          ]
+          "source": "F0003:S3:T9:A97",
+          "quote": "Rabbit IT 2 mg/kg: plasma observed mean curve"
+        },
+        {
+          "source": "F0003:S3:T9:A99",
+          "quote": "PMB; rabbit; IT; single 2 mg/kg at time 0. Matrix: plasma; plotted mean, not individual records."
         }
       ],
+      "applicability": "SOURCE_TABLE_ONLY",
       "per_record_assignment": false
     },
     "classification_status": "CANDIDATE_PENDING_HANDOFF_REVIEW",
     "normalized_fields": {}
   },
   "data_file": {
-    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_preparation\\normalized\\T0042.json",
-    "sha256": "ec3dae1cd735ea6429ed974e730698985ac492cc3b649701c2c1e6920fef5a01"
+    "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_preparation\\normalized\\T0042.json",
+    "sha256": "67eaa0abb7b09cdcdb05df8bb0de6c9dee380e0792bba70fd98a43623bd8f91a"
   },
   "source_refs": [
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\files\\F0003.xlsx",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\files\\F0003.xlsx",
       "sha256": "09846abafd111b658e403d5fba5c5dffcd07044d701f7a95754c09b13fe8f144"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_082542_eef487\\context_work\\intake\\parsed\\F0003.json",
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_022837_c89b3d\\context_work\\intake\\parsed\\F0003.json",
       "sha256": "ba19fa36ca2e8a91c0db444958274d67956345047b629cc2b23c6df38f0dab13"
     },
     {
-      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\workbench_outputs\\PMB_UI_20261019_101246_45bd49\\data_agents\\preparation_plan.json",
-      "sha256": "3a069c6fb10b14b96d2d4d63696b7466199f901d56509f6424517e3d91f5be7f"
+      "path": "C:\\Users\\georg\\Documents\\Transitioanl PKPD Context Engineering\\demo\\state\\fresh03\\workbench_outputs\\PMB_UI_20261020_031649_876134\\data_agents\\preparation_plan.json",
+      "sha256": "86226166a3745d693729a376778276bf1444ed9399b7f289de09ce2c0d324752"
     }
   ],
   "summary": {
-    "source_records": 3,
-    "retained_records": 3,
+    "source_records": 8,
+    "retained_records": 8,
     "quarantined_records": 0,
     "independent_animals": "NOT_ESTABLISHED",
     "quarantine_reasons": {}
