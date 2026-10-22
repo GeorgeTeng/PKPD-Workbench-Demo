@@ -1,0 +1,26 @@
+{
+  "version": "1.3.0",
+  "schema_version": "1.3",
+  "authority": "PROCESSING_POLICY_NOT_PROJECT_REQUIREMENTS",
+  "rules": [
+    {"id":"PRC001","text":"Recheck all admitted original source units. Only designated project sources may impose requirements; reading a paper does not adopt its methods."},
+    {"id":"PRC002","text":"Keep only adopted requirements that change an identified downstream action, permission, analysis choice, acceptance decision or mandatory deliverable. Exclude background, inventories, optional suggestions and task narrative already preserved in context. Do not discard consequential obligations merely because they apply later. If there is no downstream use, record the exclusion in source coverage instead of adding a rule."},
+    {"id":"PRC003","text":"Write each requirement once in plain, complete text. Preserve all conditions, exceptions, species/data limits, numbers, units, alternatives and timing in that text. Combine equivalent requirements with the same applicability and retain their evidence; keep duties with different conditions or timing separate. Do not repeat the text as action, target, scope or requirement slots."},
+    {"id":"PRC004","text":"Retain exact original quotations in one evidence list per rule. Cite additional passages only when needed to support meaning, adoption or qualifiers. Do not duplicate the same quotation as authority_evidence or field_evidence. Host checks quotation locations; an independent reviewer checks entailment and omissions."},
+    {"id":"PRC005","text":"Set used_in to the smallest set of real consuming steps from the supplied step catalog. Route a rule where an action or decision must obey it, not everywhere related vocabulary occurs. Data planning can read later-stage requirements for planning only; it must not demand deferred results early. A release-after-freeze condition is not a deadline. Uncertain applicability that prevents faithful routing requires clarification."},
+    {"id":"PRC006","text":"Account for every source unit and inherited rule, including why material is excluded. Keep authority conflicts, ambiguous obligations and unresolved routing visible. Missing future data do not create new obligations or automatic extraction blockers. Do not invent scientific values or requirements."},
+    {"id":"PRC007","text":"Independently review the exact final four-field records against the original sources and context. Check necessity, downstream routing, semantic duplicates, faithfulness, completeness and conflicts. Exact quotations alone do not prove support. Publish only the unchanged reviewed collection; preserve source evidence and history."}
+  ],
+  "steps": {
+    "adequacy":"Assess current input requirements and data coverage; planning later outputs is not requiring them now.",
+    "prepare":"Prepare permitted data and preserve provenance, units, experimental identity and missingness.",
+    "eda":"Exploratory analysis, only if that separate workflow step is enabled.",
+    "dispatch":"Assign an approved task, data and applicable constraints to a downstream analysis.",
+    "animal_pk":"Fit, select and evaluate animal PK models.",
+    "human_pk":"Scale animal models and predict held-out species and human PK before opening validation outcomes.",
+    "index":"Compare PK/PD indices and qualify effect targets.",
+    "human_validation":"After the required freezes, compare frozen human predictions with permitted human observations.",
+    "pta":"After the stated prerequisites, simulate per-MIC and MIC-weighted attainment and its uncertainty.",
+    "clinical":"Interpret and report feasibility, scientific limitations and final benchmarks; use specific validation or PTA steps for their distinct requirements."
+  }
+}

@@ -1,6 +1,10 @@
 # Clinical questions and scoped downstream contracts
 
-The dispatch adapter reads the reviewed effective context, the independently reviewed data-adequacy tasks, approved QC metadata and completed EDA. It assembles editable question drafts and source-bound branch contracts deterministically. It does not run another LLM call or estimate scientific parameters.
+The dispatch adapter reads the reviewed effective context, the independently reviewed data-adequacy tasks, approved QC metadata and completed EDA. It is a thin deterministic router: allocate tasks and permitted datasets, retain unknown assignments, and declare exposure dependencies. ContextBuilder assembles the separate PK and PK/PD handoffs through the branch projection adapter. Neither routing nor assembly calls an LLM.
+
+`clinical_dispatch.build` calls `context_builder.build_branch_handoff` once per branch. `dispatch_context.prepare_branch` owns the existing scientific field/rule/evidence projection; ContextBuilder checks source hashes before and after assembly and binds each output in a compact manifest. These are downstream contracts, not model requests, so no synthetic model prompt or duplicate request payload is created. The existing clinical interpretation contract is retained for later study-wide work; it is not a third modeling branch.
+
+The main canvas still stops at its existing disabled EDA gate. Offline synthetic integration tests exercise this refactor without enabling EDA or granting research-data approval.
 
 ## Workflow
 
@@ -30,6 +34,7 @@ The PK/index scientific execution adapters remain a separate implementation. Dis
 | `clinical_questions.json` | Question definitions, explicit unknowns, original draft defaults and source provenance |
 | `routing_plan.json` | Per-file destinations and reasons, unassigned sources, parallel tasks and dependencies |
 | `dispatch_report.json` | Branch counts, unresolved definitions and reasons scientific calculation cannot yet pass |
+| `{branch}_context_manifest.json` | Context hash, task/data assignment, source and assembler bindings, and explicit zero model calls |
 
 Each data reference includes a SHA-256 checksum. No datasets are combined or rewritten at dispatch. Metadata and quarantine references accompany the data. Unclassified source tables require QC role qualification; nonmatching pathogen sources remain outside the current index scope. Model libraries containing mixed permissions or published fitted parameters require a separately qualified structure/code subset.
 
@@ -47,5 +52,41 @@ Prefix: `/ui-api/workflow/sessions/{session_id}`.
 Failed execution records a structured reason and correction action. Definitions are versioned; changes after a completed dispatch require a new study cycle. This adapter does not implement selective downstream reruns.
 
 ## Validation
+
+Latest 2026-10-20 verification after repairing the two message assertions:
+69 passed, 8 skipped, 0 failures across the six suites below plus
+`test_scientific_handoff`. Both expanded and compact scientific-context cases
+now assert `PipelineError.code == PROJECT_RULES_CONTEXT_MISMATCH`, retaining
+the rejection requirement without depending on user-facing wording.
+Production validation behavior is unchanged. The eight skipped cases require
+retired EDA fixtures. Latest report: workspace
+`outputs/Task_Assignment_Verification_20261020/regression_after_assertion_fix.xml`.
+
+2026-10-20 follow-up verification: 65 passed, 6 skipped across the six suites
+listed below, including 26 dedicated dispatch/ContextBuilder cases. Additional
+cases cover repeated draft generation, single/empty branches, published rules,
+version-bound advisory evidence, invalid assignments and exact execution
+confirmation. Repeated generation exposed a manifest self-reference: the old
+`artifact_manifest.json` was included before being overwritten. It is now
+excluded, and all references are checked on both generations in the regression
+test. Reports: workspace `outputs/Task_Assignment_Verification_20261020/`.
+At that checkpoint, the separate scientific-handoff suite reported 2 passed, 2
+failed (the baseline message mismatches below), and 2 skipped. These counts do
+not establish live EDA-to-model execution or scientific adequacy.
+
+Initial 2026-10-20 refactor verification: 52 passed, 6 skipped across
+`test_dispatch_context_builder`, `test_context_builder`, `test_clinical_dispatch`,
+`test_clinical_questions_dynamic`, `test_animal_pk`, and `test_eda_disabled`.
+The 13 new synthetic cases cover isolated assignments, typed scientific evidence
+and method dependencies, question edits, changed inputs during assembly and
+consumption, existing PK input compatibility, and the canvas handoff check.
+The six skipped legacy integration cases require retired EDA fixtures.
+
+An additional `test_scientific_handoff` run found two existing error-message
+regex mismatches in the rule-publication tests. Both reproduce with all modified
+tracked Python modules loaded from Git HEAD: the expected `scientific_context`
+text differs from `The rule pack belongs to a different effective context.`
+The changed input is rejected in both versions. The test assertions have since
+been repaired as recorded above; rule-publication behavior remains unchanged.
 
 Synthetic tests cover metadata routing independent of filenames, retained source boundaries, held-out/human input rejection, changed-file detection, pending-review blocking, signature-bound question confirmation and branch-specific requirements. A separate synthetic command-line run exercises LangGraph → Prefect → Snakemake without granting approval to actual research data.

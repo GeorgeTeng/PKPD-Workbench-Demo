@@ -1,0 +1,39 @@
+PROMPT AND RULE DELIVERY: RECOMMENDED NEXT DESIGN
+Status: design recommendation; not a runtime implementation.
+
+Current verified foundations
+The repository already attaches canonical G001-G008 through ctxcomp.governance before request hashing. The direct Data runtime checks schema and input bindings. The human-summary operation already consumes accepted action decisions instead of raw tables and constrains readiness to the accepted values. Preserve these useful controls.
+
+1. Compile a task context, do not ask another agent to read every rule
+A deterministic builder selects one stage/operation, its original applicable rules, their referenced conditions/exceptions and the permitted evidence. Universal governance remains present once. Select by explicit stage/task/source-role metadata; retrieval similarity must not silently discard mandatory rules. Include the rule bodies, not just IDs or unread paths. If applicability is unresolved, retain the relevant conditional rule or flag the uncertainty. No extra routing LLM is needed for known stages.
+
+2. Load evidence progressively, with a clear stopping boundary
+DR receives data profiles, field definitions, design and key notes. Coverage receives requirement-linked source evidence and only targeted expansion when something is unresolved. Necessity receives Coverage, DR, applicable Rules and relevant local MP. Human summary receives accepted decisions only. EDA receives approved prepared-data context and computed outputs. Never replace a required complete source review with top-k search; the full-source compression reviewer must still see the material required by its contract.
+
+3. Let code enforce contracts and capability limits
+Permission manifests and actual tool access enforce source restrictions. Schema, enum, reference, field-accounting, hash and approval checks run in code. Models interpret scientific meaning and action impact. Structured output reduces format errors but cannot prove source faithfulness or scientific correctness. Numeric computation stays in the numerical engine. Existing mandatory independent reviews remain; do not add a generic critic to every trivial formatting step.
+
+4. Test behavior against representative cases
+Use the twelve cases in README.txt as an initial human-adjudicated evaluation set, augmented with actual historical failures. Compare current and candidate prompts on fixed inputs. Separately score retained scientific meaning, supported citations, role-boundary compliance, decision usability and concise presentation. Include normal, edge and adversarial cases; hold some cases out from prompt editing. A model-based judge can assist but must not define scientific truth by majority vote.
+
+5. Measure costs by component before optimizing
+Log input size by instructions, rules, schema, evidence and history; record available actual token usage, transport time, model time and failed/repaired calls. Character counts are not token counts. Remove redundant payload copies and unneeded histories first, then test. Preserve audit evidence outside the model context. Do not promise a latency or token reduction until measured on comparable accepted runs.
+
+Priority for this project
+First adopt the role-specific prompt blocks and a deterministic context builder.
+Next add representative semantic evaluations and per-component measurements.
+Then consider scoped local retrieval for large evidence/MP libraries.
+A knowledge graph, autonomous planning agent or multi-agent debate is not required for this fixed workflow; introduce one only for a measured unresolved need.
+
+Sources
+Anthropic, Effective context engineering for AI agents:
+https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+Anthropic, Building effective agents:
+https://www.anthropic.com/engineering/building-effective-agents
+OpenAI, Structured model outputs:
+https://developers.openai.com/api/docs/guides/structured-outputs
+OpenAI, Evaluation best practices:
+https://developers.openai.com/api/docs/guides/evaluation-best-practices
+
+The project-specific routing and priority recommendations above are design judgments based on the inspected code and user requirements, not claims that the vendors prescribe this PK/PD architecture.
+

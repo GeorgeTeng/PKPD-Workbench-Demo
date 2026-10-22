@@ -1,0 +1,475 @@
+{
+  "version": "2.0.0-draft.8",
+  "updated_date": "2026-10-21",
+  "status": "NATIVE_EDA_IMPLEMENTED_HUMAN_REVIEW_REQUIRED",
+  "general_rules": "Apply canonical G001-G008 once to each model call. This pack defines the descriptive EDA scope and five component contracts.",
+  "scope": {
+    "stage": "DESCRIPTIVE_EDA_BEFORE_DISPATCH",
+    "purpose": "Describe and package observed animal PK and preclinical PD evidence, exact plotted rows and necessary explanations for independent and human review. After explicit approval, route scoped evidence to PK and PD modeling branches; model choice and fitting belong to those branches.",
+    "out_of_scope": [
+      "Combination therapy",
+      "Covariate analysis and allometric/parameter-weight plots",
+      "New concentration-time AUC/AUMC or response-time integration",
+      "PK parameter estimation beyond explicitly permitted descriptive quantities",
+      "Exposure reconstruction, interpolation, extrapolation and terminal-slope selection",
+      "PD-target fitting, model/index selection and inferential uncertainty estimation",
+      "Human simulations, PTA and scientific release"
+    ],
+    "human_evidence": "In the current target-drug setting human PK/PD/efficacy/safety observations are absent. Human outputs are prospective scenarios. Known-drug human holdout benchmarks remain separate and protected."
+  },
+  "external_inputs": {
+    "data_handoff": "Host-verified, released Data package with unchanged dataset/metadata references, hashes, dictionary, record/source IDs, quarantine, stated values and unresolved ledger. Reuse upstream Coverage/Necessity decisions.",
+    "task_context": "Objective, requirements, routed project rules, selected downstream methods, supported constraints and existing review policy.",
+    "scientific_reference": "Bound EDA review text: display specifications, MP background and exact source locators; guidance is not automatically task data.",
+    "human_confirmation": "Existing final human checkpoint for the exact reviewed EDA version; needed by ER handoff only, not by earlier components."
+  },
+  "agents": [
+    {
+      "id": "EP",
+      "name": "EDA Planner",
+      "order": 1,
+      "execution": "MODEL",
+      "responsibility": "Plan what must be understood before modeling, then choose the smallest informative set of supported displays and descriptive operations for those questions.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference"
+      ],
+      "outputs": [
+        "eda_plan"
+      ],
+      "call": "EP-plan"
+    },
+    {
+      "id": "EC",
+      "name": "EDA Calculator",
+      "order": 2,
+      "execution": "R",
+      "responsibility": "Execute established descriptive formulas with complete inputs; preserve raw values, source links and calculation order.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "eda_plan"
+      ],
+      "outputs": [
+        "calculation_bundle"
+      ],
+      "entrypoint": {
+        "file": "pkpd_r/eda/calculate.R",
+        "function": "eda_calculate"
+      },
+      "implementation_status": "INTERFACE_ONLY"
+    },
+    {
+      "id": "EV",
+      "name": "EDA Visualizer",
+      "order": 3,
+      "execution": "R",
+      "responsibility": "Draw from the exact EC results and permitted unchanged observations; check figure semantics and rendering.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle"
+      ],
+      "outputs": [
+        "figure_bundle"
+      ],
+      "entrypoint": {
+        "file": "pkpd_r/eda/visualize.R",
+        "function": "eda_visualize"
+      },
+      "implementation_status": "INTERFACE_ONLY"
+    },
+    {
+      "id": "EI",
+      "name": "EDA Interpreter",
+      "order": 4,
+      "execution": "MODEL",
+      "responsibility": "Give concise descriptive observations, limitations and source-check items for EDA human review; defer modeling decisions.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle"
+      ],
+      "outputs": [
+        "eda_findings"
+      ],
+      "call": "EI-findings"
+    },
+    {
+      "id": "ER",
+      "name": "EDA Reviewer & Handoff",
+      "order": 5,
+      "execution": "MODEL_REVIEW_HOST_HANDOFF",
+      "responsibility": "Independently review evidence and outputs, route targeted corrections, and let the host assemble the exact reviewed and human-confirmed handoff.",
+      "inputs": [
+        "data_handoff",
+        "task_context",
+        "scientific_reference",
+        "eda_plan",
+        "calculation_bundle",
+        "figure_bundle",
+        "eda_findings",
+        "human_confirmation"
+      ],
+      "outputs": [
+        "eda_review",
+        "eda_handoff"
+      ],
+      "call": "ER-review",
+      "human_confirmation_used_at": "HOST_HANDOFF_ONLY"
+    }
+  ],
+  "calls": [
+    {
+      "id": "EP-plan",
+      "agent": "EP",
+      "operation": "PLAN_ANALYSES",
+      "prompt_operation": "plan",
+      "description": "One planning operation per EDA task, scoped to the question and available evidence."
+    },
+    {
+      "id": "EI-findings",
+      "agent": "EI",
+      "operation": "WRITE_FINDINGS",
+      "prompt_operation": "findings",
+      "description": "One findings operation for the scoped EDA task; no default call per dataset or figure."
+    },
+    {
+      "id": "ER-review",
+      "agent": "ER",
+      "operation": "INDEPENDENT_REVIEW",
+      "prompt_operation": "review",
+      "description": "One independent review operation with figures, plotted rows and source bindings. Handoff assembly requires no extra model call."
+    }
+  ],
+  "artifact_contracts": {
+    "eda_plan": {
+      "owner": "EP",
+      "required_fields": [
+        "version",
+        "input_refs",
+        "objective",
+        "analyses",
+        "not_planned",
+        "open_items"
+      ],
+      "analysis_fields": [
+        "analysis_id",
+        "requirement_ids",
+        "question",
+        "objective_link",
+        "source_refs",
+        "reference_sections",
+        "dataset_ids",
+        "record_selection",
+        "experimental_unit",
+        "formula_definition",
+        "input_relationships",
+        "grouping",
+        "transform_aggregation_order",
+        "censoring_policy",
+        "display_spec",
+        "status",
+        "reason"
+      ],
+      "display_spec_fields": [
+        "kind",
+        "x_variable_unit_scale",
+        "y_variable_unit_scale",
+        "marks",
+        "facets",
+        "legend",
+        "uncertainty_definition",
+        "annotations",
+        "caption_limits"
+      ],
+      "notes": "Allow not-applicable fields with reasons. Tables and annotations may replace standalone figures. An authorized objective subquestion may be linked without inventing a formal requirement ID. Only executable operation IDs must resolve to implemented permitted R handlers. Keep scientifically needed but unimplemented figures as DEFERRED with their display specification and limitations; a source table is a fallback, not completion of the figure. Use existing annotations, caption_limits, status and reason fields for scoped display problems; no extra assessment or model call is required. The QUESTION_DRIVEN_1 adapter uses typed question analyses and immutable candidate-view selectors. Its schema requires understanding_needed, next_modeling_action, views with scale_rationale, and remaining_unknowns; the legacy analysis_fields remain the legacy adapter contract."
+    },
+    "calculation_bundle": {
+      "owner": "EC",
+      "required_fields": [
+        "version",
+        "plan_ref",
+        "input_refs",
+        "results_ref",
+        "provenance_ref",
+        "checks",
+        "not_calculable"
+      ],
+      "notes": "Planned results.rds plus reviewable data tables. Every quantity retains source record IDs, original values/units, formula/source, operands, grouping, experimental unit, scale/order, window, censoring and result status. Original input files remain unchanged."
+    },
+    "figure_bundle": {
+      "owner": "EV",
+      "required_fields": [
+        "version",
+        "plan_ref",
+        "calculation_ref",
+        "figures",
+        "tables",
+        "technical_checks",
+        "omissions"
+      ],
+      "figure_fields": [
+        "figure_id",
+        "analysis_ids",
+        "image_ref",
+        "plotted_rows_ref",
+        "caption",
+        "source_refs",
+        "limitations"
+      ],
+      "notes": "Planned PNG previews plus SVG or PDF exports; exact plot data stays reviewable. EV consumes EC statistics rather than calculating a second version. Rendered inspection is distinct from machine checks."
+    },
+    "eda_findings": {
+      "owner": "EI",
+      "required_fields": [
+        "version",
+        "input_refs",
+        "findings",
+        "limitations",
+        "open_items"
+      ],
+      "finding_fields": [
+        "finding_id",
+        "analysis_ids",
+        "artifact_refs",
+        "record_scope",
+        "observation",
+        "interpretation_if_useful",
+        "alternative_if_interpretation",
+        "downstream_implication",
+        "visual_support",
+        "anomaly_assessment"
+      ],
+      "notes": "Concise observations, interpretation limits, visual evidence and source-check items only. No model recommendations, data alterations or approval."
+    },
+    "eda_review": {
+      "owner": "ER",
+      "required_fields": [
+        "version",
+        "reviewed_refs",
+        "decision",
+        "review_scope",
+        "issues",
+        "unreviewed_items"
+      ],
+      "issue_fields": [
+        "issue_id",
+        "affected_artifact",
+        "evidence",
+        "consequence",
+        "correction_owner",
+        "smallest_correction"
+      ],
+      "notes": "PASS, REVISE or NEEDS_REVIEW. Scope visual checks to images actually supplied. New Data defects return to Data; computation -> EC, rendering -> EV, interpretation -> EI, plan -> EP."
+    },
+    "eda_handoff": {
+      "owner": "ER_HOST",
+      "required_fields": [
+        "version",
+        "review_ref",
+        "human_confirmation_ref",
+        "input_refs",
+        "scoped_contexts",
+        "not_calculable",
+        "accepted_limitations",
+        "open_items"
+      ],
+      "notes": "Host assembles after successful review resolution and exact-version human confirmation. Changed inputs/rules/prompts/outputs invalidate relevant reviews and approval. Forward open ledger items unchanged; no automatic downstream launch."
+    }
+  },
+  "rules": [
+    {
+      "id": "EDA001",
+      "title": "Inputs and scope",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Use only the host-verified Data handoff, authorized context and bound scientific reference. Preserve source roles and protected holdouts. Do not edit inputs or repeat Coverage, Necessity or cleaning. An invalid handoff identity blocks intake; a local missing definition or conflict limits dependent operations. A Data READY status alone does not establish calculability of every requested quantity.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA002",
+      "title": "Unresolved items",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Retain unresolved items and source conflicts with exact source locations. Record G008 outcomes before the decisions that depend on them. Scope unavailable inputs and conflicts to affected operations; forward unrelated open items unchanged. Do not select a convenient conflicting value, invent pairing, infer experimental-unit identity or replace uncertainty with PASS.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA003",
+      "title": "Question-driven planning before modeling",
+      "calls": [
+        "EP-plan"
+      ],
+      "text": "Start with what must be understood before the next modeling action, not a catalogue of plots or one figure per source table. For each priority question state the observable feature, relevant admitted evidence, what the viewer should be able to understand, and the implication for later analysis. For this scope consider animal concentration-time shape and sampling, observed variability at its actual record level, terminal PD effect range with controls, compatible index-response information, and time-kill patterns where relevant. Select the smallest informative set of displays, shared views, tables or notes that answers the question. Several complementary views may serve one question, and one view may serve several questions. Explicitly justify axis scales, grouping/facets, source versus calculated summaries, uncertainty definitions, status handling and any complementary view. For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and concise per-figure status notes; do not create status subplots; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Use one time basis per main figure, preferring evidenced paper sampling times. Label the displayed time basis in plain English: nominal study-method sampling times, reported sampling schedule, or digitized figure times, as supported by the selected column and its evidence. A paper sampling schedule does not establish actual per-animal collection times. Do not print internal time-basis codes in captions or imply that a display choice finalizes the modeling time axis. Otherwise label the retained source/digitized basis without claiming paper verification. Keep original pixel times and source cells in immutable source records; omit confirmed redundant pixel fields from downstream working copies only under EDA012, and do not duplicate plots. Offer a separate time check only for a recorded source conflict or an explicit request; do not add automatic offset analysis. This display choice does not reconcile modeling time. Prefer independent figures with full X/Y labels, ticks and units, legend and figure index; a deliberately retained exposure-index comparison may have several fully labeled panels under EDA014. Never combine different administration routes in one figure. Separate IT, IV and other routes; different doses within the same route may remain together. Each route-specific figure retains full axes, units, legend and index. Use readable, range-aware axis ticks before adding annotations. For time profiles, use finer X ticks near the beginning when early observations would otherwise be difficult to locate, with coarser ticks later; preserve the original linear time spacing and time origin. Choose readable Y ticks appropriate to the data range and declared scale, with light intermediate grid lines where useful. On log axes label ticks in the original concentration units and retain the log transform. Do not hard-code hour or concentration intervals across datasets. Keep ordinary observation markers uniform within each series; do not specially enlarge or hollow first points, add first-time callouts or automatically generate a zoom figure for them. Separate symbols required for actual observation status remain allowed. Do not shift times, add a time-zero observation, align series, round source coordinates or promote a later quantified point to replace a missing/censored earliest response. Preserve original values, status and source locations in the companion records and concise per-figure status notes. Categorical and exposure-index X axes do not receive early-time ticks. Use the host-normalized catalog. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model. Reuse completed EC results when changing presentation. In the one post-EC review, retain or revise views and add bounded complementary views from the same admitted results when they reveal needed information; do not trigger repeated extraction, calculation or model loops. Assess completion by whether each priority question has informative evidence and explicit limits, not by figure count or dataset assignment. A question that remains partly unanswered must retain its remaining unknowns and next modeling implications even when its figures rendered successfully. For imperfect data recommend the best defensible next preparation action: what remains usable now, the limitation and its impact, a preferred handling approach and why, conditional alternatives, and only the clarifications that actually affect that action. Prefer preserving usable evidence in its supported scope over blanket exclusion. Separate presentation-only handling, reversible modeling-input preparation and decisions that require clarification or explicit scientific judgment. These are source-grounded recommendations, not executed transformations, Data approval or proof of model feasibility. Do not invent individual trajectories, impute missing or censored values, reconcile uncertain axes, convert matrices or cancel necessary conditions. Specify data, provenance, experimental unit, known relationships, formula, calculation order, groups, variables/units/scales, marks, uncertainty and purpose. Operations require an implemented permitted R handler; no model-generated executable code. For relevant limited evidence choose the smallest supported display before exclusion. Keep scientifically needed unavailable displays DEFERRED with a specific reason and informative source-table fallback. A table is not completion of a required graphical view. Omit only for a documented objective/scope exclusion or absence of any permitted informative representation. Preserve all other EDA, project and governance constraints; no fitting, invented identities, uncertainty, exposure links, human claims or scientific approval.",
+      "derived_from": "User-authorized question-driven EP redesign, 2026-10-20; retains descriptive EDA safeguards. User authorized default paired PK scales and explicit zero/BLQ exceptions, 2026-10-20."
+    },
+    {
+      "id": "EDA004",
+      "title": "Descriptive calculation",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "EC executes R formulas only when definitions and all required inputs/relationships are established without new scientific assumptions. Allow traceable unit conversion, time alignment, compatible nonzero-dose normalization, supported response transforms, ratios from existing/allowed quantities, complete measured collection amounts, explicitly maximum observed concentrations, and descriptive statistics at verified unit/group levels. Preserve raw values, units, source rows, operands, formula definition/source, scale/order, denominator/window, technical versus biological repeats and censoring. Supported bounds remain bounds; quantifiable-only summaries disclose exclusions. SD requires its defined denominator and at least two contributing values. Do not calculate AUC/AUMC or new response-time integrals, reconstruct exposure, impute limits/zeros, fit terminal slopes or PD targets, estimate inferential uncertainty or simulate humans. Source-reported analytical outputs may be displayed with their method and limits.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA005",
+      "title": "Experimental units and display",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "EV draws in R from unchanged permitted observations and EC results. Respect serial, sparse, destructive, pooled, nested, source-summary and digitized records. Do not create animal trajectories or biological n from record IDs, tissue replicates or technical repeats. Label axis variables/units/basis, source versus calculated summaries, n and error definitions. Execute the planned default linear and semilog PK views from the same source observations. Nonpositive values cannot occupy log coordinates: retain their original values and statuses in the companion data and show explicit per-figure status notes or a correctly aligned status strip. BLQ stays censored; do not add artificial offsets or silently substitute LLOQ/2. Break connected guides at missing/censored rows and, on log axes, at nonpositive rows. Preserve missing/censored status and input discontinuities. Connected summary points are descriptive guides with supported membership, not fitted trajectories. Check plots against their exact plotted rows; machine checks alone are not visual review. Make material display problems visible in annotations or caption_limits, with source locations where applicable: affected records or groups, time or dose basis, matrix/unit differences, missing or censored values, uncertain digitized positions, undefined error bars and unverified correspondence. Explain what the viewer can read and what comparison or inference is unsupported. Show available bounds or status marks without inventing coordinates; if faithful plotting is unavailable, retain the proposed figure as DEFERRED and show the original values and status in a source table. A note does not authorize an invalid conversion, pairing, calculation or misleading plot. Use one time basis per main figure, preferring evidenced paper sampling times. Label the displayed time basis in plain English: nominal study-method sampling times, reported sampling schedule, or digitized figure times, as supported by the selected column and its evidence. A paper sampling schedule does not establish actual per-animal collection times. Do not print internal time-basis codes in captions or imply that a display choice finalizes the modeling time axis. Otherwise label the retained source/digitized basis without claiming paper verification. Keep original pixel times and source cells in immutable source records; omit confirmed redundant pixel fields from downstream working copies only under EDA012, and do not duplicate plots. Offer a separate time check only for a recorded source conflict or an explicit request; do not add automatic offset analysis. This display choice does not reconcile modeling time. Prefer independent figures with full X/Y labels, ticks and units, legend and figure index; a deliberately retained exposure-index comparison may have several fully labeled panels under EDA014. Never combine different administration routes in one figure. Separate IT, IV and other routes; different doses within the same route may remain together. Each route-specific figure retains full axes, units, legend and index. Use readable, range-aware axis ticks before adding annotations. For time profiles, use finer X ticks near the beginning when early observations would otherwise be difficult to locate, with coarser ticks later; preserve the original linear time spacing and time origin. Choose readable Y ticks appropriate to the data range and declared scale, with light intermediate grid lines where useful. On log axes label ticks in the original concentration units and retain the log transform. Do not hard-code hour or concentration intervals across datasets. Keep ordinary observation markers uniform within each series; do not specially enlarge or hollow first points, add first-time callouts or automatically generate a zoom figure for them. Separate symbols required for actual observation status remain allowed. Do not shift times, add a time-zero observation, align series, round source coordinates or promote a later quantified point to replace a missing/censored earliest response. Preserve original values, status and source locations in the companion records and concise per-figure status notes. Categorical and exposure-index X axes do not receive early-time ticks. Use the host-normalized catalog.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13; user-authorized scoped-display and limitation-note clarification, 2026-10-19"
+    },
+    {
+      "id": "EDA006",
+      "title": "Comparability",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Assess compatibility for the specific operation: analyte, system/species, matrix, route/formulation, regimen/dose basis, total/free basis, units, time origin/window, endpoint/reference and matched strain MIC as applicable. Keep incompatible contexts in separate panels/tables and name the differences; incompatibility for pooling does not prohibit descriptive display. Normalization and visual trends do not establish dose proportionality, mechanisms or a winning index. Retain reported non-achievement and study-specific tolerability/formulation/administration limits without inferring human safety. A restriction on modeling, matching, pooling, conversion or time-axis reconciliation applies to that dependent operation; it does not by itself exclude the relevant admitted data from EDA. Use separate panels, source-native points, tables or explicit alternative views when scientifically permitted. Missing matched PK does not alone prohibit terminal PD outcome display, and missing cross-panel correspondence does not alone prohibit separate index-panel displays. Name the unresolved difference and the inference it prevents; do not silently resolve it or imply that separate display establishes comparability.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13; user-authorized scoped-display and limitation-note clarification, 2026-10-19"
+    },
+    {
+      "id": "EDA007",
+      "title": "Findings",
+      "calls": [
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "EI descriptive interpretation and human handoff EDA packages source-preserving figures, exact plotted rows and concise necessary explanations. Describe concrete observations, their scope and unresolved source/interpretation limits. Check comparative claims against exact rows; disclose uninspected images. Flag suspicious points without declaring them statistical outliers or changing data. Model candidates, compartment count, ODE properties, error-model choice and fitting strategy belong to the downstream PK/PD branches. Do not include recommendations or a model shortlist in the EDA human summary. Independent ER review precedes the exact-version human checkpoint. Only explicit human approval permits PK and PD branch handoff. Share authoritative rules and unresolved constraints; route only relevant evidence. Handoff approval is not model readiness or permission to bypass the branches' input qualification. Human/horse holdouts remain excluded from current animal/in-vitro branches.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA008",
+      "title": "Independent review",
+      "calls": [
+        "ER-review"
+      ],
+      "text": "Independently compare the plan, calculations, rendered figures, plotted rows and findings against the task and this scope. State missing or unreviewed evidence. Distinguish input defects, calculation errors, display errors and unsupported interpretation; request the smallest correction from the responsible component. PASS means coherence and completeness for the disclosed EDA scope. REVISE requires correction; NEEDS_REVIEW requires human scientific judgment. No result establishes human predictive validity or approves itself. Check that relevant limited data has a feasible scoped display plan or a documented independent exclusion. Verify that material issues appear in the proposed annotations/caption_limits and, for supplied outputs, in the actual display or companion source table. Reject blanket omissions justified only by downstream modeling, matching or pooling restrictions, unsupported executable claims, and notes used to excuse misleading marks. A retained DEFERRED figure is a plan, not a rendered result. Require concise concrete observations and source-scoped limitations, not a metadata inventory. Check directional/numeric claims against supplied rows. Model recommendations and ODE choices are deferred; their absence is not an EDA defect.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13; user-authorized scoped-display and limitation-note clarification, 2026-10-19"
+    },
+    {
+      "id": "EDA009",
+      "title": "Host handoff",
+      "calls": [
+        "ER-review"
+      ],
+      "text": "ER's independent model review precedes deterministic host handoff assembly. After review issues are resolved and the exact version is human-confirmed under the existing checkpoint, retain unchanged Data references and route relevant outputs/findings to dispatch, animal-PK and index contexts. Include NOT_CALCULABLE reasons, accepted limitations and all still-open ledger items. No extra handoff model call, new global assessment, automatic downstream launch or copied historical approval. After exact-version human approval, prepare separate PK and PD intake packages. Approval does not start fitting or bypass downstream input qualification; excluded human/horse data remain excluded.",
+      "derived_from": "Current EDA English review and accepted five-part framework, 2026-10-13"
+    },
+    {
+      "id": "EDA011",
+      "title": "Readable study-specific figures",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Use English, concise titles, a unique figure index, complete axes with units/basis, readable ticks and a complete legend on each independent figure. Split studies, species, routes (especially IT versus IV), matrices, strains and individual profiles when mixing hides interpretation or makes panels too small. Comparable doses within a route may remain together. Use ordinary filled circles for observations; color can distinguish index panels. No special first-point circles, first-point callouts or automatic insets. Use finer early time ticks and range-aware Y ticks, preserving numeric spacing and source precision. All meaningful figures, including supplemental figures if retained in the package, require exact-version human review; a style approval or sample inspection does not approve the others. Keep figure titles concise: identify the endpoint and study/strain; put drug and dose in the subtitle when they would crowd the heading. Wrap long titles and subtitles rather than clipping or dropping scientific context.",
+      "derived_from": "User-approved figure-by-figure EDA review and dataset handoff instructions, 2026-10-21"
+    },
+    {
+      "id": "EDA012",
+      "title": "Time, scales and observation status",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Use one primary time basis per main figure, preferring explicitly evidenced paper sampling times. Do not repeat an equivalent pixel-time plot. Omit confirmed redundant pixel time only from downstream working copies when paper time is evidenced and no conflict remains; keep immutable source records. Preserve unresolved alternatives and source conflicts without deleting points or forcing schedule alignment. Generate a separate diagnostic only for an evidenced material offset/source conflict or explicit human request. Distinguish stored value representation, publication axis and intended display axis; restore verified log scales without double-transforming already-log responses. Positive PK observations support semilog displays; nonpositive, missing, not-sampled, ND and BLQ observations retain their exact status outside log coordinates, never a pseudocount or invented limit. Use concise per-figure status notes and companion rows; do not create a separate status subplot. Do not infer outliers or remove anomalies from appearance. Time conflicts are scoped to the current study, route and matrix. A blood/plasma sampling conflict does not trigger a tissue or ELF time-check figure; an SC-specific warning does not apply to IT. Recognize explicit matrix-specific source schedules when the existing source-time values match; never snap digitized points or invent times. Prefer that supported source time in the main figure; retain pixel time in immutable provenance, not a duplicate main plot. Generate an alternate-time diagnostic only for a conflict applicable to that series or an explicit request; small numeric differences alone are not a trigger. Remove unrelated warnings from figure captions but retain the original notes in source records. For continuous time axes, format labels without unnecessary decimal trailing zeros. After final source-specific breaks and limits are set, check label spacing at the output size; stagger crowded labels across two rows, rotating them only if needed. Retain all selected time ticks, exact observation positions and the original linear/log axis transformation. Do not resolve crowding by moving points, deleting observations, stretching the early-time region, adding automatic insets or first-point emphasis. Record label-layout decisions in the rendering audit.",
+      "derived_from": "User-approved figure-by-figure EDA review and dataset handoff instructions, 2026-10-21"
+    },
+    {
+      "id": "EDA013",
+      "title": "PD, time-kill and regimen presentation",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Terminal PD views identify species, organism/strain, matched source MIC, route, dose/frequency, response window, controls and group point counts when supplied. Keep each strain readable; use consistent Y scales for intended comparisons. Distinguish this experiment baseline from a different source baseline; ND is not zero. Time-kill displays identify strain/MIC and concentration units, use actual observation times, preserve censoring and show a zero-change reference when the outcome is change from baseline; do not invent a time-zero observation. Label error bars explicitly as source SD, SEM or CI and state what n counts. Regimen interval axes use q4h/q8h/q12h/q24h or the actual source intervals, preserving numeric spacing. Course categories use source durations (for example 7-day course/14-day course), not implied longitudinal observations. Missing metadata is stated as unreported, never inferred. For study-specific figure annotations, use an explicit same-study binding and an exact strain/compound match for MIC; never match on strain name or a shared workbook alone. Show route/frequency only with source support. State n as a reported per-group count unless its experimental-unit basis is explicitly established. Name the dose/time of ND and preserve its source-defined meaning. Bind annotation evidence and preserve all plotted rows; unresolved or conflicting matches require review rather than guessed labels. For time-kill plots, display the source-matched compound MIC with units and the static/dynamic exposure setting in the subtitle when explicitly supplied. Retain the original treatment concentrations and censoring; do not replace tiny control placeholders by zero, infer replicate counts, or substitute MIC-normalized coordinates. Remove exact repeated title phrases without dropping strain or endpoint identity. Bind the MIC and exposure annotation to the current source study; conflicting or absent evidence is not filled by inference.",
+      "derived_from": "User-approved figure-by-figure EDA review and dataset handoff instructions, 2026-10-21"
+    },
+    {
+      "id": "EDA014",
+      "title": "Index, MIC, binding and optional context",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "For exposure-index panels, preserve verified source-axis scales and panel-specific points; use the same filled marker and different colors if displayed together. Each panel keeps full axes, units, index name and readable low-exposure values. Do not fabricate cross-panel matches or derive a best index/target from EDA. MIC displays separate studies, identify organism and strain, use doubling concentration ticks (such as 0.5, 1, 2, 4), and retain inequality/boundary marks rather than presenting limits as exact measurements. Binding displays explain ED (equilibrium dialysis) and UF (ultrafiltration), keep methods/species distinguishable, label points as means and bars as SD only when supported, and distinguish assay replicates from biological n. Tissue distribution and pathology are supplementary or retained as tables when not needed for the current modeling question; do not silently discard their source data. For rabbit infection outcomes prioritize lung bacterial burden, retaining lung weight/hemorrhage as supplementary and preserving SEM and control/strain ambiguity. Binding figures use short species/matrix/assay headings; move the compound and expanded assay name (ED: equilibrium dialysis; UF: ultrafiltration) to the subtitle when supported by the source. Keep internal dataset IDs in provenance. Label points as means and bars as source SD/SEM/CI, preserving the experimental-unit basis. Omit duplicate single-series legends only when no group, status or bound distinction is lost. Do not clip reported SD intervals at 100% or merge assays.",
+      "derived_from": "User-approved figure-by-figure EDA review and dataset handoff instructions, 2026-10-21"
+    },
+    {
+      "id": "EDA015",
+      "title": "Explicit dataset destinations and pending packaging",
+      "calls": [
+        "EP-plan",
+        "EI-findings",
+        "ER-review"
+      ],
+      "text": "Every admitted dataset has one routing record: PK and/or PD destination, OBSERVATIONS/CONTEXT/SUPPLEMENTARY role, intended use, pending checks and WAITING_FOR_NEXT_STAGE_PACKAGING status. Route animal PK observations to PK; infection endpoints, index-response, time-kill, MIC and PD regimen context to PD. Binding or genuinely shared context may serve both with explicit purpose. Do not default unassigned evidence to both branches, copy raw tables repeatedly, or treat contextual summaries as individual observations. Preserve all source notes, original Rules, Data permissions, exclusions and unresolved study links. Dataset assignment does not establish model eligibility. Human approval of the exact EDA version permits packaging for input qualification only; no automatic fitting. Scope each limitation to the action it affects. Keep human/horse holdouts excluded.",
+      "derived_from": "User-approved figure-by-figure EDA review and dataset handoff instructions, 2026-10-21"
+    }
+  ],
+  "runtime": {
+    "enabled": false,
+    "implemented": true,
+    "model_operations_per_normal_pass": null,
+    "model_calls_run": 0,
+    "per_dataset_calls": false,
+    "per_figure_calls": false,
+    "handoff_model_call": false,
+    "calculation_engine": "R",
+    "plot_engine": "R / ggplot2",
+    "orchestration": "Python",
+    "human_review": "BEFORE_HANDOFF_FOR_EXACT_REVIEWED_VERSION",
+    "review_context": "Independent from plan/findings generation; include bound artifacts and disclosed review scope.",
+    "repair_policy": "Target only affected artifacts; stop unresolved scientific assumptions for review, never loop or change source values automatically.",
+    "model_release": false,
+    "enabled_scope": "Legacy canvas/scaffold activation only; remains disabled. This field is not a switch for the explicitly invoked native adapter.",
+    "native_adapter": {
+      "implemented": true,
+      "entrypoint": "backend/research_pipeline/research_pipeline/eda_questions_v6.py",
+      "source_renderer": "backend/research_pipeline/research_pipeline/resources/eda/source_displays.v5.R",
+      "legacy_view_renderer": "backend/research_pipeline/research_pipeline/resources/eda/question_displays.v2.R",
+      "handoff": "backend/research_pipeline/research_pipeline/eda_review_handoff.py",
+      "status": "EXPLICIT_INVOCATION_ONLY; HUMAN_GATE_BEFORE_HANDOFF",
+      "automatic_modeling": false
+    },
+    "model_operation_contracts": 3,
+    "call_count_policy": "EP planning and optional post-EC finalization; EI plus bounded disjoint ER batches. Actual calls recorded per run; metadata is not a fixed call count."
+  },
+  "source": {
+    "replaces": "EDA 1.0.0-draft.1 (EP/EX/ER/EH) and the previous four-operation EDA prompt; preserved in outputs/EDA_Framework_20261013_213146/before.",
+    "authority": "Five descriptive components implemented in the native question-driven adapter; legacy scaffold entrypoints remain disabled. Human review and branch input qualification are separate from runtime implementation.",
+    "scientific_reference": {
+      "file": "eda_scientific_reference.txt",
+      "sha256": "4198880fd4cb4db783cced8300594c4537ee533f18989683bae7c9a0f542aaec",
+      "origin": "C:/Users/georg/Documents/Transitioanl PKPD Context Engineering/deliverables/eda_rebuild_20261013/EDA_data_plot_purpose_EN_review.txt",
+      "status": "CURRENT_PRESENTATION_RULES_20261021",
+      "interpretation": "The text's no-implementation statement describes its authoring scope. This framework is a separate artifact."
+    }
+  }
+}

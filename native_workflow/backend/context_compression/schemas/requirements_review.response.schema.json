@@ -1,0 +1,138 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "REVISE",
+            "NEEDS_REVIEW"
+          ]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_type": {
+          "type": "string",
+          "enum": [
+            "MODEL_REVIEW",
+            "ASSISTANT_INTERNAL_REVIEW",
+            "EXPERT_REVIEW"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "requirement_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "requirement_id",
+              "verdict",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "source_units": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "unit_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requirement_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "unit_id",
+              "requirement_ids",
+              "verdict",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "critical_errors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "decision",
+        "reviewer",
+        "review_type",
+        "items",
+        "source_units",
+        "critical_errors",
+        "limitations"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "request_sha256",
+    "review"
+  ],
+  "additionalProperties": false
+}

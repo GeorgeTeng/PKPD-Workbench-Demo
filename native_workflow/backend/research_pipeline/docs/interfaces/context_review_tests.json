@@ -1,0 +1,73 @@
+{
+  "rule_id": "CC012",
+  "scope": "Context compression and its internal reviews",
+  "default_for_new_runs": "parallel_v3 in Python, CLI and Workbench: the faithfulness review runs in parts and the global conflict review runs alongside both branches; CTXCOMP_CONTEXT_REVIEW_MODE selects another mode",
+  "historical_compatibility": "Existing run inputs are unchanged. Explicit legacy mode is retained for historical authored-response replay.",
+  "wiring": {
+    "orchestration": "LangGraph -> Prefect -> Snakemake -> compress -> ctxcomp.providers.run_model",
+    "execution": "ctxcomp.split_review.execute",
+    "parallel": [
+      "context_faithfulness",
+      "context_completeness"
+    ],
+    "after_both": "context_conflicts in parallel_v1 and parallel_v2; parallel_v3 starts it alongside both branches",
+    "provider": "One fresh isolated model call per pending role; exact validated same-run branch results may be reused on an explicit retry. New Codex calls use a new temporary directory and --ephemeral.",
+    "validation": "ctxcomp.split_review.validate_branch runs on each response before aggregation.",
+    "release": "Aggregate all three decisions and verify the branch proof before publishing main.json."
+  },
+  "review_agents": [
+    {
+      "id": "context_faithfulness",
+      "test_file": "../../../context_compression/tests/test_review_faithfulness.py",
+      "checks": [
+        "field and atomic-claim coverage",
+        "exact source and candidate citations",
+        "evidence status consistency",
+        "stale response rejection",
+        "false PASS rejection"
+      ]
+    },
+    {
+      "id": "context_completeness",
+      "test_file": "../../../context_compression/tests/test_review_completeness.py",
+      "checks": [
+        "requirement and component coverage",
+        "source-unit coverage, including inventory omissions; from compression rules 1.20.0 only the proposal's units, with cited supporting passages checked where cited (tests/test_supporting_scope.py)",
+        "traceable target spans",
+        "mandatory requirements cannot become optional advice",
+        "false PASS rejection"
+      ]
+    },
+    {
+      "id": "context_conflicts",
+      "test_file": "../../../context_compression/tests/test_review_global_conflicts.py",
+      "checks": [
+        "all five global checks exactly once",
+        "source and candidate provenance",
+        "each unresolved global check blocks publication",
+        "neither prior branch may be overridden"
+      ]
+    }
+  ],
+  "integration_test": "../../../context_compression/tests/test_review_agent_wiring.py",
+  "existing_gate_tests": "../../../context_compression/tests/test_split_review.py",
+  "model_accuracy": "NOT_EVALUATED_BY_CODE_TESTS",
+  "limitations": [
+    "Authored findings test validators and release gates, not whether an LLM detects semantic defects.",
+    "Provider wiring tests construct the real CLI adapter calls but stub their remote responses; no live external calls are made.",
+    "Exact quotation matching does not prove entailment, complete scientific coverage or human predictive validity.",
+    "Retry tests measure call counts using authored responses; real-provider speed and semantic accuracy have not been measured."
+  ],
+  "retry_tests": {
+    "test_file": "../../../context_compression/tests/test_review_resume.py",
+    "checks": [
+      "A failed global call requires only one new call when both prior branches remain valid.",
+      "An invalid branch reruns without repeating its valid sibling.",
+      "Changed candidate, rules, schema, executor or validator code prevents reuse.",
+      "Changed prerequisite findings change the global-review request.",
+      "Altered cached artifacts stop execution.",
+      "An unchanged semantic failure is reused as failure, never resampled for PASS.",
+      "Custom adapters without explicit executor identity do not reuse reviews."
+    ]
+  }
+}

@@ -1,5 +1,18 @@
 ContextBuilder v1: executable lossless prototype
 
+Branch handoff API (2026-10-20)
+build_branch_handoff(branch, source=..., assignment=..., output=...,
+                     input_bindings=...) assembles a downstream context without
+creating a model request. The task router supplies the assignments; the
+dispatch_context adapter projects scientific fields and applicable rules.
+PK and index are built separately. The existing clinical interpretation
+handoff remains available for subsequent study-wide work.
+The return value contains context and context_manifest. Save the manifest and
+attach its file reference as context_manifest_ref in the flat context file.
+verify_branch_handoff checks context content and bound inputs on consumption.
+Legacy contexts keep their existing approval and source checks.
+This API does not enable EDA or grant model execution/scientific approval.
+
 What it does
 The workflow selects a stage and operation. ContextBuilder looks up a deterministic
 route, checks required and unexpected payload sections, attaches canonical governance

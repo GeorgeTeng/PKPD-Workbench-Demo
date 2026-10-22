@@ -1,0 +1,150 @@
+{
+  "title": "Preserve scientific meaning, definitions and relationships",
+  "rule": "Compression may shorten wording but must preserve all stated information that could affect downstream interpretation, analysis, model selection or decisions.",
+  "applies_to": [
+    "The selected proposal",
+    "Relevant supporting-file evidence used during compression"
+  ],
+  "preserve": {
+    "quantities_and_units": [
+      "Numerical values, ranges, precision and uncertainty as reported.",
+      "Units, denominators and normalization bases, including mg versus mg/kg and absolute versus body-weight-normalized parameters.",
+      "Thresholds and comparison operators, including >, >=, <, <= and equality."
+    ],
+    "drug_and_analyte_identity": [
+      "Drug, formulation and measured analyte identities.",
+      "Distinctions among active drug, prodrug, metabolites and measured components.",
+      "Whether doses or concentrations refer to salt mass, active-moiety mass or another stated basis."
+    ],
+    "biological_context": [
+      "Species, population, experimental condition and relevant physiological or disease state.",
+      "Sample matrix and sampling site, including plasma, serum, whole blood, tissue and ELF.",
+      "Free, total or bound concentration basis."
+    ],
+    "dosing_definitions": [
+      "Administration route, dose, frequency and dosing interval.",
+      "Bolus versus infusion, infusion duration and administration rate.",
+      "Single versus repeated dosing, loading versus maintenance dosing, and steady-state status when stated."
+    ],
+    "time_definitions": [
+      "Time units, time origin and relationship to dose administration.",
+      "Sampling times, dose occasions and observation windows.",
+      "Exposure integration windows, including AUC0-24, AUC0-infinity and AUC over a dosing interval."
+    ],
+    "endpoints_and_comparators": [
+      "Endpoint definition, calculation, assessment time and direction of effect.",
+      "Absolute outcomes versus changes from baseline or differences from a control.",
+      "Comparator identity and reference values, including the stated MIC definition and its associated strain or experiment."
+    ],
+    "experimental_units_and_data_levels": [
+      "Individual observations versus group summaries or pooled samples.",
+      "Independent animals, subjects or biological replicates versus repeated measurements or technical replicates.",
+      "Sample-size meaning: animals, groups, samples, time points or observations."
+    ],
+    "statistical_summaries": [
+      "Mean, median, geometric mean and other reported summary definitions.",
+      "SD, SEM, CV, confidence intervals, credible intervals and prediction intervals as distinct quantities.",
+      "Reported interval levels and uncertainty methods when stated."
+    ],
+    "variable_and_parameter_definitions": [
+      "Variable meanings, parameterization and estimands.",
+      "Distinctions such as CL versus CL/F and Vc versus Vss or terminal volume.",
+      "Equations and operational definitions needed to interpret or reproduce the stated method."
+    ],
+    "transformations_and_normalization": [
+      "Original versus transformed values, including logarithm base when stated.",
+      "Absolute versus dose-normalized, weight-normalized or baseline-normalized quantities.",
+      "Absolute bacterial counts versus logarithmic counts or changes in bacterial counts."
+    ],
+    "information_status": [
+      "Observed, estimated, predicted, assumed and planned quantities.",
+      "Reported findings versus hypotheses or proposed analyses.",
+      "BLQ, other censoring, missing, zero and not-measured values as distinct states.",
+      "Applicable quantification limits and censoring conventions when stated."
+    ],
+    "relationships_and_matching": [
+      "Links among study, species, subject or group, treatment, dose, occasion, sampling time and outcome.",
+      "Exposure-to-response, strain-to-MIC and specimen-to-analyte matching when explicitly established.",
+      "Restrictions on pooling, pairing, joining or comparing records across studies or groups.",
+      "Uncertain relationships must remain uncertain; matching must not be invented."
+    ],
+    "logic_scope_and_exceptions": [
+      "AND versus OR, conditional clauses, prerequisites and triggers.",
+      "Negation, permissions, prohibitions, exceptions and qualifiers such as only, before and after.",
+      "Which population, dataset, method, stage or circumstance each statement applies to.",
+      "Development, model-selection and validation restrictions, including holdout and sensitivity-only use."
+    ]
+  },
+  "boundaries": [
+    "Preserve these details when stated and relevant; this is not a requirement that every proposal contain every listed item.",
+    "Do not infer absent definitions, silently reconcile conflicts or create unsupported relationships.",
+    "Do not silently convert units, transform values, normalize data or replace reported quantities during compression.",
+    "Use CC006 for unspecified information and CC002/CC011 for evidence provenance."
+  ],
+  "review_criteria": [
+    "The compressed content supports the same scientific interpretation and permitted downstream actions as the source.",
+    "Consequential definitions, conditions and relationships remain explicit or unambiguous.",
+    "Any consequential omission, alteration or unsupported inference requires revision.",
+    "Faithfully retained source uncertainty is not an extraction error; it must remain visible for downstream resolution."
+  ],
+  "version": "2.0.0",
+  "terminology_appendix": {
+    "profile": "pk_binding_knowledge",
+    "request_location": "processing_rules.pk_binding_knowledge",
+    "use": "Read the applicable mapped groups when this profile is supplied for the current stage; do not open an external file. All 13 preservation categories remain applicable independently of glossary coverage.",
+    "categories": {
+      "quantities_and_units": [
+        "CPK01",
+        "CPK02",
+        "CPK03",
+        "CPK04"
+      ],
+      "drug_and_analyte_identity": [],
+      "biological_context": [
+        "CPK04"
+      ],
+      "dosing_definitions": [
+        "CPK01"
+      ],
+      "time_definitions": [
+        "CPK01",
+        "CPK02",
+        "CPK03"
+      ],
+      "endpoints_and_comparators": [
+        "CPK08"
+      ],
+      "experimental_units_and_data_levels": [
+        "CPK05"
+      ],
+      "statistical_summaries": [
+        "CPK06"
+      ],
+      "variable_and_parameter_definitions": [
+        "CPK03",
+        "CPK05",
+        "CPK07",
+        "CPK08"
+      ],
+      "transformations_and_normalization": [
+        "CPK02",
+        "CPK08"
+      ],
+      "information_status": [
+        "CPK04",
+        "CPK05"
+      ],
+      "relationships_and_matching": [
+        "CPK04",
+        "CPK07",
+        "CPK08"
+      ],
+      "logic_scope_and_exceptions": []
+    },
+    "supporting_metadata": "Use the profile's single supporting_metadata note for identity and study matching; no species-name list is needed.",
+    "data_qualifiers": "Use the profile's two data_qualifiers for experimental units, summaries, assay limits and missingness.",
+    "scientific_classification": "CC009 and scientific_extraction define role/status and source adoption; they are not duplicated as PK terms.",
+    "empty_mapping": "An empty list means the preservation category is governed by its own clauses and shared guidance, not that it may be omitted.",
+    "boundary": "Terminology defines no mandatory dataset, chosen model, default parameter, calculation, conversion or scientific acceptance threshold."
+  }
+}

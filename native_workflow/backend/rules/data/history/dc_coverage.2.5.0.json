@@ -1,0 +1,271 @@
+{
+  "version": "2.5.0",
+  "status": "USER_CONFIRMED_RULE_BY_RULE_REVIEWED",
+  "general_rules": "Apply the canonical G001-G008 pack, which ctxcomp.governance attaches to every call before these rules. These rules add only what is specific to this agent.",
+  "agent": {
+    "id": "DC",
+    "name": "Label data & check requirement coverage",
+    "order": 2
+  },
+  "calls": [
+    {
+      "id": "DC-split",
+      "operation": "SPLIT_WORKSHEET",
+      "description": "Runs during inventory, alongside DR, only for a worksheet that Excel table definitions, an explicit range plan and recognised source anchors cannot split. One fresh call reads the whole sheet and proposes table ranges, header rows and note blocks; host code verifies the proposal (DC001) and otherwise leaves the sheet unassigned."
+    },
+    {
+      "id": "DC-label",
+      "operation": "LABEL_FILE_DATA",
+      "description": "One fresh call per file page labels the content against its assigned requirements: a primary role and any additional roles; categorical route, matrix, record level and observation source; dose basis and analyte as stated; and, per column, its stated meaning and unit with evidence; and each data value written in text rather than a table body. Host code merges pages (DC004) and compares the text values with each other and with labelled tables (DC003)."
+    },
+    {
+      "id": "DC-review",
+      "operation": "ASSESS_COVERAGE",
+      "description": "One fresh independent call reviews every requirement, field, scope and condition; host code verifies citations and aggregates coverage. It also decides each row of the host condition checklist (condition_checklist.json) and the G008 items due before QC. When one request exceeds the transport budget, host code splits it by task (DC008)."
+    }
+  ],
+  "rules": [
+    {
+      "id": "DC001",
+      "text": "Split worksheets only from, in order of precedence, a person's explicit range plan bound to the file hash, Excel table definitions, a recognised source anchor or a DC-split proposal; a sheet without content is recorded as empty and not split. DC-split sees every non-empty or commented cell. Host code applies the same checks to every method: tables and note blocks lie inside the sheet and do not overlap, each header row is non-empty, a proposed title is copied from a sheet cell, and Excel totals rows are note blocks, not table body. A sheet whose split fails stays unassigned for review, with the proposal's own findings kept; a failed explicit plan is reported rather than replaced by a model split. A sheet holding only text is one note item and is not split; when such sheets total at most 2000 characters, every table of the workbook carries them as workbook notes. When Excel table definitions or source anchors split a sheet, text-only cells outside its tables are notes of every table on that sheet. A footnote marker ending a table cell (*, †, ‡, §, ¶ or a superscript letter; not (a) or [a], which are often units such as (h)) is linked to the one note line that starts with the same marker, looked for first in the notes linked to the table, then elsewhere on the sheet, then on text-only sheets of the same workbook; the cell value is never changed, the note text travels with the cell into preparation, and a marker with no single matching note is a follow-up. Cells outside every table and note block stay in an unassigned item that DR holds for review; no content is dropped.",
+      "calls": [
+        "DC-split"
+      ],
+      "derived_from": [
+        "USER_APPROVED_2026-10-08_DC_BUILD",
+        "USER_APPROVED_2026-10-09_DC007_REVIEW",
+        "USER_APPROVED_2026-10-09_LABEL_REVIEW_OPINIONS",
+        "USER_REQUESTED_2026-10-09_FOOTNOTE_LINKS",
+        "USER_APPROVED_2026-10-09_FOOTNOTES_ELSEWHERE"
+      ],
+      "previous_id": "DC007",
+      "step": "1 inventory (DC-split)"
+    },
+    {
+      "id": "DC002",
+      "text": "Inspect all permitted content in bounded requests: DC-split reads one whole sheet; DC-label reads one item per call, in pages of whole rows that each repeat the title, header and note cells; DC-review reads the labels and the cited source excerpts. Keep cell or line coordinates and exact evidence; a cell is sent as its content under its coordinate (numbers bare, text as written and marked when it could be read as another kind, formulas, errors, dates and comments named), and CSV values as written. Never silently truncate: an oversized sheet, page or request stops with a finding. Record what was not inspected and why, including hidden sheets (read but flagged) and document images or figures that intake supplies only as text. Show formulas with their cached values; never evaluate them.",
+      "calls": [
+        "DC-split",
+        "DC-label",
+        "DC-review"
+      ],
+      "derived_from": [
+        "DA003",
+        "USER_APPROVED_2026-10-09_DC002_REVIEW",
+        "USER_APPROVED_2026-10-09_DATA_SPEED"
+      ],
+      "previous_id": "DC002",
+      "step": "1 inventory and 3 labelling (reading scope)"
+    },
+    {
+      "id": "DC003",
+      "text": "Account for every inventory item: label each permitted table, note block or document page, and record why any other item was not read. Each label gives a primary role and any additional roles; drug, analyte, species or system (with strain and health or infection state), matrix, route, dosing regimen, dose basis, exposure basis and endpoint window as stated; route, matrix, record level and observation source from the fixed categories (MIXED when the item combines values, NOT_FOUND when unstated); and, for each table column, its header, meaning, unit and qualifiers (time origin, total or unbound basis, statistic, normalization or value markers) as written. List each data value written in running text, a note or a title rather than a table body as a stated value: quantity, value, unit, subject (the group, dose, animal or analyte it belongs to) and qualifiers, each copied verbatim or NOT_FOUND. Host code gives each stated value an ID and compares it with other stated values of the same quantity, subject and unit and with a labelled table row that holds the subject under a column named as the quantity: matching values are recorded as duplicates, different values as conflicts for human review before EDA, and neither value is adopted. Cite exact evidence for the label, every column and every stated value. Never convert units, infer the identity of animals across sampling times, or resolve markers such as BLQ or LLOQ. Use the assigned PK terminology as a reading aid, not as evidence. Labels are candidate classifications, not scientific acceptance.",
+      "calls": [
+        "DC-label",
+        "DC-review"
+      ],
+      "derived_from": [
+        "CC005",
+        "DA002",
+        "USER_APPROVED_2026-10-08_DC_BUILD",
+        "USER_APPROVED_2026-10-09_DC001_REVIEW",
+        "USER_REQUESTED_2026-10-09_TEXT_DATA"
+      ],
+      "previous_id": "DC001",
+      "step": "3 labelling (DC-label)"
+    },
+    {
+      "id": "DC004",
+      "text": "Labels of one item's pages merge by field. Columns are identified by position, from the lowest header cell each column cites; a column that cites no header cell is rejected. Copied wording is compared without case or spacing differences, a value a page leaves NOT_FOUND does not disagree with a stated one, and column qualifiers are combined. When pages still disagree on role, a category, a copied field or a column's header, meaning or unit, report the conflict and keep the merged value undecided; never adopt one page's value. A table conflict needs review before QC; pages of one document may describe different studies, so a document conflict is a follow-up and each stated value keeps its own subject. Roles from all pages remain as additional roles, and body columns no page described are reported for review.",
+      "calls": [
+        "DC-label"
+      ],
+      "derived_from": [
+        "USER_APPROVED_2026-10-08_DC_BUILD",
+        "USER_APPROVED_2026-10-09_DC008_REVIEW",
+        "USER_APPROVED_2026-10-09_LABEL_REVIEW_OPINIONS"
+      ],
+      "previous_id": "DC008",
+      "step": "3 labelling (page merge)"
+    },
+    {
+      "id": "DC005",
+      "text": "Requirement links in labels are candidates; DC-review decides each match through its criteria: the full requirement, each declared field, scope alignment and each condition. Scope alignment covers, where relevant, drug and analyte, species or system, matrix, route and dosing regimen, units, time window and time origin, record level, observed, reported or digitized status, and total or unbound basis. Data availability needs original body evidence; a filename, header, descriptor, row count or computed column summary alone does not establish measurements, independent animals or adequate precision. Combine evidence from several items only where the source states their link, such as the same study, group or animals; otherwise keep the gap. Keep conflicting sources as CONFLICT and never choose one silently; report any other stated value that repeats or contradicts a table or another stated value. Preparation prepares tables only: data found only in text are reported, and stated values that list them are carried to preparation as a separate list for confirmation. Record unit differences; never convert.",
+      "calls": [
+        "DC-label",
+        "DC-review"
+      ],
+      "derived_from": [
+        "DA004",
+        "USER_APPROVED_2026-10-09_DC003_REVIEW",
+        "USER_REQUESTED_2026-10-09_TEXT_DATA"
+      ],
+      "previous_id": "DC003",
+      "step": "4 review (matching)"
+    },
+    {
+      "id": "DC006",
+      "text": "Method-profile conditions follow the data: host code maps each labelled dataset onto the conditions of the profiles its requirements already selected, using the label's roles and fixed categories; MIXED or NOT_FOUND labels and review-dependent triggers leave applicability to the coverage review, which decides every row the labels do not exclude. A condition is met only with exact evidence from that dataset, from another permitted dataset linked to the same requirement where the source states the link, or from the project context. Conditions are draft method knowledge: unmet conditions are follow-up gaps and do not block QC. Data never create a requirement or select a profile; data that fit a profile but no requirement are reported as follow-ups for human review.",
+      "calls": [
+        "DC-review"
+      ],
+      "derived_from": [
+        "USER_APPROVED_2026-10-08_DATA_TO_METHOD_CONDITIONS",
+        "USER_APPROVED_2026-10-09_DC005_REVIEW"
+      ],
+      "previous_id": "DC005",
+      "step": "4 review (method conditions)"
+    },
+    {
+      "id": "DC007",
+      "text": "DC-review is the needed_at step for unresolved items due before QC: it records one outcome for each, and an escalated item keeps QC closed. Resolving an item needs exact source, context or project-rule evidence; a host-computed summary never resolves it. Items due later, and findings from inventory, DR, DC-label or DC-review that a later phase depends on, enter adequacy/unresolved_ledger.json unchanged, with the step and artifact that raised them. A follow-up due before QC that does not block QC enters the ledger for the handoff review (BEFORE_EDA), so it reaches every handoff instead of remaining only in adequacy.json.",
+      "calls": [
+        "DC-review"
+      ],
+      "derived_from": [
+        "USER_APPROVED_2026-10-08_G008_LEDGER",
+        "USER_APPROVED_2026-10-09_DC006_REVIEW"
+      ],
+      "previous_id": "DC006",
+      "step": "4 review (unresolved items)"
+    },
+    {
+      "id": "DC008",
+      "text": "Coverage review is a fresh call separate from labeling, optionally on a different model; it checks requirements, labels and evidence without rewriting them and requests targeted corrections instead. Besides the cells labels cite, the review sees body rows chosen by fixed rules (the first and last rows of each table and rows with non-numeric values in numeric columns), so it can find counterevidence the labels did not cite; the report records whether labels and review used the same model. PASS means the assessment is coherent and complete for the current phase; NEEDS_REVIEW means a human judgment is needed; REVISE means requirements, labels or evidence must be corrected and the step rerun. PASS is invalid while any check fails or any finding needs more than follow-up. Host code opens QC only when the review passes and no finding due before QC needs review or blocks: an unmet project requirement due before QC needs human review, while method-candidate and later-stage gaps are follow-ups that do not block descriptive preparation. Even then, preparation starts only after a person confirms the review on the workflow canvas, every time; checkpoint.md lists what that person decides: blocking findings, conflicts, items not read, requirements not met and accepted limitations. When one request exceeds the transport budget, host code splits it by task under a recorded rule: each call receives every requirement of its task with its evidence and condition rows, items that no task uses and the G008 items due now go to one further call, shared checks keep the strictest decision, and the audit records every part. A part that still exceeds the budget stops the step with an actionable error.",
+      "calls": [
+        "DC-review"
+      ],
+      "derived_from": [
+        "DA005",
+        "DA008",
+        "USER_APPROVED_2026-10-08_DC_BUILD",
+        "USER_APPROVED_2026-10-09_DC004_REVIEW",
+        "USER_APPROVED_2026-10-09_REVIEW_CHECKPOINT",
+        "USER_APPROVED_2026-10-09_LABEL_REVIEW_OPINIONS"
+      ],
+      "previous_id": "DC004",
+      "step": "4 review (decision and QC gate)"
+    }
+  ],
+  "notes": {
+    "assessment_algorithm": "D02 uses requirement-level criterion plans and original-source excerpts. Host code verifies citations, coverage, deferred-output evidence and deterministic aggregation; requirement_matrix.json retains the audit. See docs/interfaces/data_requirement_check.contract.json. Coverage is not scientific qualification.",
+    "assessment_outputs": "Requirement, matched evidence, input availability, gaps, affected task/endpoint, required phase and next action. AVAILABLE_CANDIDATE is input availability, not scientific adequacy; partial coverage uses UNRESOLVED with an explicit explanation.",
+    "file_context": "Each file worker receives assigned candidate requirements, their method profiles, applicable full project rules and selected scientific context fields."
+  },
+  "runtime": {
+    "fresh_call_per_agent": true,
+    "timeout_seconds": null,
+    "heartbeat_seconds": 300,
+    "human_review": "ALWAYS_AFTER_DC_REVIEW",
+    "model_release": false,
+    "concurrent_calls": "4 by default (DATA_AGENT_WORKERS); results are checked and merged in plan order",
+    "reuse": "A DC-split or DC-label response that passed its host checks is reused, after checking it again, when a retry sends the identical request to the same executor"
+  },
+  "source": {
+    "split_from": "data_agents.json 2.9.1 (DA001-DA009)",
+    "confirmed": "2026-10-08, project thread",
+    "condition_checklist": "2026-10-08, project thread: George approved mapping available data onto selected method-profile conditions.",
+    "unresolved_ledger": "2026-10-08, project thread: George approved connecting the G008 ledger (DC records outcomes, DH forwards).",
+    "dc_build": "2026-10-08, project thread: George approved DC-split, multi-role labels with column meanings, task-split coverage review and rules DC007-DC008.",
+    "context_review": "2026-10-08, project thread: rules scoped to their calls and label definitions added after the DC context review (DC_规则和上下文检查_20261008.md).",
+    "dc001_review": "2026-10-09, project thread: George asked to rewrite DC001, grill it for gaps and use CC005 keyword information.",
+    "dc002_review": "2026-10-09, project thread: George approved whole-row pages, hidden-sheet and text-only document flags and the DC002 rewrite.",
+    "dc003_review": "2026-10-09, project thread: George approved the DC003 rewrite and host-computed column summaries for DC-review.",
+    "dc004_review": "2026-10-09, project thread: George approved the DC004 rewrite and the optional review_model workflow setting.",
+    "dc005_review": "2026-10-09, project thread: George approved the DC005 rewrite and condition evidence from datasets linked to the same requirement.",
+    "dc006_review": "2026-10-09, project thread: George approved the DC006 rewrite: non-blocking QC follow-ups enter the ledger for the handoff review, computed summaries never resolve items, and items keep their raising step.",
+    "dc007_review": "2026-10-09, project thread: George approved the DC007 rewrite: empty sheets recorded, comments sent to DC-split, shared split checks, plan note blocks and Excel totals rows as statistics.",
+    "dc008_review": "2026-10-09, project thread: George approved the DC008 rewrite: columns merged by position, wording and unstated values no longer conflict, qualifiers combined and undescribed columns reported.",
+    "rule_by_rule_review": "2026-10-09, project thread: DC001-DC008 reviewed one by one with George; record in DC规则逐条检查_20261009.md.",
+    "renumbering": "2026-10-09, project thread: George asked to number the DC rules in run order. Old to new: DC007>DC001, DC002>DC002, DC001>DC003, DC008>DC004, DC003>DC005, DC005>DC006, DC006>DC007, DC004>DC008. Earlier notes and decision tokens keep the old IDs; each rule records previous_id.",
+    "text_data": "2026-10-09, project thread: George asked that data written in document text be organized, with duplicates and conflicts checked. DC-label lists stated values verbatim; host code compares them with each other and with labelled tables; conflicts are HUMAN_REVIEW before EDA; preparation writes stated_values.json beside the prepared tables and never merges them.",
+    "review_checkpoint": "2026-10-09, project thread: George chose a human checkpoint after every DC-review (decision card 审核后必停); the canvas change belongs to the 修改前端 thread.",
+    "dr_label_review_opinions": "2026-10-09, project thread: George approved L1, L2, R2, R3 and R4 of DR_标注_审核_意见_20261009.md (no DR checkpoint); backend only.",
+    "footnote_links": "2026-10-09, project thread: George asked that footnotes be kept with the table and linked; markers link cells to note lines without changing values.",
+    "footnotes_elsewhere": "2026-10-09, project thread: George approved linking markers to notes elsewhere on the sheet or on text-only sheets, and showing short notes sheets with every table.",
+    "speed": "2026-10-09, project thread: George chose all four speed changes (concurrent calls, reuse on retry, compact cells, host-code fixes)."
+  },
+  "label_vocabulary": {
+    "status": "DRAFT_PENDING_USER_REVIEW",
+    "special_values": {
+      "MIXED": "The item combines several values of this field.",
+      "NOT_FOUND": "The source does not state it; not proof that it does not exist.",
+      "NOT_APPLICABLE": "The field does not apply to this item."
+    },
+    "role": {
+      "PK_OBSERVATIONS": "Measured drug concentrations in a biological matrix at stated times.",
+      "PD_OBSERVATIONS": "Measured effect or response values (for example bacterial counts in vivo) at stated times or exposures.",
+      "DOSING": "Administered dose, route, timing or regimen records.",
+      "MIC": "Minimum inhibitory concentration results with their organism or strain.",
+      "BINDING": "Protein binding or unbound fraction measurements.",
+      "IN_VITRO_TIME_KILL": "In vitro bacterial counts over time under stated drug concentrations.",
+      "URINE_EXCRETION": "Urine concentrations, volumes or amounts excreted over stated intervals.",
+      "IN_VITRO_CLEARANCE": "In vitro metabolic or transport clearance measurements.",
+      "REPORTED_PARAMETERS": "PK or PD parameters as reported by the source, not recalculated.",
+      "ANIMAL_CHARACTERISTICS": "Species, strain, sex, body weight, health or infection state of the animals.",
+      "MODEL_CATALOG": "Descriptions of model structures or model equations.",
+      "SUPPORTING_EVIDENCE": "Methods, assay or context information that supports interpretation but holds no data records.",
+      "SOURCE_TABLE": "A table whose content type the evidence cannot establish; kept as a source table only."
+    },
+    "route_category": {
+      "IV_BOLUS": "Intravenous bolus injection.",
+      "IV_INFUSION": "Intravenous infusion over a stated or unstated duration.",
+      "EXTRAVASCULAR": "Any non-intravenous route, such as subcutaneous, intramuscular, oral or intraperitoneal."
+    },
+    "matrix_category": {
+      "PLASMA_SERUM_BLOOD": "Plasma, serum or whole blood.",
+      "URINE": "Urine.",
+      "INFECTION_SITE": "Fluid or tissue at the site of infection, such as epithelial lining fluid or thigh muscle.",
+      "OTHER_TISSUE": "Any other tissue or body fluid.",
+      "IN_VITRO_SYSTEM": "Medium or matrix of an in vitro experiment."
+    },
+    "record_category": {
+      "INDIVIDUAL": "One record per animal or subject sample. Rows at different times belong to the same animal only when identifiers show it; do not infer serial identity from destructive sampling.",
+      "GROUP_SUMMARY": "Mean, median or other statistic over a group of animals or subjects.",
+      "POOLED": "Values measured on samples pooled across animals before measurement.",
+      "REPORTED_PARAMETER": "Parameter values rather than observations."
+    },
+    "observation_source": {
+      "SOURCE_VALUES": "Values typed in the source table.",
+      "DIGITIZED_FROM_FIGURE": "Values read off a figure by the authors or a later digitization."
+    },
+    "column_meaning": {
+      "TIME": "Time of sampling or observation, or interval bounds.",
+      "CONCENTRATION": "Measured drug concentration.",
+      "DOSE": "Administered dose amount or dose rate.",
+      "ROUTE": "Route of administration.",
+      "ANIMAL_ID": "Identifier of an animal or subject.",
+      "GROUP_OR_TREATMENT": "Dose group, treatment arm or experimental condition.",
+      "RESPONSE": "Measured effect or response, such as bacterial counts.",
+      "MIC": "Minimum inhibitory concentration.",
+      "BINDING": "Protein binding or unbound fraction.",
+      "URINE_VOLUME": "Volume of urine collected.",
+      "URINE_AMOUNT": "Amount of drug excreted in urine.",
+      "PARAMETER_VALUE": "Parameter estimates such as AUC, CL or half-life.",
+      "SUMMARY_STATISTIC": "SD, SEM, CV, range, n or another statistic describing other columns.",
+      "REPLICATE": "Replicate or repeat number.",
+      "BLQ_OR_FLAG": "Below-quantification markers, exclusion flags or footnote symbols.",
+      "COVARIATE": "Body weight, sex, infection state or another subject characteristic.",
+      "OTHER": "Any other content, including a column whose meaning conflicts across pages."
+    }
+  },
+  "terminology": {
+    "profile": "pk_binding_knowledge",
+    "groups": [
+      "CPK01",
+      "CPK02",
+      "CPK03",
+      "CPK04",
+      "CPK08"
+    ],
+    "include": [
+      "supporting_metadata",
+      "data_qualifiers"
+    ],
+    "calls": [
+      "DC-label",
+      "DC-review"
+    ],
+    "purpose": "CC005 terminology appendix groups relevant to labelling and coverage review (G005). Read from rules/compression at run time; model structure (CPK05), evaluation (CPK06) and translation (CPK07) belong to later modules."
+  }
+}

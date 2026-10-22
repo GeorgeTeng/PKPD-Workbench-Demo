@@ -179,6 +179,68 @@ def verify_bundle(bundle):
     return bundle
 
 
+def build_branch_handoff(branch, *, source, assignment, output, input_bindings):
+    """Assemble a downstream contract without making a model request.
+
+    Dispatch owns allocation and upstream approval. The branch adapter owns
+    scientific projection; this builder owns immutable assembly and bindings.
+    """
+    from . import dispatch_context
+    if branch not in {'pk', 'index', 'clinical'}:
+        fail('Unsupported handoff branch: ' + branch)
+    source, assignment = copy.deepcopy(source), copy.deepcopy(assignment)
+    task_ids = [t['id'] for t in assignment['tasks']]
+    expected = [t['id'] for t in source['assessment']['tasks']
+                if source['task_branches'].get(t['id']) == branch]
+    if task_ids != expected or len(task_ids) != len(set(task_ids)):
+        fail('Handoff tasks do not match the routing allocation')
+    refs = copy.deepcopy(input_bindings)
+    refs['builder'] = file_ref(__file__)
+    refs['branch_adapter'] = file_ref(dispatch_context.__file__)
+    for dataset in assignment['datasets']:
+        for field in ('data', 'csv', 'metadata_file', 'quarantine'):
+            refs[f"dataset:{dataset['id']}:{field}"] = dataset[field]
+    advice = source.get('advice')
+    if advice and advice.get('provenance'):
+        refs['reference_advice'] = advice['provenance']
+    # Workflow artifacts also carry name/kind; bind their original checksum,
+    # without comparing descriptive metadata to the builder's path/hash pair.
+    refs = {name: {'path': str(Path(ref['path']).resolve()), 'sha256': ref['sha256']}
+            for name, ref in refs.items()}
+    check_refs(refs)
+    context = dispatch_context.prepare_branch(branch, source, assignment, output)
+    refs['rule_audit'] = context['rule_audit_ref']
+    if context.get('rule_projection', {}).get('project_rules_ref'):
+        refs['project_rules'] = context['rule_projection']['project_rules_ref']
+    check_refs(refs)
+    if context['module'] != branch or context['model_release']:
+        fail('Handoff changed its branch or granted model release')
+    manifest = {
+        'version': 'BRANCH_HANDOFF_1.0', 'route': 'dispatch.' + branch,
+        'context_sha256': digest(context), 'input_bindings': refs,
+        'task_ids': task_ids, 'dataset_ids': [d['id'] for d in assignment['datasets']],
+        'model_calls': 0, 'scientific_approval': False, 'execution_authorized': False,
+    }
+    return {'context': context, 'context_manifest': manifest}
+
+
+def verify_branch_handoff(context):
+    """Verify new handoffs at consumption; legacy contracts keep their gates."""
+    ref = context.get('context_manifest_ref')
+    if ref is None:
+        return context
+    check_refs({'context_manifest': ref})
+    manifest = read_json(ref['path'])
+    if (manifest.get('version') != 'BRANCH_HANDOFF_1.0'
+            or manifest.get('route') != 'dispatch.' + context.get('module', '')):
+        fail('Invalid branch handoff manifest')
+    body = {k: v for k, v in context.items() if k != 'context_manifest_ref'}
+    if digest(body) != manifest.get('context_sha256'):
+        fail('Branch handoff content/hash mismatch')
+    check_refs(manifest['input_bindings'])
+    return context
+
+
 def rebuild_snapshot(stage, operation, path):
     """Rebuild a stored request without executing or treating old bindings as current."""
     reference = file_ref(path)

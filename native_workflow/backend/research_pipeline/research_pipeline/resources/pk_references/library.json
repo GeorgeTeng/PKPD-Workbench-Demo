@@ -1,0 +1,1120 @@
+{
+  "schema_version": "0.4.1",
+  "scope": "ANIMAL_TO_HUMAN_PK_ONLY",
+  "authority": "ADVISORY_ONLY_NO_PROJECT_RULE_ACTIVATION",
+  "created_at": "2026-09-23",
+  "selection": "Twenty-three targeted research and methodological sources, classified by translation role. Not twenty-three independent translational projects or validation datasets. PMB and related-polymyxin model candidates remain separate. PBPK and project-excluded compounds remain excluded.",
+  "clinical_scope": false,
+  "parameter_transfer_authorized": false,
+  "sources": [
+    {
+      "id": "APR2021",
+      "title": "Model-Informed Drug Development for Antimicrobials: Translational PK and PK/PD Modeling to Predict an Efficacious Human Dose for Apramycin",
+      "doi": "10.1002/cpt.2104",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8048880/",
+      "locator": "Results / Pharmacokinetics of apramycin in preclinical species, paragraph 1; Methods / PK modeling and prediction of human PK parameters, paragraphs 1 and 4",
+      "quote": "For dogs, the data supported a two‐compartment model.",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "checked_on": "2026-09-23",
+      "drug": "apramycin",
+      "summary": "Mouse, rat and guinea pig supported one compartment; dog supported two. Dog one-compartment parameters were nevertheless used for consistent scaling because CL and total volume were comparable. SC bioavailability was assumed; animal and human unbound fractions entered the method.",
+      "validation": "First human trial was ongoing. The paper is a workflow example, not prospective human validation. Its human-binding input conflicts with a project withholding that input until validation.",
+      "data_availability": "A supplementary PDF is listed; complete raw data not verified.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Results / Pharmacokinetics of apramycin in preclinical species, paragraph 1; Methods / PK modeling and prediction of human PK parameters, paragraphs 1 and 4",
+          "text": "For dogs, the data supported a two‐compartment model."
+        },
+        {
+          "locator": "Methods / PK modeling and prediction of human PK parameters, paragraph 4",
+          "text": "dog, and human had been determined"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION"
+    },
+    {
+      "id": "PMB2012",
+      "title": "Pharmacokinetics and Renal Disposition of Polymyxin B in an Animal Model",
+      "doi": "10.1128/AAC.01333-12",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3486600/",
+      "locator": "Results / Single-dose pharmacokinetics, Table 1; Renal tissue concentration and urinary excretion",
+      "quote": "the two components were combined into a single entity",
+      "access_level": "INDEXED_PRIMARY_FULL_TEXT_PASSAGE",
+      "checked_on": "2026-09-23",
+      "drug": "polymyxin B",
+      "summary": "Rat IV serum PK was reported by components, combining B2 and B3. Kidney tissue measurements were separate. A one-compartment linear fit was reported.",
+      "validation": "Animal fit; human-equivalent exposure is discussed, but these passages do not establish validation against independent human observations.",
+      "data_availability": "Published summary parameters; individual raw data not verified.",
+      "code_availability": "Executable code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Results / Single-dose pharmacokinetics, Table 1; Renal tissue concentration and urinary excretion",
+          "text": "the two components were combined into a single entity"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "SAME_DRUG",
+      "translation_role": "ANIMAL_PK_OR_PKPD_ONLY"
+    },
+    {
+      "id": "TANG2007",
+      "title": "Interspecies prediction of human drug clearance based on scaling data from one or two animal species",
+      "doi": "10.1124/dmd.107.016188",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17646280/",
+      "locator": "Abstract",
+      "quote": "Twenty-six Wyeth compounds",
+      "access_level": "PRIMARY_ABSTRACT_ONLY",
+      "checked_on": "2026-09-23",
+      "drug": "multiple compounds",
+      "summary": "One- and two-species CL methods were developed on 102 compounds and tested on 26 further compounds; favorable comparisons with a three-species method were reported.",
+      "validation": "Empirical calibration includes human CL from other compounds; applicability to the current drug is unverified.",
+      "data_availability": "Complete compound-level development and test data not inspected.",
+      "code_availability": "Not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract",
+          "text": "Twenty-six Wyeth compounds"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "SCALING_METHOD_BENCHMARK"
+    },
+    {
+      "id": "MAHMOOD2009",
+      "title": "Role of fixed coefficients and exponents in the prediction of human drug clearance: how accurate are the predictions from one or two species?",
+      "doi": "10.1002/jps.21597",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19025899/",
+      "locator": "Abstract",
+      "quote": "based on average fold-error",
+      "access_level": "PRIMARY_ABSTRACT_ONLY",
+      "checked_on": "2026-09-23",
+      "drug": "multiple compounds",
+      "summary": "A re-evaluation disputed the general predictive performance of Tang's methods and reported better average fold-error for the rule of exponents.",
+      "validation": "Conflicting method comparison; exact datasets and implementation require full-text reconciliation.",
+      "data_availability": "Compound-level data not inspected.",
+      "code_availability": "Not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract",
+          "text": "based on average fold-error"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "SCALING_METHOD_BENCHMARK"
+    },
+    {
+      "id": "TANG2011",
+      "title": "Controversy in the Allometric Application of Fixed- Versus Varying-Exponent Models: A Statistical and Mathematical Perspective",
+      "doi": "10.1002/jps.22316",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0022354915323157",
+      "locator": "Abstract and Introduction, issues 1-2",
+      "quote": "a limited number of animal species",
+      "drug": "multiple compounds",
+      "summary": "Reply disputing criticisms of fixed-exponent scaling and discussing uncertainty of exponents fitted to few species.",
+      "validation": "Methodological debate, not an independent prospective PMB validation set.",
+      "access_level": "PRIMARY_ABSTRACT_AND_INTRODUCTION",
+      "data_availability": "Raw observation availability not verified.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "METHODOLOGICAL_REPLY",
+      "checked_on": "2026-09-23",
+      "verified_quotes": [
+        {
+          "locator": "Abstract and Introduction, issues 1-2",
+          "text": "a limited number of animal species"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "SCALING_METHOD_BENCHMARK"
+    },
+    {
+      "id": "OGUNGBENRO2008",
+      "title": "How many subjects are necessary for population pharmacokinetic experiments? Confidence interval approach.",
+      "doi": "10.1007/s00228-008-0493-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18483725/",
+      "locator": "Abstract / Results and Conclusions",
+      "quote": "Sample size depends on the parameter of choice",
+      "drug": "methodology",
+      "summary": "Links sample-size planning to confidence-interval precision, parameter choice, sampling design and estimation method.",
+      "validation": "Design assumptions and simulation must be adapted; numerical examples are not PMB minimum sample sizes.",
+      "access_level": "PRIMARY_ABSTRACT_ONLY",
+      "data_availability": "Raw observation availability not verified.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "checked_on": "2026-09-23",
+      "verified_quotes": [
+        {
+          "locator": "Abstract / Results and Conclusions",
+          "text": "Sample size depends on the parameter of choice"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "STATISTICAL_METHOD"
+    },
+    {
+      "id": "LANDERSDORFER2018",
+      "title": "Pharmacokinetics/pharmacodynamics of systemically administered polymyxin B against Klebsiella pneumoniae in mouse thigh and lung infection models",
+      "doi": "10.1093/jac/dkx409",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5890666/",
+      "locator": "Methods / Pharmacokinetic/pharmacodynamic analyses; Results, Figures 1-3 and Table 1 footnote",
+      "quote": "parallel linear and saturable pathways",
+      "drug": "polymyxin B",
+      "summary": "Joint analysis of five SC dose groups evaluated compartment and nonlinear processes. The selected model had parallel absorption and elimination pathways; SC bioavailability was assumed. Plotted means do not constitute individual longitudinal records.",
+      "validation": "Animal model diagnostics support that dataset; neither the model nor fitted parameters can be transferred automatically.",
+      "access_level": "PRIMARY_FULL_TEXT_PASSAGES_CHECKED",
+      "data_availability": "Published curves and supplementary document listed; individual estimation dataset not verified.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "checked_on": "2026-09-23",
+      "verified_quotes": [
+        {
+          "locator": "Methods / Pharmacokinetic/pharmacodynamic analyses; Results, Figures 1-3 and Table 1 footnote",
+          "text": "parallel linear and saturable pathways"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "SAME_DRUG",
+      "translation_role": "ANIMAL_PK_OR_PKPD_ONLY"
+    },
+    {
+      "id": "PMB2023",
+      "title": "Individual Components of Polymyxin B Modeled via Population Pharmacokinetics to Design Humanized Dosage Regimens for a Bloodstream and Lung Infection Model in Immune-Competent Mice",
+      "doi": "10.1128/aac.00197-23",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10190254/",
+      "locator": "Methods / Population pharmacokinetic modeling and ELF concentration calculation",
+      "quote": "to model free and total drug",
+      "drug": "polymyxin B",
+      "summary": "Component-specific murine models distinguish plasma and ELF, include saturable ELF binding and consider SC absorption. BAL-to-ELF dilution uses paired urea measurements. Humanized mouse exposures target known human PK.",
+      "validation": "Reverse translation and animal validation do not establish blinded animal-to-human prediction. Total ELF accumulation cannot be equated with free exposure.",
+      "access_level": "PRIMARY_FULL_TEXT_PASSAGES_CHECKED",
+      "data_availability": "Supplementary material listed; executable model and complete raw dataset not verified.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "checked_on": "2026-09-23",
+      "verified_quotes": [
+        {
+          "locator": "Methods / Population pharmacokinetic modeling and ELF concentration calculation",
+          "text": "to model free and total drug"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "SAME_DRUG",
+      "translation_role": "PD_TRANSLATION_WITH_HUMAN_INPUTS"
+    },
+    {
+      "id": "BWC2024",
+      "title": "BWC0977, a broad-spectrum antibacterial clinical candidate to treat multidrug resistant infections",
+      "doi": "10.1038/s41467-024-52557-2",
+      "url": "https://www.nature.com/articles/s41467-024-52557-2",
+      "locator": "Methods / Prediction of human PK parameters based on simple allometry; Data availability",
+      "quote": "combined species mixed effect model approach",
+      "drug": "BWC0977",
+      "summary": "Four-species work compared compartment structures and scaled multiple two-compartment parameters. Reported human PK comparison offers a translational example.",
+      "validation": "Other drug and a combined-species approach; species-first PMB fitting remains separate. Audit model freeze and independence before treating comparison as external validation.",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "data_availability": "Data availability explicitly lists preclinical and clinical PK in Source data.xlsx; attachment contents and independent reproducibility not tested.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "checked_on": "2026-09-23",
+      "corrections": [
+        {
+          "doi": "10.1038/s41467-025-56043-1",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11730995/",
+          "scope": "Acknowledgements corrected; primary correction XML inspected."
+        },
+        {
+          "doi": "10.1038/s41467-025-57400-w",
+          "url": "https://www.nature.com/articles/s41467-025-57400-w",
+          "scope": "Figure 5 chemical depiction of polar hydrogens corrected; primary correction inspected."
+        }
+      ],
+      "verified_quotes": [
+        {
+          "locator": "Methods / Prediction of human PK parameters based on simple allometry; Data availability",
+          "text": "combined species mixed effect model approach"
+        },
+        {
+          "locator": "Data availability",
+          "text": "Source data.xlsx"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION"
+    },
+    {
+      "id": "NOSO2026",
+      "title": "The magnitude of the pharmacodynamic index for NOSO-502: pathogen clearance, emergence of resistance and human dose predictions",
+      "doi": "10.1093/jac/dkag106",
+      "url": "https://academic.oup.com/jac/article/81/4/dkag106/8539053",
+      "locator": "Methods / Human dose prediction, paragraphs 3-6; Results / Human dose prediction",
+      "quote": "the normalized PK profile of each species",
+      "drug": "NOSO-502",
+      "summary": "CL and Vss methods feed normalized animal IV profiles; Wajima rescaling supplies curve shape. Humanized profiles were fitted jointly by naive pooling. Human unbound fraction is an input to binding-dependent methods.",
+      "validation": "Prediction and intermethod agreement are not observed human validation. Naive pooling does not estimate human interindividual variability.",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "data_availability": "Supplementary material listed; full raw profiles and executable code not verified.",
+      "code_availability": "Executable estimation code not verified.",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "checked_on": "2026-09-23",
+      "verified_quotes": [
+        {
+          "locator": "Methods / Human dose prediction, paragraphs 3-6; Results / Human dose prediction",
+          "text": "the normalized PK profile of each species"
+        },
+        {
+          "locator": "Methods / Human dose prediction, paragraph 5",
+          "text": "allometry with plasma fraction unbound"
+        },
+        {
+          "locator": "Methods / Human dose prediction, paragraph 6",
+          "text": "it ignores inter-individual variations"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability"
+      ],
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION"
+    },
+    {
+      "id": "PMB_SC2023",
+      "doi": "10.1093/jac/dkad022",
+      "title": "Pharmacokinetic and pharmacodynamic properties of polymyxin B in Escherichia coli and Klebsiella pneumoniae murine infection models.",
+      "drug": "polymyxin B",
+      "relationship_to_pmb": "SAME_DRUG",
+      "url": "https://doi.org/10.1093/jac/dkad022",
+      "locator": "Results / Pharmacokinetic modelling; Methods / Pharmacokinetic modelling",
+      "quote": "The PK profile was described by a one-compartment model with first-order absorption.",
+      "summary": "Mouse SC plasma population PK; dose covariates on apparent clearance and absorption. NONMEM FOCE+I; bootstrap and VPCs reported. CL/F is not absolute CL.",
+      "validation": "PK/PD translation used existing human PK for PTA; this is not forward prediction of unknown human PK.",
+      "data_availability": "Published figures / supplement; individual raw records not verified.",
+      "code_availability": "Executable PK fitting code not verified.",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Results / Pharmacokinetic modelling; Methods / Pharmacokinetic modelling",
+          "text": "The PK profile was described by a one-compartment model with first-order absorption."
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "relationship_to_pmb"
+      ],
+      "translation_role": "PD_TRANSLATION_WITH_HUMAN_INPUTS"
+    },
+    {
+      "id": "PMB_AER2017",
+      "doi": "10.1128/aac.00211-17",
+      "title": "Aerosolized Polymyxin B for Treatment of Respiratory Tract Infections: Determination of Pharmacokinetic-Pharmacodynamic Indices for Aerosolized Polymyxin B against Pseudomonas aeruginosa in a Mouse Lung Infection Model",
+      "drug": "polymyxin B",
+      "relationship_to_pmb": "SAME_DRUG",
+      "url": "https://doi.org/10.1128/aac.00211-17",
+      "locator": "Results / PK, Figure 4, Table 2; Methods / Population PK modeling",
+      "quote": "a central plasma compartment connected to a peripheral plasma compartment",
+      "summary": "Infected mice; joint IV/IT plasma–ELF population PK with two systemic and two pulmonary compartments. S-ADAPT importance sampling; AIC/BIC and VPC. Excluded observations and binding assumptions need review.",
+      "validation": "Animal model fit and dose-fractionation study; no independent human PK validation established.",
+      "data_availability": "Published figures / supplement; individual raw records not verified.",
+      "code_availability": "Executable PK fitting code not verified.",
+      "access_level": "PRIMARY_FULL_TEXT_WEB_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Results / PK, Figure 4, Table 2; Methods / Population PK modeling",
+          "text": "a central plasma compartment connected to a peripheral plasma compartment"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "relationship_to_pmb"
+      ],
+      "translation_role": "ANIMAL_PK_OR_PKPD_ONLY"
+    },
+    {
+      "id": "EVER2023",
+      "doi": "10.1128/aac.01738-22",
+      "title": "In Vivo Pharmacodynamic Profile of EVER206, a Novel Polymyxin Antimicrobial, against Gram-Negative Bacteria in the Murine Thigh Infection Model",
+      "drug": "EVER206 / SPR206",
+      "relationship_to_pmb": "CLOSE_SCAFFOLD",
+      "url": "https://doi.org/10.1128/aac.01738-22",
+      "locator": "Introduction; Results / Pharmacokinetic studies; Methods / Pharmacokinetic studies",
+      "quote": "One-compartment models using first-order elimination and uniform weighting",
+      "summary": "PMB analog. Infected mice, SC plasma; separate one-compartment fits to mean profiles by dose, Phoenix WinNonlin. Non-proportional exposure; free-AUC/MIC Hill response.",
+      "validation": "Animal PK/PD target characterization; per-dose fit is not population variability or prospective human prediction.",
+      "data_availability": "Figures and supplement listed; binding measurement cited as sponsor data on file. Raw records not verified.",
+      "code_availability": "Executable PK fitting code not verified.",
+      "access_level": "PRIMARY_FULL_TEXT_WEB_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Introduction; Results / Pharmacokinetic studies; Methods / Pharmacokinetic studies",
+          "text": "One-compartment models using first-order elimination and uniform weighting"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "relationship_to_pmb"
+      ],
+      "translation_role": "ANIMAL_PK_OR_PKPD_ONLY"
+    },
+    {
+      "id": "CMS_RAT2013",
+      "doi": "10.1128/aac.01127-13",
+      "title": "Population Pharmacokinetics of Colistin Methanesulfonate in Rats: Achieving Sustained Lung Concentrations of Colistin for Targeting Respiratory Infections",
+      "drug": "CMS and formed / directly administered colistin",
+      "relationship_to_pmb": "RELATED_PRODRUG",
+      "url": "https://doi.org/10.1128/aac.01127-13",
+      "locator": "Abstract; Results / Population pharmacokinetic model; Appendix / Equations",
+      "quote": "A three-compartment model described the disposition of both compounds in plasma following i.v. administration.",
+      "summary": "Rat IV/IT composite S-ADAPT model: three systemic compartments for each analyte, CMS conversion and pulmonary compartments. Direct active-colistin arms inform the linked model.",
+      "validation": "VPCs reported; some profile misspecification. Requires formation-fraction identifiability review; cannot transfer CMS parameters to PMB.",
+      "data_availability": "Published figures / supplement; individual raw records not verified.",
+      "code_availability": "Structural equations in Appendix; executable source code not verified.",
+      "access_level": "PRIMARY_FULL_TEXT_WEB_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract; Results / Population pharmacokinetic model; Appendix / Equations",
+          "text": "A three-compartment model described the disposition of both compounds in plasma following i.v. administration."
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "relationship_to_pmb"
+      ],
+      "translation_role": "ANIMAL_PK_OR_PKPD_ONLY"
+    },
+    {
+      "id": "COL_PKPD2017",
+      "doi": "10.1128/aac.02025-16",
+      "title": "Pharmacokinetics/Pharmacodynamics of Pulmonary Delivery of Colistin against Pseudomonas aeruginosa in a Mouse Lung Infection Model",
+      "drug": "colistin",
+      "relationship_to_pmb": "CLOSE_SCAFFOLD",
+      "url": "https://doi.org/10.1128/aac.02025-16",
+      "locator": "Methods / Pharmacokinetic analysis; Abstract",
+      "quote": "The plasma concentration-time profile was subjected to noncompartmental analysis",
+      "summary": "Mouse IV/IT active-colistin plasma/ELF exposure and dose fractionation; NCA and sigmoid exposure–response. PK data were reused by the 2018 MBM study.",
+      "validation": "Preclinical index/target evidence; these two publications are not independent PK datasets.",
+      "data_availability": "Published figures / supplement; individual raw records not verified.",
+      "code_availability": "Executable PK fitting code not verified.",
+      "access_level": "PRIMARY_FULL_TEXT_WEB_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Methods / Pharmacokinetic analysis; Abstract",
+          "text": "The plasma concentration-time profile was subjected to noncompartmental analysis"
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "relationship_to_pmb"
+      ],
+      "translation_role": "ANIMAL_PK_OR_PKPD_ONLY"
+    },
+    {
+      "id": "COL_MBM2018",
+      "doi": "10.1128/aac.01965-17",
+      "title": "Mechanism-Based Pharmacokinetic/Pharmacodynamic Modeling of Aerosolized Colistin in a Mouse Lung Infection Model",
+      "drug": "colistin",
+      "relationship_to_pmb": "CLOSE_SCAFFOLD",
+      "url": "https://doi.org/10.1128/aac.01965-17",
+      "locator": "Abstract; Results / Population PK model; Methods / PK data; Simulations",
+      "quote": "Clinical studies are warranted to validate and refine our MBM for aerosolized colistin.",
+      "summary": "S-ADAPT model: two systemic plus two pulmonary PK compartments, linked to susceptible/resistant bacterial populations and sigmoid killing. Reuses 2017 PK data.",
+      "validation": "Reported VPCs and PK/PD target checks; early ELF mismatch and weakly precise transfer estimate. Human simulations used existing human CMS PK, not animal-to-human PK prediction.",
+      "data_availability": "Published figures / supplement; individual raw records not verified.",
+      "code_availability": "Executable PK fitting code not verified.",
+      "access_level": "PRIMARY_FULL_TEXT_WEB_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract; Results / Population PK model; Methods / PK data; Simulations",
+          "text": "Clinical studies are warranted to validate and refine our MBM for aerosolized colistin."
+        }
+      ],
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "relationship_to_pmb"
+      ],
+      "translation_role": "PD_TRANSLATION_WITH_HUMAN_INPUTS"
+    },
+    {
+      "id": "AN11251_2023",
+      "title": "Assessing Boron-Pleuromutilin AN11251 for the Development of Antibacterial Agents",
+      "doi": "10.3390/molecules28124628",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10302868/",
+      "drug": "AN11251",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Sections 2.5, 3.7 and 3.10–3.12; Figures 2–3; Table 1",
+      "quote": "The human systemic clearance was estimated through the simple allometric scaling using rat PK systemic clearance.",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Sections 2.5, 3.7 and 3.10–3.12; Figures 2–3; Table 1",
+          "text": "The human systemic clearance was estimated through the simple allometric scaling using rat PK systemic clearance."
+        }
+      ],
+      "summary": "Rat IV/PO mean-profile NCA feeds scaled human CL and volume, then a one-compartment exposure simulation. Oral absorption and bioavailability require explicit assumptions.",
+      "validation": "No independent human PK validation established here. Source dose/unit wording and total-versus-free target consistency need checking; do not copy its doses or empirical factors as PMB rules.",
+      "data_availability": "Open figures and summary tables; individual concentration data not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    },
+    {
+      "id": "CEFTIZOXIME1985",
+      "title": "Pharmacokinetic scale-up: accurate prediction of human pharmacokinetic profiles from animal data",
+      "doi": "10.1002/jps.2600741017",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3866061/",
+      "drug": "ceftizoxime",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Abstract",
+      "quote": "Three methods of interspecies pharmacokinetic scale-up provided accurate simulations",
+      "access_level": "PRIMARY_ABSTRACT_ONLY",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract",
+          "text": "Three methods of interspecies pharmacokinetic scale-up provided accurate simulations"
+        }
+      ],
+      "summary": "Mouse, rat, monkey and dog parameters were scaled to human; three approaches simulated biexponential IV bolus and infusion profiles.",
+      "validation": "The abstract reports agreement with human profiles. Full methods, error metrics and calibration/validation separation still require inspection before implementation.",
+      "data_availability": "Primary abstract checked; reusable raw data not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    },
+    {
+      "id": "CEPHALOSPORINS2016",
+      "title": "Modelling concentrations of antimicrobial drugs: comparative pharmacokinetics of cephalosporin antimicrobials and accuracy of allometric scaling in food-producing and companion animals",
+      "doi": "10.1186/s12917-016-0817-2",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5011836/",
+      "drug": "cephalosporins",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Allometric scaling results; Tables 1–2; Additional file 1",
+      "quote": "For ceftazidime the model overestimated the pharmacokinetic values.",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Allometric scaling results; Tables 1–2; Additional file 1",
+          "text": "For ceftazidime the model overestimated the pharmacokinetic values."
+        }
+      ],
+      "summary": "Animal IV literature CL and volume regressions were checked against withheld species including humans. Human prediction varied substantially across compounds despite high animal-fit correlations.",
+      "validation": "Cefepime extrapolation performed better than ceftazidime and ceftriaxone. Distinguish the animal-only validation from the ceftazidime figure refitted with human data. A high R-squared is not an external prediction check.",
+      "data_availability": "Open aggregate tables and supplementary literature PK compilation; individual raw data and executable code not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    },
+    {
+      "id": "HALFLIFE1985",
+      "title": "Forecasting cephalosporin and monobactam antibiotic half-lives in humans from data collected in laboratory animals",
+      "doi": "10.1128/aac.27.6.887",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC180180/",
+      "drug": "cephalosporins; monobactams",
+      "translation_role": "ANIMAL_TO_HUMAN_PK_PREDICTION",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Abstract; open scanned article, pages 887–891",
+      "quote": "The postdistribution half-lives of 10 cephalosporin and 2 monobactam antibiotics in humans were predicted",
+      "access_level": "PRIMARY_ABSTRACT_ONLY",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract; open scanned article, pages 887–891",
+          "text": "The postdistribution half-lives of 10 cephalosporin and 2 monobactam antibiotics in humans were predicted"
+        }
+      ],
+      "summary": "An antibiotic benchmark for body-weight allometry of human postdistribution half-life and physiological-time normalization.",
+      "validation": "Predicts a PK parameter, not a complete exposure-response model. Related ceftizoxime publications may reuse evidence and are not independent validations.",
+      "data_availability": "Open scanned full text available; this entry verified at abstract level. Machine-readable raw data not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    },
+    {
+      "id": "TELACEBEC2023",
+      "title": "Novel modeling approach integrating population pharmacokinetics and interspecies scaling to predict human pharmacokinetics of the new anti-tuberculosis agent telacebec (Q203)",
+      "doi": "10.1016/j.biopha.2023.115441",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37696082/",
+      "drug": "telacebec",
+      "translation_role": "HUMAN_INFORMED_TRANSLATIONAL_PK",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Abstract, model development and clinical evaluation",
+      "quote": "as well as the Phase 1A clinical study",
+      "access_level": "PRIMARY_ABSTRACT_ONLY",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Abstract, model development and clinical evaluation",
+          "text": "as well as the Phase 1A clinical study"
+        }
+      ],
+      "summary": "Mouse, rat and dog IV/PO population PK with allometry; predicts human IV disposition and repeated oral profiles. The integrated model also uses Phase 1A clinical observations.",
+      "validation": "Phase 1B profiles provide a later comparison, but this is not a fully human-PK-free development workflow. Human-data contributions must be separated before adapting it to the current holdout design.",
+      "data_availability": "Open article link and primary abstract; raw data and model files not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    },
+    {
+      "id": "TB_TRANSLATION2023",
+      "title": "Translational predictions of phase 2a first-in-patient efficacy studies for antituberculosis drugs",
+      "doi": "10.1183/13993003.00165-2023",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10469274/",
+      "drug": "multiple tuberculosis antibiotics",
+      "translation_role": "PD_TRANSLATION_WITH_HUMAN_INPUTS",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Methods: translational predictions; Figure 1; supplementary material",
+      "quote": "informed by clinical PK models and species-specific protein binding",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Methods: translational predictions; Figure 1; supplementary material",
+          "text": "informed by clinical PK models and species-specific protein binding"
+        }
+      ],
+      "summary": "Mouse PK-PD relationships predict early bactericidal response for ten drugs, evaluated against fourteen clinical studies. Clinical PK, baseline bacterial burden and binding contribute to the predictions; scaling is used when human PK is unavailable.",
+      "validation": "Useful for endpoint windows, exposure-response linkage and clinical comparison. It does not validate unknown human PK or prove transferability to PMB infection models.",
+      "data_availability": "Open supplementary methods/figures; complete raw datasets and executable code not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    },
+    {
+      "id": "BTZ043_2025",
+      "title": "Translational Modeling of BTZ-043 to Predict Phase 2A Efficacy and Evaluate Drug-Drug Interactions With Bedaquiline, Pretomanid, and Linezolid in Murine Models",
+      "doi": "10.1093/infdis/jiaf088",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12128049/",
+      "drug": "BTZ-043",
+      "translation_role": "PD_TRANSLATION_WITH_HUMAN_INPUTS",
+      "relationship_to_pmb": "METHOD_REFERENCE_ONLY",
+      "locator": "Figure 1 workflow; Clinical EBA predictions; Figure 2; Supplementary Data",
+      "quote": "simulating clinical PK profiles based on a published clinical model",
+      "access_level": "PRIMARY_FULL_TEXT_XML_CHECKED",
+      "checked_on": "2026-09-23",
+      "publication_type": "ORIGINAL_RESEARCH",
+      "verified_quotes": [
+        {
+          "locator": "Figure 1 workflow; Clinical EBA predictions; Figure 2; Supplementary Data",
+          "text": "simulating clinical PK profiles based on a published clinical model"
+        }
+      ],
+      "summary": "An application of the TB translation platform: mouse PD is linked to published human PK, with binding sensitivity analysis and comparison to clinical bacterial counts.",
+      "validation": "Uses clinical PK and clinical baseline counts, so it is not animal-only prediction of human PK. Shared platform with TB_TRANSLATION2023 must not be counted as independent methodological proof.",
+      "data_availability": "Open supplementary DOCX and published model summaries; raw individual datasets and executable code not verified.",
+      "code_availability": "Executable estimation code not verified; an accessible paper is not an executable model.",
+      "interpretation_fields": [
+        "summary",
+        "validation",
+        "data_availability",
+        "code_availability",
+        "translation_role"
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "PKREF001",
+      "category": "DATA_INTERPRETATION",
+      "title": "Keep analyte and matrix definitions explicit",
+      "source_ids": [
+        "PMB2012"
+      ],
+      "applicability_conditions": [
+        "Current project has polymyxin B animal PK.",
+        "Identify which components and matrices the project actually measures."
+      ],
+      "suggested_check": "Ask whether concentrations represent B1, combined components or total mixture, and whether serum/plasma and tissue observations are assigned correctly.",
+      "relevant_steps": [
+        "adequacy",
+        "prepare",
+        "eda",
+        "pk"
+      ],
+      "limitations": [
+        "Different PMB studies may use different assays. Do not relabel project data from this paper.",
+        "The paper's reported compartment choice is not mandatory for another dataset."
+      ]
+    },
+    {
+      "id": "PKREF002",
+      "category": "MODEL_DESIGN",
+      "title": "Relate candidate complexity to actual sampling support",
+      "source_ids": [
+        "APR2021"
+      ],
+      "applicability_conditions": [
+        "Animal concentration-time models are within scope.",
+        "A candidate model comparison is planned."
+      ],
+      "suggested_check": "Review sampling support and identifiability separately in each species. Distinguish the best-supported fitted structure from any simplification used for scaling; document and test that simplification.",
+      "relevant_steps": [
+        "adequacy",
+        "eda",
+        "pk"
+      ],
+      "limitations": [
+        "Apramycin provides a workflow example for another drug, not transferable parameters.",
+        "No universal sampling count, RSE limit or compartment choice follows from this example.",
+        "Correction to seed v0.1: the Results support two compartments in dog; the Discussion alone was too broad a basis for the previous summary."
+      ]
+    },
+    {
+      "id": "PKREF003",
+      "category": "CONFLICTING_METHOD_EVIDENCE",
+      "title": "Check calibration and conflicting evidence before choosing species scaling",
+      "source_ids": [
+        "TANG2007",
+        "MAHMOOD2009",
+        "TANG2011"
+      ],
+      "applicability_conditions": [
+        "Predicting human clearance from animal PK is within scope."
+      ],
+      "suggested_check": "Identify available species, clearance definitions, route, units and method calibration population. Keep both favorable and unfavorable comparisons visible.",
+      "relevant_steps": [
+        "adequacy",
+        "pk",
+        "human_pk"
+      ],
+      "limitations": [
+        "Development study, criticism and reply must be read together; this pilot has abstract or introduction access to these three sources.",
+        "These reports do not establish a universal minimum species count or authorize their coefficients for PMB.",
+        "Do not collapse CL and apparent CL/F or select a winner from citation counts."
+      ]
+    },
+    {
+      "id": "PKREF004",
+      "category": "WORKFLOW_TEMPLATE",
+      "title": "Separate human curve construction from subsequent validation",
+      "source_ids": [
+        "APR2021"
+      ],
+      "applicability_conditions": [
+        "Human concentration-time prediction from animal PK is explicitly requested."
+      ],
+      "suggested_check": "Describe the animal-fit to human-parameter to concentration-time simulation chain. Identify the complete parameter set, input function, uncertainty and later validation plan as project-specific design questions.",
+      "relevant_steps": [
+        "adequacy",
+        "human_pk",
+        "validation"
+      ],
+      "limitations": [
+        "This is an adapted workflow checklist, not the paper's exact implementation.",
+        "Animal fit or cross-drug similarity does not validate the new human curve.",
+        "No human values, clinical regimen, efficacy or safety rules are supplied."
+      ]
+    },
+    {
+      "id": "PKREF005",
+      "title": "Plan precision rather than impose a universal animal count",
+      "category": "MODEL_DESIGN",
+      "source_ids": [
+        "OGUNGBENRO2008"
+      ],
+      "suggested_check": "Specify the target parameter, desired interval precision and design-based simulation when adequacy is unresolved. Distinguish animals from samples and destructive from repeated sampling.",
+      "relevant_steps": [
+        "adequacy",
+        "pk"
+      ],
+      "applicability_conditions": [
+        "Parameter precision or sample-size adequacy is being assessed."
+      ],
+      "limitations": [
+        "No numerical N, species-count or RSE threshold is imported.",
+        "Precision planning does not establish transportability to humans."
+      ]
+    },
+    {
+      "id": "PKREF006",
+      "title": "Test dose and route assumptions before restricting the model family",
+      "category": "MODEL_DESIGN",
+      "source_ids": [
+        "LANDERSDORFER2018"
+      ],
+      "suggested_check": "Use dose-normalized EDA to motivate any absorption or elimination extension beyond linear compartment candidates. Fit compatible dose groups jointly; identify CL/F versus CL when F is unsupported.",
+      "relevant_steps": [
+        "eda",
+        "pk",
+        "human_pk"
+      ],
+      "applicability_conditions": [
+        "Multiple doses or extravascular animal PK occur in this project."
+      ],
+      "limitations": [
+        "Do not force the source model or assume its F in the current project.",
+        "Same species does not by itself justify pooling different studies, matrices or routes."
+      ]
+    },
+    {
+      "id": "PKREF007",
+      "title": "Distinguish humanized animal PK from forward prediction",
+      "category": "MODEL_DESIGN",
+      "source_ids": [
+        "PMB2023"
+      ],
+      "suggested_check": "Label translation direction, component, infection setting and matrix; if ELF is used, verify dilution correction and free-versus-total interpretation.",
+      "relevant_steps": [
+        "prepare",
+        "eda",
+        "pk",
+        "validation"
+      ],
+      "applicability_conditions": [
+        "Humanized animal models or pulmonary PMB data are under consideration."
+      ],
+      "limitations": [
+        "Human-derived exposure targets are not an independent validation of animal-to-human predictions.",
+        "Pulmonary data requirements apply only to the supported pulmonary branch."
+      ]
+    },
+    {
+      "id": "PKREF008",
+      "title": "Define a complete human curve construction contract",
+      "category": "MODEL_DESIGN",
+      "source_ids": [
+        "BWC2024",
+        "NOSO2026"
+      ],
+      "suggested_check": "Specify human CL and Vss estimation and a justified curve-shape method. For two compartments, CL and Vss alone leave Vc/Vp and Q unresolved; use supported full parameters or normalized animal IV profiles. Declare dose units, body size and IV input timing.",
+      "relevant_steps": [
+        "human_pk"
+      ],
+      "applicability_conditions": [
+        "Human IV concentration-time curves are requested."
+      ],
+      "limitations": [
+        "Complete-parameter requirement is a workflow inference, not a universal source algorithm.",
+        "Do not borrow other-drug fitted parameters or switch this project to joint multispecies estimation."
+      ]
+    },
+    {
+      "id": "PKREF009",
+      "title": "Check method input eligibility against the project freeze boundary",
+      "category": "MODEL_DESIGN",
+      "source_ids": [
+        "APR2021",
+        "NOSO2026"
+      ],
+      "suggested_check": "Identify which scaling or exposure calculations require human binding. Withheld human inputs keep those outputs pending; use an independently justified eligible method or request a separately reviewed scope amendment.",
+      "relevant_steps": [
+        "human_pk",
+        "validation"
+      ],
+      "applicability_conditions": [
+        "Human binding or human PK is held out until validation."
+      ],
+      "limitations": [
+        "Never invent binding values or use the held-out data to choose scaling.",
+        "A source method requiring human fu cannot be presented as an exact implementation under a no-human-fu constraint."
+      ]
+    },
+    {
+      "id": "PKREF010",
+      "title": "Separate uncertainty sources and evidence of validation",
+      "category": "MODEL_DESIGN",
+      "source_ids": [
+        "NOSO2026",
+        "BWC2024"
+      ],
+      "suggested_check": "Report parameter, model/method and between-species uncertainty separately from human variability. Preserve holdout status and document what source data and executable code are actually available.",
+      "relevant_steps": [
+        "human_pk",
+        "validation"
+      ],
+      "applicability_conditions": [
+        "Human curve uncertainty or model reliability is reported."
+      ],
+      "limitations": [
+        "Naively pooled profile precision and agreement among methods do not estimate human IIV.",
+        "An article naming source data does not verify local access or successful reproduction."
+      ]
+    },
+    {
+      "id": "PKREF011",
+      "title": "Separate structural analogs, drug aliases and prodrugs",
+      "category": "MODEL_CANDIDATE_QUALIFICATION",
+      "source_ids": [
+        "PMB_AER2017",
+        "EVER2023",
+        "CMS_RAT2013"
+      ],
+      "applicability_conditions": [
+        "A model is proposed from polymyxin-related literature."
+      ],
+      "suggested_check": "Match exact drug identity first; classify verified scaffold relationships separately. Keep CMS formation kinetics distinct from directly administered active drug.",
+      "relevant_steps": [
+        "pk",
+        "prepare"
+      ],
+      "limitations": [
+        "Similarity supports structural hypotheses, never parameter transfer or scientific acceptance."
+      ]
+    },
+    {
+      "id": "PKREF012",
+      "title": "Distinguish fitted compartment models from NCA data sources",
+      "category": "MODEL_CANDIDATE_QUALIFICATION",
+      "source_ids": [
+        "COL_PKPD2017"
+      ],
+      "applicability_conditions": [
+        "Animal PK source data or a published exposure summary is proposed for fitting."
+      ],
+      "suggested_check": "Confirm whether the paper fitted a compartment model or only calculated noncompartmental summaries. Record the fitting-data availability independently from code availability.",
+      "relevant_steps": [
+        "pk"
+      ],
+      "limitations": [
+        "Published figures do not automatically supply individual raw observations or executable PK code."
+      ]
+    },
+    {
+      "id": "PKREF013",
+      "title": "Qualify route, pooling and pulmonary model complexity",
+      "category": "MODEL_CANDIDATE_QUALIFICATION",
+      "source_ids": [
+        "PMB_SC2023",
+        "PMB_AER2017",
+        "EVER2023",
+        "CMS_RAT2013",
+        "COL_MBM2018"
+      ],
+      "applicability_conditions": [
+        "Animal data span doses, routes, matrices or linked parent–metabolite observations."
+      ],
+      "suggested_check": "Review dose dependence, apparent parameters and matrix-specific compartment structure before defining candidates. Track shared datasets and the direction of human translation.",
+      "relevant_steps": [
+        "eda",
+        "pk"
+      ],
+      "limitations": [
+        "A coupled plasma–ELF model is not a simple systemic two-compartment model. Known human PK used for PD simulations cannot validate forward human PK prediction."
+      ]
+    },
+    {
+      "id": "PKREF014",
+      "title": "Specify the complete bridge from animal PK to a human curve",
+      "category": "TRANSLATION_AUDIT",
+      "source_ids": [
+        "AN11251_2023",
+        "CEFTIZOXIME1985"
+      ],
+      "applicability_conditions": [
+        "The project requests a human concentration-time curve from animal PK."
+      ],
+      "suggested_check": "Separate estimated animal parameters, scaling, assumed human compartment structure and IV/PO input. CL and Vss alone do not identify every two-compartment parameter. Locate each missing assumption at its consuming step.",
+      "relevant_steps": [
+        "pk",
+        "human_pk"
+      ],
+      "limitations": [
+        "These are different-drug workflow examples, not PMB parameter permissions.",
+        "Abstract-only evidence cannot qualify an executable implementation."
+      ]
+    },
+    {
+      "id": "PKREF015",
+      "title": "Evaluate prediction error separately from allometric fit",
+      "category": "TRANSLATION_AUDIT",
+      "source_ids": [
+        "CEPHALOSPORINS2016",
+        "HALFLIFE1985"
+      ],
+      "applicability_conditions": [
+        "Animal body-weight regressions are used for human PK extrapolation."
+      ],
+      "suggested_check": "Predefine predicted quantities and a held-out comparison, preserve failed examples and distinguish parameter prediction from whole-curve validation. Do not count reused compound evidence twice.",
+      "relevant_steps": [
+        "human_pk",
+        "validation"
+      ],
+      "limitations": [
+        "No universal fold-error, R-squared or species-count cutoff is established.",
+        "Validation remains deferred under the project holdout policy."
+      ]
+    },
+    {
+      "id": "PKREF016",
+      "title": "Identify human-informed calibration before adopting a method",
+      "category": "TRANSLATION_AUDIT",
+      "source_ids": [
+        "TELACEBEC2023"
+      ],
+      "applicability_conditions": [
+        "A translational paper combines animal scaling and clinical information."
+      ],
+      "suggested_check": "Record which human measurements entered model development versus evaluation. A method requiring human calibration cannot be called a human-PK-free prediction; keep it conditional under the project holdout policy.",
+      "relevant_steps": [
+        "adequacy",
+        "human_pk",
+        "validation"
+      ],
+      "limitations": [
+        "Only the primary abstract was verified.",
+        "Do not import clinical parameter values into development context."
+      ]
+    },
+    {
+      "id": "PKREF017",
+      "title": "Distinguish PD translation from prediction of unknown human PK",
+      "category": "TRANSLATION_AUDIT",
+      "source_ids": [
+        "TB_TRANSLATION2023",
+        "BTZ043_2025"
+      ],
+      "applicability_conditions": [
+        "The proposal includes exposure-response translation or final comparison with human observations."
+      ],
+      "suggested_check": "Identify the PD endpoint, response window, baseline and free/total exposure mapping. Keep known-human-PK PD simulations distinct from animal-only human PK prediction. Assign unresolved questions only to the applicable branch.",
+      "relevant_steps": [
+        "pk",
+        "human_pk",
+        "validation"
+      ],
+      "limitations": [
+        "TB infection models do not establish PMB efficacy.",
+        "Do not add new clinical design or borrow numerical PD parameters; use only as scope and dependency checks."
+      ],
+      "allowed_steps": [
+        "index"
+      ]
+    }
+  ],
+  "updated_at": "2026-09-23",
+  "translation_role_counts": {
+    "ANIMAL_TO_HUMAN_PK_PREDICTION": 7,
+    "ANIMAL_PK_OR_PKPD_ONLY": 6,
+    "SCALING_METHOD_BENCHMARK": 3,
+    "STATISTICAL_METHOD": 1,
+    "PD_TRANSLATION_WITH_HUMAN_INPUTS": 5,
+    "HUMAN_INFORMED_TRANSLATIONAL_PK": 1
+  }
+}

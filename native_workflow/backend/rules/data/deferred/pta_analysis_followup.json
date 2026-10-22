@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later PTA handoff and analysis review only; not loaded by Data requirements agents.",
+  "source_library": {
+    "version": "1.0.0-draft.11",
+    "sha256": "bee8bd513697d3dba16df8ca4f43aeb0b10c8ff5c7560351b9b0944ef1c0fb2a",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.11.json"
+  },
+  "approval_boundary": "The user approved adding conditional PD-target input requirements to MP009 and moving MP010 out of current data assessment. Original PTA distribution, regimen, PK/PD matching and evaluation requirements are preserved for later review. This does not approve the PTA methods, enable an execution gate or demonstrate readiness for probability claims.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "ICH M15: General Principles for Model-Informed Drug Development",
+      "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf",
+      "locator": "Sections 2.1.1, 2.1.2, 2.2.1 and 3",
+      "type": "FINAL_GUIDELINE",
+      "checked_on": "2026-10-07",
+      "supports": "Question-specific intended use, criteria, assumptions and fit-for-purpose evaluation; no fixed species-count rule is imported."
+    },
+    {
+      "id": "S07",
+      "title": "EMA: Use of pharmacokinetics and pharmacodynamics in development of antimicrobial medicinal products",
+      "url": "https://www.ema.europa.eu/system/files/documents/scientific-guideline/wc500210982_en.pdf",
+      "locator": "Nonclinical PK-PD studies; PK-PD targets and target attainment",
+      "type": "GUIDELINE",
+      "checked_on": "2026-10-07",
+      "supports": "Antimicrobial exposure, susceptibility and effect must be linked for the intended use; in vitro and animal infection models can contribute complementary evidence."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP010",
+      "destination": "PTA_HANDOFF_AND_ANALYSIS",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "source_profile_sha256": "46a7adaaf85a73d2d36abca595ebe9cd3522b07cf89aa83dfbf3ab24b8d0cf3a",
+      "reference_profile": {
+        "id": "MP010",
+        "name": "Prospective target-attainment scenario",
+        "family": "PKPD",
+        "outputs": [
+          "scenario-specific target attainment"
+        ],
+        "applies_when": "The approved objective includes prospective probability of target attainment for specified regimens and susceptibility values.",
+        "required_inputs": [
+          "A qualified PK scenario with explicit parameter/distribution assumptions",
+          "A qualified PD target with endpoint, index basis and window",
+          "Specified regimens and susceptibility values"
+        ],
+        "conditional_inputs": [
+          "An MIC distribution only when a population-weighted summary is requested",
+          "Explicit human-variability assumptions if human observations are unavailable"
+        ],
+        "acceptable_alternatives": [
+          "Report deterministic exposure/target comparisons separately when a defensible probability model is unavailable"
+        ],
+        "preflight_checks": [
+          "Separate uncertainty in estimates from variability between individuals",
+          "Ensure human PK and PD target definitions match before combining them"
+        ],
+        "post_analysis_checks": [
+          "Report simulation reproducibility and sensitivity to input distributions and target uncertainty"
+        ],
+        "missing_effect": "Withhold unsupported probability claims while retaining qualified PK and PD results.",
+        "not_established": [
+          "Clinical cure probability",
+          "Observed human IIV from animal IIV or parameter standard errors",
+          "Human validation in the absence of independent human observations"
+        ],
+        "needed_at": "BEFORE_PTA",
+        "source_ids": [
+          "S07",
+          "S01"
+        ]
+      }
+    }
+  ]
+}

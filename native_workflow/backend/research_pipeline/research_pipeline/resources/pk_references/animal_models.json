@@ -1,0 +1,278 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-09-23",
+  "authority": "CANDIDATES_ONLY",
+  "parameter_transfer_authorized": false,
+  "search_method": "Verified names and curated scaffold relationships; not calculated molecular similarity.",
+  "models": [
+    {
+      "model_id": "LIT_PMB_RAT_2012_1C",
+      "title": "PMB rat IV one-compartment reference",
+      "model_name": "PMB rat IV one-compartment reference",
+      "drug_id": "polymyxin_b",
+      "species": [
+        "rat"
+      ],
+      "routes": [
+        "IV"
+      ],
+      "matrices": [
+        "serum"
+      ],
+      "record_type": "animal_pk_model_candidate",
+      "structure": "One-compartment linear component PK; combined B2/B3 analyte.",
+      "estimation": "Published compartment fit; engine verification pending.",
+      "source_ids": [
+        "PMB2012"
+      ],
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3486600/"
+      ],
+      "review_requirements": [
+        "Qualify component identity, serum/plasma interpretation and individual records."
+      ],
+      "candidate_kind": "PK_STRUCTURE",
+      "eligible_use": "Structure reference for scope review and re-estimation only.",
+      "scientific_acceptance": "PENDING_HUMAN_REVIEW",
+      "implementation": "NOT_REGISTERED_AS_EXECUTABLE",
+      "parameter_transfer_authorized": false,
+      "published_parameter_values_included": false,
+      "human_pk_prediction_validated": false
+    },
+    {
+      "model_id": "LIT_PMB_MOUSE_SC_2023_1C",
+      "title": "PMB mouse SC dose-dependent one-compartment model",
+      "model_name": "PMB mouse SC dose-dependent one-compartment model",
+      "drug_id": "polymyxin_b",
+      "species": [
+        "mouse"
+      ],
+      "routes": [
+        "SC"
+      ],
+      "matrices": [
+        "plasma"
+      ],
+      "record_type": "animal_pk_model_candidate",
+      "structure": "One compartment; first-order absorption; dose covariates on CL/F and ka.",
+      "estimation": "NONMEM 7.4.2, FOCE+I.",
+      "source_ids": [
+        "PMB_SC2023"
+      ],
+      "source_urls": [
+        "https://doi.org/10.1093/jac/dkad022"
+      ],
+      "review_requirements": [
+        "Apparent CL/F cannot supply absolute CL without F evidence.",
+        "Recheck bootstrap stability and sampling design; no automatic BLQ omission."
+      ],
+      "candidate_kind": "PK_STRUCTURE",
+      "eligible_use": "Structure reference for scope review and re-estimation only.",
+      "scientific_acceptance": "PENDING_HUMAN_REVIEW",
+      "implementation": "NOT_REGISTERED_AS_EXECUTABLE",
+      "parameter_transfer_authorized": false,
+      "published_parameter_values_included": false,
+      "human_pk_prediction_validated": false
+    },
+    {
+      "model_id": "LIT_PMB_MOUSE_2017_PLASMA_ELF",
+      "title": "PMB mouse joint plasma–ELF PK model",
+      "model_name": "PMB mouse joint plasma–ELF PK model",
+      "drug_id": "polymyxin_b",
+      "species": [
+        "mouse"
+      ],
+      "routes": [
+        "IV",
+        "IT"
+      ],
+      "matrices": [
+        "plasma",
+        "ELF"
+      ],
+      "record_type": "animal_pk_model_candidate",
+      "structure": "Two systemic plus two pulmonary compartments; bidirectional exchange; systemic linear elimination.",
+      "estimation": "S-ADAPT importance-sampling population estimation.",
+      "source_ids": [
+        "PMB_AER2017"
+      ],
+      "source_urls": [
+        "https://doi.org/10.1128/aac.00211-17"
+      ],
+      "review_requirements": [
+        "Requires linked route/matrix data, censored-data handling and binding interpretation.",
+        "Review outlier exclusion; implement and validate coupled model separately."
+      ],
+      "candidate_kind": "PK_STRUCTURE",
+      "eligible_use": "Structure reference for scope review and re-estimation only.",
+      "scientific_acceptance": "PENDING_HUMAN_REVIEW",
+      "implementation": "NOT_REGISTERED_AS_EXECUTABLE",
+      "parameter_transfer_authorized": false,
+      "published_parameter_values_included": false,
+      "human_pk_prediction_validated": false
+    },
+    {
+      "model_id": "LIT_SPR206_MOUSE_2023_1C",
+      "title": "SPR206 / EVER206 mouse one-compartment dose-specific model",
+      "model_name": "SPR206 / EVER206 mouse one-compartment dose-specific model",
+      "drug_id": "spr206",
+      "species": [
+        "mouse"
+      ],
+      "routes": [
+        "SC"
+      ],
+      "matrices": [
+        "plasma"
+      ],
+      "record_type": "animal_pk_model_candidate",
+      "structure": "One compartment, first-order elimination; separate fits per dose.",
+      "estimation": "Phoenix WinNonlin; mean profiles, uniform-weight least squares.",
+      "source_ids": [
+        "EVER2023"
+      ],
+      "source_urls": [
+        "https://doi.org/10.1128/aac.01738-22"
+      ],
+      "review_requirements": [
+        "Confirm absorption representation and source pooling.",
+        "Do not treat mean-profile fits as an identified population random-effects model."
+      ],
+      "candidate_kind": "PK_STRUCTURE",
+      "eligible_use": "Structure reference for scope review and re-estimation only.",
+      "scientific_acceptance": "PENDING_HUMAN_REVIEW",
+      "implementation": "NOT_REGISTERED_AS_EXECUTABLE",
+      "parameter_transfer_authorized": false,
+      "published_parameter_values_included": false,
+      "human_pk_prediction_validated": false
+    },
+    {
+      "model_id": "LIT_CMS_COL_RAT_2013_LINKED",
+      "title": "Rat CMS–colistin coupled systemic / lung model",
+      "model_name": "Rat CMS–colistin coupled systemic / lung model",
+      "drug_id": "cms",
+      "species": [
+        "rat"
+      ],
+      "routes": [
+        "IV",
+        "IT"
+      ],
+      "matrices": [
+        "plasma",
+        "ELF"
+      ],
+      "record_type": "animal_pk_model_candidate",
+      "structure": "Three systemic compartments per compound; formation and pulmonary submodels.",
+      "estimation": "S-ADAPT nonlinear mixed-effects.",
+      "source_ids": [
+        "CMS_RAT2013"
+      ],
+      "source_urls": [
+        "https://doi.org/10.1128/aac.01127-13"
+      ],
+      "review_requirements": [
+        "Not a directly transferable PMB model.",
+        "Confirm analyte, formation identifiability, dose units and full linked-data requirements."
+      ],
+      "candidate_kind": "PK_STRUCTURE",
+      "eligible_use": "Structure reference for scope review and re-estimation only.",
+      "scientific_acceptance": "PENDING_HUMAN_REVIEW",
+      "implementation": "NOT_REGISTERED_AS_EXECUTABLE",
+      "parameter_transfer_authorized": false,
+      "published_parameter_values_included": false,
+      "human_pk_prediction_validated": false
+    },
+    {
+      "model_id": "LIT_COL_MOUSE_2018_PLASMA_ELF",
+      "title": "Colistin mouse plasma–ELF model with mechanistic PD link",
+      "model_name": "Colistin mouse plasma–ELF model with mechanistic PD link",
+      "drug_id": "colistin",
+      "species": [
+        "mouse"
+      ],
+      "routes": [
+        "IV",
+        "IT"
+      ],
+      "matrices": [
+        "plasma",
+        "ELF"
+      ],
+      "record_type": "animal_pk_model_candidate",
+      "structure": "Two systemic plus two pulmonary compartments; optional susceptible/resistant population PD link.",
+      "estimation": "S-ADAPT.",
+      "source_ids": [
+        "COL_MBM2018",
+        "COL_PKPD2017"
+      ],
+      "source_urls": [
+        "https://doi.org/10.1128/aac.01965-17",
+        "https://doi.org/10.1128/aac.02025-16"
+      ],
+      "review_requirements": [
+        "Reuses 2017 PK data; not independent replication.",
+        "Human-PK-based simulations are outside the animal fitting inputs."
+      ],
+      "candidate_kind": "PK_STRUCTURE_WITH_PD_EXTENSION",
+      "eligible_use": "Structure reference for scope review and re-estimation only.",
+      "scientific_acceptance": "PENDING_HUMAN_REVIEW",
+      "implementation": "NOT_REGISTERED_AS_EXECUTABLE",
+      "parameter_transfer_authorized": false,
+      "published_parameter_values_included": false,
+      "human_pk_prediction_validated": false
+    }
+  ],
+  "relations": [
+    {
+      "drugs": [
+        "polymyxin_b",
+        "colistin"
+      ],
+      "kind": "CLOSE_SCAFFOLD",
+      "source_ids": [
+        "PMB_AER2017"
+      ]
+    },
+    {
+      "drugs": [
+        "polymyxin_b",
+        "spr206"
+      ],
+      "kind": "CLOSE_SCAFFOLD",
+      "source_ids": [
+        "EVER2023"
+      ]
+    },
+    {
+      "drugs": [
+        "colistin",
+        "cms"
+      ],
+      "kind": "PRODRUG_RELATED",
+      "source_ids": [
+        "CMS_RAT2013"
+      ]
+    }
+  ],
+  "data_reference_only": [
+    {
+      "source_id": "COL_PKPD2017",
+      "reason": "NCA / source profiles do not establish a fitted compartment structure."
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "PBPK",
+      "reason": "Outside current project scope."
+    },
+    {
+      "category": "Human-only PK",
+      "reason": "Reserved for a separately controlled validation stage."
+    },
+    {
+      "category": "Unrelated antibiotics",
+      "reason": "Existing methodological references retained; not classified as polymyxin scaffold matches."
+    }
+  ]
+}

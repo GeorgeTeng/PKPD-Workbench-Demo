@@ -1,0 +1,101 @@
+{
+  "version": "1.5.0",
+  "agent": "DC-review",
+  "name": "Evidence-based data requirements assessment",
+  "algorithm": "Project-designed constrained evidence matching with independent LLM review and deterministic coverage aggregation",
+  "scope": "Determine whether the reviewed inputs cover each task requirement. Leave numerical precision, method performance, parameter qualification and human predictive validity downstream.",
+  "inputs": [
+    "Reviewed main.json and applicable published project rules",
+    "requirements.json: task, requirement, fields, conditions, source authority and required phase",
+    "Version-bound relevant MP001-MP009 and MP011 profiles",
+    "Inventory and source labels, permitted body-review coverage, exact retained citations",
+    "Original source snapshots and file hashes for host-side citation verification",
+    "Host-computed column summaries (COMPUTED) of labelled table columns, located by each label column's position, for scope alignment only (algorithm 1.2.0)"
+  ],
+  "steps": [
+    {
+      "id": "A01",
+      "operation": "Freeze scope",
+      "actor": "HOST",
+      "details": "Verify source references and the frozen requirements/profile version. Keep each requirement attached to its objective, task, origin and required phase. Do not substitute a profile for an explicit project rule."
+    },
+    {
+      "id": "A02",
+      "operation": "Build the coverage checklist",
+      "actor": "HOST",
+      "details": "Create FULL_REQUIREMENT, each declared FIELD, SCOPE_ALIGNMENT and each applicability CONDITION. Field presence cannot replace assessing the full scientific meaning."
+    },
+    {
+      "id": "A03",
+      "operation": "Recheck source evidence",
+      "actor": "HOST",
+      "details": "Verify the earlier file-agent citations against original snapshots; supply the independent reviewer with the cited source units and requirement-specific source permissions. Preserve counterevidence. Do not transmit whole attachments or read protected bodies. The cited units include the lines of stated values. Each table also contributes uncited body cells chosen by fixed rules: the first and last three body rows and up to 20 rows with a non-numeric value in a numeric column (origin REVIEW_SAMPLE). They are original source content the reviewer may cite as evidence or counterevidence (algorithm 1.3.0, 2026-10-09). Cited units and REVIEW_SAMPLE cells reach the reviewer in the DC-label cell format, and host code reads cell positions from the snapshot rather than from that text; a cited cell outside the table range (a linked note or footnote) is SOURCE_NOTE, not body evidence (algorithm 1.4.0, 2026-10-09)."
+    },
+    {
+      "id": "A03b",
+      "operation": "Map data onto method conditions",
+      "actor": "HOST",
+      "details": "For each labelled dataset and each profile its requirements selected, evaluate the profile condition triggers against the categorical labels: APPLIES, NOT_APPLICABLE, UNDETERMINED (label NOT_FOUND or MIXED) or REVIEW_OBJECTIVE/REVIEW_DATA. Label-excluded rows are recorded but not sent. The reviewer returns MET, NOT_MET, UNRESOLVED or NOT_APPLICABLE per sent row; host verifies citations and that label-confirmed rows are not excluded. Data never select a profile."
+    },
+    {
+      "id": "A04",
+      "operation": "Assess semantic coverage",
+      "actor": "FRESH_DC_REVIEW_LLM",
+      "details": "Return every criterion once with exact evidence, status, reason and corrective action. Check relevant identity, quantity/unit, time-window, record-level, exposure-basis and cross-table relationships. Do not invent a join, species minimum, sample-size cutoff or prediction-validity claim. Check the requirement plan against the objective and project rules independently."
+    },
+    {
+      "id": "A05",
+      "operation": "Validate and aggregate",
+      "actor": "HOST",
+      "details": "Validate schema, request binding, checklist coverage, exact/assigned citations, original body support and documented deferred-output provenance. Recompute coverage from criteria; reject a model summary that contradicts its criteria. Recheck inputs before publication."
+    },
+    {
+      "id": "A06",
+      "operation": "Publish scoped findings",
+      "actor": "HOST",
+      "details": "Publish per-requirement and per-task coverage, actual gaps, timing and corrections. A coherent later-stage gap is retained without blocking technical QC. Unresolved explicit current prerequisites or failed independent reviews require intervention."
+    }
+  ],
+  "criterion_statuses": [
+    "SUPPORTED",
+    "PARTIAL",
+    "MISSING",
+    "CONFLICT",
+    "UNRESOLVED",
+    "DEFERRED"
+  ],
+  "aggregation_in_priority_order": [
+    "Any CONFLICT -> CONFLICT",
+    "All SUPPORTED -> AVAILABLE_CANDIDATE",
+    "Only SUPPORTED/DEFERRED, including at least one DEFERRED -> DEFERRED",
+    "Otherwise any SUPPORTED/PARTIAL -> PARTIAL",
+    "Otherwise any UNRESOLVED/DEFERRED -> UNRESOLVED",
+    "Otherwise -> MISSING"
+  ],
+  "compatibility": "PARTIAL and CONFLICT retain the legacy status UNRESOLVED; coverage_status preserves the detailed result. Historical artifacts remain unchanged.",
+  "special_cases": {
+    "pd_target": "A documented later estimation output is DEFERRED, with its producing task and main/rule evidence. Missing desired effect/window or estimation source data remains a separate gap.",
+    "species": "Assess candidate coverage per requested parameter. A project minimum is read from its published rules; availability does not qualify species for extrapolation.",
+    "reported_parameters": "A source-supported parameter in a document may be an available reported input without raw curves. It remains unrecalculated and unqualified unless reviewed downstream.",
+    "negative_findings": "MISSING is restricted to the inspected, permitted scope. Incomplete source review must be resolved; absence from a filename, header or summary is insufficient.",
+    "method_candidates": "An unmet draft method-derived need remains a follow-up proposal rather than automatically becoming a formal project prerequisite."
+  },
+  "outputs": {
+    "requirement_matrix.json": "Versioned criterion plans, evidence catalog, requirement results, deferred plans and source bindings",
+    "adequacy.json": "Task coverage, current blockers, later gaps, matrix reference and QC entry decision",
+    "review.json": "Independent model response retained for audit",
+    "qc_context.json": "References and task requirements for the existing preparation stage",
+    "evidence_gaps.csv": "Actionable gaps and required phases",
+    "report.md": "Readable requirement-by-requirement table"
+  },
+  "execution": {
+    "controller": "Existing LangGraph graph",
+    "scheduler": "Existing Prefect invocation",
+    "file_executor": "Existing Snakemake data_adequacy_agent step",
+    "extra_llm_calls": 0,
+    "call_boundary": "One fresh DC-review call independently reviews the DR requirement and DC-label file-review outputs; criteria are not separate conversations.",
+    "oversized_input": "Stop with an explicit transport-budget error, preserving content for subsequent task subdivision; do not truncate.",
+    "live_project_run": "Not started by implementation tests"
+  },
+  "validation_boundary": "Synthetic fault-injection tests establish host validation and gating behavior. They do not establish real-LLM semantic detection accuracy or scientific adequacy."
+}

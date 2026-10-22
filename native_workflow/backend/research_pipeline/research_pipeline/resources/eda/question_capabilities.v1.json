@@ -1,0 +1,193 @@
+{
+  "version": "QUESTION_DISPLAYS_2",
+  "status": "IMPLEMENTED_EXPLICIT_R_RENDERER",
+  "autonomous_EP_adapter": "eda_questions.py",
+  "execution": "eda_workflow run-questions -> EP with dataset accounting -> reused EC -> EP-finalize with dataset accounting -> selected R EV; stops at EV by default; explicit --until ER enables downstream review.",
+  "scope": "Descriptive plots of already materialized source records. No extraction, inference, fitting or scientific approval.",
+  "selection_policy": "Choose a supported display for the observation question and verified record level. Do not assign a plot simply because columns are numeric. A paper is visual guidance, not permission to borrow its data, fitted curve, uncertainty or assay limit.",
+  "rules": "The existing source-bound EDA Rules remain authoritative and unchanged.",
+  "shared_constraints": [
+    "Retain species, matrix, analyte basis, dose/route, source time origin, record level, status and source cells.",
+    "For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and a separate status strip; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Unresolved alternative time columns stay separately labeled. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model.",
+    "Missing and censored responses are not numerical observations. Preserve them in the companion ledger and break connected guides at these rows.",
+    "Straight connections are descriptive guides, never fitted predictions or demonstrated individual trajectories.",
+    "Error bars require supplied, corresponding uncertainty values and a known definition. SD, SEM and confidence intervals are not interchangeable.",
+    "Keep unresolved time axes in separate labeled views; do not snap digitized times or reconcile source conflicts.",
+    "Keep source tables for unsupported displays and describe the exact limitation. Never invent geometry to avoid a table.",
+    "Paper captions and methods were inspected; original paper image pixels were not used as a visual validation reference."
+  ],
+  "templates": [
+    {
+      "kind": "summary_profile",
+      "purpose": "Compare source-reported mean PK profiles across explicit routes/doses within a matrix.",
+      "requires": [
+        "Mean-summary record level",
+        "Explicit numeric time and concentration",
+        "Supported series membership"
+      ],
+      "render": "geom_point + segmented geom_line; facet_wrap by matrix and time-axis alternative",
+      "restrictions": [
+        "No inferred individuals",
+        "No line for duplicate times within a series",
+        "No added SD",
+        "Panel Y ranges may differ and must be disclosed"
+      ],
+      "examples": [
+        "PK_MOUSE_PULMONARY",
+        "PK_MOUSE_SC",
+        "PK_RABBIT"
+      ],
+      "references": [
+        "P01",
+        "P02"
+      ]
+    },
+    {
+      "kind": "categorical_raw",
+      "purpose": "Show terminal observations without implying longitudinal pairing.",
+      "requires": [
+        "Source treatment categories and raw endpoint values",
+        "This template validates pre-treatment, vehicle/control and PMB category order"
+      ],
+      "render": "geom_point with deterministic categorical offsets; strain/dose facets",
+      "restrictions": [
+        "Offsets have no measured meaning",
+        "No newly computed summaries or tests",
+        "No connections between different terminal units"
+      ],
+      "examples": [
+        "PD_TERMINAL"
+      ],
+      "references": [
+        "P02"
+      ]
+    },
+    {
+      "kind": "reported_interval",
+      "purpose": "Show reported endpoint means and their supplied uncertainty.",
+      "requires": [
+        "Known mean field",
+        "Corresponding quantified nonnegative SD or SEM",
+        "Known endpoint unit and group scope"
+      ],
+      "render": "geom_point + geom_errorbar; optional source-reported baseline and n labels",
+      "restrictions": [
+        "Do not compute or convert uncertainty",
+        "ND stays unavailable",
+        "No inferred individual pairing or dose-response fit"
+      ],
+      "examples": [
+        "PD_THIGH_INTERVAL",
+        "PD_RABBIT_INTERVAL"
+      ],
+      "references": [
+        "P01",
+        "P02"
+      ]
+    },
+    {
+      "kind": "source_id_profile",
+      "purpose": "Show time-kill observations in explicitly permitted source-file/ID series.",
+      "requires": [
+        "Source note explicitly permits file/ID membership",
+        "Observation-event role is identified",
+        "Unique corresponding concentration event per source ID"
+      ],
+      "render": "geom_point + segmented geom_line; separate status strip for non-plotted responses",
+      "restrictions": [
+        "No inferred replicate IDs",
+        "No model curves",
+        "Do not plot censored placeholder values",
+        "No borrowed LOQ or censor direction",
+        "No second log transform"
+      ],
+      "examples": [
+        "TIME_KILL_T0054",
+        "TIME_KILL_T0055"
+      ],
+      "references": [
+        "P03",
+        "P04"
+      ]
+    },
+    {
+      "kind": "frequency_bars",
+      "purpose": "Show source-reported MIC category frequencies.",
+      "requires": [
+        "Ordered source categories",
+        "Reported category frequencies and known unit"
+      ],
+      "render": "geom_col with exact percentage labels",
+      "restrictions": [
+        "An open-ended category is not an exact concentration",
+        "Do not renormalize percentages",
+        "No claim of PTA weighting adequacy"
+      ],
+      "examples": [
+        "MIC_FREQUENCY"
+      ],
+      "references": []
+    },
+    {
+      "kind": "independent_points",
+      "purpose": "Show independent source index-response markers without adding a fitted relationship.",
+      "requires": [
+        "Explicit numerical coordinates and source index identity"
+      ],
+      "render": "geom_point; separate index panels with explicit units",
+      "restrictions": [
+        "No connections between independent markers",
+        "No cross-panel marker matching",
+        "No Emax curve, index ranking or PD target",
+        "Retain unresolved response-axis ambiguity"
+      ],
+      "examples": [
+        "INDEX_ECOLI",
+        "INDEX_KPN"
+      ],
+      "references": [
+        "P01"
+      ]
+    },
+    {
+      "kind": "source_projection",
+      "purpose": "Registered source-native PK column views, separate-matrix reported intervals, binding assays, static time-kill summaries, categorical baselines, MIC values/bounds and regimen design.",
+      "requires": [
+        "A registered recipe matching source title, column semantics and source-note signature",
+        "Source fields, status and uncertainty definition validated before EP selection"
+      ],
+      "render": "R points, supplied SD bars, categorical panels, explicit MIC threshold markers, optional semilog and a separate non-observation status strip.",
+      "restrictions": [
+        "No longitudinal joins from source column labels",
+        "No review-status promotion from display parsing",
+        "No derived fu or daily-dose calculation",
+        "No automatic linear/log pair; EP must justify each view"
+      ],
+      "examples": [
+        "T0001_PK_LINEAR",
+        "T0038_TISSUE",
+        "BINDING_ASSAYS",
+        "T0057_STATIC_KILL",
+        "MIC_STUDIES",
+        "T0012_REGIMEN"
+      ],
+      "references": []
+    }
+  ],
+  "artifacts": [
+    "PNG",
+    "vector PDF",
+    "plotted-row JSON with source cells",
+    "convenience CSV",
+    "segment/exclusion audit",
+    "input/Rules/renderer hashes"
+  ],
+  "not_implemented": [
+    "Fitted PK or Emax curves",
+    "Population model diagnostics",
+    "Box/violin plots from verified replicate distributions"
+  ],
+  "reference_catalog": "plot_plan.json: references",
+  "coverage_policy": "All admitted datasets and potential display fields are accounted for in EP and post-EC EP. Missing recipe support is explicit. An omission fails before rendering; no extra repair agent or backward loop.",
+  "pk_scale_policy": "For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and a separate status strip; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Unresolved alternative time columns stay separately labeled. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model."
+}

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data preparation plan 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ruleset_version",
+    "evidence_attachment",
+    "evidence_sha256",
+    "study_plan",
+    "datasets"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "ruleset_version": {
+      "type": "string"
+    },
+    "evidence_attachment": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,59}$"
+    },
+    "evidence_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "study_plan": {
+      "type": "object",
+      "required": [
+        "purpose"
+      ],
+      "properties": {
+        "purpose": {
+          "enum": [
+            "within_species_fit",
+            "human_translation",
+            "NOT_FOUND"
+          ]
+        },
+        "target": {
+          "type": "object"
+        },
+        "scaling": {
+          "type": "object"
+        },
+        "human_pk_available": {
+          "type": [
+            "boolean",
+            "string"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "precision_plans": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object"
+      }
+    },
+    "datasets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "data_attachment",
+          "metadata",
+          "analysis_options"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,59}$"
+          },
+          "kind": {
+            "enum": [
+              "pk",
+              "index"
+            ]
+          },
+          "data_attachment": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,59}$"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "analysis_options": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "enum": [
+                  "individual",
+                  "population_bolus",
+                  "population_infusion_per_kg",
+                  "profile",
+                  "from_pk",
+                  "endpoint_emax",
+                  "compare_indices"
+                ]
+              },
+              "compartments": {
+                "enum": [
+                  1,
+                  2
+                ]
+              },
+              "error_model": {
+                "enum": [
+                  "lognormal",
+                  "additive"
+                ]
+              },
+              "start": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "doses": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object"
+                }
+              },
+              "excluded_statuses": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "BLQ",
+                    "MISSING_CANNULA_BLOCKAGE",
+                    "NOT_SAMPLED"
+                  ]
+                }
+              },
+              "mic_mg_L": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "window_h": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "output_basis": {
+                "enum": [
+                  "free",
+                  "total"
+                ]
+              },
+              "fu": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              },
+              "method": {
+                "enum": [
+                  "linear",
+                  "linear_up_log_down"
+                ]
+              },
+              "step_h": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "index_column": {
+                "type": "string"
+              },
+              "response_column": {
+                "type": "string"
+              },
+              "id_column": {
+                "type": "string"
+              },
+              "direction": {
+                "enum": [
+                  "increasing",
+                  "decreasing"
+                ]
+              },
+              "estimate_hill": {
+                "type": "boolean"
+              },
+              "reference_mode": {
+                "enum": [
+                  "baseline",
+                  "paper_guided"
+                ]
+              },
+              "index_columns": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 8,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "group_column": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "table": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "adapter": {
+                "enum": [
+                  "long_table",
+                  "roberts_fig4b"
+                ]
+              },
+              "sheet": {
+                "type": "string"
+              },
+              "drug": {
+                "enum": [
+                  "PMB",
+                  "FADDI-365"
+                ]
+              },
+              "header_row": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "column_map": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

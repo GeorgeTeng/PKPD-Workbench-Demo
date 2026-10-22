@@ -1,0 +1,110 @@
+{
+  "version": "2.9.1",
+  "scope": "Data Assessment & Preparation",
+  "rules": [
+    {
+      "id": "DA001",
+      "text": "Derive data requirements from the reviewed objective, context and published project rules. Assess input availability and gaps per endpoint, stating when each input is needed. Leave analytical-method selection, calculations and result qualification to downstream modules; questions requiring them remain unresolved here. Do not invent a drug, species, index list, threshold or universal sample size."
+    },
+    {
+      "id": "DA002",
+      "text": "Account for every registered file and every inspected table. Label evidence, observations, summaries, dosing, supporting data, deferred and unresolved material separately. Labels are candidate classifications, not scientific acceptance."
+    },
+    {
+      "id": "DA003",
+      "text": "Inspect all permitted source content in bounded, file-specific requests. Keep source coordinates and exact evidence. Never silently truncate. Protected files remain registered without reading their bodies; ambiguous access requires review."
+    },
+    {
+      "id": "DA004",
+      "text": "Match requirements to data with explicit scope, variables, units, time windows, record level and free/total basis where relevant. A filename, a header or a row count alone does not establish usable measurements, independent animals or adequate precision."
+    },
+    {
+      "id": "DA005",
+      "text": "Use separate fresh agents for requirements and labeling, adequacy review, preparation planning, metadata validation and final handoff review. Each receives its scoped upstream artifacts and applicable full rule text, without prior conversation history."
+    },
+    {
+      "id": "DA006",
+      "text": "The model proposes source-bound table and column mappings; deterministic code performs supported transformations. Preserve raw values, formulas as unevaluated text, missingness, BLQ, provenance and quarantined records. Do not impute, average duplicates, infer joins or invent animal IDs."
+    },
+    {
+      "id": "DA007",
+      "text": "After processing, bind each dataset's metadata sidecar to its exact data bytes and source references. Record unresolved definitions and transformation logs; metadata cannot authorize wider access or claim model readiness."
+    },
+    {
+      "id": "DA008",
+      "text": "Report each blocker with affected task or dataset, reason, needed material, required phase and corrective action. Later-stage modeling gaps do not automatically block descriptive preparation. Independent review failure stops the affected handoff."
+    },
+    {
+      "id": "DA009",
+      "text": "Deliver actual data files with scoped JSON contracts. A technical pass permits only the declared next step, never model acceptance or human predictive validity. Preserve audit evidence and require explicit correction/rerun after errors."
+    }
+  ],
+  "agents": [
+    {
+      "id": "D01",
+      "name": "Define requirements & label data",
+      "rules": [
+        "DA001",
+        "DA002",
+        "DA003",
+        "DA004"
+      ]
+    },
+    {
+      "id": "D02",
+      "name": "Assess requirement coverage",
+      "rules": [
+        "DA001",
+        "DA002",
+        "DA004",
+        "DA008"
+      ]
+    },
+    {
+      "id": "D03",
+      "name": "Prepare & QC",
+      "rules": [
+        "DA003",
+        "DA006",
+        "DA008"
+      ]
+    },
+    {
+      "id": "D04",
+      "name": "Validate metadata",
+      "rules": [
+        "DA004",
+        "DA007",
+        "DA008"
+      ]
+    },
+    {
+      "id": "D05",
+      "name": "Report & handoff",
+      "rules": [
+        "DA005",
+        "DA008",
+        "DA009"
+      ]
+    }
+  ],
+  "runtime": {
+    "fresh_call_per_agent": true,
+    "timeout_seconds": null,
+    "heartbeat_seconds": 300,
+    "human_review": "ON_UNRESOLVED_FINDINGS_OR_PROJECT_REQUIREMENT",
+    "model_release": false
+  },
+  "review_status": "IMPLEMENTATION_BASELINE_PENDING_RULE_BY_RULE_REVIEW",
+  "knowledge_layer": {
+    "assessment_algorithm": "D02 uses requirement-level criterion plans and original-source excerpts. Host code verifies citations, coverage, deferred-output evidence and deterministic aggregation; requirement_matrix.json retains the audit. See docs/interfaces/data_requirement_check.contract.json. Coverage is not scientific qualification.",
+    "general_rules": "Use the canonical G001-G008 pack supplied by ctxcomp.governance; do not duplicate it here.",
+    "method_profiles": "pkpd_method_profiles.json; the current menu contains MP001-MP009 data requirements only. MP009 includes conditional PD-target inputs; MP010 is retained solely in the deferred PTA reference. Candidate knowledge is not a formal project requirement or automatic release gate.",
+    "deferred_analysis": "pk_analysis_followup.json preserves prior NCA/animal PK calculation and evaluation guidance for later review. It is not loaded into D01/D02 and is not enabled as an execution policy. translation_analysis_followup.json separately retains original translation guidance under the same deferred boundary. human_simulation_followup.json retains original human simulation guidance under the same deferred boundary. binding_analysis_followup.json retains original binding/free-exposure guidance under the same deferred boundary. ivive_analysis_followup.json retains original hepatic IVIVE guidance under the same deferred boundary. pkpd_index_analysis_followup.json retains original index-analysis guidance under the same deferred boundary. pta_analysis_followup.json retains original PTA guidance under the same deferred boundary.",
+    "assessment_outputs": "Requirement, matched evidence, input availability, gaps, affected task/endpoint, required phase and next action. AVAILABLE_CANDIDATE is input availability, not scientific adequacy; partial coverage uses UNRESOLVED with an explicit explanation.",
+    "requirements": "Separate PROJECT_EXPLICIT from METHOD_CANDIDATE; bind method IDs, source evidence, applicability conditions and the frozen library.",
+    "file_context": "Each file worker receives assigned candidate requirements, their method profiles, applicable full project rules and selected scientific context fields.",
+    "project_decisions": "User-confirmed project policies are reconciled and published by Project Rules Agent, never imported as universal method defaults.",
+    "profile_priority": "The library presents index data requirements immediately after animal PK data requirements and before translation. IDs stay stable. This is review/context priority, not execution order; PK and index branches remain independently applicable and actual file dependencies still govern execution."
+  }
+}

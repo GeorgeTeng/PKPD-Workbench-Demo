@@ -1,0 +1,16 @@
+{
+  "version": "EDA_PLOT_POLICY_1",
+  "conflict_rule": "Offer a diagnostic only for a recorded time-source conflict or an explicitly requested check. Do not infer new conflicts or run offset analysis.",
+  "main_axis": "Use paper sampling times only with source evidence; otherwise retain digitized basis with provenance qualification.",
+  "provenance": "All nominal/pixel values, units, status and source cells remain in EC companion tables.",
+  "standalone": true,
+  "axis_titles_ticks_units": true,
+  "legend": true,
+  "figure_index": true,
+  "administration_routes": "Separate known administration routes into independent figures. Doses within the same route may share a figure. Do not merge unspecified routes with known routes.",
+  "axis_detail": "Range-aware Y ticks; finer early time X ticks where useful, preserving scale and source coordinates.",
+  "first_point_emphasis": false,
+  "automatic_first_point_zoom": false,
+  "time_caption": "Label the displayed time basis in plain English: nominal study-method sampling times, reported sampling schedule, or digitized figure times, as supported by the selected column and its evidence. A paper sampling schedule does not establish actual per-animal collection times. Do not print internal time-basis codes in captions or imply that a display choice finalizes the modeling time axis.",
+  "time_conflict_scope": "Time conflicts are scoped to the current study, route and matrix. A blood/plasma sampling conflict does not trigger a tissue or ELF time-check figure; an SC-specific warning does not apply to IT. Recognize explicit matrix-specific source schedules when the existing source-time values match; never snap digitized points or invent times. Prefer that supported source time in the main figure; retain pixel time in immutable provenance, not a duplicate main plot. Generate an alternate-time diagnostic only for a conflict applicable to that series or an explicit request; small numeric differences alone are not a trigger. Remove unrelated warnings from figure captions but retain the original notes in source records."
+}

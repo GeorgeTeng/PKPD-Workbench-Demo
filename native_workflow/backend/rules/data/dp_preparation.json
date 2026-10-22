@@ -1,0 +1,125 @@
+{
+  "version": "1.3.0",
+  "status": "USER_APPROVED_PROCESSING_RULES",
+  "general_rules": "Apply the canonical G001-G008 pack, which ctxcomp.governance attaches to every call before these rules. These rules add only what is specific to this agent.",
+  "agent": {
+    "id": "DP",
+    "name": "Prepare & QC",
+    "order": 3
+  },
+  "calls": [
+    {
+      "id": "DP",
+      "operation": "REVIEW_AMBIGUOUS_MAPPING",
+      "description": "After explicit upstream human approval, the host reuses reviewed mappings or prepares unambiguous supported mappings. A model is used only for explicitly requested unresolved mapping decisions, never once per ordinary table."
+    }
+  ],
+  "rules": [
+    {
+      "id": "DP001",
+      "text": "The host preserves source tables and selects only unambiguous reviewed field meanings supported by implemented adapters. Reuse existing source-bound plans. A model may propose unresolved semantic mappings in one scoped request; it does not perform deterministic cleaning or QC. Preserve raw values, formulas as unevaluated text, missingness, BLQ, provenance and quarantined records. Do not impute, average duplicates, infer joins or invent animal IDs.",
+      "derived_from": [
+        "DA006",
+        "DRAFT_REVIEW_ITEM_2026_10_13_07"
+      ]
+    },
+    {
+      "id": "DP002",
+      "text": "Identify animals, samples, technical replicates and group summaries from source evidence, retaining reported identifiers, grouping and sampling design. Do not infer animal identity from row numbers, time order or equal doses, or combine terminal samples into an individual longitudinal profile. Record unknown definitions and restrict only dependent actions; unrelated source preservation may continue.",
+      "derived_from": [
+        "DP001",
+        "G004",
+        "DRAFT_REVIEW_ITEM_2026_10_13_01"
+      ]
+    },
+    {
+      "id": "DP003",
+      "text": "Preserve raw values and units, source-version and row or cell references, and qualifying headers and footnotes. Keep one canonical raw artifact per source version and reference it from derived outputs. Before restructuring, define table boundaries, field mappings and source-to-output record relationships, including shared-header expansion scope. Do not silently fill merged cells, discard notes or treat headers or notes as measurement-body records. Execute transformations only through declared implemented adapters; otherwise preserve the source and hold the affected operation with a specific correction or adapter request. Log actual value or structural changes with source/output references, changed values, operations, parameters, rule references and execution version. Reuse existing provenance and logs; avoid redundant copies, unchanged-work reruns and logging-only model calls. Report unavailable provenance and its dependent-action impact without inventing it or unbounded reconstruction. Use existing mappings and counts to account for retained, expanded, quarantined, rule-excluded and pending source records. Report unread scope and unexplained omissions or additions; affected outputs cannot be presented as complete. Required independent and human reviews remain in force.",
+      "derived_from": [
+        "DP001",
+        "G004",
+        "DRAFT_REVIEW_ITEM_2026_10_13_02",
+        "DRAFT_REVIEW_ITEM_2026_10_13_03",
+        "DRAFT_REVIEW_ITEM_2026_10_13_08"
+      ]
+    },
+    {
+      "id": "DP005",
+      "text": "Convert units only when source and target units, required parameters and applicable scope are supported by evidence and an implemented adapter. Retain analyte, matrix, total or unbound basis, dose basis and time origin; matching units do not establish matching definitions. Record conversion factors or formulas and parameter evidence. Preserve the source representation when conversion conditions or definitions are unresolved.",
+      "derived_from": [
+        "DP001",
+        "G004",
+        "DRAFT_REVIEW_ITEM_2026_10_13_04"
+      ]
+    },
+    {
+      "id": "DP006",
+      "text": "Distinguish not sampled, sample loss or sampling failure, not reported, unreadable values, BLQ and source-supported zero. Retain original markers, definition evidence and any reported LLOQ with its analyte, matrix or batch scope. Generic cleaning does not substitute zero, LLOQ/2 or another value for BLQ. Quarantine preserves the original record; separately authorized analytical treatment requires its own policy and derived-result provenance.",
+      "derived_from": [
+        "DP001",
+        "G004",
+        "DRAFT_REVIEW_ITEM_2026_10_13_05"
+      ]
+    },
+    {
+      "id": "DP007",
+      "text": "Distinguish repeated value patterns, sample reanalysis, technical replicates and duplicate extraction using record identity and source evidence. Equal values do not prove duplication. Flag unusual values for source review. Exclusion requires an applicable explicit rule and supporting evidence, retaining the original record and rationale. Do not average conflicts or delete records to obtain PASS.",
+      "derived_from": [
+        "DP001",
+        "G004",
+        "DRAFT_REVIEW_ITEM_2026_10_13_06"
+      ]
+    },
+    {
+      "id": "DP009",
+      "text": "The host program performs these execution checks without an additional model review. Verify actual source values, output values and execution logs against the plan, parameters and implemented computation rules. Distinguish impossible values, source conflicts and unusual but possible values; generic outlier thresholds do not authorize exclusion. Record checked scope and actual execution evidence. A plan alone cannot prove correct execution; unexecuted checks remain NOT_CHECKED.",
+      "derived_from": [
+        "DP001",
+        "G004",
+        "G007",
+        "DRAFT_REVIEW_ITEM_2026_10_13_09"
+      ]
+    },
+    {
+      "id": "DP010",
+      "text": "During DP planning, use inherited requirements and definitions without repeating Coverage or Necessity assessments. Check each specified action's required dose and dose basis, route, dose events, administration duration, actual or nominal sample time, time origin, matrix, analyte and record level. Establish PK, PD and MIC relationships only from supported study, regimen, strain or other applicable matching evidence, not similar names or shared file membership. Report unresolved definitions and restrict only dependent actions.",
+      "derived_from": [
+        "G004",
+        "DH001",
+        "DRAFT_REVIEW_ITEM_2026_10_13_10"
+      ]
+    },
+    {
+      "id": "DP013",
+      "text": "Before any DP model call or transformation, the host must verify an explicit confirmed human approval of the current upstream Data checkpoint, including requirements, coverage, source labels, unresolved findings and accepted limitations. Bind approval to the exact reviewed artifacts and input versions, retaining the reviewer and timestamp. A technical or model PASS, automatic validation, missing approval, rejection or request for changes cannot open this gate. Changed approved artifacts or input bindings invalidate approval and require a new human decision. Recheck bindings after a model response before publishing its plan. Approval permits DP only and does not establish model readiness or human predictive validity.",
+      "derived_from": [
+        "USER_REQUEST_2026_10_13_DP_UPSTREAM_HUMAN_GATE",
+        "G006",
+        "G007"
+      ]
+    }
+  ],
+  "runtime": {
+    "fresh_call_per_agent": false,
+    "timeout_seconds": 180,
+    "heartbeat_seconds": 300,
+    "human_review": "REQUIRED_BEFORE_DP_FOR_EACH_REVIEWED_INPUT_VERSION",
+    "model_release": false,
+    "default_dp_model_calls": 0
+  },
+  "source": {
+    "split_from": "data_agents.json 2.9.1 (DA001-DA009)",
+    "drafted": "2026-10-13: English draft using the existing module processing-rule format.",
+    "review_status": "RULE_BY_RULE_DECISIONS_RECORDED",
+    "previous_policy": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\rules\\data\\dp_preparation.json",
+      "sha256": "0f4c18e3f47f2d27711e184e8f553b78592c1fcf9aafa838be2ea8e2dc72939d",
+      "version": "1.0.0"
+    },
+    "review_manifest": "review_manifest.json",
+    "confirmed": "2026-10-13: user approved host execution/QC/metadata, DP planning and definitions, and independent DH-handoff; requested implementation.",
+    "implementation_scope": "Existing scalar preparation adapter and declared technical handoff only; no EDA, fitting, new scientific thresholds or live model execution enabled by this edit.",
+    "human_gate": "2026-10-13: user explicitly requested a human approval gate upstream of DP. Existing Canvas review is reused and direct program entry points enforce it.",
+    "simplification": "2026-10-13: user authorized simplifying model calls and audit traces, with deterministic self-check and repair."
+  }
+}

@@ -1,0 +1,64 @@
+ContextBuilder unified Compression/Data gateway
+
+All production Compression/Data calls through providers.codex_generate now pass
+ContextBuilder, whether launched through the new linear entry point or an existing
+adapter. Direct raw-provider and low-level CLI bypasses are rejected for managed
+stages. Pure offline generator fixtures do not invoke the provider.
+
+Routes include the full original Compression stages and split review branches,
+and Data access, splitting, labeling, extraction/preparation, review, DR, Coverage,
+Necessity, summary and handoff. Existing stage adapters continue to select authorized
+inputs and validate scientific meaning. Legacy adapter fields are preserved in full;
+unknown stages fail rather than silently bypass. No new Data/EDA stage is launched.
+
+Rule handling
+Original files under backend/rules remain unchanged. The host verifies the complete
+frozen rule binding, then applies ONLY its explicit clause replacements. Non-replaced
+clauses, conditions, exceptions, G001-G008, source scope and scientific qualification
+limits remain intact. Compiled instructions retain their exact approved text.
+The full original request and superseded clauses are kept in the audit. There is no
+LLM-based Rules reader, inferred applicability selector or semantic rule rewriting.
+
+Final model input
+Stage premise + operation instructions + effective Rules + permitted evidence +
+response schema. Source text and required evidence IDs remain; engineering hashes
+and original-to-effective mappings remain on the host. The provider sends the exact
+model_input.json projection and model_prompt.txt captured in the call directory.
+request_sha256 stays the opaque host response binding; model_input_sha256 separately
+binds the projection. Project Rules, evidence checks and human gates remain active.
+
+Size checks
+The final serialized provider prompt AND actual CLI schema are checked, after
+projection, against resources/context_builder/transport_budget.v1.json. The policy
+counts both characters and UTF-8 bytes and reserves application capacity for output.
+It is an application transport limit, not an exact model-token count or proof of a
+provider context window. Over-budget requests stop before transport; no truncation,
+automatic splitting or additional model calls. The CLI boundary checks again.
+
+At-most-once execution
+Explicit run scope is preferred. Legacy diagnostics paths resolve to stable run
+folders, stripping attempt UUIDs. Historical Data callers without diagnostics use
+an immutable request-keyed receipt under outputs/contextbuilder_calls; their existing
+hash-bound adapter files need not change. Receipts and exclusive process locks are
+persisted before transport. Already attempted tasks, failed/uncertain calls and
+patch/repair/revision requests cannot automatically dispatch again. Hash-directory
+prefix collisions stop; they never reuse a different receipt. Distinct source-scoped
+or pre-partitioned tasks may each dispatch once. Original scientific checks remain
+responsible for deciding whether a returned response is acceptable.
+
+The legacy live LEAN Compression entry now runs the same extraction -> acceptance
+-> independent full-source review -> verification sequence as the linear entry.
+REVISE stops without patch/recheck loops. Its existing time budget is preserved;
+the explicit linear runner adds no aggregate time cap. Failure evidence is retained.
+Historical custom-generator tests may still exercise the old repair contract offline;
+they are not production provider calls.
+
+Commands (repository root; .venv-context/Scripts/python.exe -I -X utf8 -m)
+research_pipeline.context_linear preview-compression --run RUN --out NEW_PREVIEW
+research_pipeline.context_linear run-compression --run RUN --session SESSION
+research_pipeline.context_linear run-dr --source-run SOURCE --out DR --session SESSION --input-bindings BINDINGS
+research_pipeline.context_linear run-data --plan DR/plan.json --source-view SOURCE/source_view.json --main MAIN --local-mp MP --out DATA --session SESSION
+
+Preview makes zero provider calls. Production services need to load the updated code
+before using it; this change does not restart running services. Keep immutable failed
+receipts and existing result bindings; never rebind an old result to altered inputs.

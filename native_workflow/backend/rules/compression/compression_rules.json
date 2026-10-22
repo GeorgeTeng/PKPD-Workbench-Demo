@@ -1,0 +1,674 @@
+{
+  "version": "1.31.0",
+  "status": "ACTIVE_PROCESSING_RULES",
+  "authority": "USER_AUTHORIZED_WORKFLOW_RULES_NOT_SCIENTIFIC_SOURCE_FACTS",
+  "rules": [
+    {
+      "id": "CC016",
+      "title": "Compression request binding and audit placement",
+      "agents": [
+        "all",
+        "orchestration"
+      ],
+      "instruction": "Use the host-supplied compression request identity and keep binding metadata in the designated artifacts.",
+      "actions": [
+        "Echo request_sha256 unchanged in the response envelope.",
+        "Keep request and rule hashes in audit records, and original file hashes in data.files. Do not add handoff_sha256 to main.json."
+      ],
+      "evidence": "Compression request/response envelopes and frozen input/rule snapshots.",
+      "on_failure": "Reject the affected request/response binding and follow the compression retry policy.",
+      "general_rules": [
+        "G006"
+      ]
+    },
+    {
+      "id": "CC003",
+      "title": "Compression model-call access boundary",
+      "agents": [
+        "all"
+      ],
+      "instruction": "Use only the source evidence supplied in this compression request.",
+      "actions": [
+        "Do not browse, access other files, invoke commands or delegate from a compression model call.",
+        "The host supplies authorized attachment excerpts; citations must resolve within the supplied evidence."
+      ],
+      "evidence": "Citations must resolve within the supplied evidence.",
+      "on_failure": "Report the unsupported source access or citation through the assigned response schema.",
+      "general_rules": [
+        "G002"
+      ]
+    },
+    {
+      "id": "CC001",
+      "title": "Respect the selected proposal and intake result",
+      "agents": [
+        "intake",
+        "attachment_plan"
+      ],
+      "instruction": "Use the single proposal selected and checked at intake; verify the supplied selection record rather than choosing a version or repeating file intake.",
+      "actions": [
+        "Check the supplied proposal identity and intake readability/coverage result; ambiguous selection remains stopped.",
+        "Keep other submitted files as supporting inputs under CC002."
+      ],
+      "evidence": "Selected proposal ID and original file reference.",
+      "on_failure": "Stop and request the missing selection or a readable replacement.",
+      "general_rules": [
+        "G003"
+      ]
+    },
+    {
+      "id": "CC002",
+      "title": "Define compression scope and supporting evidence",
+      "agents": [
+        "attachment_plan",
+        "attachment_evidence",
+        "requirements",
+        "requirements_review",
+        "context",
+        "context_review",
+        "context_faithfulness",
+        "context_completeness",
+        "context_conflicts"
+      ],
+      "instruction": "Compress the proposal as the primary source. Search relevant authorized attachments for missing details; retain exact citations and distinguish supporting evidence from proposal statements.",
+      "actions": [
+        "Identify material missing or ambiguous details in the proposal first. If no attachment question is needed, skip attachment model calls.",
+        "Use relevant supplied passages; do not import full unrelated datasets.",
+        "Assign each relevant authorized file to a fresh evidence agent with only its questions, proposal context and applicable rules. Split oversized files into complete, traceable batches; never silently truncate evidence.",
+        "Reconcile file answers per question using exact source quotations. Preserve conflicts and incomplete searches; return only relevant cited evidence and unresolved items to compression.",
+        "Inventory and review the proposal's own source units one by one. From supporting passages, retain what the proposal's gaps and questions need, with consequential values, conditions, conflicts and restrictions; check those passages wherever they are cited instead of inventorying or reviewing supporting tables, catalogs or passages one by one.",
+        "Leave cleaning, scientific table splitting, EDA, model fitting, index comparison and human PK simulation to downstream modules."
+      ],
+      "evidence": "Question IDs, searched file IDs, locations and exact quotations.",
+      "on_failure": "Record an incomplete search or unresolved conflict; do not invent evidence. Remove out-of-scope analysis claims and repeat the affected review before release.",
+      "general_rules": [
+        "G002",
+        "G005"
+      ],
+      "host_requirement": {
+        "unit_review": "COMPRESSION_SCOPE",
+        "warning_search_log": "SUMMARY",
+        "question_links": "SUPPORTING_PASSAGES",
+        "unit_links": "HOST_FILLED",
+        "requirements_parts": "PARALLEL",
+        "supporting_parts": 3,
+        "evidence_batch_chars": 250000,
+        "schema_repair": "RECORD_REPAIR",
+        "revision": "RECORD_PATCH",
+        "table_context": "TITLE_AND_HEADER_ROWS",
+        "quote_matching": "NORMALIZED",
+        "unconfirmed_citations": "REMOVE_AND_MARK",
+        "binding_locations": "TABLE_CONTEXT",
+        "unconfirmed_bindings": "DROP",
+        "automatic_revisions": 1,
+        "model_payload": "COMPACT",
+        "unknown_review_records": "SET_ASIDE",
+        "review_parts": 3,
+        "description": "requirements_review and context_completeness give one source-unit verdict for each unit of compression_scope.source_ids, sent as review_source_unit_ids. From 1.25.0, in requirements_review the host fills each unit's requirement_ids from review_source_unit_links (the inventory items and potential questions citing that unit) before validation; the model judges the unit against them and the change is recorded in audit/requirements_review_links.json. From 1.25.0 the requirements inventory runs in parts instead of one call. The proposal part writes every item whose subject is a proposal statement (IDs P01..., questions PQ01...). Then up to supporting_parts supporting parts run at the same time; each owns some attachment questions and the supporting passages cited for them, sees the proposal items read-only, may link to them, and writes only supporting facts the proposal items do not already carry (IDs SA01..., questions PQA01...). Without supporting passages the inventory stays one call. The host checks each part, merges them in a fixed order and runs the usual checks, binding repair and review on the merged inventory. On retry, validated parts are reused for the same request and executor and only a failed part is called again. requirements_parts_proof.json links the parts to the accepted inventory. Also from 1.25.0, attachment evidence reads a large file in batches of at most evidence_batch_chars request characters (instead of the 800,000-character transport limit), so several calls read one large table at the same time, and each question synthesis starts as soon as the file calls it needs have returned. Also from 1.25.0, Claude Code enforces a requirements schema without enum lists or closed objects, so one malformed record no longer makes the model rewrite the whole inventory. The host validates the answer strictly; records with format errors go to one schema_repair call that returns only those records with the same IDs, and the repaired answer must pass the strict schema and every later check. The original answer and the repair are kept in the audit. From 1.26.0, when requirements_review does not pass, the redo of the requirements stage revises the reviewed inventory instead of writing a new one: the host keeps the reviewed inventory, and one call receives it with the review and returns only replacement records (same ID), new records (new IDs) and removed IDs, with the finding each change answers. Every item the review marked ALTERED or MISSING must be replaced or removed. The host applies the patch, keeps every other record unchanged, and the result goes through the same schema, evidence and binding checks and a full requirements_review again. requirements_revision_proof.json links the reviewed inventory, the review, the patch and the accepted inventory. From 1.27.0, a spreadsheet row travels with its table's title and column-header rows: a table is a run of consecutive rows of one sheet, and a row's context is the table's first rows through the last header-like row above it (two or more cells, none numeric), at most 8 rows. Retrieval adds these rows to the question's passages and lists them in the row's table_header_ids; every evidence batch carries the header rows of the tables it holds; a citation review of a row receives them; and a cited row brings them into the supporting sources of later stages. They are context for reading a row's columns (for example free versus total drug) and may themselves be cited. Models receive a summary of each missing-information search that keeps the matched passages they were supplied; the full log stays in audit/missing_information_review.json. Models also receive supporting_questions: each attachment question with its answer status, the supporting passages cited for it (cited_passage_ids) and any proposal passages the answer also cites (cited_proposal_ids). Every compression stage after attachment evidence receives it, including each faithfulness part, the completeness review and the conflict review. From 1.29.0 a single item the host cannot confirm no longer stops the whole run. A quote or binding value matches its source when the two agree after removing differences of letter case, spacing and the spelling of dashes, quotation marks and \u00b1 or +/- (quote_matching NORMALIZED); digits, decimal points and words must still agree, and a component's own evidence quote must still be exact. A citation that no review can confirm (an unknown or unauthorized source, a reviewer's UNRESOLVED decision or an invalid correction), and a finding without citations, is removed instead of stopping the run (unconfirmed_citations REMOVE_AND_MARK): an affected FOUND answer becomes SEARCH_INCOMPLETE, so does a CONFLICT left without citations or a synthesis that dropped a file conflict, and the answer's reason says what the host removed; a material question answered that way stays a missing-information warning. A binding value also counts when it appears in the title and header rows of the cited spreadsheet row's table (binding_locations TABLE_CONTEXT). A value binding that is still not found after its one repair, that the repair leaves UNRESOLVED or corrects invalidly, or whose component selection is invalid is dropped, and its item keeps its statement without that value; an unresolved method reference is removed (unconfirmed_bindings DROP). A binding whose component quote is not in its source still stops the run. Every removal is listed in audit/unconfirmed_evidence.json for a person to check; nothing removed is treated as confirmed and nothing is added in its place. When requirements_review returns REVISE, the host reopens the inventory for a patch revision and reviews it again without waiting for a person, at most automatic_revisions times per run; a further REVISE stops the run as before. From 1.30.0 the copy of a request sent to the model gives each source's text once, in source_units, and leaves out the source registry, hashes and the host's requirements evidence audit; the request, its hash and every host check are unchanged (model_payload COMPACT). requirements_review is asked for exactly one record per ID; a record whose ID the request does not have is moved into limitations with its verdict and reason, and an exact repeat is merged, both listed in audit/unconfirmed_evidence.json; a missing ID, repeats with different verdicts, or such a record reporting a defect under a PASS still stop the run (unknown_review_records SET_ASIDE). From 1.31.0 (requirements_parts PARALLEL) the proposal part and the supporting parts start at the same time. Supporting parts no longer see the proposal items: they read the proposal text and write only supporting facts it does not state, and their method_refs, relations and adoption_relations name only their own items. The host checks each part on its own and merges them in the same fixed order; a fact written by both sides is left for requirements_review to report. Also from 1.31.0 (review_parts) requirements_review runs in up to review_parts parts at the same time. Each part judges a contiguous run of review_source_unit_ids and the items and potential questions whose evidence first cites them (items citing none of them are spread evenly), reading the whole inventory and every source as context. The host merges the parts in inventory and unit order and the merged review goes through every check of a single review; a part's record for an ID another part judges goes to limitations, and one reporting a defect turns PASS into REVISE."
+      }
+    },
+    {
+      "id": "CC004",
+      "title": "Extract the overall scientific question",
+      "agents": [
+        "all"
+      ],
+      "instruction": "State the proposal-specific overall scientific question and intended outcome explicitly in main.json.objective.",
+      "actions": [
+        "Extract the whole project question, not a description of compression, file administration or only one downstream branch.",
+        "Use the drug, scope, species, methods and assumptions supported by the selected proposal and authorized cited evidence.",
+        "Search and cite permitted supporting evidence under CC006 when the objective is unclear. If it remains missing, ambiguous or conflicting, retain that status and ask a targeted clarification.",
+        "An unresolved objective may remain in a stopped draft but must not be published as a ready handoff. Other unspecified fields follow CC006/CC019.",
+        "Establish the source-supported objective before selecting requirements or writing the summary; keep important counterevidence, prerequisites and limitations as objective-relevant.",
+        "Retain all stated objectives and primary/secondary distinctions. Preserve the intended output or success criterion when stated; report missing definitions rather than supplying them.",
+        "Review objective fidelity and completeness first. An omitted, altered or unresolved overall question requires an explicit finding in the existing review schema and cannot be compensated by other PRESERVED findings.",
+        "After compression, a human reviewer judges the published objective at the Context review: CONFIRMED, CORRECTED (the reviewer supplies the objective, recorded as an explicit user scope change), INCORRECT, OFF_SCOPE or MISSING. Context is approved only with CONFIRMED or CORRECTED; the other judgements require changes or rejection."
+      ],
+      "evidence": "Proposal-bound objective and project facts, with scalar evidence and review findings; clarification records where needed.",
+      "on_failure": "Block release of a ready handoff for an unresolved or unsupported project objective. Explain what is unclear and request the missing clarification; remove unsupported scope expansion.",
+      "implementation_status": {
+        "model_instruction": "INTEGRATED_FOR_NEW_RUNS",
+        "objective_specific_host_gate": "IMPLEMENTED_AS_HUMAN_OBJECTIVE_DECISION_AT_CONTEXT_REVIEW",
+        "cross_drug_and_unclear_objective_regression": "DEFERRED_INSUFFICIENT_LABELLED_DOCUMENTS",
+        "objective_priority": "INTEGRATED_IN_SHARED_RULE_AND_COMPRESSION_AGENT_CONTRACTS"
+      },
+      "general_rules": [
+        "G003"
+      ],
+      "priority": "HIGHEST_TASK_RELEVANCE",
+      "human_objective_decision": {
+        "owner": "HUMAN_CONTEXT_REVIEWER",
+        "decisions": {
+          "CONFIRMED": "The compressed objective is correct.",
+          "CORRECTED": "The reviewer supplies the correct objective; downstream stages use it through an explicit user scope change. The original main.json is unchanged. Unavailable once project rules have been published for this Context, because they were reviewed against the original objective; choose INCORRECT with REQUEST_CHANGES and rerun compression and project rules instead.",
+          "INCORRECT": "The objective is wrong; Context cannot be approved.",
+          "OFF_SCOPE": "The objective drifts from the project; Context cannot be approved.",
+          "MISSING": "No usable objective; supply it with CORRECTED where available, otherwise revise compression."
+        },
+        "binding": "The decision is bound to the Context output signature; changed outputs need a new decision.",
+        "boundary": "Model reviews still report objective defects; the human decision does not certify scientific adequacy."
+      }
+    },
+    {
+      "id": "CC006",
+      "title": "Search permitted attachments before NOT_FOUND",
+      "agents": [
+        "all"
+      ],
+      "instruction": "When the proposal lacks relevant details, use the question-led authorized attachment-search process before reporting NOT_FOUND.",
+      "actions": [
+        "Record searched file IDs, source coverage and whether each question was answered; preserve search limitations.",
+        "Use NOT_FOUND for unspecified scalar fields where required by the response schema; retain incomplete search, conflict or explicit absence in the accompanying evidence status.",
+        "Do not access held-out validation data before its permitted stage.",
+        "Pass consequential unresolved findings to CC019; do not turn not-found information into evidence of absence."
+      ],
+      "evidence": "Search record, source coverage and unresolved questions.",
+      "on_failure": "Preserve unknowns and report search limitations; never guess values.",
+      "general_rules": [
+        "G004",
+        "G002"
+      ]
+    },
+    {
+      "id": "CC009",
+      "title": "Classify propositions before compression (A)",
+      "agents": [
+        "requirements",
+        "requirements_review",
+        "context",
+        "context_review",
+        "context_faithfulness",
+        "context_completeness",
+        "context_conflicts"
+      ],
+      "instruction": "Before shortening, separate independently meaningful propositions, then assign each a coherent scientific role, evidence status and scope using scientific_extraction; preserve their method, assumption-adoption and relationship links.",
+      "actions": [
+        "Use the supplied role/status definitions and contrastive examples; keywords alone cannot assign a scientific label.",
+        "Apply scientific_extraction.proposition_contract before classification: split independent results, requirements, metadata, gaps and conflicts when their roles, evidence bases or scopes differ. Preserve conditions and exceptions with the assertion they qualify; do not select a dominant label for mixed content.",
+        "Inventory kind FACT/UNKNOWN is retention bookkeeping, not science.role, observation status or verified truth. A particular analysis outcome is RESULT; a predicted human result remains PREDICTED.",
+        "Treat a premise as ASSUMPTION only when explicitly stated/adopted in the source. Attribute a paper's assumptions to that analysis; project adoption requires source support.",
+        "Keep inferred premises only in potential_questions as MODEL_INFERENCE and PENDING_CONFIRMATION, with rationale, cited basis, needed_at and impact. An empty list is valid.",
+        "Keep core-field EXPLICIT, PROPOSED and NOT_FOUND attribution separate from scientific evidence_status. PROPOSED advice belongs only in schema-permitted data.required, checks or uncertainties; it cannot supply project facts.",
+        "Apply CC007 to formal rule authority; a discourse REQUIREMENT label is not publication."
+      ],
+      "evidence": "Source-bound inventory science objects and relations; separate core-context attribution and inferred-question records.",
+      "on_failure": "Split and reclassify the affected propositions from original evidence; recheck bindings, method/adoption relations and source coverage. Do not merely relabel the mixed paragraph or remove inconvenient content.",
+      "general_rules": [
+        "G002"
+      ]
+    },
+    {
+      "id": "CC005",
+      "title": "Preserve scientific meaning with the PK terminology appendix",
+      "agents": [
+        "all"
+      ],
+      "instruction": "Apply all 13 CC005 preservation categories and their relevant PK terminology appendix. The categories define what must survive compression; terminology helps interpret it and is not an exhaustive required-data checklist.",
+      "actions": [
+        "Keep every applicable clause in details.preserve, including numerical meaning, experimental units, relationships and logical qualifications.",
+        "Use details.terminology_appendix to locate the relevant groups in the supplied pk_binding_knowledge profile. The glossary is stored once; do not copy its term lists into project context.",
+        "Check values and their full source-supported associations within the same study/analysis; separate co-occurrence is not proof of a match.",
+        "Treat conventional terms and aliases as reading aids. The source definition prevails; unfamiliar terms still require preservation. Do not infer values, unit conversions, models, permissions or biological thresholds.",
+        "Use CC009 for scientific role/evidence classification and CC011 for source-span requirements."
+      ],
+      "details_file": "cc005_details.json",
+      "evidence": "Exact source spans and candidate text, including scope, definitions and relationships.",
+      "on_failure": "Require revision for consequential omission, alteration or unsupported inference.",
+      "general_rules": [
+        "G004"
+      ]
+    },
+    {
+      "id": "CC007",
+      "title": "Preserve source requirements without publishing project rules",
+      "agents": [
+        "requirements",
+        "requirements_review",
+        "context",
+        "context_review",
+        "context_faithfulness",
+        "context_completeness",
+        "context_conflicts"
+      ],
+      "instruction": "Preserve every consequential original requirement as source content. Project Rules Agent rereads original materials and alone extracts, classifies and publishes formal project rules.",
+      "actions": [
+        "Retain each consequential source obligation or prohibition with its scope, conditions, exceptions and provenance; an inventory REQUIREMENT role describes the source statement only.",
+        "Keep context.rules empty. Preserve original requirements once in appropriate study fields or source-attributed checks, with typed records retaining their identity.",
+        "Do not allocate formal project R numbers or promote paper methods into obligations. Project Rules Agent rereads original materials and owns formal rule classification, approval and publication."
+      ],
+      "evidence": "Requirement components, importance rationale and downstream effect.",
+      "on_failure": "Restore omitted requirements or mark scientific uncertainty without changing the source.",
+      "general_rules": [
+        "G003",
+        "G002"
+      ]
+    },
+    {
+      "id": "CC011",
+      "title": "Keep exact evidence",
+      "agents": [
+        "all"
+      ],
+      "instruction": "Support core-context scalar leaves except version with exact evidence; bind scientific records and relationships to source components in the private audit. Keep original-source quotations, bindings, links and character offsets outside main.json; preserve required data-file and published-rule references.",
+      "actions": [
+        "Use valid context-relative JSON pointers and exact source quotations with file/location identity; never fabricate a quotation for NOT_FOUND.",
+        "Bind each scientific item, method reference, adoption relation and PK attribute to valid source components. A quotation containing all terms does not establish their relationship.",
+        "Apply evidence rules to scientific records and their source spans; host-generated IDs/hashes are not new scientific assertions needing invented source quotations.",
+        "Check the supplied IN001 source-coverage result. Readability is not content completeness; do not certify unseen pages, equations, tables or other missing source objects.",
+        "For inventory binding.value use scientific_extraction.binding_contract exactly. Evidence-locator checks and independent semantic review are separate gates; compact output does not remove either gate."
+      ],
+      "evidence": "Valid pointers and exact source quotations; attachment provenance where applicable.",
+      "on_failure": "Reject invalid citations or incomplete evidence coverage. Apply IN001 to unresolved source-content omissions; a model cannot waive the coverage requirement.",
+      "source_coverage_requirement": {
+        "owner": "FILE_INTAKE_HOST; compression verifies the resulting record.",
+        "rule_reference": "IN001 in the versioned intake contract.",
+        "instruction": "SOURCE_INCOMPLETE blocks compression until missing allowed content is supplied and rechecked, or a human records that the identified omitted object is irrelevant to this task. Missing coverage records must not be described as confirmed complete.",
+        "model_boundary": "Use supplied coverage records only. Do not open additional files or claim to inspect unseen page images, equations or objects.",
+        "implementation_status": "IMPLEMENTED_DETECTOR_HUMAN_RESOLUTION_AND_COMPRESSION_GATE"
+      },
+      "general_rules": [
+        "G004"
+      ]
+    },
+    {
+      "id": "CC019",
+      "title": "Warn about important information still missing",
+      "agents": [
+        "attachment_plan",
+        "attachment_evidence",
+        "context",
+        "context_review",
+        "context_faithfulness",
+        "context_completeness",
+        "context_conflicts"
+      ],
+      "instruction": "If decision-relevant information remains unresolved after relevant authorized attachment searches, issue an explicit review warning rather than silently filling or omitting it.",
+      "actions": [
+        "State the missing or unresolved field, why it matters, searched files/locations, consuming stage, downstream impact and requested clarification.",
+        "In compression warnings distinguish NOT_FOUND, incomplete searches, protected evidence, ambiguity and conflicting statements using the supplied schema.",
+        "Generate a targeted proposal extra question when its answer could change the task, permitted data use, analysis choice or interpretation. Link it to the affected field and impact; deduplicate equivalent questions.",
+        "Preserve warning identity and meaning using the supplied response schema. Detailed search history stays in audit records.",
+        "A missing later-stage scientific input does not automatically block unrelated earlier work. An unresolved overall objective follows CC004; incomplete source content follows IN001/CC011."
+      ],
+      "evidence": "Search answers, materiality reasons and structured warnings.",
+      "on_failure": "Reject omitted or altered warning meaning. The approved host release contract requires complete structured fields; retain unresolved warnings until evidence or recorded review resolves them.",
+      "handoff_requirement": {
+        "owner": "HOST_PUBLISHER_AND_DOWNSTREAM_CONSUMERS",
+        "target": "main.json",
+        "required_fields": [
+          "id",
+          "field",
+          "status",
+          "needed_at",
+          "impact"
+        ],
+        "field_definitions": {
+          "id": "Stable warning ID within the versioned handoff.",
+          "field": "Affected context field or explicitly named project concept.",
+          "status": "Evidence/search resolution state: NOT_FOUND, SEARCH_INCOMPLETE, DEFERRED (protected or intentionally later-stage evidence), AMBIGUOUS or CONFLICT; never collapse them.",
+          "needed_at": "The first workflow stage whose decision needs this information.",
+          "impact": "The specific decision that cannot be made reliably without resolving this item."
+        },
+        "clarification": "Preserve the targeted question or requested clarification with its warning; keep supporting search records and citations in audit.",
+        "nonduplication": "Use one structured warning record per issue; do not duplicate its full wording across main.json fields.",
+        "release_check": "Validate identity and all required fields against the reviewed warning record. An MI marker alone is insufficient.",
+        "downstream_behavior": "The consuming stage checks unresolved relevant items under its own gate. Compression PASS does not clear scientific gaps.",
+        "compatibility": "Use a versioned schema and coordinated publisher, validator and consumer update. Preserve historical handoffs and their original approvals.",
+        "model_response_boundary": "The host publishes main.json.missing_information from the reviewed warning records; models only reference each [MIxxx] ID in context.uncertainties or data.required and never add fields outside payload.schema.",
+        "implementation_status": "IMPLEMENTED_MAIN_MISSING_INFORMATION_1.0_DATA_AGENT_CONSUMERS",
+        "main_field": "missing_information",
+        "schema_version": "1.0",
+        "status_values": [
+          "NOT_FOUND",
+          "SEARCH_INCOMPLETE",
+          "DEFERRED",
+          "AMBIGUOUS",
+          "CONFLICT"
+        ],
+        "published_fields": [
+          "id",
+          "field",
+          "status",
+          "needed_at",
+          "impact",
+          "why_it_matters",
+          "clarification",
+          "resolution_status"
+        ]
+      },
+      "general_rules": [
+        "G004",
+        "G007",
+        "G008"
+      ]
+    },
+    {
+      "id": "CC008",
+      "title": "Compress into the reviewed handoff (B)",
+      "agents": [
+        "context",
+        "context_review",
+        "context_faithfulness",
+        "context_completeness"
+      ],
+      "instruction": "Write concise, independently understandable context and scientific statements. Publish the reviewed compact projection; original-source evidence machinery stays in audit.",
+      "actions": [
+        "Use objective for the overall question, study for design, data for inputs, checks for source-attributed requirements/verification actions, and uncertainties for unresolved matters; formal rule ownership follows CC007.",
+        "Give each proposition one inventory identity. Merge true duplicates only when role, evidence basis, conditions and relationships match; retain all source links and never merge contradictions or recombine distinct propositions merely to shorten the handoff.",
+        "Keep the core summary concise without copying the full typed inventory into every field. The host attaches scientific_context; do not rewrite that projection or invent fields outside the response schema.",
+        "Retain warning identity and stage relevance under CC019; keep detailed quotations and search history in audit under CC011.",
+        "The complete candidate, including scientific_context, must undergo CC012 before publication; there is no unreviewed semantic shortening after PASS.",
+        "All consequential meaning must survive in the delivered text, including units, conditions, information status and linked relationships. Reviewers must reject meaning present only in omitted bindings. No semantic rewrite occurs after PASS."
+      ],
+      "evidence": "Traceable output fields without unnecessary duplication.",
+      "on_failure": "Consolidate repetition without deleting distinct conditions.",
+      "general_rules": [
+        "G005"
+      ]
+    },
+    {
+      "id": "CC017",
+      "title": "Compression output and runtime policy",
+      "agents": [
+        "context",
+        "orchestration"
+      ],
+      "instruction": "Write concise main.json scalar text and enforce the compression-specific output and progress policy.",
+      "actions": [
+        "Keep evidence quotations and runtime logs in audit, with the required references retained under CC011/CC016.",
+        "Do not impose default hard output-length budgets or model-call deadlines; use only explicitly configured budgets.",
+        "The host reports local-process activity every five minutes and records event types and timing.",
+        "Keep ingestion limits distinct from output budgets; local heartbeats do not establish remote progress.",
+        "Use the existing extraction and review calls for A/B/C; avoid an extra classification call. Emit only relevant bindings, retain compact statements, and keep detailed evidence quotations in audit records."
+      ],
+      "evidence": "Compact context with preserved requirement coverage and evidence; runtime settings and progress/event logs.",
+      "on_failure": "Apply CC015 to call failures or failed preservation reviews.",
+      "general_rules": [
+        "G005"
+      ]
+    },
+    {
+      "id": "CC012",
+      "title": "Review extraction and the exact final handoff (B)",
+      "agents": [
+        "requirements_review",
+        "context_review",
+        "context_faithfulness",
+        "context_completeness",
+        "context_conflicts"
+      ],
+      "instruction": "Independently review the source proposition inventory, then require faithfulness, completeness and global-conflict reviews of the exact combined handoff before publication.",
+      "actions": [
+        "Check the inventory against full supplied source units before compression, including every potential question; the inventory itself can contain omissions or classification errors. Apply the CC009 proposition contract: faithful wording alone cannot pass when mixed roles, production bases or block-specific conflicts are hidden behind one science object. Report the affected item IDs and concrete separation in the existing review fields.",
+        "Run output-to-source faithfulness and source-to-output completeness in separate fresh calls, in parallel where supported. Both inspect the core context and the same scientific_context projection.",
+        "Each parallel reviewer returns exactly one scientific_checks verdict for each scientific item and potential question, including role/status, PK binding, qualifications and authority.",
+        "Run the global review alongside both branches (parallel_v3, the default for new runs) or after both branch responses satisfy their contracts (earlier modes); inspect cross-field, cross-record and cross-section conflicts against the full sources, and cross-review conflicts when the branch reviews are supplied.",
+        "The host checks schemas, paths, exact citations, coverage, input/candidate bindings and verdict consistency. These checks do not themselves prove semantic entailment.",
+        "A global PASS cannot override REVISE or NEEDS_REVIEW from another required review. Retained source uncertainty may pass; unresolved preservation judgments may not.",
+        "Publish only the unchanged reviewed projection. Objective failures follow CC004; source-content omissions follow IN001/CC011; later-stage gaps follow CC019.",
+        "Recheck cached reviews before reuse under CC015/CC016; separate calls do not prove statistically independent model errors."
+      ],
+      "evidence": "Separate branch request, response and receipt files; a verified three-branch proof bound to the candidate; structured findings for failed checks.",
+      "on_failure": "REVISE or NEEDS_REVIEW; no successful handoff until the required review passes.",
+      "host_requirement": {
+        "faithfulness_parts": "STATE_GLOBAL_TIMING",
+        "description": "Each faithfulness part is told when the global conflict review runs: at the same time and without the parts' findings in parallel_v3, after the branches in earlier modes."
+      },
+      "pass_meaning": "A compression PASS confirms that the context passed the required compression reviews. It does not establish data adequacy, acceptable model fit, human predictive validity or clinical safety.",
+      "qualification_requirement": {
+        "owner": "HOST_RELEASE_GOVERNANCE_AND_HUMAN_EVALUATORS",
+        "instruction": "Qualify the model/API and workflow configuration with human-labelled, held-out live-model evaluation before formal use; code tests alone do not qualify semantic performance.",
+        "triggers": [
+          "Changing model or API/provider",
+          "A major change to source scope, extraction/review instructions, response schema, preservation rules or release criteria"
+        ],
+        "evaluation_design": [
+          "Use representative proposals and independent human reference labels; include clean controls and deliberate consequential omissions, alterations and unsupported additions.",
+          "Keep qualification examples separate from prompt/rule development examples. Record adjudication of disputed labels.",
+          "Include different proposal-specified drugs and scopes, unclear project objectives, preservation of CC005 details, source-content omissions and structured-warning retention.",
+          "Evaluate common omissions across reviewers; separate fresh calls do not establish statistically independent judgments.",
+          "Record false releases, missed consequential defects, false rejections, engineering-invalid responses and runtime. Do not score a malformed response or forced stop as successful semantic detection."
+        ],
+        "record_binding": [
+          "provider_and_model_identity",
+          "model_configuration",
+          "rule_version_and_hash",
+          "instruction_and_schema_hashes",
+          "software_version",
+          "evaluation_set_and_label_version",
+          "individual_results_and_adjudications",
+          "human_release_decision"
+        ],
+        "acceptance_plan": {
+          "status": "CRITICAL_ERROR_GATE_APPROVED_FULL_BENCHMARK_DEFERRED",
+          "error_severity_definition": {
+            "critical": "A consequential semantic defect affecting the overall objective, evidence basis, scientific binding, quantities or permitted interpretation.",
+            "examples": [
+              "Changed or omitted overall objective",
+              "Study/species/dose/endpoint mismatch",
+              "Free versus total exposure confusion",
+              "Predicted or estimated information presented as observed",
+              "Consequential unit, negation, condition or exception loss",
+              "Unsupported adoption of a premise or method"
+            ]
+          },
+          "sample_size_and_repetitions": null,
+          "metric_definitions_and_acceptance_thresholds": {
+            "critical_unblocked_errors": 0,
+            "scope": "Zero unblocked critical semantic errors in the agreed acceptance set; not zero real-world error.",
+            "other_metrics": "Definitions and thresholds for noncritical omissions, false rejections and efficiency remain to be agreed before formal qualification."
+          },
+          "threshold_policy": "The critical zero-unblocked-error criterion is already approved. Freeze the remaining evaluation plan before scoring; code/contract tests or a forced stop do not certify live-model detection.",
+          "benchmark_status": "DEFERRED_INSUFFICIENT_LABELLED_DOCUMENTS"
+        },
+        "on_failure": "Do not mark the changed configuration qualified for formal use if the plan is undefined, evaluation incomplete or required criteria fail. Retain diagnostics; a single-run compression PASS is a separate decision.",
+        "model_boundary": "Review agents assess the supplied candidate only. They cannot self-certify system qualification or turn engineering test counts into accuracy evidence.",
+        "implementation_status": "CRITICAL_CRITERION_APPROVED_LIVE_EVALUATION_AND_HOST_GATE_PENDING"
+      },
+      "general_rules": [
+        "G007",
+        "G006"
+      ]
+    },
+    {
+      "id": "CC015",
+      "title": "Bounded binding repair and explicit rerun policy",
+      "agents": [
+        "all",
+        "orchestration"
+      ],
+      "instruction": "Block publication on invalid output or failed review. Permit one source-bounded binding repair for eligible extraction-format errors. Unresolved errors and semantic review failures stop for correction or an explicit rerun, except for the bounded host steps CC002 host_requirement enables: the host removes an unconfirmed citation or binding and lists it for a person (unconfirmed_citations, unconfirmed_bindings), sets aside a review record it cannot place and lists it (unknown_review_records), and revises a requirements_review REVISE by patch and reviews it again up to automatic_revisions times.",
+      "actions": [
+        "Classify the cause before retry: execution or response-contract failure, semantic defect, changed source/rules, or a scientific information gap.",
+        "Only VALUE_NOT_IN_CITED_SOURCE and EMPTY_VALUE binding errors, and METHOD_REF_NOT_METHOD (a method_refs entry naming an item that is not a METHOD), may receive one automatic repair call before acceptance. Repair only the flagged bindings using their original field and selected source components; a flagged method reference may only be replaced by a listed METHOD item or removed. Preserve statements and all unflagged content. Revalidate the whole candidate and run every independent review; never treat a repair as PASS.",
+        "After correcting a semantic defect from supplied evidence, re-review the changed context with fresh faithfulness, completeness and global-conflict calls.",
+        "Source or rule changes require a new run. Retain scientific gaps under CC019 rather than repeating extraction to invent missing evidence.",
+        "Unresolved overall objectives follow CC004; incomplete source content follows IN001/CC011. Retained later-stage gaps follow the consuming stage gate.",
+        "Apply the shared evidence_handling policy through retry_policy.citation_repair for eligible attachment citations. Retain rejected and corrected artifacts; unrelated findings and the full independent semantic review remain unchanged."
+      ],
+      "evidence": "Structured error or review findings with repair guidance.",
+      "on_failure": "After the one permitted repair fails or returns UNRESOLVED, stop with the remaining reasons; when CC002 unconfirmed_bindings is DROP, the host instead drops each binding still unconfirmed, lists it in audit/unconfirmed_evidence.json and continues, while a component quote not in its source still stops. A repair reports UNRESOLVED rather than removing a value binding itself. Never drop unflagged content, broaden sources, ignore errors or repeat until PASS.",
+      "general_rules": [
+        "G007",
+        "G006"
+      ]
+    }
+  ],
+  "scope": {
+    "module": "context_compression",
+    "provider": "MODEL_AND_API_INDEPENDENT",
+    "internal_roles": [
+      "attachment_plan",
+      "attachment_evidence",
+      "requirements",
+      "requirements_review",
+      "context",
+      "context_review",
+      "context_faithfulness",
+      "context_completeness",
+      "context_conflicts",
+      "binding_repair",
+      "attachment_citation_repair"
+    ],
+    "host_roles": [
+      "intake",
+      "publish",
+      "orchestration"
+    ],
+    "all_meaning": "all internal compression roles only; never all project agents",
+    "excluded": [
+      "data_QC",
+      "EDA",
+      "animal_PK",
+      "PKPD_index",
+      "human_PK",
+      "clinical_interpretation",
+      "downstream_planning"
+    ],
+    "handoff_principle": "Other modules preserve decision-relevant information using their own task contracts. Do not copy CC processing rules into their prompts or into project R rules.",
+    "shared_governance": "Apply shared G001-G008 once from governance, then the relevant compression-specific extensions. Do not send the CC pack to downstream scientific agents."
+  },
+  "moved_rules": {
+    "CC010": "G001 in workflow_governance.json; applies first in all workflow steps.",
+    "CC013": "IN001 in intake_rules.json; executed by the preceding File intake host agent."
+  },
+  "merged_rules": {
+    "CC014": {
+      "CC002": "Scope: extract and review; leave scientific computation to downstream modules.",
+      "CC009": "Attribute reported values; never claim this workflow generated or validated them.",
+      "CC007": "Retain required downstream tasks and their applicable steps.",
+      "CC019": "Report decision-relevant unresolved information and its consuming stage."
+    },
+    "CC018": {
+      "CC012.pass_meaning": "Meaning of compression PASS, review limitations and separation from downstream scientific validity."
+    }
+  },
+  "logical_order": {
+    "first": "G001-G008 in shared governance; G001 defines rule identity.",
+    "note": "Reading and execution logic, not a new serial agent for every rule. IDs remain stable; apply the relevant subset at each stage. Version, trust, preservation and stop rules remain active throughout.",
+    "groups": [
+      {
+        "phase": "1. Frame the task and evidence boundary",
+        "rules": [
+          "CC016",
+          "CC003",
+          "CC001",
+          "CC002",
+          "CC004"
+        ]
+      },
+      {
+        "phase": "2. Extract, classify and bind source propositions",
+        "rules": [
+          "CC006",
+          "CC009",
+          "CC005",
+          "CC007",
+          "CC011",
+          "CC019"
+        ]
+      },
+      {
+        "phase": "3. Compress the reviewed inventory",
+        "rules": [
+          "CC008",
+          "CC017"
+        ]
+      },
+      {
+        "phase": "4. Review the exact handoff, release or correct",
+        "rules": [
+          "CC012",
+          "CC015"
+        ]
+      }
+    ]
+  },
+  "retry_policy": {
+    "scope": "Compression only. One bounded repair per eligible binding or citation response; other retries require explicit invocation. No project-wide selective rerun.",
+    "preflight": "Check source readability, schemas, required paths, citations and request bindings before spending dependent model calls.",
+    "unchanged_execution_failure": "Skip accepted upstream stages. Reuse complete validated review branches only when the full request, provider/model identity, validator code and audit hashes match. Run missing or invalid branches; then run global review with both validated branch results.",
+    "semantic_failure": "Retain the failed judgment. Correct the affected candidate from evidence; keep unchanged accepted upstream stages. Re-review the revised context with all three reviewers. Do not retry unchanged content hoping for PASS.",
+    "changed_sources_or_rules": "Create a new run with new bindings. Preserve the previous run; never inherit its approvals.",
+    "missing_scientific_information": "Report CC019 warning with its consuming stage. Request actual evidence when needed; do not use model retries to fill unknown facts.",
+    "audit": "Retain requests, responses, failures and branch receipts. Each review receipt marks GENERATED or REUSED and, if reused, links the original validated receipt.",
+    "interface_limit": "The existing Workbench revision action creates a new run and does not reuse branches across runs. Efficient reuse is available to explicit same-run CLI run commands and the Python runner.",
+    "call_policy": "One generation per pending call and at most one eligible correction for its response; no default deadline. Keep five-minute local-process heartbeats and detailed event timing.",
+    "binding_repair": {
+      "max_attempts": 1,
+      "eligible_reasons": [
+        "VALUE_NOT_IN_CITED_SOURCE",
+        "EMPTY_VALUE",
+        "METHOD_REF_NOT_METHOD"
+      ],
+      "publication": "Blocked until full structural and semantic reviews pass",
+      "failure": "Stop with preserved response and actionable remaining errors. From 1.29.0 (CC002 unconfirmed_bindings), a binding the repair cannot confirm is dropped, an unresolved method reference is removed and the run continues; a component quote not in its source still stops."
+    },
+    "citation_repair": {
+      "max_attempts_per_response": 1,
+      "eligible_reasons": [
+        "QUESTION_SCOPE_MISMATCH",
+        "QUOTE_MISMATCH"
+      ],
+      "scope": "Already supplied sources only; attachment files must be authorized for the question and permitted at this stage.",
+      "alternative_sources": true,
+      "approved_excerpts": true,
+      "changes": "Only flagged quotation text, reviewed question-to-exact-quote assignments and, from 1.23.0, the source ID of a quote that is exact in another passage already assigned to the same question, when the reviewer confirms that passage's context matches the claim; and, from 1.28.0 (approved_excerpts), a later answer to the same question may cite an exact excerpt of a quote whose question assignment the review approved, from the same source; never change answers, statuses or project permissions (from 1.29.0 the host itself removes a citation it cannot confirm and marks its answer, as CC002 unconfirmed_citations describes), and never move a citation to a source outside the question's assigned passages.",
+      "publication": "Full validation of original sources plus retained relevance-review proof; all later semantic and human gates remain mandatory.",
+      "failure": "Stop on unknown, unauthorized or protected sources; unresolved relevance, invalid correction or exhausted budget. From 1.29.0 (CC002 unconfirmed_citations), an unknown or unauthorized source is removed without a review call, and unresolved relevance or an invalid correction removes that citation instead of stopping."
+    }
+  },
+  "attachment_passage_ids": {
+    "format": "SHEET_ROW",
+    "since": "1.23.0",
+    "meaning": "Spreadsheet passages are named F<file>_S<sheet number>R<row> and CSV passages F<file>_R<row>, so a passage ID states the row it holds. Other attachment passages keep F<file>_E<record>. Runs frozen with earlier rules keep record-index IDs for every passage."
+  },
+  "implementation_note": "Rules include user-approved host requirements. Per-rule implementation status distinguishes model instructions from deterministic enforcement. A rule statement is not evidence that its detector, schema migration or qualification gate has run; the CC012 live-model qualification remains deferred.",
+  "generalization": {
+    "governance_version": "1.5.0",
+    "meaning": "general_rules lists each CC rule's shared dependencies; its instruction/actions retain compression-specific requirements.",
+    "preserved": [
+      "All 13 CC005 categories",
+      "CC012 qualification requirement",
+      "CC011 source-coverage gate",
+      "CC019 structured missing-information contract",
+      "Project Rules Agent ownership of formal R-rule extraction",
+      "No default model deadline and five-minute local heartbeat",
+      "Three mandatory semantic reviews"
+    ],
+    "history": "Version 1.18.0 and earlier frozen requests retain their original rules and approvals."
+  },
+  "project_rule_owner": "PROJECT_RULES_AGENT",
+  "consolidation": {
+    "principle": "One primary owner per requirement; use the full supplied companion definitions without duplicating their text.",
+    "A": {
+      "owner": "CC009",
+      "definition_profile": "scientific_extraction",
+      "purpose": "Proposition role, evidence status and explicit versus inferred premises."
+    },
+    "B": {
+      "owners": [
+        "CC008",
+        "CC012"
+      ],
+      "purpose": "Review extraction, compress, review the exact combined handoff, publish unchanged."
+    },
+    "C": {
+      "owner": "CC005",
+      "definition_profile": "pk_binding_knowledge",
+      "purpose": "The PK terminology appendix supports all relevant preservation categories and source-bound pairing."
+    },
+    "unresolved_items": {
+      "owners": [
+        "CC006",
+        "CC019"
+      ],
+      "purpose": "Search state and stage-relevant questions; do not fabricate evidence."
+    },
+    "qualification": {
+      "owner": "CC012.qualification_requirement",
+      "purpose": "Approved critical-error criterion with the live benchmark explicitly deferred."
+    },
+    "ids": "Existing CC IDs are retained; no duplicate A/B/C rule namespace is introduced."
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "version": "3.23.0",
+  "module": "Data Assessment & Preparation",
+  "controller": "LangGraph",
+  "scheduler": "Prefect",
+  "executor": "Snakemake",
+  "activation": "New workbench Data runs use data_agents_version=2.0. Historical outputs and legacy imports remain for audit; they do not count as new agent results.",
+  "agents": [
+    {
+      "id": "DR",
+      "name": "Define data requirements",
+      "rules_file": "rules/data/dr_requirements.json",
+      "rules": [
+        "DR001",
+        "DR002"
+      ],
+      "inputs": [
+        "reviewed main.json",
+        "published project_rules.json",
+        "canonical General Rules",
+        "candidate PK/PD method profiles",
+        "inventory.json (DR-access only)"
+      ],
+      "outputs": [
+        "requirement_definition.json",
+        "requirements.json",
+        "method_context.json"
+      ],
+      "calls": "Two fresh calls. DR (DR001) runs alongside the data inventory: it defines tasks and requirements against the candidate method library from the reviewed context only, without the source files, and writes requirement_definition.json. DR-access (DR002) runs after both the inventory and DR: it gives every inventory item an access disposition and writes requirements.json, which binds the definition, the inventory and the main context by hash. Whether the files supply each requirement is decided by DC, not DR. Workflow steps: data_requirements_agent (data_v2_define) and data_access_agent (data_v2_access); data_label_agents waits for data_access_agent."
+    },
+    {
+      "id": "DC",
+      "name": "Label data & check requirement coverage",
+      "rules_file": "rules/data/dc_coverage.json",
+      "rules": [
+        "DC001",
+        "DC002",
+        "DC003",
+        "DC004",
+        "DC005",
+        "DC006",
+        "DC007",
+        "DC008"
+      ],
+      "inputs": [
+        "requirements.json",
+        "intake snapshots",
+        "optional explicit table range plan (bound to file hashes; tables and optional note_blocks)",
+        "context and verified original-source excerpts"
+      ],
+      "outputs": [
+        "inventory.json",
+        "data_labels.json",
+        "review.json",
+        "requirement_matrix.json",
+        "condition_checklist.json",
+        "unresolved_ledger.json",
+        "adequacy.json",
+        "qc_context.json",
+        "evidence_gaps.csv",
+        "report.md",
+        "checkpoint.json",
+        "checkpoint.md"
+      ],
+      "calls": "DC-split (during inventory, which runs alongside DR): sheets that an explicit range plan, Excel table definitions or source anchors cannot split get one fresh call that proposes table ranges, header rows and note blocks; host code verifies bounds, non-empty headers, overlaps and that titles are copied from the sheet, and DC-split sees cell comments (DC001). The same checks apply to explicit plans, Excel tables and source anchors; empty sheets are listed under the file's empty_sheets with no call or item; Excel totals rows (intake totals_row_count) become STATISTICS note blocks and a table without a header row (header_row_count 0) goes to DC-split; cells left outside every table and note block form an UNASSIGNED item. Hidden rows and columns recorded by intake are listed on each table they fall in, with a FOLLOW_UP HIDDEN_ROWS_OR_COLUMNS finding (DC002); snapshots without the fields mark them NOT_RECORDED. Accepted tables carry boundary_method MODEL_PROPOSED and their linked notes; sheet-level notes become NOTE items; rejected or oversized proposals leave the sheet UNASSIGNED with a HUMAN_REVIEW finding, and inventory.json records every split. DC-label: fresh file/table page calls receive only their assigned requirements, relevant profiles and selected scientific definitions. Each label gives a primary role and additional_roles, the categorical route, matrix, record level and observation source, dose basis, analyte and per-column header, meaning and unit as written, each with exact evidence. Each table column carries its position (column letter) from the lowest header cell it cites; a column citing no header cell is rejected. Pages merge by position; copied wording is compared without case or spacing, NOT_FOUND units do not conflict and qualifiers are combined. Remaining page disagreements on role, a category, a copied field or a column's header, meaning or unit become MIXED / NOT_FOUND with a LABEL_CONFLICT finding, and body columns no page described are listed in undescribed_columns with a FOLLOW_UP LABEL_COLUMN_MISSING finding (DC004). DC-review: One fresh independent review of each requirement, field, scope and condition. Host validates evidence and aggregates coverage; no extra model call per criterion. When the request exceeds the transport budget, host code splits it by task (DC008): one call per task with its requirements, first-owned items, evidence and condition rows, plus one call for items no task uses and the G008 items due now; shared checks keep the strictest decision and review.json lists every part. Host code maps each label (any of its roles, route, matrix, record level, observation source) onto the condition triggers of the profiles already selected for that dataset; DC-review decides every applicable, undetermined or review-dependent row with exact evidence. Unmet conditions are FOLLOW_UP findings; datasets no requirement uses become DATA_FITS_UNREQUESTED_METHOD findings for human review. DC-review also records one G008 outcome (RESOLVED, LIMITATION_ACCEPTED, ESCALATED or CARRIED) for each ledger item due before QC; host code verifies evidence and phases, and an ESCALATED item keeps can_enter_qc false. A host-computed column summary never resolves an item and never alone meets a condition. Ledger items record the step and artifact that raised them (data_inventory, DR, DC-label or DC), and FOLLOW_UP findings due before QC enter the ledger with needed_at BEFORE_EDA so DH-handoff records an outcome for each (DC007). Each DC call receives only the DC rules that list it in calls (G005); DC-label and DC-review also receive label_vocabulary, the definitions of every label and column value. Every DC-label page repeats the table title, header and linked note cells. DC-split receives no coverage-scope instructions. In DC-review, context warnings close only through ledger_outcomes at their due step, and the review sees requirement and label content without host file bindings. DC003 (2026-10-09): labels add dosing_regimen and per-column qualifiers (time origin, total/unbound basis, statistic, normalization, marker meanings), copied verbatim; host code rejects a unit or qualifier not written in that column's evidence. DC-label and DC-review receive pk_terminology: CC005 appendix groups CPK01-CPK04 and CPK08 with supporting_metadata and data_qualifiers, read from rules/compression/pk_binding_knowledge.json as a reading aid only. DC002 (2026-10-09): DC-label pages break only between whole rows; items from hidden sheets carry descriptor.sheet_visibility with a HIDDEN_SHEET_CONTENT follow-up; PDF and DOCX items carry content_scope EXTRACTED_TEXT_ONLY with a DOCUMENT_FIGURES_NOT_INSPECTED follow-up. DC005 (2026-10-09): the review evidence catalog adds COMPUTED column summaries (non-empty count, numeric minimum and maximum, distinct non-numeric markers, formula count) for labelled table columns; they support scope alignment only and never count as body evidence. DC008 (2026-10-09): the optional workflow spec key review_model runs DC-review on its own model; without it the review uses the run model. DC006 (2026-10-09): a condition may be met by evidence from another permitted dataset assigned to the same requirement; datasets outside the requirement are still rejected. Gap checks (2026-10-09): inventory compares items and raises a FOLLOW_UP POSSIBLE_DUPLICATE_DATA finding when two tables share an identical numeric column of at least 5 values, or when at least min(5, rows) table rows with two or more numbers appear as contiguous document lines (DC001); an item left NEEDS_REVIEW at labelling raises a FOLLOW_UP ITEM_NOT_REVIEWED finding (DC003); a DATA requirement judged AVAILABLE_CANDIDATE whose body evidence lies only in non-table items raises DATA_NOT_IN_TABLE, as HUMAN_REVIEW when a project requirement is due before QC and otherwise FOLLOW_UP, because preparation reads tables only (DC005). Rules were renumbered in run order on 2026-10-09 (old to new: DC007 to DC001, DC002 unchanged, DC001 to DC003, DC008 to DC004, DC003 to DC005, DC005 to DC006, DC006 to DC007, DC004 to DC008); each rule keeps previous_id, and earlier review records keep the old numbers. Stated values (2026-10-09): DC-label lists each data value written in text, a note or a title rather than a table body (quantity, value, unit, subject, qualifiers, copied verbatim and checked by host code; body cells of a table are rejected). data_labels.json stated_values gives each an ID (SVxxxx), a status (TEXT_ONLY, DUPLICATE or CONFLICT) and its matches: host code compares stated values of the same quantity, subject and unit, and a stated value with the one labelled table row that holds its subject under a column named as its quantity (units never converted). A difference raises STATED_VALUE_CONFLICT (HUMAN_REVIEW, BEFORE_EDA) and neither value is adopted; DC-review sees the list and reports other repeats or contradictions. DATA_NOT_IN_TABLE becomes FOLLOW_UP when non-conflicting stated values list the data (DC003, DC005). Review checkpoint (2026-10-09, user-approved): preparation starts only after a person confirms the DC-review result on the canvas, every time, including a clean PASS (DC008). Label and review changes (2026-10-09, user-approved): with Excel tables or source anchors, text-only cells outside the tables are SHEET_TEXT note regions of every table on the sheet, so footnotes appear on every label page (DC001); page disagreements inside a DOCUMENT item are FOLLOW_UP LABEL_CONFLICT findings while table conflicts still need review (DC004); the review evidence catalog adds stated-value lines and uncited body rows chosen by fixed rules (first and last three rows, up to 20 rows with non-numeric values in numeric columns; origin REVIEW_SAMPLE); data_labels.json records the label model and adequacy.json records models {label, review, same}; adequacy/checkpoint.json and checkpoint.md list what the person decides at the review checkpoint (DC008). Footnote links (2026-10-09): a cell ending with a footnote marker (*, †, ‡, §, ¶ or a superscript letter; not (a) or [a], which are often units such as (h)) is linked in descriptor.footnote_links to the one linked note or title line starting with that marker; unmatched markers raise FOLLOW_UP FOOTNOTE_MARKER_UNRESOLVED; values are unchanged and DP records copy the note into source_footnotes and use it for value_status (DC001). Footnotes elsewhere (2026-10-09, user-approved): a text-only sheet becomes one NOTE item (note_kind SHEET_NOTES) without DC-split; footnote markers are looked up in linked notes, then the rest of the sheet (including DC-split free notes), then text-only sheets (links record note_sheet); when text-only sheets total at most 2000 characters, every table of the workbook carries them in descriptor.workbook_notes, which DC-label reads (DC001)."
+    },
+    {
+      "id": "DP",
+      "name": "Prepare & QC",
+      "rules_file": "rules/data/dp_preparation.json",
+      "rules": [
+        "DP001",
+        "DP002",
+        "DP003",
+        "DP005",
+        "DP006",
+        "DP007",
+        "DP009",
+        "DP010",
+        "DP013"
+      ],
+      "inputs": [
+        "qc_context.json imported from an exact human-approved upstream checkpoint, with approval snapshot, reviewer, timestamp and artifact signature",
+        "assigned sources and labels"
+      ],
+      "outputs": [
+        "preparation_plan.json",
+        "normalized data",
+        "cleaning_log.json",
+        "quarantine",
+        "stated_values.json (stated values of permitted items, never merged into tables; referenced from normalization_manifest.json)",
+        "program_qc.json (host execution evidence, not scientific adequacy)"
+      ],
+      "calls": "Mandatory DP013 human approval gate. Direct preparation builds a host plan with zero DP calls, using reviewed unique meanings and supported explicit units or an unchanged source-bound prior plan. Preserve action-specific definitions, ambiguities and findings without reassessing Coverage/Necessity. Host executes transformations and compares persisted source/output values, records, CSV/JSON and logs. No DP-QC model call. Legacy model planning remains callable separately."
+    },
+    {
+      "id": "DH",
+      "name": "Independently review & hand off",
+      "rules_file": "rules/data/dh_handoff.json",
+      "rules": [
+        "DH001",
+        "DH002",
+        "DH003",
+        "DH004",
+        "DH005"
+      ],
+      "inputs": [
+        "actual permitted retained/quarantined data",
+        "source references",
+        "transformation logs",
+        "program_qc.json",
+        "host metadata validation",
+        "inherited requirements and coverage",
+        "adequacy/unresolved_ledger.json"
+      ],
+      "outputs": [
+        "metadata_review.json (compatibility filename; executor=HOST_PROGRAM)",
+        "unresolved_ledger.json",
+        "data_report.json",
+        "normalization_manifest.json",
+        "scoped eda/pk/index context JSON",
+        "actual data-file references"
+      ],
+      "calls": "Host metadata validation and full-record QC precede one independent DH-handoff call (no elapsed-time limit, one attempt by default). Large packages supply first/last rows and every marked exception/quarantine row, all table metadata/notes, requirements and open findings. Exact supplied/unchecked model scope is reported. Full originals remain bound by execution. Validate input bindings before/after the call and before publication; cache only after check-ID, ledger and citation validation."
+    }
+  ],
+  "execution_groups": {
+    "adequacy": [
+      "DR",
+      "DC"
+    ],
+    "data_preparation": [
+      "DP",
+      "DH"
+    ]
+  },
+  "review": "Human intervention for unresolved current prerequisites, ambiguous semantics or failed independent reviews; no signature is requested after each successful technical action.",
+  "model_calls": "Speed (2026-10-09, user-approved): independent model calls of one step run concurrently, 4 at a time by default (environment DATA_AGENT_WORKERS; 1 sends one call at a time): the DC-split sheets of a workbook, the DC-label pages of all items, the parts of a split DC-review. Responses are checked and merged in plan order whichever call finishes first; after a failure no further call starts, running calls finish and the first failure in plan order is raised. A DC-split, DC-label or DP response that passed its own host checks is kept under data_agents/kept/, keyed by the exact request hash and the executor (Codex with its model, or an injected generator that names itself); a retry that sends the identical request to the same executor checks the kept response again and reuses it (one cache_reuse.jsonl entry; no repeated request body) instead of calling the model, and a kept response that fails the current checks is replaced by a fresh call. Rejected DC-split proposals are not kept; DR and DC-review responses are not reused. DH responses may be cached only after exact check-ID validation; package responses additionally require complete, valid ledger outcomes and exact evidence citations before caching. Current bindings and outcomes are checked on every use. An explicitly named reuse_model may reuse a checked DP response from that prior executor only; both original and newly requested model identities are audited. Fixed request hashes, permitted DP citation IDs and currently executable scalar header/target pairs are constrained in a separate transport schema without changing the governed request or repairing responses. Cells reach DC-split, DC-label and DC-review as their content under their coordinate (CELL_FORMAT in data_agents.py): numbers bare; text as written, or text \"...\" when it could be read as a number, TRUE/FALSE or one of the named forms; formula ... (not evaluated; cached value ...); error ...; date, time or datetime with the ISO value; (empty) for a cell holding only a comment; a comment as [comment: ...]; empty cells are not listed. CSV items carry descriptor.source_format CSV and their values are sent as written. Host code reads positions and values from the snapshot, never from this text. Direct preparation uses deterministic host planning and zero DP calls; its DH is a single scoped call, never per-table fanout. Each real call writes request.json, response.json and compact call.json; cache hits append one short JSONL row.",
+  "supported_transformations": [
+    "Source-table splitting with explicit, Excel-defined, anchored or host-verified DC-split boundaries",
+    "Preserve original columns and cell coordinates",
+    "Trim outer whitespace with a change log",
+    "Supported explicit header-unit conversions for time and concentration",
+    "Quarantine unevaluated formulas, source errors and unusable mapped measurements"
+  ],
+  "unsupported_transformations": "Implicit-unit conversions, wide-to-long pivots, inferred joins and derived PK/PD calculations require a separately reviewed adapter or corrected source. Layouts that neither a range plan nor a verified DC-split covers stay unassigned for review. No agent may invent these operations.",
+  "scientific_boundary": "Descriptive EDA eligibility only. No universal sample size, model adequacy claim, index selection or human prediction validation.",
+  "rules_review": "Split into four agents on 2026-10-08 (user-confirmed); wording remains available for rule-by-rule review. DC rules reviewed one by one and renumbered in run order on 2026-10-09 (user-confirmed); DR split into DR and DR-access the same day. DP/DH reviewed and responsibility split approved on 2026-10-13; surviving IDs retained, mechanical metadata/QC assigned to host, independent DH review retained.",
+  "method_knowledge": {
+    "version": "1.0",
+    "general_rules": "Canonical runtime G001-G008; unchanged by this library.",
+    "profiles": "MP001-MP009 and MP011 contain English data-requirement profiles with applicability, input dependencies, alternatives, data checks, gaps and source locators. Analysis diagnostics and MP010 remain separate deferred references.",
+    "requirement_fields": [
+      "origin",
+      "method_profile_ids",
+      "conditions"
+    ],
+    "access_fields": [
+      "requirement_ids",
+      "context_paths",
+      "rule_ids"
+    ],
+    "authority": "Draft method requirements remain proposals; exact citations and schema checks do not establish scientific applicability.",
+    "review": "DC-review checks METHOD_APPLICABILITY independently; that check does not approve the library or release models. Its criterion-level algorithm is specified in docs/interfaces/data_requirement_check.contract.json.",
+    "execution": "No new NCA, fitting, extrapolation or PTA computation is enabled. Existing LangGraph, Prefect and Snakemake scheduling remains in use."
+  },
+  "general_rules": "G001-G008 are attached to every call by ctxcomp.governance; agent rule files hold only agent-specific rules.",
+  "rules_files": [
+    "rules/data/dr_requirements.json",
+    "rules/data/dc_coverage.json",
+    "rules/data/dp_preparation.json",
+    "rules/data/dh_handoff.json"
+  ],
+  "rules_history": "rules/data/history/data_agents.2.9.1.json (DA001-DA009, agents D01-D05) is kept for historical runs only.",
+  "dp_human_gate": {
+    "rule": "DP013",
+    "required_even_after_clean_pass": true,
+    "approval_source": "Canvas adequacy review or approved DirectDataReview checkpoint (Coverage/Necessity); never infer approval from the batch-local human_gate.json snapshot.",
+    "entry_point": "data_agents.prepared_input -> preparation_workflow.require_dp_approval",
+    "checks": [
+      "explicit confirmed APPROVE",
+      "named reviewer and timestamp",
+      "completed independent upstream review",
+      "exact artifact signature",
+      "unchanged approved context/input bindings"
+    ],
+    "scope": "START_DP_ONLY",
+    "automatic_approval": false,
+    "model_evidence": "The host sends the actual confirmed review, approval reference, signature and artifact versions to DP and DH after verification. Scientific approval stays false."
+  },
+  "direct_preparation_adapter": {
+    "entry_point": "preparation_workflow.import_inputs -> direct_preparation.import_inputs",
+    "schema": "DIRECT_DP_INPUT_1.0",
+    "policy": "Reuse reviewed source profiles, permissions, Coverage and Necessity without a new upstream assessment or fabricated legacy PASS. Reconstruct derived input views on each DP entry; preserve all original conditions and analysis-specific holds through handoff. The original human decision and hashes must remain current.",
+    "cli": "python -m research_pipeline.direct_preparation --review <approved-review.json> --output <run-directory> --model <requested-model> [--previous-plan <source-bound-plan.json>] [--host-only]",
+    "self_check": "Check persisted data, sidecars and exports against unchanged approved inputs. Reuse valid derivatives; rebuild damaged derivatives once. Never repair changed sources or infer approval. Retain semantic gaps.",
+    "ledger": "Independent DH must account for both BEFORE_EDA and overdue open earlier-phase items. Due preparation findings enter the ledger before review. Original records, phases and source bindings are retained; no host-inferred scientific resolution."
+  },
+  "operation_scoped_handoff": {
+    "policy": "OPERATION_SCOPED_V1",
+    "finding_field": "affected_operations",
+    "deadline_field": "required_by",
+    "review_calls": 1,
+    "authorized_action": "DESCRIPTIVE_EDA",
+    "other_operations_authorized": false,
+    "invalid_response": "Reject unexplained dataset decisions or PASS contradicting a scoped display restriction before caching.",
+    "legacy_items": "Unscoped current-phase findings remain conservative blockers."
+  }
+}

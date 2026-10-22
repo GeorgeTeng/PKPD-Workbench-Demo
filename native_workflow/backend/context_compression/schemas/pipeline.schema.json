@@ -1,0 +1,295 @@
+{
+  "type": "object",
+  "properties": {
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "PLANNING",
+              "PREPARATION",
+              "ANALYSIS",
+              "VALIDATION",
+              "SYNTHESIS"
+            ]
+          },
+          "method": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "origin": {
+                "type": "string",
+                "enum": [
+                  "PROPOSAL",
+                  "SUGGESTED"
+                ]
+              },
+              "reference_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "name",
+              "origin",
+              "reference_ids"
+            ],
+            "additionalProperties": false
+          },
+          "instructions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "required": {
+                  "type": "boolean"
+                },
+                "expects": {
+                  "type": "object",
+                  "properties": {
+                    "species": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "matrix": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "time_window": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "units": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "record_level": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "species",
+                    "matrix",
+                    "basis",
+                    "time_window",
+                    "units",
+                    "record_level"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "file_id",
+                "required",
+                "expects"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "completion_criteria": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "when": {
+            "type": "string",
+            "enum": [
+              "ALWAYS",
+              "PD_REQUESTED",
+              "CFR_REQUESTED",
+              "HUMAN_VALIDATION_AVAILABLE"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "purpose",
+          "category",
+          "method",
+          "instructions",
+          "inputs",
+          "outputs",
+          "constraints",
+          "completion_criteria",
+          "when"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "data_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "DOCUMENT",
+              "DATASET",
+              "MODEL",
+              "REPORT"
+            ]
+          },
+          "availability": {
+            "type": "string",
+            "enum": [
+              "LOCAL_DOCUMENT",
+              "DECLARED",
+              "MISSING",
+              "TO_GENERATE"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "producer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "CONTEXT",
+              "DEVELOPMENT",
+              "VALIDATION"
+            ]
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "species": {
+                "type": "string",
+                "minLength": 1
+              },
+              "matrix": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "type": "string",
+                "minLength": 1
+              },
+              "time_window": {
+                "type": "string",
+                "minLength": 1
+              },
+              "units": {
+                "type": "string",
+                "minLength": 1
+              },
+              "record_level": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "species",
+              "matrix",
+              "basis",
+              "time_window",
+              "units",
+              "record_level"
+            ],
+            "additionalProperties": false
+          },
+          "required_fields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "kind",
+          "availability",
+          "path",
+          "producer",
+          "role",
+          "attributes",
+          "required_fields"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "blocks",
+    "data_files"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,86 @@
+{
+  "version": "1.3.2",
+  "status": "USER_APPROVED_PROCESSING_RULES",
+  "general_rules": "Apply the canonical G001-G008 pack, which ctxcomp.governance attaches to every call before these rules. These rules add only what is specific to this agent.",
+  "agent": {
+    "id": "DH",
+    "name": "Independently review & hand off",
+    "order": 4
+  },
+  "calls": [
+    {
+      "id": "DH-handoff",
+      "operation": "REVIEW_HANDOFF",
+      "description": "One independent package review after full host QC; actual supplied records and unchecked model scope are explicit. No per-table or multi-batch review fan-out."
+    }
+  ],
+  "rules": [
+    {
+      "id": "DH001",
+      "text": "The host program performs metadata assembly and version binding without a model call. Bind each dataset's existing metadata to its exact data version and source references. Carry forward established field definitions, transformation logs and unresolved items without repeating upstream definition checks. If data or metadata change, update bindings and address only affected content. Metadata does not expand access permissions or establish model readiness.",
+      "derived_from": [
+        "DA007",
+        "DRAFT_REVIEW_ITEM_2026_10_13_15"
+      ]
+    },
+    {
+      "id": "DH002",
+      "text": "Handoff review is a fresh independent model call after host metadata validation. Review the actual supplied data and execution evidence, stating the checked scope and unchecked content. Independent review failure stops the affected handoff. State affected_operations for each finding. A dataset-level review status does not veto unrelated actions; a rejection without an explicit affected operation is incomplete.",
+      "derived_from": [
+        "DA005",
+        "DA008",
+        "DRAFT_REVIEW_ITEM_2026_10_13_16"
+      ]
+    },
+    {
+      "id": "DH003",
+      "text": "Deliver actual data files with scoped JSON contracts. A technical pass permits only the declared next step, never model acceptance or human predictive validity. Include necessary metadata or a data dictionary, source references, transformation logs, QC results, quarantined records, restrictions and the open-issue ledger. Detailed evidence may remain in accessible version-bound references, but a summary or success flag cannot replace actual data. The host writes final handoff states and permissions; the model provides recommendations.",
+      "derived_from": [
+        "DA009",
+        "DRAFT_REVIEW_ITEM_2026_10_13_13",
+        "G007",
+        "DRAFT_REVIEW_ITEM_2026_10_13_18"
+      ]
+    },
+    {
+      "id": "DH004",
+      "text": "Carry forward all still-open ledger items through version-bound references, preserving IDs, sources, scope and history. Identify items relevant to the declared handoff action and record outcomes for items due at that step under their inherited required_by or needed_at. Close or defer an item, or accept its limitation, only with applicable rule or authorization evidence; append outcomes without overwriting history. required_by states the decision deadline; affected_operations states the uses constrained by the issue. Preserve later-stage scientific gaps without blocking separately interpretable source-series display unless that display is explicitly affected.",
+      "derived_from": [
+        "USER_APPROVED_2026-10-08_G008_LEDGER",
+        "DRAFT_REVIEW_ITEM_2026_10_13_17"
+      ]
+    },
+    {
+      "id": "DH005",
+      "text": "The host freezes required source, rule, plan, data, metadata and predecessor references before a call and verifies them after the response and before publication. Bind conclusions only to reviewed versions; never attach a changed input's new hash to an old conclusion. Agents do not invent bindings or hashes. Changed or stale dependencies stop affected publication under G006/G007, rather than becoming ordinary follow-ups.",
+      "derived_from": [
+        "G006",
+        "G007",
+        "DRAFT_REVIEW_ITEM_2026_10_13_14"
+      ]
+    }
+  ],
+  "runtime": {
+    "fresh_call_per_agent": true,
+    "timeout_seconds": null,
+    "heartbeat_seconds": 300,
+    "human_review": "ON_UNRESOLVED_FINDINGS_OR_PROJECT_REQUIREMENT",
+    "model_release": false,
+    "default_model_calls": 1
+  },
+  "source": {
+    "split_from": "data_agents.json 2.9.1 (DA001-DA009)",
+    "drafted": "2026-10-13: English draft using the existing module processing-rule format.",
+    "review_status": "RULE_BY_RULE_DECISIONS_RECORDED",
+    "previous_policy": {
+      "path": "C:\\Users\\georg\\Documents\\Codex\\PMB-Translational-PKPD-code\\backend\\rules\\data\\dh_handoff.json",
+      "sha256": "1b823022f92007931b7e0351795146cd5def15c9f8abae8b1bf3ba4891246bb6",
+      "version": "1.1.0"
+    },
+    "review_manifest": "review_manifest.json",
+    "confirmed": "2026-10-13: user approved host execution/QC/metadata, DP planning and definitions, and independent DH-handoff; requested implementation.",
+    "implementation_scope": "Existing scalar preparation adapter and declared technical handoff only; no EDA, fitting, new scientific thresholds or live model execution enabled by this edit.",
+    "simplification": "2026-10-13: user authorized one independent review with explicit record selection, bounded attempts and no repeated mechanical QC.",
+    "timeout_policy": "User requested no review time limit and an immediate retry; one attempt remains the default."
+  }
+}

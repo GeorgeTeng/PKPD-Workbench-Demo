@@ -57,6 +57,8 @@ def blueprint():
 
 def build_plan(context_ref, options=None):
     check_ref(context_ref); context=read_json(context_ref['path']); options=options or {}
+    from .context_builder import verify_branch_handoff
+    verify_branch_handoff(context)
     if context.get('module')!='pk': raise PipelineError('PK_CONTEXT_REQUIRED','Select the routed PK context.')
     if any(context.get('data_access',{}).values()):
         raise PipelineError('PK_HOLDOUT_PERMISSION','This animal-only architecture does not accept human or holdout access.')

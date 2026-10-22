@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Translational Research Workbench</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232f614d'/%3E%3Cpath d='M6 21c7 0 3-13 10-13s3 15 11 5' fill='none' stroke='%23e1edbb' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/canvas.css">
+<link rel="stylesheet" href="/assets/artifact-browser.css">
+<link rel="stylesheet" href="/assets/metadata-tree.css">
+<link rel="stylesheet" href="/assets/routing-outputs.css">
+<link rel="stylesheet" href="/assets/workbench.css">
+<link rel="stylesheet" href="/assets/context-stages.css">
+<script src="/assets/metadata-tree.js"></script>
+<script defer src="/assets/artifact-browser.js"></script>
+<script defer src="/assets/workbench-ui.js"></script>
+<script defer src="/assets/canvas.js"></script>
+</head>
+<body data-screen="canvas">
+<header class="wb-header">
+ <a class="wb-brand" href="#view=workflow" aria-label="Workflow overview"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M6 21c7 0 3-13 10-13s3 15 11 5"/></svg><span>Translational Research Workbench</span></a>
+ <div class="wb-run" aria-live="polite"><span class="run-state" id="run-state"><i></i>Not started</span><span class="wb-clock" title="Active time; excludes pauses and review waiting">Active <strong id="run-clock">00:00:00</strong></span></div>
+ <div class="wb-actions"><button id="pause-flow" class="button secondary" disabled><span data-icon="pause"></span><span>Pause</span></button><button id="create-flow" class="button primary"><span data-icon="plus"></span><span>Create blank run</span></button><button id="settings" class="icon-button" aria-label="Connection settings" title="Connection settings"><span data-icon="settings"></span></button></div>
+</header>
+<nav id="wb-nav" class="wb-nav" aria-label="Location" hidden></nav>
+<main class="wb-main">
+ <section id="canvas-panel" class="home" aria-labelledby="home-title">
+  <header class="home-head"><div><h1 id="home-title">Research workflow</h1><p>Open a stage to see its steps. Each step runs, then waits for your review before the next one unlocks.</p></div><p class="home-stats"><span id="mode-label">No run yet</span><span id="completion-count">0 of 10 steps approved</span><span id="file-count">0 files</span></p></header>
+  <div id="no-run" class="callout"><div><strong>No run yet.</strong> Create a blank run, then add the proposal and data files in File intake.</div><button id="no-run-create" class="button primary"><span data-icon="plus"></span><span>Create blank run</span></button></div>
+  <div id="diagram" class="phases"></div>
+ </section>
+ <section id="list-panel" class="page" hidden></section>
+ <section id="inspector" class="page step-page" aria-label="Step" hidden></section>
+</main>
+<dialog id="modal"><div class="modal-head"><div><div class="eyebrow" id="modal-kicker">CONTEXT</div><h2 id="modal-title"></h2></div><button id="close-modal" class="icon-button" aria-label="Close"><span data-icon="close"></span></button></div><div id="modal-body"></div></dialog>
+<input type="file" id="flow-files" multiple hidden>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<script defer src="/assets/tributaries.js"></script>
+<script defer src="/assets/context-revisions.js"></script>
+<script defer src="/assets/context-stages.js"></script>
+<script defer src="/assets/review-gates.js"></script>
+<script defer src="/assets/execution-feedback.js"></script>
+<script defer src="/assets/clinical-dispatch.js"></script>
+<script defer src="/assets/routing-outputs.js"></script>
+<script defer src="/assets/animal-pk.js"></script>
+</body></html>

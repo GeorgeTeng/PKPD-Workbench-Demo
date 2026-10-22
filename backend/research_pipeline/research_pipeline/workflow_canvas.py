@@ -971,6 +971,11 @@ class CanvasStore:
             artifact=next((a for a in node['artifacts'] if a['name']==branch+'_context.json'),None)
             if not artifact: raise HTTPException(409,'The branch context was not generated.')
             value=read_json(artifact['path'])
+            from .context_builder import verify_branch_handoff
+            try:
+                verify_branch_handoff(value)
+            except (ValueError, OSError) as exc:
+                raise HTTPException(409, 'Branch context inputs changed; rebuild dispatch.') from exc
             incoming=self.tributaries.incoming(identifier,branch) if self.tributaries else []
             if any(item['status']!='APPROVED' for item in incoming):
                 raise HTTPException(409,'Assigned supplemental data still need processing and approval.')

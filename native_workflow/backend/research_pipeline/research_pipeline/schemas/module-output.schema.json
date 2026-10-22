@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Module output envelope 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "step_id",
+    "module",
+    "status",
+    "result",
+    "artifacts",
+    "provenance",
+    "warnings",
+    "errors"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "step_id": {
+      "type": "string"
+    },
+    "module": {
+      "enum": [
+        "pk_longitudinal",
+        "pkpd_index",
+        "data_preparation"
+      ]
+    },
+    "status": {
+      "enum": [
+        "SUCCEEDED",
+        "FAILED",
+        "SKIPPED",
+        "WAITING_FOR_REVIEW",
+        "BLOCKED"
+      ]
+    },
+    "result": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "artifacts": {
+      "type": "array"
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+    }
+  }
+}

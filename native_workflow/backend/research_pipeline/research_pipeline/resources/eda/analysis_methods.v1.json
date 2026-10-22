@@ -1,0 +1,369 @@
+{
+  "version": "EP_ANALYSIS_METHOD_LIBRARY_1.0",
+  "language": "en",
+  "authority": "Navigation over existing EDA scientific reference and plotting cards. Existing Rules and their exceptions remain unchanged. This is not execution authorization.",
+  "workflow": "Select a relevant question, declare required preparation, map to a supported display, then finalize display once after EC. Do not run every method.",
+  "methods": [
+    {
+      "id": "EDA01",
+      "name": "Concentration-time observations",
+      "question": "Inspect observed shape and sampling coverage.",
+      "required_context": "Recorded time origin, concentration basis, units and series identity.",
+      "ec_preparation": "Source-native points; documented unit/time conversion only if needed and implemented.",
+      "plot_method_ids": [
+        "EPG002",
+        "EPG004",
+        "EPG005"
+      ],
+      "post_ec_decision": "Retain points when individual linkage is absent; choose a log axis only when useful.",
+      "reference_sections": [
+        "01"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA02",
+      "name": "Experimental-unit-aware summaries",
+      "question": "Determine which observations can be summarized or connected.",
+      "required_context": "Individual, destructive, pooled, technical-repeat or summary level.",
+      "ec_preparation": "Verified grouping and descriptive summaries only with an implemented operation.",
+      "plot_method_ids": [
+        "EPG003",
+        "EPG004",
+        "EPG005",
+        "EPG006"
+      ],
+      "post_ec_decision": "Do not turn means into individuals; label biological versus technical n.",
+      "reference_sections": [
+        "02"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA03",
+      "name": "Observation availability and censoring",
+      "question": "Locate missing, unavailable and censored measurements.",
+      "required_context": "Recorded status codes, known limits and supported sampling schedule.",
+      "ec_preparation": "Status counts and layout; never fill missing values.",
+      "plot_method_ids": [
+        "EPG014",
+        "EPG015",
+        "EPG017"
+      ],
+      "post_ec_decision": "Unknown limits use a status view, not invented coordinates.",
+      "reference_sections": [
+        "03"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA04",
+      "name": "Exposure windows and late observations",
+      "question": "Show which requested windows are observed.",
+      "required_context": "Requested time window, actual samples and input-event history.",
+      "ec_preparation": "Supported time alignment; no AUC or terminal-slope calculation.",
+      "plot_method_ids": [
+        "EPG002",
+        "EPG021"
+      ],
+      "post_ec_decision": "Annotate gaps and unobserved tails; do not draw extrapolated trajectories.",
+      "reference_sections": [
+        "04"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA05",
+      "name": "Dose-level comparison",
+      "question": "Compare measured responses across documented doses.",
+      "required_context": "Compatible dose basis, units, regimen and data level.",
+      "ec_preparation": "Dose normalization only with supported nonzero dose and implemented arithmetic.",
+      "plot_method_ids": [
+        "EPG001",
+        "EPG002",
+        "EPG003",
+        "EPG005"
+      ],
+      "post_ec_decision": "Use separate native-dose panels when normalization is unsupported; no dose-proportionality claim.",
+      "reference_sections": [
+        "05"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA06",
+      "name": "Repeated dosing and input history",
+      "question": "Relate observations to documented dose events.",
+      "required_context": "Dose times, interval, route, duration and actual/nominal distinction.",
+      "ec_preparation": "Documented time alignment only; no inferred steady state or accumulation estimate.",
+      "plot_method_ids": [
+        "EPG002",
+        "EPG004",
+        "EPG021"
+      ],
+      "post_ec_decision": "Preserve dosing events and alternative unresolved time origins.",
+      "reference_sections": [
+        "06"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA07",
+      "name": "Longitudinal PD and time-kill",
+      "question": "Describe observed response changes and controls.",
+      "required_context": "Response definition, time, group, detection status and verified identity.",
+      "ec_preparation": "Established transformations only when supported and implemented.",
+      "plot_method_ids": [
+        "EPG002",
+        "EPG004",
+        "EPG005",
+        "EPG017"
+      ],
+      "post_ec_decision": "Already-log10 responses stay on their reported scale; no second log transform.",
+      "reference_sections": [
+        "07"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA08",
+      "name": "Fixed-endpoint PD",
+      "question": "Compare observed endpoint effects with the requested effect.",
+      "required_context": "Endpoint, baseline/control, group and uncertainty definitions.",
+      "ec_preparation": "Supported endpoint-minus-baseline calculation only if implemented; no invented pairing.",
+      "plot_method_ids": [
+        "EPG003",
+        "EPG005",
+        "EPG006",
+        "EPG016"
+      ],
+      "post_ec_decision": "Keep reported responses when a baseline contrast cannot be established.",
+      "reference_sections": [
+        "08"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA09",
+      "name": "Dose fractionation and regimen design",
+      "question": "Show total dose, frequency and schedule differences.",
+      "required_context": "Documented regimen, dose basis and experiment groups.",
+      "ec_preparation": "Supported event layout; any arithmetic needs an implementation.",
+      "plot_method_ids": [
+        "EPG021",
+        "EPG003",
+        "EPG013"
+      ],
+      "post_ec_decision": "Display design differences without selecting a PK/PD index.",
+      "reference_sections": [
+        "09"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA10",
+      "name": "Existing exposure/index-response",
+      "question": "Describe linked existing index and response values.",
+      "required_context": "Matched experimental scope, concentration basis, window and MIC where relevant.",
+      "ec_preparation": "Permitted quotient of existing inputs only; no new exposure integration or fitting.",
+      "plot_method_ids": [
+        "EPG001",
+        "EPG005",
+        "EPG019"
+      ],
+      "post_ec_decision": "If linkage fails, show evidence separately rather than inventing matched pairs.",
+      "reference_sections": [
+        "10"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA11",
+      "name": "Cross-experiment PK-PD correspondence",
+      "question": "Show which PK and PD evidence can be related.",
+      "required_context": "Source experiments, species, regimen and documented linkage.",
+      "ec_preparation": "Source correspondence layout only; no inferred joins.",
+      "plot_method_ids": [
+        "EPG013",
+        "EPG021"
+      ],
+      "post_ec_decision": "Keep unresolved links visible and avoid presenting independent records as matched observations.",
+      "reference_sections": [
+        "11"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA12",
+      "name": "Multiple matrices or analytes",
+      "question": "Inspect source-defined differences across compartments of observation.",
+      "required_context": "Matrix, analyte, total/free basis and units.",
+      "ec_preparation": "Separate native series; no unsupported basis conversion.",
+      "plot_method_ids": [
+        "EPG002",
+        "EPG003",
+        "EPG005"
+      ],
+      "post_ec_decision": "Use distinct panels when values are not directly comparable.",
+      "reference_sections": [
+        "12"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA13",
+      "name": "Binding and measured unbound concentration",
+      "question": "Describe relevant binding or directly measured free-concentration evidence.",
+      "required_context": "Species, assay conditions, binding definition and total/free pairing.",
+      "ec_preparation": "Only established conversions or supplied values; no species transfer assumptions.",
+      "plot_method_ids": [
+        "EPG001",
+        "EPG002",
+        "EPG005"
+      ],
+      "post_ec_decision": "Unknown binding relations remain explicit; raw evidence can still be displayed.",
+      "reference_sections": [
+        "13"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA14",
+      "name": "Stability and urinary evidence",
+      "question": "Describe optional stability or observed collection evidence.",
+      "required_context": "Matrix, reference amount, collection intervals and completeness.",
+      "ec_preparation": "Supported descriptive ratios/totals only with complete inputs and implemented operations.",
+      "plot_method_ids": [
+        "EPG002",
+        "EPG005",
+        "EPG021"
+      ],
+      "post_ec_decision": "Do not assume missing collections are zero or select a clearance model.",
+      "reference_sections": [
+        "14"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA15",
+      "name": "Matched MIC and MIC distributions",
+      "question": "Inspect strain matches, bins and population frequencies.",
+      "required_context": "Strain identity, MIC units, exact bins/counts and denominator.",
+      "ec_preparation": "Documented counts/proportions; no invented open-bin midpoint.",
+      "plot_method_ids": [
+        "EPG008",
+        "EPG011",
+        "EPG012",
+        "EPG009"
+      ],
+      "post_ec_decision": "Retain incomplete totals and censoring; do not imply valid PTA weights.",
+      "reference_sections": [
+        "15"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA16",
+      "name": "General descriptive summaries",
+      "question": "Summarize verified comparable observations.",
+      "required_context": "Observation unit, grouping, units, status and denominator.",
+      "ec_preparation": "Count, mean/median, SD, range or quantiles only when applicable and implemented.",
+      "plot_method_ids": [
+        "EPG005",
+        "EPG006",
+        "EPG018"
+      ],
+      "post_ec_decision": "Keep unavailable SD unknown; do not reconstruct raw distributions from summaries.",
+      "reference_sections": [
+        "DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA17",
+      "name": "Distribution exploration",
+      "question": "Explore observed spread, asymmetry and distribution shape.",
+      "required_context": "Raw comparable values with source and unit identities.",
+      "ec_preparation": "Explicit histogram bins, ECDF or density settings; no silent renderer statistics.",
+      "plot_method_ids": [
+        "EPG006",
+        "EPG007",
+        "EPG008",
+        "EPG009",
+        "EPG010"
+      ],
+      "post_ec_decision": "Prefer points for sparse groups; no automatic outlier deletion or normality verdict.",
+      "reference_sections": [
+        "DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA18",
+      "name": "Paired observations and changes",
+      "question": "Describe changes within established pairs.",
+      "required_context": "Verified pair key, comparable endpoints, units and reference.",
+      "ec_preparation": "Supported differences only; no pairing by row order.",
+      "plot_method_ids": [
+        "EPG016",
+        "EPG003"
+      ],
+      "post_ec_decision": "Unpaired evidence uses separate group displays; do not invent paired effects.",
+      "reference_sections": [
+        "DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA19",
+      "name": "Multivariable descriptive views",
+      "question": "Inspect jointly observed quantities relevant to an allowed question.",
+      "required_context": "Verified common observational unit and variable meanings.",
+      "ec_preparation": "Source pairing/layout only; no automatic correlation testing, clustering or regression.",
+      "plot_method_ids": [
+        "EPG001",
+        "EPG013",
+        "EPG019",
+        "EPG020"
+      ],
+      "post_ec_decision": "Respect the current exclusion of covariate analysis; graphics do not expand scope.",
+      "reference_sections": [
+        "DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA20",
+      "name": "Category composition",
+      "question": "Show source category frequencies and proportions.",
+      "required_context": "Defined categories, count unit, denominator and missing categories.",
+      "ec_preparation": "Supported counts/proportions only.",
+      "plot_method_ids": [
+        "EPG011",
+        "EPG012"
+      ],
+      "post_ec_decision": "No silent renormalization of incomplete totals; label records versus subjects.",
+      "reference_sections": [
+        "DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    },
+    {
+      "id": "EDA21",
+      "name": "Study-design and data-status overview",
+      "question": "Show what was observed and when.",
+      "required_context": "Source events, sample status and source-defined experimental units.",
+      "ec_preparation": "Documented status/event layout and counts.",
+      "plot_method_ids": [
+        "EPG014",
+        "EPG015",
+        "EPG021"
+      ],
+      "post_ec_decision": "Distinguish scheduled from actual events; no repeated Data adequacy assessment.",
+      "reference_sections": [
+        "DESCRIPTIVE CALCULATIONS AND SHARED PROVENANCE"
+      ],
+      "execution_status": "PLANNING_GUIDANCE; require the current explicit operation registry."
+    }
+  ]
+}

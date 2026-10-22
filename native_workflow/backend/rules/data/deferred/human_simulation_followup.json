@@ -1,0 +1,77 @@
+{
+  "version": "1.0.0",
+  "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+  "use": "Later human PK simulation-module review only; not loaded by Data requirements agents.",
+  "source_library": {
+    "version": "1.0.0-draft.7",
+    "sha256": "6b7f1c885917ef1d135681c0b93dbe4d10fede2993d634e1722760df63f65d56",
+    "path": "research_pipeline/docs/review_drafts/history/pkpd_method_profiles.1.0.0-draft.7.json"
+  },
+  "approval_boundary": "Only the current input-definition scope is approved. Retained model-selection, simulation and evaluation content remains pending separate scientific review and is not enabled for execution.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "ICH M15: General Principles for Model-Informed Drug Development",
+      "url": "https://database.ich.org/sites/default/files/ICH_M15_Step4_Final_Guideline_2026_0129.pdf",
+      "locator": "Sections 2.1.1, 2.1.2, 2.2.1 and 3",
+      "type": "FINAL_GUIDELINE",
+      "checked_on": "2026-10-07",
+      "supports": "Question-specific intended use, criteria, assumptions and fit-for-purpose evaluation; no fixed species-count rule is imported."
+    },
+    {
+      "id": "S09",
+      "title": "Phoenix: PK model options",
+      "url": "https://onlinehelp-dev.certara.com/phoenix/8.3/topics/PK_model_options.htm",
+      "locator": "Clearance parameterization and dosing options",
+      "type": "SOFTWARE_DOCUMENTATION",
+      "checked_on": "2026-10-07",
+      "supports": "Compartmental representations require structural and dosing parameters; choosing parameterization is an explicit modeling decision."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "MP006",
+      "destination": "HUMAN_PK_SIMULATION",
+      "review_status": "PENDING_SCIENTIFIC_REVIEW",
+      "source_profile_sha256": "63292bec9dcdc3fec5e71b12b1c5100b3696d77746eb7a404f43261a640abd67",
+      "reference_profile": {
+        "id": "MP006",
+        "name": "Human IV concentration-time scenario",
+        "family": "TRANSLATION",
+        "outputs": [
+          "human IV concentration-time scenario"
+        ],
+        "applies_when": "The objective requires a prospective human IV profile using qualified predicted parameters.",
+        "required_inputs": [
+          "Accepted candidate structure and a complete parameter set for that structure",
+          "IV regimen, dose basis, infusion duration where relevant, and output time grid",
+          "Input-parameter provenance and explicit uncertainty/assumption treatment"
+        ],
+        "conditional_inputs": [
+          "For multi-compartment profiles, distribution parameters beyond total CL and Vss",
+          "Binding information if the requested curve is unbound"
+        ],
+        "acceptable_alternatives": [
+          "An explicitly justified simpler scenario may be proposed for review if the complex parameter set is unavailable"
+        ],
+        "preflight_checks": [
+          "Check every equation's inputs and ensure Vss is not silently treated as Vc",
+          "Keep target-drug human observations out of a prospective no-human-PK-data analysis"
+        ],
+        "post_analysis_checks": [
+          "Verify the simulated regimen and curve, and assess sensitivity to structure and uncertain parameters"
+        ],
+        "missing_effect": "Retain qualified parameter predictions; withhold a curve whose defining structure or parameter set is unresolved.",
+        "not_established": [
+          "A unique multi-compartment curve from CL and Vss alone",
+          "Measured human variability or clinical validation"
+        ],
+        "needed_at": "BEFORE_TRANSLATION",
+        "source_ids": [
+          "S09",
+          "S01"
+        ]
+      }
+    }
+  ]
+}

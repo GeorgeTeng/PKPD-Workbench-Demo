@@ -1,0 +1,66 @@
+{
+  "version": "1.1.0",
+  "status": "USER_CONFIRMED_SPLIT_PENDING_RULE_BY_RULE_REVIEW",
+  "general_rules": "Apply the canonical G001-G008 pack, which ctxcomp.governance attaches to every call before these rules. These rules add only what is specific to this agent.",
+  "agent": {
+    "id": "DR",
+    "name": "Define data requirements",
+    "order": 1
+  },
+  "calls": [
+    {
+      "id": "DR",
+      "operation": "DEFINE_REQUIREMENTS",
+      "description": "Runs alongside the DC inventory, from the reviewed context only: one fresh call defines tasks and data requirements (DR001). It never sees the source files."
+    },
+    {
+      "id": "DR-access",
+      "operation": "ASSIGN_ACCESS",
+      "description": "Joins the requirements and the inventory: one fresh call gives every inventory item an access disposition, candidate requirement IDs, context paths and permission rules (DR002). It cannot change the requirements."
+    }
+  ],
+  "rules": [
+    {
+      "id": "DR001",
+      "text": "Derive data requirements from the reviewed objective, context and published project rules, without looking at the source files. State the inputs each endpoint needs and when each is needed; whether the files supply them is checked by DC. Leave analytical-method selection, calculations and result qualification to downstream modules; questions requiring them remain unresolved here. Do not invent a drug, species, index list, threshold or universal sample size.",
+      "derived_from": [
+        "DA001",
+        "USER_REQUESTED_2026-10-09_PARALLEL_DR"
+      ],
+      "calls": [
+        "DR"
+      ]
+    },
+    {
+      "id": "DR002",
+      "text": "Account for every registered file with an access disposition. Protected files remain registered without reading their bodies; ambiguous access requires review.",
+      "derived_from": [
+        "DA002",
+        "DA003",
+        "USER_REQUESTED_2026-10-09_PARALLEL_DR"
+      ],
+      "calls": [
+        "DR-access"
+      ]
+    }
+  ],
+  "notes": {
+    "method_profiles": "pkpd_method_profiles.json; the current menu contains MP001-MP009 and MP011 data requirements only. MP009 includes conditional PD-target inputs; MP010 is retained solely in the deferred PTA reference. Candidate knowledge is not a formal project requirement or automatic release gate.",
+    "deferred_analysis": "pk_analysis_followup.json preserves prior NCA/animal PK calculation and evaluation guidance for later review. It is not loaded into D01/D02 and is not enabled as an execution policy. translation_analysis_followup.json separately retains original translation guidance under the same deferred boundary. human_simulation_followup.json retains original human simulation guidance under the same deferred boundary. binding_analysis_followup.json retains original binding/free-exposure guidance under the same deferred boundary. ivive_analysis_followup.json retains original hepatic IVIVE guidance under the same deferred boundary. pkpd_index_analysis_followup.json retains original index-analysis guidance under the same deferred boundary. pta_analysis_followup.json retains original PTA guidance under the same deferred boundary.",
+    "requirements": "Separate PROJECT_EXPLICIT from METHOD_CANDIDATE; bind method IDs, source evidence, applicability conditions and the frozen library.",
+    "project_decisions": "User-confirmed project policies are reconciled and published by Project Rules Agent, never imported as universal method defaults.",
+    "profile_priority": "The library presents index data requirements immediately after animal PK data requirements and before translation. IDs stay stable. This is review/context priority, not execution order; PK and index branches remain independently applicable and actual file dependencies still govern execution."
+  },
+  "runtime": {
+    "fresh_call_per_agent": true,
+    "timeout_seconds": null,
+    "heartbeat_seconds": 300,
+    "human_review": "ON_UNRESOLVED_FINDINGS_OR_PROJECT_REQUIREMENT",
+    "model_release": false
+  },
+  "source": {
+    "split_from": "data_agents.json 2.9.1 (DA001-DA009)",
+    "confirmed": "2026-10-08, project thread",
+    "parallel_dr": "2026-10-09, project thread: George asked for the DC inventory and DR to run in parallel, with DR joining at the access step."
+  }
+}

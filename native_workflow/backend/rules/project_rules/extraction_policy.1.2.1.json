@@ -1,0 +1,388 @@
+{
+  "version": "1.2.1",
+  "schema_version": "1.2",
+  "authority": "PROCESSING_POLICY_NOT_PROJECT_REQUIREMENTS",
+  "rules": [
+    {
+      "id": "PRC001",
+      "title": "Identify effective project requirements",
+      "text": "Extract candidate requirements from the effective project specification, including requirements intended for later stages.",
+      "checks": [
+        "Recheck the original proposal and designated protocols, supplements, clarifications and review decisions; use compression as supporting context.",
+        "Use existing project designations and decisions to establish adoption, effective version and replacement scope. Do not request the same confirmation again.",
+        "Keep draft, suggested, withdrawn or superseded requirements outside the active collection. Refer unresolved adoption or replacement questions to PRC006."
+      ],
+      "general_rules": [
+        "G002",
+        "G006"
+      ]
+    },
+    {
+      "id": "PRC002",
+      "title": "Extract decision-relevant project obligations",
+      "text": "Extract the source-supported requirements that govern how this project must be carried out, including constraints that limit the intended result.",
+      "checks": [
+        "Look for required actions, prohibitions, permitted-use boundaries, fixed analysis choices and required decision gates concerning data, methods, interpretation or deliverables.",
+        "Retain every explicit consequential obligation, including conditional and later-stage requirements. Key means decision-relevant, not a fixed number of top-ranked rules.",
+        "Keep pure objectives, descriptive facts, assumptions and optional suggestions outside the formal rule collection. If the source requires an assumption to be used, extract that obligation and link the compression-owned assumption.",
+        "Interpret normative intent in context, not by keywords alone; do not create requirements from customary PK practice, literature choices or inferred scientific needs. An empty rule collection is valid when the source review supports it.",
+        "Apply explicit annotation definitions and positive/negative boundary examples. First decide whether a source statement is an adopted requirement, recommendation, non-rule or unresolved requirement; then fill its fields. Cue words direct attention but do not decide the classification."
+      ],
+      "general_rules": [
+        "G002",
+        "G003"
+      ]
+    },
+    {
+      "id": "PRC003",
+      "title": "Extract a complete actionable requirement",
+      "text": "Represent each obligation together with the source-stated actor or target, required or prohibited action, applicability, conditions and exceptions.",
+      "checks": [
+        "Extract linked qualifications across paragraphs, tables, footnotes and cross-references as one connected requirement; keep AND/OR, only-if and obligation strength intact.",
+        "For requirements containing scientific definitions, use the complete applicable preservation profile and PK binding appendix referenced by this contract.",
+        "Do not turn an unknown detail into a required value. If an upstream fact or assumption is missing or inconsistent, return a source-linked correction request to compression.",
+        "Fill only source-supported actor, action, target, normative form, source modality, workflow phase, deadline and frequency. Preserve multiple forms and linked alternatives; NOT_SPECIFIED is not permission to invent a value. Keep conditions, exceptions and observation windows in their existing dedicated fields."
+      ],
+      "general_rules": [
+        "G004"
+      ]
+    },
+    {
+      "id": "PRC004",
+      "title": "Bind each requirement to original evidence",
+      "text": "For every candidate rule, identify the original evidence that supports its full meaning and the project evidence that adopts it.",
+      "checks": [
+        "Map each consequential clause to exact source spans, locations and relevant context; one source may support both meaning and adoption.",
+        "Record non-rule dispositions and their reasons in source coverage, using upstream fact and assumption references instead of recreating those catalogues.",
+        "Keep source-to-candidate links through organization so the final reviewer can inspect all contributing and contradictory evidence.",
+        "Bind each populated requirement field to exact admitted source spans. Include definitions and cross-paragraph qualifiers needed to interpret it. Cover every admitted source unit; relevant-context selection must not hide unselected obligations. A matching quotation proves location, not semantic support or project adoption."
+      ],
+      "general_rules": [
+        "G002",
+        "G004"
+      ]
+    },
+    {
+      "id": "PRC005",
+      "title": "Annotate when and where the rule is used",
+      "text": "Give each extracted rule source-grounded applicability and usage timing so downstream tasks receive the requirements they need.",
+      "checks": [
+        "Preserve stated analysis, dataset, biological, endpoint and exposure restrictions; assign consumer stages using the workflow catalogue and distinguish that routing from source-stated applicability.",
+        "Keep observation windows separate from required workflow phases, triggers and deadlines. Do not bring a deferred requirement forward.",
+        "Use an explicit unresolved routing or applicability status when information is insufficient; do not invent task or dataset IDs. Usage annotations do not establish compliance."
+      ],
+      "general_rules": [
+        "G003",
+        "G004",
+        "G005"
+      ]
+    },
+    {
+      "id": "PRC006",
+      "title": "Clarify only gaps affecting requirement extraction",
+      "text": "Identify unresolved authority, obligation meaning, contradictions or applicability that prevent a faithful rule package.",
+      "checks": [
+        "Return a targeted question linked to the affected candidate and source, stating what decision depends on the answer.",
+        "Block publication when requirement meaning, adoption, conflict or essential applicability remains unresolved; assess the impact before downgrading any issue.",
+        "Keep later-stage scientific data gaps with needed_at and impact. They are not new obligations or automatic blockers for this extraction step."
+      ],
+      "general_rules": [
+        "G004",
+        "G007"
+      ]
+    },
+    {
+      "id": "PRC007",
+      "title": "Check the final extracted rule collection",
+      "text": "Independently review the organized candidate collection against the original project materials and reviewed context before publication.",
+      "checks": [
+        "Record faithfulness, completeness and global-conflict outcomes for the final rule wording; the checks may share one fresh reviewer invocation.",
+        "Verify bidirectional source-unit-to-candidate-to-final-rule coverage. Each explicit consequential obligation must be represented; each final rule must have support. NO_REQUIREMENT must not conceal a mapped obligation.",
+        "Check that organization retained all rule qualifiers and sources and that the collection is consistent with the relevant main.json objective, facts, assumptions and data-use constraints.",
+        "Return required context changes to compression. Publish only the unchanged reviewed collection after the host checks its mappings and output contract.",
+        "Assess requirement detection, slot binding and grounding separately. Review the host-organized final rule records and their source/candidate mappings; bind the decision to their content hash."
+      ],
+      "general_rules": [
+        "G004",
+        "G005",
+        "G006",
+        "G007"
+      ]
+    }
+  ],
+  "methodology": {
+    "adopted_methods": [
+      {
+        "id": "M01",
+        "title": "GoLLIE: Annotation Guidelines Improve Zero-Shot Information-Extraction",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/cda04d7ea67ea1376bf8c6962d8541e0-Abstract-Conference.html"
+      },
+      {
+        "id": "M02",
+        "title": "Extraction of Information Provision Activity Requirements from EU Acquis",
+        "url": "https://aclanthology.org/2025.emnlp-industry.102/"
+      },
+      {
+        "id": "M03",
+        "title": "LLM-assisted Extraction of Regulatory Requirements: A Case Study on the GDPR",
+        "url": "https://orbilu.uni.lu/handle/10993/65265"
+      }
+    ],
+    "attribution": "The category labels, PK examples, source-adoption decisions and integrated workflow below are project-specific design. The cited studies support individual techniques; none validates this PK proposal-to-rules pipeline.",
+    "logical_phases": [
+      {
+        "id": "E01",
+        "name": "Define the annotation task",
+        "owners": [
+          "PRC002"
+        ],
+        "basis": [
+          "M01"
+        ],
+        "procedure": "Supply category meanings, inclusion/exclusion boundaries and a few relevant contrast examples before extraction. Use the project's input schema rather than relying on label names or model-specific keyword conventions."
+      },
+      {
+        "id": "E02",
+        "name": "Find candidate obligations",
+        "owners": [
+          "PRC001",
+          "PRC002"
+        ],
+        "basis": [
+          "M02"
+        ],
+        "procedure": "Inspect each admitted source unit with its parent context. Identify directive intent, scope and adoption separately; retain non-rule and ambiguous dispositions. Cue terms aid attention but must not be the only inclusion filter."
+      },
+      {
+        "id": "E03",
+        "name": "Fill requirement slots",
+        "owners": [
+          "PRC003",
+          "PRC005"
+        ],
+        "basis": [
+          "M02"
+        ],
+        "procedure": "Extract the action and its source-stated actor/target, force, conditions, exceptions and use timing. Keep related alternatives and qualifiers connected. An unspecified field stays unspecified."
+      },
+      {
+        "id": "E04",
+        "name": "Bind context and evidence",
+        "owners": [
+          "PRC004"
+        ],
+        "basis": [
+          "M03"
+        ],
+        "procedure": "Link original clauses and any needed definitions, tables or cross-references from admitted sources. Distinguish evidence for meaning from evidence for project adoption. Inaccessible material becomes a targeted finding, not an inferred rule."
+      },
+      {
+        "id": "E05",
+        "name": "Organize and review the final collection",
+        "owners": [
+          "PRC006",
+          "PRC007"
+        ],
+        "basis": [
+          "M02",
+          "M03"
+        ],
+        "procedure": "Use shared deduplication rules, retain source/candidate/final mappings and check missed requirements separately from unsupported additions, wrong slots and altered conditions. Use the existing final independent review."
+      }
+    ],
+    "annotation_guide": {
+      "status": "RUNTIME_SCHEMA_MAPPED_1.2; project-designed labels and examples",
+      "classification": [
+        {
+          "label": "REQUIRED_ACTION",
+          "definition": "The effective project specification commits the analysis or workflow to an action, deliverable or choice.",
+          "include": "Explicit directives or unambiguous adopted project commitments, even without must/shall.",
+          "exclude": "Predicted future events, descriptive study methods and optional suggestions."
+        },
+        {
+          "label": "PROHIBITION",
+          "definition": "The project forbids a stated action or use within a stated scope.",
+          "include": "Explicit exclusions, access/use restrictions and negative obligations.",
+          "exclude": "Statements that a result was not observed or a method was not used in a cited study."
+        },
+        {
+          "label": "PERMITTED_USE_BOUNDARY",
+          "definition": "The project explicitly defines what use is allowed and under which limits.",
+          "include": "Restrictions such as use only for initialization or use only after approval.",
+          "exclude": "Do not turn permission to do something into a duty to do it."
+        },
+        {
+          "label": "RECOMMENDATION_OR_OPTION",
+          "definition": "A suggested or optional action that has not been adopted as a binding constraint.",
+          "include": "Consider, could and preference language when context is genuinely optional.",
+          "exclude": "Do not discard a conditional mandatory instruction merely because it contains if or may."
+        },
+        {
+          "label": "NON_RULE",
+          "definition": "A pure objective, descriptive fact, result, assumption or explanatory statement.",
+          "include": "Refer to the compression-owned context and record the non-rule disposition.",
+          "exclude": "An explicit instruction to use an assumption is a rule even though the assumption itself is not a verified fact."
+        },
+        {
+          "label": "UNRESOLVED_REQUIREMENT",
+          "definition": "A potentially consequential obligation whose meaning, force, adoption or scope cannot be settled from the admitted evidence.",
+          "include": "Source-linked question and affected decision.",
+          "exclude": "A later-stage data gap with clear rule meaning is not automatically an extraction failure."
+        }
+      ],
+      "cue_terms": {
+        "purpose": "Non-exhaustive reading aids; no regex-only filter or keyword-based proof of obligation.",
+        "directive": [
+          "must",
+          "shall",
+          "is required to",
+          "is to",
+          "will [project commitment only]"
+        ],
+        "negative_or_exclusive": [
+          "must not",
+          "shall not",
+          "exclude",
+          "only",
+          "restricted to",
+          "reserved for"
+        ],
+        "conditional": [
+          "if",
+          "when",
+          "while",
+          "provided that",
+          "only if",
+          "unless",
+          "except",
+          "subject to"
+        ],
+        "optional_or_ambiguous": [
+          "may",
+          "should",
+          "could",
+          "consider",
+          "prefer"
+        ],
+        "interpretation": "Use sentence and document context. Preserve SHOULD/MAY strength, distinguish possibility from permission, and do not normalize ambiguous may not to a prohibition without evidence."
+      },
+      "slot_guide": {
+        "action": "What must be done, avoided or limited.",
+        "actor_or_target": "Who acts or what analysis, dataset, parameter or output is constrained.",
+        "normative_force": "Source-stated obligation, prohibition, conditional permission or recommendation; never upgraded for formatting.",
+        "condition_and_trigger": "When the requirement becomes applicable.",
+        "exceptions_and_alternatives": "Retain exclusions, AND/OR structure and linked options.",
+        "scientific_scope": "Use the canonical scientific preservation profile for relevant PK details.",
+        "usage_timing": "Separate consuming stage and required phase from the scientific observation window.",
+        "evidence_and_adoption": "Original source spans and project adoption references; they may be the same source.",
+        "missing_slots": "Record the existing contract's explicit missingness state and raise a question only if the missing item changes interpretation or publication."
+      }
+    },
+    "synthetic_examples": {
+      "status": "ILLUSTRATIVE_AUTHOR_WRITTEN_CASES; not study data, project instructions or a validated benchmark",
+      "cases": [
+        {
+          "id": "EX01",
+          "source": "Use free-drug exposure for all PK/PD index comparisons.",
+          "source_context": "Adopted project protocol",
+          "expected": "REQUIRED_ACTION",
+          "retain": [
+            "free-drug exposure",
+            "all index comparisons"
+          ],
+          "avoid": "Do not apply the requirement to unrelated total-concentration PK fitting."
+        },
+        {
+          "id": "EX02",
+          "source": "The cited study used a two-compartment model.",
+          "source_context": "Literature summary",
+          "expected": "NON_RULE",
+          "avoid": "A reported model choice is not a project mandate."
+        },
+        {
+          "id": "EX03",
+          "source": "For this project, use the cited two-compartment structure, but do not import its parameter values.",
+          "source_context": "Adopted project decision",
+          "expected": "REQUIRED_ACTION plus linked PROHIBITION",
+          "retain": [
+            "structure adoption",
+            "parameter-import prohibition"
+          ],
+          "avoid": "Do not infer permission to reuse parameters from adoption of a structure."
+        },
+        {
+          "id": "EX04",
+          "source": "Consider adding a third compartment.",
+          "source_context": "Unadopted suggestion",
+          "expected": "RECOMMENDATION_OR_OPTION",
+          "avoid": "Do not require a third compartment or turn the suggestion into a release gate."
+        },
+        {
+          "id": "EX05",
+          "source": "If verified individual-animal data are available, estimate animal random effects.",
+          "source_context": "Adopted project protocol",
+          "expected": "REQUIRED_ACTION",
+          "retain": [
+            "verified individual-animal data condition"
+          ],
+          "avoid": "Do not invent individual IDs from group means or make the instruction unconditional."
+        },
+        {
+          "id": "EX06",
+          "source": "Literature parameters may be used only as starting values.",
+          "source_context": "Adopted project decision",
+          "expected": "PERMITTED_USE_BOUNDARY",
+          "retain": [
+            "starting values only"
+          ],
+          "avoid": "Do not mandate literature initialization or permit fixed final parameter adoption."
+        },
+        {
+          "id": "EX07",
+          "source": "Use either candidate A or candidate B.",
+          "source_context": "Adopted project protocol",
+          "expected": "REQUIRED_ACTION",
+          "retain": [
+            "either/or alternative group"
+          ],
+          "avoid": "Splitting must not create two simultaneous mandatory actions."
+        },
+        {
+          "id": "EX08",
+          "source": "Human binding data are reserved for final validation and must not be used during initial extrapolation.",
+          "source_context": "Synthetic adopted protocol; existence of such data is not assumed",
+          "expected": "PERMITTED_USE_BOUNDARY plus linked PROHIBITION",
+          "retain": [
+            "final validation use",
+            "initial extrapolation exclusion"
+          ],
+          "avoid": "Do not require those data now or claim they have been supplied."
+        },
+        {
+          "id": "EX09",
+          "source": "Produce a scientifically acceptable fit.",
+          "source_context": "Adopted project protocol without a definition of acceptable",
+          "expected": "UNRESOLVED_REQUIREMENT",
+          "retain": [
+            "the stated requirement",
+            "missing acceptance definition"
+          ],
+          "avoid": "Do not invent an RSE, AIC, sample-size or convergence threshold."
+        }
+      ]
+    },
+    "execution": "Detect then fill slots within one extraction call; use one fresh independent reviewer on organized final rules. No additional call per phase.",
+    "source_policy": "Read all admitted source units with original context. Reuse source IDs in citations, never as task/dataset IDs. A quoted or draft obligation is not adopted solely because its document has a project role.",
+    "schema_mapping": {
+      "REQUIRED_ACTION": "PROJECT_REQUIREMENT + requirement.forms=[REQUIRED_ACTION]",
+      "PROHIBITION": "PROJECT_REQUIREMENT + requirement.forms=[PROHIBITION]",
+      "PERMITTED_USE_BOUNDARY": "PROJECT_REQUIREMENT + requirement.forms=[PERMITTED_USE_BOUNDARY]",
+      "RECOMMENDATION_OR_OPTION": "CANDIDATE_SUGGESTION, empty requirement.forms",
+      "NON_RULE": "PROJECT_OBJECTIVE, LITERATURE_FACT or CONTEXT_ONLY; do not re-extract the full fact/assumption catalogue",
+      "UNRESOLVED_REQUIREMENT": "UNRESOLVED + source-linked clarification finding",
+      "mixed_clause": "Keep linked forms in one requirement.forms array; preserve AND/OR in text and conditions."
+    },
+    "field_contract": "For a PROJECT_REQUIREMENT, field_evidence must cover /text, every populated /requirement scalar, each /conditions and /exceptions entry, and populated biological /scope fields. Use NOT_SPECIFIED for absent scalars and [] for absent arrays. Empty requirement.forms and field_evidence on non-rules. Scope stages are workflow routing, justified separately by routing_reason.",
+    "host_limits": "Exact quotes, mappings and valid schemas do not prove semantic correctness. The reviewer must check entailment, adoption, omissions and qualifiers."
+  }
+}

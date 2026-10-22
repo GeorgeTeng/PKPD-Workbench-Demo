@@ -1,0 +1,498 @@
+{
+  "version": "EP_PLOT_METHOD_LIBRARY_1.0",
+  "language": "en",
+  "status": "PLANNING_GUIDANCE_NOT_EXECUTION_AUTHORITY",
+  "authority": "Geometry references support display mechanics. Project applicability and safeguards are engineering guidance subordinate to unchanged project and EDA Rules; no new methods, statistics or source access are authorized.",
+  "selection_instructions": [
+    "Choose a small set of complementary displays from the objective, data level and supplied fields. This catalog is not a required checklist.",
+    "Assess visualization separately from modeling, linkage or pooling limits. Restrictions on one operation do not automatically exclude all descriptive views.",
+    "Match the intended display to the exact implemented_r_operations registry. For unavailable functions retain a specific DEFERRED display plan and an explicitly justified source-table fallback.",
+    "Specify source dataset/columns, units, experimental unit, grouping, statuses, scale, limitations and EC preparation using existing analysis/display_spec/execution fields. Method IDs may label display_spec.kind; they are not evidence/source IDs or reference_sections.",
+    "Statistics belong to an authorized EC operation. EV must not silently calculate renderer-default counts, quantiles, smoothing, normalization or inferential intervals.",
+    "Library size does not imply producing every chart. Do not add agent calls, automatic replanning or repeated extraction."
+  ],
+  "shared_options": [
+    {
+      "id": "FACETING",
+      "guidance": "Split by study, species, matrix, regimen or endpoint when relevant. Preserve source separation and disclose free versus fixed axes; a facet is not permission to pool.",
+      "source_ids": [
+        "FACET"
+      ]
+    },
+    {
+      "id": "AXIS_SCALE",
+      "guidance": "Choose linear or log display only when informative. Log coordinates require positive supported values. Already-log10 CFU responses remain on their reported scale; do not apply a second log transform or automatically generate duplicate linear/log figures.",
+      "source_ids": [
+        "SCALE"
+      ]
+    },
+    {
+      "id": "WIDE_TO_LONG",
+      "guidance": "A reversible display reshape may retain original column names and cell references without creating animal identities. Unconnected points may remain possible when trajectories are not. Reshaping still requires a registered EC/EV implementation.",
+      "source_ids": []
+    },
+    {
+      "id": "OVERPLOTTING",
+      "guidance": "Use transparency, symbol size, panels or deterministic categorical jitter. Do not jitter measured time/concentration coordinates silently; retain original coordinates.",
+      "source_ids": [
+        "POINT"
+      ]
+    },
+    {
+      "id": "STATUS_LAYER",
+      "guidance": "Use explicit categories or known-bound symbols. Preserve BLQ, not sampled, absent, unknown and censored distinctions. Unknown numeric limits belong in annotations/status strips.",
+      "source_ids": [
+        "INTERVAL"
+      ]
+    },
+    {
+      "id": "ERROR_TYPE",
+      "guidance": "Label SD, SEM, CI, range and digitization tolerance distinctly. Do not create missing uncertainty or convert types without sufficient data and authorization.",
+      "source_ids": [
+        "INTERVAL"
+      ]
+    },
+    {
+      "id": "ANNOTATIONS",
+      "guidance": "Identify the concrete affected rows or series and the limited interpretation. Notes do not legitimize a misleading graphic. Keep the source table and row/point mapping.",
+      "source_ids": []
+    },
+    {
+      "id": "COMBINATIONS",
+      "guidance": "Raincloud-style raw points plus distribution summary, small multiples and overlays are compositions of these methods, not separate mandatory figures. Every layer must independently satisfy its conditions.",
+      "source_ids": [
+        "POINT",
+        "VIOLIN",
+        "BOX",
+        "FACET"
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "id": "EPG001",
+      "name": "Numeric scatter",
+      "family": "Relationship",
+      "question": "Inspect two measured quantities without fitting.",
+      "required_inputs": "Numeric x/y from the same supported observation; units and record IDs.",
+      "applicability": "Keep study, matrix and experimental-unit scope explicit.",
+      "limitations": "No invented joins, smoothing, regression or cross-study pooling.",
+      "ec_preparation": "None for source-native coordinates.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": [
+          "SOURCE_XY_POINTS"
+        ]
+      },
+      "source_ids": [
+        "POINT"
+      ]
+    },
+    {
+      "id": "EPG002",
+      "name": "Time-response points",
+      "family": "Time course",
+      "question": "Inspect PK or time-kill observations over time.",
+      "required_inputs": "Recorded time, response, time origin, dose-event context and series identity.",
+      "applicability": "Show source-defined series separately; alternative time coordinates need labeled separate views.",
+      "limitations": "Missing identity prevents individual trajectories, not unconnected points. No interpolated observations.",
+      "ec_preparation": "None for source-native coordinates.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": [
+          "SOURCE_XY_POINTS"
+        ]
+      },
+      "source_ids": [
+        "POINT"
+      ]
+    },
+    {
+      "id": "EPG003",
+      "name": "Categorical strip / jitter plot",
+      "family": "Group comparison",
+      "question": "Compare observed terminal responses across experimental groups.",
+      "required_inputs": "Group labels, raw responses, units and experimental-unit level.",
+      "applicability": "Retain individual points; deterministic horizontal jitter may reveal overlap.",
+      "limitations": "Jitter is display-only, not a measured coordinate. Do not turn source means into individuals.",
+      "ec_preparation": "Explicit group layout and reversible display offsets.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "POINT"
+      ]
+    },
+    {
+      "id": "EPG004",
+      "name": "Connected series / trajectory",
+      "family": "Time course",
+      "question": "Follow an established ordered series.",
+      "required_inputs": "Ordered coordinates and verified series or subject identity.",
+      "applicability": "Distinguish individual trajectories from source-reported mean series.",
+      "limitations": "No identity inferred from repeated column labels. Break lines at unsupported gaps; no fitted trajectory claim.",
+      "ec_preparation": "Validate order, identity and permitted segment boundaries.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "PATH"
+      ]
+    },
+    {
+      "id": "EPG005",
+      "name": "Summary point with error bars",
+      "family": "Group comparison",
+      "question": "Display reported center and uncertainty or spread.",
+      "required_inputs": "Center plus SD, SEM or stated lower/upper bounds, their type, units and available n.",
+      "applicability": "Label exactly which interval type is reported; use asymmetric endpoints when supplied.",
+      "limitations": "Do not interchange SD, SEM and CI or manufacture missing intervals. No new inferential CI.",
+      "ec_preparation": "Use supplied endpoints or explicitly authorized arithmetic; retain origin and interval type.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "INTERVAL"
+      ]
+    },
+    {
+      "id": "EPG006",
+      "name": "Boxplot with source points",
+      "family": "Distribution",
+      "question": "Inspect group distributions without fitting.",
+      "required_inputs": "Individual values or an explicitly defined source five-number summary.",
+      "applicability": "State quantile and whisker conventions; show n and original points when available.",
+      "limitations": "Mean/SD alone cannot reconstruct a boxplot. Marked extremes are not automatically errors.",
+      "ec_preparation": "Quantiles and whiskers require an authorized, implemented EC operation; otherwise use supplied summaries.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "BOX"
+      ]
+    },
+    {
+      "id": "EPG007",
+      "name": "Violin with source points",
+      "family": "Distribution",
+      "question": "Compare distribution shapes.",
+      "required_inputs": "Raw comparable observations, grouping and experimental-unit metadata.",
+      "applicability": "Specify density bandwidth and support; retain observations and group sizes.",
+      "limitations": "Sparse groups may not support a useful density view. Do not reconstruct a density from mean/SD or treat repeated observations as independent animals.",
+      "ec_preparation": "Explicit approved density calculation; no renderer-default statistical transformation.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "VIOLIN"
+      ]
+    },
+    {
+      "id": "EPG008",
+      "name": "Histogram / frequency polygon",
+      "family": "Distribution",
+      "question": "Inspect observed frequency across value bins.",
+      "required_inputs": "Numeric observations or exact source-reported bins and counts.",
+      "applicability": "Show bin boundaries and counts; distinguish count from density.",
+      "limitations": "Retain censored/open-ended bins; do not replace them with invented midpoints.",
+      "ec_preparation": "Explicit authorized binning/counts, or use exact supplied frequency summaries.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "HIST"
+      ]
+    },
+    {
+      "id": "EPG009",
+      "name": "Empirical cumulative distribution",
+      "family": "Distribution",
+      "question": "Display the observed cumulative distribution.",
+      "required_inputs": "Raw values, observation unit and denominator.",
+      "applicability": "State the sample scope; separate studies and data levels.",
+      "limitations": "Ordinary ECDF does not resolve censoring. Do not claim population representativeness or inferential bands.",
+      "ec_preparation": "Authorized sorting and cumulative counting; special censoring estimators are outside this card.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "ECDF"
+      ]
+    },
+    {
+      "id": "EPG010",
+      "name": "Density curve",
+      "family": "Distribution",
+      "question": "Explore continuous distribution shape.",
+      "required_inputs": "Comparable raw values, bandwidth, support and unit of observation.",
+      "applicability": "Declare smoothing choices and retain a view of observed values.",
+      "limitations": "Not a fitted PK model; do not smooth across incompatible groups, censoring or missing values.",
+      "ec_preparation": "Explicit authorized kernel-density calculation.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "DENSITY"
+      ]
+    },
+    {
+      "id": "EPG011",
+      "name": "Frequency bar / lollipop",
+      "family": "Counts and proportions",
+      "question": "Compare observed category frequencies, including MIC bins.",
+      "required_inputs": "Named categories with exact counts or countable records.",
+      "applicability": "State what one counted unit represents; show complete relevant categories.",
+      "limitations": "A reported mean is not a frequency. Preserve open-ended MIC-bin labels.",
+      "ec_preparation": "Authorized counting or use supplied counts.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "BAR",
+        "SEGMENT"
+      ]
+    },
+    {
+      "id": "EPG012",
+      "name": "Grouped / stacked proportion bars",
+      "family": "Counts and proportions",
+      "question": "Compare category composition with a known denominator.",
+      "required_inputs": "Category counts or supplied proportions, denominator and population definition.",
+      "applicability": "Show denominator and missing/unknown category separately; label percentage units.",
+      "limitations": "Do not silently renormalize incomplete totals or imply PTA weights are valid.",
+      "ec_preparation": "Authorized proportions only; retain source totals and rounding discrepancies.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "BAR"
+      ]
+    },
+    {
+      "id": "EPG013",
+      "name": "Numeric heatmap",
+      "family": "Matrix overview",
+      "question": "Inspect a matrix of measured or reported values.",
+      "required_inputs": "Explicit row/column keys, numeric values, units and data level.",
+      "applicability": "Use comparable scales; separate incompatible units and matrices.",
+      "limitations": "No silent imputation, z-scoring, clustering or invented grid cells.",
+      "ec_preparation": "Source layout; any normalization or aggregation needs separate authorization and implementation.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "TILE"
+      ]
+    },
+    {
+      "id": "EPG014",
+      "name": "Missingness / observation-status matrix",
+      "family": "Data status",
+      "question": "Locate patterns of available, missing and censored observations.",
+      "required_inputs": "Record/field keys and explicit value-status codes.",
+      "applicability": "Distinguish not sampled, BLQ, censored, unknown and absent values.",
+      "limitations": "A blank cell is not automatically a missing scheduled sample; preserve unknown design.",
+      "ec_preparation": "Reshape existing status labels; do not reassess Data coverage.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "TILE"
+      ]
+    },
+    {
+      "id": "EPG015",
+      "name": "Status-count chart",
+      "family": "Data status",
+      "question": "Summarize which observations carry each recorded status.",
+      "required_inputs": "Existing statuses and scoped observation counts.",
+      "applicability": "Use an explicit denominator and distinguish record counts from animal counts.",
+      "limitations": "Not a new adequacy verdict; unknown status is not zero or quantified.",
+      "ec_preparation": "Authorized status counting or supplied counts.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "BAR"
+      ]
+    },
+    {
+      "id": "EPG016",
+      "name": "Paired-change / slope / dumbbell",
+      "family": "Group comparison",
+      "question": "Compare two supported measurements within a defined pair.",
+      "required_inputs": "Verified pair key, two conditions, values and comparable units.",
+      "applicability": "Separate individual pairs from paired reported group summaries.",
+      "limitations": "No pairing by row order, similar labels or guessed animal identity.",
+      "ec_preparation": "Validate pairing; differences only if separately allowed.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "SEGMENT",
+        "PATH"
+      ]
+    },
+    {
+      "id": "EPG017",
+      "name": "Interval / censor-limit display",
+      "family": "Data status",
+      "question": "Show a supported observation bound without inventing its value.",
+      "required_inputs": "Known bound(s), censor direction, units and record identity.",
+      "applicability": "Use directional markers at known limits; label as bounds, not observed concentrations.",
+      "limitations": "Unknown limits/direction belong in a status strip or note, not an invented y coordinate.",
+      "ec_preparation": "Resolve only supplied bounds and statuses; no substitution or imputation.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "INTERVAL",
+        "SEGMENT"
+      ]
+    },
+    {
+      "id": "EPG018",
+      "name": "Reported-estimate interval / forest-style",
+      "family": "Group comparison",
+      "question": "Compare already-reported estimates and intervals.",
+      "required_inputs": "Labeled source estimates with interval type, endpoints, units and population.",
+      "applicability": "Preserve study and endpoint differences; show source definitions.",
+      "limitations": "No pooled estimate, meta-analysis, new CI, efficacy inference or unsupported ranking.",
+      "ec_preparation": "Use supplied estimates and interval endpoints only.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "INTERVAL"
+      ]
+    },
+    {
+      "id": "EPG019",
+      "name": "Bubble plot",
+      "family": "Relationship",
+      "question": "Show a measured third quantity alongside x/y.",
+      "required_inputs": "Supported paired x/y and a nonnegative size quantity with units.",
+      "applicability": "Map size to a documented area scale; identify zeros visibly.",
+      "limitations": "No fabricated weights, extrapolated values or implied sample size.",
+      "ec_preparation": "Explicit source-to-area display mapping.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "POINT"
+      ]
+    },
+    {
+      "id": "EPG020",
+      "name": "Scatterplot matrix",
+      "family": "Relationship",
+      "question": "Inspect several jointly observed quantities.",
+      "required_inputs": "Verified shared experimental units and numeric columns with units.",
+      "applicability": "Select variables relevant to an allowed descriptive question; disclose pairwise missingness.",
+      "limitations": "No joining independent series; no automatic correlation testing, covariate analysis or model selection.",
+      "ec_preparation": "Supported pairing/layout only; derived correlations need separate scope authorization.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "POINT"
+      ]
+    },
+    {
+      "id": "EPG021",
+      "name": "Dosing / sampling event timeline",
+      "family": "Study design",
+      "question": "Show the supplied regimen and sampling design.",
+      "required_inputs": "Explicit event times, time origin, event type, route and known duration.",
+      "applicability": "Distinguish scheduled events from actual administration/sampling; retain dose basis.",
+      "limitations": "Do not infer administered doses from a schedule or expand unresolved regimen intervals.",
+      "ec_preparation": "Render supplied events; schedule expansion or time conversion requires explicit supported inputs and authorization.",
+      "execution": {
+        "planning_status": "CANDIDATE_GUIDANCE",
+        "candidate_operation_ids": []
+      },
+      "source_ids": [
+        "SEGMENT",
+        "POINT"
+      ]
+    }
+  ],
+  "sources": {
+    "POINT": {
+      "title": "Points",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_point.html"
+    },
+    "INTERVAL": {
+      "title": "Intervals and error bars",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_linerange.html"
+    },
+    "BOX": {
+      "title": "Boxplots",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_boxplot.html"
+    },
+    "VIOLIN": {
+      "title": "Violin plots",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_violin.html"
+    },
+    "HIST": {
+      "title": "Histograms and frequency polygons",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_histogram.html"
+    },
+    "PATH": {
+      "title": "Connected observations",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_path.html"
+    },
+    "ECDF": {
+      "title": "Empirical cumulative distribution",
+      "url": "https://ggplot2.tidyverse.org/reference/stat_ecdf.html"
+    },
+    "DENSITY": {
+      "title": "Density estimation",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_density.html"
+    },
+    "TILE": {
+      "title": "Tiles and matrices",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_tile.html"
+    },
+    "BAR": {
+      "title": "Bar charts",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_bar.html"
+    },
+    "SEGMENT": {
+      "title": "Line segments",
+      "url": "https://ggplot2.tidyverse.org/reference/geom_segment.html"
+    },
+    "FACET": {
+      "title": "Facets",
+      "url": "https://ggplot2.tidyverse.org/reference/facet_wrap.html"
+    },
+    "SCALE": {
+      "title": "Continuous position scales",
+      "url": "https://ggplot2.tidyverse.org/reference/scale_continuous.html"
+    }
+  },
+  "execution_authorization": "The current task_context.implemented_r_operations registry and exact signatures govern execution; a candidate link is not an execution grant.",
+  "reference_defaults": {
+    "publisher": "ggplot2 official documentation",
+    "checked_on": "2026-10-19",
+    "supports": "Geometry and statistical-transform behavior; not PK/PD applicability or project authorization."
+  }
+}

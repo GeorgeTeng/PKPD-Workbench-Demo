@@ -63,7 +63,9 @@ def test_rules_reread_sources_but_preserve_typed_context_and_bind_its_version(bu
     assert published['scientific_context']==main['scientific_context']
     rules.context_with_rules(published,'adequacy')
     changed=copy.deepcopy(published); changed['scientific_context']['items'][0]['science']['evidence_status']='OBSERVED'
-    with pytest.raises(PipelineError,match='scientific_context'): rules.context_with_rules(changed,'adequacy')
+    with pytest.raises(PipelineError) as exc:
+        rules.context_with_rules(changed,'adequacy')
+    assert exc.value.code == 'PROJECT_RULES_CONTEXT_MISMATCH'
 
 
 @pytest.mark.parametrize('compact',[False,True])

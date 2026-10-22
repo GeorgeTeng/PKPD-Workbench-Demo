@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "version": "1.0.0",
+  "status": "AUTHORED_NOT_ACTIVATED",
+  "authority": "PROCESSING_POLICY_NOT_PROJECT_SCIENTIFIC_RULES",
+  "inherits": [
+    "GENERAL",
+    "DC"
+  ],
+  "source_refs": [
+    "GENERAL",
+    "DC",
+    "MP",
+    "PROJECT_RULES",
+    "USER_DECISIONS"
+  ],
+  "kind": "COVERAGE_POLICY",
+  "rules": [
+    {
+      "id": "COV001",
+      "title": "覆盖事实与运行判断分开",
+      "instruction": "DR 仅提出候选需求；coverage 按 method、requirement 核对实际字段、完整含义、原条件和真实 scope。记录事实状态与反例，不输出整体方法可运行、拟合资格或科学通过。",
+      "on_failure": "保留未评估问题，不用文件名、行数或匹配引句代替科学支持。",
+      "source_ids": [
+        "GENERAL",
+        "DC"
+      ]
+    },
+    {
+      "id": "COV002",
+      "title": "许可来源定向补查",
+      "instruction": "先检查分配来源；未找到时仅对与该缺口相关的其余许可来源定向扩查。记录候选来源、选择理由、已读/未读范围与排除原因。查找未完成为 UNRESOLVED；只有相关许可范围查清仍未找到才可 MISSING，且该词只指记录的范围，不声称全世界不存在。",
+      "on_failure": "不可因分配内未找到直接作全局缺失，不为补查开启受保护材料。",
+      "source_ids": [
+        "GENERAL",
+        "DC",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "COV003",
+      "title": "原始证据、关联和反证",
+      "instruction": "实质性字段关联、跨表/跨面板匹配必须有原始证据证明关系。保留证据坐标、原值、单位、基准、BLQ/缺失标记与矛盾；需要观察值的要求须有原始正文。条件证据须属于对应 method 的许可范围或有来源证明的同 requirement 关联。",
+      "on_failure": "关系未知、冲突或读取不完整保留原状态；不配对独立面板，不静默选方便来源。",
+      "source_ids": [
+        "GENERAL",
+        "DC",
+        "PROJECT_RULES"
+      ]
+    },
+    {
+      "id": "COV004",
+      "title": "共享事实一次核对",
+      "instruction": "只有同一事实定义、来源版本及实际 scientific scope 一致，或有原文明确支持跨记录关联，才可复用一次事实核查。scope 包括适用的 study、species、drug/analyte、matrix、route/formulation、regimen、time origin/window、record level、unit/free-total basis、organism/strain。各方法额外字段和条件仍分别判断。",
+      "on_failure": "仅同研究名/物种不够；scope未知不当作相同，不把共享事实支持冒充全部方法条件满足。",
+      "source_ids": [
+        "GENERAL",
+        "DC",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "COV005",
+      "title": "计划产物不是缺观测",
+      "instruction": "已有数据、定义和计划生产的模型/target/暴露产物分开。DEFERRED 必须保存 producer、output、首次依赖动作/阶段及其依据；计划不等于已获得或已合格。",
+      "on_failure": "没有前置生产依据不能用 DEFERRED 隐藏真实原始数据缺口。",
+      "source_ids": [
+        "GENERAL",
+        "MP",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "COV006",
+      "title": "完整性和版本传递",
+      "instruction": "按需求及其 criterion 完整记账，跨来源反证与全局检查不得在分片边界丢失；开放 G008 项沿原ID和来源传递。保留未分配MP条件、全局检查、到期项与人工发布的待检查状态；结果绑定源、policy、plan版本。",
+      "on_failure": "未评估的检查不能算通过；本层完成不打开QC、拟合或其他既有科学gate。",
+      "source_ids": [
+        "GENERAL",
+        "DC"
+      ]
+    },
+    {
+      "id": "COV007",
+      "title": "项目隔离与权威",
+      "instruction": "继续遵守原项目访问约束及当前调用的 source allowlist。PMB项目的human PK、horse holdout、benchmark限制原样保留；补查不扩权。MP和本参考库只能解释需求，不是本项目测量证据，也不能覆盖项目禁用已发表拟合结果的规定。",
+      "on_failure": "发现越权来源或参考知识被当数据证据时停止受影响判断，保留未决项。",
+      "source_ids": [
+        "GENERAL",
+        "PROJECT_RULES",
+        "MP"
+      ]
+    }
+  ],
+  "decision_contract": {
+    "coverage_statuses": [
+      "SUPPORTED",
+      "PARTIAL",
+      "MISSING",
+      "CONFLICT",
+      "UNRESOLVED",
+      "DEFERRED"
+    ],
+    "missing_requires": "TARGETED_RELEVANT_PERMITTED_SEARCH_COMPLETE",
+    "search_incomplete_status": "UNRESOLVED",
+    "source_permission_expansion": false,
+    "method_local_evidence_required": true,
+    "preserve_counterevidence": true,
+    "reference_knowledge_is_observation_evidence": false,
+    "outputs_method_eligibility": false,
+    "case_schemas": [
+      "coverage_case",
+      "shared_fact_case"
+    ]
+  }
+}

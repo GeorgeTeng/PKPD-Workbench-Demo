@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Species workspaces · Translational Research Workbench</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/assets/animal-pk-control.css"><link rel="stylesheet" href="/assets/workspace-shell.css"><script defer src="/assets/animal-pk-control.js?v=20260923-analysis-interface"></script><link rel="stylesheet" href="/assets/metadata-tree.css"><script src="/assets/metadata-tree.js"></script><link rel="stylesheet" href="/assets/page-nav.css"><script defer src="/assets/page-nav.js"></script></head>
+<body class="pk-workspace-shell">
+ <div class="wb-shell"><div class="wb-shell-bar" role="banner"><a class="wb-shell-brand" data-crumb="workflow" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M6 21c7 0 3-13 10-13s3 15 11 5"/></svg><span>Translational Research Workbench</span></a></div><nav class="wb-shell-nav" aria-label="Location"><a id="back-workbench" class="back-button" href="/">← Back</a><ol class="crumbs"><li><a data-crumb="workflow" href="/">Workflow</a></li><li><a data-crumb="stage" data-module="pk" href="/">Animal PK modeling</a></li><li><span aria-current="page">Species workspaces</span></li></ol></nav></div>
+ <header><div><div class="eyebrow">SPECIES WORKSPACES</div><h1>Species workspaces</h1><p>Select a species, then open a model or review step.</p></div><div class="header-actions"><button id="refresh-control" class="button">Refresh</button></div></header>
+ <main>
+  <section id="status-banner" class="notice" aria-live="polite">Loading assigned PK context…</section>
+  <section id="workflow-planning" class="workflow-planning" aria-label="Workflow planning and review"></section>
+  <nav id="species-workspaces" class="species-workspaces" role="tablist" aria-label="Species workspaces"></nav>
+  <section id="species-analysis-runs" aria-label="Species analyses" hidden></section>
+  <select id="species-select" aria-label="Species" hidden disabled></select>
+  <details id="data-sources" class="data-sources"><summary>Data sources <span id="source-count"></span></summary><div class="data-sources-body"><p>Source tables are data containers, not independent scientific analyses. Grouping them for a shared model requires review.</p><div class="toolbar"><label class="analysis-selector">Current execution source<select id="analysis-select" disabled></select></label><button id="download-plan" class="button" disabled>Download plan</button></div><div id="species-source-list"></div></div></details>
+  <div id="analysis-context" class="source-note"></div>
+  <div id="agent-navigation" hidden><button id="back-species" class="workspace-back">← Species workflow</button></div>
+  <div class="control-layout">
+   <section class="diagram-panel" aria-label="PK model workflow"><div class="panel-heading"><div class="eyebrow">SPECIES WORKSPACE</div><h2 id="workspace-title">Reviewed model candidates</h2></div><div id="pk-workflow" class="workflow"><p class="empty">No source dataset loaded.</p></div></section>
+   <section id="agent-panel" class="agent-panel" aria-label="Agent details"><div class="empty"><h2>Select a block</h2><p>Inspect its context, outputs, files and execution evidence.</p></div></section>
+  </div>
+  <details class="run-history"><summary>Run history</summary><div id="runs-list"><p class="empty">No recorded agent runs.</p></div></details>
+ </main>
+ <dialog id="file-preview" aria-labelledby="preview-title">
+  <div class="preview-heading"><div><div class="eyebrow">FILE PREVIEW</div><h2 id="preview-title"></h2><p id="preview-path"></p></div><button id="close-preview" class="button" aria-label="Close file preview">Close</button></div>
+  <div class="preview-toolbar"><span id="preview-status" role="status"></span><div class="buttons"><button id="preview-wrap" class="button" aria-pressed="true">Wrap lines</button><button id="preview-download" class="button" disabled>Download original</button></div></div>
+  <div id="preview-content" class="preview-content"></div>
+  <div id="preview-more" class="preview-more" hidden><span></span><button id="expand-preview" class="button">Show full content</button></div>
+ </dialog>
+ <div id="control-toast" role="status" hidden></div>
+ <link rel="stylesheet" href="/assets/animal-pk-analyses.css?v=20260923">
+ <script defer src="/assets/animal-pk-analyses.js?v=20260923"></script>
+</body></html>

@@ -1,0 +1,97 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "field": {
+            "type": "string",
+            "minLength": 1
+          },
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "importance": {
+            "type": "string",
+            "enum": [
+              "MATERIAL",
+              "OPTIONAL"
+            ]
+          },
+          "importance_reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "needed_at": {
+            "type": "string",
+            "enum": [
+              "context",
+              "adequacy",
+              "prepare",
+              "eda",
+              "pk",
+              "index",
+              "human_pk",
+              "validation",
+              "clinical"
+            ]
+          },
+          "downstream_impact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requested_information": {
+            "type": "string",
+            "minLength": 1
+          },
+          "file_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "search_terms": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "field",
+          "question",
+          "importance",
+          "importance_reason",
+          "needed_at",
+          "downstream_impact",
+          "requested_information",
+          "file_ids",
+          "search_terms"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "request_sha256",
+    "questions"
+  ],
+  "additionalProperties": false
+}

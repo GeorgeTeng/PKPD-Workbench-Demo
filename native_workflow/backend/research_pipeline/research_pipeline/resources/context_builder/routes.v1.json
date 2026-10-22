@@ -1,0 +1,136 @@
+{
+  "version": "CONTEXT_ROUTES_1.0",
+  "mode": "PRESERVE_EXISTING",
+  "common_fields": [
+    "instructions",
+    "schema",
+    "governance",
+    "governance_sha256"
+  ],
+  "max_request_chars": 700000,
+  "routes": {
+    "data.requirements": {
+      "identity": {
+        "stage": [
+          "DR"
+        ],
+        "operation": [
+          "REQUIREMENT_PLAN_4.0"
+        ]
+      },
+      "required": [
+        "project_context",
+        "project_rules",
+        "method_knowledge",
+        "data_overviews",
+        "overview_notes"
+      ],
+      "optional": [
+        "agent",
+        "policy",
+        "policy_version",
+        "processing_rules",
+        "direct_project_source_ids",
+        "project_context_source_ids",
+        "scientific_approval",
+        "source_scope"
+      ],
+      "rules": [
+        "project_rules",
+        "processing_rules"
+      ],
+      "evidence": [
+        "project_context",
+        "method_knowledge",
+        "data_overviews",
+        "overview_notes"
+      ],
+      "boundary": "Metadata, design and source notes only. Numeric-row selection stays in the existing DR adapter."
+    },
+    "data.coverage": {
+      "identity": {
+        "stage": [
+          "DIRECT_DR_COVERAGE"
+        ]
+      },
+      "required": [
+        "objective",
+        "requirements",
+        "rules",
+        "profiles",
+        "source_units"
+      ],
+      "optional": [
+        "source_id_ownership",
+        "excluded_items",
+        "scientific_approval",
+        "source_catalog"
+      ],
+      "rules": [
+        "rules"
+      ],
+      "evidence": [
+        "objective",
+        "requirements",
+        "profiles",
+        "source_units",
+        "source_catalog"
+      ],
+      "boundary": "Keep every permitted source fragment supplied by the current Coverage adapter; no evidence pruning."
+    },
+    "data.necessity": {
+      "identity": {
+        "stage": [
+          "NECESSITY_IMPACT_AND_ADVICE_ONLY",
+          "NECESSITY_SCOPED_ASSESSMENT"
+        ]
+      },
+      "required": [
+        "objective",
+        "requirements",
+        "rules",
+        "coverage_summary",
+        "recorded_shortages",
+        "local_method_knowledge"
+      ],
+      "optional": [
+        "source_profiles",
+        "available_scope_ids"
+      ],
+      "rules": [
+        "rules"
+      ],
+      "evidence": [
+        "objective",
+        "requirements",
+        "coverage_summary",
+        "recorded_shortages",
+        "local_method_knowledge",
+        "source_profiles"
+      ],
+      "boundary": "Existing accepted Coverage context and local MP only. Raw tables and repair prompts need a separate explicit contract."
+    },
+    "data.human_summary": {
+      "identity": {
+        "stage": [
+          "HUMAN_REVIEW_SUMMARY_ONLY"
+        ]
+      },
+      "required": [
+        "assessment",
+        "action_decisions"
+      ],
+      "optional": [],
+      "rules": [],
+      "evidence": [
+        "assessment",
+        "action_decisions"
+      ],
+      "boundary": "Accepted opinions only. Reject raw tables, MP, unrelated Rules and any unrecognized top-level input."
+    }
+  },
+  "deferred": {
+    "compression": "Keep current full-source and review adapters. Not wired into this prototype.",
+    "eda": "Runtime disabled. No route or execution permission granted."
+  }
+}

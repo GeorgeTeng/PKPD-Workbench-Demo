@@ -1,0 +1,79 @@
+ContextBuilder v1: executable lossless prototype
+
+What it does
+The workflow selects a stage and operation. ContextBuilder looks up a deterministic
+route, checks required and unexpected payload sections, attaches canonical governance
+once, preserves the supplied stage prompt and every evidence/rule field, validates
+the output schema, binds the assembled request and writes a separate context manifest.
+It does not use a model to route tasks.
+
+What controls it
+1. resources/context_builder/routes.v1.json: supported stage/operation identities,
+   required and optional sections, section roles and request capacity.
+2. The existing stage adapter: current prompt, response schema, selected Rules and
+   permitted evidence. Source permissions and scientific input validation remain here.
+3. Canonical governance: G001-G008 and their definitions, attached once.
+4. Explicit input bindings: file content hashes checked before and after assembly.
+5. Workflow state: still managed by the existing runner and human gates, not this builder.
+
+Supported routes
+data.requirements: overview-only DR payload, REQUIREMENT_PLAN_4.0.
+data.coverage: DIRECT_DR_COVERAGE payload (existing permitted evidence preserved).
+data.necessity: ordinary impact/scoped assessment payloads.
+data.human_summary: accepted assessment and action decisions only.
+
+Correction requests with original_draft/targeted_source_evidence require a distinct
+future route; they are intentionally rejected by the normal Necessity contract.
+Compression and EDA are not enabled by this prototype. Compression must retain its
+full-source and independent-review contracts. EDA stays disabled.
+
+API example (after the current stage adapter has verified inputs)
+from research_pipeline.context_builder import build_context, verify_bundle, save_bundle
+
+bundle = build_context(
+    "data", "human_summary",
+    {"stage": "HUMAN_REVIEW_SUMMARY_ONLY", "instructions": existing_instructions,
+     "assessment": accepted_assessment, "action_decisions": accepted_decisions},
+    existing_response_schema,
+    input_bindings=verified_input_references,
+)
+verify_bundle(bundle)
+save_bundle(new_output_directory, bundle)
+
+The request is bundle["request"]. Existing model execution and scientific validators
+remain separate. Creating a bundle neither authorizes execution nor approves data.
+
+Offline historical comparison
+python -m research_pipeline.context_builder --stage data --operation human_summary \
+  --request <existing prepared.json or request.json> --out <new directory>
+
+The CLI never calls a model. It checks the saved request's hash and rebuilds it using
+its recorded governance. It requires exact request equality. It does not revalidate
+all historical upstream inputs, assert that an old result is currently reusable,
+or transfer a prior human approval. New directories protect historical artifacts.
+
+Output
+request.json: the actual unchanged model request.
+context_manifest.json: route, instruction/schema/governance hashes, builder/config
+references, bound inputs, section hashes and character counts, and explicit limits.
+The audit manifest is not repeated inside the model payload. Character counts are
+not token usage, and local build time is not model inference time.
+
+Verification performed
+33 focused tests passed, including existing Data runtime/decision regressions.
+Four real stored requests (DR, Coverage, Necessity, human summary) rebuilt with exact
+request and hash equality. They are historical snapshots, not four new model runs.
+Comparison: outputs/Codex_Agent_Run_20261009/context_builder_02/comparison.json
+No model calls, scientific validation, data reruns or production entrypoint changes.
+
+Next integration boundary
+Opt-in fresh runs can replace their final make_request assembly with build_context
+and bind the builder/config manifest in the run. Preserve historical executor modules
+and accepted hashes. Runtime dispatch must still enforce current bindings, validators,
+permissions and human gates. Do not replay old snapshots as fresh runs.
+
+Rule filtering and evidence pruning are deliberately off in v1. They require explicit
+routing metadata, condition/exception closure and separate semantic comparisons.
+The authoring prompts in backend/prompts/stage_contracts/v1 are not silently substituted
+for the existing stage instructions in this equivalence test.
+

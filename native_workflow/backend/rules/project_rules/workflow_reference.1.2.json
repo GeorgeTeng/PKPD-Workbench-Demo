@@ -1,0 +1,227 @@
+{
+  "version": "1.2.0",
+  "authority": "WORKFLOW_REFERENCE_NOT_PROJECT_REQUIREMENTS",
+  "purpose": "Help extraction and independent review understand where an adopted requirement changes an action or decision. This describes the frontend design, not permission to execute it.",
+  "basis": "frontend/workbench-ui.js module design; extraction_policy.1.4.json operation contract and legacy delivery tags",
+  "use": [
+    "Only admitted project sources establish requirements. This reference is neither source evidence nor proof of project adoption; never quote it in rule evidence or add it to source coverage.",
+    "Necessity test: identify a module action, choice, check, acceptance decision or deliverable that would change if the requirement were removed. If none changes in any of these modules, exclude it from the rule collection and retain the exclusion reason in source coverage. Never invent a consumer or assign a broad tag merely to keep a rule. Uncertain applicability requires review rather than an assumed exclusion.",
+    "Use module duties and dependencies to judge necessity and used_in. Keep original conditions and timing. A downstream prohibition also belongs to an earlier consuming step if its action must obey that prohibition.",
+    "Routing hints name existing allowed tags, not automatic destinations. Choose only the tags whose actions or decisions change. Frontend module IDs are not new used_in values.",
+    "Future-stage requirements remain relevant even when their module is planned or disabled. Data planning may read them without demanding their outputs now. Reference methods and deliverables are design examples, not additional project mandates.",
+    "The twelve frontend modules are not twelve used_in tags: intake and context are upstream; Data uses adequacy/prepare; PK translation uses pk_translation and conditionally human_validation; targets uses index; results uses clinical. These mappings do not enable planned modules."
+  ],
+  "flow": "intake -> context_bundle -> data_bundle -> eda -> dispatch; fork pk -> translation and index -> targets; join at pta -> results -> clinical",
+  "execution_note": "The canvas is a design map, not proof that every module is operational. EDA is disabled; dispatch currently stops at that gate. Translation, targets and PTA are marked planned. Main-canvas downstream modeling/reporting adapters remain gated; the separate animal PK implementation does not establish end-to-end canvas readiness. UI substeps need not be separate model calls.",
+  "modules": [
+    {
+      "id": "intake",
+      "name": "File intake",
+      "purpose": "Register the proposal and source files so later stages can identify and trace inputs.",
+      "steps": [
+        "Register files and their identities; retain source references for traceability.",
+        "Pass the proposal and admitted file inventory to context processing; an inventory alone does not authorize reading protected bodies."
+      ],
+      "handoff": "Source registry and proposal references -> Context & Project Rules.",
+      "routing_hint": {
+        "tags": [],
+        "note": "Upstream source registration has no separate tag in the current rule catalog. Classify any consequential downstream obligation by its real consumer."
+      }
+    },
+    {
+      "id": "context_bundle",
+      "name": "Context & Project Rules",
+      "purpose": "Build reviewed task context and a compact, evidence-bound collection of adopted requirements.",
+      "steps": [
+        "Context compression: read the proposal and identify gaps; consult admitted file evidence; reconcile answers and conflicts to avoid silently choosing unsupported facts.",
+        "Extract and classify statements; check PK quantity bindings so biological meaning and applicability survive compression.",
+        "Project Rules: inventory source obligations, consolidate equivalent requirements, and derive downstream routing from the frozen operation contract.",
+        "Independently review source/obligation coverage and actual per-module deliveries. Apply only bounded local repairs and repeat independent review before publication.",
+        "Independently review the assembled final rules, source coverage and inherited-rule mappings; deterministic publication preserves the approved collection and audit evidence."
+      ],
+      "handoff": "Reviewed main.json and published project rules -> Data and later consumers.",
+      "routing_hint": {
+        "tags": [],
+        "note": "No new context or prc tag. Rules describe the downstream duties supported by original project sources, not this agent's processing instructions."
+      }
+    },
+    {
+      "id": "data_bundle",
+      "name": "Data Assessment & Preparation",
+      "purpose": "Translate the task into data needs, check source coverage, prepare traceable data and review the handoff.",
+      "steps": [
+        "DR / Define data requirements: read main.json and project rules; define tasks, data requirements and file access so later coverage checks answer the intended scientific question.",
+        "DC / Label data & check coverage: inspect and label admitted files; independently review coverage; record matches and missing data without treating a possible match as proven adequacy.",
+        "DP / Prepare & QC: plan source-bound transformations, then execute deterministic preparation and QC to preserve units, provenance, experimental identity and missingness.",
+        "DH / Validate metadata & hand off: check metadata, source bindings and data hashes; review the scoped handoff; publish data, metadata and reports for the authorized downstream task."
+      ],
+      "handoff": "Reviewed data and metadata -> EDA and scoped downstream analysis, subject to workflow gates.",
+      "routing_hint": {
+        "tags": [
+          "adequacy",
+          "prepare"
+        ],
+        "note": "DR/DC current requirements and coverage use adequacy; DP/DH preparation and handoff use prepare. Planning can read future-stage rules without adding adequacy to every rule or requiring future results immediately."
+      }
+    },
+    {
+      "id": "eda",
+      "name": "Exploratory data analysis",
+      "purpose": "Inspect prepared data for patterns and limitations that inform analysis planning.",
+      "steps": [
+        "When enabled, read the reviewed data and metadata and inspect distributions, units, timing and anomalies.",
+        "Describe observed patterns and limitations for modeling decisions; descriptive exploration alone does not establish model validity."
+      ],
+      "handoff": "EDA observations -> task assignment and modeling evidence. This module is currently disabled.",
+      "routing_hint": {
+        "tags": [
+          "eda"
+        ],
+        "note": "Retain adopted EDA obligations for future use; this reference does not enable the stage."
+      }
+    },
+    {
+      "id": "dispatch",
+      "name": "Task assignment",
+      "purpose": "Turn the reviewed study definition and data handoff into scoped analysis tasks.",
+      "steps": [
+        "Read authorized inputs and applicable constraints; identify the analysis task, species/data scope and dependencies.",
+        "Route each task and its permitted data to the PK or PK/PD branch so one task cannot silently borrow another task's evidence."
+      ],
+      "handoff": "Scoped tasks -> Animal PK modeling and PK/PD index screening. Current execution remains blocked by disabled EDA.",
+      "routing_hint": {
+        "tags": [
+          "dispatch"
+        ],
+        "note": "Use for obligations governing assignment, permissions or task scope; analysis requirements belong to their consuming analysis step."
+      }
+    },
+    {
+      "id": "pk",
+      "name": "Animal PK modeling",
+      "purpose": "Fit, compare and review animal PK models separately for each assessed species.",
+      "steps": [
+        "PK Evidence Agent: read reviewed PK data and EDA to identify candidate-relevant evidence and limitations.",
+        "Candidate Specification Agent: define structures and assumptions; the Model Library Agent supplies applicable structure references, not project adoption or accepted fits.",
+        "Model Plan Approval Agent: record human sign-off on the plan before fitting.",
+        "Model Fitting Agent: execute qualified numerical adapters against the scoped data and approved plan.",
+        "Diagnostic Analysis Agent: inspect fit diagnostics and accessible plots to expose deficiencies not captured by optimizer success.",
+        "Model Comparison Agent: compare eligible, comparable fits; AIC/BIC apply only where the comparison is valid.",
+        "Scientific Review Agent: present evidence for human acceptance or revision; PK Support Agent supplies advice. Revisions loop to plan approval.",
+        "Report & PK/PD Handoff Agent: retain accepted model scope and uncertainty; accepted models from all assessed species feed translation."
+      ],
+      "handoff": "Accepted species models -> PK translation; reviewed exposure estimates -> index screening when needed.",
+      "routing_hint": {
+        "tags": [
+          "animal_pk"
+        ],
+        "note": "Covers fitting, eligibility, comparisons and restrictions on data used in animal models. Frontend pk maps to animal_pk; do not add pk_translation merely because translation follows."
+      }
+    },
+    {
+      "id": "translation",
+      "name": "PK translation",
+      "purpose": "Translate accepted animal models into human PK predictions and assess predictive support.",
+      "steps": [
+        "Extrapolation Agent: use accepted animal models to construct permitted extrapolations; allometry, fu-correction, FCIM and optional database-supported IVIVE are candidate methods, not automatically adopted requirements.",
+        "Prediction Comparison Agent: compare individual predictions and candidate ensembles so disagreement remains visible.",
+        "Predictive Validation Agent: assess held-out species, doses or independent experiments. Human observations are usable only when the project's permissions and freeze conditions allow them.",
+        "Scientific Review Agent: present predictive evidence for human acceptance or revision; revisions loop back to extrapolation.",
+        "Report & PK/PD Handoff Agent: preserve human predictions, assumptions and uncertainty for later exposure scenarios."
+      ],
+      "handoff": "Reviewed human PK predictions -> PTA. This frontend module is planned.",
+      "routing_hint": {
+        "tags": [
+          "pk_translation",
+          "human_validation"
+        ],
+        "note": "Prediction/extrapolation uses pk_translation. Human-observation validation uses human_validation only when that action is governed; held-out animal prediction alone does not imply human_validation. Choose by action, not every tag in this hint."
+      }
+    },
+    {
+      "id": "index",
+      "name": "PK/PD index screening",
+      "purpose": "Compare candidate exposure indices against the matched PD endpoint.",
+      "steps": [
+        "Align exposure, MIC, PD endpoint and observation window within a supported experimental scope to avoid invented joins.",
+        "When an index needs model-generated exposure, wait for the relevant reviewed PK result; preparatory work may proceed in parallel.",
+        "Compare applicable Emax/Hill index models and their diagnostics under the project-defined comparison conditions; preserve uncertainty for target estimation."
+      ],
+      "handoff": "Reviewed index relationship and scope -> PD target estimation.",
+      "routing_hint": {
+        "tags": [
+          "index"
+        ],
+        "note": "Use for index eligibility, matching, comparison and effect-model requirements. This reference does not mandate a specific index, model or threshold."
+      }
+    },
+    {
+      "id": "targets",
+      "name": "PD target estimation",
+      "purpose": "Estimate effect targets from a reviewed index relationship within its supported endpoint and window.",
+      "steps": [
+        "Confirm the endpoint and observation window so a target has an explicit biological interpretation.",
+        "Estimate the requested target from the qualified index/effect relationship; preserve applicable conditions.",
+        "Review target uncertainty and limitations before handing the target to attainment calculations."
+      ],
+      "handoff": "Reviewed PD target and uncertainty -> PTA. This frontend module is planned.",
+      "routing_hint": {
+        "tags": [
+          "index"
+        ],
+        "note": "The current catalog groups effect-target qualification under index; targets is not a new allowed used_in value."
+      }
+    },
+    {
+      "id": "pta",
+      "name": "PTA",
+      "purpose": "Evaluate probability of target attainment across permitted exposure, regimen and MIC scenarios.",
+      "steps": [
+        "Combine reviewed human exposure scenarios with the reviewed PD target; both branches supply prerequisites.",
+        "Specify regimen and MIC scenarios according to adopted project requirements and available evidence.",
+        "Calculate attainment and supported uncertainty; missing variability or target information remains a limitation rather than an invented value.",
+        "Review and report scenario-specific results and their assumptions."
+      ],
+      "handoff": "Attainment results and uncertainty -> Results & review. This frontend module is planned.",
+      "routing_hint": {
+        "tags": [
+          "pta"
+        ],
+        "note": "Use for attainment inputs, calculations, prerequisite timing and associated deliverables."
+      }
+    },
+    {
+      "id": "results",
+      "name": "Results & review",
+      "purpose": "Assemble the two branches and attainment outputs into a traceable result package for review.",
+      "steps": [
+        "Collect scoped results, evidence, versions and uncertainty from the analysis branches.",
+        "Check consistency and unresolved limitations before presenting the integrated results for review and interpretation."
+      ],
+      "handoff": "Reviewed result package -> Clinical interpretation; main-canvas adapters remain gated.",
+      "routing_hint": {
+        "tags": [
+          "clinical"
+        ],
+        "note": "There is no results tag. Final integrated reporting duties use the existing clinical destination; analysis-specific reporting can belong to its analysis tag instead. This does not change runtime routing."
+      }
+    },
+    {
+      "id": "clinical",
+      "name": "Clinical interpretation",
+      "purpose": "Interpret feasibility, safety-related evidence and limitations to support closure or a new study cycle.",
+      "steps": [
+        "Read the reviewed result package with its evidence and applicability limits.",
+        "Interpret supported feasibility and safety conclusions without equating fit, predictive agreement or attainment with proven clinical efficacy or safety.",
+        "Record the human review outcome and remaining questions; conclude the study or define a new cycle within the project's approval process."
+      ],
+      "handoff": "Interpretation and review outcome; this reference grants no clinical or scientific approval.",
+      "routing_hint": {
+        "tags": [
+          "clinical"
+        ],
+        "note": "Use for interpretation, final limitations and benchmarks. Preserve the current runtime alias: the coarse clinical consumer also receives human_validation and pta rules; exact consumers may request those tags separately."
+      }
+    }
+  ]
+}

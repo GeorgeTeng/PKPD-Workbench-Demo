@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1",
+  "software_version": "0.1.0",
+  "role": "Input documentation; numerical validation is implemented in R/validation.R and each model function.",
+  "units_required": {"concentration": "mg/L", "MIC": "mg/L", "dose": "mg", "time": "h", "clearance": "L/h", "volume": "L"},
+  "metadata_required": ["drug", "species", "matrix", "concentration_unit", "time_unit", "concentration_basis", "record_level", "data_origin"],
+  "pk_metadata_additional": ["dose_unit", "route"],
+  "data_origin_values": ["synthetic", "observed", "digitized", "model_prediction"],
+  "record_level_values": ["individual", "summary", "model_prediction"],
+  "concentration_basis_values": ["total", "free"],
+  "missing_description": "NOT_FOUND",
+  "missing_numeric_behavior": "Reject before fitting; no automatic deletion or imputation.",
+  "blq_behavior": "Reject flagged BLQ observations; censored likelihood is not implemented.",
+  "tables": {
+    "individual_pk": {"required_columns": ["subject_id", "time_h", "concentration_mg_L"], "unique_key": ["subject_id", "time_h"], "profiles_per_fit": 1},
+    "doses": {"required_columns": ["time_h", "dose_mg", "duration_h"], "duration_interpretation": "0 = IV bolus; positive = finite IV infusion"},
+    "population_pk": {"required_columns": ["subject_id", "time_h", "concentration_mg_L", "dose_mg", "dose_time_h", "duration_h"], "regimen_type": "single_dose", "dose_time_h": 0, "duration_h": 0, "record_level": "individual"},
+    "endpoint": {"required_columns": ["unit_id", "user_selected_index_column", "response"], "unit_id_unique": true, "response_unit": "Must be documented with study provenance; numeric endpoint fitter does not infer units."},
+    "longitudinal_response": {"required_columns": ["subject_id", "time_h", "response", "exposure"], "unique_key": ["subject_id", "time_h"], "additional_argument": "response_unit"}
+  },
+  "scope": {"pbpk": false, "animal_to_human_scaling": false, "real_drug_validation_completed": false}
+}

@@ -1,0 +1,400 @@
+{
+  "type": "object",
+  "properties": {
+    "request_sha256": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "REVISE",
+            "NEEDS_REVIEW"
+          ]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_type": {
+          "type": "string",
+          "enum": [
+            "MODEL_REVIEW",
+            "ASSISTANT_INTERNAL_REVIEW",
+            "EXPERT_REVIEW"
+          ]
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "JSON pointer relative to the reviewed object, not the response envelope. For context_review use /objective or /study/drug; for pipeline_review use /blocks/0 or /data_files/0. Do not prepend /context or /pipeline."
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "verdict",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "retention": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "critical": {
+                "type": "boolean"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "source_id",
+              "quote",
+              "verdict",
+              "critical",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "critical_errors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "atomic_claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "JSON pointer relative to the context object, excluding /version. Use /objective, /study/drug or /data/available/0, without a /context prefix. Every scalar leaf needs exactly one evidence record."
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "EXPLICIT",
+                  "PROPOSED",
+                  "NOT_FOUND"
+                ]
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "source_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "unit_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "source_id",
+                    "unit_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "path",
+              "quote",
+              "statement",
+              "status",
+              "evidence",
+              "verdict",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "decomposition": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "JSON pointer relative to the context object, excluding /version. Use /objective, /study/drug or /data/available/0, without a /context prefix. Every scalar leaf needs exactly one evidence record."
+              },
+              "claim_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "claim_ids",
+              "verdict",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "requirement_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "components": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "component_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "verdict": {
+                      "type": "string",
+                      "enum": [
+                        "PRESERVED",
+                        "MISSING",
+                        "ALTERED",
+                        "UNRESOLVED"
+                      ]
+                    },
+                    "targets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "JSON pointer relative to the context object, excluding /version. Use /objective, /study/drug or /data/available/0, without a /context prefix. Every scalar leaf needs exactly one evidence record."
+                          },
+                          "quote": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "quote"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 0
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "component_id",
+                    "verdict",
+                    "targets",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "requirement_id",
+              "verdict",
+              "reason",
+              "components"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "scientific_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "faithfulness": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "completeness": {
+                "type": "string",
+                "enum": [
+                  "PRESERVED",
+                  "MISSING",
+                  "ALTERED",
+                  "UNRESOLVED"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "faithfulness",
+              "completeness",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "decision",
+        "reviewer",
+        "review_type",
+        "claims",
+        "retention",
+        "critical_errors",
+        "limitations",
+        "atomic_claims",
+        "decomposition",
+        "coverage"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "request_sha256",
+    "review"
+  ],
+  "additionalProperties": false
+}

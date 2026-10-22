@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "request_id": "synthetic_chain_001",
+  "attachments": [
+    {
+      "id": "data",
+      "path": "synthetic_pk.json",
+      "role": "pk_observations"
+    }
+  ],
+  "steps": [
+    {
+      "id": "pk",
+      "module": "pk_longitudinal",
+      "input": {
+        "data_attachment": "data"
+      },
+      "metadata": {
+        "drug": "SyntheticDrug",
+        "species": "synthetic_animal",
+        "matrix": "plasma",
+        "concentration_unit": "mg/L",
+        "time_unit": "h",
+        "dose_unit": "mg",
+        "route": "IV",
+        "concentration_basis": "total",
+        "record_level": "individual",
+        "data_origin": "synthetic",
+        "regimen_type": "single_dose"
+      },
+      "options": {
+        "mode": "individual",
+        "compartments": 1,
+        "doses": [
+          {
+            "time_h": 0,
+            "dose_mg": 100,
+            "duration_h": 0
+          }
+        ],
+        "reference_mode": "baseline"
+      }
+    },
+    {
+      "id": "index",
+      "module": "pkpd_index",
+      "input": {
+        "upstream_step": "pk"
+      },
+      "options": {
+        "mode": "from_pk",
+        "mic_mg_L": 1,
+        "window_h": [
+          0,
+          24
+        ],
+        "output_basis": "free",
+        "fu": 0.6
+      }
+    }
+  ]
+}

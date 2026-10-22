@@ -1,0 +1,118 @@
+{
+  "version": "1.8.0",
+  "purpose": "Reviewable general rules and conditional PK/PD knowledge for dynamic data requirements.",
+  "layers": [
+    {
+      "name": "General Rules",
+      "source": "rules/general/workflow_governance.json",
+      "status": "APPROVED_RULES_G008_ADDED",
+      "ids": [
+        "G001",
+        "G002",
+        "G003",
+        "G004",
+        "G005",
+        "G006",
+        "G007",
+        "G008"
+      ],
+      "purpose": "Source authority, objective alignment, scientific meaning, context scope, version binding, actionable review outcomes and carrying unresolved items to the step that needs them. Runtime sends the full canonical text."
+    },
+    {
+      "name": "PK/PD data requirements",
+      "source": "rules/data/pkpd_method_profiles.json",
+      "status": "DRAFT_PENDING_SCIENTIFIC_REVIEW",
+      "purpose": "MP001-MP009 and MP011 assess only objective-specific input definitions, source evidence, coverage and gaps. MP009 includes conditional PD-target inputs, not target estimation. They do not choose analytical methods or qualify results. MP010 has moved to the deferred PTA reference. Each profile lists data_roles and one condition trigger per conditional input and data check; host code uses them only to decide which conditions of an already selected profile apply to a labelled dataset."
+    },
+    {
+      "name": "Deferred analysis guidance",
+      "source": "rules/data/deferred/pk_analysis_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Preserve prior NCA/animal PK calculation and evaluation content with its original review status and source version. Not loaded by DR/DC; future activation requires the applicable analysis-module review."
+    },
+    {
+      "name": "Deferred translation guidance",
+      "source": "rules/data/deferred/translation_analysis_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Later translation-module review only; not loaded by Data requirements agents."
+    },
+    {
+      "name": "Deferred human simulation guidance",
+      "source": "rules/data/deferred/human_simulation_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Later human PK simulation-module review only; not loaded by Data requirements agents."
+    },
+    {
+      "name": "Deferred binding analysis guidance",
+      "source": "rules/data/deferred/binding_analysis_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Later binding/free-exposure analysis review only; not loaded by Data requirements agents."
+    },
+    {
+      "name": "Deferred IVIVE guidance",
+      "source": "rules/data/deferred/ivive_analysis_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Later IVIVE analysis-module review only; not loaded by Data requirements agents."
+    },
+    {
+      "name": "Deferred PK/PD index guidance",
+      "source": "rules/data/deferred/pkpd_index_analysis_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Later PK/PD index-analysis review only; not loaded by Data requirements agents."
+    },
+    {
+      "name": "Deferred PTA guidance",
+      "source": "rules/data/deferred/pta_analysis_followup.json",
+      "status": "DEFERRED_REFERENCE_NOT_EXECUTION_POLICY",
+      "purpose": "Later PTA handoff and analysis review only; not loaded by Data requirements agents."
+    },
+    {
+      "name": "Project rules",
+      "source": "The current project's published project_rules.json",
+      "status": "PROJECT_SPECIFIC",
+      "purpose": "Authoritative project constraints, such as an approved species minimum or permission for human-source in vitro evidence. These are not stored as general defaults."
+    }
+  ],
+  "profile_review_order": [
+    "MP001 Data requirements for observed peaks and finite-window NCA",
+    "MP002 Data requirements for terminal-dependent NCA endpoints",
+    "MP003 Data requirements for animal CL and Vss",
+    "MP011 Data requirements for urinary excretion and renal clearance",
+    "MP004 Data requirements for animal PK modeling",
+    "MP009 Data requirements for PK/PD indices and PD targets",
+    "MP005 Cross-species data coverage",
+    "MP006 Human PK simulation input definitions",
+    "MP007 Data requirements for binding and unbound exposure",
+    "MP008 Data requirements for in vitro clearance translation"
+  ],
+  "flow": [
+    "DR receives reviewed objective/context, published project rules and the candidate method library",
+    "DR defines explicit versus proposed needs with evidence, conditions and method references",
+    "Each file reviewer receives assigned requirements, selected scientific context and only their linked profiles",
+    "DC-review independently checks applicability and authority, preserving missing endpoints and later-stage gaps",
+    "Data preparation/QC and existing downstream reviews keep their own acceptance boundaries"
+  ],
+  "not_implemented_by_this_change": [
+    "New NCA, modeling, IVIVE or PTA numerical engines",
+    "Automatic publication of project decisions",
+    "Scientific approval of the draft profiles",
+    "Automatic reruns of historical projects"
+  ],
+  "validation_boundary": "Contract, provenance and routing tests do not demonstrate real-model scientific extraction accuracy or predictive validity.",
+  "scope_review": "research_pipeline/docs/review_drafts/data_requirements_scope_review.20261007.json",
+  "assessment_statuses": {
+    "AVAILABLE_CANDIDATE": "Source-backed input availability only; not result acceptance",
+    "UNRESOLVED": "Partially met or uncertain; explain what is available and what remains missing or requires downstream analysis",
+    "MISSING": "Required input not located in the permitted reviewed sources",
+    "DEFERRED": "Documented later-stage input; not a current-stage default blocker"
+  },
+  "project_decisions_record": "rules/data/data_project_decisions.20261007.json",
+  "ui": "General rules and method profiles are available through the allowlisted Rules JSON catalog. Existing server processes require normal reload to expose changed Python routes; no service restart is performed by this change.",
+  "cross_species_review": "research_pipeline/docs/review_drafts/MP005_method_review.20261007.json",
+  "human_simulation_input_review": "research_pipeline/docs/review_drafts/MP006_method_review.20261007.json",
+  "binding_input_review": "research_pipeline/docs/review_drafts/MP007_method_review.20261007.json",
+  "ivive_input_review": "research_pipeline/docs/review_drafts/MP008_method_review.20261007.json",
+  "profile_ordering_policy": "The library presents index data requirements immediately after animal PK data requirements and before translation. IDs stay stable. This is review/context priority, not execution order; PK and index branches remain independently applicable and actual file dependencies still govern execution.",
+  "index_input_review": "research_pipeline/docs/review_drafts/MP009_method_review.20261007.json",
+  "pd_target_input_review": "research_pipeline/docs/review_drafts/PD_target_input_review.20261007.json"
+}

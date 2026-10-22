@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "version": "1.0.0",
+  "status": "AUTHORED_NOT_ACTIVATED",
+  "authority": "PROCESSING_POLICY_NOT_PROJECT_SCIENTIFIC_RULES",
+  "inherits": [
+    "GENERAL",
+    "DC"
+  ],
+  "source_refs": [
+    "GENERAL",
+    "DC",
+    "MP",
+    "PROJECT_RULES",
+    "USER_DECISIONS"
+  ],
+  "kind": "NECESSITY_POLICY",
+  "rules": [
+    {
+      "id": "NEC001",
+      "title": "只判缺口影响，不改事实",
+      "instruction": "保持coverage原始状态、证据和反例。对实际缺口判断它影响哪个具体动作、方法和scope；不能因为输入缺失就删除真正必要条件。REQUIRED 表示在已确认适用范围内必要，CONDITIONAL 表示依原条件触发；已经SUPPORTED的输入不另造重复阻断。",
+      "on_failure": "适用性不明则保留UNRESOLVED及受影响动作；不重写原需求或覆盖事实。",
+      "source_ids": [
+        "GENERAL",
+        "DC",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "NEC002",
+      "title": "按动作和首次依赖时间阻断",
+      "instruction": "每次判定必须说明 current_action、输入首次依赖的 action/stage 和作用范围。只阻断该动作真正依赖且未被证据支持的输入。未来target或模型输出保留生产任务和依赖，不阻断无关的当前输入整理、PK准备或独立分析。",
+      "on_failure": "不能忽略required_by/needed_at，也不能将所有后期要求提前设为当前gate；没有依赖说明则未解决。",
+      "source_ids": [
+        "GENERAL",
+        "MP",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "NEC003",
+      "title": "按原规则处理明确例外",
+      "instruction": "原Rule明文条件/例外存在、适用范围匹配且证据明确时，可按原条款裁定适用或不适用，记录原Rule ID/版本/条款与本地原文证据。只有歧义、冲突或原规则指定human时升级人工。裁定例外不是改写规则，也不因缺失而创造例外。",
+      "on_failure": "不存在明文例外不能豁免REQUIRED；来源范围不明或证据不清时保持依赖决策待定。",
+      "source_ids": [
+        "GENERAL",
+        "PROJECT_RULES",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "NEC004",
+      "title": "分别处理来源、定义、产物与新增数据",
+      "instruction": "处置分别写补查现有来源、补充设计定义、等待有生产任务的前置产物、建议新增数据。只有当前动作确实需要、相关许可来源已查清且不能补齐、又不是待定义或已有前置产物可产生时，才能建议新增数据或实验。建议不授权实验，也不代表输入已满足。",
+      "on_failure": "来源未查清先补查；定义未定先澄清；计划产物按依赖等待，不直接要求新实验。",
+      "source_ids": [
+        "GENERAL",
+        "MP",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "NEC005",
+      "title": "同scope的替代路径",
+      "instruction": "按源证据限定的study/species/matrix/regimen/window/record-level等实际scope评估路线；MODEL_BASED优先，NCA可作替代，该组任一适用路线满足当前动作输入即可保留候选路径，不强求两条全过。不同scope不得互相抵消失败。方法特有条件只影响原适用方法，共同条件通过引用复用。",
+      "on_failure": "仍保存失败路线缺口；多model-based候选不在本层选结构或宣布可识别性。",
+      "source_ids": [
+        "GENERAL",
+        "MP",
+        "USER_DECISIONS"
+      ]
+    },
+    {
+      "id": "NEC006",
+      "title": "输入支持不等于科学批准",
+      "instruction": "输出只说明具体动作的输入支持及缺口，不作模型资格、预测有效性、疗效、target或PTA结论。所有既有到期G008项、全局完整性检查、项目human审查和各阶段gate继续生效，不被候选路线结果关闭。",
+      "on_failure": "不得以单组成功或输入支持清除其它未决项；拟合前原项目human gate保持。",
+      "source_ids": [
+        "GENERAL",
+        "DC",
+        "PROJECT_RULES"
+      ]
+    }
+  ],
+  "decision_contract": {
+    "necessity_values": [
+      "REQUIRED",
+      "CONDITIONAL"
+    ],
+    "applicability_values": [
+      "APPLIES",
+      "NOT_APPLICABLE",
+      "UNRESOLVED"
+    ],
+    "requires_named_action": true,
+    "uses_first_dependency_phase": true,
+    "future_output_blocks_unrelated_action": false,
+    "rewrite_coverage": false,
+    "missing_implies_not_applicable": false,
+    "clear_original_exception_requires_human_automatically": false,
+    "new_data_prerequisites": [
+      "NEEDED_FOR_CURRENT_ACTION",
+      "APPLICABILITY_RESOLVED",
+      "RELEVANT_PERMITTED_SEARCH_COMPLETE",
+      "EXISTING_MATERIAL_CANNOT_SUPPLY",
+      "NO_PENDING_DEFINITION",
+      "NO_PLANNED_OUTPUT_CAN_SUPPLY"
+    ],
+    "new_data_suggestion_authorizes_experiment": false,
+    "animal_pk_preference": [
+      "MODEL_BASED",
+      "NCA"
+    ],
+    "group_satisfaction": "ANY_APPLICABLE_ROUTE",
+    "case_schemas": [
+      "action_case",
+      "exception_case",
+      "new_data_case"
+    ]
+  }
+}

@@ -180,8 +180,8 @@ for item in NODES:
     if item['id'] == 'dispatch':
         item['target']='clinical_dispatch'
         item['execution_adapter']='CONNECTED'
-        item['title']='Task Assignment Agent'
-        item['subtitle']='Assign tasks, data files, applicable rules and branch context'
+        item['title']='Task assignment'
+        item['subtitle']='Route tasks and data; ContextBuilder assembles branch context'
         item['input_contract']=[f('approved effective context + assessment','context','Reviewed objectives, task requirements and project rules',source=['adequacy']),
             f('approved QC + completed EDA','context','Verified source metadata, scoped files and descriptive findings',source=['prepare','eda']),
             f('confirmed_clinical_questions.json','context','Confirmed task definitions and exposure dependencies; unknowns stay explicit')]
