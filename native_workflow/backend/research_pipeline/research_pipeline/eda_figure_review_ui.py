@@ -5,11 +5,19 @@ from .common import read_json
 
 GROUPS = [
  ('Q_PK_SHAPE','PK profiles','Understand the recorded concentration-time shape before PK input qualification.'),
- ('Q_PK_VARIABILITY','PK variability','Check the available replication and observation levels before interpreting variability.'),
  ('Q_PD_EFFECT','PD endpoints','Compare recorded endpoint responses within the displayed study and treatment groups.'),
  ('Q_INDEX','Exposure–response indices','Inspect each source exposure–response panel separately before assessing index-analysis inputs.'),
  ('Q_TIMEKILL','Time-kill','Inspect the recorded time course and its measurement limits before PD input qualification.'),
  ('Q_CONTEXT','Supporting context','Review source-specific MIC, binding, regimen or tissue context for the relevant downstream analysis.')]
+
+
+def category_for(figure):
+    """Presentation grouping only; never rewrite scientific analysis membership."""
+    recipe = figure.get('render_recipe', {})
+    family = recipe.get('display_policy', {}).get('parent_view') or figure['figure_id'].split('__', 1)[0]
+    if family in {'BINDING_ASSAYS', 'MIC_STUDIES', 'MIC_FREQUENCY'}:
+        return 'Q_CONTEXT'
+    return next((q for q, _, _ in GROUPS if q in figure.get('analysis_ids', [])), 'Q_CONTEXT')
 
 CSS='''
 :root{--ink:#173547;--muted:#5f747c;--line:#dbe5e7;--accent:#126b66}*{box-sizing:border-box}
@@ -53,8 +61,7 @@ def render(root, packet, figures):
     routing={r['dataset_id']:r for r in ledger}
     grouped={q:[] for q,_,_ in GROUPS}
     for f in figures:
-        qs=f.get('analysis_ids',[])
-        key=next((q for q,_,_ in GROUPS if q in qs),'Q_CONTEXT')
+        key=category_for(f)
         grouped[key].append(f)
     s=packet['summary']
     from .eda_run_summary import review_state

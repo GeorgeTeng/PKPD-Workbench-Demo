@@ -2,6 +2,10 @@
 
 A local research workbench with two connected workspaces: **Research workflow** and **Knowledge & context**. The English interface reuses the existing pipeline, source contracts, ContextBuilder and knowledge library.
 
+## EDA navigation correction
+
+The [category correction](docs/eda_categories_20261026.md) removes the PK variability navigation category and places its PD endpoints and protein-binding panels in the appropriate sections. All 106 figures and their source data are retained; no scientific rerun occurred.
+
 ## EDA source update — 23 October revision, published 25 October 2026
 
 The [EDA revision and remaining gaps](docs/eda_revision_20261023.md) updates 23 EDA-owned source, test and Rules files in `native_workflow/`. It adds DH-to-v6 intake, source-axis and role safeguards, review-state summaries and provider/R configuration. This is an offline-tested engineering revision; full Context → Data → EDA integration, fresh independent review and human approval remain pending. The demo still stops at Data. No new scientific run, figure regeneration or portable release build is included.

@@ -42,9 +42,10 @@ def build(root, packet, figures, full_html, groups):
             if not urlparse(url).scheme and not url.startswith('#'):url=prefix+url
             return f'{key}="{e(url)}"'
         return re.sub(r'(href|src)="([^"]+)"',link,card)
+    from .eda_figure_review_ui import category_for
     grouped={q:[] for q,_,_ in groups}
     for f in figures:
-        q=next((q for q,_,_ in groups if q in f.get('analysis_ids',[])), 'Q_CONTEXT')
+        q=category_for(f)
         grouped[q].append(f)
     routing=json.loads((root/'dataset_routing.json').read_text(encoding='utf8'))['datasets']
     intro=overview.get('intro','Review the existing figures and recorded limitations before PK and PD input qualification. No model fitting or approval is implied.')
@@ -77,7 +78,16 @@ def build(root, packet, figures, full_html, groups):
             previews.append(f'<img src="{e(src)}" alt="Preview of {e(fid)}" loading="lazy">')
         home+=f'<a class="category" id="{q}" href="sections/{q}/index.html"><span class="badge">{len(fs)} figures</span><h3>{e(label)}</h3><p class="muted">{e(purpose)}</p><div class="thumbs">'+''.join(previews)+f'</div><span class="open">View all {len(fs)} figures →</span></a>'
         category=f'<nav><a href="../../index.html#categories">← All categories</a><a href="../../index.html#handoff">Handoff summary</a><a href="../../index.html#review-notes">Review status</a></nav><div class="eyebrow">EDA figure review</div><h1>{e(label)}</h1><p class="lead">{e(purpose)}</p><p class="muted">{len(fs)} figures · Full-size plots with original explanations · Human review pending</p><div class="toolbar"><input type="search" id="search" aria-label="Search this category" placeholder="Find a strain, dataset or figure…"><span id="count" aria-live="polite">{len(fs)} figures</span></div><p id="empty" hidden>No figures match this search.</p>'
-        category+=''.join(local_links(by_id[f['figure_id']],'../../') for f in fs)
+        binding=[f for f in fs if (f.get('render_recipe',{}).get('display_policy',{}).get('parent_view') or f['figure_id'].split('__',1)[0])=='BINDING_ASSAYS']
+        if q=='Q_CONTEXT' and binding:
+            category+='<h2 id="protein-binding">Protein binding</h2>'
+            category+=''.join(local_links(by_id[f['figure_id']],'../../') for f in binding)
+            remaining=[f for f in fs if f not in binding]
+            if remaining:
+                category+='<h2 id="other-context">MIC and other supporting context</h2>'
+                category+=''.join(local_links(by_id[f['figure_id']],'../../') for f in remaining)
+        else:
+            category+=''.join(local_links(by_id[f['figure_id']],'../../') for f in fs)
         category+='<footer><a href="../../index.html#categories">← Back to all categories</a><p>Existing figures and source rows are unchanged. This page does not record approval or start modeling.</p></footer><script>const cards=[...document.querySelectorAll("[data-figure]")];document.querySelector("#search").addEventListener("input",e=>{let n=0;for(const c of cards){c.hidden=!c.dataset.search.includes(e.target.value.toLowerCase());if(!c.hidden)n++}document.querySelector("#count").textContent=`${n} of ${cards.length} figures`;document.querySelector("#empty").hidden=n!==0});</script>'
         write(folder/'index.html',shell(label,category,'../../'))
         index.append({'id':q,'label':label,'path':f'sections/{q}/index.html','figure_ids':[f['figure_id'] for f in fs]})
@@ -93,4 +103,7 @@ def build(root, packet, figures, full_html, groups):
     page=shell('Handoff summary',home)
     for name in ['index.html','human_review.html']:write(root/name,page)
     write(root/'review_navigation.json',json.dumps({'version':'EDA_TWO_LEVEL_REVIEW_1','packet_sha256':packet['content_sha256'],'figure_count':len(figures),'groups':index,'downloads':False},indent=2))
+    retired=root/'sections/Q_PK_VARIABILITY/index.html'
+    if retired.exists():
+        write(retired,shell('Figures regrouped','<h1>Figures regrouped</h1><p>These figures are now under <a href="../Q_PD_EFFECT/index.html">PD endpoints</a> and <a href="../Q_CONTEXT/index.html#protein-binding">Supporting context / Protein binding</a>.</p><p><a href="../../index.html#categories">All categories</a></p>','../../'))
     return index
