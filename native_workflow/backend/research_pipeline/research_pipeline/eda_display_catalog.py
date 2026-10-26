@@ -156,7 +156,9 @@ def coverage(dispositions,selected,candidates,tables,*,match_report=None):
                 did+": supported fields cannot be dismissed as unavailable renderer")
         output.append({**d,"selected_views":chosen,"offered_views":offered,
             "fields_without_recipe":sorted(relevant_fields(tables[did])-set().union(*(fields(candidates[v],did) for v in offered)))})
+    from .eda_dose_normalization import coverage as dose_coverage
     return dict(status="ALL_DATASETS_ACCOUNTED",datasets=output,
+        dose_normalization_assessment=dose_coverage(selected,candidates,tables),
         recipe_match_report=copy.deepcopy(match_report or []),
         candidate_gaps=[d["dataset_id"] for d in output if d["fields_without_recipe"]],
         graphical_coverage_is_not_scientific_adequacy=True)

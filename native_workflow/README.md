@@ -35,3 +35,7 @@ python -B -m research_pipeline.eda_framework
 This is a source distribution, not a newly validated portable installer. Scientific execution still requires local input qualification, dependencies and explicit gates. Some existing R scripts reference a workstation R-library path; configure your R libraries locally. Optional Pillow produces small review thumbnails; without it, the review uses original image files as previews.
 
 Source-derived real-data examples and the real-data `eda_quality_cases.json` fixture remain local. Tests requiring those resources are not reproducible from this export alone. Synthetic tests and code contracts are included. `native_source_manifest.json` identifies the unmodified upstream files; publication-only additions are documented separately.
+
+## Latest EDA dose assessment
+
+The 25 October [dose-normalization revision](../docs/eda_dose_normalization_20261025.md) adds mandatory applicability accounting, a source-bound C(t)/Dose recipe and UI status. The latest local package has 107 figures in five categories; the earlier 106-figure package described below remains historical.

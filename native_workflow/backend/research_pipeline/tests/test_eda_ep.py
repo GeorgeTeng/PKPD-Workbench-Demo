@@ -12,7 +12,8 @@ from research_pipeline.minimal_context_reducer import expand_payload
 ROOT = Path(__file__).resolve().parents[3]
 INPUTS = ROOT / 'outputs/EDA_ContextBuilder_TEST_20261015/ep_inputs.json'
 MAIN = ROOT / 'outputs/ContextBuilder_Minimal_Fixture_20261015/main.json'
-CATALOG = ROOT / 'backend/research_pipeline/research_pipeline/resources/context_builder/reference_catalogs/eda.20261023.json'
+CATALOG = (ROOT / 'backend/research_pipeline/research_pipeline/resources/context_builder/reference_catalogs'
+           / read_json(eda_context.PACK)['source']['current_reference_catalog']['file'])
 SELECTION = [{'path': ['scientific_reference', 'text'], 'catalog': cb.file_ref(CATALOG),
               'selected': ['01', '02', '03', '06', '08', '11', '15']}]
 

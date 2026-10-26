@@ -250,7 +250,7 @@ def test_current_reference_and_catalog_are_bound_and_historical_bytes_remain():
     path=eda_context.PACK.parent/ref['file'];text=path.read_text(encoding='utf8')
     assert cb.file_ref(path)['sha256']==ref['sha256']
     assert 'Main-figure status band:' not in text and 'Retain BLQ status in a separate strip' not in text
-    catalog=Path(eda_context.__file__).parent/'resources/context_builder/reference_catalogs/eda.20261023.json'
+    catalog=Path(eda_context.__file__).parent/'resources/context_builder/reference_catalogs'/pack['source']['current_reference_catalog']['file']
     assert _validate_catalog(read_json(catalog),text)
     old=read_json(catalog.with_name('eda.20261013.json'));oldref=eda_context.PACK.parent/'eda_scientific_reference.txt'
     # The old catalog was already stale at intake; preserve it and reject it.

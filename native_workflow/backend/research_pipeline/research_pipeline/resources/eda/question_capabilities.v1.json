@@ -3,7 +3,7 @@
   "status": "IMPLEMENTED_EXPLICIT_R_RENDERER",
   "autonomous_EP_adapter": "eda_questions_v6.py",
   "execution": "eda_workflow run-questions -> EP with dataset accounting -> reused EC -> EP-finalize with dataset accounting -> selected R EV; stops at EV by default; explicit --until ER enables downstream review.",
-  "scope": "Descriptive plots of already materialized source records. No extraction, inference, fitting or scientific approval.",
+  "scope": "Descriptive plots of already materialized source records. No extraction, inference, fitting or scientific approval. Explicit source-bound C(t)/Dose arithmetic is supported with an independent operand ledger and unchanged raw data.",
   "selection_policy": "Choose a supported display for the observation question and verified record level. Do not assign a plot simply because columns are numeric. A paper is visual guidance, not permission to borrow its data, fitted curve, uncertainty or assay limit.",
   "rules": "The existing source-bound EDA Rules remain authoritative and unchanged.",
   "shared_constraints": [
@@ -173,6 +173,25 @@
         "T0012_REGIMEN"
       ],
       "references": []
+    },
+    {
+      "kind": "dose_normalized_profile",
+      "purpose": "Compare concentration per documented dose within one verified comparable scope.",
+      "requires": [
+        "Exact source-bound dose contract",
+        "At least two positive doses",
+        "Known dose basis and time/concentration selectors",
+        "No applicable upstream restriction"
+      ],
+      "render": "R calculates C(t)/Dose from retained raw operands; Python independently verifies every value.",
+      "restrictions": [
+        "No inferred dose conversion, AUC, fit or proportionality conclusion",
+        "Retain zero-dose controls unnormalized",
+        "Missing/censored values remain explicit; no imputation"
+      ],
+      "examples": [
+        "PK_MOUSE_SC__DOSE_NORMALIZED"
+      ]
     }
   ],
   "artifacts": [

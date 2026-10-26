@@ -45,6 +45,10 @@ def build(root,inputs,findings,review,bindings=None):
     ledger=routes.build(tables,inputs['eda_plan'].get('dataset_dispositions'),inputs['figure_bundle']['figures'])
     write_json(root/'dataset_routing.json',ledger)
     refs['dataset_routing']=cb.file_ref(root/'dataset_routing.json')
+    dose_report=inputs["figure_bundle"].get("dose_normalization_assessment")
+    if dose_report is not None:
+        write_json(root/"dose_normalization_assessment.json",dose_report)
+        refs["dose_normalization_assessment"]=cb.file_ref(root/"dose_normalization_assessment.json")
     figures=inputs["figure_bundle"]["figures"]
     for f in figures:
         refs["image:"+f["figure_id"]]=f["image_ref"]

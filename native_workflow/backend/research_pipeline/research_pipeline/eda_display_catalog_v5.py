@@ -6,7 +6,9 @@ def render(out,specs,tables,bindings,rscript,legacy_handler,references):
     """One EV dispatch for selected views; no post-hoc supplemental planning."""
     from . import eda_plot_policy
     eda_plot_policy.validate(specs,tables)
-    old=[s for s in specs if s["kind"]!="source_projection"]
+    from . import eda_dose_normalization as dn
+    derived=[s for s in specs if s["kind"]==dn.KIND]
+    old=[s for s in specs if s["kind"] not in {"source_projection",dn.KIND}]
     new=[s for s in specs if s["kind"]=="source_projection"]
     artifacts=[]
     def execute(handler,path):
@@ -28,6 +30,8 @@ def render(out,specs,tables,bindings,rscript,legacy_handler,references):
             write_json(out/a["audit"],dict(segments=[],excluded_x=excluded,
                 source_status_unchanged=True,scientific_release=False))
         artifacts.extend(new_artifacts)
+    if derived:
+        artifacts.extend(dn.render(out,derived,tables,rscript))
     write_json(out/"manifest.json",dict(version="QUESTION_DISPLAYS_2",artifacts=artifacts,scientific_release=False,model_calls=0))
 
 

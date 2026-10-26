@@ -20,6 +20,8 @@ def resolve(dispositions, selected, candidates, tables, *, match_report=None):
         d['unshown_columns'] = expected
     # Keep every existing status, scientific reason and executability check.
     verified = catalog.coverage(result, selected, candidates, tables, match_report=match_report)
+    from .eda_dose_normalization import coverage as dose_coverage
+    verified["dose_normalization_assessment"] = dose_coverage(selected,candidates,tables)
     return result, {'version':'EDA_HOST_FIELD_ACCOUNTING_1','method':'display_fields minus selected source_fields',
                     'model_discrepancies':differences,'data_modified':False,
                     'scientific_decisions_modified':False,'verified_coverage':verified}

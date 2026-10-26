@@ -19,6 +19,7 @@ from . import eda_display_catalog_v5 as display_catalog
 from . import eda_display_catalog as base_display_catalog
 from . import eda_pk_scales, eda_axis_scales, eda_plot_policy, eda_quality_checks_v3 as quality
 from . import eda_dataset_routes as dataset_routes
+from . import eda_dose_normalization as dose_normalization
 
 HERE=Path(legacy.__file__).resolve().parent
 CAPABILITIES=HERE/'resources/eda/question_capabilities.v1.json'
@@ -186,6 +187,8 @@ def intake(inputs_path,completed_run,catalog_path):
     views['match_report']=match_report
     candidates=quality.prepare(candidates,tables)
     candidates=eda_axis_scales.prepare(candidates,tables)
+    candidates=dose_normalization.augment(candidates,tables)
+    views['dose_assessment']=dose_normalization.assess(candidates,tables)
     eda_plot_policy.validate(list(candidates.values()),tables)
     bindings={'input':cb.file_ref(inputs_path),**completed_bindings,'catalog':cb.file_ref(catalog_path),
         'dh_adapter_code':cb.file_ref(Path(__file__).with_name('eda_dh_adapter.py')),
@@ -199,6 +202,9 @@ def intake(inputs_path,completed_run,catalog_path):
         'plot_style':cb.file_ref(PROJECT/'pkpd_r/eda/plot_style.R'),
         'study_annotations_code':cb.file_ref(HERE/'eda_study_annotations.py'),
         'study_annotations_binding':cb.file_ref(HERE/'resources/eda/study_annotations.v1.json'),
+        'dose_normalization_code':cb.file_ref(dose_normalization.__file__),
+        'dose_normalization_registry':cb.file_ref(dose_normalization.REGISTRY),
+        'dose_normalization_renderer':cb.file_ref(dose_normalization.HANDLER),
         'pk_scale_policy':cb.file_ref(eda_pk_scales.__file__),
         'axis_scale_policy':cb.file_ref(eda_axis_scales.__file__),
         'verified_axis_scales':cb.file_ref(eda_axis_scales.CONFIG),
@@ -221,13 +227,15 @@ def question_context(inputs,tables,candidates,caps,match_report=None):
       'axis_scale_contract':eda_axis_scales.POLICY,
       'dataset_display_inventory':display_catalog.inventory(tables,candidates),
       'recipe_match_report':copy.deepcopy(match_report or []),
+      'dose_normalization_policy':dose_normalization.POLICY,
+      'dose_normalization_assessment':dose_normalization.assess(candidates,tables),
       'pk_scale_policy':eda_pk_scales.POLICY,
       'pk_scale_requirements':eda_pk_scales.requirements(candidates,tables),
       'presentation_policy':eda_plot_policy.POLICY_TEXT,
       'dataset_handoff_contract':dataset_routes.INSTRUCTION,
       'three_quality_checks':quality.INSTRUCTION,
       'coverage_contract':'Return dataset_dispositions for every admitted dataset exactly once in EP and EP-finalize. DISPLAYED requires a selected view; CONTEXT_ONLY requires a scoped reason; NEEDS_CAPABILITY must identify a genuinely unavailable representation. The host computes unshown_columns exactly from each dataset display_fields minus selected source_fields. Do not generate field-difference lists. The host does not rewrite your scientific reasons or roles. On unchanged EC, mandatory primary PK views already validated in EP cannot be silently dropped: the host retains those exact parent selections and discloses each retention to EI/ER. A DISPLAYED dataset with a missing view link retains its unique validated parent view on unchanged EC. Source dataset references are derived from selected views. Unshown fields remain explicit for EI/ER; a rendered figure does not prove complete data coverage.',
-      'completed_ec_reuse':'Source records are already materialized and verified, from the declared completed EC or DH source snapshot. No new calculations requested; reuse exact records.',
+      'completed_ec_reuse':'Source records are already materialized and verified, from the declared completed EC or DH source snapshot. Raw records remain unchanged. Explicit dose_normalized_profile candidates execute the registered C(t)/Dose formula in R with a separate operand/provenance ledger; all other views reuse exact records.',
       'evidence_use':'Use all relevant admitted data in reasoning. A candidate display catalog is not the entire evidence scope. Tables without a supported figure remain visible with notes. Do not claim a missing candidate is missing data.',
       'review_output':'EI: give one concise evidence-based answer per priority question and its next-modeling implication; use only individually enumerated view IDs or dataset IDs as artifact_refs (no ID ranges). For visual_support.status OBSERVED, both figure_ids and record_scope must be nonempty, including dataset-level or contextual findings. Select exact record_id values supporting the stated feature in the cited plotted rows; never invent IDs, ranges or automatically expand a dataset into all rows. A metadata-only limitation may use NON_GRAPHICAL with record_scope [] and must not claim a visual observation. NOT_ASSESSED must state the unassessed scope. Put factual metadata, source limitations and descriptive qualifications in observation or downstream_implication. Leave interpretation_if_useful empty unless proposing an explanatory hypothesis; every nonempty interpretation requires a nonempty alternative_if_interpretation giving a plausible competing explanation. CANDIDATES anomaly assessment requires exact record_ids and possible_explanations; otherwise use a scoped NONE_IDENTIFIED_IN_REVIEWED_SCOPE or NOT_ASSESSED status. Distinguish rendered views from retained tables. ER: review question coverage, scientific semantics and record/image anchors. Inspect images marked image_supplied_to_model; mark any genuinely uninspected scope explicitly.',
       'imperfect_data':'Each question needs a concise modeling_preparation recommendation: supported usable scope, best defensible next action and rationale, conditional alternatives and essential clarifications. EI reassesses that recommendation from actual outputs; ER checks that it preserves useful evidence without inventing readiness or executing unapproved transformations. A limitation on one analysis must not automatically block all analyses. No blanket exclusion or automatic request for new data.',
@@ -265,6 +273,7 @@ def validate_questions(analyses,candidates,tables,dispositions=None):
     optional={d['dataset_id'] for d in (dispositions or []) if d.get('handoff',{}).get('role')=='SUPPLEMENTARY' and d.get('handoff',{}).get('purpose','').strip()}
     eda_pk_scales.validate(selected,candidates,tables,optional_datasets=optional)
     eda_axis_scales.validate(selected,candidates,tables)
+    dose_normalization.coverage(selected,candidates,tables)
     return selected
 
 def verify_render(out,specs,tables):
@@ -275,6 +284,9 @@ def verify_render(out,specs,tables):
     for a in manifest['artifacts']:
         rows=read_json(out/a['data']);audit=read_json(out/a['audit']);spec=by_id[a['id']]
         require(a['panels']==1,'non-standalone rendered figure')
+        if spec['kind']==dose_normalization.KIND:
+            count+=dose_normalization.verify(out,a,spec,tables)
+            continue
         if spec['kind']=='source_projection':
             count+=display_catalog.verify_projection(out,a,spec,tables)
             continue
@@ -521,6 +533,7 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
         'Data_reextracted':False,'EC_reexecuted':False,'automatic_retries':0,'bindings':bindings}
     write_json(root/'status.json',state);write_json(root/'source_tables.json',list(tables.values()))
     write_json(root/'recipe_match_report.json',catalog.get('match_report',[]))
+    write_json(root/'dose_normalization_assessment.json',catalog['dose_assessment'])
     base=question_context(inputs,tables,candidates,caps,catalog.get('match_report'))
     started=time.perf_counter()
     try:
@@ -538,7 +551,9 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
                 'provenance_ref':bindings.get('completed_ec_receipt',bindings.get('source_snapshot')),
                 'source_mode':'DH_SOURCE_SNAPSHOT' if 'source_snapshot' in bindings else 'COMPLETED_EC_REUSE',
                 'checks':['Exact admitted Data source records and metadata verified; no statistics computed.'],
-                'not_calculable':['No new statistics requested; source-native rendering only.'],'reexecuted':False}
+                'not_calculable':['No new AUC, fitted endpoints or inferential statistics.'],
+                'derived_display_operations':[dict(view_id=v,formula='C(t)/Dose',execution='PENDING_REGISTERED_R_RENDER',source_records_changed=False) for v in selected if candidates[v]['kind']==dose_normalization.KIND],
+                'reexecuted':False}
             write_json(root/'EC_reuse.json',ec)
             finalinputs={**copy.deepcopy(base),'eda_plan':plan,'calculation_bundle':copy.deepcopy(ec)}
             finalinputs['calculation_bundle']['source_evidence']=base['data_handoff']['admitted_evidence']
@@ -554,6 +569,8 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
             coverage=display_catalog.coverage(final.get('dataset_dispositions'),selected,candidates,tables,match_report=catalog.get('match_report'))
             write_json(root/'dataset_routing.json',dataset_routes.build(list(tables.values()),final.get('dataset_dispositions')))
             write_json(root/'EP_FINALIZE/coverage.json',coverage)
+            dose_report=dose_normalization.coverage(selected,candidates,tables)
+            write_json(root/'dose_normalization_assessment.json',dose_report)
             specs=[copy.deepcopy(candidates[i]) for i in selected]
             ev=root/'EV';ev.mkdir()
             renderplan={'version':'QUESTION_DISPLAYS_1','input_ref':bindings['completed_ec_result'],
@@ -566,6 +583,9 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
             checks=verify_render(ev,specs,tables);checks['R_seconds']=time.perf_counter()-rstart
             write_json(root/'verification.json',checks)
             manifest=read_json(ev/'manifest.json')
+            for group in dose_report['groups']:
+                if group['status']=='READY':group['execution_status']='RENDERED_AND_ARITHMETIC_VERIFIED'
+            write_json(root/'dose_normalization_assessment.json',dose_report)
             figures={'version':'QUESTION_FIGURES_1','plan_ref':cb.file_ref(root/'EP_FINALIZE/resolved_output.json'),
                 'calculation_ref':cb.file_ref(root/'EC_reuse.json'),'technical_checks':checks,'omissions':[],
                 'figures':[{'figure_id':a['id'],'analysis_ids':[q['analysis_id'] for q in final['task_decisions'] if any(v['view_id']==a['id'] for v in q['views'])],
@@ -576,6 +596,8 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
                     'render_facts':a['render_facts'],'semantic_audit':quality_audit['figures'][a['id']]['semantic_audit'],
                     'image_ref':cb.file_ref(ev/a['png']),'image_supplied_to_model':False} for a in manifest['artifacts']],
                 'tables':{'all_sources_retained':True,'host_file':cb.file_ref(root/'source_tables.json')}}
+            figures['dose_normalization_assessment']=dose_report
+            figures['dose_calculation_ref']=cb.file_ref(ev/'dose_normalization_request.json') if any(s['kind']==dose_normalization.KIND for s in specs) else None
             figures['dataset_display_coverage']=coverage
             write_json(root/'figure_bundle.json',figures)
             if until=='EV':

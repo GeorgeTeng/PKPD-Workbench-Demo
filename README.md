@@ -262,3 +262,7 @@ The lightweight Data demo now sends source-focused Label requests and defers mod
 For a source checkout, create a Python 3.12 virtual environment, install `requirements-demo.txt`, and install `backend/context_compression` and `backend/research_pipeline` in editable mode. Their imports must be available to isolated Python workers. Then run `python -I -B app.py` from this folder. `runtime_dependencies.json` records all versions in the Windows portable runtime.
 
 The server binds only to `127.0.0.1`. Use a private repository for these project materials. Existing source-document and dependency licenses remain applicable; this package does not assign new rights to third-party literature. Portable dependencies retain their packaged license metadata.
+
+## EDA update — 25 October 2026
+
+The native snapshot now enforces dose-normalization applicability and records unmet drawing requirements. See [changes and verification boundaries](docs/eda_dose_normalization_20261025.md). The local review contains 107 figures; research data and images remain local.
