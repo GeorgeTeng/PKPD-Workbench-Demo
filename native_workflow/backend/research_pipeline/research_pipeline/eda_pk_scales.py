@@ -35,6 +35,10 @@ def entries(spec, tables):
         is_pk = spec["kind"] == "summary_profile" or t.get("analysis_id") in {
             "A_PK_SOURCE_CURVES", "A_DIGITIZED_PK_CURVES"
         } or t.get("metadata", {}).get("role") in {"PK", "ANIMAL_PK"}
+        if t.get('metadata',{}).get('observation_role') is False:
+            is_pk = False  # A verified context/supplementary role is not observations.
+        if t.get('metadata',{}).get('role_resolution') == 'UNRESOLVED':
+            is_pk = False
         columns = {c["id"]: c for c in t["columns"]}
         x, y = columns.get(s.get("x")), columns.get(s["y"])
         if not (is_pk and x and y and x["meaning"] == "TIME"

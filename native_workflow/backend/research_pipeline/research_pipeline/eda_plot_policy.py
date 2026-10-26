@@ -197,17 +197,46 @@ def _selectors(spec):
     if spec['kind']=='source_projection':return spec['source_recipe']['series']
     return spec['panels'][0].get('series',[spec['panels'][0]])
 
+def time_axis_role(column):
+    """A TIME meaning alone does not distinguish a design interval from sampling."""
+    declared = str(column.get('time_role', column.get('role', ''))).upper()
+    header = column.get('header', '')
+    if declared in {'DOSING_INTERVAL', 'DOSE_INTERVAL', 'REGIMEN_INTERVAL'} or re.search(r'\b(?:dose|dosing|regimen)\s+interval\b|^interval\b', header, re.I):
+        return 'INTERVAL'
+    if declared == 'DIGITIZED_TIME' or re.search(r'pixel|digitiz', header, re.I): return 'DIGITIZED'
+    if declared == 'NOMINAL_TIME' or re.search(r'\bnominal\b', header, re.I): return 'NOMINAL'
+    return 'TIME'
+
+
 def _axis(spec,tables):
     selectors=[s for s in _selectors(spec) if s.get('x')]
-    time_columns=[next((c for c in tables[s['dataset_id']]['columns'] if c['id']==s['x'] and c.get('meaning')=='TIME'),None) for s in selectors]
-    if selectors and all(time_columns):
-        units={c['unit'] for c in time_columns}
-        if len(units)!=1:raise ValueError('EDA display: mixed time units must use independent figures')
+    columns=[next((c for c in tables[s['dataset_id']]['columns'] if c['id']==s['x'] and c.get('meaning')=='TIME'),None) for s in selectors]
+    if not selectors or not all(columns): return
+    units={c['unit'] for c in columns}
+    if len(units)!=1: raise ValueError('EDA display: mixed time units must use independent figures')
+    roles={time_axis_role(c) for c in columns}
+    if 'INTERVAL' in roles:
+        if len(roles)!=1: raise ValueError('EDA display: dosing intervals and sampling time require independent figures')
+        headers={c['header'] for c in columns}
+        label=next(iter(headers)) if len(headers)==1 else 'Interval'
+        spec['x_label']=label if re.search(r'\('+re.escape(next(iter(units)))+r'\)',label) else label+' ('+next(iter(units))+')'
+        return
+    else:
         checks=spec.get('display_policy',{}).get('time_decisions',[])
+        matched=[d for s in selectors for d in checks if s['dataset_id']==d['dataset_id']]
         label='Time'
-        if checks and all(s['x']==d['primary'] and d['basis']=='PAPER_SAMPLING_TIMES' for s in selectors for d in checks if s['dataset_id']==d['dataset_id']):label='Nominal sampling time'
-        elif all(re.search(r'pixel|digitiz',c['header'],re.I) for c in time_columns):label='Digitized time'
-        spec['x_label']=label+' ('+next(iter(units))+')'
+        if matched and all(s['x']==d['primary'] and d['basis']=='PAPER_SAMPLING_TIMES' for s in selectors for d in matched if s['dataset_id']==d['dataset_id']): label='Nominal sampling time'
+        elif roles=={'DIGITIZED'}: label='Digitized time'
+        elif roles=={'NOMINAL'}: label='Nominal sampling time'
+        # Preserve an explicitly sourced origin; never invent an after-dose origin.
+        origins={str(c.get('time_origin','')).strip() for c in columns}
+        headers={c['header'] for c in columns}
+        if len(headers)==1 and re.search(r'\b(?:after|since|relative to)\b',next(iter(headers)),re.I):
+            label=next(iter(headers));unit=next(iter(units))
+            spec['x_label']=label if re.search(r'\('+re.escape(unit)+r'\)',label) else label+' ('+unit+')'; return
+        if len(origins)==1 and next(iter(origins)) not in {'','NOT_FOUND','UNKNOWN','UNRESOLVED'}:
+            label+=' relative to '+next(iter(origins))
+    spec['x_label']=label+' ('+next(iter(units))+')'
 
 
 def axis_detail_policy(spec,tables):
@@ -218,7 +247,7 @@ def axis_detail_policy(spec,tables):
     for selector in _selectors(spec):
         cols={c['id']:c for c in tables[selector['dataset_id']]['columns']}
         x=cols.get(selector.get('x'))
-        if x and x.get('meaning')=='TIME':units.add(x.get('unit',''))
+        if x and x.get('meaning')=='TIME' and time_axis_role(x)!='INTERVAL':units.add(x.get('unit',''))
         elif selector.get('x_from_header'):units.add(selector.get('x_header_unit','h'))
         else:return {'enabled':False}
     result={'enabled':len(units)==1,'time_unit':next(iter(units)) if len(units)==1 else ''}

@@ -13,6 +13,8 @@ CSS = '''
 
 def build(root, packet, figures, full_html, groups):
     root = Path(root)
+    from .eda_run_summary import review_state
+    current = review_state(root)
     e = lambda x: html.escape(str(x), quote=True)
     write = lambda p, x: p.write_text(x, encoding='utf8')
     cards = re.findall(r'<article class="figure"\s.*?</article>', full_html, re.S)
@@ -80,6 +82,7 @@ def build(root, packet, figures, full_html, groups):
         write(folder/'index.html',shell(label,category,'../../'))
         index.append({'id':q,'label':label,'path':f'sections/{q}/index.html','figure_ids':[f['figure_id'] for f in fs]})
     home+='</div><section class="panel" id="review-notes"><h2>Review status & next step</h2>'
+    home+='<p class="notice"><b>'+e(current['status'])+'</b><br>'+e(current['next_step'])+'</p>'
     if (root/'issue_dispositions.json').exists():
         home+='<p>The original ER returned <b>REVISE</b>. Corrections and follow-up checks are recorded separately; there has been no new independent ER of this revised package.</p><div class="links"><a href="issue_dispositions.json">Recorded corrections</a><a href="independent_review.json">Original ER record</a></div>'
     else:home+=f'<p>Independent review: <b>{e(packet["review_decision"])}</b>. Human confirmation remains pending.</p>'

@@ -42,6 +42,12 @@ def build(tables, dispositions, figures=()):
             raise ValueError('EDA routing: pending_checks must be explicit strings')
         did = d['dataset_id']; t = by_id[did]
         aid = t.get('analysis_id')
+        metadata=t.get('metadata',{})
+        if h['role']=='OBSERVATIONS' and (metadata.get('observation_role') is False or metadata.get('role_resolution')=='UNRESOLVED'):
+            raise ValueError('EDA routing: contextual or unresolved Data role cannot become model observations: '+did)
+        data_destination=metadata.get('role') if metadata.get('observation_role') is True else None
+        if data_destination in {'PK','PD'} and data_destination not in destinations:
+            raise ValueError('EDA routing: destination contradicts verified Data role: '+did)
         expected = ('PK' if aid in {'A_PK_SOURCE_CURVES', 'A_DIGITIZED_PK_CURVES'} else
                     'PD' if aid in {'A_PD_ENDPOINTS', 'A_INDEX_RESPONSE_PANELS',
                     'A_IN_VITRO_TIME_KILL', 'A_IN_VITRO_REPORTED_SUMMARY'} else None)

@@ -1,6 +1,13 @@
 # Deterministic rendering of audited source-native projections. No model or EC call.
 args <- commandArgs(trailingOnly=TRUE)
-.libPaths(c("C:/Users/georg/Documents/Codex/ScienceEnv/R-library",.libPaths()))
+task_library <- Sys.getenv('PKPD_R_LIB', '')
+if (nzchar(task_library)) {
+  if (!dir.exists(task_library)) stop(paste('PKPD_R_LIB directory does not exist:', task_library))
+  .libPaths(c(task_library, .libPaths()))
+}
+for (task_package in c('ggplot2', 'jsonlite')) {
+  if (!requireNamespace(task_package, quietly=TRUE)) stop(paste('EDA requires R package', task_package, '; set PKPD_R_LIB or install in a standard R library. Searched:', paste(.libPaths(), collapse='; ')))
+}
 suppressPackageStartupMessages(library(ggplot2))
 library(jsonlite)
 plan <- fromJSON(args[1],simplifyVector=FALSE)

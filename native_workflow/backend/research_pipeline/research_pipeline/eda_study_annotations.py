@@ -66,7 +66,7 @@ def source_presentation(spec,tables):
         if 'Polymyxin B 1 mg/kg IV over 1 minute' in notes and '1 mg/kg IV |' in title:
             title=title.replace('1 mg/kg IV |','1 mg/kg IV over 1 min |')
             out['title']=title;r['title']=title
-        if cols.get(sel.get('x'),{}).get('unit')=='h' and re.fullmatch(r'Interval \(h\)',r.get('x_label','')):
+        if cols.get(sel.get('x'),{}).get('unit')=='h' and re.fullmatch(r'(?:Dose |Dosing )?Interval \(h\)',r.get('x_label',''),re.I):
             r['x_label_format']='REGIMEN_Q_HOURS'
         if cols.get(sel.get('y'),{}).get('meaning')=='MIC':r['y_tick_policy']='MIC_DOUBLING'
     return binding_annotations(out,tables)

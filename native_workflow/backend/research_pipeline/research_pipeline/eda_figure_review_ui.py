@@ -57,6 +57,8 @@ def render(root, packet, figures):
         key=next((q for q,_,_ in GROUPS if q in qs),'Q_CONTEXT')
         grouped[key].append(f)
     s=packet['summary']
+    from .eda_run_summary import review_state
+    current=review_state(root)
     factpath=root/'review_claim_fact_check.json';notepath=root/'post_run_review_notes.json'
     contradictions=set()
     if factpath.exists():
@@ -76,7 +78,7 @@ def render(root, packet, figures):
     parts+=['<a href="#review-notes">Review notes</a><a href="#handoff">Handoff</a></nav><p class="small muted">Every figure is shown at full column width.<br><br>Reviewing this page does not approve or start modeling.</p></aside><main id="main"><header><span class="badge">Human review · Pending</span><h1>Review the figures.</h1><p class="muted">Start with the plots. Each has a short purpose, reading guide and limitation. Original captions and source details are available below each figure.</p>',
         f'<div class="state">{len(figures)} existing figures · {len(ledger)} datasets · ER: <b>{e(packet["review_decision"])}</b>. ']
     if contradictions:parts.append(f'{len(contradictions)} of the {len(s["issues"])} raw review flags are contradicted by follow-up evidence checks. ')
-    parts+=['<a href="#review-notes">See review notes</a>. Human approval remains pending.</div></header><div class="toolbar"><input id="search" type="search" placeholder="Find a strain, dataset or figure…" aria-label="Search figures"><select id="group-filter" aria-label="Figure group"><option value="all">All figures</option>']
+    parts+=[e(current['status'])+'. '+e(current['next_step'])+' <a href="#review-notes">See review notes</a>.</div></header><div class="toolbar"><input id="search" type="search" placeholder="Find a strain, dataset or figure…" aria-label="Search figures"><select id="group-filter" aria-label="Figure group"><option value="all">All figures</option>']
     for q,label,_ in GROUPS:
         if grouped[q]:parts.append(f'<option value="{q}">{e(label)}</option>')
     parts+=['</select><button id="reset">Show all</button></div>',f'<p id="count" class="small muted" aria-live="polite">{len(figures)} of {len(figures)} figures shown</p><p id="empty" hidden>No figures match. Choose Show all to reset.</p>']
@@ -113,6 +115,6 @@ def render(root, packet, figures):
     parts.append('</div></details></section><section id="handoff"><details class="box"><summary>Handoff summary & remaining limitations</summary>')
     for finding in s['findings']:
         parts.append('<p>'+e(finding['observation'])+'</p><p class="muted">'+e(finding['downstream_implication'])+'</p>')
-    parts.append('<ul>'+''.join('<li>'+e(x)+'</li>' for x in s['limitations']+s['open_items'])+'</ul></details><div class="box"><h2>Human review, then PK / PD</h2><p>All meaningful figures require your review. PK and PD packages remain blocked pending explicit confirmation; input qualification follows approval.</p><div class="links"><a href="human_review.json">Review packet</a><a href="branch_drafts.json">Branch drafts</a><a href="human_decision.template.json">Pending decision template</a></div></div></section><footer>Existing images and data reused unchanged. Figure explanations are deterministic display guidance, not new model conclusions.<details><summary>Packet identity</summary><p>'+e(packet['content_sha256'])+'</p></details></footer></main></div><script>'+JS+'</script></body></html>')
+    parts.append('<ul>'+''.join('<li>'+e(x)+'</li>' for x in s['limitations']+s['open_items'])+'</ul></details><div class="box"><h2>Human review, then PK / PD</h2><p>'+e(current['next_step'])+'</p><div class="links"><a href="human_review.json">Review packet</a><a href="branch_drafts.json">Branch drafts</a><a href="human_decision.template.json">Pending decision template</a></div></div></section><footer>Existing images and data reused unchanged. Figure explanations are deterministic display guidance, not new model conclusions.<details><summary>Packet identity</summary><p>'+e(packet['content_sha256'])+'</p></details></footer></main></div><script>'+JS+'</script></body></html>')
     from .eda_review_portal import build as build_portal
     build_portal(root, packet, figures, ''.join(parts), GROUPS)

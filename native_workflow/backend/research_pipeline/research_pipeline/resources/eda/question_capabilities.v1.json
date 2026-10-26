@@ -1,18 +1,18 @@
 {
   "version": "QUESTION_DISPLAYS_2",
   "status": "IMPLEMENTED_EXPLICIT_R_RENDERER",
-  "autonomous_EP_adapter": "eda_questions.py",
+  "autonomous_EP_adapter": "eda_questions_v6.py",
   "execution": "eda_workflow run-questions -> EP with dataset accounting -> reused EC -> EP-finalize with dataset accounting -> selected R EV; stops at EV by default; explicit --until ER enables downstream review.",
   "scope": "Descriptive plots of already materialized source records. No extraction, inference, fitting or scientific approval.",
   "selection_policy": "Choose a supported display for the observation question and verified record level. Do not assign a plot simply because columns are numeric. A paper is visual guidance, not permission to borrow its data, fitted curve, uncertainty or assay limit.",
   "rules": "The existing source-bound EDA Rules remain authoritative and unchanged.",
   "shared_constraints": [
     "Retain species, matrix, analyte basis, dose/route, source time origin, record level, status and source cells.",
-    "For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and a separate status strip; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Unresolved alternative time columns stay separately labeled. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model.",
+    "For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and concise per-figure status notes; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Retain alternative time columns in provenance; only an applicable source conflict or explicit request permits a diagnostic. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model.",
     "Missing and censored responses are not numerical observations. Preserve them in the companion ledger and break connected guides at these rows.",
     "Straight connections are descriptive guides, never fitted predictions or demonstrated individual trajectories.",
     "Error bars require supplied, corresponding uncertainty values and a known definition. SD, SEM and confidence intervals are not interchangeable.",
-    "Keep unresolved time axes in separate labeled views; do not snap digitized times or reconcile source conflicts.",
+    "Use one evidenced main time axis; alternate diagnostics require an applicable conflict or explicit request; do not snap digitized times or reconcile source conflicts.",
     "Keep source tables for unsupported displays and describe the exact limitation. Never invent geometry to avoid a table.",
     "Paper captions and methods were inspected; original paper image pixels were not used as a visual validation reference."
   ],
@@ -93,7 +93,7 @@
         "Observation-event role is identified",
         "Unique corresponding concentration event per source ID"
       ],
-      "render": "geom_point + segmented geom_line; separate status strip for non-plotted responses",
+      "render": "geom_point + segmented geom_line; per-figure status notes for non-plotted responses",
       "restrictions": [
         "No inferred replicate IDs",
         "No model curves",
@@ -154,9 +154,10 @@
       "purpose": "Registered source-native PK column views, separate-matrix reported intervals, binding assays, static time-kill summaries, categorical baselines, MIC values/bounds and regimen design.",
       "requires": [
         "A registered recipe matching source title, column semantics and source-note signature",
-        "Source fields, status and uncertainty definition validated before EP selection"
+        "Source fields, status and uncertainty definition validated before EP selection",
+        "DH source points may use a unique explicitly declared time/response pair, verified Data role and descriptive permission; no lines, identity inference or uncertainty calculation."
       ],
-      "render": "R points, supplied SD bars, categorical panels, explicit MIC threshold markers, optional semilog and a separate non-observation status strip.",
+      "render": "R points, supplied SD bars, categorical panels, explicit MIC threshold markers, optional semilog and per-figure non-observation status notes.",
       "restrictions": [
         "No longitudinal joins from source column labels",
         "No review-status promotion from display parsing",
@@ -189,5 +190,5 @@
   ],
   "reference_catalog": "plot_plan.json: references",
   "coverage_policy": "All admitted datasets and potential display fields are accounted for in EP and post-EC EP. Missing recipe support is explicit. An omission fails before rendering; no extra repair agent or backward loop.",
-  "pk_scale_policy": "For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and a separate status strip; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Unresolved alternative time columns stay separately labeled. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model."
+  "pk_scale_policy": "For admitted animal PK concentration-time evidence, plan linear and semilog views by default: absolute profile/peak/sampling on linear axes and relative decline/low concentrations on log10 axes. Reuse the same source observations and verified grouping. Zeros, BLQ and missing values do not cancel a usable semilog view: preserve them in source records and concise per-figure status notes; never add offsets, substitute a limit or bridge unsupported observations. If no positive concentration with a supported numeric time exists, document the semilog exception and retain the supported linear/table view. Retain alternative time columns in provenance; only an applicable source conflict or explicit request permits a diagnostic. This default does not apply to categorical endpoints, MIC, dosing designs, in-vitro response or already-log CFU. A straight segment does not establish a terminal phase or model."
 }

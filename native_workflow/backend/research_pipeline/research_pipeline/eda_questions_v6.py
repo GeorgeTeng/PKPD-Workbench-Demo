@@ -128,24 +128,46 @@ def candidate_datasets(spec):
 
 def intake(inputs_path,completed_run,catalog_path):
     inputs,catalog,sources,source_refs=legacy.load_inputs(inputs_path)
-    run=Path(completed_run)
-    receipt=read_json(run/'EC.receipt.json');cb.check_refs(receipt['outputs'])
-    calculation=read_json(run/'EC/calculation_bundle.json')
-    cb.check_refs({'result':calculation['result'],'request':calculation['request']})
-    result=read_json(calculation['result']['path'])
-    require(result.get('computed_statistics') is False,'this reuse adapter requires source-preserving EC')
-    tables={}
-    for task in result['tasks']:
-        did=task['dataset_id']
-        require(did in sources and task['records']==sources[did]['records'],'EC differs from admitted Data: '+did)
-        if did in tables:require(tables[did]['records']==task['records'],'duplicate task differs')
-        tables[did]=task
-    require(set(tables)==set(sources),'completed EC does not cover current admitted scope')
+    from .eda_dh_adapter import bind_tree
+    for f in inputs['data_handoff']['files']:
+        bind_tree(legacy.verified(f['metadata_file']),source_refs)
     views=read_json(catalog_path)
-    # The catalog maps the same exact observations previously inspected, not arbitrary file contents.
-    cb.check_refs({'catalog_source':views['input_ref']})
-    old=read_json(views['input_ref']['path'])
-    require(all(t['records']==tables[t['dataset_id']]['records'] for t in old['tasks']),'candidate source changed')
+    from .eda_dh_adapter import VERSION as SNAPSHOT_VERSION, project_tables
+    if views.get('version')==SNAPSHOT_VERSION:
+        require(completed_run is None,'DH snapshot must not impersonate a completed EC')
+        cb.check_refs({'snapshot':views['input_ref']})
+        result=read_json(views['input_ref']['path'])
+        require(result.get('version')==SNAPSHOT_VERSION and result.get('computed_statistics') is False,'invalid descriptive snapshot')
+        cb.check_refs(result['bindings'])
+        expected=project_tables(catalog,sources,{f['id']:f for f in inputs['data_handoff']['files']})
+        require(result['tasks']==expected,'snapshot differs from admitted Data semantics or records')
+        tables={t['dataset_id']:t for t in result['tasks']}
+        completed_bindings={'completed_ec_result':views['input_ref'],'source_snapshot':views['input_ref'],**result['bindings']}
+    else:
+        run=Path(completed_run)
+        receipt=read_json(run/'EC.receipt.json');cb.check_refs(receipt['outputs'])
+        calculation=read_json(run/'EC/calculation_bundle.json')
+        cb.check_refs({'result':calculation['result'],'request':calculation['request']})
+        result=read_json(calculation['result']['path'])
+        require(result.get('computed_statistics') is False,'this reuse adapter requires source-preserving EC')
+        tables={}
+        for task in result['tasks']:
+            did=task['dataset_id']
+            require(did in sources and task['records']==sources[did]['records'],'EC differs from admitted Data: '+did)
+            if did in tables:require(tables[did]['records']==task['records'],'duplicate task differs')
+            tables[did]=copy.deepcopy(task)
+        require(set(tables)==set(sources),'completed EC does not cover current admitted scope')
+        cb.check_refs({'catalog_source':views['input_ref']})
+        old=read_json(views['input_ref']['path'])
+        require(all(t['records']==tables[t['dataset_id']]['records'] for t in old['tasks']),'candidate source changed')
+        # Add Data role/column metadata on projection, without changing source records.
+        projected={t['dataset_id']:t for t in project_tables(catalog,sources,{f['id']:f for f in inputs['data_handoff']['files']})}
+        for did,t in tables.items():
+            t['metadata']=projected[did]['metadata']
+            for col in t['columns']:
+                matched=next(c for c in projected[did]['columns'] if c['id']==col['id'])
+                col.update({k:matched[k] for k in ('role','time_role','time_origin') if k in matched})
+        completed_bindings={'completed_ec_receipt':cb.file_ref(run/'EC.receipt.json'),'completed_ec_result':calculation['result']}
     caps=read_json(CAPABILITIES);kinds={x['kind'] for x in caps['templates']}
     candidates={v['id']:v for v in views['plots']}
     require(len(candidates)==len(views['plots']),'duplicate candidate ID')
@@ -159,12 +181,15 @@ def intake(inputs_path,completed_run,catalog_path):
                 for k in ('x','y','group','facet','error','n','baseline','unit_column','group_column'):
                     if s.get(k):require(s[k] in columns,'unknown candidate column '+k)
                 if 'value_columns' in s:require(set(s['value_columns'])<=columns,'unknown response columns')
-    candidates=eda_plot_policy.finalize(eda_pk_scales.defaults(eda_plot_policy.normalize(display_catalog.augment(candidates,tables),tables),tables))
+    match_report=[]
+    candidates=eda_plot_policy.finalize(eda_pk_scales.defaults(eda_plot_policy.normalize(display_catalog.augment(candidates,tables,match_report=match_report),tables),tables))
+    views['match_report']=match_report
     candidates=quality.prepare(candidates,tables)
     candidates=eda_axis_scales.prepare(candidates,tables)
     eda_plot_policy.validate(list(candidates.values()),tables)
-    bindings={'input':cb.file_ref(inputs_path),'completed_ec_receipt':cb.file_ref(run/'EC.receipt.json'),
-        'completed_ec_result':calculation['result'],'catalog':cb.file_ref(catalog_path),
+    bindings={'input':cb.file_ref(inputs_path),**completed_bindings,'catalog':cb.file_ref(catalog_path),
+        'dh_adapter_code':cb.file_ref(Path(__file__).with_name('eda_dh_adapter.py')),
+        'rules':cb.file_ref(eda_context.PACK),
         'review_context_code':cb.file_ref(Path(__file__).with_name('eda_review_context.py')),
         'review_batches_code':cb.file_ref(Path(__file__).with_name('eda_review_batches.py')),
         'plan_accounting_code':cb.file_ref(Path(__file__).with_name('eda_plan_accounting.py')),
@@ -183,7 +208,7 @@ def intake(inputs_path,completed_run,catalog_path):
         'source_projection_code':cb.file_ref(Path(base_display_catalog.__file__).with_name('eda_source_views.py'))}
     return inputs,tables,candidates,views,caps,bindings,source_refs
 
-def question_context(inputs,tables,candidates,caps):
+def question_context(inputs,tables,candidates,caps,match_report=None):
     tc=copy.deepcopy(inputs['task_context'])
     tc.pop('plot_method_library',None);tc.pop('analysis_method_library',None)
     tc['implemented_r_operations']=caps['templates']
@@ -195,13 +220,14 @@ def question_context(inputs,tables,candidates,caps):
       'candidate_views':[{**display_catalog.brief(v),'dataset_ids':candidate_datasets(v),'axis_scales':v['axis_scales']} for v in candidates.values()],
       'axis_scale_contract':eda_axis_scales.POLICY,
       'dataset_display_inventory':display_catalog.inventory(tables,candidates),
+      'recipe_match_report':copy.deepcopy(match_report or []),
       'pk_scale_policy':eda_pk_scales.POLICY,
       'pk_scale_requirements':eda_pk_scales.requirements(candidates,tables),
       'presentation_policy':eda_plot_policy.POLICY_TEXT,
       'dataset_handoff_contract':dataset_routes.INSTRUCTION,
       'three_quality_checks':quality.INSTRUCTION,
       'coverage_contract':'Return dataset_dispositions for every admitted dataset exactly once in EP and EP-finalize. DISPLAYED requires a selected view; CONTEXT_ONLY requires a scoped reason; NEEDS_CAPABILITY must identify a genuinely unavailable representation. The host computes unshown_columns exactly from each dataset display_fields minus selected source_fields. Do not generate field-difference lists. The host does not rewrite your scientific reasons or roles. On unchanged EC, mandatory primary PK views already validated in EP cannot be silently dropped: the host retains those exact parent selections and discloses each retention to EI/ER. A DISPLAYED dataset with a missing view link retains its unique validated parent view on unchanged EC. Source dataset references are derived from selected views. Unshown fields remain explicit for EI/ER; a rendered figure does not prove complete data coverage.',
-      'completed_ec_reuse':'Source-preserving EC already completed and verified. No new calculations requested; reuse exact results.',
+      'completed_ec_reuse':'Source records are already materialized and verified, from the declared completed EC or DH source snapshot. No new calculations requested; reuse exact records.',
       'evidence_use':'Use all relevant admitted data in reasoning. A candidate display catalog is not the entire evidence scope. Tables without a supported figure remain visible with notes. Do not claim a missing candidate is missing data.',
       'review_output':'EI: give one concise evidence-based answer per priority question and its next-modeling implication; use only individually enumerated view IDs or dataset IDs as artifact_refs (no ID ranges). For visual_support.status OBSERVED, both figure_ids and record_scope must be nonempty, including dataset-level or contextual findings. Select exact record_id values supporting the stated feature in the cited plotted rows; never invent IDs, ranges or automatically expand a dataset into all rows. A metadata-only limitation may use NON_GRAPHICAL with record_scope [] and must not claim a visual observation. NOT_ASSESSED must state the unassessed scope. Put factual metadata, source limitations and descriptive qualifications in observation or downstream_implication. Leave interpretation_if_useful empty unless proposing an explanatory hypothesis; every nonempty interpretation requires a nonempty alternative_if_interpretation giving a plausible competing explanation. CANDIDATES anomaly assessment requires exact record_ids and possible_explanations; otherwise use a scoped NONE_IDENTIFIED_IN_REVIEWED_SCOPE or NOT_ASSESSED status. Distinguish rendered views from retained tables. ER: review question coverage, scientific semantics and record/image anchors. Inspect images marked image_supplied_to_model; mark any genuinely uninspected scope explicitly.',
       'imperfect_data':'Each question needs a concise modeling_preparation recommendation: supported usable scope, best defensible next action and rationale, conditional alternatives and essential clarifications. EI reassesses that recommendation from actual outputs; ER checks that it preserves useful evidence without inventing readiness or executing unapproved transformations. A limitation on one analysis must not automatically block all analyses. No blanket exclusion or automatic request for new data.',
@@ -218,7 +244,7 @@ def question_context(inputs,tables,candidates,caps):
         if not (isinstance(v,dict) and set(v)=={'path','sha256'})} for f in handoff['files']]
     handoff['host_file_bindings']='Original Data file locations and SHA-256 bindings are retained and verified by the host in the bound input artifact; Working rows and cells are supplied below; confirmed redundant pixel-time fields are omitted with a working_view note. Original source records remain bound for verification.'
     working=eda_plot_policy.working_tables(tables)
-    handoff['admitted_evidence']=[{k:copy.deepcopy(t[k]) for k in ('dataset_id','title','experimental_unit','columns','notes','records','working_view') if k in t} for t in working.values()]
+    handoff['admitted_evidence']=[{k:copy.deepcopy(t[k]) for k in ('dataset_id','title','experimental_unit','columns','notes','records','metadata','working_view') if k in t} for t in working.values()]
     return {'task_context':tc,'data_handoff':handoff}
 
 def validate_questions(analyses,candidates,tables,dispositions=None):
@@ -491,10 +517,11 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
     inputs_path=eda_inheritance.prepare(inputs_path,root/'admitted_inputs',inheritance_scope)
     inputs,tables,candidates,catalog,caps,bindings,source_refs=intake(inputs_path,completed_run,catalog_path)
     write_json(root/'presentation_policy_audit.json',eda_plot_policy.audit(candidates,tables))
-    state={'status':'RUNNING','model':model or 'gpt-6-luna','mode':'QUESTION_DRIVEN_2','scientific_release':False,
+    state={'status':'RUNNING','model':providers.provider_model(model),'provider':providers.model_provider(),'mode':'QUESTION_DRIVEN_2','scientific_release':False,'fit_ready':False,'human_approval':False,
         'Data_reextracted':False,'EC_reexecuted':False,'automatic_retries':0,'bindings':bindings}
     write_json(root/'status.json',state);write_json(root/'source_tables.json',list(tables.values()))
-    base=question_context(inputs,tables,candidates,caps)
+    write_json(root/'recipe_match_report.json',catalog.get('match_report',[]))
+    base=question_context(inputs,tables,candidates,caps,catalog.get('match_report'))
     started=time.perf_counter()
     try:
         with LinearSession(root/'model_calls',bindings).activate():
@@ -502,13 +529,15 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
             selected=validate_questions(plan['analyses'],candidates,tables,plan.get('dataset_dispositions'))
             dataset_routes.build(list(tables.values()),plan.get('dataset_dispositions'))
             from . import eda_coverage_accounting as accounting
-            plan['dataset_dispositions'],field_audit=accounting.resolve(plan['dataset_dispositions'],selected,candidates,tables)
+            plan['dataset_dispositions'],field_audit=accounting.resolve(plan['dataset_dispositions'],selected,candidates,tables,match_report=catalog.get('match_report'))
             write_json(root/'EP/field_accounting.json',field_audit)
             write_json(root/'EP/resolved_output.json',plan)
-            write_json(root/'EP/coverage.json',display_catalog.coverage(plan.get('dataset_dispositions'),selected,candidates,tables))
+            write_json(root/'EP/coverage.json',display_catalog.coverage(plan.get('dataset_dispositions'),selected,candidates,tables,match_report=catalog.get('match_report')))
             ec={'version':'QUESTION_EC_REUSE_1','plan_ref':cb.file_ref(root/'EP/resolved_output.json'),
                 'input_refs':bindings,'results_ref':bindings['completed_ec_result'],
-                'provenance_ref':bindings['completed_ec_receipt'],'checks':['Existing EC rows match current admitted Data exactly.'],
+                'provenance_ref':bindings.get('completed_ec_receipt',bindings.get('source_snapshot')),
+                'source_mode':'DH_SOURCE_SNAPSHOT' if 'source_snapshot' in bindings else 'COMPLETED_EC_REUSE',
+                'checks':['Exact admitted Data source records and metadata verified; no statistics computed.'],
                 'not_calculable':['No new statistics requested; source-native rendering only.'],'reexecuted':False}
             write_json(root/'EC_reuse.json',ec)
             finalinputs={**copy.deepcopy(base),'eda_plan':plan,'calculation_bundle':copy.deepcopy(ec)}
@@ -519,10 +548,10 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
             final,plan_audit=eda_plan_accounting.resolve(plan,final,candidates,tables,ec_reexecuted=ec['reexecuted'])
             write_json(root/'EP_FINALIZE/plan_accounting.json',plan_audit)
             selected=validate_questions(final['task_decisions'],candidates,tables,final.get('dataset_dispositions'))
-            final['dataset_dispositions'],field_audit=accounting.resolve(final['dataset_dispositions'],selected,candidates,tables)
+            final['dataset_dispositions'],field_audit=accounting.resolve(final['dataset_dispositions'],selected,candidates,tables,match_report=catalog.get('match_report'))
             write_json(root/'EP_FINALIZE/field_accounting.json',field_audit)
             write_json(root/'EP_FINALIZE/resolved_output.json',final)
-            coverage=display_catalog.coverage(final.get('dataset_dispositions'),selected,candidates,tables)
+            coverage=display_catalog.coverage(final.get('dataset_dispositions'),selected,candidates,tables,match_report=catalog.get('match_report'))
             write_json(root/'dataset_routing.json',dataset_routes.build(list(tables.values()),final.get('dataset_dispositions')))
             write_json(root/'EP_FINALIZE/coverage.json',coverage)
             specs=[copy.deepcopy(candidates[i]) for i in selected]
@@ -587,3 +616,6 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
         state.update(status='FAILED',error=str(exc),elapsed_seconds=time.perf_counter()-started)
         write_json(root/'status.json',state)
         raise
+    finally:
+        from .eda_run_summary import export
+        export(root)

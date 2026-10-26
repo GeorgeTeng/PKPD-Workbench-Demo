@@ -1,5 +1,7 @@
 # Native PK/PD workflow — source snapshot, 22 October 2026
 
+EDA-only revision: the exact 23 October 2026 files are published on 25 October over this 22 October base. See [changes, offline validation and unresolved integration](../docs/eda_revision_20261023.md). All other modules retain the published base version. The historical base remains available at commit `2b50eeb0db2f8c8930a236699c9d5a76427e290c`; this source update does not regenerate or approve any historical review packet.
+
 This directory preserves the current native Compression, Data, EDA, ContextBuilder, Rules and downstream handoff implementation. It is separate from the repository-root demonstration application, whose lightweight Data behavior and disabled downstream execution remain unchanged.
 
 ## Latest EDA presentation

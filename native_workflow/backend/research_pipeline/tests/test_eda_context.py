@@ -134,11 +134,11 @@ def test_linear_order_and_no_repeat(tmp_path, monkeypatch):
                 providers.codex_generate(eda.prepare(call, inputs, schema)['request'])
 
 
-def test_scaffold_runtime_stays_disabled():
+def test_native_runtime_is_distinct_from_disabled_scaffold():
     checked = check_framework()
     assert checked['model_calls_run'] == 0
     assert checked['eda_enabled'] is False
-    assert checked['runtime_implemented'] is False
+    assert checked['runtime_implemented'] is True
 
 
 def test_planner_registry_and_schema_required():

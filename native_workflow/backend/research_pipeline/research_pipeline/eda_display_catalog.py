@@ -22,18 +22,25 @@ def sources(spec):
     return sorted({s["dataset_id"] for p in spec["panels"] for s in p.get("series",[p])})
 
 
-def augment(candidates,tables):
+def augment(candidates,tables,*,match_report=None):
     """Match source semantics, not T-number alone. New records use the same selectors."""
     result=copy.deepcopy(candidates)
     for registered in read_json(RECIPES)["recipes"]:
-        mapping={}
+        mapping={}; dependencies=[]
         for original,signature in registered["sources"].items():
             matches=[did for did,t in tables.items() if t["title"]==signature["title"]
                 and [{k:c[k] for k in ("id","header","unit","meaning")} for c in t["columns"]]==signature["columns"]
                 and hashlib.sha256(t["notes"].encode()).hexdigest()==signature["notes_sha256"]]
-            if len(matches)!=1:break
-            mapping[original]=matches[0]
-        if len(mapping)!=len(registered["sources"]):continue
+            dependencies.append({'source_id':original,'matched_dataset_ids':matches,
+                'status':'MATCHED' if len(matches)==1 else 'MISSING' if not matches else 'AMBIGUOUS',
+                'required_fields':['title','columns.id','columns.header','columns.unit','columns.meaning','notes_sha256']})
+            if len(matches)==1:mapping[original]=matches[0]
+        applied=len(mapping)==len(registered['sources']) and len(set(mapping.values()))==len(mapping)
+        if match_report is not None:
+            match_report.append({'recipe_id':registered['id'],'status':'MATCHED' if applied else 'NOT_APPLIED',
+                'mapping':mapping,'dependencies':dependencies,
+                'reason':'' if applied else 'Requires one unique source for every full title/column/notes signature; no guessed mapping.'})
+        if not applied:continue
         recipe=copy.deepcopy(registered)
         for s in recipe["series"]:
             original=s["dataset_id"];actual=mapping[original];s["dataset_id"]=actual
@@ -127,7 +134,7 @@ def brief(spec):
     return out
 
 
-def coverage(dispositions,selected,candidates,tables):
+def coverage(dispositions,selected,candidates,tables,*,match_report=None):
     require(isinstance(dispositions,list),"dataset_dispositions required")
     ids=[d["dataset_id"] for d in dispositions]
     require(len(ids)==len(set(ids)) and set(ids)==set(tables),"every admitted dataset must be accounted for exactly once")
@@ -150,6 +157,7 @@ def coverage(dispositions,selected,candidates,tables):
         output.append({**d,"selected_views":chosen,"offered_views":offered,
             "fields_without_recipe":sorted(relevant_fields(tables[did])-set().union(*(fields(candidates[v],did) for v in offered)))})
     return dict(status="ALL_DATASETS_ACCOUNTED",datasets=output,
+        recipe_match_report=copy.deepcopy(match_report or []),
         candidate_gaps=[d["dataset_id"] for d in output if d["fields_without_recipe"]],
         graphical_coverage_is_not_scientific_adequacy=True)
 

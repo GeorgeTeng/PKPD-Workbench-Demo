@@ -2,6 +2,10 @@
 
 A local research workbench with two connected workspaces: **Research workflow** and **Knowledge & context**. The English interface reuses the existing pipeline, source contracts, ContextBuilder and knowledge library.
 
+## EDA source update — 23 October revision, published 25 October 2026
+
+The [EDA revision and remaining gaps](docs/eda_revision_20261023.md) updates 23 EDA-owned source, test and Rules files in `native_workflow/`. It adds DH-to-v6 intake, source-axis and role safeguards, review-state summaries and provider/R configuration. This is an offline-tested engineering revision; full Context → Data → EDA integration, fresh independent review and human approval remain pending. The demo still stops at Data. No new scientific run, figure regeneration or portable release build is included.
+
 ## Source update — 22 October 2026
 
 The [native workflow snapshot](native_workflow/README.md) now includes the latest Compression/Data/EDA context assembly, Rules and two-level human review UI. It is separate from this demo executable. The [version decision](docs/version_selection_20261022.md) retains ContextBuilder 2.1 and RAG v2.0 as the baseline; [revision14 components](research/contextbuilder_v14/README.md) are an inactive research reference. No research images or detailed data are included in this update.

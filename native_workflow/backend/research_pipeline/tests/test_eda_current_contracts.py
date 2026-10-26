@@ -1,7 +1,7 @@
 import copy
 import pytest
 from jsonschema import Draft202012Validator,ValidationError
-from research_pipeline import eda_questions_v3 as q,eda_questions as old
+from research_pipeline import eda_questions_v6 as q,eda_questions as old
 from research_pipeline import eda_inheritance as inheritance
 from research_pipeline.common import read_json,write_json
 from research_pipeline import context_builder as cb
@@ -11,20 +11,21 @@ def finding():
     return dict(finding_id='context',analysis_ids=[x[0] for x in q.QUESTIONS],artifact_refs=['V'],
         record_scope=[],observation='Separate source panels.',interpretation_if_useful='',
         alternative_if_interpretation='',downstream_implication='Do not pool studies.',
-        visual_support=dict(status='OBSERVED',figure_ids=['V'],features='Separate panels.',limitations=[]),
+        visual_support=dict(status='OBSERVED',figure_ids=['V'],features='Separate panels.',limitations=[],element_claims=[]),
         anomaly_assessment=dict(status='NOT_ASSESSED',record_ids=[],observation='Not assessed.',
             possible_explanations=[],recommended_action='Review.',affected_analysis='Q_CONTEXT',data_changed=False))
 
 def payload(f):
-    return dict(version='QUESTION_FINDINGS_3',input_refs=['V'],findings=[f],limitations=[],open_items=[])
+    return dict(version='QUESTION_FINDINGS_3',input_refs=['V'],findings=[f],limitations=[],open_items=[],figure_checks=[dict(figure_id='V',inspection='NOT_ASSESSED',note='Contract fixture only.')])
 
 TABLES={'D':{'records':[{'record_id':'R'}], 'columns':[{'id':'y','meaning':'RESPONSE'},{'id':'time','meaning':'TIME'}]}}
 
 def test_original_schema_reproduces_missing_anchor_conflict():
     value=payload(finding())
-    Draft202012Validator(old.findings_schema(TABLES,['V'])).validate(value)
+    legacy_value=copy.deepcopy(value);legacy_value.pop('figure_checks');legacy_value['findings'][0]['visual_support'].pop('element_claims')
+    Draft202012Validator(old.findings_schema(TABLES,['V'])).validate(legacy_value)
     with pytest.raises(ValueError,match='record anchors'):
-        old.validate_findings(value,[x[0] for x in q.QUESTIONS],['V'],TABLES)
+        old.validate_findings(legacy_value,[x[0] for x in q.QUESTIONS],['V'],TABLES)
     with pytest.raises(ValidationError):
         Draft202012Validator(q.findings_schema(TABLES,['V'])).validate(value)
 
@@ -41,13 +42,16 @@ def test_conditional_record_anchors_in_host_and_wire(status,records,figures,vali
             with pytest.raises(ValidationError):Draft202012Validator(schema).validate(value)
     if valid:q.validate_findings(value,[x[0] for x in q.QUESTIONS],['V'],TABLES)
 
-def test_unshown_fields_exclude_time_and_prose():
+def test_unshown_fields_are_host_accounted_in_current_contract():
     schema=q.disposition_schema(TABLES)
-    d=dict(dataset_id='D',status='CONTEXT_ONLY',reason='Retained source.',unshown_columns=['y'])
+    d=dict(dataset_id='D',status='CONTEXT_ONLY',reason='Retained source context with no displayed observations.',
+        handoff=dict(destinations=['PK'],role='CONTEXT',purpose='Source context.',pending_checks=[]))
     Draft202012Validator(schema).validate([d])
-    for bad in ['time','y: unavailable']:
-        d['unshown_columns']=[bad]
-        with pytest.raises(ValidationError):Draft202012Validator(schema).validate([d])
+    # v6 derives exact field differences on the host rather than asking models.
+    assert 'unshown_columns' not in schema['items']['properties']
+    from research_pipeline import eda_coverage_accounting
+    resolved,audit=eda_coverage_accounting.resolve([d],[],{},TABLES)
+    assert resolved[0]['unshown_columns']==['y']
 
 @pytest.mark.parametrize('interpretation,alternative,valid',[
     ('','',True),('Hypothesis','',False),('Hypothesis','   ',False),

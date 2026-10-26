@@ -55,6 +55,12 @@ def _contract(call_id):
             'eda_prompt_manifest': cb.file_ref(PROMPTS / 'manifest.json'),
             'eda_context_adapter': cb.file_ref(__file__)}
     pack = read_json(PACK)
+    current_catalog = pack['source'].get('current_reference_catalog')
+    if current_catalog:
+        path = Path(__file__).parent/'resources/context_builder/reference_catalogs'/current_catalog['file']
+        refs['eda_reference_catalog'] = cb.file_ref(path)
+        if refs['eda_reference_catalog']['sha256'] != current_catalog['sha256']:
+            cb.fail('EDA reference catalog changed from its bound snapshot')
     manifest = read_json(PROMPTS / 'manifest.json')['stages']['eda']
     prompt_path = PROMPTS / manifest['file']
     refs['eda_prompt'] = cb.file_ref(prompt_path)
