@@ -1,20 +1,27 @@
-# Native PK/PD workflow — source snapshot, 22 October 2026
+# Native PK/PD workflow — source snapshot with EDA revisions through 25 October 2026
 
-EDA-only revision: the exact 23 October 2026 files are published on 25 October over this 22 October base. See [changes, offline validation and unresolved integration](../docs/eda_revision_20261023.md). All other modules retain the published base version. The historical base remains available at commit `2b50eeb0db2f8c8930a236699c9d5a76427e290c`; this source update does not regenerate or approve any historical review packet.
+This directory retains the 22 October base with subsequent EDA source and presentation revisions. The historical base is available at commit `2b50eeb0db2f8c8930a236699c9d5a76427e290c`; current files and hashes are recorded in `native_source_manifest.json`. Source publication does not regenerate or approve historical evidence packets.
 
 This directory preserves the current native Compression, Data, EDA, ContextBuilder, Rules and downstream handoff implementation. It is separate from the repository-root demonstration application, whose lightweight Data behavior and disabled downstream execution remain unchanged.
 
-## Latest EDA presentation
+## EDA implementation and review
+
+See the main [EDA guide](../README.md#exploratory-data-analysis-eda) for EP/EC/EV/EI/ER responsibilities, figure categories, dose-normalization decisions and current verification limits. The source revision combines the [23 October intake safeguards](../docs/eda_revision_20261023.md), [category correction](../docs/eda_categories_20261026.md) and [25 October dose-normalization implementation](../docs/eda_dose_normalization_20261025.md).
 
 `eda_figure_review_ui.render` delegates to `eda_review_portal.build`:
 
-- Home: readable handoff summary, remaining limitations, category previews.
-- Category pages: every full-size figure in that category, identifiers, explanations, source links and search.
-- No ZIP/download interface. No data processing, plotting or model call is triggered by page generation.
-- `review_overview.json`, when provided, must match the current packet digest. Full original findings remain accessible.
-- Existing Rules, source rows, censoring, source conflicts and approval gates remain authoritative.
+- Home: handoff summary, review status, category previews, explicit dose-normalization assessments and an audit link when that audit is supplied.
+- Category pages: full-size figures, identifiers, captions, source details and search. Protein binding appears under Supporting context.
+- `review_overview.json`, when supplied, must match the current packet digest. Original findings and unresolved restrictions remain accessible.
+- Page generation does not run calculations, plotting, models or approval. Derived figures require the registered rendering and verification path.
 
-The local review package contained 58 datasets and 106 figures in six categories. Its data, images, individual model requests/responses and original documents are **not included** in this code publication. Generate a review from your own qualified local handoff; the repository does not contain a transferable approval.
+The latest local package has **58 source tables and 107 figures in five categories**: 75 PK profiles, 11 PD endpoints, 6 exposure–response index panels, 5 time-kill panels and 10 supporting-context panels. It includes the mouse SC five-dose `C(t)/Dose` supplement. The former 106-figure package remains historical.
+
+The implementation requires eligible source-bound dose-normalized views and records reasons when they cannot be drawn. It preserves raw values, dose basis, units, source restrictions and explicit metadata gaps. Unknown datasets require verified dose/comparison metadata; source compatibility is not inferred automatically.
+
+The [verification record](../validation/eda_dose_release_20261025/checks.json) documents 182 passing publication tests, one deselected real-R test and the separately verified local R supplement. The [15-section coverage summary](../validation/eda_dose_release_20261025/scientific_coverage_summary.json) retains outstanding source and matching limitations. Full current Context → Data → EDA acceptance and independent/Human approval remain pending.
+
+Research data, images, model requests/responses and original documents are **not included** in this source publication. Generate review pages from your own qualified local handoff; the repository does not contain a transferable approval.
 
 ## Context and retrieval selection
 
@@ -35,7 +42,3 @@ python -B -m research_pipeline.eda_framework
 This is a source distribution, not a newly validated portable installer. Scientific execution still requires local input qualification, dependencies and explicit gates. Some existing R scripts reference a workstation R-library path; configure your R libraries locally. Optional Pillow produces small review thumbnails; without it, the review uses original image files as previews.
 
 Source-derived real-data examples and the real-data `eda_quality_cases.json` fixture remain local. Tests requiring those resources are not reproducible from this export alone. Synthetic tests and code contracts are included. `native_source_manifest.json` identifies the unmodified upstream files; publication-only additions are documented separately.
-
-## Latest EDA dose assessment
-
-The 25 October [dose-normalization revision](../docs/eda_dose_normalization_20261025.md) adds mandatory applicability accounting, a source-bound C(t)/Dose recipe and UI status. The latest local package has 107 figures in five categories; the earlier 106-figure package described below remains historical.

@@ -2,13 +2,9 @@
 
 A local research workbench with two connected workspaces: **Research workflow** and **Knowledge & context**. The English interface reuses the existing pipeline, source contracts, ContextBuilder and knowledge library.
 
-## EDA navigation correction
+## Current EDA implementation
 
-The [category correction](docs/eda_categories_20261026.md) removes the PK variability navigation category and places its PD endpoints and protein-binding panels in the appropriate sections. All 106 figures and their source data are retained; no scientific rerun occurred.
-
-## EDA source update — 23 October revision, published 25 October 2026
-
-The [EDA revision and remaining gaps](docs/eda_revision_20261023.md) updates 23 EDA-owned source, test and Rules files in `native_workflow/`. It adds DH-to-v6 intake, source-axis and role safeguards, review-state summaries and provider/R configuration. This is an offline-tested engineering revision; full Context → Data → EDA integration, fresh independent review and human approval remain pending. The demo still stops at Data. No new scientific run, figure regeneration or portable release build is included.
+The native EDA source includes mandatory dose-normalization assessment, source-preserving plots, scientific-coverage accounting and a searchable review interface. See [Exploratory data analysis (EDA)](#exploratory-data-analysis-eda) for the workflow, available figures and validation boundaries.
 
 ## Source update — 22 October 2026
 
@@ -46,6 +42,61 @@ Live Context, key-Rules and Data model calls have no default execution timeout. 
 6. In the separate **Knowledge & context** workspace, browse knowledge cards and read the RAG and ContextBuilder explanations. These two pages have no manual retrieval, assembly, parameter or result controls.
 
 The API reports actual capabilities at `/workspace-api/capabilities`. Backend operations without a connected implementation are shown as planned, recorded or unavailable. Knowledge curation and card approval are inspectable workflow descriptions, not executable actions in this distribution.
+
+## Exploratory data analysis (EDA)
+
+EDA organizes the qualified animal PK and preclinical PD observations before model selection and fitting. It helps reviewers understand concentration-time shape, dose scaling, response patterns and the limits of the available evidence. The implementation is in [native_workflow](native_workflow/README.md); the repository-root demo stops at Data and shows recorded EDA previews.
+
+### Workflow and outputs
+
+The native pipeline accepts a qualified Data handoff with source references, units, observation roles and unresolved findings. It then follows these stages, subject to the existing input and review gates:
+
+| Stage | Responsibility | Reviewable output |
+| --- | --- | --- |
+| EP — plan and finalize | Select supported displays and account for each dataset and required comparison | EDA plan, coverage decisions and explicit omissions |
+| EC — descriptive calculations or verified source reuse | Preserve source records; perform only the permitted descriptive operations | Source references and calculation records |
+| EV — visualization | Render registered displays, including eligible dose-normalized profiles; check plotted values and provenance | Figures, plotted rows and technical checks |
+| EI — interpretation | Describe observations and their limits for downstream analysis | Descriptive findings and unresolved questions |
+| ER and Human review | Review the exact evidence version before releasing scoped modeling inputs | Independent review, bound review packet and Human decision |
+
+This describes the native workflow contract. It does not claim that the complete current Context → Data → EDA route has passed end-to-end acceptance. The recent dose-normalization supplement has no new model-based ER or Human approval.
+
+### Figures and review interface
+
+The latest local review package contains **58 source tables and 107 figures**, organized into five searchable categories:
+
+| Category | Figures | Main purpose |
+| --- | ---: | --- |
+| PK profiles | 75 | Inspect concentration-time shape, sampling windows and dose scaling within the displayed species, route and matrix |
+| PD endpoints | 11 | Compare recorded endpoint responses within their experimental groups |
+| Exposure–response indices | 6 | Inspect source-reported exposure-index/response pairs with their matching limitations |
+| Time-kill | 5 | Inspect longitudinal bacterial responses and measurement limits |
+| Supporting context | 10 | Review MIC, protein binding, regimen and other source context |
+
+The home page summarizes the handoff, review status, dose-normalization decisions and available scientific-coverage audit. Category pages provide full-size figures, search, captions and source details. Protein-binding panels appear under Supporting context. Species, administration routes and biological matrices retain their source-specific scope; page grouping does not authorize pooling or infer PK–PD correspondence.
+
+These counts describe the local evidence package. Research images, complete source tables and model payloads are not distributed in this repository. The code generates review pages from a qualified local handoff; downloading the source does not supply the 107-figure package.
+
+### Dose normalization and missing-figure accounting
+
+For comparable multi-dose PK data, `C(t)/Dose` removes the dose multiplier so profile shapes and relative concentrations can be compared. Approximate overlap is consistent with dose-proportional profiles; systematic separation flags questions for later modeling. The plot alone neither proves nonlinearity nor identifies its mechanism.
+
+EDA now records an explicit normalization assessment for concentration-bearing datasets:
+
+- An eligible source-bound multi-dose comparison must include its normalized display; omission fails coverage validation.
+- Single-dose scopes, source restrictions and missing dose/comparison metadata receive explicit reasons instead of silently disappearing.
+- Raw concentrations, times, dose basis, units and source locations are retained. Python independently verifies the R-derived values.
+- New or changed datasets require verified comparison metadata. The current contracts do not automatically infer arbitrary cross-study compatibility.
+
+The local supplement adds mouse SC plasma profiles at 2, 4, 8, 16 and 32 mg/kg: **39 normalized points**, while retaining all 106 previous figures. Two IT groups remain blocked by source restrictions. A [15-section scientific coverage audit](validation/eda_dose_release_20261025/scientific_coverage_summary.json) also records incomplete PK–PD correspondence and conditional displays lacking suitable time series or defined exposure windows. This audit checks source/recipe coverage; it is not a fresh visual review of every historical figure.
+
+### Verification and current limits
+
+The [published source verification](validation/eda_dose_release_20261025/checks.json) records **182 passing offline tests and one deselected real-R test**. Separately, the local supplement was rendered with R and all 39 normalized values were checked. The full regression uses historical fixtures intentionally excluded from the public source export.
+
+Technical checks do not grant scientific acceptance. Independent review of the new supplement and Human approval remain pending; `fit_ready=false` and `scientific_release=false`. No PK fitting, human prediction or new portable installer is included in this EDA update.
+
+Further detail: [dose-normalization revision](docs/eda_dose_normalization_20261025.md), [Data-to-EDA safeguards](docs/eda_revision_20261023.md), and [review category correction](docs/eda_categories_20261026.md).
 
 ## What Data requirements mean
 
@@ -262,7 +313,3 @@ The lightweight Data demo now sends source-focused Label requests and defers mod
 For a source checkout, create a Python 3.12 virtual environment, install `requirements-demo.txt`, and install `backend/context_compression` and `backend/research_pipeline` in editable mode. Their imports must be available to isolated Python workers. Then run `python -I -B app.py` from this folder. `runtime_dependencies.json` records all versions in the Windows portable runtime.
 
 The server binds only to `127.0.0.1`. Use a private repository for these project materials. Existing source-document and dependency licenses remain applicable; this package does not assign new rights to third-party literature. Portable dependencies retain their packaged license metadata.
-
-## EDA update — 25 October 2026
-
-The native snapshot now enforces dose-normalization applicability and records unmet drawing requirements. See [changes and verification boundaries](docs/eda_dose_normalization_20261025.md). The local review contains 107 figures; research data and images remain local.
