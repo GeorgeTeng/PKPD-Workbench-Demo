@@ -1,0 +1,40 @@
+# Open or run the absorption EDA
+
+## Read the saved PMB report
+
+Extract the portable PMB report ZIP into `eda/report/`. On Windows, double-click **Open_EDA.cmd**. On any computer, open `eda/report/absorption/index.html` in a browser. Keep the extracted folders together so the species pages, study sections and figures open offline. Each computer needs its own copy of the portable report.
+
+If you already have an extracted report elsewhere, point the viewer at the directory containing `absorption/`. Run the following commands from the repository root.
+
+```powershell
+python eda open "D:/reports/PMB_retry030"
+```
+
+## Rebuild absorption from existing EDA tables
+
+Use the Python environment for the [native workflow](../native_workflow/README.md). On Windows its [setup script](../native_workflow/setup.ps1) creates `native_workflow/.venv-context/`. Run the following from the repository root. Replace the example paths with your own.
+
+```powershell
+$py = ".\native_workflow\.venv-context\Scripts\python.exe"
+& $py eda run --source "D:/PMB/eda/run" --out "D:/reports/PMB_rebuilt"
+& $py eda open "D:/reports/PMB_rebuilt"
+```
+
+The source directory must contain the admitted `source_tables.json`. Supply its matching `dose_normalization_assessment.json` and EV plots when available. The portable viewing ZIP contains the rendered report. Recalculation requires the original table inputs. Choose a **new** output directory outside the source run. Set `PKPD_RSCRIPT` to your Rscript executable and `R_LIBS_USER` to the library containing ggplot2 and jsonlite to use the R renderer. The result records the renderer used.
+
+## Start at a released Data handoff
+
+Use `from-data` to call the repository’s native adapter with its input checks. This path requires the Data report and handoff plus the files they reference. Both commands below require the native Python environment. The second also requires a configured model provider and R runtime.
+
+```powershell
+& $py eda from-data --prepare-only --handoff "D:/Data/handoffs/eda_context.json" --report "D:/Data/data_report.json" --out "D:/reports/intake_check"
+& $py eda from-data --handoff "D:/Data/handoffs/eda_context.json" --report "D:/Data/data_report.json" --out "D:/reports/fresh_eda"
+```
+
+The first command validates and prepares intake locally. The second runs through EV and prints the path to the absorption report.
+
+## Rule versions
+
+The current published absorption specification is **r4.3**, dated 5 November 2026. Its nine questions put individual-animal evidence at Q5, terminal decline at Q6, systemic availability at Q7 and dose dependence at Q8. See the source for the decision criteria and the implementation requirements. [Read the r4.3 rules for items 16–23](../native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md).
+
+The saved retry 030 report and the executable supplied here use **r4.2** and its question order. The [retry 030 checks](../validation/pmb_absorption_retry030/README.md) apply to that version. To locate the r4.3 document on disk and verify its registered SHA-256, run `python eda rules`.

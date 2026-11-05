@@ -2,6 +2,14 @@
 
 A local research workbench with two connected workspaces: **Research workflow** and **Knowledge & context**. The English interface reuses the existing pipeline, source contracts, ContextBuilder and knowledge library.
 
+## Open or run the existing EDA
+
+**[Direct EDA entry and commands](eda/README.md)** · **[Absorption rules r4.3](native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md)** · **[PMB run verification](validation/pmb_absorption_retry030/README.md)**
+
+To read the saved PMB report, extract the portable report ZIP into `eda/report/` and double-click `eda/Open_EDA.cmd` on Windows. On any computer you can open `eda/report/absorption/index.html` in a browser. To rebuild from existing EDA tables or start at a released Data handoff, use the commands in the direct EDA entry above.
+
+The **r4.3** document contains the revised absorption rules for items 16–23. The saved PMB report and current calculation code use **r4.2**.
+
 ## Current EDA implementation
 
 The native EDA source includes mandatory dose-normalization assessment, source-preserving plots, scientific-coverage accounting and a searchable review interface. See [Exploratory data analysis (EDA)](#exploratory-data-analysis-eda) for the workflow, available figures and validation boundaries.
