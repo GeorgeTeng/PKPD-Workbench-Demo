@@ -129,6 +129,13 @@ def build(handoff_path, report_path, out):
     require(len(datasets) == len(manifest['datasets']), 'duplicate manifest dataset')
     states = {s['dataset_id']: s for s in h['dataset_action_readiness']}
     require(len(states) == len(h['dataset_action_readiness']), 'duplicate readiness dataset')
+    if 'ready_dataset_ids' in report:
+        require(sorted(files) == sorted(report['ready_dataset_ids']), 'Data report and handoff membership differ')
+    if 'dataset_action_readiness' in report:
+        report_states = {s['dataset_id']: s for s in report['dataset_action_readiness']}
+        require(len(report_states) == len(report['dataset_action_readiness']), 'duplicate Data report readiness dataset')
+        require(all(did in states and states[did] == report_states.get(did) for did in files),
+                'Data report and handoff permissions differ')
     views = []
     for did, f in files.items():
         require(did in datasets and did in states, 'missing manifest/readiness: ' + did)

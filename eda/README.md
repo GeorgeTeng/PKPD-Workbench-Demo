@@ -37,4 +37,4 @@ The first command validates and prepares intake locally. The second runs through
 
 The current published absorption specification is **r4.3**, dated 5 November 2026. Its nine questions put individual-animal evidence at Q5, terminal decline at Q6, systemic availability at Q7 and dose dependence at Q8. See the source for the decision criteria and the implementation requirements. [Read the r4.3 rules for items 16–23](../native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md).
 
-The saved retry 030 report and the executable supplied here use **r4.2** and its question order. The [retry 030 checks](../validation/pmb_absorption_retry030/README.md) apply to that version. To locate the r4.3 document on disk and verify its registered SHA-256, run `python eda rules`.
+The executable supplied here uses **r4.3**. Each result identifies the rule document and its SHA-256. Run `python eda rules` to verify the document locally. The [historical retry 030 checks](../validation/pmb_absorption_retry030/README.md) apply to the archived **r4.2** output.

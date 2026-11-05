@@ -43,14 +43,23 @@ def run_absorption(source, out):
         raise ValueError("Choose a new output directory outside the source run.")
     spec, _ = rule_spec()
     print(f"Executing {eda_absorption.VERSION}. Published rule text: {spec['version']}.", flush=True)
-    out.mkdir(parents=True, exist_ok=False)
-    shutil.copyfile(tables, out / tables.name)
     assessment = source / "dose_normalization_assessment.json"
-    if assessment.is_file():
-        shutil.copyfile(assessment, out / assessment.name)
-    for plot in (source / "EV").glob("*.png"):
-        (out / "EV").mkdir(exist_ok=True)
-        shutil.copyfile(plot, out / "EV" / plot.name)
+    inputs = [tables, *([assessment] if assessment.is_file() else []), *sorted((source / "EV").glob("*.png"))]
+    manifest_path = source / "outputs.json"
+    manifest = {k.replace(chr(92), "/"):v for k,v in json.loads(manifest_path.read_bytes()).items()} if manifest_path.is_file() else None
+    out.mkdir(parents=True, exist_ok=False)
+    hashes = {}
+    for path in inputs:
+        relative = path.relative_to(source).as_posix()
+        dest = out / relative
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, dest)
+        hashes[relative] = hashlib.sha256(dest.read_bytes()).hexdigest()
+        if manifest is not None and hashes[relative] != manifest.get(relative, {}).get("sha256"):
+            raise ValueError(f"Input differs from the source EV manifest: {relative}")
+    provenance = {"source_manifest": "verified" if manifest is not None else "not supplied",
+                  "input_sha256": hashes, "rule_sha256": spec["sha256"], "engine": eda_absorption.VERSION}
+    (out / "replay_inputs.json").write_text(json.dumps(provenance, indent=2),encoding="utf-8")
     folder = eda_absorption.attach(out)
     if (folder / "error.json").exists():
         raise ValueError(f"Absorption failed. See {folder / 'error.json'}")

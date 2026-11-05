@@ -27,7 +27,10 @@ def test_group_means_with_no_iv_reference(tmp_path):
     board, = result["status_boards"]
     questions = {q["q"]: q for q in board["questions"]}
     assert set(questions) == set(range(1, 10))
-    assert "NOT_ESTIMABLE" in questions[6]["text"]
+    assert questions[7]["status_code"] == "NOT_ANSWERABLE_YET" and "bioavailability" in questions[7]["label"].lower()
+    assert questions[5]["status_code"] == "NOT_ANSWERABLE_YET"
+    assert result["version"] == "EDA_ABSORPTION_R4_3"
+    assert result["rule_specification"]["version"] == "r4.3"
     assert result["render"]["engine"] in {"R_GGPLOT2", "MATPLOTLIB_FALLBACK"}
     species, = result["presentation"]["species"]
     page = (folder / species["page"]).read_text(encoding="utf-8")

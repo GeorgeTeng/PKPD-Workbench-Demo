@@ -8,7 +8,7 @@ A local research workbench with two connected workspaces: **Research workflow** 
 
 To read the saved PMB report, extract the portable report ZIP into `eda/report/` and double-click `eda/Open_EDA.cmd` on Windows. On any computer you can open `eda/report/absorption/index.html` in a browser. To rebuild from existing EDA tables or start at a released Data handoff, use the commands in the direct EDA entry above.
 
-The **r4.3** document contains the revised absorption rules for items 16–23. The saved PMB report and current calculation code use **r4.2**.
+The current absorption engine runs **r4.3** for items 16–23. It records the rule hash and separates observed or sensitivity results from formal tests. Individual sampling evidence is Q5, terminal decline Q6, systemic availability Q7, dose proportionality Q8 and condition comparisons Q9. The November 4 retry 030 archive uses r4.2.
 
 ## Current EDA implementation
 
