@@ -289,6 +289,7 @@ def comparison_questions(rows, drows, refs, pairs, cards, ivs):
         add(rows, 8, ids, ", ".join(ids), state, message,
             {"High:low comparison, low/high doses (mg/kg)": d.get("t3_primary_pair"), "Rule": w.get("method"),
              "Grids identical": w.get("same_grid"), "Shared endpoints/times (h)": w.get("common_times_h"),
+             "Unverified comparison attributes": d.get("unverified_comparison_fields"),
              "Shared-grid sensitivity AUC/D ratio": w.get("shared_grid_R"), "T3 CI": d.get("ci"),
              "T3p tested times (h)": p.get("t3p_times"), "T3p log ratio CI": p.get("t3p_ln_ratio_ci"),
              "T3p Holm p": p.get("t3p_p_holm"), "T3 flags": d.get("t3_flags"), "T3p flags": p.get("t3p_flags"),

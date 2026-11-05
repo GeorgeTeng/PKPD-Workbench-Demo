@@ -64,9 +64,30 @@ def test_exactly_proportional_summary_means_have_unit_p_value():
     assert stat["p"]==pytest.approx(1)
 
 
+def test_truncated_area_cannot_substitute_for_complete_exposure_contrast():
+    a,b=points([1,2,3],[2,3,4]),points([1,2,3],[1,2,3])
+    left,right=card(),card("B","PO")
+    source={"comparison_dataset_id":"A","reference_dataset_id":"B","estimand":"COMPLETE_DOSE_NORMALIZED_AUC_RATIO",
+            "ci_level":.95,"ratio_ci":[1.5,2.1],"design_appropriate":True,"positive_two_sided_coverage":True,
+            "shared_lti_disposition":True,"same_systemic_site":True,"source":"synthetic comparison",
+            "coverage_evidence":"independent upper and lower bounds on both omitted areas"}
+    def run(spec):
+        return comparison.condition_pair(left|{"complete_exposure_comparison":spec},metrics(a),right,metrics(b),a,b)
+    assert run(source)["rate_only_label"]=="EXCLUDED_UNDER_STATED_ASSUMPTIONS"
+    assert run(source|{"positive_two_sided_coverage":False})["rate_only_label"]=="CANNOT_ASSESS"
+
+
+def test_mixed_concentration_units_and_different_analytes_block_dose_comparisons():
+    left=card()
+    for change in ({"unit":"µg/L"},{"analyte":"metabolite"},{"dose_basis":"unknown"},
+                   {"drug":"other compound"},{"matrix":"serum"}):
+        right=left | change | {"dose_mg_per_kg":2}
+        assert ab.dose_series([(left,{},{"dose":1}),(right,{},{"dose":2})],None)["status"]=="NOT_ASSESSABLE"
+
+
 def test_parallel_animal_aucs_are_kept_separate_from_summary_aucs():
     def cohort(name,dose,scales):
-        c=card(name)|{"dose_mg_per_kg":dose,"study_design":"PARALLEL","superposition_premises_supported":True,
+        c=card(name)|{"dose_mg_per_kg":dose,"study_design":"PARALLEL","formulation":"same solution","superposition_premises_supported":True,
                       "superposition_evidence":"qualified design","record_level":"INDIVIDUAL"}
         series=[]
         for i,scale in enumerate(scales):
@@ -77,3 +98,7 @@ def test_parallel_animal_aucs_are_kept_separate_from_summary_aucs():
     assert result["R"]==pytest.approx(1) and result["t3_label"]=="NOT_EXCLUDED"
     assert len(result["removal"])==8
     assert result["t3p"]["t3p_label"]=="NOT_EXCLUDED"
+    arms=[cohort("A",1,[1,1.1,1.2,1.3]),cohort("B",2,[1,1.1,1.2,1.3])]
+    del arms[0]["card"]["formulation"]
+    restricted=comparison.individual_contrast(arms)
+    assert restricted["R_window"]==pytest.approx(1) and restricted["t3_label"]=="CANNOT_ASSESS"

@@ -166,6 +166,8 @@ def mark_duplicates(points):
 
 
 def enrich_card(card, meta, text):
+    card["formulation"] = meta.get("formulation")
+    card["complete_exposure_comparison"] = meta.get("complete_exposure_comparison")
     fields = ("analyte", "exposure_basis", "study_design", "design", "iv_mode", "infusion_duration_h",
               "administration_start", "administration_end", "administration_duration_h", "administration_rate",
               "formulation", "feeding", "vehicle", "co_treatment", "condition", "iv_reference_compound",

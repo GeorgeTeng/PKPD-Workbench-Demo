@@ -307,6 +307,10 @@ def _window_auc(c, T):
 def dose_series(members, dose_block):
     """Item 19. members: list of (card, metrics) with distinct doses."""
     members = sorted(members, key=lambda m: _mdose(m))
+    incompatible = comparisons.dose_compatibility([m[0] for m in members])
+    if incompatible:
+        return {"status":"NOT_ASSESSABLE", "reason":"Incompatible dose comparison fields: "+", ".join(incompatible),
+                "t3_label":"CANNOT_ASSESS"}
     curves = [m[1] for m in members]
     grids = [comparisons.grid(mem[2]["points"],mem[1]) for mem in members]
     win = comparisons.window(grids)
@@ -356,7 +360,8 @@ def dose_series(members, dose_block):
     b1 = {"auc_window": float(np.polyfit(x, np.log([r["aucW_d"] * r["dose"] for r in rows]), 1)[0]),
           "auc_last": float(np.polyfit(x, np.log([r["auc_last_d"] * r["dose"] for r in rows]), 1)[0]) if all(r["auc_last_d"] for r in rows) else None,
           "cmax": float(np.polyfit(x, np.log([r["cmax_d"] * r["dose"] for r in rows]), 1)[0])} if len(rows)>=3 else None
-    return {"status": "ASSESSED", "observed_window": win, "window_start_h": win["start_h"], "window_end_h": T, "doses": [r["dose"] for r in rows], "rows": rows,
+    missing = [key for key in ("analyte","exposure_basis","formulation","mean_type") if any(comparisons.semantic(m[0],key) is None for m in members)]
+    return {"status": "ASSESSED", "unverified_comparison_fields":missing, "observed_window": win, "window_start_h": win["start_h"], "window_end_h": T, "doses": [r["dose"] for r in rows], "rows": rows,
             "R_window": R, "R_own_tlast": hi["auc_last_d"] / lo["auc_last_d"] if lo["auc_last_d"] and hi["auc_last_d"] else None, "e6_label": e6,
             "cmax_d_ratio": cmax_ratio, "cmax_label": cm, "e2_label": e2, "per_time": per_time, "b1": b1,
             "overlay_block": dose_block} | _t3_all(members, rows, common, T)
@@ -1425,7 +1430,10 @@ def t3p_series(members, rows, common, pts):
     sig = [p < T3P_ALPHA for p in p_holm]
     card = members[0][0]
     flags = []
-    if any(m[0].get("mean_type") != "ARITHMETIC" or str(m[0].get("study_design","")).upper() not in {"PARALLEL","INDEPENDENT_PARALLEL","DESTRUCTIVE_PARALLEL"} or m[0].get("superposition_premises_supported") is not True for m in members):
+    if any(m[0].get("mean_type") != "ARITHMETIC" or str(m[0].get("study_design","")).upper() not in {"PARALLEL","INDEPENDENT_PARALLEL","DESTRUCTIVE_PARALLEL"} or m[0].get("superposition_premises_supported") is not True
+           or not comparisons.known(m[0].get("superposition_evidence") or m[0].get("superposition_premises_evidence"))
+           or any(comparisons.semantic(m[0],key) is None for key in ("analyte","exposure_basis","formulation"))
+           for m in members):
         flags.append("SENSITIVITY_ONLY")   # geometric means with arithmetic-type SD, or mean type unclear
     if any(p[1].get("sd_note") or p[2].get("sd_note") for p in tested) and "SENSITIVITY_ONLY" not in flags:
         flags.append("SENSITIVITY_ONLY")
@@ -2215,7 +2223,8 @@ def _skips(res, datasets, param_sets):
                 continue
             t2 = s.get("t2")
             if t2 and not s.get("T2") and c["record_level"] != "GROUP_MEAN":
-                skip(c, "B1 · T2 dip test", lab, f"no confirmed dip. T2 still ran: {t2['t2_label']}" + "".join(" + " + x for x in t2["t2_flags"]) + " (Q4).")
+                why = "The within-animal test was assessed" if t2.get("test_executed") else "Within-animal T2 was withheld; the source labels do not establish a serial trajectory"
+                skip(c, "B1 · T2 dip test", lab, f"{why}. {t2['t2_label']} (Q4).")
     for r in res["dose_series"]:
         c = cards[r["dataset_ids"][0]]
         if r["status"] != "ASSESSED":

@@ -16,6 +16,27 @@ def semantic(card, field):
     return str(value).strip().casefold() if known(value) else None
 
 
+def dose_compatibility(cards):
+    """Check source identities before comparing numbers across doses."""
+    bases=[(semantic(c,"dose_basis") or "").removeprefix("as-reported ").strip() for c in cards]
+    conflicts=[]
+    for k in ("unit","matrix","species","occasion","route_detail","formulation","analyte","exposure_basis","mean_type"):
+        values={v for c in cards if (v:=semantic(c,k)) is not None}
+        if len(values)>1 or (k in {"unit","matrix","species","occasion","route_detail"} and any(semantic(c,k) is None for c in cards)):
+            conflicts.append(k)
+    if len(set(bases))!=1 or not all(bases):
+        conflicts.append("dose_basis")
+    drugs={semantic(c,"drug") for c in cards}
+    if len(drugs)>1:
+        # One arm may name the active, the other its reported salt. Only accept
+        # this spelling when every arm independently states the same dose basis.
+        active={value for value in drugs if value and value!=bases[0]}
+        if not (len(active)==1 and bases[0] in drugs and bases[0].startswith(next(iter(active))+" ")):
+            conflicts.append("drug")
+    if None in drugs: conflicts.append("drug")
+    return sorted(set(conflicts))
+
+
 def terminal_comparison(a,b):
     pairs=[]
     for x in a.get("terminal_windows",[]):
@@ -195,6 +216,8 @@ def _comparison_reasons(a, b):
             reasons.append(f"Common {key} is unverified")
     if any("endogenous" in str(c.get("origin","")).lower() and c.get("baseline_corrected") is not True for c in (a,b)):
         reasons.append("Endogenous contribution is unresolved")
+    if any(c.get("sampling_time_basis")=="SOURCE_NOMINAL" and c.get("actual_time_verified") is not True for c in (a,b)):
+        reasons.append("Source times are nominal; collection times are unverified")
     if any(c.get("record_level")=="GROUP_MEAN" for c in (a,b)):
         if not all(c.get("common_population_supported") is True and known(c.get("common_population_evidence")) for c in (a,b)):
             reasons.append("A common population and individual-level relationship have not been established")
@@ -250,9 +273,17 @@ def individual_contrast(members):
     logs=[[log(v/dose) for v in group] for dose,group in zip(ds,(win["areas"][:split],win["areas"][split:]))]
     result.update(R_window=exp(mean(logs[1])-mean(logs[0])),window_end_h=win["end_h"],window_start_h=win["start_h"])
     cards=[x["card"] for x in selected]
+    incompatible=dose_compatibility(cards)
+    if incompatible:
+        return {"status":"NOT_ASSESSABLE","t3_label":"CANNOT_ASSESS",
+                "reason":"Incompatible dose comparison fields: "+", ".join(incompatible)}
     design=str(cards[0].get("study_design","")).upper()
     view=[str(c.get("study_design","")).upper() for c in cards]
     gates=[]
+    missing=[k for k in ("analyte","exposure_basis","formulation") if any(semantic(c,k) is None for c in cards)]
+    if missing:
+        gates.append("Unverified dose comparison fields: "+", ".join(missing))
+        result["unverified_comparison_fields"]=missing
     if view[0]!=view[1] or len(set(ds))!=2:
         gates.append("Incompatible design or dose contrast")
     if not win["same_grid"]:
@@ -442,4 +473,22 @@ def condition_pair(a_card, a, b_card, b, a_points=(), b_points=()):
             "rate_only_label":"CANNOT_ASSESS","rate_only_reason":"Independent two-sided complete exposure bounds and shared clearance are required"}
     if rows:
         result.update(c_lower=max(x["lo"] for x in rows),c_upper=min(x["hi"] for x in rows))
+    evidence=a_card.get("complete_exposure_comparison")
+    if not isinstance(evidence,dict):
+        return result
+    # A qualified source may supply a complete dose-normalized *contrast*. Marginal
+    # arm intervals do not identify the ratio CI in a crossover or paired design.
+    ci=evidence.get("ratio_ci",[])
+    if (evidence.get("reference_dataset_id")==b_card["dataset_id"] and
+            evidence.get("comparison_dataset_id")==a_card["dataset_id"] and
+            evidence.get("estimand")=="COMPLETE_DOSE_NORMALIZED_AUC_RATIO" and
+            evidence.get("ci_level")==0.95 and evidence.get("design_appropriate") is True and
+            evidence.get("positive_two_sided_coverage") is True and evidence.get("shared_lti_disposition") is True and
+            evidence.get("same_systemic_site") is True and known(evidence.get("source")) and known(evidence.get("coverage_evidence")) and
+            all(semantic(a_card,k) and semantic(a_card,k)==semantic(b_card,k) for k in ("analyte","matrix","unit","dose_basis","exposure_basis")) and
+            not any(c.get("endogenous_review_required") for c in (a_card,b_card)) and
+            isinstance(ci,(list,tuple)) and len(ci)==2 and all(isinstance(v,(int,float)) for v in ci) and 0<ci[0]<=ci[1]):
+        result.update(rate_only_label="EXCLUDED_UNDER_STATED_ASSUMPTIONS" if ci[0]>1 or ci[1]<1 else "NOT_EXCLUDED",
+                      rate_only_reason="Source-qualified complete AUC/dose ratio, under shared linear time-invariant disposition and input site",
+                      rate_only_evidence=evidence)
     return result

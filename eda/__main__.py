@@ -47,6 +47,12 @@ def run_absorption(source, out):
     inputs = [tables, *([assessment] if assessment.is_file() else []), *sorted((source / "EV").glob("*.png"))]
     manifest_path = source / "outputs.json"
     manifest = {k.replace(chr(92), "/"):v for k,v in json.loads(manifest_path.read_bytes()).items()} if manifest_path.is_file() else None
+    if manifest is not None:
+        expected = {name for name in manifest if name in {"source_tables.json","dose_normalization_assessment.json"}
+                    or (name.startswith("EV/") and name.count("/")==1 and name.endswith(".png"))}
+        missing = expected - {path.relative_to(source).as_posix() for path in inputs}
+        if missing:
+            raise FileNotFoundError("Missing replay inputs listed in the EV manifest: "+", ".join(sorted(missing)))
     out.mkdir(parents=True, exist_ok=False)
     hashes = {}
     for path in inputs:
