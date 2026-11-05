@@ -47,6 +47,8 @@ The API reports actual capabilities at `/workspace-api/capabilities`. Backend op
 
 EDA organizes the qualified animal PK and preclinical PD observations before model selection and fitting. It helps reviewers understand concentration-time shape, dose scaling, response patterns and the limits of the available evidence. The implementation is in [native_workflow](native_workflow/README.md); the repository-root demo stops at Data and shows recorded EDA previews.
 
+The [PMB absorption checkpoint](validation/pmb_absorption_retry030/README.md) describes the local run through EV, how the absorption outputs were checked, and which stages were reused. The native absorption module, renderer and an invented-data test are included; study records and research figures stay local.
+
 ### Workflow and outputs
 
 The native pipeline accepts a qualified Data handoff with source references, units, observation roles and unresolved findings. It then follows these stages, subject to the existing input and review gates:

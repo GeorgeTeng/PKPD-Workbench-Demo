@@ -607,6 +607,8 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
                 write_json(root/'status.json',state)
                 links=''.join('<h2>'+html.escape(a['id'])+'</h2><img style="max-width:100%" src="EV/'+a['png']+'">' for a in manifest['artifacts'])
                 (root/'report.html').write_text('<html lang="en"><meta charset="utf-8"><h1>Question-driven EDA: stopped after EV</h1><p>Source-bound displays; no EI/ER or scientific release.</p><a href="EP_FINALIZE/coverage.json">Dataset coverage</a>'+links+'</html>',encoding='utf8')
+                from .eda_absorption import attach as attach_absorption
+                attach_absorption(root)
                 write_json(root/'outputs.json',{str(p.relative_to(root)):cb.file_ref(p) for p in root.rglob('*') if p.is_file() and p.name!='outputs.json'})
                 return state
             subsequent={**copy.deepcopy(base),'eda_plan':quality.current_plan(plan,final),
@@ -626,6 +628,8 @@ def run_questions(inputs_path,completed_run,catalog_path,out,*,model=None,until=
         state.update(status='WAITING_FOR_HUMAN_REVIEW' if review['decision']=='PASS' else 'REVIEW_REQUIRED',
             independent_review=review['decision'],elapsed_seconds=time.perf_counter()-started,figures=len(specs))
         report(root,plan,final,findings,review,manifest)
+        from .eda_absorption import attach as attach_absorption
+        attach_absorption(root)
         if findings.get('version')=='QUESTION_FINDINGS_3':
             from .eda_review_handoff import build as build_human_gate
             build_human_gate(root,subsequent,findings,review,

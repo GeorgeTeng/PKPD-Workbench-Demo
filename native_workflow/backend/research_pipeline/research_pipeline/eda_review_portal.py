@@ -104,6 +104,8 @@ def build(root, packet, figures, full_html, groups):
     home=home.replace('<section class="panel" id="review-notes">',ui_section(root)+'<section class="panel" id="review-notes">',1)
     page=shell('Handoff summary',home)
     for name in ['index.html','human_review.html']:write(root/name,page)
+    from .eda_absorption import add_to_portal
+    add_to_portal(root)
     write(root/'review_navigation.json',json.dumps({'version':'EDA_TWO_LEVEL_REVIEW_1','packet_sha256':packet['content_sha256'],'figure_count':len(figures),'groups':index,'downloads':False},indent=2))
     retired=root/'sections/Q_PK_VARIABILITY/index.html'
     if retired.exists():

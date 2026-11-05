@@ -1,10 +1,14 @@
-# Native PK/PD workflow — source snapshot with EDA revisions through 25 October 2026
+# Native PK/PD workflow — source snapshot with absorption EDA
 
 This directory retains the 22 October base with subsequent EDA source and presentation revisions. The historical base is available at commit `2b50eeb0db2f8c8930a236699c9d5a76427e290c`; current files and hashes are recorded in `native_source_manifest.json`. Source publication does not regenerate or approve historical evidence packets.
 
 This directory preserves the current native Compression, Data, EDA, ContextBuilder, Rules and downstream handoff implementation. It is separate from the repository-root demonstration application, whose lightweight Data behavior and disabled downstream execution remain unchanged.
 
 ## EDA implementation and review
+
+The [PMB absorption rerun](../validation/pmb_absorption_retry030/README.md) documents the November EV checkpoint. The native snapshot attaches a species-by-study absorption report at EV. Each study has nine questions; the report retains the reasons a question cannot be answered. This is a descriptive analysis of admitted source tables, with no model fitting or scientific approval.
+
+To generate the absorption section alone, use a **new working copy** of a qualified EDA run directory containing `source_tables.json` and, when available, `dose_normalization_assessment.json` and the linked EV plots. From `native_workflow/backend/research_pipeline`, run `python -m research_pipeline.eda_absorption <run-copy> --attach`. Set `PKPD_RSCRIPT` to Rscript and use an R library containing ggplot2 and jsonlite; the output records whether R or the matplotlib fallback rendered the figures. Open `absorption/index.html` and verify `absorption/absorption.json`: an EV exit status alone does not prove the section was produced. Keep the original run intact because changing an artifact invalidates its manifest.
 
 See the main [EDA guide](../README.md#exploratory-data-analysis-eda) for EP/EC/EV/EI/ER responsibilities, figure categories, dose-normalization decisions and current verification limits. The source revision combines the [23 October intake safeguards](../docs/eda_revision_20261023.md), [category correction](../docs/eda_categories_20261026.md) and [25 October dose-normalization implementation](../docs/eda_dose_normalization_20261025.md).
 

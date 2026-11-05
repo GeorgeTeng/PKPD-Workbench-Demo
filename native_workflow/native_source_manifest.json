@@ -1,6 +1,6 @@
 {
   "snapshot_date": "2026-10-22",
-  "source": "22 October native base with 23 October EDA safeguards and 25 October dose-normalization and presentation revisions",
+  "source": "22 October native base with subsequent EDA revisions and a scoped November absorption backport; see per-file publication notes.",
   "files": [
     {
       "path": "backend/context_compression/demo.ps1",
@@ -1592,9 +1592,11 @@
     },
     {
       "path": "backend/research_pipeline/research_pipeline/eda_questions_v6.py",
-      "sha256": "8c7c1afaf5a666c9733fd6007225c3193714a29bb5b997d6bd96c54539bc2701",
-      "bytes": 52769,
-      "source_revision_date": "2026-10-25"
+      "sha256": "1ad729f138175173fe4b9ba25ad60ba2557753dbebebbcf28dd7584cf451f05b",
+      "bytes": 52977,
+      "source_revision_date": "2026-11-04",
+      "native_run_file_sha256": "a49c21de50d185b29e93c7de4bdaec9e9a9ac0c3678cff7a36eb60ee97cbe535",
+      "publication_note": "Only the two absorption report calls are backported onto the published workflow."
     },
     {
       "path": "backend/research_pipeline/research_pipeline/eda_review_batches.py",
@@ -1614,9 +1616,11 @@
     },
     {
       "path": "backend/research_pipeline/research_pipeline/eda_review_portal.py",
-      "sha256": "44e369dd5d4b91c3644e432d041f4da22458a84445a3329223bf8b5bad11359c",
-      "bytes": 13679,
-      "source_revision_date": "2026-10-25"
+      "sha256": "ab3e9e46cad4f6bd02a9f3d80db426fa2a5c9b1062f0908eee31523fdbf3ed2e",
+      "bytes": 13749,
+      "source_revision_date": "2026-11-04",
+      "native_run_file_sha256": "92e349b0c849c08871d62729496328be5be3f84866c1fcac2509d2ff272f9550",
+      "publication_note": "Only the absorption portal hook is backported onto the published workflow."
     },
     {
       "path": "backend/research_pipeline/research_pipeline/eda_review_ui.py",
@@ -3987,6 +3991,22 @@
       "sha256": "240cb3aff21a8cedfb7d9f96fd2c709fab93ac20ed6990c7f65ceeac0267c016",
       "bytes": 100260,
       "source_revision_date": "2026-10-25"
+    },
+    {
+      "path": "backend/research_pipeline/research_pipeline/eda_absorption.py",
+      "sha256": "22b47717279ec0e2d5a413288fb38ccb5c95a0b3ae0c564712d558a5ff5349d4",
+      "bytes": 225437,
+      "source_revision_date": "2026-11-04",
+      "native_run_file_sha256": "22b47717279ec0e2d5a413288fb38ccb5c95a0b3ae0c564712d558a5ff5349d4",
+      "publication_note": "Native module, byte-identical to the local rerun."
+    },
+    {
+      "path": "pkpd_r/eda/absorption_figures.R",
+      "sha256": "99266071385c1acf9283e920af558648a6618b8eb6e2683bdd934abf5ee30931",
+      "bytes": 10939,
+      "source_revision_date": "2026-11-04",
+      "native_run_file_sha256": "8c10117855fcc151dadeff015eccfb95f19f9e38d108e83ed78e00e6db555295",
+      "publication_note": "Native renderer; the publication removes the original workstation library default. Set PKPD_R_LIB or R_LIBS_USER as needed."
     }
   ],
   "scope": "Code, configuration, tests and documentation; no original research files or model-call payloads.",
@@ -4013,11 +4033,13 @@
   "publication_additions": [
     "README.md",
     "backend/research_pipeline/tests/test_binding_headings.py",
-    "backend/research_pipeline/tests/test_eda_review_portal.py"
+    "backend/research_pipeline/tests/test_eda_review_portal.py",
+    "backend/research_pipeline/tests/test_absorption_publication.py"
   ],
-  "eda_revision_date": "2026-10-25",
-  "publication_date": "2026-10-25",
+  "eda_revision_date": "2026-11-04",
+  "publication_date": "2026-11-04",
   "base_commit": "2b50eeb0db2f8c8930a236699c9d5a76427e290c",
   "presentation_revision": "2026-10-26 UTC: five EDA presentation categories; scientific analysis memberships unchanged",
-  "dose_revision_base_commit": "bb73e61249993241c968f45633f6273b53df2f8b"
+  "dose_revision_base_commit": "bb73e61249993241c968f45633f6273b53df2f8b",
+  "absorption_revision_base_commit": "8954cfe9ccef61021f9a0ea71bf82c28c447438d"
 }
