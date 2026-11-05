@@ -4,7 +4,7 @@ A local research workbench with two connected workspaces: **Research workflow** 
 
 ## Open or run the existing EDA
 
-**[Direct EDA entry and commands](eda/README.md)** · **[Absorption rules r4.3](native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md)** · **[PMB run verification](validation/pmb_absorption_retry030/README.md)**
+**[Direct EDA entry and commands](eda/README.md)** · **[Absorption rules r4.3](native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md)** · **[PMB r4.3 run verification](validation/pmb_absorption_r43/README.md)**
 
 To read the saved PMB report, extract the portable report ZIP into `eda/report/` and double-click `eda/Open_EDA.cmd` on Windows. On any computer you can open `eda/report/absorption/index.html` in a browser. To rebuild from existing EDA tables or start at a released Data handoff, use the commands in the direct EDA entry above.
 
@@ -55,7 +55,7 @@ The API reports actual capabilities at `/workspace-api/capabilities`. Backend op
 
 EDA organizes the qualified animal PK and preclinical PD observations before model selection and fitting. It helps reviewers understand concentration-time shape, dose scaling, response patterns and the limits of the available evidence. The implementation is in [native_workflow](native_workflow/README.md); the repository-root demo stops at Data and shows recorded EDA previews.
 
-The [PMB absorption checkpoint](validation/pmb_absorption_retry030/README.md) describes the local run through EV, how the absorption outputs were checked, and which stages were reused. The native absorption module, renderer and an invented-data test are included; study records and research figures stay local.
+The [current PMB absorption checkpoint](validation/pmb_absorption_r43/README.md) records the native run, which inputs were reused, and the independent replay of the r4.3 report. The [November 4 checkpoint](validation/pmb_absorption_retry030/README.md) documents retry 030 with r4.2. Study records and report figures are distributed in the private portable package.
 
 ### Workflow and outputs
 

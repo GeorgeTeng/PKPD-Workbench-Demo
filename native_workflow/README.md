@@ -6,7 +6,7 @@ This directory preserves the current native Compression, Data, EDA, ContextBuild
 
 ## EDA implementation and review
 
-The [PMB absorption rerun](../validation/pmb_absorption_retry030/README.md) documents the November EV checkpoint. The native snapshot attaches a species-by-study absorption report at EV. Each study has nine questions; the report retains the reasons a question cannot be answered. This is a descriptive analysis of admitted source tables, with no model fitting or scientific approval.
+The [PMB r4.3 rerun](../validation/pmb_absorption_r43/README.md) documents the current EV checkpoint. Use the [standalone EDA entry](../eda/README.md) to open the portable package or rerun absorption from admitted tables. The report organizes nine questions per study and shows the source observations, scientific assumptions and reasons a comparison was withheld.
 
 To generate the absorption section alone, use a **new working copy** of a qualified EDA run directory containing `source_tables.json` and, when available, `dose_normalization_assessment.json` and the linked EV plots. From `native_workflow/backend/research_pipeline`, run `python -m research_pipeline.eda_absorption <run-copy> --attach`. Set `PKPD_RSCRIPT` to Rscript and use an R library containing ggplot2 and jsonlite; the output records whether R or the matplotlib fallback rendered the figures. Open `absorption/index.html` and verify `absorption/absorption.json`: an EV exit status alone does not prove the section was produced. Keep the original run intact because changing an artifact invalidates its manifest.
 

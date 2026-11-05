@@ -38,7 +38,7 @@ class Links(HTMLParser):
                 self.urls.append(fields[key])
 
 
-def inspect(run):
+def inspect(run, expected_version="EDA_ABSORPTION_R4_2"):
     run = run.resolve()
     root = run / "eda" / "run"
     folder = root / "absorption"
@@ -62,7 +62,7 @@ def inspect(run):
     require(sorted(ids) == sorted(f["id"] for f in dh["files"]), "handoff membership")
     require(sorted(t["dataset_id"] for t in read(root / "source_tables.json")) == sorted(ids), "EV input membership")
     result, plots = read(folder / "absorption.json"), read(folder / "plot_specs.json")
-    require(plots["version"] == result["version"] == "EDA_ABSORPTION_R4_2", "wrong analysis revision")
+    require(plots["version"] == result["version"] == expected_version, "wrong analysis revision")
     require(result["render"]["engine"] == "R_GGPLOT2", "R/ggplot2 did not render")
     expected = [fig["file"] for fig in plots["figures"]]
     images = set(folder.glob("*.png"))
