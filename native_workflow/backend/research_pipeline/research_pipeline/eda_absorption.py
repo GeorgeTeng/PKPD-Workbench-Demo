@@ -1712,6 +1712,8 @@ def build(root):
     portal = (root / "index.html").exists() and '<div class="categories">' in (root / "index.html").read_text(encoding="utf-8")
     pages, result["presentation"] = render_pages(result, datasets, param_sets, base=out, portal=portal, ivs=ivs)
     (out / "absorption.json").write_text(json.dumps(result, ensure_ascii=False, indent=1, default=float), encoding="utf-8")
+    from .eda_absorption_mechanisms import write_handoff
+    write_handoff(out, result, rules_dir)
     for name, page_html in pages.items():
         (out / name).write_text(page_html, encoding="utf-8")
     return result
@@ -2603,6 +2605,8 @@ def render_pages(res, datasets, param_sets=(), base=None, portal=False, ivs=()):
          '<p class="lead">How the drug enters the circulation, as nine questions for each study (r4.3 items 16–23): onset, rise, '
          'input models, second rise, individual animals, terminal decline, availability, dose and conditions. Open a species, '
          'then a study; each question shows its conclusion next to the evidence that explains it best.</p>',
+         '<p><a href="mechanism_assessment.html"><strong>Open absorption hypotheses for modeling</strong></a> '
+         'for the study findings, competing explanations and the evidence that could separate them.</p>',
          f'<p class="muted">{total} panels · {len(order)} species · {len(boards)} studies · {len(datasets)} curve datasets ({n_curves} curves) and '
          f'{len(param_sets)} reported-parameter datasets · Computed by host code from observed points; no fitting · Figures drawn with {_e(engine)} · '
          'Human review pending</p>', fallback,

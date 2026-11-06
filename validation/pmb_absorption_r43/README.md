@@ -25,6 +25,8 @@ The final native installation passed 45 targeted tests, including the migrated p
 
 To repeat the verification locally, supply the native run folder and a separately generated replay folder.
 
+The additional English mechanism edition (`r4.3-handoff.1`) was generated from the admitted retry 032 tables through `python eda run`. It contains 36 study-level question answers and 184 candidate assessments (46 per study). The two original numerical JSON files, two species pages and all 89 absorption figures matched the frozen run byte for byte. The overview gained one local link to the handoff. The verifier checks that link, the catalogue and source-result hashes, complete per-study coverage, the question anchors and the scope of formal exclusions. It also accepts the original replay. The English ZIP and study evidence are distributed privately.
+
 ```powershell
 python validation/pmb_absorption_r43/verify_run.py "D:/runs/PMB_run5w_retry_032" "D:/reports/PMB_rebuilt"
 ```

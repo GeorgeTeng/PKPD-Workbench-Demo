@@ -1,0 +1,827 @@
+{
+  "version": "r4.3-handoff.1",
+  "rule_version": "r4.3",
+  "scope": "Named r4.3 families and cited modeling extensions. A listed family can contain equivalent parameterizations. Assessment is per study and eligible profile.",
+  "premises": "For T1 and T2, assume a single dose, zero initial amounts, central input and central concentration, and linear time-invariant one-compartment or reversible mammillary disposition. T1 additionally requires immediate non-increasing input. T2 requires a single log-concave input rate and valid within-animal observations. The upstream gates determine whether the data support a formal result.",
+  "sources": {
+    "piotrovskii1987": [
+      "Piotrovskii (1987), empirical Weibull absorption",
+      "https://pubmed.ncbi.nlm.nih.gov/3450849/",
+      "Cumulative human theophylline and rat pantothenic acid data illustrate an empirical distribution of absorption times."
+    ],
+    "savic2007": [
+      "Savic et al. (2007), transit versus fixed lag",
+      "https://pubmed.ncbi.nlm.nih.gov/17653836/",
+      "Four drug datasets provided a comparison of gradual transit with a fixed delay. The fitted result is specific to those datasets."
+    ],
+    "gabrielsson2016": [
+      "Gabrielsson et al. (2016), Pattern Recognition in Pharmacokinetic Data Analysis",
+      "https://doi.org/10.1208/s12248-015-9817-6",
+      "Cases 4–5 illustrate the value of IV data for disposition. In case 16, the finite zero-order fit described one volunteer’s oral profile better than the tested first-order fit with its own onset assumptions."
+    ],
+    "weiss1996": [
+      "Weiss (1996), inverse Gaussian input",
+      "https://pubmed.ncbi.nlm.nih.gov/8899849/",
+      "Extended-release oral and intravascular reference data were fitted together to estimate the distribution of input times."
+    ],
+    "kim2015": [
+      "Kim et al. (2015), fimasartan recirculation",
+      "https://doi.org/10.1208/s12248-015-9764-2",
+      "IV and oral peaks plus bile-related evidence supported a recycling model for fimasartan. A second group-mean peak alone cannot identify recycling in another drug."
+    ],
+    "levitt2003": [
+      "Levitt (2003), numerical deconvolution",
+      "https://doi.org/10.1186/1472-6904-3-1",
+      "Known simulated inputs illustrate how the IV reference, sampling and noise affect reconstruction."
+    ],
+    "larsen2015": [
+      "Larsen et al. (2015), intestinal gabapentin uptake",
+      "https://pubmed.ncbi.nlm.nih.gov/25182974/",
+      "The gabapentin experiments provide a separate example of transporter-mediated uptake."
+    ],
+    "celiprolol2009": [
+      "Experimental study of celiprolol transport in mice",
+      "https://pubmed.ncbi.nlm.nih.gov/19067419/",
+      "The mouse transporter experiments provide a way to distinguish intestinal transport effects using independent evidence."
+    ]
+  },
+  "candidates": [
+    {
+      "id": "first_order",
+      "label": "First-order input from dosing",
+      "family": "onset",
+      "questions": [
+        1,
+        2,
+        3
+      ],
+      "rule": "A0.9–10, 16–17",
+      "next_check": "Compare early, peak and immediately post-peak residuals on the same observations, with matched disposition, error and BLQ treatment. Repeat after omitting a key peak sample.",
+      "route": "any",
+      "sources": [
+        "gabrielsson2016"
+      ],
+      "t1": true,
+      "t2": true
+    },
+    {
+      "id": "first_order_lag",
+      "label": "First-order input after a fixed lag",
+      "family": "onset",
+      "questions": [
+        1,
+        2,
+        3
+      ],
+      "rule": "A0.9–10, 16–17",
+      "next_check": "Compare early, peak and immediately post-peak residuals on the same observations, with matched disposition, error and BLQ treatment. Repeat after omitting a key peak sample.",
+      "route": "any",
+      "sources": [
+        "gabrielsson2016"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "zero_order",
+      "label": "Finite zero-order input from dosing",
+      "family": "onset",
+      "questions": [
+        1,
+        2,
+        3
+      ],
+      "rule": "A0.9–10, 16–17",
+      "next_check": "Compare early, peak and immediately post-peak residuals on the same observations, with matched disposition, error and BLQ treatment. Repeat after omitting a key peak sample.",
+      "route": "any",
+      "sources": [
+        "gabrielsson2016"
+      ],
+      "t1": true,
+      "t2": true
+    },
+    {
+      "id": "zero_order_lag",
+      "label": "Finite zero-order input after a fixed lag",
+      "family": "onset",
+      "questions": [
+        1,
+        2,
+        3
+      ],
+      "rule": "A0.9–10, 16–17",
+      "next_check": "Compare early, peak and immediately post-peak residuals on the same observations, with matched disposition, error and BLQ treatment. Repeat after omitting a key peak sample.",
+      "route": "any",
+      "sources": [
+        "gabrielsson2016"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "weibull_lt1_immediate",
+      "label": "Single Weibull, 0 < β < 1, no lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "The rate decreases from an integrable singularity. Cumulative input starts at zero. Compare with the corresponding first-order or transit curve using matched assumptions.",
+      "route": "any",
+      "sources": [
+        "piotrovskii1987"
+      ],
+      "t1": true,
+      "t2": false
+    },
+    {
+      "id": "weibull_lt1_lag",
+      "label": "Single Weibull, 0 < β < 1, fixed positive lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "The rate decreases from an integrable singularity. Cumulative input starts at zero. Bound the delay using dose time and early serial draws. Compare with the corresponding first-order or transit curve using matched assumptions.",
+      "route": "any",
+      "sources": [
+        "piotrovskii1987"
+      ],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "weibull_eq1_immediate",
+      "label": "Single Weibull, β = 1, no lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "This is first-order input with kₐ = 1/τ. It is the same model in a different parameterization. Compare with the corresponding first-order or transit curve using matched assumptions.",
+      "route": "any",
+      "sources": [
+        "piotrovskii1987"
+      ],
+      "t1": true,
+      "t2": true
+    },
+    {
+      "id": "weibull_eq1_lag",
+      "label": "Single Weibull, β = 1, fixed positive lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "This is first-order input with kₐ = 1/τ. It is the same model in a different parameterization. Bound the delay using dose time and early serial draws. Compare with the corresponding first-order or transit curve using matched assumptions.",
+      "route": "any",
+      "sources": [
+        "piotrovskii1987"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "weibull_gt1_immediate",
+      "label": "Single Weibull, β > 1, no lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "The rate starts at zero, increases smoothly and then declines. Compare with the corresponding first-order or transit curve using matched assumptions.",
+      "route": "any",
+      "sources": [
+        "piotrovskii1987"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "weibull_gt1_lag",
+      "label": "Single Weibull, β > 1, fixed positive lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "The rate starts at zero, increases smoothly and then declines. Bound the delay using dose time and early serial draws. Compare with the corresponding first-order or transit curve using matched assumptions.",
+      "route": "any",
+      "sources": [
+        "piotrovskii1987"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "transit",
+      "label": "Serial first-order transit from dosing",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "Compare an initially increasing input from serial positive-rate stages, with or without a final first-order absorption step, against Weibull β > 1 and a fixed delay. Estimate mean transit time only if identifiable.",
+      "route": "any",
+      "sources": [
+        "savic2007",
+        "piotrovskii1987"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "transit_lag",
+      "label": "Serial first-order transit after a fixed lag",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 16–17, 20",
+      "next_check": "Compare an initially increasing input from serial positive-rate stages, with or without a final first-order absorption step, against Weibull β > 1 and a fixed delay. Estimate mean transit time only if identifiable.",
+      "route": "any",
+      "sources": [
+        "savic2007",
+        "piotrovskii1987"
+      ],
+      "t1": false,
+      "t2": true
+    },
+    {
+      "id": "parallel_immediate",
+      "label": "Parallel immediate non-increasing inputs",
+      "family": "shape",
+      "questions": [
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 20",
+      "next_check": "Compare fast and slow nonnegative fractions released from dosing. Establish mixture shape separately before applying a peak guarantee.",
+      "route": "any",
+      "sources": [],
+      "t1": true,
+      "t2": false
+    },
+    {
+      "id": "separated_inputs",
+      "label": "Sequential, interrupted or independently delayed input components",
+      "family": "multiphase",
+      "questions": [
+        3,
+        4,
+        5
+      ],
+      "rule": "17, 20",
+      "next_check": "Verify a within-animal second rise, then compare separated input pulses with a single gradual input under shared disposition.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "burst_sustained",
+      "label": "Initial burst plus sustained release",
+      "family": "multiphase",
+      "questions": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "rule": "17, 20",
+      "next_check": "Verify early and late samples in the same subjects and seek independent release data. A burst followed by release can also produce a shoulder.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "inverse_gaussian",
+      "label": "Inverse Gaussian input",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        3
+      ],
+      "rule": "Literature extension to 17",
+      "next_check": "Compare as an empirical sensitivity model with IV-informed disposition and early sampling. The r4.3 T1/T2 classification has not been assigned to this family.",
+      "route": "any",
+      "sources": [
+        "weiss1996"
+      ],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "input_rate_limited",
+      "label": "Slower or capacity-limited input with preserved systemic extent (2a)",
+      "family": "dose",
+      "questions": [
+        2,
+        8
+      ],
+      "rule": "19",
+      "next_check": "Check whether peak exposure falls more than common-window exposure. Test unchanged extent with complete AUC/dose and supported common clearance.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "uptake_extent_loss",
+      "label": "Saturable uptake or incomplete absorption reducing F (2b)",
+      "family": "dose",
+      "questions": [
+        7,
+        8
+      ],
+      "rule": "19, 22",
+      "next_check": "Compare complete AUC/dose across doses with IV clearance over the same range. Investigate independent transporter or site-loss evidence.",
+      "route": "any",
+      "sources": ["larsen2015"],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "efflux_saturation",
+      "label": "Saturable intestinal efflux increasing F (2c)",
+      "family": "dose",
+      "questions": [
+        7,
+        8
+      ],
+      "rule": "19, 22",
+      "next_check": "Verify gut exposure, comparable doses and complete AUC/dose. Compare against first-pass metabolism and systemic nonlinear elimination.",
+      "route": "enteral",
+      "sources": ["celiprolol2009"],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "first_pass_saturation",
+      "label": "Saturable presystemic extraction increasing F (2c)",
+      "family": "dose",
+      "questions": [
+        7,
+        8
+      ],
+      "rule": "19, 22",
+      "next_check": "Confirm the portal contribution and compare systemic IV clearance, metabolites or portal exposure at comparable doses.",
+      "route": "portal",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "solubility_limited",
+      "label": "Dissolution, solubility or formulation-limited release",
+      "family": "shape",
+      "questions": [
+        2,
+        8,
+        9
+      ],
+      "rule": "17, 19, 23",
+      "next_check": "Compare formulations, administered concentration and independent dissolution or precipitation measurements at a relevant site.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "gastric_emptying",
+      "label": "Delayed or interrupted gastric emptying",
+      "family": "multiphase",
+      "questions": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "rule": "16, 19–20",
+      "next_check": "Confirm enteral delivery, meal timing and gastric emptying against individual trajectories.",
+      "route": "enteral",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "absorption_window",
+      "label": "Regional uptake or a limited intestinal absorption window",
+      "family": "multiphase",
+      "questions": [
+        2,
+        4,
+        7
+      ],
+      "rule": "19–20, 22",
+      "next_check": "Review GI transit, regional delivery and incomplete recovery across formulations or sites.",
+      "route": "enteral",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "depot_release",
+      "label": "SC or IM depot release, local perfusion or injection-site loss",
+      "family": "shape",
+      "questions": [
+        1,
+        2,
+        6,
+        8,
+        9
+      ],
+      "rule": "16–19, 23",
+      "next_check": "Compare injection site, volume, formulation and local measurements with a comparable systemic IV reference.",
+      "route": "depot",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "pulmonary_enteral",
+      "label": "Parallel pulmonary and swallowed enteral input",
+      "family": "multiphase",
+      "questions": [
+        2,
+        4,
+        7,
+        9
+      ],
+      "rule": "20, 22–23",
+      "next_check": "Confirm administration route, lung deposition and swallowed fraction. Match local and systemic measurements before partitioning input.",
+      "route": "pulmonary",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "enterohepatic",
+      "label": "Enterohepatic recirculation",
+      "family": "multiphase",
+      "questions": [
+        4,
+        5,
+        6
+      ],
+      "rule": "20",
+      "next_check": "Compare individual EV and IV profiles with comparable dose, sampling and feeding, then seek bile or mass-balance evidence.",
+      "route": "any",
+      "sources": [
+        "kim2015"
+      ],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "flip_flop",
+      "label": "Flip-flop kinetics (absorption-limited terminal decline)",
+      "family": "tail",
+      "questions": [
+        3,
+        6
+      ],
+      "rule": "18",
+      "next_check": "Compare EV and IV tail windows for sensitivity to the last sample, estimate disposition from comparable IV data and test slow input jointly.",
+      "route": "any",
+      "sources": ["levitt2003"],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "ongoing_input",
+      "label": "Ongoing ordinary absorption during the sampled decline",
+      "family": "tail",
+      "questions": [
+        2,
+        4,
+        6
+      ],
+      "rule": "18, 20",
+      "next_check": "Compare continuing input and completed input against shared IV disposition. A declining concentration still permits ongoing absorption.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "multicompartment",
+      "label": "Multicompartment disposition masked by slow input",
+      "family": "tail",
+      "questions": [
+        3,
+        4,
+        6
+      ],
+      "rule": "18, 20",
+      "next_check": "Resolve early distribution and the terminal IV phase, then compare joint IV/EV models.",
+      "route": "any",
+      "sources": [
+        "gabrielsson2016"
+      ],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "nonlinear_elimination",
+      "label": "Saturable systemic elimination",
+      "family": "dose",
+      "questions": [
+        6,
+        7,
+        8
+      ],
+      "rule": "18–19, 22",
+      "next_check": "Check exposure-matched IV dose series. Low-concentration terminal slopes may converge despite nonlinear clearance at higher concentrations.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "changing_clearance",
+      "label": "Dose-, occasion- or state-dependent clearance",
+      "family": "extent",
+      "questions": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "rule": "19, 22–23",
+      "next_check": "Compare IV clearance in each state and dose range. Complete EV AUC/dose identifies F/CL when disposition is linear.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "binding_distribution",
+      "label": "Changes in distribution or concentration-dependent binding",
+      "family": "tail",
+      "questions": [
+        3,
+        6,
+        8,
+        9
+      ],
+      "rule": "18–19, 23",
+      "next_check": "Check paired free and total concentrations, time-matched matrix measurements and IV distribution.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "f_change",
+      "label": "Amplitude change through systemic availability (F)",
+      "family": "extent",
+      "questions": [
+        7,
+        9
+      ],
+      "rule": "22–23",
+      "next_check": "Assess complete matched AUC and independently justify common clearance. Test whether a constant multiplier is compatible with aligned times.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "cl_v_coscaling",
+      "label": "Amplitude change through proportional scaling of CL and V",
+      "family": "condition",
+      "questions": [
+        6,
+        7,
+        9
+      ],
+      "rule": "22–23",
+      "next_check": "Compare IV profiles in both conditions. Co-scaling CL and V preserves their ratio and can mimic a change in F.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "rate_only",
+      "label": "Change in absorption rate alone",
+      "family": "condition",
+      "questions": [
+        2,
+        7,
+        9
+      ],
+      "rule": "23",
+      "next_check": "Test complete dose-normalized AUC under common linear disposition, then compare models that change only input timing.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "mixed_rate_extent",
+      "label": "Combined changes in input, extent or disposition",
+      "family": "condition",
+      "questions": [
+        7,
+        8,
+        9
+      ],
+      "rule": "19, 22–23",
+      "next_check": "Start with the simplest distinguishable contrasts and seek independent evidence for each component before fitting their combination.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "occasion_effect",
+      "label": "Accumulation or time-dependent input or disposition",
+      "family": "condition",
+      "questions": [
+        1,
+        6,
+        8,
+        9
+      ],
+      "rule": "19, 21, 23",
+      "next_check": "Check dose history, matched occasions and interval exposures against the single-dose superposition prediction.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "baseline_carryover",
+      "label": "Predose drug, endogenous signal or carryover",
+      "family": "baseline",
+      "questions": [
+        1,
+        3,
+        5
+      ],
+      "rule": "16, 21",
+      "next_check": "Verify predose material, assay specificity, prior doses and washout before interpreting onset.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "timing_sampling",
+      "label": "Sampling, averaging, assay or timing explanation",
+      "family": "baseline",
+      "questions": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "rule": "16–17, 20–21",
+      "next_check": "Trace dose and draw times, BLQ/ULOQ limits, observation units and animal identities. Re-examine the pattern within verified individuals.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "parallel_linear_saturable_input",
+      "label": "Parallel linear and saturable absorption",
+      "family": "dose",
+      "questions": [
+        2,
+        7,
+        8
+      ],
+      "rule": "19",
+      "next_check": "Compare parallel first-order and capacity-limited absorption with single linear or capacity-limited input across dose levels. Check identifiability against nonlinear clearance.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "parallel_linear_saturable_elimination",
+      "label": "Parallel linear and saturable elimination",
+      "family": "dose",
+      "questions": [
+        6,
+        7,
+        8
+      ],
+      "rule": "18–19, 22",
+      "next_check": "Test linear plus Michaelis–Menten clearance with IV data across concentrations before attributing nonlinear EV exposure to absorption.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "variable_lag",
+      "label": "Between-subject variation in lag or absorption rate",
+      "family": "onset",
+      "questions": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "rule": "16–17, 20",
+      "next_check": "Check early serial samples and dose timing by individual. Vary lag or rate across subjects before interpreting a pooled shoulder or secondary rise.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "finite_administration",
+      "label": "Finite administration duration",
+      "family": "onset",
+      "questions": [
+        1,
+        2,
+        3
+      ],
+      "rule": "16–17, 21",
+      "next_check": "Check start and stop times for dosing and the formulation before attributing the delay to biological absorption.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "parallel_zero_first",
+      "label": "Parallel finite zero-order and first-order input from dosing",
+      "family": "shape",
+      "questions": [
+        2,
+        3,
+        4
+      ],
+      "rule": "A0.9–10, 17, 20",
+      "next_check": "Test the fraction entering by each route under common disposition. The sum of these two immediate, non-increasing rates satisfies T1.",
+      "route": "any",
+      "sources": [],
+      "t1": true,
+      "t2": false
+    },
+    {
+      "id": "dose_proportional",
+      "label": "Dose-proportional exposure or concentration profiles",
+      "family": "dose",
+      "questions": [
+        8
+      ],
+      "rule": "19",
+      "next_check": "Review the separate T3 exposure and T3p concentration contrasts on their specified doses and windows.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    },
+    {
+      "id": "shared_one_compartment",
+      "label": "Shared linear one-compartment EV/IV disposition",
+      "family": "tail",
+      "questions": [
+        3,
+        6
+      ],
+      "rule": "18",
+      "next_check": "Inspect the matched ratio and T4 assumptions, including IV administration and the uncertainty model, before comparing alternative dispositions.",
+      "route": "any",
+      "sources": [],
+      "t1": false,
+      "t2": false
+    }
+  ]
+}

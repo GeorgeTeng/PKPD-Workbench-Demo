@@ -39,3 +39,13 @@ def test_group_means_with_no_iv_reference(tmp_path):
     specs = json.loads((folder / "plot_specs.json").read_text(encoding="utf-8"))
     assert specs["figures"] and all((folder / s["file"]).is_file() for s in specs["figures"])
     assert 'href="absorption/index.html"' in (tmp_path / "report.html").read_text(encoding="utf-8")
+    ledger = json.loads((folder / "mechanism_candidates.json").read_bytes())
+    study, = ledger["studies"]
+    assert study["study_id"] == "S91"
+    assert len(study["questions"]) == 9
+    assert [r["id"] for r in study["candidate_assessments"]] == [c["id"] for c in ledger["catalog"]]
+    assert 'href="mechanism_assessment.html"' in (folder / "index.html").read_text(encoding="utf-8")
+    for name in ("mechanism_assessment.html", "mechanism_assessment.md"):
+        handoff = (folder / name).read_text(encoding="utf-8")
+        assert "Single Weibull, 0 < β < 1, fixed positive lag" in handoff.replace("&lt;", "<")
+        assert "species-mouse.html#q-s91-8" in handoff

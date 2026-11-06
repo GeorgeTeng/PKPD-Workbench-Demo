@@ -93,7 +93,12 @@ def main():
         open_report(args.folder, args.print_path)
     elif args.command == "rules":
         spec, path = rule_spec()
+        catalog = json.loads((RULES / "eda_rules.json").read_bytes())["source"]["absorption_mechanism_catalog"]
+        catalog_path = RULES / catalog["file"]
+        if hashlib.sha256(catalog_path.read_bytes()).hexdigest() != catalog["sha256"]:
+            raise ValueError(f"Mechanism catalogue differs from its registered SHA-256: {catalog_path}")
         print(f"{spec['version']}\n{path}\nSHA-256 {spec['sha256']}")
+        print(f"{catalog['version']}\n{catalog_path}\nSHA-256 {catalog['sha256']}")
     elif args.command == "run":
         run_absorption(args.source, args.out)
     else:

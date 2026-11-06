@@ -3315,10 +3315,10 @@
     },
     {
       "path": "backend/rules/eda/eda_rules.json",
-      "sha256": "00c4dbbfa3f172f3a38275ad0ef19f1572a09e47ccb4db222d65f5e44f2e6cdf",
-      "bytes": 42295,
+      "sha256": "6294dfdf2ccdc6aadbba908e4b8d5734a2273349205a95199469e84c5303143f",
+      "bytes": 42506,
       "source_revision_date": "2026-11-05",
-      "publication_note": "Byte-identical to the installed r4.3 PMB run source.",
+      "publication_note": "Used in the mechanism-handoff replay of retry 032. The native_run_file_sha256, when present, identifies the earlier frozen checkpoint.",
       "native_run_file_sha256": "00c4dbbfa3f172f3a38275ad0ef19f1572a09e47ccb4db222d65f5e44f2e6cdf"
     },
     {
@@ -3997,11 +3997,11 @@
     },
     {
       "path": "backend/research_pipeline/research_pipeline/eda_absorption.py",
-      "sha256": "c6def4a8d423f25f38fe051b5cb54d2a7c9be1827bc3fa46395c752592109f6e",
-      "bytes": 164814,
+      "sha256": "7b40a527c775ae933bb4f4e09981ba59b569cfcc4b1931becdae382dd828bc84",
+      "bytes": 165131,
       "source_revision_date": "2026-11-05",
       "native_run_file_sha256": "c6def4a8d423f25f38fe051b5cb54d2a7c9be1827bc3fa46395c752592109f6e",
-      "publication_note": "Byte-identical to the installed r4.3 PMB run source."
+      "publication_note": "Used in the mechanism-handoff replay of retry 032. The native_run_file_sha256, when present, identifies the earlier frozen checkpoint."
     },
     {
       "path": "pkpd_r/eda/absorption_figures.R",
@@ -4042,6 +4042,27 @@
       "source_revision_date": "2026-11-05",
       "publication_note": "Byte-identical to the installed r4.3 PMB run source.",
       "native_run_file_sha256": "7ec12eaf2757b24463de108a072f6e1b81ce986f274a696a1db1ce0a681ac2df"
+    },
+    {
+      "path": "backend/research_pipeline/research_pipeline/eda_absorption_assessment.py",
+      "source_revision_date": "2026-11-05",
+      "sha256": "1199e05c83046336a39d5a677e4c8d8033a5ae7f9cde1a140f2192ceae9d7b6e",
+      "bytes": 31596,
+      "publication_note": "Used in the mechanism-handoff replay of retry 032. The native_run_file_sha256, when present, identifies the earlier frozen checkpoint."
+    },
+    {
+      "path": "backend/research_pipeline/research_pipeline/eda_absorption_mechanisms.py",
+      "source_revision_date": "2026-11-05",
+      "sha256": "6a263d337b4e0f932545dae49c7f57b58b2d223a57d6d646a71e3df440c85d55",
+      "bytes": 10889,
+      "publication_note": "Used in the mechanism-handoff replay of retry 032. The native_run_file_sha256, when present, identifies the earlier frozen checkpoint."
+    },
+    {
+      "path": "backend/rules/eda/absorption_mechanisms_r43.json",
+      "source_revision_date": "2026-11-05",
+      "sha256": "936c57e4ceafb5ea1bd9274b92158cd834d961d2c1f93e889a7a4e2ca6e0ea15",
+      "bytes": 25325,
+      "publication_note": "Used in the mechanism-handoff replay of retry 032. The native_run_file_sha256, when present, identifies the earlier frozen checkpoint."
     }
   ],
   "scope": "Code, configuration, tests and documentation; no original research files or model-call payloads.",
@@ -4072,7 +4093,8 @@
     "backend/research_pipeline/tests/test_absorption_publication.py",
     "backend/research_pipeline/tests/test_absorption_comparisons_r43.py",
     "backend/research_pipeline/tests/test_absorption_curve_r43.py",
-    "backend/research_pipeline/tests/test_absorption_board_r43.py"
+    "backend/research_pipeline/tests/test_absorption_board_r43.py",
+    "backend/research_pipeline/tests/test_absorption_mechanisms.py"
   ],
   "eda_revision_date": "2026-11-05",
   "publication_date": "2026-11-05",
@@ -4080,5 +4102,6 @@
   "presentation_revision": "2026-10-26 UTC: five EDA presentation categories; scientific analysis memberships unchanged",
   "dose_revision_base_commit": "bb73e61249993241c968f45633f6273b53df2f8b",
   "absorption_revision_base_commit": "8954cfe9ccef61021f9a0ea71bf82c28c447438d",
-  "absorption_rules_revision_date": "2026-11-05"
+  "absorption_rules_revision_date": "2026-11-05",
+  "absorption_mechanism_edition": "r4.3-handoff.1"
 }
