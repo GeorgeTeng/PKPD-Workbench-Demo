@@ -7,7 +7,7 @@ import pytest
 from research_pipeline import eda_absorption_assessment as assess
 from research_pipeline import eda_absorption_mechanisms as handoff
 from research_pipeline.eda_absorption_reader import alternatives
-from research_pipeline.eda_absorption_brief import study_brief
+from research_pipeline.eda_absorption_brief import modeling_plan, study_brief
 
 
 RULES = Path(__file__).resolve().parents[2] / "rules" / "eda"
@@ -42,6 +42,21 @@ def test_named_families_and_all_nine_questions_remain_covered():
         assert (c["t1"], c["t2"]) == expected
         assert "piotrovskii1987" in c["sources"]
     assert by_id["inverse_gaussian"]["rule"].startswith("Literature extension")
+
+
+def test_plan_requires_independent_evidence_for_terminal_and_availability_comparisons():
+    studies = [{"dataset_ids": ["EV"], "candidate_assessments": [], "reader_brief": []}]
+    result = {"datasets": [{"card": {"dataset_id": "EV", "tests_allowed": True},
+                            "series": [{"metrics": {"n_quantified": 4}}]}],
+              "ev_iv": [{"ev": "EV", "f_window": .8}, {"ev": "OUTSIDE", "terminal_comparison": {"pairs": [{}]}}]}
+    text = modeling_plan(studies, result)
+    assert "absolute bioavailability" in text and "flip-flop" not in text
+    result["ev_iv"] = [{"ev": "EV", "terminal_comparison": {"pairs": [{"same_window": False}]}}]
+    text = modeling_plan(studies, result)
+    assert "flip-flop" in text and "absolute bioavailability" not in text
+    result = {"datasets": [{"card": {"dataset_id": "EV", "tests_allowed": False}, "series": []}]}
+    text = modeling_plan(studies, result)
+    assert "Obtain serial systemic concentrations" in text and "Weibull" not in text
 
 
 def test_missing_weibull_cell_stops_generation(tmp_path):

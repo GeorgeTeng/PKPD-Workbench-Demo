@@ -246,6 +246,40 @@ def fallback(profiles, raw, parameters):
                 "Identify the source, route, dose and timed systemic observations before assessing absorption.","timing_sampling")
 
 
+def modeling_plan(studies, result):
+    """State the next modeling comparisons once across studies; keep their scope in Context."""
+    ids = {key for study in studies for key in study["dataset_ids"]}
+    measured = any(d["card"]["dataset_id"] in ids and d["card"].get("tests_allowed")
+                   and any(s.get("metrics", {}).get("n_quantified", 0) for s in d.get("series", []))
+                   for d in result.get("datasets", []))
+    rows = [row for study in studies for row in study["candidate_assessments"]]
+    excluded = any(row["status"].startswith("EXCLUDED_IN_") for row in rows)
+    rebound = any(cue["kind"] in {"WITHIN_ANIMAL_TROUGH", "GROUP_TROUGH_DESCRIPTION"}
+                  for row in rows for cue in row.get("evidence", []))
+    dose = any(d.get("dataset_ids") and set(d["dataset_ids"]) <= ids and d.get("status") in {"ASSESSED", "INDIVIDUAL_CONTRAST"}
+               for d in result.get("dose_series", []))
+    references = [r for r in result.get("ev_iv", []) if r.get("ev") in ids]
+    conditions = any({pair["a"], pair["b"]} <= ids for pair in result.get("conditions", []))
+    steps = []
+    if excluded:
+        steps.append("Apply the exclusions in each study’s Context when choosing model comparisons.")
+    if not measured:
+        steps.append("Verify the dose history, sampling times, assay limits and source-reported parameters. Obtain serial systemic concentrations before comparing absorption models.")
+    else:
+        steps.append("Check baseline and animal IDs. Use early samples to compare zero-order, first-order, transit and Weibull absorption with and without lag.")
+        if rebound:
+            steps.append("For confirmed within-animal rebounds, test parallel or sequential inputs and enterohepatic recirculation.")
+    if dose:
+        steps.append("Test saturable absorption against nonlinear clearance using dose-normalized Cmax, AUC and dose-matched IV data.")
+    if any((r.get("terminal_comparison") or {}).get("pairs") for r in references):
+        steps.append("Assess flip-flop kinetics using EV and IV half-lives from matched terminal windows.")
+    if conditions:
+        steps.append("Compare rate and extent across time-aligned conditions.")
+    if any(r.get("f_window") is not None for r in references):
+        steps.append("Estimate absolute bioavailability (F) from total dose-normalized EV/IV AUC ratios after verifying sampling coverage and shared clearance.")
+    return " ".join(steps)
+
+
 def study_brief(study, result):
     """Return up to three nonredundant checks in evidence order, independent of model preference."""
     if isinstance(study,str):

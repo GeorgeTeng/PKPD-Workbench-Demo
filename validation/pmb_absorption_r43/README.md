@@ -33,6 +33,8 @@ The subsequent English reader revision adds an observation, remaining alternativ
 
 The concise reader displays eight modeling checks across the four studies by default. Each check opens its associated explanations inside the study’s **Context**, which holds all 46 candidates and nine answers. The prior full records matched after removal of the new study briefs. All 46 targeted tests passed, including coverage of eligible later-occasion dose comparisons when single-dose shape checks are unavailable.
 
+In the subsequent reader, one report-wide paragraph gives the next modeling steps. The eight study checks, all nine answers per study, and the full candidate records are available inside **Context**. Removing the new `modeling_plan` field reproduced the complete previous evidence payload. The 47 targeted tests cover the reader layout and independent evidence gates for terminal slopes and bioavailability.
+
 ```powershell
 python validation/pmb_absorption_r43/verify_run.py "D:/runs/PMB_run5w_retry_032" "D:/reports/PMB_rebuilt"
 ```

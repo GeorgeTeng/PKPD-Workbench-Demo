@@ -14,13 +14,13 @@ For the English PMB mechanism edition, copy the whole private ZIP to the other c
 
 ### Review candidate mechanisms
 
-The reader opens with a short list of observations and next modeling checks for each study. Select a finding to see the candidates relevant to that check, or expand **Context** to browse all candidates and the nine study answers. Each candidate explains what the curve supports, which alternatives remain open and how to distinguish them. Its technical details contain the test results, margins, assumptions and source records. The Markdown provides full context as text. The JSON contains both the study brief and the full evidence.
+The reader opens with one English paragraph naming the next absorption model comparisons across studies. Expand a study’s **Context** for its observed curves, comparisons, candidate explanations and nine study answers. The Markdown includes the full context. The JSON exposes the same paragraph in `modeling_plan` alongside the complete study records.
 
 The standalone command below and the native EV workflow generate the following files from the same completed absorption result.
 
 | File inside `absorption/` | What to use it for |
 | --- | --- |
-| `mechanism_assessment.html` | Read the study findings first and expand Context for all nine answers and candidate assessments. |
+| `mechanism_assessment.html` | Read the next steps for modeling and open a study’s Context for its findings and candidates. |
 | `mechanism_assessment.md` | Share the English handoff as text. |
 | `mechanism_candidates.json` | Inspect every candidate, profile, comparison, constraint, rule reference and evidence link, including alternatives with unresolved route or sparse observations. |
 

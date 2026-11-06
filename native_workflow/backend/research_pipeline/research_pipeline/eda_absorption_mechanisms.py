@@ -5,7 +5,7 @@ from html import escape
 from pathlib import Path
 
 from .eda_absorption_assessment import assess
-from .eda_absorption_brief import study_brief
+from .eda_absorption_brief import modeling_plan, study_brief
 from .eda_absorption_reader import READINGS, alternatives, modeling_check
 from .eda_absorption_reader_evidence import support_text
 
@@ -25,8 +25,6 @@ DME = {
     "cl_v_coscaling": "distribution and elimination", "first_pass_saturation": "metabolism",
     "shared_one_compartment": "distribution and elimination", "mixed_rate_extent": "distribution, metabolism and elimination",
 }
-GUIDE = ("Each study highlights the observations that guide the next modeling checks. "
-         "Open Context for all candidate explanations, the nine study answers and the underlying tests.")
 READER_FIELDS = (("support", "What the curve supports"), ("alternatives", "What remains possible"),
                  ("modeling_check", "How to distinguish them in modeling"))
 WEIBULL = ("Weibull β describes the distribution of times at which the eventual systemic input arrives. "
@@ -38,7 +36,7 @@ h1,h2,h3{line-height:1.2;color:#15364b}h2{margin-top:2em}h3{margin-top:1.6em}a{c
 summary{cursor:pointer;padding:.4em 0}details{border-top:1px solid #cfdae1;margin:.25em 0}
 details>div{padding:0 .9em .7em}nav a{margin-right:1.2em}li{margin-bottom:.3em}.meta{color:#495e68}
 .candidate h5{font-size:1em;margin:1.05em 0 .15em}.candidate h5+p{margin-top:0}.technical{margin-top:1em}
-.brief{margin:1em 0}.brief h3{font-size:1.05em;margin:0}.brief p{margin:.25em 0}
+.modeling-plan{font-size:1.1em;max-width:78ch;margin:1em 0 1.5em}.brief{margin:1em 0}.brief h3{font-size:1.05em;margin:0}.brief p{margin:.25em 0}
 .study-context>summary,.sources>summary{color:#075b85;font-weight:600}.study-context{margin:1.1em 0 2em}
 @media print{details>div{display:block}body{max-width:none}}"""
 
@@ -125,7 +123,7 @@ def render(payload):
     catalog = {c["id"]: c for c in payload["catalog"]}
     sources = payload["sources"]
     studies = payload["studies"]
-    title = "Absorption hypotheses for modeling"
+    title = "Next steps for absorption modeling"
     h = ['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
          f"<title>{title}</title><style>{STYLE}</style><main>",
          '<nav><a href="index.html">Absorption overview</a><a href="mechanism_assessment.md">Full context (Markdown)</a>'
@@ -141,33 +139,27 @@ def render(payload):
         h.append(f"<h{level}>{escape(value)}</h{level}>")
         m.extend(["#" * level + " " + value, ""])
 
-    paragraph(GUIDE)
-    h.append("<nav>" + " ".join(html_link(f"#study-{i}", s["study_id"]) for i, s in enumerate(studies, 1)) + "</nav>")
+    h.append('<p class="modeling-plan">' + escape(payload["modeling_plan"]) + '</p>')
+    m.extend([payload["modeling_plan"], ""])
     for i, study in enumerate(studies, 1):
         h.append(f'<section id="study-{i}">')
         species = study.get("species_group") or study["species"]
-        heading(2, study["study_id"] + " · " + (", ".join(species) if isinstance(species, list) else species))
+        context_label = study["study_id"] + " · " + (", ".join(species) if isinstance(species, list) else species) + " · Context"
+        h.append(f'<details class="study-context" id="context-{i}"><summary>{escape(context_label)}</summary><div>')
+        m.extend(["## " + context_label, ""])
         question_links = {q["q"]: q.get("link") for q in study["questions"]}
         anchor = f"answers-{i}"
+        h.append('<p>' + html_link("#" + anchor, "Read the nine study answers") + '</p>')
         brief = study.get("reader_brief", [])
         for n, item in enumerate(brief, 1):
             title = item["title"]
-            linked_title = html_link(f"#study-{i}-check-{n}", title) if item["candidate_ids"] else escape(title)
-            h.append(f'<article class="brief"><h3>{linked_title}</h3><p>{escape(item["observation"])}</p>'
-                     f'<p><strong>Next check.</strong> {escape(item["check"])}</p></article>')
+            h.append(f'<article class="brief" id="study-{i}-check-{n}"><h3>{escape(title)}</h3><p>{escape(item["observation"])}</p>'
+                     f'<p><strong>Next check.</strong> {escape(item["check"])}</p>')
+            links = [html_link(f"#study-{i}-{key}", catalog[key]["label"]) for key in item["candidate_ids"]]
+            if links:
+                h.append('<p>' + " · ".join(links) + '</p>')
+            h.append("</article>")
             m.extend([f"**{title}**", "", item["observation"], "", "**Next check.** " + item["check"], ""])
-        if not brief:
-            paragraph("The available records do not establish a specific modeling check. See Context for the evidence limits.")
-        rows = study["candidate_assessments"]
-        context_label = f"Context · {len(rows)} candidates and {len(question_links)} study answers"
-        h.append(f'<details class="study-context" id="context-{i}"><summary>{context_label}</summary><div>')
-        m.extend(["### " + context_label, ""])
-        h.append('<p>' + html_link("#" + anchor, "Read the nine study answers") + '</p>')
-        for n, item in enumerate(brief, 1):
-            if item["candidate_ids"]:
-                links = [html_link(f"#study-{i}-{key}", catalog[key]["label"]) for key in item["candidate_ids"]]
-                h.append(f'<p id="study-{i}-check-{n}"><strong>{escape(item["title"])}</strong><br>'
-                         + " · ".join(links) + "</p>")
 
         heading(3, "Candidate mechanisms and alternatives")
         for family, group in FAMILIES.items():
@@ -270,7 +262,7 @@ def write_handoff(out, result, rules_dir):
     payload = {"version": catalog["version"], "rule_specification": result["rule_specification"],
                "catalog_sha256": digest, "absorption_sha256": hashlib.sha256((out / "absorption.json").read_bytes()).hexdigest(),
                "scope": catalog["scope"], "premises": catalog["premises"], "sources": catalog["sources"],
-               "catalog": catalog["candidates"], "studies": studies}
+               "catalog": catalog["candidates"], "studies": studies, "modeling_plan": modeling_plan(studies, result)}
     html, markdown = render(payload)
     (out / "mechanism_candidates.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "mechanism_assessment.html").write_text(html, encoding="utf-8")
