@@ -1,0 +1,58 @@
+{
+  "version": "r4.3-handoff.2",
+  "rule_version": "r4.3",
+  "scope": "Select one modeling comparison or data check per species using one study at a time. A priority is a next check. It does not express a mechanism probability. Candidate models and pending disposition, metabolism or elimination explanations remain unranked.",
+  "evidence_hierarchy": [
+    [
+      "verified_individual_rebound",
+      "scoped_formal_exclusion"
+    ],
+    [
+      "dose_peak_exposure",
+      "increased_peak_exposure",
+      "matched_terminal_slow_input",
+      "matched_terminal_steeper_ev"
+    ],
+    [
+      "group_rebound"
+    ],
+    [
+      "verify_identity",
+      "reconcile_sampling"
+    ],
+    [
+      "sparse_rise"
+    ]
+  ],
+  "dose_criterion": {
+    "peak_flag": "POINTS_TO_NONLINEARITY",
+    "required_direction": "normalized_peak_changes_more_than_partial_exposure",
+    "allowed_comparison_status": [
+      "ASSESSED",
+      "INDIVIDUAL_CONTRAST"
+    ]
+  },
+  "rebound_criterion": {
+    "minimum_positive_triples": 1,
+    "observations": "three_quantified_ordered_samples_with_middle_below_both_neighbors",
+    "group_mean_action": "verify_within_animal_first"
+  },
+  "terminal_criterion": {
+    "require_same_window": true,
+    "require_same_study_iv": true
+  },
+  "tie_handling": {
+    "different_kinds": "no_unique_leader",
+    "same_kind": "one_lexically_stable_example",
+    "pool_studies": false
+  },
+  "report_requirements": {
+    "scope": [
+      "study_ids",
+      "dataset_ids",
+      "evidence_link"
+    ],
+    "disclosure": "State the observed quantity and the limit on causal interpretation. For a tie, give the distinct checks and preserve their separate links. With no qualifying signal, request the missing discriminating evidence.",
+    "excluded_candidate_policy": "omit_in_selected_scope"
+  }
+}

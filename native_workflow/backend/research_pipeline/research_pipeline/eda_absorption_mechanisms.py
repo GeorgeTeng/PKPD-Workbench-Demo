@@ -5,6 +5,7 @@ from html import escape
 from pathlib import Path
 
 from .eda_absorption_assessment import assess
+from .eda_absorption_species import build_species_priorities
 from .eda_absorption_brief import modeling_plan, study_brief
 from .eda_absorption_reader import READINGS, alternatives, modeling_check
 from .eda_absorption_reader_evidence import support_text
@@ -31,35 +32,17 @@ WEIBULL = ("Weibull β describes the distribution of times at which the eventual
            "With no lag, β < 1 gives a decreasing rate, β = 1 gives first-order input, and β > 1 gives a rate "
            "that rises and then falls. A fixed positive lag adds a period of exactly zero input before any of these shapes. "
            "A plasma peak or an early BLQ sample alone cannot identify β or the lag.")
-STYLE = """body{font:16px/1.55 system-ui,sans-serif;color:#203749;max-width:1000px;margin:2em auto;padding:0 1.2em}
-h1,h2,h3{line-height:1.2;color:#15364b}h2{margin-top:2em}h3{margin-top:1.6em}a{color:#075b85}
-summary{cursor:pointer;padding:.4em 0}details{border-top:1px solid #cfdae1;margin:.25em 0}
-details>div{padding:0 .9em .7em}nav a{margin-right:1.2em}li{margin-bottom:.3em}.meta{color:#495e68}
-.candidate h5{font-size:1em;margin:1.05em 0 .15em}.candidate h5+p{margin-top:0}.technical{margin-top:1em}
-.modeling-plan{font-size:1.1em;max-width:78ch;margin:1em 0 1.5em}.brief{margin:1em 0}.brief h3{font-size:1.05em;margin:0}.brief p{margin:.25em 0}
-.study-context>summary,.sources>summary{color:#075b85;font-weight:600}.study-context{margin:1.1em 0 2em}
-@media print{details>div{display:block}body{max-width:none}}"""
-
-# Existing bookmarks can point to a candidate inside a closed study Context.
-OPEN_FRAGMENT = """<script>
-function openFragment() {
-  const target = document.getElementById(location.hash.slice(1));
-  if (!target) return;
-  let changed = false;
-  for (let item = target.closest('details'); item; item = item.parentElement.closest('details')) {
-    if (!item.open) {
-      item.open = true;
-      changed = true;
-    }
-  }
-  if (changed) target.scrollIntoView();
+STYLE = """body{font:17px/1.5 system-ui,sans-serif;color:#203749;max-width:780px;margin:3em auto;padding:0 1.3em}
+h1,h2{line-height:1.15;color:#15364b}h1{font-size:2rem}.species-priority{padding:.7em 0 1.2em;border-bottom:1px solid #cbd8de}
+h2{font-size:1.3rem;margin:.5em 0}p{margin:.4em 0}a{color:#075b85}section>a,nav{font-size:.9em}
+nav{display:flex;flex-wrap:wrap;gap:1.2em;margin-top:1.6em}@media print{body{margin:0;max-width:none}nav,section>a{display:none}}"""
+OLD_BOOKMARKS = """<script>
+function locateStudy() {
+  const match = /^#(?:study|context|answers)-(\\d+)(?:-|$)/.exec(location.hash);
+  if (match) document.querySelector('[data-studies~="' + match[1] + '"]')?.scrollIntoView();
 }
-window.addEventListener('hashchange', openFragment);
-document.addEventListener('click', function(event) {
-  const anchor = event.target.closest('a[href^="#"]');
-  if (anchor && anchor.hash === location.hash) openFragment();
-});
-openFragment();
+window.addEventListener('hashchange', locateStudy);
+locateStudy();
 </script>"""
 
 
@@ -120,121 +103,99 @@ def profile_notes(profile):
 
 
 def render(payload):
-    catalog = {c["id"]: c for c in payload["catalog"]}
+    """Render the single-page priorities and the separate full-text evidence handoff."""
+    titles = {c["id"]: c for c in payload["catalog"]}
     sources = payload["sources"]
-    studies = payload["studies"]
-    title = "Next steps for absorption modeling"
-    h = ['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
-         f"<title>{title}</title><style>{STYLE}</style><main>",
-         '<nav><a href="index.html">Absorption overview</a><a href="mechanism_assessment.md">Full context (Markdown)</a>'
-         '<a href="mechanism_candidates.json">Structured evidence</a></nav>', f"<h1>{title}</h1>"]
-    m = ["# " + title, "", "[Absorption overview](index.html) · [Structured evidence](mechanism_candidates.json)", ""]
-
-    def paragraph(value):
-        if value:
-            h.append("<p>" + escape(str(value)) + "</p>")
-            m.extend([str(value), ""])
-
-    def heading(level, value):
-        h.append(f"<h{level}>{escape(value)}</h{level}>")
-        m.extend(["#" * level + " " + value, ""])
-
-    h.append('<p class="modeling-plan">' + escape(payload["modeling_plan"]) + '</p>')
-    m.extend([payload["modeling_plan"], ""])
-    for i, study in enumerate(studies, 1):
-        h.append(f'<section id="study-{i}">')
+    h = ['<!doctype html><html lang="en"><head><meta charset="utf-8">',
+         '<meta name="viewport" content="width=device-width, initial-scale=1">',
+         '<title>Absorption modeling priorities by species</title><style>' + STYLE + '</style></head><body>',
+         '<main><h1>Absorption modeling priorities by species</h1>']
+    m = ["# Absorption modeling priorities by species", ""]
+    study_numbers = {s["study_id"]: i for i, s in enumerate(payload["studies"], 1)}
+    citations = {q["link"]: f"{study['study_id']} · Q{q['q']}" for study in payload["studies"]
+                 for q in study["questions"] if q.get("link")}
+    for i, row in enumerate(payload["species_priorities"], 1):
+        species, priority, summary = row["species"], row["priority"], row["summary"]
+        # Preserve old study/candidate bookmarks as links to the corresponding species.
+        numbers = " ".join(str(study_numbers[s["study_id"]]) for s in payload["studies"]
+                           if (s.get("species_group") or s["species"]) == species)
+        h.append(f'<section class="species-priority" id="species-{i}" data-studies="{numbers}">'
+                 f'<h2>{escape(species)}</h2><p><strong>{escape(priority)}</strong> {escape(summary)}</p>')
+        m.extend(["## " + species, "", f"**{priority}** {summary}", ""])
+        links = [(link, "Evidence · " + citations.get(link, species)) for link in row["evidence_links"]]
+        if row["kind"] == "no_unique_leader":
+            links = [(check["evidence_link"], check["label"] + " · " + check["study_id"])
+                     for check in row["linked_checks"] if check["evidence_link"]]
+        for link, label in links:
+            h.append(html_link(link, label) + " ")
+            m.extend([f"[{label}]({link})", ""])
+        h.append("</section>")
+    if not payload["species_priorities"]:
+        h.append("<p>No species has an admitted absorption record. Verify the study and species assignments first.</p>")
+    h.append('<nav aria-label="Supporting material"><a href="index.html#species">Figure overview</a>'
+             '<a href="mechanism_assessment.md">Full context (Markdown)</a>'
+             '<a href="mechanism_candidates.json">Structured evidence</a></nav></main>' + OLD_BOOKMARKS + '</body></html>')
+    m.extend(["## Modeling context", "", payload["modeling_plan"], ""])
+    for study in payload["studies"]:
         species = study.get("species_group") or study["species"]
-        context_label = study["study_id"] + " · " + (", ".join(species) if isinstance(species, list) else species) + " · Context"
-        h.append(f'<details class="study-context" id="context-{i}"><summary>{escape(context_label)}</summary><div>')
-        m.extend(["## " + context_label, ""])
+        m.extend(["## " + study["study_id"] + " · " + (", ".join(species) if isinstance(species, list) else species), ""])
         question_links = {q["q"]: q.get("link") for q in study["questions"]}
-        anchor = f"answers-{i}"
-        h.append('<p>' + html_link("#" + anchor, "Read the nine study answers") + '</p>')
-        brief = study.get("reader_brief", [])
-        for n, item in enumerate(brief, 1):
-            title = item["title"]
-            h.append(f'<article class="brief" id="study-{i}-check-{n}"><h3>{escape(title)}</h3><p>{escape(item["observation"])}</p>'
-                     f'<p><strong>Next check.</strong> {escape(item["check"])}</p>')
-            links = [html_link(f"#study-{i}-{key}", catalog[key]["label"]) for key in item["candidate_ids"]]
-            if links:
-                h.append('<p>' + " · ".join(links) + '</p>')
-            h.append("</article>")
-            m.extend([f"**{title}**", "", item["observation"], "", "**Next check.** " + item["check"], ""])
-
-        heading(3, "Candidate mechanisms and alternatives")
+        for item in study["reader_brief"]:
+            m.extend(["**" + item["title"] + "**", "", item["observation"], "", "**Next check.** " + item["check"], ""])
         for family, group in FAMILIES.items():
             rows = [r for r in study["candidate_assessments"] if r["family"] == family]
             if not rows:
                 continue
-            heading(4, group)
+            m.extend(["### " + group, ""])
             for row in rows:
-                c = catalog[row["id"]]
-                state = friendly(row["status"])
-                label = row["label"]
-                h.append(f'<details class="candidate" id="study-{i}-{escape(c["id"])}" data-candidate="{escape(c["id"])}">'
-                         f"<summary><strong>{escape(label)}</strong> · {escape(state)}</summary><div>")
-                m.extend([f"**{label}** · {state}", ""])
+                c = titles[row["id"]]
+                m.extend([f"**{row['label']}** · {friendly(row['status'])}", ""])
                 for field, prompt in READER_FIELDS:
-                    h.append(f"<h5>{prompt}</h5>")
-                    m.extend([f"**{prompt}**", ""])
-                    paragraph(row["reader_explanation"][field])
-                h.append('<details class="technical"><summary>Technical details and source evidence</summary><div>')
+                    m.extend([f"**{prompt}**", "", row["reader_explanation"][field], ""])
                 m.extend(["**Technical details and source evidence**", ""])
                 if c["t1"]:
-                    paragraph("T1 asks whether concentration divided by time since dosing rises beyond the stated bounds. "
-                              "A positive pair is a potential counterexample. Zero positive pairs also occurs with other input shapes.")
+                    m.extend(["T1 checks whether concentration divided by time since dosing increases beyond the stated bounds.", ""])
                 if c["t2"]:
-                    paragraph("T2 looks for a fall and subsequent rise within one animal. Group means can show this pattern, "
-                              "but their points can come from different animals.")
+                    m.extend(["T2 checks for a fall and subsequent rise in a verified individual trajectory.", ""])
                 if c["t1"] or c["t2"]:
-                    paragraph(payload["premises"])
+                    m.extend([payload["premises"], ""])
                 for profile in row["profile_assessments"]:
                     for note in profile_notes(profile):
-                        paragraph(note)
+                        m.extend([note, ""])
                 seen = set()
                 for item in sorted(row["evidence"], key=lambda e: -e["score"]):
-                    if item["kind"] in {"T1", "T2"} or item["kind"] in seen:
-                        continue
+                    if item["kind"] not in seen and item["kind"] not in {"T1", "T2"} and item["score"] > 0:
+                        m.extend([f"Q{item['question']} · {item['text']}", ""])
                     seen.add(item["kind"])
-                    if item["score"] > 0:
-                        paragraph(f"Q{item['question']} · {item['text']}")
                 for contrast in row.get("contrast_assessments", ()):
-                    paragraph(f"{contrast['test']} · {', '.join(contrast['dataset_ids'])} · "
-                              f"{friendly(contrast['formal_status'])}. {contrast['scope']}")
+                    m.extend([f"{contrast['test']} · {', '.join(contrast['dataset_ids'])} · "
+                              f"{friendly(contrast['formal_status'])}. {contrast['scope']}", ""])
                 if c["id"] in DME:
-                    paragraph("Pending review of " + DME[c["id"]] + ".")
-                refs = [sources[k][0] for k in c["sources"]]
-                refs_text = " · ".join([f"r4.3 {c['rule']}", *refs])
-                h.append('<p class="meta">' + escape(refs_text) + " · " + " / ".join(
-                    html_link(question_links[n], f"Q{n}") for n in c["questions"] if question_links.get(n)) + "</p></div></details></div></details>")
-                m.extend([refs_text + " · " + ", ".join(f"[Q{n}]({question_links[n]})" for n in c["questions"] if question_links.get(n)), ""])
-        h.append(f'<div id="{anchor}">')
-        heading(3, "Answers to the nine questions")
+                    m.extend(["Pending review of " + DME[c["id"]] + ".", ""])
+                refs = [f"r4.3 {c['rule']}", *(sources[k][0] for k in c["sources"]),
+                        *(f"[Q{n}]({question_links[n]})" for n in c["questions"] if question_links.get(n))]
+                m.extend([" · ".join(refs), ""])
+        m.extend(["### Answers to the nine questions", ""])
         for q in study["questions"]:
             link = q.get("link")
-            label = f"Q{q['q']}. {q['label']}"
-            text = str(q["conclusion"])
-            state = friendly(q["status_code"])
-            h.append("<p><strong>" + (html_link(link, label) if link else escape(label))
-                     + "</strong> · " + escape(state) + "<br>" + escape(text) + "</p>")
-            m.extend([f"**{label}** · {state}. {text}" + (f" [Evidence]({link})" if link else ""), ""])
-        h.append("</div>")
-        h.append("</div></details></section>")
-    h.append('<details class="sources"><summary>Methods, sources and scope</summary><div>')
-    m.extend(["## Methods, sources and scope", ""])
-    paragraph(WEIBULL)
-    paragraph("Formal results apply only to the named profiles, comparisons and assumptions. An open candidate may have weak data, "
-              "a missing reference, or equivalent predictions. A mechanism that requires a different route is retained with its scope.")
-    paragraph(payload["scope"])
+            m.extend([f"**Q{q['q']}. {q['label']}** · {friendly(q['status_code'])}. {q['conclusion']}"
+                      + (f" [Evidence]({link})" if link else ""), ""])
+    m.extend(["## Methods, sources and scope", "", WEIBULL, "", payload["scope"], ""])
     for name, url, note in sources.values():
-        paragraph(f"{name}. {note} {url}")
-    h.append("</div></details></main>" + OPEN_FRAGMENT + "</html>")
+        m.extend([f"{name}. {note} {url}", ""])
     return "\n".join(h), "\n".join(m)
 
 
 def write_handoff(out, result, rules_dir):
     rules_dir = Path(rules_dir)
-    registered = json.loads((rules_dir / "eda_rules.json").read_bytes())["source"]["absorption_mechanism_catalog"]
+    registry = json.loads((rules_dir / "eda_rules.json").read_bytes())["source"]
+    registered = registry["absorption_mechanism_catalog"]
+    priority_rule = registry["absorption_species_priority_rules"]
+    policy_bytes = (rules_dir / priority_rule["file"]).read_bytes()
+    policy = json.loads(policy_bytes)
+    if (hashlib.sha256(policy_bytes).hexdigest() != priority_rule["sha256"] or policy["version"] != priority_rule["version"]
+            or policy["rule_version"] != result["rule_specification"]["version"]):
+        raise ValueError("Species priority policy differs from the registered rules package")
     catalog, digest = read_catalog(rules_dir / CATALOG_FILE, result["rule_specification"]["version"])
     if (digest, catalog["version"], CATALOG_FILE) != (registered["sha256"], registered["version"], registered["file"]):
         raise ValueError("Mechanism catalogue differs from the registered rules package")
@@ -263,6 +224,8 @@ def write_handoff(out, result, rules_dir):
                "catalog_sha256": digest, "absorption_sha256": hashlib.sha256((out / "absorption.json").read_bytes()).hexdigest(),
                "scope": catalog["scope"], "premises": catalog["premises"], "sources": catalog["sources"],
                "catalog": catalog["candidates"], "studies": studies, "modeling_plan": modeling_plan(studies, result)}
+    payload["priority_rule_specification"] = priority_rule
+    payload["species_priorities"] = build_species_priorities(studies, result, policy)
     html, markdown = render(payload)
     (out / "mechanism_candidates.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "mechanism_assessment.html").write_text(html, encoding="utf-8")

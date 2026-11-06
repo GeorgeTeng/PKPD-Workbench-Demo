@@ -3315,10 +3315,10 @@
     },
     {
       "path": "backend/rules/eda/eda_rules.json",
-      "sha256": "6294dfdf2ccdc6aadbba908e4b8d5734a2273349205a95199469e84c5303143f",
-      "bytes": 42506,
-      "source_revision_date": "2026-11-05",
-      "publication_note": "Used in the mechanism-handoff replay of retry 032. The native_run_file_sha256, when present, identifies the earlier frozen checkpoint.",
+      "sha256": "0ed7627dc8adcf2bdf5160e540666f091e319832cd30b3e1072dc49e61752324",
+      "bytes": 42730,
+      "source_revision_date": "2026-11-06",
+      "publication_note": "Used by the promoted species priority reporting rules in the native workflow; native_run_file_sha256, when present, refers to archived retry 032.",
       "native_run_file_sha256": "00c4dbbfa3f172f3a38275ad0ef19f1572a09e47ccb4db222d65f5e44f2e6cdf"
     },
     {
@@ -4052,10 +4052,10 @@
     },
     {
       "path": "backend/research_pipeline/research_pipeline/eda_absorption_mechanisms.py",
-      "source_revision_date": "2026-11-05",
-      "sha256": "79619d5b6bf603894f25ed93be23dffba9b965f17a7809cf44f8712baa49a6ec",
-      "bytes": 15943,
-      "publication_note": "Report-wide modeling plan with per-study checks and full absorption context."
+      "source_revision_date": "2026-11-06",
+      "sha256": "45fc1181a7a73077744d5dacd59d4ab50863e8b6509295c4758b628f8706ba26",
+      "bytes": 14593,
+      "publication_note": "Used by the promoted species priority reporting rules in the native workflow; native_run_file_sha256, when present, refers to archived retry 032."
     },
     {
       "path": "backend/rules/eda/absorption_mechanisms_r43.json",
@@ -4084,6 +4084,20 @@
       "sha256": "d2fc05edba805c98cc3196e5b8b18ab03db964fde0c25b2cd2a3b4dc1c918555",
       "bytes": 22831,
       "publication_note": "Report-wide modeling plan with per-study checks and full absorption context."
+    },
+    {
+      "path": "backend/research_pipeline/research_pipeline/eda_absorption_species.py",
+      "source_revision_date": "2026-11-06",
+      "sha256": "0cbecd801ba08bd452394d7bccda4565006dc438c5448d2f5502f8431d8a80b2",
+      "bytes": 25052,
+      "publication_note": "Used by the promoted species priority reporting rules in the native workflow; native_run_file_sha256, when present, refers to archived retry 032."
+    },
+    {
+      "path": "backend/rules/eda/absorption_species_priority_rules.json",
+      "source_revision_date": "2026-11-06",
+      "sha256": "c2eb973aefec7d5f9f5b28917a5fd85fd1c5025a112b555be15c0f9e6aaaf7d8",
+      "bytes": 1813,
+      "publication_note": "Used by the promoted species priority reporting rules in the native workflow; native_run_file_sha256, when present, refers to archived retry 032."
     }
   ],
   "scope": "Code, configuration, tests and documentation; no original research files or model-call payloads.",
@@ -4115,7 +4129,8 @@
     "backend/research_pipeline/tests/test_absorption_comparisons_r43.py",
     "backend/research_pipeline/tests/test_absorption_curve_r43.py",
     "backend/research_pipeline/tests/test_absorption_board_r43.py",
-    "backend/research_pipeline/tests/test_absorption_mechanisms.py"
+    "backend/research_pipeline/tests/test_absorption_mechanisms.py",
+    "backend/research_pipeline/tests/test_absorption_species_priority.py"
   ],
   "eda_revision_date": "2026-11-05",
   "publication_date": "2026-11-05",
@@ -4124,5 +4139,6 @@
   "dose_revision_base_commit": "bb73e61249993241c968f45633f6273b53df2f8b",
   "absorption_revision_base_commit": "8954cfe9ccef61021f9a0ea71bf82c28c447438d",
   "absorption_rules_revision_date": "2026-11-05",
-  "absorption_mechanism_edition": "r4.3-handoff.1"
+  "absorption_mechanism_edition": "r4.3-handoff.1",
+  "absorption_species_priority_edition": "r4.3-handoff.2"
 }

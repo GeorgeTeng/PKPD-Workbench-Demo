@@ -46,30 +46,15 @@ def test_group_means_with_no_iv_reference(tmp_path):
     assert len(study["questions"]) == 9
     assert [r["id"] for r in study["candidate_assessments"]] == [c["id"] for c in ledger["catalog"]]
     assert 'href="mechanism_assessment.html"' in (folder / "index.html").read_text(encoding="utf-8")
-    for name in ("mechanism_assessment.html", "mechanism_assessment.md"):
-        handoff = (folder / name).read_text(encoding="utf-8")
-        assert "Single Weibull, 0 < β < 1, fixed positive lag" in handoff.replace("&lt;", "<")
-        assert "species-mouse.html#q-s91-8" in handoff
     html = unescape((folder / "mechanism_assessment.html").read_text(encoding="utf-8"))
-    overview, context = html.split('<details class="study-context" id="context-1">', 1)
-    assert overview.count("<p") == 1 and ledger["modeling_plan"] in overview
-    assert '<details class="candidate"' not in overview and '<details class="technical">' not in overview
-    assert study["reader_brief"] and len(study["reader_brief"]) < len(study["candidate_assessments"])
-    for finding in study["reader_brief"]:
-        assert finding["observation"] in context and finding["check"] in context
-        assert finding["observation"] not in overview and finding["check"] not in overview
-        for key in finding["candidate_ids"]:
-            assert f'id="study-1-{key}"' in context
-    assert 'id="study-1-check-1"' in context
-    blocks = html.split('<details class="candidate"')[1:]
-    assert len(blocks) == len(ledger["catalog"])
-    for block in blocks:
-        # Presentation groups candidates by family, independently of the JSON order.
-        key = block.split('data-candidate="', 1)[1].split('"', 1)[0]
-        record = next(r for r in study["candidate_assessments"] if r["id"] == key)
-        lead, evidence = block.split('<details class="technical">', 1)
-        narrative = record["reader_explanation"]
-        assert all(narrative.values())
-        assert lead.index(narrative["support"]) < lead.index(narrative["alternatives"]) < lead.index(narrative["modeling_check"])
-        assert "CANNOT_ASSESS" not in lead and "maximum margin" not in lead.lower()
-        assert evidence.startswith("<summary>Technical details and source evidence</summary>")
+    md = (folder / "mechanism_assessment.md").read_text(encoding="utf-8")
+    priority, = ledger["species_priorities"]
+    assert priority["species"] == "Mouse" and priority["priority"] in html and priority["summary"] in html
+    assert html.count('class="species-priority"') == 1 and "<details" not in html
+    assert "Single Weibull, 0 < β < 1, fixed positive lag" in md
+    assert "species-mouse.html#q-s91-8" in md
+    for record in study["candidate_assessments"]:
+        assert record["label"] in md
+        assert all(passage in md for passage in record["reader_explanation"].values())
+    assert "Technical details and source evidence" not in html
+    assert 'href="mechanism_assessment.md"' in html

@@ -1,6 +1,7 @@
 @echo off
 setlocal
-set "report=%~dp0report\absorption\index.html"
+set "report=%~dp0report\absorption\mechanism_assessment.html"
+if not exist "%report%" set "report=%~dp0report\absorption\index.html"
 if exist "%report%" (
     start "" "%report%"
     exit /b 0

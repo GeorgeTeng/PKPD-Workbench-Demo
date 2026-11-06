@@ -18,6 +18,17 @@ def verify_handoff(src, folder, rules, require, sha):
     expected = [c["id"] for c in catalog["candidates"]]
     html = (folder / "mechanism_assessment.html").read_text(encoding="utf-8")
     md = (folder / "mechanism_assessment.md").read_text(encoding="utf-8")
+    species_rows = ledger.get("species_priorities")
+    if species_rows is not None:
+        from html import unescape
+        source = json.loads((rules / "eda_rules.json").read_bytes())["source"]["absorption_species_priority_rules"]
+        require(ledger["priority_rule_specification"] == source and sha(rules / source["file"]) == source["sha256"], "species priority rule binding")
+        require({r["species"] for r in species_rows} == {b["species_group"] for b in boards} and
+                len(species_rows) == len({r["species"] for r in species_rows}), "one priority per species")
+        require(html.count('class="species-priority"') == len(species_rows) and "<details" not in html, "flat species overview")
+        for row in species_rows:
+            require(row["priority"] in unescape(html) and row["summary"] in unescape(html), "visible species summary")
+            require(all(link in html for link in row["evidence_links"]), "species evidence links")
     for study in ledger["studies"]:
         rows = study["candidate_assessments"]
         require([r["id"] for r in rows] == expected, "missing candidate or changed order")
@@ -26,7 +37,7 @@ def verify_handoff(src, folder, rules, require, sha):
         for q in study["questions"]:
             link = q["link"]
             page, anchor = link.split("#")
-            require(link in html and link in md and f'id="{anchor}"' in (folder / page).read_text(encoding="utf-8"), "study evidence link")
+            require((species_rows is not None or link in html) and link in md and f'id="{anchor}"' in (folder / page).read_text(encoding="utf-8"), "study evidence link")
     return {"edition": ledger["version"], "studies": len(boards), "candidates_per_study": len(expected),
             "assessments": len(boards) * len(expected), "catalog_sha256": reg["sha256"]}
 

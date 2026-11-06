@@ -57,7 +57,7 @@ EDA organizes the qualified animal PK and preclinical PD observations before mod
 
 The [current PMB absorption checkpoint](validation/pmb_absorption_r43/README.md) records the native run, which inputs were reused, and the independent replay of the r4.3 report. The [November 4 checkpoint](validation/pmb_absorption_retry030/README.md) documents retry 030 with r4.2. Study records and report figures are distributed in the private portable package.
 
-Each absorption run opens with one English paragraph outlining the next model comparisons. Each study’s **Context** holds its measured findings, nine answers and complete candidate catalogue, including the Weibull, transit, flip-flop and dose-dependent hypotheses. See the [direct entry and offline instructions](eda/README.md) and the [machine-readable rules catalogue](native_workflow/backend/rules/eda/absorption_mechanisms_r43.json).
+Each absorption run opens with a one-page English summary that selects the most informative next modeling check for each species. A short paragraph names the priority, its supporting observation and its limit. Study figures, answers to the nine questions and the full candidate catalogue remain available through evidence and context links. See the [direct entry and offline instructions](eda/README.md) and the [species priority rules](native_workflow/backend/rules/eda/absorption_species_priority_rules.json).
 
 ### Workflow and outputs
 

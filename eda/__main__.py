@@ -24,7 +24,10 @@ def rule_spec():
 
 
 def open_report(folder, show_path):
-    page = folder.resolve() / "absorption" / "index.html"
+    absorption = folder.resolve() / "absorption"
+    page = absorption / "mechanism_assessment.html"
+    if not page.is_file():
+        page = absorption / "index.html"
     if not page.is_file():
         raise FileNotFoundError(f"Missing {page}. Extract the portable report ZIP into {folder}, or pass an EDA run directory.")
     print(page)
@@ -93,12 +96,14 @@ def main():
         open_report(args.folder, args.print_path)
     elif args.command == "rules":
         spec, path = rule_spec()
-        catalog = json.loads((RULES / "eda_rules.json").read_bytes())["source"]["absorption_mechanism_catalog"]
-        catalog_path = RULES / catalog["file"]
-        if hashlib.sha256(catalog_path.read_bytes()).hexdigest() != catalog["sha256"]:
-            raise ValueError(f"Mechanism catalogue differs from its registered SHA-256: {catalog_path}")
+        registered = json.loads((RULES / "eda_rules.json").read_bytes())["source"]
         print(f"{spec['version']}\n{path}\nSHA-256 {spec['sha256']}")
-        print(f"{catalog['version']}\n{catalog_path}\nSHA-256 {catalog['sha256']}")
+        for key in ("absorption_mechanism_catalog", "absorption_species_priority_rules"):
+            item = registered[key]
+            path = RULES / item["file"]
+            if hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
+                raise ValueError(f"File differs from its registered SHA-256: {path}")
+            print(f"{item['version']}\n{path}\nSHA-256 {item['sha256']}")
     elif args.command == "run":
         run_absorption(args.source, args.out)
     else:

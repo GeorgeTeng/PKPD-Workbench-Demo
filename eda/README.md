@@ -10,17 +10,17 @@ If you already have an extracted report elsewhere, point the viewer at the direc
 python eda open "D:/reports/PMB_retry030"
 ```
 
-For the English PMB mechanism edition, copy the whole private ZIP to the other computer, extract it, then open **Open_Report.html**. From the overview choose **Absorption hypotheses for modeling**, or open `absorption/mechanism_assessment.html` directly. The Markdown handoff is beside it. A browser and the extracted files are sufficient for offline reading.
+For the English PMB species edition, copy the private ZIP to the other computer, extract it, then open **Open_Report.html**. This opens the one-page species summary. Its canonical file is `absorption/mechanism_assessment.html`. A browser and the extracted files are sufficient for offline reading.
 
 ### Review candidate mechanisms
 
-The reader opens with one English paragraph naming the next absorption model comparisons across studies. Expand a study’s **Context** for its observed curves, comparisons, candidate explanations and nine study answers. The Markdown includes the full context. The JSON exposes the same paragraph in `modeling_plan` alongside the complete study records.
+The report gives one modeling priority per species and links to the study evidence for that choice. When competing checks have equal support or the data are too sparse, the report says what evidence would distinguish them. The [promoted species-priority policy](../native_workflow/backend/rules/eda/absorption_species_priority_rules.json) governs that decision. Full explanations, alternatives and all nine answers per study are in the linked Markdown and JSON. The JSON includes `species_priorities` and the exact `priority_rule_specification`.
 
 The standalone command below and the native EV workflow generate the following files from the same completed absorption result.
 
 | File inside `absorption/` | What to use it for |
 | --- | --- |
-| `mechanism_assessment.html` | Read the next steps for modeling and open a study’s Context for its findings and candidates. |
+| `mechanism_assessment.html` | Read one concise modeling priority per species and open its supporting study evidence. |
 | `mechanism_assessment.md` | Share the English handoff as text. |
 | `mechanism_candidates.json` | Inspect every candidate, profile, comparison, constraint, rule reference and evidence link, including alternatives with unresolved route or sparse observations. |
 
@@ -55,4 +55,4 @@ The current published absorption specification is **r4.3**, dated 5 November 202
 
 The executable supplied here uses **r4.3**. Each result identifies the rule document and its SHA-256. Run `python eda rules` to verify the document locally. The [historical retry 030 checks](../validation/pmb_absorption_retry030/README.md) apply to the archived **r4.2** output.
 
-`python eda rules` also verifies the registered mechanism catalogue. The handoff records its hash and the hash of the exact `absorption.json` used to generate it.
+`python eda rules` also verifies both reporting resources: the candidate catalogue and the **r4.3-handoff.2** species priority policy. Each result records their versions and hashes and the hash of the exact `absorption.json` used. The species summary is generated locally without a model call.
