@@ -196,6 +196,13 @@ def reference_cues(r):
         yield Cue(("timing_sampling",), 6, ids, "DIFFERENT_TERMINAL_WINDOWS", 2,
                   f"{label}: {r.get('trigger_text') or 'EV and IV apparent terminal estimates available'}. "
                   "Qualified EV and IV windows differ; the contribution of absorption remains unresolved.")
+        directional = next((p for p in terminal["pairs"] if str(p.get("grade", "")).startswith("EV_SHALLOWER")), None)
+        if directional:
+            yield Cue(("flip_flop", "ongoing_input"), 6, ids, "UNMATCHED_TERMINAL_DIRECTION", 1,
+                      f"{label}: apparent EV/IV half-life ratio {f(directional['ratio'])} comparing EV "
+                      f"{directional['ev_window_h']} h with IV {directional['iv_window_h']} h. The longer EV "
+                      "half-life makes slow input worth checking. The windows differ, so flip-flop remains unresolved. "
+                      "Re-estimate the slopes over matched windows with adequate sampling.")
     t4 = r.get("t4") or {}
     if t4.get("conditional_direction") == "CONTRADICTION":
         yield Cue(("multicompartment",), 6, ids, "EV_IV_RATIO_DECLINE", 2 if t4.get("formal_status") == EXCLUDED else 1,

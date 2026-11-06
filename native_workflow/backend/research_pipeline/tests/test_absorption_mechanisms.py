@@ -89,3 +89,14 @@ def test_fixed_lag_limit_requires_positive_lower_bound_and_ordered_sample_time()
     assert lag_clues() == []
     p.update(lo=1, t_hi=.99)
     assert lag_clues() == []
+
+
+def test_unequal_terminal_windows_retain_a_directional_flip_flop_check():
+    windows = {"ev_window_h": [1, 8], "iv_window_h": [1, 4], "ratio": 2,
+               "grade": "EV_SHALLOWER_MARKED", "same_window": False}
+    comparison = {"ev": "EV_SYN", "iv": "IV_SYN",
+                  "terminal_comparison": {"comparison_status": "DIFFERENT_WINDOWS", "pairs": [windows]}}
+    clue, = [c for c in assess.reference_cues(comparison) if "flip_flop" in c.candidates]
+    assert clue.score == 1 and "remains unresolved" in clue.text
+    windows.update(grade="COMPARABLE", ratio=1)
+    assert all("flip_flop" not in c.candidates for c in assess.reference_cues(comparison))
