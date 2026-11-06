@@ -1,5 +1,6 @@
 """Exercise the published report on invented observations; no study fixture is distributed."""
 import json
+from html import unescape
 
 from research_pipeline import eda_absorption as absorption
 
@@ -49,3 +50,16 @@ def test_group_means_with_no_iv_reference(tmp_path):
         handoff = (folder / name).read_text(encoding="utf-8")
         assert "Single Weibull, 0 < β < 1, fixed positive lag" in handoff.replace("&lt;", "<")
         assert "species-mouse.html#q-s91-8" in handoff
+    html = unescape((folder / "mechanism_assessment.html").read_text(encoding="utf-8"))
+    blocks = html.split('<details class="candidate"')[1:]
+    assert len(blocks) == len(ledger["catalog"])
+    for block in blocks:
+        # Presentation groups candidates by family, independently of the JSON order.
+        key = block.split('data-candidate="', 1)[1].split('"', 1)[0]
+        record = next(r for r in study["candidate_assessments"] if r["id"] == key)
+        lead, evidence = block.split('<details class="technical">', 1)
+        narrative = record["reader_explanation"]
+        assert all(narrative.values())
+        assert lead.index(narrative["support"]) < lead.index(narrative["alternatives"]) < lead.index(narrative["modeling_check"])
+        assert "CANNOT_ASSESS" not in lead and "maximum margin" not in lead.lower()
+        assert evidence.startswith("<summary>Technical details and source evidence</summary>")

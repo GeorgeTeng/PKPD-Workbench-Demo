@@ -6,6 +6,7 @@ import pytest
 
 from research_pipeline import eda_absorption_assessment as assess
 from research_pipeline import eda_absorption_mechanisms as handoff
+from research_pipeline.eda_absorption_reader import alternatives
 
 
 RULES = Path(__file__).resolve().parents[2] / "rules" / "eda"
@@ -78,6 +79,16 @@ def test_ambiguous_route_and_same_drug_other_route_stay_separate():
     assert assess.evaluate(by_id["depot_release"], profiles, [], {})["status"] == "INSUFFICIENT_DATA"
 
 
+def test_reader_does_not_offer_a_scoped_exclusion_as_an_open_alternative():
+    c = {"dataset_id": "SYN", "record_level": "INDIVIDUAL", "route_detail": "SC", "tests_allowed": True}
+    s = {"metrics": {"n_quantified": 6, "t1": {"formal_status": assess.EXCLUDED, "test_executed": True}}}
+    rows = {k: assess.evaluate(v, [(c, s, False)], [], {}) for k, v in entries().items()}
+    text = alternatives(rows["first_order"], rows)
+    assert rows["zero_order"]["status"] == "EXCLUDED_IN_SPECIFIED_PROFILES"
+    assert "zero-order input from dosing" not in text
+    assert "first-order input after a fixed lag" in text
+
+
 def test_fixed_lag_limit_requires_positive_lower_bound_and_ordered_sample_time():
     card = {"dataset_id": "SYN", "tests_allowed": True, "record_level": "GROUP_MEAN"}
     p = {"record_id": "OBS", "t": 1, "t_lo": .95, "t_hi": 1.05, "status": "QUANTIFIED", "c": 2, "lo": 1}
@@ -89,6 +100,19 @@ def test_fixed_lag_limit_requires_positive_lower_bound_and_ordered_sample_time()
     assert lag_clues() == []
     p.update(lo=1, t_hi=.99)
     assert lag_clues() == []
+
+
+@pytest.mark.parametrize("lower,latest,should_bound", [(1, 1.05, True), (0, 1.05, False), (1, .99, False)])
+def test_reader_respects_conditional_lag_evidence(lower, latest, should_bound):
+    card = {"dataset_id": "EXAMPLE", "tests_allowed": True, "matrix_category": "PLASMA_SERUM_BLOOD",
+            "record_level": "GROUP_MEAN", "unit": "mg/L", "route_detail": "SC"}
+    point = {"record_id": "OBS", "t": 1, "t_lo": .95, "t_hi": latest, "status": "QUANTIFIED", "c": 2, "lo": lower}
+    series = {"series_id": "mean", "metrics": {"first_t": 1, "first_sample_h": 1, "tmax": 1, "cmax": 2,
+                                               "n_quantified": 1, "t1_points": [point]}}
+    candidate = entries()["first_order_lag"]
+    row = assess.evaluate(candidate, [(card, series, False)], list(assess.curve_cues(card, series)), {})
+    reading = handoff.support_text(row, candidate, [{"card": card, "series": [series]}], [], [], [])
+    assert ("1.05 h" in reading) is should_bound
 
 
 def test_unequal_terminal_windows_retain_a_directional_flip_flop_check():

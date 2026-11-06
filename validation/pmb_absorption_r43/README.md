@@ -29,6 +29,8 @@ The additional English mechanism edition (`r4.3-handoff.1`) was generated from t
 
 The edition passed 41 synthetic absorption and review-portal tests. These cover missing Weibull variants, per-profile T1/T2 scope, ambiguous routes, conditional fixed-lag bounds and the distinction between matched and unequal terminal windows.
 
+The subsequent English reader revision adds an observation, remaining alternatives and a modeling comparison to every candidate. All 184 prior scientific records matched after removing the new reader fields. All 45 targeted tests passed. The offline package check found all 184 technical sections collapsed by default and verified their 588 study-question links.
+
 ```powershell
 python validation/pmb_absorption_r43/verify_run.py "D:/runs/PMB_run5w_retry_032" "D:/reports/PMB_rebuilt"
 ```

@@ -14,6 +14,8 @@ For the English PMB mechanism edition, copy the whole private ZIP to the other c
 
 ### Review candidate mechanisms
 
+Open a candidate to read three short explanations in order: what the measured curve supports, which explanations remain possible, and what sampling or model comparison can distinguish them. Expand **Technical details and source evidence** to inspect the underlying tests, margins, assumptions and source records. The Markdown and structured JSON include the same explanations.
+
 The standalone command below and the native EV workflow generate the following files from the same completed absorption result.
 
 | File inside `absorption/` | What to use it for |
