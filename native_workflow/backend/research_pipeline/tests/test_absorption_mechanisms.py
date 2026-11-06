@@ -7,6 +7,7 @@ import pytest
 from research_pipeline import eda_absorption_assessment as assess
 from research_pipeline import eda_absorption_mechanisms as handoff
 from research_pipeline.eda_absorption_reader import alternatives
+from research_pipeline.eda_absorption_brief import study_brief
 
 
 RULES = Path(__file__).resolve().parents[2] / "rules" / "eda"
@@ -124,3 +125,19 @@ def test_unequal_terminal_windows_retain_a_directional_flip_flop_check():
     assert clue.score == 1 and "remains unresolved" in clue.text
     windows.update(grade="COMPARABLE", ratio=1)
     assert all("flip_flop" not in c.candidates for c in assess.reference_cues(comparison))
+
+
+def test_study_brief_retains_an_eligible_dose_comparison_when_single_dose_shape_is_gated():
+    ids = ["LOW", "HIGH"]
+    curves = [{"card": {"dataset_id": key, "study": "Synthetic", "route_detail": "SC",
+                        "record_level": "GROUP_MEAN", "tests_allowed": False, "dose_series_allowed": True,
+                        "matrix_category": "PLASMA_SERUM_BLOOD", "occasion": "DAY_2"},
+               "series": [{"label": "Mean", "series_id": "mean", "dose": dose,
+                           "metrics": {"n_quantified": 3, "first_t": 1, "tmax": 1, "cmax": dose}}]}
+              for key, dose in zip(ids, [1, 4])]
+    dose = {"dataset_ids": ids, "status": "ASSESSED", "dose_pair": [1, 4],
+            "cmax_d_ratio": .6, "R_window": .95, "cmax_label": "POINTS_TO_NONLINEARITY",
+            "observed_window": {"start_h": 1, "end_h": 5, "same_grid": True}}
+    brief = study_brief({"study_id": "Synthetic", "dataset_ids": ids}, {"datasets": curves, "dose_series": [dose]})
+    assert any("0.6" in b["observation"] and "0.95" in b["observation"] for b in brief)
+    assert all("first_order_lag" not in b["candidate_ids"] for b in brief)

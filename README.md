@@ -57,7 +57,7 @@ EDA organizes the qualified animal PK and preclinical PD observations before mod
 
 The [current PMB absorption checkpoint](validation/pmb_absorption_r43/README.md) records the native run, which inputs were reused, and the independent replay of the r4.3 report. The [November 4 checkpoint](validation/pmb_absorption_retry030/README.md) documents retry 030 with r4.2. Study records and report figures are distributed in the private portable package.
 
-Each absorption run now generates an English **Absorption hypotheses for modeling** page. Open it from the absorption overview to review the nine answers, then follow each candidate to the relevant study evidence and the next comparison. The versioned catalogue covers 46 named possibilities, including six Weibull lag and shape combinations, serial transit, mixed linear and saturable processes, flip-flop and competing disposition explanations. The [direct entry and offline instructions](eda/README.md) and [machine-readable rules catalogue](native_workflow/backend/rules/eda/absorption_mechanisms_r43.json) are available separately.
+Each absorption run generates an English **Absorption hypotheses for modeling** page. Open it for a short list of findings and next modeling checks for each study. Expand **Context** for the nine answers and the complete candidate catalogue, including six Weibull lag and shape combinations, serial transit, flip-flop and competing absorption and disposition explanations. See the [direct entry and offline instructions](eda/README.md) and the [machine-readable rules catalogue](native_workflow/backend/rules/eda/absorption_mechanisms_r43.json).
 
 ### Workflow and outputs
 

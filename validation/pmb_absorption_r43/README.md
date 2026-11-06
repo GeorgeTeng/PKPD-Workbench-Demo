@@ -31,6 +31,8 @@ The edition passed 41 synthetic absorption and review-portal tests. These cover 
 
 The subsequent English reader revision adds an observation, remaining alternatives and a modeling comparison to every candidate. All 184 prior scientific records matched after removing the new reader fields. All 45 targeted tests passed. The offline package check found all 184 technical sections collapsed by default and verified their 588 study-question links.
 
+The concise reader displays eight modeling checks across the four studies by default. Each check opens its associated explanations inside the study’s **Context**, which holds all 46 candidates and nine answers. The prior full records matched after removal of the new study briefs. All 46 targeted tests passed, including coverage of eligible later-occasion dose comparisons when single-dose shape checks are unavailable.
+
 ```powershell
 python validation/pmb_absorption_r43/verify_run.py "D:/runs/PMB_run5w_retry_032" "D:/reports/PMB_rebuilt"
 ```

@@ -51,6 +51,15 @@ def test_group_means_with_no_iv_reference(tmp_path):
         assert "Single Weibull, 0 < β < 1, fixed positive lag" in handoff.replace("&lt;", "<")
         assert "species-mouse.html#q-s91-8" in handoff
     html = unescape((folder / "mechanism_assessment.html").read_text(encoding="utf-8"))
+    # Landing view is a brief. All candidate rows must start inside the closed study context.
+    overview, context = html.split('<details class="study-context" id="context-1">', 1)
+    assert '<details class="candidate"' not in overview and '<details class="technical">' not in overview
+    assert study["reader_brief"] and len(study["reader_brief"]) < len(study["candidate_assessments"])
+    for finding in study["reader_brief"]:
+        assert finding["observation"] in overview and finding["check"] in overview
+        for key in finding["candidate_ids"]:
+            assert f'id="study-1-{key}"' in context
+    assert 'href="#study-1-' in overview
     blocks = html.split('<details class="candidate"')[1:]
     assert len(blocks) == len(ledger["catalog"])
     for block in blocks:
