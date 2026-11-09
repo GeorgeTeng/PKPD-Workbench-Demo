@@ -21,6 +21,8 @@ r4 A0.3 label; project-set tolerances make results SENSITIVITY_ONLY.
 """
 from __future__ import annotations
 
+import gzip
+import hashlib
 import html
 import itertools
 import json
@@ -28,6 +30,7 @@ import math
 import re
 import sys
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 import numpy as np
 import matplotlib
@@ -3468,8 +3471,8 @@ def render_pages(res, datasets, param_sets=(), base=None, portal=False, ivs=()):
 #
 # The nine questions describe what the observed points show. For each study, this part states one general suspicion that
 # a model has to verify. It is chosen from a fixed space of absorption cases and their combinations. Every case and every
-# combination is evaluated against the same findings and kept in absorption/hypothesis_context.json, which the pages do
-# not show, so that the choice can be double-checked. A reviewer adds an opinion as a file in absorption/reviews/; the
+# combination is evaluated against the same findings and retained in the evidence archive linked from hypothesis_context.json.
+# A reviewer adds an opinion as a file in absorption/reviews/; the
 # next build (the revision round) applies it and writes a new revision of the hypothesis.
 
 HYP_VERSION = "EDA_ABSORPTION_HYPOTHESIS_1"
@@ -4210,7 +4213,6 @@ def _hcompose(b, F, c, cond, origin="selection"):
 
 
 def _hsha(h):
-    import hashlib
     core = {k: h[k] for k in ("id", "components", "condition", "text")}
     return hashlib.sha256(json.dumps(core, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
 
@@ -4377,8 +4379,64 @@ def _hstab_text(st, revision=1):
     return txt, True
 
 
+def _modeling_study(study):
+    current = study["revisions"][-1]
+    findings = study["findings"]
+    revision = {key: current[key] for key in
+                ("id", "revision", "state", "sha256", "brief", "rests_on", "reach", "missing", "conflicts")}
+    for key in ("review", "revised_from_review"):
+        if current.get(key):
+            revision[key] = current[key]
+    ladder = current["primary"]["rows"]
+    revision["reference"] = ladder[0]
+    if current["brief"]["next"]:
+        revision["next_check"] = ladder[1][3]
+    checks = current["checks"]
+    revision["checks"] = {"total": len(checks), "exceptions": [c for c in checks if c["result"] != "PASS"]}
+
+    # Leave-one-out analysis is run on the original selection, before any human revisions.
+    original = study["revisions"][0]
+    stability = original.get("stability")
+    revision["stability"] = None if stability is None else {
+        "revision_id": original["id"], "checks": stability["checks"],
+        "changed_count": len(stability["changed"]), "error_count": len(stability["errors"]),
+        "changed_examples": stability["changed"][:2], "error_examples": stability["errors"][:2],
+    }
+    return {key: study[key] for key in ("study", "species", "datasets")} | {
+        "bounds": findings["bounds"], "rules": [{k: rule[k] for k in ("id", "text")} for rule in findings["rules"]],
+        "revisions": [revision],
+    }
+
+
+def _replace_bytes(path, data):
+    with NamedTemporaryFile(dir=path.parent, delete=False) as temp:
+        scratch = Path(temp.name)
+    try:
+        scratch.write_bytes(data)
+        scratch.replace(path)
+    finally:
+        scratch.unlink(missing_ok=True)
+
+
+def _write_hypothesis_context(out, context):
+    """Publish the full evidence before the small handoff that points to it."""
+    raw = json.dumps(context, ensure_ascii=False, separators=(",", ":"), default=float).encode("utf-8")
+    digest = hashlib.sha256(raw).hexdigest()
+    relative = f"hypothesis_evidence/{digest}.json.gz"
+    archive = out / relative
+    archive.parent.mkdir(exist_ok=True)
+    _replace_bytes(archive, gzip.compress(raw, compresslevel=6, mtime=0))
+    handoff = {
+        "version": "EDA_ABSORPTION_MODELING_CONTEXT_2", "rules_version": context["rules_version"],
+        "evidence": {"path": relative, "uncompressed_sha256": digest},
+        "studies": [_modeling_study(study) for study in context["studies"]],
+    }
+    encoded = json.dumps(handoff, ensure_ascii=False, indent=2, default=float).encode("utf-8")
+    _replace_bytes(out / "hypothesis_context.json", encoded)
+
+
 def hypotheses(boards, datasets, param_sets, dose_series_res, ev_iv_res, cond_res, ivs, out, stability=None, write=True):
-    """One working hypothesis per study, the full case and combination space behind it (absorption/hypothesis_context.json),
+    """One working hypothesis per study, the full case and combination space in the linked evidence archive,
     the review template, and the revision round for any review files in absorption/reviews/."""
     by_ds, by_ps = {}, {}
     for d in datasets:
@@ -4505,11 +4563,11 @@ def hypotheses(boards, datasets, param_sets, dose_series_res, ev_iv_res, cond_re
                "review_log": log, "studies": [ctx for *_, ctx in ctx_studies]}
     if not write:
         return context
-    (out / "hypothesis_context.json").write_text(json.dumps(context, ensure_ascii=False, separators=(",", ":"), default=float), encoding="utf-8")
+    _write_hypothesis_context(out, context)
     template = {"actor_type": "HUMAN", "reviewer": "", "reviewed_at": "",
                 "how": ("Fill one entry per study, save this file into absorption/reviews/ and run "
                         "python -m research_pipeline.eda_absorption <run folder> --attach. decision is AGREE, REVISE or REJECT. For REVISE, "
-                        "components may set any axis to one of its levels (see hypothesis_context.json, axes); leave it out to change nothing."),
+                        "components may set any axis to one of its levels (see axes in the evidence archive linked from hypothesis_context.json); leave it out to change nothing."),
                 "reviews": [{"study": b["study"], "hypothesis_id": b["hypothesis"]["id"], "hypothesis_sha256": b["hypothesis"]["sha256"],
                              "decision": "PENDING", "opinion": "", "components": dict(b["hypothesis"]["components"])
                              | ({"condition": b["hypothesis"]["condition"]} if b["hypothesis"]["condition"] else {})} for b in boards]}
@@ -4580,7 +4638,7 @@ def _hrow_html(b):
             '<p class="ev">Each absorption case and each combination of cases is compared with the findings of Q1–Q9. Only a formal test '
             '(T1–T5) or a hard bound sets a combination aside; a descriptive pattern points to cases but never sets one aside. The hypothesis is '
             'the combination with the fewest added parameters that accounts for every pattern that points to a case; hints add a less firm '
-            'layer. The full list stays in hypothesis_context.json for checking.</p>' + chk
+            'layer. The evidence archive linked from hypothesis_context.json contains the full list.</p>' + chk
             + (f'<p class="ev"><b>Checks before modelling</b></p><ul class="ev">{pre}</ul>' if pre else "") + '</details>')
     return (f'<article class="qrow hrow" id="{_hid(b["study"])}"><div class="qhead"><span class="qn">H</span><h3>Working hypothesis</h3>{_hchip(h)}'
             '<p class="q">Taken together, which suspicion should a model verify next?</p></div>'
