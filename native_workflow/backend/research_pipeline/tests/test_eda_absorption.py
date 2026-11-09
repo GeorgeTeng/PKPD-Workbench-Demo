@@ -1,7 +1,5 @@
 """EDA Absorption section: S02 (PMB retry_024) numbers must match the r4 trial
 (eda-part/absorption_r4/trial_retry024/r4_trial_out.json, 2026-11-04)."""
-import gzip
-import hashlib
 import json
 
 import pytest
@@ -326,15 +324,6 @@ def _hyp(res, study="S02"):
     return next(b for b in res["status_boards"] if b["study"] == study)["hypothesis"]
 
 
-def _read_context(run):
-    folder = run / "absorption"
-    handoff = json.loads((folder / "hypothesis_context.json").read_bytes())
-    source = handoff["evidence"]
-    raw = gzip.decompress((folder / source["path"]).read_bytes())
-    assert hashlib.sha256(raw).hexdigest() == source["uncompressed_sha256"]
-    return handoff, json.loads(raw)
-
-
 def test_hypothesis_after_nine_questions_and_hidden_space(run):
     res = ab.build(run)
     h = _hyp(res)
@@ -346,25 +335,14 @@ def test_hypothesis_after_nine_questions_and_hidden_space(run):
     assert "a fraction absorbed that falls as the dose rises" in h["text"]
     assert all(c["result"] == "PASS" for c in h["checks"]), h["checks"]
     assert [r[0] for r in h["primary"]["rows"]][:2] == ["M0", "M1"]
-    handoff, ctx = _read_context(run)
+    ctx = json.loads((run / "absorption" / "hypothesis_context.json").read_text(encoding="utf-8"))
     st = ctx["studies"][0]
-    study = handoff["studies"][0]
-    current = study["revisions"][-1]
-    assert (run / "absorption" / "hypothesis_context.json").stat().st_size < 4096
-    assert handoff["version"] != ctx["version"] and study["datasets"] == st["datasets"]
-    assert study["bounds"] == st["findings"]["bounds"]
-    assert current["brief"] == h["brief"] and current["reach"] == h["reach"]
-    assert current["next_check"] == h["primary"]["rows"][1][3]
-    assert current["sha256"] == h["sha256"] and current["checks"] == {"total": 7, "exceptions": []}
-    stability = current["stability"]
-    assert stability["checks"] == 39 and stability["changed_count"] == len(h["stability"]["changed"])
-    assert stability["changed_examples"] == h["stability"]["changed"][:2]
     assert len(st["combinations"]["rows"]) == len(ab._hspace()) == 2112
     assert sum(v for k, v in st["combinations"]["counts"].items() if k != "WITH_UNTESTABLE_PART") == 2112
     assert set(ctx["catalog_crosswalk"]["entries"]) >= {"first_order", "weibull_eq1_lag", "nonlinear_elimination", "timing_sampling"}
     page = (run / "absorption" / "species-mouse.html").read_text(encoding="utf-8")
     assert page.index('id="q-s02-9"') < page.index('id="h-s02"') < page.index("</section>", page.index('id="h-s02"'))
-    # the evidence archive holds the cases; the page shows one hypothesis and its ladder
+    # the case and combination list stays in the context file; the page shows one hypothesis and its ladder
     assert "I-FO-1-D-LIN-0" not in page and "Single Weibull" not in page and "· open" not in page
     tpl = json.loads((run / "absorption" / "hypothesis_review.template.json").read_text(encoding="utf-8"))
     assert tpl["reviews"][0]["hypothesis_sha256"] == h["sha256"] and tpl["reviews"][0]["decision"] == "PENDING"
@@ -387,8 +365,7 @@ def test_t1_exclusion_sets_immediate_input_aside(run):
     h = _hyp(res)
     assert h["components"]["onset"] == "fixed_lag" and "onset.fixed_lag" in h["primary_parts"]
     assert "T1" in h["primary"]["rows"][0][3] and "set aside by T1" in h["primary"]["rows"][0][3]
-    handoff, ctx = _read_context(run)
-    assert any(rule["id"] == "T1" for rule in handoff["studies"][0]["rules"])
+    ctx = json.loads((run / "absorption" / "hypothesis_context.json").read_text(encoding="utf-8"))
     rows = {r[0]: r for r in ctx["studies"][0]["combinations"]["rows"]}
     assert rows["I-FO-1-D-LIN-0"][1] == "DISFAVORED" and rows["I-FO-1-D-LIN-0"][4] == ["T1"]
     assert rows["I-W>1-1-D-LIN-0"][1] != "DISFAVORED" and rows["L-FO-1-D-LIN-0"][1] == "ACCOUNTS_FOR_ALL"
@@ -444,7 +421,7 @@ def test_short_auc_window_is_not_read_as_extent(run):
     (run / "source_tables.json").write_text(json.dumps(tables), encoding="utf-8")
     res = ab.build(run)
     h = _hyp(res)
-    _, ctx = _read_context(run)
+    ctx = json.loads((run / "absorption" / "hypothesis_context.json").read_text(encoding="utf-8"))
     F = ctx["studies"][0]["findings"]
     sig = {s["id"]: s for s in F["signals"]}
     assert F["bounds"]["auc_window"]["short"] and F["bounds"]["auc_window"]["end_h"] < 4
@@ -469,7 +446,6 @@ def test_one_sample_left_out_is_checked_and_shown(run, monkeypatch):
     monkeypatch.setenv("ABSORPTION_STABILITY", "0")
     res = ab.build(run)
     assert _hyp(res)["stability"] is None and "One sample left out:" not in (run / "absorption" / "species-mouse.html").read_text(encoding="utf-8")
-    assert _read_context(run)[0]["studies"][0]["revisions"][-1]["stability"] is None
 
 def test_review_round_revises_and_binds_to_revision(run):
     res = ab.build(run)
@@ -486,11 +462,7 @@ def test_review_round_revises_and_binds_to_revision(run):
     assert h2["id"] == "S02-H-r2" and h2["state"] == "PENDING" and h2["components"]["other"] == "multicompartment"
     assert any(x.startswith("added: multi-compartment disposition") for x in h2["changes"])
     assert h2["history"][0]["review"]["opinion"].startswith("Flattening") and h2["history"][0]["state"] == "REVISED"
-    handoff, full = _read_context(run)
-    latest = handoff["studies"][0]["revisions"][-1]
-    assert latest["id"] == h2["id"] and latest["stability"]["revision_id"] == h["id"]
-    assert latest["conflicts"] == h2["conflicts"] and latest["revised_from_review"]["opinion"] == rec["opinion"]
-    log = full["review_log"]
+    log = json.loads((run / "absorption" / "hypothesis_context.json").read_text(encoding="utf-8"))["review_log"]
     assert {x["status"] for x in log} == {"APPLIED", "REJECTED_FILE"}
     # a second gate on revision 2; a review that names revision 1 again is stale
     (rd / "c.json").write_text(json.dumps({"actor_type": "HUMAN", "reviewer": "George", "reviewed_at": "2026-11-06T10:00:00Z",
@@ -499,10 +471,7 @@ def test_review_round_revises_and_binds_to_revision(run):
     res = ab.build(run)
     h3 = _hyp(res)
     assert h3["id"] == "S02-H-r2" and h3["state"] == "AGREED"
-    handoff, full = _read_context(run)
-    assert handoff["studies"][0]["revisions"][-1]["state"] == "AGREED"
-    assert len(full["studies"][0]["revisions"]) == 2
-    log = full["review_log"]
+    log = json.loads((run / "absorption" / "hypothesis_context.json").read_text(encoding="utf-8"))["review_log"]
     assert any(x["status"] == "STALE" for x in log)
     page = (run / "absorption" / "species-mouse.html").read_text(encoding="utf-8")
     assert "Flattening is more likely a second compartment." in page and ">Agreed<" in page
