@@ -1,0 +1,112 @@
+{
+  "id": "A1",
+  "paper": "Absolute F: rat 54, mouse 69, monkey 76 (20 mg/kg; 73 at 10 mg/kg), dog 81, rabbit 16 %.",
+  "verdict_at_comparison": "agree",
+  "checks": [
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/rat/single",
+      "q": 6,
+      "field": "legacy_different_support_sensitivity.ratio",
+      "op": "number_within",
+      "value": {
+        "range": [
+          0.44,
+          0.64
+        ]
+      },
+      "route_pair": [
+        "GP_rat_PO_20",
+        "GP_rat_IV_20"
+      ]
+    },
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/mouse/single",
+      "q": 6,
+      "field": "legacy_different_support_sensitivity.ratio",
+      "op": "number_within",
+      "value": {
+        "range": [
+          0.59,
+          0.79
+        ]
+      },
+      "route_pair": [
+        "GP_mouse_PO_20",
+        "GP_mouse_IV_10"
+      ]
+    },
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/monkey/single",
+      "q": 6,
+      "field": "legacy_different_support_sensitivity.ratio",
+      "op": "number_within",
+      "value": {
+        "range": [
+          0.66,
+          0.86
+        ]
+      },
+      "route_pair": [
+        "GP_monkey_PO_20",
+        "GP_monkey_IV_10"
+      ]
+    },
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/dog/single",
+      "q": 6,
+      "field": "legacy_different_support_sensitivity.ratio",
+      "op": "number_within",
+      "value": {
+        "range": [
+          0.71,
+          0.91
+        ]
+      },
+      "route_pair": [
+        "GP_dog_PO_20",
+        "GP_dog_IV_10"
+      ]
+    },
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/rabbit/single",
+      "q": 6,
+      "field": "legacy_different_support_sensitivity.ratio",
+      "op": "number_within",
+      "value": {
+        "range": [
+          0.06,
+          0.26
+        ]
+      },
+      "route_pair": [
+        "GP_rabbit_PO_18p6",
+        "GP_rabbit_IV_9p3"
+      ]
+    },
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/rat/single",
+      "q": 6,
+      "field": "observed",
+      "op": "contains",
+      "value": "absolute F = 54%"
+    },
+    {
+      "section": "absorption",
+      "board_id": "gpfx-i/dog/single",
+      "q": 6,
+      "field": "observed",
+      "op": "contains",
+      "value": "absolute F = 81%"
+    }
+  ],
+  "expect_now": {
+    "status": "pass",
+    "reason": "Compare the historical different-support EV/IV AUC ratio with published F at the specified oral dose (absolute tolerance 0.10). The current common-window ratio answers a separate question."
+  }
+}
