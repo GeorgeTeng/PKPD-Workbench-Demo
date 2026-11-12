@@ -1,5 +1,9 @@
 # Open or run the absorption EDA
 
+For a source-table case covering absorption, distribution and elimination, use the [standalone calculation runner](../tools/eda/README.md).
+
+To review completed study boards and rerun flagged conclusions before human review, see the [standalone EDA reviewer](review/README.md).
+
 ## Read the saved PMB report
 
 Extract the portable PMB report ZIP into `eda/report/`. On Windows, double-click **Open_EDA.cmd**. On any computer, open `eda/report/absorption/index.html` in a browser. Keep the extracted folders together so the species pages, study sections and figures open offline. Each computer needs its own copy of the portable report.

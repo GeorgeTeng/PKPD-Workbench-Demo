@@ -4,6 +4,8 @@ A local research workbench with two connected workspaces: **Research workflow** 
 
 ## Open or run the existing EDA
 
+For completed study boards, the [EDA self-review command](eda/review/README.md) returns disputed conclusions for a keyword search and revision before human review.
+
 **[Direct EDA entry and commands](eda/README.md)** · **[Absorption rules r4.3](native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md)** · **[PMB r4.3 run verification](validation/pmb_absorption_r43/README.md)**
 
 To read the saved PMB report, extract the portable report ZIP into `eda/report/` and double-click `eda/Open_EDA.cmd` on Windows. On any computer you can open `eda/report/absorption/index.html` in a browser. To rebuild from existing EDA tables or start at a released Data handoff, use the commands in the direct EDA entry above.
