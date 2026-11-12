@@ -1,0 +1,28 @@
+name: EDA safeguards
+on:
+  pull_request:
+    paths:
+      - 'eda/review/**'
+      - 'tools/eda/**'
+      - 'validation/eda_rereview/**'
+      - '.github/workflows/eda-safeguards.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'eda/review/**'
+      - 'tools/eda/**'
+      - 'validation/eda_rereview/**'
+      - '.github/workflows/eda-safeguards.yml'
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest numpy scipy matplotlib
+      - run: python validation/eda_rereview/check_safeguards.py
+      - run: python -m pytest -q eda/review/tests

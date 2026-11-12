@@ -1,5 +1,7 @@
 # Open or run the absorption EDA
 
+For a source-table case covering absorption, distribution and elimination, use the [standalone calculation runner](../tools/eda/README.md).
+
 To review completed study boards and rerun flagged conclusions before human review, see the [standalone EDA reviewer](review/README.md).
 
 ## Read the saved PMB report

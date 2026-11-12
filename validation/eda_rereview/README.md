@@ -1,5 +1,15 @@
 # EDA review verification, 11 November 2026
 
+## Release safeguards
+
+The reviewer preserves each quantitative statement in its original field. A request to change a measurement returns to the calculation or source owner. Each reviewed section needs its own rules, verified before a model call or cached response can be used. The calculation runner checks resumability before writing to an existing run. Distribution records systemic IV observations separately from the profiles eligible for phase analysis.
+
+The [acceptance command](check_safeguards.py) exercises four failures with synthetic inputs, including a reviewer willing to confirm an incorrect revision. Missing, skipped and expected-failing acceptance cases fail the command. GitHub Actions runs it on relevant pull requests. The benchmark answers, injected-error labels and acceptance fixtures are outside the calculation and review packages' runtime inputs.
+
+Local verification of this update: 17 mandatory acceptance scenarios, 32 reviewer regressions and 351 calculation tests passed. The calculation suite also reported eight skips and four pre-existing scientific discrepancies (A5, A6, A8 and E10). The real grepafloxacin run generated 180 figures. D9 now positively checks three IV plasma datasets, two reported times per profile and the inability to determine the decline phases. A separate live PMB S07 challenge went from ANSWERABLE to NOT_ANSWERABLE_YET and passed independent review after three model calls. Human scientific approval is separate.
+
+## Earlier benchmark
+
 The previous live benchmark covered 15 grepafloxacin requests and 25 PMB requests. On grepafloxacin the reviewer flagged at least one row with an expected issue type in all six fully visible known-error groups and one partially visible group. It did not recover the full scientific explanation of every error.
 
 | PMB, 30 planted errors | Previous live reviewer | Same saved responses plus new status checks |

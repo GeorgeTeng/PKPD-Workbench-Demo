@@ -50,6 +50,16 @@ def _fixture(tmp):
     (tmp / "elimination" / "elimination.json").write_text(json.dumps(el), encoding="utf-8")
     (tmp / "absorption" / "absorption.json").write_text(json.dumps(ab), encoding="utf-8")
     (tmp / "rules.md").write_text(RULES, encoding="utf-8")
+    # Scripted model tests use the same rule-file preflight as a normal review.
+    import hashlib
+    folder = tmp / "_engine" / "rules"
+    folder.mkdir(parents=True)
+    bindings = {}
+    for sec, text in {"absorption": "### 17 | Sampled rise\nUse the sampled peak.", "elimination": RULES}.items():
+        file = folder / (sec + ".md")
+        file.write_text(text, encoding="utf-8")
+        bindings[sec] = {"file": file.name, "sha256": hashlib.sha256(file.read_bytes()).hexdigest()}
+    (folder / "rules_manifest.json").write_text(json.dumps({"sections": bindings}), encoding="utf-8")
     return tmp
 
 
@@ -101,6 +111,31 @@ def test_keyword_rerun_rechecks_and_blocks_unresolved_rows(tmp_path, fix, expect
     assert json.loads(path.read_bytes())["boards"][0]["questions"][0]["status_code"] == "ANSWERABLE"
     resumed = R.run(root, None, resume=True)
     assert resumed["self_review"] == expected
+
+
+@pytest.mark.parametrize("missing_mode", ["deleted_file", "omitted_manifest_entry", "explicit_partial", "empty_file"])
+def test_missing_section_rules_stop_before_dispatch_or_cache(tmp_path, missing_mode):
+    root = _fixture(tmp_path)
+    folder = root / "_engine" / "rules"
+    manifest = folder / "rules_manifest.json"
+    supplied = None
+    if missing_mode == "deleted_file":
+        (folder / "elimination.md").unlink()
+    elif missing_mode == "omitted_manifest_entry":
+        doc = json.loads(manifest.read_bytes())
+        del doc["sections"]["elimination"]
+        manifest.write_text(json.dumps(doc), encoding="utf-8")
+    elif missing_mode == "empty_file":
+        (folder / "elimination.md").write_text("", encoding="utf-8")
+    else:
+        supplied = {"absorption": folder / "absorption.md"}
+    for model, resume in [(lambda *a: pytest.fail("review dispatched with missing rules"), False), (None, True)]:
+        with pytest.raises(ValueError, match="elimination"):
+            R.run(root, model, supplied, out_dir=root/"unreviewed", resume=resume)
+        assert not (root/"unreviewed").exists()
+    partial = R.run(root, lambda p, s, i: _confirm_all({"payload": json.loads(p.split("\nREQUEST\n")[1])}),
+                    supplied, only="^ERR-absorption-")
+    assert partial["self_review"] == "PASSED" and partial["counts"]["rows"] == 1
 
 
 def test_study_and_arm_citations():
@@ -197,7 +232,7 @@ def test_validate_es_strength_numbers_words_and_coverage(tmp_path):
     verdicts = {"elimination:s01-dog:Q1": {"verdict": "CONFIRMED", "issues": []}, "elimination:s01-dog:Q5": {"verdict": "REVISE", "issues": []}}
     req = R.es_request(rows, verdicts)
     assert "elimination:s01-dog:Q3" not in {r["row_id"] for r in req["payload"]["rows"]}   # NOT_APPLICABLE and hidden
-    good = _es_answer(["Dog", "Rat"], {"Dog": [{"kind": "FINDING", "text": "Window clearance 0.432 L/h/kg.", "cites": ["elimination:s01-dog:Q1"],
+    good = _es_answer(["Dog", "Rat"], {"Dog": [{"kind": "FINDING", "text": "CL window 0.432 L/h/kg.", "cites": ["elimination:s01-dog:Q1"],
                                                  "strength": "ANSWERABLE"}],
                                        "Rat": [{"kind": "OPEN", "text": "An IV dose is missing.", "cites": ["elimination:s01-rat:Q1"],
                                                 "strength": "PARTLY_ANSWERABLE"}]})
@@ -241,7 +276,7 @@ def test_run_end_to_end_with_scripted_answers(tmp_path):
             return _es_answer(payload["species"], {})
         return _confirm_all({"payload": payload})
 
-    rec = R.run(root, gen, {"elimination": str(root / "rules.md")})
+    rec = R.run(root, gen)
     assert rec["counts"]["accepted"] == rec["counts"]["requests"] and rec["counts"]["confirmed"] == rec["counts"]["rows"] == 6
     assert rec["es"]["status"] == "ACCEPTED"
     assert (root / "review" / "review.json").is_file() and "Review summary" in (root / "review" / "index.html").read_text(encoding="utf-8")

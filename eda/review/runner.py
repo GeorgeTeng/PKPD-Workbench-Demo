@@ -30,10 +30,10 @@ import random
 import re
 import sys
 from pathlib import Path
-from .contracts import classify, effective_answer, endpoint_limit, host_issue, identity, scope_problem, species_key
+from .contracts import classify, effective_answer, endpoint_limit, host_issue, identity, numbers, quantitative_clauses, scope_problem, species_key
 from .rerun import rerun
 
-VERSION = "EDA_REVIEW_AGENTS_R0_2"
+VERSION = "EDA_REVIEW_AGENTS_R0_3"
 SECTIONS = ("absorption", "distribution", "elimination")
 STATUS_RANK = {"NOT_APPLICABLE": -1, "NOT_ANSWERABLE_YET": 0, "PARTLY_ANSWERABLE": 1, "ANSWERABLE": 2}
 VERDICTS = ("CONFIRMED", "REVISE", "UNCERTAIN")
@@ -42,7 +42,6 @@ ISSUE_TYPES = ("FIGURE_TEXT_MISMATCH", "VALUE_ERROR", "STATUS_TOO_STRONG", "STAT
                "DISPLAY")
 STRONG_WORDS = r"\b(establish(?:ed|es)?|confirm(?:ed|s)?|demonstrat(?:ed|es)|prov(?:ed|en|es)|shows? that|clearly|definitive(?:ly)?|is (?:the )?mechanism)\b"
 MAX_IMAGES = 12          # per ERR call; a board with more figures is split, every part carries its own images
-MAX_POINTS = 60          # source points per series passed to ERR
 
 # question -> rule items, used to cut the rule text each row is reviewed against (overridable per run)
 ITEM_MAP = {
@@ -229,15 +228,27 @@ def rule_passages(text):
 
 
 def passages_for(section, q, passages, item_map=None):
+    """The rule items behind a question, the shared definitions they cite, and the shared answer-status rules.
+
+    Shared passages are sent whole: the answer-status definitions sit at the end of E0.11 / D0.11 / A0.11, and a
+    shortened passage would leave the reviewer without the rule it is asked to apply."""
     items = (item_map or ITEM_MAP).get(section, {}).get(q, [])
+    prefix = SHARED_SECTION[section][0]
     keep = {}
     for it in items:
         if str(it) in passages:
             keep[str(it)] = passages[str(it)]
+    # shared definitions cited by the item text (for example "T10 (E0.10)" or "gate 3 (E0.2)")
+    cited = set()
+    for text in list(keep.values()):
+        cited.update(re.findall(rf"\b{prefix}0\.\d+\b", text))
+    for k in sorted(cited):
+        if k in passages:
+            keep.setdefault(k, passages[k])
     # the shared answer-status and figure rules always travel with a row
     for k, v in passages.items():
-        if re.match(rf"^{SHARED_SECTION[section][0]}0\.(11|3|6)$", k) or k in (SHARED_SECTION[section], "FLAGS"):
-            keep.setdefault(k, v[:8000])
+        if re.match(rf"^{prefix}0\.(11|3|6)$", k) or k in (SHARED_SECTION[section], "FLAGS"):
+            keep.setdefault(k, v)
     return keep
 
 
@@ -276,7 +287,7 @@ For EACH row (question conclusion or working hypothesis) do all of the following
 2. Read the rule passages for the row. Is the status (ANSWERABLE, PARTLY_ANSWERABLE, NOT_ANSWERABLE_YET, NOT_APPLICABLE)
    allowed by the rules for this evidence? Are required flags and caveats present? Is anything the rules require missing
    from the 'missing' list?
-3. Check numbers against the value table, evidence tables and source points.
+3. Check numbers against the value table and the evidence tables.
 4. For a working hypothesis: is each part supported by a cited row, is the alternative still consistent with the data,
    and is the next test feasible? Mark HYPOTHESIS_UNSUPPORTED otherwise.
 5. Wording: flag any word stronger than the evidence (established, confirmed, shows that, mechanism) as WORDING_BEYOND_EVIDENCE.
@@ -457,7 +468,7 @@ Then the hand-off items for modeling (the working hypotheses and what they rest 
 
 Hard rules: every statement cites the row_ids it rests on, only from this request. The 'strength' of a statement is the
 lowest status among its cited rows; never write it stronger. A statement resting on a row whose re-review verdict is
-REVISE or UNCERTAIN has strength REVIEW_PENDING and says so. Do not add numbers that are not in the cited rows. No new
+REVISE or UNCERTAIN has strength REVIEW_PENDING and says so. Copy quantitative statements verbatim from cited rows. No new
 interpretation, no mechanism, no prediction. Return JSON only.
 """
 
@@ -491,7 +502,7 @@ def _strength_of(cites, rows_by_id, verdicts):
 
 
 def _numbers(text):
-    return {re.sub(r"\.0+$", "", n) for n in re.findall(r"(?<![\w.])\d+(?:\.\d+)?", text or "")}
+    return numbers(text)
 
 
 def validate_es(out, req, rows, verdicts):
@@ -519,9 +530,13 @@ def validate_es(out, req, rows, verdicts):
                 probs.append(f"{s.get('species')}: wording beyond evidence: {st.get('text', '')[:60]}")
             src = set().union(*[_numbers(" ".join(str(by_id[c].get(k) or "") for k in ("observed", "basis", "reach")) + " " + json.dumps(by_id[c].get("value_table") or ""))
                                 for c in cites if c in by_id]) if any(c in by_id for c in cites) else set()
-            extra = {n for n in _numbers(st.get("text", "")) - src if len(n) > 1 or "." in n}
+            extra = _numbers(st.get("text", "")) - src
             if extra:
                 probs.append(f"{s.get('species')}: numbers not in the cited rows ({', '.join(sorted(extra)[:5])}): {st.get('text', '')[:60]}")
+            facts = {fact for rid in cites if rid in by_id for k in ("observed", "basis", "reach", "missing")
+                     for fact in quantitative_clauses(by_id[rid].get(k))}
+            if set(quantitative_clauses(st.get("text"))) - facts:
+                probs.append(f"{s.get('species')}: quantitative statements must be copied from a cited row")
     return not probs, probs
 
 
@@ -532,12 +547,14 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
     """Build requests, call the model (if a generator is given), validate, and write review/review.json and review/index.html."""
     root = Path(root)
     out = Path(out_dir or root / "review")
-    out.mkdir(parents=True, exist_ok=True)
     rows, meta = collect(root)
     truth = None
     if inject:      # measurement run: planted errors, the summary is skipped and the page says so
         rows, truth = inject_errors(rows, n=inject, seed=seed)
-    rules = {s: Path(p).read_text(encoding="utf-8-sig") for s, p in (rules_paths or {}).items() if p and Path(p).is_file()}
+    rules_paths = rules_paths or run_rules(root)
+    raw_rules = {s: Path(p).read_bytes() for s, p in rules_paths.items() if p and Path(p).is_file()}
+    rules = {s: raw.decode("utf-8-sig") for s, raw in raw_rules.items()}
+    hashes = {s: hashlib.sha256(raw).hexdigest() for s, raw in raw_rules.items()}
     inv = inventory(root)
     reqs = err_requests(root, rows, rules, item_map, inv=inv)
     if only and str(only).startswith("@"):      # a file with one request id per line
@@ -546,20 +563,30 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
     if only:        # partial run (pilot): only the requests whose id matches; the summary is skipped
         reqs = [q for q in reqs if re.search(only, q["id"])]
         summary = False
+    if generate or resume or write_requests:
+        required = {q["payload"]["section"] for q in reqs}
+        problems = rule_problems(root, required, hashes)
+        for section in sorted(required & rules.keys()):
+            if not any(k.isdigit() for k in rule_passages(rules[section])):
+                problems.append(f"{section}: rule file has no numbered EDA rule passages")
+        if problems:
+            raise ValueError("Cannot review with incomplete or inconsistent rules: " + "; ".join(problems))
+    out.mkdir(parents=True, exist_ok=True)
     ans_dir = out / "answers"
     ans_dir.mkdir(exist_ok=True)
-    record = {"version": VERSION, "sections": meta, "rules": {s: {"file": Path(p).name, "sha256": hashlib.sha256(Path(p).read_bytes()).hexdigest()}
-                                                            for s, p in (rules_paths or {}).items() if p and Path(p).is_file()},
+    record = {"version": VERSION, "sections": meta, "rules": {s: {"file": Path(rules_paths[s]).name, "sha256": h}
+                                                            for s, h in hashes.items()},
               "rows": len(rows), "coverage": coverage(rows, inv), "only": only, "err": [], "es": None}
     verdicts = {}
     current_rows = {r["row_id"]: r for r in rows}
     tables_path = root / "source_tables.json"
-    tables = json.loads(tables_path.read_bytes()) if tables_path.is_file() else []
+    tables = json.loads(tables_path.read_bytes().decode("utf-8-sig")) if tables_path.is_file() else []
     if isinstance(tables, dict):
         tables = tables.get("datasets") or tables.get("tables") or []
     if write_requests:
         rq = out / "requests"
         rq.mkdir(exist_ok=True)
+    corrections = []
     for req in reqs:
         if req["payload"]["context_rows"]:
             for ctx in req["payload"]["context_rows"]:
@@ -597,25 +624,39 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
                              raw_answer_file=str(saved.relative_to(out)))
                 saved.write_text(json.dumps(ans, ensure_ascii=False, indent=1), encoding="utf-8")   # kept so a paid call is never lost
                 if ok:
-                    if truth is None:
-                        loop, effective = rerun(req, effective, generate, validate_err, ERR_PROMPT, tables,
-                                                imgs, max_rounds, ans_dir, resume)
-                        entry.update(self_review=loop, answer=effective)
-                        if loop["status"] == "PASSED":
-                            for rid, changes in loop["updated_rows"].items():
-                                current_rows[rid].update(changes)
                     for x in effective["rows"]:
                         verdicts[x["row_id"]] = x
+                    if truth is None:
+                        corrections.append((req, entry, effective, imgs))
             except Exception as exc:  # noqa: BLE001 - recorded
                 entry.update(status="ERROR", problems=[repr(exc)])
         record["err"].append(entry)
+    # Second phase: correction loops start only after every board had its first review, so a limited call budget
+    # is not spent on the first boards while later boards are never reviewed.
+    for req, entry, effective, imgs in corrections:
+        try:
+            for ctx in req["payload"]["context_rows"]:
+                ctx.update({k: current_rows[ctx["row_id"]].get(k) for k in ctx})
+            loop, effective = rerun(req, effective, generate, validate_err, ERR_PROMPT, tables,
+                                    imgs, max_rounds, ans_dir, resume, retries)
+            entry.update(self_review=loop, answer=effective)
+            if loop["status"] == "PASSED":
+                for rid, changes in loop["updated_rows"].items():
+                    current_rows[rid].update(changes)
+            for x in effective["rows"]:
+                verdicts[x["row_id"]] = x
+        except Exception as exc:  # noqa: BLE001 - recorded
+            entry["self_review"] = {"status": "PENDING", "rounds": [], "updated_rows": {}, "reason": repr(exc)}
     es = es_request(rows, verdicts)
     record["es"] = {"id": es["id"], "status": "NOT_RUN"}
     if write_requests:
         (out / "requests" / "ES-project.prompt.txt").write_text(es["prompt"], encoding="utf-8")
         (out / "requests" / "ES-project.schema.json").write_text(json.dumps(es["schema"], indent=1), encoding="utf-8")
-    record["self_review"] = ("BENCHMARK" if truth is not None else "PASSED" if reqs and all(
-        e.get("self_review", {}).get("status") == "PASSED" for e in record["err"]) else "PENDING")
+    states = [e.get("self_review", {}).get("status") for e in record["err"]]
+    record["self_review"] = ("BENCHMARK" if truth is not None else
+                             "PASSED" if reqs and all(s == "PASSED" for s in states) else
+                             "NEEDS_CODE_OR_DATA" if reqs and all(s in ("PASSED", "NEEDS_CODE_OR_DATA") for s in states) else
+                             "PENDING")
     if generate and truth is None and summary and record["self_review"] == "PASSED":
         try:
             ans = generate(es["prompt"], es["schema"], [])
@@ -624,6 +665,8 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
         except Exception as exc:  # noqa: BLE001
             record["es"].update(status="ERROR", problems=[repr(exc)])
     record["counts"] = _counts(record, rows, verdicts)
+    if record["es"]["status"] in ("REJECTED", "ERROR"):
+        record["self_review"] = "PENDING"
     if truth is not None:
         sent = {rid for e in record["err"] for rid in e["rows"]}
         truth_sent = {k: v for k, v in truth.items() if k in sent}
@@ -675,6 +718,16 @@ def render_html(record, rows, verdicts):
             for rid, updated in loop.get("updated_rows", {}).items():
                 h.append(f'<p>{_e(rid)} · {_e(updated["status_code"])} · {_e(updated["observed"])}</p>')
             h.append('</details>')
+    code = [(rid, i) for e in record["err"] for rid, issues in e.get("self_review", {}).get("needs_code_or_data", {}).items() for i in issues]
+    if code:
+        h.append('<section class="panel"><h2>Needs a code or data change</h2><p class="muted">A computed value or a figure was questioned. '
+                 'New wording cannot resolve it; fix the EDA code or input and run again.</p><ul>' +
+                 "".join(f'<li>{_e(rid)} · {_e(i.get("type", "").replace("_", " ").lower())}: {_e(i.get("what"))} '
+                         f'{_e(i.get("smallest_correction") or "")}</li>' for rid, i in code) + '</ul></section>')
+    notes = [(rid, i) for e in record["err"] for rid, issues in e.get("self_review", {}).get("display_notes", {}).items() for i in issues]
+    if notes:
+        h.append('<details class="panel"><summary>Display notes on confirmed rows</summary><ul>' +
+                 "".join(f'<li>{_e(rid)}: {_e(i.get("what"))}</li>' for rid, i in notes) + '</ul></details>')
     contradictions = [(rid, issue) for e in record["err"] if e.get("self_review", {}).get("status") != "PASSED"
                       for rid, issue in e.get("host_findings", {}).items()]
     if contradictions:
@@ -801,11 +854,38 @@ def score_known(benchmark, verdicts):
             "reviewed_rows": len(verdicts)}
 
 
+def run_rules(root):
+    """The rule files the run was computed with: <run>/_engine/rules, named by its rules_manifest.json."""
+    folder = Path(root) / "_engine" / "rules"
+    try:
+        sections = json.loads((folder / "rules_manifest.json").read_text(encoding="utf-8"))["sections"]
+    except (OSError, ValueError, KeyError):
+        return {}
+    return {s: str(folder / e["file"]) for s, e in sections.items() if (folder / e["file"]).is_file()}
+
+
+def rule_problems(root, required, hashes):
+    """Use the selected board sections as the denominator, independently of which files survived."""
+    problems = [f"{s}: missing rules" for s in sorted(required - hashes.keys())]
+    for path, key in [(Path(root)/"run_record.json", "rules"), (Path(root)/"_engine/rules/rules_manifest.json", "sections")]:
+        if not path.exists():
+            continue  # Historical runs can be reviewed with explicitly supplied section rules.
+        bindings = json.loads(path.read_bytes()).get(key)
+        if not isinstance(bindings, dict):
+            problems.append(f"{path.name}: missing {key} bindings")
+            continue
+        for s in sorted(required & hashes.keys()):
+            entry = bindings.get(s)
+            if not isinstance(entry, dict) or entry.get("sha256") != hashes[s]:
+                problems.append(f"{s}: missing or mismatched hash in {path.name}")
+    return problems
+
+
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description="EDA re-review and summary requests (host side)")
     ap.add_argument("root", type=Path)
-    ap.add_argument("--rules", nargs="*", default=[], help="section=path pairs, e.g. elimination=rules/EDA_elimination_...md")
+    ap.add_argument("--rules", nargs="*", default=[], help="section=path pairs; default: the rules the run used (<run>/_engine/rules)")
     ap.add_argument("--write-requests", action="store_true")
     ap.add_argument("--inject", type=int, default=0, help="plant N known errors (measurement run; not a review)")
     ap.add_argument("--seed", type=int, default=7)
@@ -819,13 +899,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.max_rounds is not None and a.max_rounds < 0:
         ap.error("--max-rounds must be nonnegative")
-    rules = dict(x.split("=", 1) for x in a.rules)
-    if a.generate:
-        for section, path in rules.items():
-            if section not in SECTIONS or not Path(path).is_file():
-                ap.error(f"unknown section or missing rule file: {section}={path}")
-        if not rules:
-            ap.error("supply the section's EDA rule files using --rules")
+    rules = dict(x.split("=", 1) for x in a.rules) or run_rules(a.root)
     if a.known:
         rv = json.loads((Path(a.out or a.root / "review") / "review.json").read_text(encoding="utf-8"))
         verdicts = {x["row_id"]: x for e in rv["err"] if e["status"] == "ACCEPTED" for x in e["answer"]["rows"]}
@@ -836,10 +910,13 @@ def main(argv=None):
         import importlib
         mod, fn = a.generate.split(":", 1)
         gen = getattr(importlib.import_module(mod), fn)
-    rec = run(a.root, gen, rules, out_dir=a.out, write_requests=a.write_requests, inject=a.inject, seed=a.seed, only=a.only,
-              retries=a.retries, resume=a.resume, max_rounds=a.max_rounds)
+    try:
+        rec = run(a.root, gen, rules, out_dir=a.out, write_requests=a.write_requests, inject=a.inject, seed=a.seed, only=a.only,
+                  retries=a.retries, resume=a.resume, max_rounds=a.max_rounds)
+    except ValueError as exc:
+        ap.error(str(exc))
     print(json.dumps(dict(rec["counts"], self_review=rec["self_review"])))
-    if a.generate and rec["self_review"] == "PENDING":
+    if a.generate and rec["self_review"] in ("PENDING", "NEEDS_CODE_OR_DATA"):
         raise SystemExit(2)
 
 

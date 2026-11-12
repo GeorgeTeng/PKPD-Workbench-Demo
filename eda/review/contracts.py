@@ -62,12 +62,50 @@ def effective_answer(answer, rows):
     return result
 
 
+# One species vocabulary for the review. It covers every species group the three EDA modules use
+# (absorption _SPECIES, distribution _SP_HEAD and species_aliases.json), so a board and its source tables
+# meet under the same key. "guinea pig" is tested before "pig".
+SPECIES_TOKENS = (
+    ("guinea pig", r"guinea[\s-]*pigs?"),
+    ("mouse", r"mice|mouse|murine"),
+    ("rat", r"rats?|rattus"),
+    ("hamster", r"hamsters?"),
+    ("rabbit", r"rabbits?"),
+    ("dog", r"dogs?|canine|beagles?"),
+    ("monkey", r"monkeys?|macaques?|primates?|cynomolgus|rhesus|marmosets?"),
+    ("pig", r"(?<!guinea )(?<!guinea-)(?:pigs?|piglets?|minipigs?|swine|porcine)"),
+    ("sheep", r"sheep|ovine|lambs?"),
+    ("horse", r"horses?|equine|foals?|pony|ponies"),
+    ("donkey", r"donkeys?|jenn(?:y|ies)"),
+    ("koala", r"koalas?"),
+    ("human", r"humans?|patients?|volunteers?"),
+)
+
+
 def species_key(value):
     text = str(value or "").strip().casefold()
-    tokens = {"mouse": r"mice|mouse|murine", "rat": r"rats?|rattus", "dog": r"dogs?|canine|beagles?",
-              "rabbit": r"rabbits?", "monkey": r"monkeys?|macaques?|cynomolgus|rhesus"}
-    matches = [sp for sp, pattern in tokens.items() if re.search(r"\b(?:" + pattern + r")\b", text)]
+    matches = [sp for sp, pattern in SPECIES_TOKENS if re.search(r"\b(?:" + pattern + r")\b", text)]
+    if "guinea pig" in matches and "pig" in matches:
+        matches.remove("pig")
     return matches[0] if len(matches) == 1 else text
+
+
+def numbers(text):
+    """Numbers written in a text, normalized (12.0 -> 12). Used to keep revised wording on the computed values."""
+    return {re.sub(r"\.0+$", "", n) for n in re.findall(r"(?<![\w.])\d+(?:\.\d+)?", str(text or ""))}
+
+
+def quantitative_clauses(text):
+    """Keep the measurement, unit, direction and population together. Dataset IDs are not quantities."""
+    if isinstance(text, list):
+        return [c for item in text for c in quantitative_clauses(item)]
+    clauses = re.split(r"(?<=[.!?])\s+|[;\n]+", str(text or ""))
+    quantity = r"(?<![\w])[-+−]?\d|\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|half|twice|double)\b"
+    return [" ".join(c.strip(" .!?").split()) for c in clauses if re.search(quantity, c, re.I)]
+
+
+# Issues that a change of wording cannot resolve: a computed value or a drawn figure must change first.
+CODE_OR_DATA_ISSUES = ("VALUE_ERROR", "DISPLAY")
 
 
 def identity(value):
