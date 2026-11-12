@@ -33,7 +33,7 @@ from pathlib import Path
 from .contracts import classify, effective_answer, endpoint_limit, host_issue, identity, numbers, quantitative_clauses, scope_problem, species_key
 from .rerun import rerun
 
-VERSION = "EDA_REVIEW_AGENTS_R0_3"
+VERSION = "EDA_REVIEW_AGENTS_R0_4"
 SECTIONS = ("absorption", "distribution", "elimination")
 STATUS_RANK = {"NOT_APPLICABLE": -1, "NOT_ANSWERABLE_YET": 0, "PARTLY_ANSWERABLE": 1, "ANSWERABLE": 2}
 VERDICTS = ("CONFIRMED", "REVISE", "UNCERTAIN")
@@ -305,7 +305,8 @@ For EACH row (question conclusion or working hypothesis) do all of the following
 
 Verdicts: CONFIRMED when nothing is wrong. REVISE when at least one issue is wrong as stated (give the smallest correction).
 UNCERTAIN when you cannot check it (say why in an issue); a row with figures_not_sent is UNCERTAIN unless you find an error. Do not invent figures or rules: cite only file names and rule
-keys that appear in this request. Use one exact file or rule ID per reference. For each issue or omission give two to
+keys that appear in this request. For a confirmed question row, report each item in required_rules[row_id]
+in checked_rules. Use one exact file or rule ID per reference. For each issue or omission give two to
 four specific search keywords (assay, analyte, endpoint or dataset ID). Attach an omission to the affected row,
 or give a null row_id if no existing row covers it. Return JSON only.
 """
@@ -331,13 +332,17 @@ def err_requests(root, rows, rules_text_by_section, item_map=None, max_images=MA
         if cur:
             parts.append((cur, imgs))
         for i, (prs, im) in enumerate(parts, 1):
-            rules = {}
-            for r in prs:
+            rules, requirements = {}, {}
+            relevant_ids = {r["row_id"] for r in prs} | {rid for r in prs if r["kind"] == "hypothesis" for rid in r.get("cites", [])}
+            for r in rs:
+                if r["row_id"] not in relevant_ids:
+                    continue
                 if r["kind"] == "question":
                     # Earlier boards number the last five absorption endpoints differently.
                     legacy = {"Long tail and flip-flop": 6, "Extent of absorption (F)": 7, "Dose dependence": 8,
                               "Comparison across conditions": 9, "Individuals or averaging": 5}
                     question = legacy.get(r["label"], r["q"]) if sec == "absorption" and not item_map else r["q"]
+                    requirements[r["row_id"]] = [str(k) for k in (item_map or ITEM_MAP).get(sec, {}).get(question, [])]
                     rules.update(passages_for(sec, question, passages.get(sec, {}), item_map))
             exist = [p for p in im if (Path(root) / p).is_file()]
             here = {r["row_id"] for r in prs}
@@ -354,7 +359,7 @@ def err_requests(root, rows, rules_text_by_section, item_map=None, max_images=MA
                                   for sp2, bucket in (inv or {}).items() if sp2 != sp for x in bucket]
             payload = {"section": sec, "board": key, "part": f"{i}/{len(parts)}", "species": prs[0].get("species"),
                        "study": rs[0].get("study"), "arm": rs[0].get("arm"), "board_datasets": sorted(used),
-                       "inputs_for_species": inputs, "project_context": project_inputs,
+                       "inputs_for_species": inputs, "project_context": project_inputs, "required_rules": requirements,
                        "rows": [_compact(r, set(exist)) for r in prs], "context_rows": ctx,
                        "rules": rules, "figures": [{"file": Path(p).name, "path": p, "sha256": hashlib.sha256((Path(root) / p).read_bytes()).hexdigest()} for p in exist],
                        "figures_not_found": [p for p in im if p not in exist]}
@@ -394,6 +399,11 @@ def validate_err(out, req):
     rules = set(req["payload"]["rules"])
     for x in out.get("rows", []):
         v = x.get("verdict")
+        if v == "CONFIRMED":
+            expected = set(req["payload"].get("required_rules", {}).get(x.get("row_id"), []))
+            missed = expected - set(map(str, x.get("checked_rules", [])))
+            if missed:
+                probs.append(f"{x.get('row_id')}: confirmation missing required rule(s) {', '.join(sorted(missed))}")
         if v not in VERDICTS:
             probs.append(f"{x.get('row_id')}: verdict {v!r}")
         if v == "REVISE" and not any(i.get("smallest_correction") for i in x.get("issues", [])):
@@ -569,6 +579,19 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
         for section in sorted(required & rules.keys()):
             if not any(k.isdigit() for k in rule_passages(rules[section])):
                 problems.append(f"{section}: rule file has no numbered EDA rule passages")
+        for req in reqs:
+            packet = req["payload"]
+            prefix = SHARED_SECTION[packet["section"]]
+            for rid, keys in packet["required_rules"].items():
+                if not keys:
+                    problems.append(f"{rid}: no rule mapping for this question")
+                    continue
+                needed = set(keys) | {prefix + suffix for suffix in (".3", ".6", ".11")}
+                for k in keys:
+                    needed.update(re.findall(rf"\b{prefix}\.\d+\b", packet["rules"].get(k, "")))
+                missing = sorted(k for k in needed if not packet["rules"].get(k, "").partition("\n")[2].strip())
+                if missing:
+                    problems.append(f"{rid}: missing rule passage(s) {', '.join(missing)}")
         if problems:
             raise ValueError("Cannot review with incomplete or inconsistent rules: " + "; ".join(problems))
     out.mkdir(parents=True, exist_ok=True)

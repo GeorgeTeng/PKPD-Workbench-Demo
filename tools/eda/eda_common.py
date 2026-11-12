@@ -328,6 +328,10 @@ def hypothesis_v1_for(section, board, bid):
                    if isinstance(c, dict) and c.get("result") not in (None, "PASS")]
         rests = rests_on_questions(questions, h.get("rests_on"), explicit=brief.get("qs"))
         observation = re.sub(r"^(This rests on|The observations remain descriptive:)\s*", "", str(h.get("rests_on") or ""))
+        for q in questions:
+            if q.get("reported_condition_comparisons") or q.get("observed_individual_ranges"):
+                observation = " ".join(filter(None, [observation, q["observed"]]))
+                rests = sorted(set(rests) | {q["q"]})
         return hypothesis_v1(section, bid, text=h.get("text"), observation=observation, candidates=candidates,
                              alternatives=list(dict.fromkeys(a for a in alternatives if a)), next_test=next_test,
                              question_numbers=rests, missing=h.get("missing"), checks=checks, state=h.get("state"))

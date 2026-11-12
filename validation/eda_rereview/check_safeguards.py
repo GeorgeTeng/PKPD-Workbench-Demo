@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[2]
 CHALLENGES = {
     "eda/review/tests/test_review_20261112.py::test_writer_cannot_replace_a_measurement_even_if_reviewer_confirms": 7,
     "eda/review/tests/test_review.py::test_missing_section_rules_stop_before_dispatch_or_cache": 4,
+    "eda/review/tests/test_review.py::test_question_requires_its_own_rule_text": 6,
+    "tools/eda/test_source_condition_and_spread.py::test_printed_meal_contrast_needs_matched_source_endpoints": 11,
+    "tools/eda/test_source_condition_and_spread.py::test_repeat_individual_spread_uses_verified_animals_at_one_time_and_dose": 1,
     "tools/eda/test_statistical_config_snapshot.py::test_rejected_resume_preserves_every_file": 5,
     "tools/eda/test_late_area_share.py::test_iv_inventory_keeps_sparse_profiles_before_phase_eligibility": 1,
 }

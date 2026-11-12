@@ -14,10 +14,18 @@ RULES = """# rules
 ### E0 | SHARED
 #### E0.3 Exclusion
 labels
+#### E0.6 Display
+display text
 #### E0.11 Status
 status text
 ### 29 | PLASMA WINDOW CLEARANCE
 item 29 text
+### 31 | REPEAT
+item 31 text
+### 35 | COMPONENTS
+item 35 text
+### 36 | SYSTEMS
+item 36 text
 ### 33 | URINE
 item 33 text
 ### Flag registry (items 29-36)
@@ -55,7 +63,7 @@ def _fixture(tmp):
     folder = tmp / "_engine" / "rules"
     folder.mkdir(parents=True)
     bindings = {}
-    for sec, text in {"absorption": "### 17 | Sampled rise\nUse the sampled peak.", "elimination": RULES}.items():
+    for sec, text in {"absorption": "### 17 | Sampled rise\nUse the sampled peak.\n#### A0.3 Scope\nScope.\n#### A0.6 Figures\nFigures.\n#### A0.11 Status\nStatus.", "elimination": RULES}.items():
         file = folder / (sec + ".md")
         file.write_text(text, encoding="utf-8")
         bindings[sec] = {"file": file.name, "sha256": hashlib.sha256(file.read_bytes()).hexdigest()}
@@ -67,13 +75,14 @@ def _confirm_all(req):
     rows = []
     for r in req["payload"]["rows"]:
         figs = [f["file"] for f in r.get("figures", [])]
-        rows.append({"row_id": r["row_id"], "verdict": "CONFIRMED", "checked_figures": figs, "checked_rules": [], "issues": []})
+        rows.append({"row_id": r["row_id"], "verdict": "CONFIRMED", "checked_figures": figs,
+                     "checked_rules": req["payload"].get("required_rules", {}).get(r["row_id"], []), "issues": []})
     return {"board": req["payload"]["board"], "rows": rows, "omissions": []}
 
 
 def test_rule_passages_stop_at_other_headings():
     p = R.rule_passages(RULES)
-    assert set(p) == {"E0", "E0.3", "E0.11", "29", "33", "FLAGS"}
+    assert set(p) == {"E0", "E0.3", "E0.6", "E0.11", "29", "31", "33", "35", "36", "FLAGS"}
     assert "not a rule passage" not in p["FLAGS"] and "Flag registry" not in p["33"]
     keep = R.passages_for("elimination", 5, p)
     assert {"33", "E0.3", "E0.11", "FLAGS"} <= set(keep) and "29" not in keep
@@ -136,6 +145,45 @@ def test_missing_section_rules_stop_before_dispatch_or_cache(tmp_path, missing_m
     partial = R.run(root, lambda p, s, i: _confirm_all({"payload": json.loads(p.split("\nREQUEST\n")[1])}),
                     supplied, only="^ERR-absorption-")
     assert partial["self_review"] == "PASSED" and partial["counts"]["rows"] == 1
+
+
+@pytest.mark.parametrize("fault", ["missing", "heading_only", "second_item", "unmapped", "unread", "shared_reference"])
+def test_question_requires_its_own_rule_text(tmp_path, fault):
+    root = _fixture(tmp_path)
+    rules = RULES
+    questions = [_q(1, "ANSWERABLE", "Plasma exposure."), _q(5, "ANSWERABLE", "Urine was collected.")]
+    if fault == "missing":
+        rules = rules.replace("### 33 | URINE\nitem 33 text\n", "")
+    elif fault == "heading_only":
+        rules = rules.replace("item 33 text", "")
+    elif fault == "second_item":
+        questions[1] = _q(7, "ANSWERABLE", "An assay was reported.")
+        rules = rules.replace("### 36 | SYSTEMS\nitem 36 text\n", "")
+    elif fault == "unmapped":
+        questions[1] = _q(42, "ANSWERABLE", "Unmapped endpoint.")
+    elif fault == "shared_reference":
+        rules = rules.replace("item 33 text", "Apply E0.7 to urinary recovery.")
+    # Legacy external inputs deliberately have no frozen manifest. Test the actual packet, independently of digest matching.
+    p = tmp_path/"legacy"
+    (p/"elimination").mkdir(parents=True)
+    (p/"elimination/elimination.json").write_text(json.dumps({"boards":[{"study":"A","species":"Rat","questions":questions}]}))
+    file = p/"rules.md"
+    file.write_text(rules, encoding="utf-8")
+    calls = []
+    def model(prompt, schema, images):
+        calls.append(prompt)
+        payload = json.loads(prompt.split("\nREQUEST\n")[1])
+        verdict = _confirm_all({"payload": payload})
+        for row in verdict["rows"]:
+            row["checked_rules"] = ["29"]
+        return verdict
+    if fault == "unread":
+        result = R.run(p, model, {"elimination":file}, only="ERR", retries=0)
+        assert result["self_review"] == "PENDING" and "33" in str(result["err"][0]["problems"])
+    else:
+        with pytest.raises(ValueError, match={"second_item":"36","unmapped":"Q42","shared_reference":"E0.7"}.get(fault,"33")):
+            R.run(p, model, {"elimination":file}, only="ERR")
+        assert not calls and not (p/"review").exists()
 
 
 def test_study_and_arm_citations():

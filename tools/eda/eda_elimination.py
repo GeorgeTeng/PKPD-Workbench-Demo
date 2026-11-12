@@ -3768,6 +3768,17 @@ def board_hypothesis(b):
         h["alternative"] = ("The printed total is compatible with multiple allocations between the missing routes." if tot and not {"URINE", "FAECES"} <= set(r["route_split"])
                             else "The unaccounted part could be later excretion, unmeasured routes or retained material.")
         h["next_test"] = "Urine and faecal values for the same cohort and window." if "FAECES" not in r["route_split"] else "Later collections to close the balance."
+        if r["route_split"].get("CAGEWASH"):
+            explicit_subtotal = any(t.get("kind") == "COMBINED_ROUTES" and
+                                    set(t.get("route", "").split("+")) == {"URINE", "FAECES"} for t in r["source_totals"])
+            h["alternative"] += (" Cage wash was measured separately from the printed urine-plus-faeces subtotal."
+                                 if explicit_subtotal else " Cage wash was measured separately; check its inclusion in the printed total.")
+            h["alternative"] += " Additional collection or handling losses could contribute to any remaining shortfall."
+            h["next_test"] = ("Reconcile the cage-wash fraction with the printed subtotal for the same animals, window and denominator. "
+                              "Check collection completeness before attributing any remaining deficit to delayed excretion.")
+        elif isinstance(r.get("recovery_accounted"), (float, int)) and r["recovery_accounted"] < 100 and not r.get("quarantined"):
+            h["alternative"] += " Collection or handling losses are also possible."
+            h["next_test"] += " Check whether cage rinses or other collection losses were documented."
         h["rests_on"] = f"Q6 recovery table ({r['dataset_id']})."
         h["source_ids"] = [r["dataset_id"]] + [x["source_ref"] for x in r["source_totals"] + r["routes"]]
     elif b["components"]:

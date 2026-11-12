@@ -1832,6 +1832,9 @@ def reported_parameters(entry):
     n_note = _n_from_notes(notes) or (lambda m: int(m.group(1)) if m else None)(re.search(r"\(\s*n\s*=\s*(\d+)\s*\)", notes))
     params = []
     dose_col = next((c["id"] for c in cols if c.get("meaning") == "DOSE" or "dose" in str(c.get("header", "")).lower()), None)
+    card["reported_dose_unit"] = next((c.get("unit") for c in cols if c["id"] == dose_col), None)
+    card["reported_analyte"] = (entry.get("metadata") or {}).get("analyte")
+    card["reported_formulation"] = (entry.get("metadata") or {}).get("formulation")
     measure_col = next((c["id"] for c in cols if re.search(r"measure|parameter", str(c.get("header", "")).lower())), None)
     value_cols = [c for c in cols if c.get("meaning") == "PARAMETER_VALUE"]
     disp_col = next((c["id"] for c in cols if c.get("meaning") in ("SUMMARY_STATISTIC", "SD", "SE", "DISPERSION")), None)
@@ -1846,7 +1849,7 @@ def reported_parameters(entry):
                 continue
             params.append({"param": name, "label": str(r.get(measure_col)), "value": v, "dispersion": sd,
                            "unit": r.get(unit_col) if unit_col else value_cols[0].get("unit"),
-                           "dose": card["dose_mg_per_kg"], "record_id": r.get("record_id")})
+                           "dose": _num(r.get(dose_col)) if dose_col else card["dose_mg_per_kg"], "record_id": r.get("record_id")})
         else:                             # wide layout: one row per dose, one column per parameter
             dose = _num(r.get(dose_col)) if dose_col else card["dose_mg_per_kg"]
             for c in cols:
@@ -3073,6 +3076,64 @@ def _study_panels(ds, pss, dose_series_res, ev_iv_res, cond_res):
     return out
 
 
+def _meal_contrasts(parameter_sets):
+    """Descriptive comparisons of unambiguous, dose-matched printed endpoints on this board."""
+    meals = {"fasted": "fasted", "fasting": "fasted", "fed": "fed", "nonfasted": "fed", "non-fasted": "fed"}
+    buckets = {}
+    for ps in parameter_sets:
+        c = ps["card"]
+        meal = meals.get(str(c.get("condition", "")).strip().casefold())
+        identity = tuple(c.get(k) for k in ("study", "species", "drug", "matrix", "reported_analyte",
+                                             "route_detail", "dosing_regimen", "reported_dose_unit"))
+        if not meal or c.get("route_class") != "EV" or any(v in (None, "", "NOT_FOUND", "not reported") for v in identity):
+            continue
+        scope = identity + tuple(c.get(k) for k in ("cohort", "experiment_arm", "dose_basis", "reported_formulation"))
+        for p in ps["params"]:
+            if (p["param"] not in ("CMAX", "AUC") or not isinstance(p.get("dose"), (int, float)) or p["dose"] <= 0
+                    or p.get("unit") in (None, "", "NOT_FOUND", "not reported") or not p.get("record_id")):
+                continue
+            key = scope + (p["dose"], p["param"], p["label"], p["unit"], p.get("definition"))
+            buckets.setdefault(key, {}).setdefault(meal, []).append((p, c))
+    rows = []
+    for pair in buckets.values():
+        if any(len(pair.get(k, [])) != 1 for k in ("fed", "fasted")):
+            continue
+        (fed, fc), = pair["fed"]
+        (fasted, bc), = pair["fasted"]
+        if fasted["value"] <= 0 or fed["value"] < 0:
+            continue
+        rows.append({"endpoint": fed["label"], "unit": fed["unit"], "dose": fed["dose"], "dose_unit": fc["reported_dose_unit"],
+                     "condition": fc["condition"], "reference_condition": bc["condition"],
+                     "fed": fed["value"], "fasted": fasted["value"], "ratio": fed["value"]/fasted["value"],
+                     "datasets": [fc["dataset_id"], bc["dataset_id"]], "records": [fed["record_id"], fasted["record_id"]]})
+    return rows
+
+
+def _repeat_individual_ranges(datasets):
+    """Compare observed concentrations only within dataset, dose and time; retain source animal identity."""
+    rows = []
+    for d in datasets:
+        c = d["card"]
+        if (c.get("route_class") != "EV" or c.get("matrix_category") != "PLASMA_SERUM_BLOOD"
+                or set(c.get("gates", [])) != {"NOT_SINGLE_DOSE"} or c.get("record_level") != "INDIVIDUAL"
+                or c.get("identity_verified") != "yes" or c.get("series_kind") != "INDIVIDUALS"):
+            continue
+        times = {}
+        for s in d["series"]:
+            for p in s["points"]:
+                if p["status"] == "QUANTIFIED" and p["t"] >= 0 and p.get("c") is not None:
+                    times.setdefault((s.get("dose") or c.get("dose_mg_per_kg"), p["t"]), {}).setdefault(
+                        s["label"], []).append((p["c"], p.get("record_id")))
+        for (dose, t), animals in times.items():
+            if dose is None or len(animals) < 2 or any(len(v) != 1 for v in animals.values()):
+                continue
+            values = [v[0][0] for v in animals.values()]
+            rows.append({"dataset": c["dataset_id"], "dose": dose, "time_h": t, "n": len(values),
+                         "min": min(values), "max": max(values), "unit": c["unit"], "animals": list(animals),
+                         "records": list(dict.fromkeys(v[0][1] for v in animals.values()))})
+    return rows
+
+
 def board_questions(b, ds, pss, dose_series_res, ev_iv_res, cond_res, ivs=(), out=None):
     rows, ev = b["rows"], b.get("evidence") or {}
     slug = re.sub(r"[^A-Za-z0-9]+", "_", _board_key(b))
@@ -3414,6 +3475,30 @@ def board_questions(b, ds, pss, dose_series_res, ev_iv_res, cond_res, ivs=(), ou
         if ds:
             gated = [v for pid in ("A1", "A1w", "B1") for v in sp.get(pid, [])]
             qs[1]["views"] = sorted(gated, key=lambda v: v["tier"])
+    comparisons = _meal_contrasts(pss)
+    if comparisons:
+        description = " ".join(f"At {r['dose']:g} {r['dose_unit']}, {r['condition']} {r['endpoint']} was {r['ratio']:.0%} of the {r['reference_condition']} value."
+                               for r in comparisons)
+        if qs[8]["status"] in (ST_NA, ST_NO):
+            put(8, description, "Ratios use reported group parameters at the same dose, route, occasion and endpoint.",
+                "This describes exposure. Absorption rate, clearance and the shape of the fed curve remain unresolved.",
+                ["matched concentration-time curves and group uncertainty"], status=ST_PART)
+        qs[8]["reported_condition_comparisons"] = comparisons
+        qs[8]["evidence"].append({"rule": "Compare like reported endpoints descriptively (item 23).",
+            "data": sorted({v for r in comparisons for v in r["datasets"]}),
+            "tables": [{"caption": "Reported fed and fasted group endpoints", "head": ["Endpoint", "Dose", "Fed", "Fasted", "Unit", "Source records"],
+                        "rows": [[r["endpoint"], f"{r['dose']:g} {r['dose_unit']}", r["fed"], r["fasted"], r["unit"], ", ".join(r["records"])] for r in comparisons]}]})
+    if qs[9]["status"] in (ST_NA, ST_NO) and (ranges := _repeat_individual_ranges(ds)):
+        r = ranges[0]
+        put(9, f"At {r['time_h']:g} h in {r['dataset']}, observed concentrations ranged from {r['min']:g} to {r['max']:g} {r['unit']} across {r['n']} animals.",
+            "Each comparison uses identified animals at the same dose and sampled time on the same dosing occasion.",
+            "The spread is descriptive. These repeated-dose measurements do not identify first-dose absorption or between-animal variation in ka.",
+            ["comparable first-dose profiles to assess variation in absorption rate"], status=ST_PART)
+        qs[9]["observed_individual_ranges"] = ranges
+        qs[9]["evidence"].append({"rule": "Individual observations remain descriptive when first-dose tests are gated.",
+            "data": sorted({r["dataset"] for r in ranges}), "tables": [{"caption": "Within-group observed concentrations",
+            "head": ["Dataset", "Dose (mg/kg)", "Time (h)", "Animals", "Minimum", "Maximum", "Unit"],
+            "rows": [[r[k] for k in ("dataset","dose","time_h","n","min","max","unit")] for r in ranges]}]})
     return [qs[k] for k in range(1, 10)]
 
 
@@ -3675,6 +3760,8 @@ def status_boards(datasets, dose_series_res, ev_iv_res, cond_res, param_sets=(),
                                          dose_series_res, ev_iv_res, cond_res, scoped_ivs, out)
         for q in b["questions"]:  # one status per question: the row status follows the question row
             _, txt, figs = b["rows"][q["q"]]
+            if q.get("reported_condition_comparisons") or q.get("observed_individual_ranges"):
+                txt = q["observed"]
             b["rows"][q["q"]] = (q["status"], txt, list(dict.fromkeys(x for f in figs for x in _OLD_FIG.get(f, [f]))))
         b["status_codes"] = {q["q"]: q["status_code"] for q in b["questions"]}
     return boards
@@ -4983,6 +5070,8 @@ def _hcompose(b, F, c, cond, origin="selection"):
     used = [s for s in F["signals"] if _hexplains(c, s, cond)]
     used_q = {s["q"] for s in used}
     readings = list(dict.fromkeys(k["id"] for k in F["checks"] if k["q"] in used_q)) if comps else []
+    if any(k["id"] == "group_means" for k in F["checks"]) and "group_means" not in readings:
+        readings.append("group_means")
     if readings:
         lead += " Check the data first: " + "; ".join(HYP_CHECK_SHORT.get(i, i) for i in readings) + "."
     unused = [s for s in F["signals"] if s["strength"] != SUG and not _hexplains(c, s, cond)]
@@ -5444,7 +5533,7 @@ HYP_CHECK_SHORT = {"lloq": "BLQ before the first quantified sample", "averaging"
 # the same checks in two or three words, for the overview summary
 HYP_CHECK_TINY = {"lloq": "early BLQ", "averaging": "averaging of animals", "steepens": "BLQ near the end", "f_above_one": "F above 1",
                   "occasion": "repeated dosing", "confounded": "confounded condition", "window": "t½ windows differ",
-                  "group_means": "dose difference untested"}
+                  "group_means": "between-animal variability can contribute to the group contrast; check group uncertainty and any figure-reading error"}
 
 HYP_CHECK_PARA = {"lloq": "how BLQ samples before the first quantified one are handled",
                   "averaging": "whether a group-mean dip comes only from averaging",

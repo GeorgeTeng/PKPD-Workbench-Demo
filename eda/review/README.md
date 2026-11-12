@@ -20,6 +20,6 @@ Changes of 2026-11-12:
 - Species are matched with one vocabulary that covers every module group.
 - Saved answers from earlier runs are not reused, because prompts and payloads changed; the next run makes new model calls.
 
-Before dispatch or saved-answer reuse, each selected section needs a readable rule file with numbered passages. Its digest must match both binding records when present. The checked bytes are the ones sent for review. A partial review reports its selected scope.
+Before dispatch or saved-answer reuse, each selected question needs a mapping, the nonempty text of every mapped rule item, and the required shared passages. This also covers questions cited by a hypothesis sent in a separate request. Each rule file's digest must match the binding records when present. A confirmed question must list its mapped items in `checked_rules`. The host rejects missing passages and missing rule citations separately.
 
 Run `python validation/eda_rereview/check_safeguards.py` for the independent acceptance checks, or `python -m pytest -q eda/review/tests` for the full reviewer suite. See the [benchmark and targeted live verification](../../validation/eda_rereview/README.md).
