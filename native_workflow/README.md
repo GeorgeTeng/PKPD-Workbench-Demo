@@ -10,7 +10,9 @@ The [PMB r4.3 rerun](../validation/pmb_absorption_r43/README.md) documents the c
 
 To generate the absorption section alone, use a **new working copy** of a qualified EDA run directory containing `source_tables.json` and, when available, `dose_normalization_assessment.json` and the linked EV plots. From `native_workflow/backend/research_pipeline`, run `python -m research_pipeline.eda_absorption <run-copy> --attach`. Set `PKPD_RSCRIPT` to Rscript and use an R library containing ggplot2 and jsonlite; the output records whether R or the matplotlib fallback rendered the figures. Open `absorption/index.html` and verify `absorption/absorption.json`: an EV exit status alone does not prove the section was produced. Keep the original run intact because changing an artifact invalidates its manifest.
 
-See the main [EDA guide](../README.md#exploratory-data-analysis-eda) for EP/EC/EV/EI/ER responsibilities, figure categories, dose-normalization decisions and current verification limits. The source revision combines the [23 October intake safeguards](../docs/eda_revision_20261023.md), [category correction](../docs/eda_categories_20261026.md) and [25 October dose-normalization implementation](../docs/eda_dose_normalization_20261025.md).
+The repository guide describes how to run the three current study-level EDA sections and review their results. [Current EDA guide](../README.md#exploratory-data-analysis-eda)
+
+For this native snapshot, the earlier guide describes the EP/EC/EV/EI/ER stages, figure categories and dose-normalization checks. [Snapshot workflow and verification](https://github.com/GeorgeTeng/PKPD-Workbench-Demo/blob/63c04051d7921a7bf31f6dd83f68a2eaee1f05a7/README.md#exploratory-data-analysis-eda) · [Intake safeguards](../docs/eda_revision_20261023.md) · [Figure categories](../docs/eda_categories_20261026.md) · [Dose normalization](../docs/eda_dose_normalization_20261025.md)
 
 `eda_figure_review_ui.render` delegates to `eda_review_portal.build`:
 
