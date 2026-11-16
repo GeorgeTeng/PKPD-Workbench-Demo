@@ -1,8 +1,11 @@
-# Open or run the absorption EDA
+# EDA entry points
 
-For a source-table case covering absorption, distribution and elimination, use the [standalone calculation runner](../tools/eda/README.md).
-
-To review completed study boards and rerun flagged conclusions before human review, see the [standalone EDA reviewer](review/README.md).
+| Task | Entry point |
+| --- | --- |
+| Calculate absorption, distribution and elimination/metabolism from a study's prepared tables | [Three-section runner](../tools/eda/README.md) |
+| Inspect a completed three-section run | Open `index.html` in the run folder. Its `modeling_context.json` gives one figure-led modeling priority per species. |
+| Check the study conclusions and revise disputed interpretations before human review | [Independent self-review](review/README.md) |
+| Open a saved PMB absorption report, rebuild absorption alone, or start from a native Data handoff | Use the absorption commands below. |
 
 ## Read the saved PMB report
 
@@ -55,7 +58,7 @@ The first command validates and prepares intake locally. The second runs through
 
 ## Rule versions
 
-The current published absorption specification is **r4.3**, dated 5 November 2026. Its nine questions put individual-animal evidence at Q5, terminal decline at Q6, systemic availability at Q7 and dose dependence at Q8. See the source for the decision criteria and the implementation requirements. [Read the r4.3 rules for items 16–23](../native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md).
+The native absorption specification is **r4.3**, dated 5 November 2026. Its nine questions put individual-animal evidence at Q5, terminal decline at Q6, systemic availability at Q7 and dose dependence at Q8. See the source for the decision criteria and the implementation requirements. [Read the r4.3 rules for items 16–23](../native_workflow/backend/rules/eda/EDA_absorption_rules_r4.3_rules_only_20261105.md).
 
 The executable supplied here uses **r4.3**. Each result identifies the rule document and its SHA-256. Run `python eda rules` to verify the document locally. The [historical retry 030 checks](../validation/pmb_absorption_retry030/README.md) apply to the archived **r4.2** output.
 
