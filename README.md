@@ -56,14 +56,14 @@ The API reports actual capabilities at `/workspace-api/capabilities`. Backend op
 
 ### Run a case
 
-Use a source checkout for the three-section runner. It requires Python with NumPy, SciPy and Matplotlib. For the R figures, install R with ggplot2, jsonlite and scales. Run the following in PowerShell from the repository root. Set the case, output and R paths for your machine and choose a fresh output folder.
+Use a source checkout for the three-section runner. It requires Python with NumPy, SciPy and Matplotlib. For the R figures, install R with ggplot2, jsonlite and scales. Start PowerShell in the repository root with your Python environment active. At the prompts, enter paths on your own computer without surrounding quotes. To find the R paths on Windows, run `file.path(R.home("bin"), "Rscript.exe")` and `dirname(find.package("ggplot2"))` in the R console.
 
 ```powershell
-$caseDir = Read-Host 'Case folder containing source_tables.json'
-$runDir = Read-Host 'New EDA output folder'
+$caseDir = Read-Host 'Folder containing your source_tables.json'
+$runDir = Read-Host 'New folder for your EDA results'
 $python = python -c "import sys; print(sys.executable)"
-$rscript = 'D:/R/bin/Rscript.exe'
-$rLibrary = 'D:/R/library'
+$rscript = Read-Host 'Full path to your Rscript executable'
+$rLibrary = Read-Host 'Your R package library folder'
 
 & $python tools/eda/run_modules.py $caseDir $runDir --workspace . --python $python --rscript $rscript --r-lib $rLibrary
 ```
