@@ -60,7 +60,7 @@ def _split(issues):
     return [i for i in issues if i.get("type") not in CODE_OR_DATA_ISSUES], code
 
 
-def rerun(req, first, generate, validate, review_prompt, tables, images, max_rounds, cache, resume, retries=1):
+def rerun(req, first, generate, validate, review_prompt, tables, images, max_rounds, cache, resume, retries=1, provider=None):
     payload = copy.deepcopy(req["payload"])
     by_id = {r["row_id"]: r for r in payload["rows"]}
     original = copy.deepcopy(by_id)
@@ -75,7 +75,10 @@ def rerun(req, first, generate, validate, review_prompt, tables, images, max_rou
                 kept.append(issue)
 
     def call(prompt, schema):
-        key = fingerprint([req["id"], prompt, schema, payload["figures"]])
+        inputs = [req["id"], prompt, schema, payload["figures"]]
+        if provider:
+            inputs.append(provider)
+        key = fingerprint(inputs)
         path = Path(cache) / (key + ".json")
         if resume and path.is_file():
             return json.loads(path.read_text(encoding="utf-8"))

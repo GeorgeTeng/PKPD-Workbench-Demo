@@ -4,8 +4,9 @@ Run the three descriptive modules from the repository root with Python, NumPy, M
 
 ```powershell
 python tools/eda/run_modules.py D:/cases/MyDrug D:/runs/MyDrug --workspace . --python D:/pk/python.exe --rscript D:/R/bin/Rscript.exe --r-lib D:/R/library
-python -m eda.review D:/runs/MyDrug --out D:/reviews/MyDrug --resume --generate eda.review.codex_adapter:generate
 ```
+
+Choose the input and output directories for your machine. For self-review, supply the completed run folder, your preferred review directory and either your own model API or the Codex CLI. [Model and directory options](../../eda/review/README.md)
 
 The run records the input, stage and rule digests in `run_record.json` and freezes them under `_engine`. To resume, add `--from distribution` or `--from elimination` to the first command. A partial rerun checks its historical rule bundle and source tables before writing. For a run without these bindings, use a fresh output directory. Open `index.html` to review the study results.
 

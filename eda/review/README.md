@@ -1,10 +1,40 @@
 # Self-review of study conclusions
 
-Run from the repository root with Python 3.10 or newer. Supply a local run containing the section JSON files, figures and `source_tables.json`. Without `--rules`, the reviewer uses the rule files the run was computed with (`<run>/_engine/rules`, written by `tools/eda/run_modules.py`). A supplied rule file whose SHA-256 differs from the run's `run_record.json` is refused. This command uses the bundled Codex CLI adapter with your installed, authenticated CLI.
+Run from the repository root with Python 3.10 or newer. The first argument is your completed EDA run folder, containing the section JSON files, figures and `source_tables.json`. Use `--out` to choose the review folder on any drive. The default is `<run>/review`. The reviewer checks the frozen rules in `<run>/_engine/rules` against the run record. You can supply the matching files with `--rules`.
+
+### Use your own model API
+
+Install `jsonschema` in the Python environment you will use for review. Enter the model ID and API base URL provided by your local server or hosted provider. The adapter sends non-streaming Chat Completions requests with the review schema, study evidence and any cited PNGs. The model must return a JSON object and accept image input when a request contains figures. The host checks the response against the schema and the study-specific review rules.
 
 ```powershell
-python -m eda.review D:/runs/MyDrug --out D:/reviews/MyDrug --resume --generate eda.review.codex_adapter:generate
+python -m pip install jsonschema
+$runDir = Read-Host 'Completed EDA run folder'
+$reviewDir = Read-Host 'Folder for review results'
+$apiBase = Read-Host 'Model API base URL (for example, http://localhost:8000/v1)'
+$model = Read-Host 'Model ID'
+python -m eda.review $runDir --out $reviewDir --api-base $apiBase --model $model --resume
 ```
+
+For a server that requires a bearer token, set `EDA_REVIEW_API_KEY` in the same session before running the command. PowerShell can read the key without displaying it.
+
+```powershell
+$key = Read-Host 'API key' -AsSecureString
+$env:EDA_REVIEW_API_KEY = [System.Net.NetworkCredential]::new('', $key).Password
+```
+
+The endpoint and requested model ID appear in `review.json`. Cached board reviews, rewrites and rechecks are scoped to the endpoint and model. To keep two reports side by side, give each its own output folder.
+
+### Use Codex CLI or a Python adapter
+
+With an installed, authenticated Codex CLI, run the following using the same folder variables.
+
+```powershell
+python -m eda.review $runDir --out $reviewDir --generate eda.review.codex_adapter:generate --resume
+```
+
+Set `EDA_REVIEW_CALL_LOG` to choose a path for the Codex CLI call log. For another API protocol, pass `--generate your_module:generate` with an importable Python callable taking `(prompt, schema, image_paths)` and returning a dictionary. If that callable can select different models, set its `identity` attribute to a non-secret JSON value identifying its configuration, or use a separate output folder per model.
+
+### Follow up on a review
 
 The reviewer checks the status against endpoint evidence and labels each inventory source by study and arm. For a disputed row it returns search keywords. The writer uses matching source records and the original tables and figures to revise the conclusion. The reviewer then checks the revised board, including previously reported problems. This repeats until every row is confirmed and all omissions are resolved. The original measurements and figures stay available for comparison.
 
