@@ -14,7 +14,8 @@ Extract the portable PMB report ZIP into `eda/report/`. On Windows, double-click
 If you already have an extracted report elsewhere, point the viewer at the directory containing `absorption/`. Run the following commands from the repository root.
 
 ```powershell
-python eda open "D:/reports/PMB_retry030"
+$reportDir = Read-Host 'Extracted report folder containing the absorption subfolder'
+python eda open $reportDir
 ```
 
 For the English PMB species edition, copy the private ZIP to the other computer, extract it, then open **Open_Report.html**. This opens the one-page species summary. Its canonical file is `absorption/mechanism_assessment.html`. A browser and the extracted files are sufficient for offline reading.
@@ -35,12 +36,14 @@ The [versioned mechanism catalogue](../native_workflow/backend/rules/eda/absorpt
 
 ## Rebuild absorption from existing EDA tables
 
-Use the Python environment for the [native workflow](../native_workflow/README.md). On Windows its [setup script](../native_workflow/setup.ps1) creates `native_workflow/.venv-context/`. Run the following from the repository root. Replace the example paths with your own.
+Use the Python environment for the [native workflow](../native_workflow/README.md). On Windows its [setup script](../native_workflow/setup.ps1) creates `native_workflow/.venv-context/`. Run the following from the repository root and enter your own paths at the prompts.
 
 ```powershell
 $py = ".\native_workflow\.venv-context\Scripts\python.exe"
-& $py eda run --source "D:/PMB/eda/run" --out "D:/reports/PMB_rebuilt"
-& $py eda open "D:/reports/PMB_rebuilt"
+$sourceDir = Read-Host 'Folder containing your source_tables.json'
+$reportDir = Read-Host 'New folder for the rebuilt absorption report'
+& $py eda run --source $sourceDir --out $reportDir
+& $py eda open $reportDir
 ```
 
 The source directory must contain the admitted `source_tables.json`. Supply its matching `dose_normalization_assessment.json` and EV plots when available. The portable viewing ZIP contains the rendered report. Recalculation requires the original table inputs. Choose a **new** output directory outside the source run. Set `PKPD_RSCRIPT` to your Rscript executable and `R_LIBS_USER` to the library containing ggplot2 and jsonlite to use the R renderer. The result records the renderer used.
@@ -50,8 +53,14 @@ The source directory must contain the admitted `source_tables.json`. Supply its 
 Use `from-data` to call the repository’s native adapter with its input checks. This path requires the Data report and handoff plus the files they reference. Both commands below require the native Python environment. The second also requires a configured model provider and R runtime.
 
 ```powershell
-& $py eda from-data --prepare-only --handoff "D:/Data/handoffs/eda_context.json" --report "D:/Data/data_report.json" --out "D:/reports/intake_check"
-& $py eda from-data --handoff "D:/Data/handoffs/eda_context.json" --report "D:/Data/data_report.json" --out "D:/reports/fresh_eda"
+$py = ".\native_workflow\.venv-context\Scripts\python.exe"
+$handoff = Read-Host 'Full path to your eda_context.json'
+$dataReport = Read-Host 'Full path to the matching data_report.json'
+$intakeDir = Read-Host 'New folder for the intake check'
+& $py eda from-data --prepare-only --handoff $handoff --report $dataReport --out $intakeDir
+
+$edaDir = Read-Host 'New folder for the full EDA run'
+& $py eda from-data --handoff $handoff --report $dataReport --out $edaDir
 ```
 
 The first command validates and prepares intake locally. The second runs through EV and prints the path to the absorption report.
