@@ -26,10 +26,12 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 import random
 import re
 import sys
 from pathlib import Path
+from urllib.parse import quote
 from .contracts import classify, effective_answer, endpoint_limit, host_issue, identity, numbers, quantitative_clauses, scope_problem, species_key
 from .rerun import rerun
 
@@ -344,6 +346,10 @@ def err_requests(root, rows, rules_text_by_section, item_map=None, max_images=MA
                     question = legacy.get(r["label"], r["q"]) if sec == "absorption" and not item_map else r["q"]
                     requirements[r["row_id"]] = [str(k) for k in (item_map or ITEM_MAP).get(sec, {}).get(question, [])]
                     rules.update(passages_for(sec, question, passages.get(sec, {}), item_map))
+            for p in im:
+                figure = (Path(root) / p).resolve()
+                if not figure.is_relative_to(Path(root).resolve()) or figure.suffix.lower() != ".png":
+                    raise ValueError("A review figure must be a PNG inside the selected run folder.")
             exist = [p for p in im if (Path(root) / p).is_file()]
             here = {r["row_id"] for r in prs}
             by_id = {r["row_id"]: r for r in rs}
@@ -553,11 +559,15 @@ def validate_es(out, req, rows, verdicts):
 # ---------------------------------------------------------------- running
 
 def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=False, item_map=None, inject=0, seed=7,
-        only=None, retries=1, summary=True, resume=False, max_rounds=None):
+        only=None, retries=1, summary=True, resume=False, max_rounds=None, provider=None):
     """Build requests, call the model (if a generator is given), validate, and write review/review.json and review/index.html."""
-    root = Path(root)
-    out = Path(out_dir or root / "review")
+    root = Path(root).expanduser().resolve()
+    out = Path(out_dir or root / "review").expanduser().resolve()
+    if out == root or out in (root / part for part in (*SECTIONS, "figures", "_engine")) or (out / "run_record.json").is_file():
+        raise ValueError("Choose a separate review output folder to preserve the EDA report.")
     rows, meta = collect(root)
+    if not any(section["present"] for section in meta.values()):
+        raise ValueError(f"No calculated EDA section was found in {root}.")
     truth = None
     if inject:      # measurement run: planted errors, the summary is skipped and the page says so
         rows, truth = inject_errors(rows, n=inject, seed=seed)
@@ -596,10 +606,17 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
             raise ValueError("Cannot review with incomplete or inconsistent rules: " + "; ".join(problems))
     out.mkdir(parents=True, exist_ok=True)
     ans_dir = out / "answers"
+    review_file = out / "review.json"
+    if provider is None:
+        provider = getattr(generate, "identity", None)
+    if generate is None and resume and review_file.is_file():
+        provider = json.loads(review_file.read_bytes()).get("model_provider")
     ans_dir.mkdir(exist_ok=True)
     record = {"version": VERSION, "sections": meta, "rules": {s: {"file": Path(rules_paths[s]).name, "sha256": h}
                                                             for s, h in hashes.items()},
               "rows": len(rows), "coverage": coverage(rows, inv), "only": only, "err": [], "es": None}
+    if provider:
+        record["model_provider"] = provider
     verdicts = {}
     current_rows = {r["row_id"]: r for r in rows}
     tables_path = root / "source_tables.json"
@@ -622,7 +639,10 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
             (rq / f"{req['id']}.prompt.txt").write_text(req["prompt"], encoding="utf-8")
             (rq / f"{req['id']}.schema.json").write_text(json.dumps(req["schema"], indent=1), encoding="utf-8")
             (rq / f"{req['id']}.images.json").write_text(json.dumps(req["images"], indent=1), encoding="utf-8")
-        digest = hashlib.sha256(json.dumps([VERSION, req["prompt"], req["schema"]], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+        inputs = [VERSION, req["prompt"], req["schema"]]
+        if provider:
+            inputs.append(provider)
+        digest = hashlib.sha256(json.dumps(inputs, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
         entry["request_sha256"] = digest
         saved = ans_dir / f"{req['id']}.{digest}.json"
         if generate or (resume and saved.is_file()):
@@ -661,7 +681,7 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
             for ctx in req["payload"]["context_rows"]:
                 ctx.update({k: current_rows[ctx["row_id"]].get(k) for k in ctx})
             loop, effective = rerun(req, effective, generate, validate_err, ERR_PROMPT, tables,
-                                    imgs, max_rounds, ans_dir, resume, retries)
+                                    imgs, max_rounds, ans_dir, resume, retries, provider=provider)
             entry.update(self_review=loop, answer=effective)
             if loop["status"] == "PASSED":
                 for rid, changes in loop["updated_rows"].items():
@@ -694,8 +714,13 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
         sent = {rid for e in record["err"] for rid in e["rows"]}
         truth_sent = {k: v for k, v in truth.items() if k in sent}
         record["injection"] = {"seed": seed, "truth": truth_sent, "score": score(truth_sent, verdicts) if (generate or resume) else None}
-    (out / "review.json").write_text(json.dumps(record, ensure_ascii=False, indent=1), encoding="utf-8")
-    (out / "index.html").write_text(render_html(record, rows, verdicts), encoding="utf-8")
+    review_file.write_text(json.dumps(record, ensure_ascii=False, indent=1), encoding="utf-8")
+    report = root / "report.html"
+    try:
+        report_href = quote(Path(os.path.relpath(report, out)).as_posix())
+    except ValueError:  # Separate Windows drives cannot share a relative path.
+        report_href = report.as_uri()
+    (out / "index.html").write_text(render_html(record, rows, verdicts, report_href), encoding="utf-8")
     return record
 
 
@@ -717,7 +742,7 @@ def _e(x):
     return html.escape(str(x if x is not None else ""))
 
 
-def render_html(record, rows, verdicts):
+def render_html(record, rows, verdicts, report_href="../report.html"):
     by_id = {r["row_id"]: r for r in rows}
     c = record["counts"]
     h = ['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
@@ -726,7 +751,7 @@ def render_html(record, rows, verdicts):
          '.panel{background:#fff;border:1px solid #e4eaf0;border-radius:12px;padding:16px 20px;margin:16px 0}.muted{color:#5b7083}'
          '.st{display:inline-block;padding:1px 8px;border-radius:9px;font-size:12px}.CONFIRMED{background:#dff3ea}.REVISE{background:#fde2e2}.UNCERTAIN{background:#fff1cc}'
          '.REVIEW_PENDING{background:#e8eef9}</style></head><body><main>',
-         '<nav><a href="../report.html">← EDA report</a></nav><p class="muted">EDA review</p><h1>Review summary</h1>',
+         f'<nav><a href="{_e(report_href)}">← EDA report</a></nav><p class="muted">EDA review</p><h1>Review summary</h1>',
          f'<p class="muted">{c["rows"]} conclusions and hypotheses across absorption, distribution and elimination · {c["requests"]} review requests '
          f'({c["accepted"]} accepted, {c["rejected"]} rejected by the host checks) · {c.get("confirmed", 0)} confirmed, {c.get("revise", 0)} to revise, '
          f'{c.get("uncertain", 0)} uncertain, {c["not_reviewed"]} not reviewed · Human review pending</p>']
@@ -907,19 +932,24 @@ def rule_problems(root, required, hashes):
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description="EDA re-review and summary requests (host side)")
-    ap.add_argument("root", type=Path)
+    ap.add_argument("root", type=Path, help="folder containing the calculated EDA sections")
     ap.add_argument("--rules", nargs="*", default=[], help="section=path pairs; default: the rules the run used (<run>/_engine/rules)")
     ap.add_argument("--write-requests", action="store_true")
     ap.add_argument("--inject", type=int, default=0, help="plant N known errors (measurement run; not a review)")
     ap.add_argument("--seed", type=int, default=7)
-    ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument("--out", type=Path, help="review output folder (default: <run>/review)")
     ap.add_argument("--only", default=None, help="regex on request ids (pilot run); skips the summary")
-    ap.add_argument("--generate", default=None, help="module:function with signature (prompt, schema, image_paths) -> dict")
+    adapter = ap.add_mutually_exclusive_group()
+    adapter.add_argument("--generate", help="module:function with signature (prompt, schema, image_paths) -> dict")
+    adapter.add_argument("--api-base", help="OpenAI-compatible Chat Completions base URL, e.g. http://localhost:8000/v1")
+    ap.add_argument("--model", help="model identifier for --api-base (optional bearer key in EDA_REVIEW_API_KEY)")
     ap.add_argument("--resume", action="store_true", help="reuse answers already saved under <out>/answers")
     ap.add_argument("--retries", type=int, default=1)
     ap.add_argument("--max-rounds", type=int, help="optional limit on correction rounds per request")
     ap.add_argument("--known", type=Path, default=None, help="known-error benchmark JSON; scores an existing review/review.json")
     a = ap.parse_args(argv)
+    if (a.api_base is None) != (a.model is None):
+        ap.error("Use --api-base and --model together.")
     if a.max_rounds is not None and a.max_rounds < 0:
         ap.error("--max-rounds must be nonnegative")
     rules = dict(x.split("=", 1) for x in a.rules) or run_rules(a.root)
@@ -929,17 +959,27 @@ def main(argv=None):
         print(json.dumps(score_known(json.loads(a.known.read_text(encoding="utf-8")), verdicts), ensure_ascii=False, indent=1))
         return
     gen = None
+    provider = None
     if a.generate:
         import importlib
         mod, fn = a.generate.split(":", 1)
-        gen = getattr(importlib.import_module(mod), fn)
+        module = importlib.import_module(mod)
+        gen = getattr(module, fn)
+        provider = {"adapter": a.generate}
+        if a.generate == "eda.review.codex_adapter:generate":
+            provider.update(model=module.MODEL, effort=module.EFFORT)
+        elif getattr(gen, "identity", None):
+            provider["configuration"] = gen.identity
     try:
+        if a.api_base is not None:
+            from .api_adapter import ChatCompletions
+            gen = ChatCompletions(a.api_base, a.model)
         rec = run(a.root, gen, rules, out_dir=a.out, write_requests=a.write_requests, inject=a.inject, seed=a.seed, only=a.only,
-                  retries=a.retries, resume=a.resume, max_rounds=a.max_rounds)
+                  retries=a.retries, resume=a.resume, max_rounds=a.max_rounds, provider=provider)
     except ValueError as exc:
         ap.error(str(exc))
     print(json.dumps(dict(rec["counts"], self_review=rec["self_review"])))
-    if a.generate and rec["self_review"] in ("PENDING", "NEEDS_CODE_OR_DATA"):
+    if gen and rec["self_review"] in ("PENDING", "NEEDS_CODE_OR_DATA"):
         raise SystemExit(2)
 
 
