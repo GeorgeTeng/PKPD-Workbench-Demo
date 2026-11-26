@@ -1,0 +1,52 @@
+{
+  "version": "EDA_INPUT_COVERAGE_1",
+  "reason_codes": [
+    "NOT_PK_ROLE",
+    "NO_QUESTION_FOR_TYPE",
+    "GATED_OUT",
+    "DESIGN_NOT_SUPPORTED",
+    "UNKNOWN"
+  ],
+  "summary": {
+    "datasets": 1,
+    "used_any_section": 1,
+    "unused_all_sections": [],
+    "unused_by_section": {
+      "absorption": {
+        "DBG01_Horse_IV": "NO_QUESTION_FOR_TYPE"
+      },
+      "distribution": {},
+      "elimination": {}
+    }
+  },
+  "datasets": [
+    {
+      "dataset_id": "DBG01_Horse_IV",
+      "role": "PK_OBSERVATIONS",
+      "design": "SINGLE",
+      "species": "Horse",
+      "route": "IV",
+      "dosing_regimen": "single dose",
+      "sections": {
+        "absorption": {
+          "status": "unused",
+          "reason": "NO_QUESTION_FOR_TYPE",
+          "referenced_outside_boards": true
+        },
+        "distribution": {
+          "status": "used",
+          "boards": [
+            "dbg01-s1/horse/single"
+          ]
+        },
+        "elimination": {
+          "status": "used",
+          "boards": [
+            "dbg01-s1/horse/single"
+          ]
+        }
+      },
+      "status": "used"
+    }
+  ]
+}

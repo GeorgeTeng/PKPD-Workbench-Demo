@@ -1,0 +1,164 @@
+{
+  "input": ".",
+  "source_tables_sha256": "70109a95bdce0e1b73fffd4ba6241991d5b26a70c4c73259fcce2cf2435b0456",
+  "start_utc": "2026-11-26T06:29:20.321285+00:00",
+  "stages": {
+    "absorption": {
+      "program": "tools/eda/eda_absorption.py",
+      "sha256": "1e307f02dd1a986db0288b9badfa5327c592d6948ec6539c2bbba3e01269ab34",
+      "plot_program": "tools/eda/absorption_figures.R",
+      "r_sha256": "4b332301d94bf5469d1cb1784406eda84b01bf01cfda8bc6fe7a73000c31407a",
+      "plot_snapshot": "_engine/absorption_r/absorption_figures.R",
+      "start_utc": "2026-11-26T06:29:20.376059+00:00",
+      "config_sha256": null,
+      "plot_style_sha256": "a426dc6612ace73bbd03ca9d9dd1e3f57a57be3fc832fe50451e6ced1f00a6ca",
+      "alias_registry_sha256": "440d20d34bb1c8e26cbb1520797bbadc99fa7749672d1396f3ac19b529aca493",
+      "exit_code": 0,
+      "end_utc": "2026-11-26T06:29:21.680690+00:00",
+      "output_sha256": "dc17b937cc4231bb671a3de7a5a8c2332de77e599bf5c20bf770a385d2180a12",
+      "version": "EDA_ABSORPTION_R4_4_20261124",
+      "render": {
+        "engine": "none",
+        "note": ""
+      },
+      "figures": 0
+    },
+    "distribution": {
+      "program": "tools/eda/eda_distribution.py",
+      "sha256": "9bb7795d6edd156e6040d3647ebc70c69b9c416c5278246539daab9723014f6f",
+      "plot_program": "tools/eda/distribution_figures.R",
+      "r_sha256": "ccbca3ae986f2e70d4e06e820f4da22167c4e6c3da752dc653a4363cd2477923",
+      "plot_snapshot": "_engine/distribution_r/distribution_figures.R",
+      "start_utc": "2026-11-26T06:29:21.700819+00:00",
+      "config_sha256": null,
+      "plot_style_sha256": "a426dc6612ace73bbd03ca9d9dd1e3f57a57be3fc832fe50451e6ced1f00a6ca",
+      "alias_registry_sha256": "440d20d34bb1c8e26cbb1520797bbadc99fa7749672d1396f3ac19b529aca493",
+      "exit_code": 0,
+      "end_utc": "2026-11-26T06:29:29.227087+00:00",
+      "output_sha256": "9df15609b394d7b184233de1af0f8972352ae1d7899088c6b1169c245edd25ae",
+      "version": "EDA_DISTRIBUTION_R1_6_20261124",
+      "render": {
+        "engine": "R_GGPLOT2",
+        "note": "rendered 13 figures with ggplot2 4.0.3"
+      },
+      "figures": 13
+    },
+    "elimination": {
+      "program": "tools/eda/eda_elimination.py",
+      "sha256": "d7c6db37c19222e22e46a11f55b7de23807e0aeb3948c2a4d0404398facf935d",
+      "plot_program": "tools/eda/elimination_figures.R",
+      "r_sha256": "f3699f1182940c7cf5fce7f8eecfed7c21815087af9cd4e9bdc8fb5c5d391abd",
+      "plot_snapshot": "_engine/elimination_r/elimination_figures.R",
+      "start_utc": "2026-11-26T06:29:29.260711+00:00",
+      "config_sha256": null,
+      "plot_style_sha256": "a426dc6612ace73bbd03ca9d9dd1e3f57a57be3fc832fe50451e6ced1f00a6ca",
+      "alias_registry_sha256": "440d20d34bb1c8e26cbb1520797bbadc99fa7749672d1396f3ac19b529aca493",
+      "exit_code": 0,
+      "end_utc": "2026-11-26T06:29:32.807203+00:00",
+      "output_sha256": "c3a5188f048f84db1b4efdf417b845a3d01f352860793147dbb27d992b899b12",
+      "version": "EDA_ELIMINATION_R1_2_20261124",
+      "render": {
+        "engine": "R_GGPLOT2",
+        "note": "rendered 6 figures with ggplot2 4.0.3"
+      },
+      "figures": 6
+    }
+  },
+  "auxiliary_sha256": {
+    "dose_normalization_assessment.json": null,
+    "reported_parameter_context.json": null
+  },
+  "common_sha256": "4a54117594cae5dd9184ad78cf10f978530a8602491f78790a6fa620a9b26db3",
+  "rules": {
+    "absorption": {
+      "version": "r4.4",
+      "items": "16-23",
+      "file": "EDA_absorption_rules_r4.4_consolidated_20261125.md",
+      "sha256": "5cec5de513e7bd77859839326f1ffd15e9a645ec88e29d652f742eb6252c937d",
+      "yaml": "absorption_rules_r4.4.machine.yaml",
+      "yaml_sha256": "c4439e55ee698c8b111f9bcef6e5480040e7df5152d22863f8ecc395aa4619fc",
+      "shared": "s1.0",
+      "supersedes": "r4.3",
+      "date": "2026-11-24",
+      "output_version": "EDA_ABSORPTION_R4_4_20261124",
+      "guide": "EDA_absorption_rules_r4.3_review_guide_20261124.md",
+      "edition": "consolidated 2026-11-25 (wording only; no rule changed)",
+      "layered_file": "EDA_absorption_rules_r4.4_rules_only_20261124.md"
+    },
+    "distribution": {
+      "version": "r1.6",
+      "items": "24-28",
+      "file": "EDA_distribution_rules_r1.6_consolidated_20261125.md",
+      "sha256": "6e7c8ea130bb9ea573b0cc52cddc06fea547c2486e6e83f5ad1bb5fa5a97fee2",
+      "yaml": "distribution_rules_r1.6.machine.yaml",
+      "yaml_sha256": "5f1bf881bc2683bd2dbf3ed932d81c8bc8855a601a33f34e56cc758bf49986ac",
+      "shared": "s1.0",
+      "supersedes": "r1.3",
+      "date": "2026-11-24",
+      "output_version": "EDA_DISTRIBUTION_R1_6_20261124",
+      "guide": "EDA_distribution_rules_r1.5b_reviewed_20261124.md",
+      "edition": "consolidated 2026-11-25 (wording only; no rule changed)",
+      "layered_file": "EDA_distribution_rules_r1.6_rules_only_20261124.md"
+    },
+    "elimination": {
+      "version": "r1.2",
+      "items": "29-36",
+      "file": "EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md",
+      "sha256": "be2646e3fdccc78e2d31f4a798a370779e9b46cae3eadad9549bc5d2ccd79dfb",
+      "yaml": "elimination_rules_r1.2.machine.yaml",
+      "yaml_sha256": "1f1e0dce1d66ec510fcc379c2235bf8da5c2d73b27cd112f72da6a1c6116c3ea",
+      "shared": "s1.0",
+      "supersedes": "r1.1",
+      "date": "2026-11-24",
+      "output_version": "EDA_ELIMINATION_R1_2_20261124",
+      "guide": "EDA_elimination_rules_r1.1_reviewed_20261123.md (version of 2026-11-24)",
+      "edition": "consolidated 2026-11-25 (wording only; no rule changed)",
+      "layered_file": "EDA_elimination_metabolism_rules_r1.2_rules_only_20261124.md"
+    },
+    "shared": {
+      "version": "s1.0",
+      "items": "R1-R10, S11-S13",
+      "file": "EDA_shared_rules_s1.0_consolidated_20261125.md",
+      "sha256": "8ca81d8e43ff6ac0e073a2947462eaca82f6fb87207fc38ed08f36df7f18782f",
+      "yaml": "shared_rules_s1.0.machine.yaml",
+      "yaml_sha256": "78e8de655b10f644c3f8c8cf071764cde0810323e2727fd061f25322588d3ffd",
+      "date": "2026-11-24",
+      "s13_date": "2026-11-25",
+      "edition": "consolidated 2026-11-25 (wording only; no rule changed)",
+      "layered_file": "EDA_shared_rules_s1.0_20261124.md"
+    }
+  },
+  "locations": {
+    "workspace": ".",
+    "python": "Local runtime (python)",
+    "rscript": "Local runtime (rscript)",
+    "r_lib": "Local runtime (r_lib)",
+    "elimination_r": "tools/eda/elimination_figures.R"
+  },
+  "coverage": {
+    "path": "coverage.json",
+    "sha256": "2abd6844349b66c95d0c524f0b1f3ac08f079ef641c6fc6dd98128f4bf966273",
+    "unused_all_sections": []
+  },
+  "modeling_facts": {
+    "json": "modeling_facts.json",
+    "text": "modeling_facts.txt",
+    "figures": "modeling_figures",
+    "sha256": "6c490b6b6ff5240e75e60d450bcb59bef6d80773d66cecc981d6ff2dc4618c89",
+    "program_sha256": "289f90a96db7bc7c25eac21e35d0d47c4376130ba08fa1430216d01ea2436613"
+  },
+  "interface": {
+    "publication": "portal_publication.json",
+    "owner_sha256": "63fc0cd3aed3b951946d3a347961bd8fb8b0b33a83df7a4d5c641641e15b1e8f",
+    "entry": "index.html",
+    "question_report": "report.html",
+    "figures": "figures/index.html"
+  },
+  "modeling_input": {
+    "path": "modeling_context.json",
+    "sha256": "5ac46c70332b23e1640f9f4b68e4612f2737fb843d7777b2d51dc62806c49ee3",
+    "generator_sha256": "8ed7620d8b42d6c995e2122d9fa842cc29165b7a53d5131d020560eaff8bcde1",
+    "rules_sha256": "2ae6d328d2967c303dcfdb09b9e480d7d0de939329aced793f3bd9a8c675f3d6",
+    "species": 1
+  }
+}
