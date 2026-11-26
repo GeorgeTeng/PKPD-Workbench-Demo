@@ -19,7 +19,7 @@ Start with the Study review guides. They explain what to look for in the figures
 | Distribution | [Read guide r1.5b](guides/EDA_distribution_rules_r1.5b_reviewed_20261124.md) | [Rules r1.6](../../tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md) |
 | Elimination and metabolism | [Read guide r1.1](guides/EDA_elimination_rules_r1.1_reviewed_20261123.md) | [Rules r1.2](../../tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md) |
 
-[Shared rules s1.0](../../tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) cover all three sections. The [rule manifest](../../tools/eda/rules/rules_manifest.json) records the current bindings and the Git locations of superseded drafts named in the rules.
+[Shared rules s1.0 · Reviewer guide](guides/EDA_shared_rules_s1.0_reviewer_20261126.md) covers all three sections. [Read online](https://georgeteng.github.io/PKPD-Workbench-Demo/shared-rules/). The [rule manifest](../../tools/eda/rules/rules_manifest.json) records the current bindings and the Git locations of superseded drafts named in the rules.
 
 ## Review checklist
 

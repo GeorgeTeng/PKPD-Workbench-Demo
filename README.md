@@ -12,7 +12,7 @@ Start with the Study review guides. They explain what to look for in the figures
 | Distribution | [Read guide r1.5b](examples/eda-review/guides/EDA_distribution_rules_r1.5b_reviewed_20261124.md) | [Rules r1.6](tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md) |
 | Elimination and metabolism | [Read guide r1.1](examples/eda-review/guides/EDA_elimination_rules_r1.1_reviewed_20261123.md) | [Rules r1.2](tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md) |
 
-[Shared rules s1.0](tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) apply to all three sections.
+[Shared rules s1.0 · Reviewer guide](examples/eda-review/guides/EDA_shared_rules_s1.0_reviewer_20261126.md) · [Read online](https://georgeteng.github.io/PKPD-Workbench-Demo/shared-rules/)
 
 - [DBG01 · Open HTML report](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG01/) · [Case summary](examples/eda-review/DBG01/README.md)
 - [DBG03 · Open HTML report](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG03/) · [Case summary](examples/eda-review/DBG03/README.md)
