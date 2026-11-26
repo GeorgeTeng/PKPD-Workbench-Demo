@@ -1,5 +1,5 @@
 {
- "_about": "The one rules version per section that both the calculation (eda_*.py) and the figures (*_figures.R, via the plot specs) implement, plus the shared rules s1.0 that the three sections use. Each current entry binds the Markdown rules (file, sha256) and the machine YAML (yaml, yaml_sha256); a module entry also names its shared rules and its output_version, the one version string that pages, section json, run record and frozen copy use. run_modules.py refuses to run when a file's SHA-256 differs from this manifest, copies this folder into _engine and records `sections` in run_record.json. `history` keeps every superseded revision with its original SHA-256; superseded files stay in this folder unchanged. To adopt a new revision: add the files, move the current entry to history with status superseded, change the code to match, and run the tests (test_rules_revision.py reads the YAML). An `edition` changes only the wording of a current Markdown file (one text instead of layers); the version, the YAML, its SHA-256 and the output_version stay the same, and the layered file moves to history with status superseded and kind layered_edition.",
+ "_about": "Current Markdown and machine YAML are bound by SHA-256. The runner verifies the active bundle and copies it into each run. Section entries retain the historical layered filename as provenance for existing run records. Superseded drafts live at the pinned Git paths in history. A verbatim_file names a complete embedded historical draft. To change a rule, update the current bindings, adjust the calculation and figure code, and run the rule tests.",
  "sections": {
   "absorption": {
    "version": "r4.4",
@@ -63,32 +63,44 @@
   {
    "section": "absorption",
    "version": "r4.3",
-   "file": "EDA_absorption_rules_r4.3_rules_only_20261105.md",
+   "file": null,
    "sha256": "d63ecc86b79f2a0b7ba3677bd83f5a8a0f2a6166d5678d1cc6633e82f4ed817e",
    "status": "superseded",
    "superseded_by": "r4.4",
    "superseded_on": "2026-11-24",
-   "note": "kept unchanged; quoted verbatim in Part 3 of EDA_absorption_rules_r4.4_rules_only_20261124.md (layered edition, kept in history since 2026-11-25)"
+   "note": "The archived draft retains its original bytes and SHA-256.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_absorption_rules_r4.3_rules_only_20261105.md"
+   }
   },
   {
    "section": "distribution",
    "version": "r1.3",
-   "file": "EDA_distribution_rules_r1.3_rules_only_20261110.md",
+   "file": null,
    "sha256": "5cb7ae001125093caf8b4fe6fd0fccfe6b33049675b825de9f6be6dd5d4ab106",
    "status": "superseded",
    "superseded_by": "r1.6",
    "superseded_on": "2026-11-24",
-   "note": "kept unchanged; quoted verbatim in Part 3 of EDA_distribution_rules_r1.6_rules_only_20261124.md (layered edition, kept in history since 2026-11-25)"
+   "note": "The archived draft retains its original bytes and SHA-256.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_distribution_rules_r1.3_rules_only_20261110.md"
+   }
   },
   {
    "section": "elimination",
    "version": "r1.1",
-   "file": "EDA_elimination_metabolism_rules_r1.1_rules_only_FINAL.md",
+   "file": null,
    "sha256": "3b5fa0a60c29da8b336f37bf21229c674471cb09a27825aa5243e146bf926714",
    "status": "superseded",
    "superseded_by": "r1.2",
    "superseded_on": "2026-11-24",
-   "note": "kept unchanged; quoted verbatim in Part 3 of EDA_elimination_metabolism_rules_r1.2_rules_only_20261124.md (layered edition, kept in history since 2026-11-25)"
+   "note": "The archived draft retains its original bytes and SHA-256.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_elimination_metabolism_rules_r1.1_rules_only_FINAL.md"
+   }
   },
   {
    "section": "distribution",
@@ -98,51 +110,72 @@
    "status": "superseded",
    "superseded_by": "r1.6",
    "superseded_on": "2026-11-24",
-   "note": "EDA_distribution_rules_r1.5_rules_only_20261121.md was not registered here; quoted verbatim in Part 3a of EDA_distribution_rules_r1.6_rules_only_20261124.md (layered edition, kept in history since 2026-11-25)"
+   "note": "This draft is embedded verbatim in the archived layered edition.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_distribution_rules_r1.6_rules_only_20261124.md",
+    "verbatim_file": "EDA_distribution_rules_r1.5_rules_only_20261121.md"
+   }
   },
   {
    "section": "absorption",
    "version": "r4.4",
-   "file": "EDA_absorption_rules_r4.4_rules_only_20261124.md",
+   "file": null,
    "sha256": "705161184a8a44a652e33f341b21f5611844cb5ea2aa41bcecf56cf9847d3051",
    "status": "superseded",
    "kind": "layered_edition",
    "superseded_by": "r4.4 consolidated 2026-11-25 (wording only; no rule changed)",
    "superseded_on": "2026-11-25",
-   "note": "layered text (shared rules > Part 2 > Part 3 verbatim); kept unchanged. Its verbatim blocks remain the byte-for-byte record of the older revisions. The machine YAML is unchanged."
+   "note": "The layered edition retains verbatim earlier rule text.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_absorption_rules_r4.4_rules_only_20261124.md"
+   }
   },
   {
    "section": "distribution",
    "version": "r1.6",
-   "file": "EDA_distribution_rules_r1.6_rules_only_20261124.md",
+   "file": null,
    "sha256": "d3e2e233692f1e2448a2f2bd4b8498340932f52144b174122706f74d381bc9a1",
    "status": "superseded",
    "kind": "layered_edition",
    "superseded_by": "r1.6 consolidated 2026-11-25 (wording only; no rule changed)",
    "superseded_on": "2026-11-25",
-   "note": "layered text (shared rules > Part 2 > Part 3 verbatim); kept unchanged. Its verbatim blocks remain the byte-for-byte record of the older revisions. The machine YAML is unchanged."
+   "note": "The layered edition retains verbatim earlier rule text.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_distribution_rules_r1.6_rules_only_20261124.md"
+   }
   },
   {
    "section": "elimination",
    "version": "r1.2",
-   "file": "EDA_elimination_metabolism_rules_r1.2_rules_only_20261124.md",
+   "file": null,
    "sha256": "134bcec1513c8fd37c49c89de56130efec2d67c1109c198445183b3aa3aee9df",
    "status": "superseded",
    "kind": "layered_edition",
    "superseded_by": "r1.2 consolidated 2026-11-25 (wording only; no rule changed)",
    "superseded_on": "2026-11-25",
-   "note": "layered text (shared rules > Part 2 > Part 3 verbatim); kept unchanged. Its verbatim blocks remain the byte-for-byte record of the older revisions. The machine YAML is unchanged."
+   "note": "The layered edition retains verbatim earlier rule text.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_rules_only_20261124.md"
+   }
   },
   {
    "section": "shared",
    "version": "s1.0",
-   "file": "EDA_shared_rules_s1.0_20261124.md",
+   "file": null,
    "sha256": "3f5865c2c8ab58ce564d6109e3fdb2f789af9ed81a636a605430228227478bc9",
    "status": "superseded",
    "kind": "layered_edition",
    "superseded_by": "s1.0 consolidated 2026-11-25 (wording only; no rule changed)",
    "superseded_on": "2026-11-25",
-   "note": "layered text (shared rules > Part 2 > Part 3 verbatim); kept unchanged. Its verbatim blocks remain the byte-for-byte record of the older revisions. The machine YAML is unchanged."
+   "note": "The layered edition retains verbatim earlier rule text.",
+   "archive": {
+    "commit": "7135f12fdb790fed64000a3fa0724220dc651998",
+    "path": "tools/eda/rules/EDA_shared_rules_s1.0_20261124.md"
+   }
   }
  ]
 }

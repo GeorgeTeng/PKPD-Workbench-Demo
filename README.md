@@ -4,18 +4,20 @@ A local research workbench with two connected workspaces: **Research workflow** 
 
 ## EDA human review
 
-Review the active rules and two completed descriptive EDA examples. Each case page includes a figure, the main evidence and limits, and a downloadable report with the full figure gallery and source-to-result records.
+Start with the Study review guides. They explain what to look for in the figures and how to review each study question. Use the linked active rules to check the calculation and display criteria applied in the example runs.
 
-| Review material | Open |
-| --- | --- |
-| Shared rules s1.0 | [Shared input, evidence and figure rules](tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) |
-| Absorption r4.4 | [Absorption rules, items 16–23](tools/eda/rules/EDA_absorption_rules_r4.4_consolidated_20261125.md) |
-| Distribution r1.6 | [Distribution rules, items 24–28](tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md) |
-| Elimination/metabolism r1.2 | [Elimination and metabolism rules, items 29–36](tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md) |
-| DBG01 | [Single IV dose in six horses](examples/eda-review/DBG01/README.md) |
-| DBG03 | [Three IM doses and a separate single IV dose in six horses](examples/eda-review/DBG03/README.md) |
+| Section | Study review guide | Active rules used in the examples |
+| --- | --- | --- |
+| Absorption | [Read guide r4.3](examples/eda-review/guides/EDA_absorption_rules_r4.3_review_guide_20261124.md) | [Rules r4.4](tools/eda/rules/EDA_absorption_rules_r4.4_consolidated_20261125.md) |
+| Distribution | [Read guide r1.5b](examples/eda-review/guides/EDA_distribution_rules_r1.5b_reviewed_20261124.md) | [Rules r1.6](tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md) |
+| Elimination and metabolism | [Read guide r1.1](examples/eda-review/guides/EDA_elimination_rules_r1.1_reviewed_20261123.md) | [Rules r1.2](tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md) |
 
-[Reviewer checklist, report downloads and rerun instructions](examples/eda-review/README.md)
+[Shared rules s1.0](tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) apply to all three sections.
+
+- [DBG01 · Single IV dose in six horses](examples/eda-review/DBG01/README.md)
+- [DBG03 · Repeated IM and single IV dosing in six horses](examples/eda-review/DBG03/README.md)
+
+[Reviewer checklist, full report downloads and rerun instructions](examples/eda-review/README.md)
 
 ## Open or run the existing EDA
 

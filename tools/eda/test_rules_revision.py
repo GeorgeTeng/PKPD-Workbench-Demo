@@ -2,7 +2,6 @@
 
 The tests read the machine YAML and check file integrity, the one version source, constants, labels and fields, the order of the
 formal decision and representative results against the code. Synthetic data only."""
-import hashlib
 import json
 import re
 import shutil
@@ -36,10 +35,6 @@ def _yaml(section):
     return yaml.safe_load((RULES / SECTIONS[section]["yaml"]).read_text(encoding="utf-8"))
 
 
-def _sha(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-
-
 SHARED = _yaml("shared")
 
 
@@ -52,70 +47,55 @@ def test_manifest_binds_the_new_revisions_and_the_rules_folder_matches():
         assert SECTIONS[s]["shared"] == "s1.0" and SECTIONS[s]["supersedes"] == LOCKED[s][0]
 
 
-def test_superseded_revisions_keep_their_original_hash_and_stay_in_the_folder():
+def test_superseded_revisions_have_pinned_archives_and_original_hashes():
     hist = {(h["section"], h["version"]): h for h in MANIFEST["history"]}
-    for s, (v, f, digest) in LOCKED.items():
-        h = hist[(s, v)]
-        assert h["status"] == "superseded" and h["file"] == f and h["sha256"] == digest
-        assert _sha(RULES / f) == digest
-    assert hist[("distribution", "r1.5")]["status"] == "superseded" and hist[("distribution", "r1.5")]["file"] is None
-
-
-def _verbatim_blocks(text):
-    return re.findall(r"<!-- verbatim begin: (.+?) sha256 ([0-9a-f]{64}) -->\n(.*?)<!-- verbatim end -->", text, re.S)
-
-
-def test_new_markdown_quotes_each_superseded_text_byte_for_byte():
-    hist = {(h["section"], h["version"]): h for h in MANIFEST["history"]}
-    for s, (v, f, digest) in LOCKED.items():
-        text = (RULES / SECTIONS[s]["layered_file"]).read_text(encoding="utf-8")   # 2026-11-25: the layered edition keeps the verbatim record
-        blocks = {name: (stated, body) for name, stated, body in _verbatim_blocks(text)}
-        stated, body = blocks[f]
-        assert hashlib.sha256(body.encode("utf-8")).hexdigest() == stated == digest
-        assert f"Supersedes: {v}" in text and digest in text.split("## Part 1")[0]
-        assert f"Version: {SECTIONS[s]['version']}" in text
-    r15 = [b for n, st, b in _verbatim_blocks((RULES / SECTIONS["distribution"]["layered_file"]).read_text(encoding="utf-8"))
-           if n.startswith("EDA_distribution_rules_r1.5")][0]
-    assert hashlib.sha256(r15.encode("utf-8")).hexdigest() == hist[("distribution", "r1.5")]["sha256"]
-    # the A0.3 revision and its reason are in the new Absorption text
-    text = (RULES / SECTIONS["absorption"]["layered_file"]).read_text(encoding="utf-8").split("## Part 3")[0]
-    assert "### A0.3 Exclusion principle and evidence labels (revised; replaces r4.3 A0.3)" in text
-    assert "LOO_NOT_ASSESSABLE (new)" in text and "R2, R3 and R10" in text
-    # ... and the consolidated edition states the revised A0.3 as the one current text
-    text = (RULES / SECTIONS["absorption"]["file"]).read_text(encoding="utf-8")
-    assert "#### A0.3 Exclusion principle and evidence labels" in text and "replaces r4.3 A0.3" not in text
-    assert "LOO_NOT_ASSESSABLE" in text and "## Part 3" not in text
+    for section, (version, filename, digest) in LOCKED.items():
+        entry = hist[(section, version)]
+        assert entry["sha256"] == digest
+        assert entry["archive"]["path"] == f"tools/eda/rules/{filename}"
+    r15 = hist[("distribution", "r1.5")]
+    assert r15["archive"]["verbatim_file"] == "EDA_distribution_rules_r1.5_rules_only_20261121.md"
+    for entry in MANIFEST["history"]:
+        archive = entry["archive"]
+        assert entry["status"] == "superseded" and entry["file"] is None
+        assert re.fullmatch(r"[0-9a-f]{40}", archive["commit"])
+        assert re.fullmatch(r"[0-9a-f]{64}", entry["sha256"])
+        assert not (RULES / Path(archive["path"]).name).exists()
 
 
 def test_consolidated_editions_change_wording_only():
     """2026-11-25: each current Markdown is one consolidated text; version, YAML and output_version are those of 2026-11-24."""
     hist = {(h["section"], h["version"], h.get("kind")): h for h in MANIFEST["history"]}
-    for s, e in SECTIONS.items():
-        text = (RULES / e["file"]).read_text(encoding="utf-8")
-        assert f"Version: {e['version']} · Edition: consolidated, 2026-11-25 (wording only; no rule changed)" in text
+    for section, entry in SECTIONS.items():
+        text = (RULES / entry["file"]).read_text(encoding="utf-8")
+        assert f"Version: {entry['version']} · Edition: consolidated, 2026-11-25 (wording only; no rule changed)" in text
         assert "<!-- verbatim begin" not in text and "## Part 2" not in text and "## Part 3" not in text
-        h = hist[(s, e["version"], "layered_edition")]
-        assert h["status"] == "superseded" and h["file"] == e["layered_file"] and _sha(RULES / h["file"]) == h["sha256"]
+        old = hist[(section, entry["version"], "layered_edition")]
+        assert old["archive"]["path"] == f"tools/eda/rules/{entry['layered_file']}"
 
 
-def test_shared_rules_quote_decisions_r1_to_r10_verbatim():
-    text = (RULES / SECTIONS["shared"]["layered_file"]).read_text(encoding="utf-8")
-    (name, stated, body), = _verbatim_blocks(text)
-    assert hashlib.sha256(body.encode("utf-8")).hexdigest() == stated
-    heads = re.findall(r"^## (R\d+)\. ", body, re.M)
-    assert heads == [f"R{i}" for i in range(1, 11)]
+def test_current_markdown_carries_the_revised_exclusion_and_shared_decisions():
+    absorption = (RULES / SECTIONS["absorption"]["file"]).read_text(encoding="utf-8")
+    assert "#### A0.3 Exclusion principle and evidence labels" in absorption
+    assert "LOO_NOT_ASSESSABLE" in absorption and "replaces r4.3 A0.3" not in absorption
+    shared = (RULES / SECTIONS["shared"]["file"]).read_text(encoding="utf-8")
+    assert re.findall(r"^## (S\d+)\. ", shared, re.M) == [f"S{i}" for i in range(1, 14)]
 
 
-def test_check_rules_reports_a_changed_yaml_and_a_changed_superseded_file(tmp_path):
+def test_check_rules_verifies_current_yaml_and_legacy_local_history(tmp_path):
     folder = tmp_path / "rules"
     shutil.copytree(RULES, folder)
     assert COMMON.check_rules(folder) == []
     yml = folder / SECTIONS["distribution"]["yaml"]
     yml.chmod(0o600)
-    yml.write_text(yml.read_text(encoding="utf-8") + "\n# edited\n", encoding="utf-8")
-    old = folder / LOCKED["elimination"][1]
-    old.chmod(0o600)
-    old.write_bytes(old.read_bytes() + b"\n")
+    yml.write_bytes(yml.read_bytes() + b"\n# edited\n")
+    path = folder / "rules_manifest.json"
+    manifest = json.loads(path.read_bytes())
+    legacy = next(entry for entry in manifest["history"] if (entry["section"], entry["version"]) == ("elimination", "r1.1"))
+    legacy["file"] = LOCKED["elimination"][1]
+    path.chmod(0o600)
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    (folder / legacy["file"]).write_bytes(b"changed copy of an older rule")
     problems = COMMON.check_rules(folder)
     assert any("distribution machine YAML" in p for p in problems)
     assert any("elimination r1.1 (superseded)" in p for p in problems)

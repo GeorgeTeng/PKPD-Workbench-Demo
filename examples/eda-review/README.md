@@ -9,12 +9,17 @@ Both cases start from mapped, blinded `source_tables.json` inputs. The three-sec
 
 Extract the selected ZIP and open `index.html`. Use `report.html` for the individual questions and `figures/index.html` to inspect all plots. The archive includes the mapped inputs, section JSON, coverage, frozen rules, and the modeling handoff. `run_record.json` retains source, rule, code and result hashes. Machine-specific paths in the public run and publication metadata were replaced with portable paths or a local-runtime label.
 
-## Human review rules
+## Study review guides
 
-- [Shared rules s1.0](../../tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md)
-- [Absorption r4.4](../../tools/eda/rules/EDA_absorption_rules_r4.4_consolidated_20261125.md)
-- [Distribution r1.6](../../tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md)
-- [Elimination and metabolism r1.2](../../tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md)
+Start with the Study review guides. They explain what to look for in the figures and how to review each study question. Use the linked active rules to check the calculation and display criteria applied in the example runs.
+
+| Section | Study review guide | Active rules used in the examples |
+| --- | --- | --- |
+| Absorption | [Read guide r4.3](guides/EDA_absorption_rules_r4.3_review_guide_20261124.md) | [Rules r4.4](../../tools/eda/rules/EDA_absorption_rules_r4.4_consolidated_20261125.md) |
+| Distribution | [Read guide r1.5b](guides/EDA_distribution_rules_r1.5b_reviewed_20261124.md) | [Rules r1.6](../../tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md) |
+| Elimination and metabolism | [Read guide r1.1](guides/EDA_elimination_rules_r1.1_reviewed_20261123.md) | [Rules r1.2](../../tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md) |
+
+[Shared rules s1.0](../../tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) cover all three sections. The [rule manifest](../../tools/eda/rules/rules_manifest.json) records the current bindings and the Git locations of superseded drafts named in the rules.
 
 ## Review checklist
 
