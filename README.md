@@ -2,6 +2,21 @@
 
 A local research workbench with two connected workspaces: **Research workflow** and **Knowledge & context**. The English interface reuses the existing pipeline, source contracts, ContextBuilder and knowledge library.
 
+## EDA human review
+
+Review the active rules and two completed descriptive EDA examples. Each case page includes a figure, the main evidence and limits, and a downloadable report with the full figure gallery and source-to-result records.
+
+| Review material | Open |
+| --- | --- |
+| Shared rules s1.0 | [Shared input, evidence and figure rules](tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) |
+| Absorption r4.4 | [Absorption rules, items 16–23](tools/eda/rules/EDA_absorption_rules_r4.4_consolidated_20261125.md) |
+| Distribution r1.6 | [Distribution rules, items 24–28](tools/eda/rules/EDA_distribution_rules_r1.6_consolidated_20261125.md) |
+| Elimination/metabolism r1.2 | [Elimination and metabolism rules, items 29–36](tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md) |
+| DBG01 | [Single IV dose in six horses](examples/eda-review/DBG01/README.md) |
+| DBG03 | [Three IM doses and a separate single IV dose in six horses](examples/eda-review/DBG03/README.md) |
+
+[Reviewer checklist, report downloads and rerun instructions](examples/eda-review/README.md)
+
 ## Open or run the existing EDA
 
 The browser demo runs through Data. With prepared study tables, use the standalone EDA tools for absorption, distribution and elimination/metabolism. [EDA commands, outputs and review](#exploratory-data-analysis-eda)
@@ -68,7 +83,7 @@ $rLibrary = Read-Host 'Your R package library folder'
 & $python tools/eda/run_modules.py $caseDir $runDir --workspace . --python $python --rscript $rscript --r-lib $rLibrary
 ```
 
-The runner applies absorption **r4.3**, distribution **r1.3** and elimination/metabolism **r1.1**. Each run records the source-table hash, section rules, calculation and plotting code, renderer and output hashes in `run_record.json`. A partial rerun checks the saved input and rules before writing. [Versioned rules](tools/eda/rules/rules_manifest.json) · [Partial rerun instructions](tools/eda/README.md)
+The runner applies shared rules **s1.0**, absorption **r4.4**, distribution **r1.6** and elimination/metabolism **r1.2**. Each run records the source-table hash, section rules, calculation and plotting code, renderer and output hashes in `run_record.json`. A partial rerun checks the saved input and rules before writing. [Versioned rules](tools/eda/rules/rules_manifest.json) · [Partial rerun instructions](tools/eda/README.md)
 
 ### Read or share the result
 
@@ -77,6 +92,7 @@ The runner applies absorption **r4.3**, distribution **r1.3** and elimination/me
 | `index.html` | Where do I start? Browse the three sections and their study and species pages. |
 | `report.html` and `figures/index.html` | Which observation supports this answer? Read the questions and inspect the linked plots. |
 | `modeling_context.json` | What should modeling check next? Each species has one priority with the observed pattern, plausible alternatives, a distinguishing check, source IDs and links to available figures. If the curves cannot distinguish mechanisms, the entry identifies the evidence needed. |
+| `modeling_facts.json` and `modeling_facts.txt` | Which observations, dose and occasion records, sampling limits and figures should travel with the modeling handoff? |
 | `coverage.json` and `run_record.json` | Which source tables contributed, which went unused, and which inputs and rules produced this run? |
 
 To read a report on another computer, copy or zip **the entire run folder**, extract it, and open its `index.html` in a browser. For the separate PMB absorption-only package, open `Open_Report.html` from the extracted ZIP. Full study reports and their modeling JSON are generated locally. [PMB viewing instructions](eda/README.md)
@@ -106,6 +122,8 @@ With pytest installed in the same Python environment, run the checks used by Git
 & $python validation/eda_rereview/check_safeguards.py
 & $python -m pytest -q eda/review/tests
 ```
+
+For the standalone EDA rule and calculation tests also install PyYAML and run `python -m pytest -q tools/eda`.
 
 The verification record reports the synthetic safeguards, reviewer tests, local paper comparisons and items with insufficient evidence. It also identifies which results require local study inputs. [Verification record](validation/eda_rereview/README.md) · [CI workflow](.github/workflows/eda-safeguards.yml)
 

@@ -1,0 +1,387 @@
+# Absorption EDA r4.4 - machine rules for agents (concise), following the review guide
+# Human rules: EDA_absorption_rules_r4.4_rules_only_20261124.md (Part 2 amendments over the verbatim r4.3 text)
+# Shared rules: shared_rules_s1.0.machine.yaml (decision order, flags, family, rank groups, statuses, precision, flip-flop)
+# Human guide: EDA_absorption_rules_r4.3_review_guide_20261124.md (figure, table and question numbers are the guide's)
+# Examples (simulated profiles and published studies) are NOT in this file: see appendix_A below; optional lookup only
+# Code: tools/eda/eda_absorption.py; the output version comes from rules_manifest.json (output_version), one source for
+#   page, run record and frozen copy. Rules and constants are fixed per round.
+# Replaces absorption_review_guide_20261124.machine.yaml (review-guide edition of r4.3); the changes are listed under revision
+
+meta: {section: absorption, version: r4.4, date: 2026-11-24, supersedes: r4.3, shared_rules: s1.0, items: [16, 17, 18, 19, 20, 21, 22, 23], guide_date: 2026-11-23, unit_of_review: "one study and one species"}
+question: "When did parent drug first reach the circulation, how much of the dose reached it, and which absorption models could explain the observed concentrations?"
+quantities: {FD: "eventual amount of parent drug reaching the circulation", G_t: "fraction of FD arrived by time t", rate: "FD * dG/dt"}
+shared_rules: {file: shared_rules_s1.0.machine.yaml, version: s1.0}
+revision:   # r4.4 against the review-guide edition of r4.3 (2026-11-24); reasons in Part 1 of the human rules
+  - {id: A0.3, decisions: [R2, R3, R10], change: "formal decision in the order of shared decision_order; LOO_NOT_ASSESSABLE added; BORDERLINE only for a prespecified justified widening; removal and widening outcomes of a CANNOT_ASSESS go to <test>_sensitivity_flags"}
+  - {id: group_level, decisions: [R1], change: "T3 formal only for independent destructive sampling; missing dependence metadata is not independence; t quantile on Satterthwaite df"}
+  - {id: family, decisions: [R4], change: "two-sided family-wise 0.05; T3p Holm over dose pairs included x matched times; scope, unit, members, method and m recorded"}
+  - {id: rank, decisions: [R5], change: "shared rank groups; required units fixed before the results; board-level exclusion only with every required unit excluded in one direction"}
+  - {id: answer_status, decisions: [R6], change: "NOT_ANSWERABLE_YET shown as 'Insufficient evidence'; one limiting-flag list"}
+  - {id: cmax_screen, decisions: [R7], change: "CMAX_D_SCREEN registered; INDIRECT_SUPPORT at most"}
+  - {id: precision, decisions: [R8], change: "shared precision admission"}
+  - {id: flip_flop, decisions: [R9, M1], change: "graded over qualified window pairs; NOT_ASSESSABLE names the missing side; INDIRECT_COMPARATOR; IV side from iv_post_distribution_window"}
+  - {id: auc_record, decisions: [M2], change: "one AUC record handed to Elimination"}
+  - {id: f_status_reason, decisions: [M4], change: "every branch writes f_status_reason; f_reason read as an alias"}
+  - {id: question_ids, decisions: [M5, L3], change: "qid, guide_q, also_guide_q, legacy_q, display_number, display_ref on every row"}
+  - {id: known_differences, decisions: [M8], change: "rule-versus-code differences of 2026-11-23 rechecked; see known_differences"}
+  - {id: data_conventions, decisions: [L1, L4, L5, L6, L8], change: "predose zero status; shared species registry; EV post-peak shape per A0.7; mixing within 5 min inclusive; loading dose kept apart from the infusion"}
+  - {id: t3p_sampling_times, decisions: [review_2026-11-24_round2], change: "both actual times kept (t_low, t_high); aligned within t3p_time_aligned_abs, else formal only with the timing-error bound (|d| tested beyond b); unbounded offset times leave the formal family; none left -> CANNOT_ASSESS + SENSITIVITY_ONLY + TIME_OFFSET_UNBOUNDED; figure: pointwise unadjusted 95 % CI, colour = Holm"}
+  - {id: window_eligibility, decisions: [review_2026-11-24_round2], change: "one eligibility rule for every flip-flop window, the IV fallback record included (decline, n >= 3, span >= span_min_half_lives on unrounded values); slopes and half-lives stored unrounded; grades on unrounded ratios"}
+  - {id: t3p_sourced_timing_bound, decisions: [review_2026-11-24_round3], change: "an offset time is formal only with a timing-error bound stated in the input with its source (metadata t3p_time_offset_bound_ln and t3p_time_offset_bound_source); the round-2 secant bound is kept as secant_estimate_ln, illustration only"}
+  - {id: premise_gate, decisions: [review_2026-11-24_round3], change: "T3 and T3p check summary type and unit of both dose groups through shared s1.0 S12 (code: formal_premises); a failed premise gives CANNOT_ASSESS + SENSITIVITY_ONLY with the premise code"}
+  - {id: administered_dose, decisions: [review_2026-11-24_round3], change: "s1.0 S11: a column with subject_id carries its animal's administered dose (dose_given) and input duration; dose-normalised areas divide by it; dose series group by the dose level"}
+
+const:   # name: value  # code constant
+  tol_rel: 0.05                 # TOL; assumed project tolerance -> SENSITIVITY_ONLY, never on the formal path (shared S3)
+  span_min_half_lives: 2.0      # SPAN_MIN; minimum span of a terminal window, per window
+  adj_r2_tie: 0.0001            # ADJ_R2_TIE; choose the longest window within this of the highest adjusted R2
+  adj_r2_min: 0.80              # ADJ_R2_MIN; a window qualifies only when its own adjusted R2 reaches this (2026-11-25)
+  half_life_ratio_cuts: [0.80, 1.25, 2.0]   # HL_CUTS; EV apparent half-life / IV apparent half-life
+  tail_fraction_max: 0.05       # TAIL_FLAG; per route, at the common endpoint
+  predose_negligible: 0.05      # predose / observed peak; peak and exposure interpretation only, after prior dosing
+  min_samples_after_peak: 3
+  min_pre_peak_samples_for_rate: 2
+  min_samples_per_arm_T5: 3
+  dose_early_view: "to about 1.5 x latest observed peak time"
+  alpha: {family_two_sided: 0.05, dose_exposure_contrast: "95% CI, t quantile on Satterthwaite df", matched_times: "Holm over dose pairs included x matched times"}
+  t3p_time_dev: 0.10            # T3P_TIME_DEV; a candidate time pair needs |t_H - t_L| <= 10 % of t
+  t3p_time_aligned_abs: 0.001   # DOSE_TIME_ABS (h); a larger offset needs the timing-error bound before the time is formal (item 19, Part 2 item 9)
+  t3p_timing_bound: "b stated in the input with its source (metadata t3p_time_offset_bound_ln, t3p_time_offset_bound_source); p from (|d| - b)/SE; without it the offset time is sensitivity only. secant_estimate_ln = |t_H - t_L| x largest ln secant next to either time: illustration only (untestable monotone-slope premise)"
+  # M8 item 7: thresholds set in the code; under shared S7 the signals they raise give INDIRECT_SUPPORT at most (HINT)
+  share_min: 0.8                # SHARE_MIN; the common AUC window holds >= 80 % of each dose group's observed exposure
+  trend_ratio: 2.0              # TREND_RATIO; Tmax or t1/2 changing >= 2-fold across doses is a hint
+  tail_alpha: 0.05              # TAIL_ALPHA; level of the EV-against-IV slope t-test, kept as the secondary description ev_iv.tail.class
+  cmax_screen: {cmax_d_limits: [0.5, 2.0], auc_d_band: [0.80, 1.25], window_share_min: 0.8}   # CMAX_D_SCREEN; CMAX_SCREEN_SHARE_MIN
+
+labels:
+  check: [EXCLUDED_UNDER_STATED_ASSUMPTIONS, NOT_EXCLUDED, CANNOT_ASSESS]
+  check_flags: [SENSITIVITY_ONLY, BORDERLINE, SINGLE_POINT_SUPPORT, LOO_NOT_ASSESSABLE, CONDITIONAL_ON_COMMON_K]   # <test>_flags and <test>_sensitivity_flags (shared sensitivity_record)
+  answer: [ANSWERABLE, PARTLY_ANSWERABLE, NOT_ANSWERABLE_YET, NOT_APPLICABLE]
+  half_life_grade: [STEEPER, APPROXIMATELY_PARALLEL, MODERATELY_SHALLOWER, MARKEDLY_SHALLOWER]   # by half_life_ratio_cuts
+  flip_flop_reading: {STEEPER: EV_STEEPER_REVIEW, APPROXIMATELY_PARALLEL: COMMON_TERMINAL_COMPATIBLE, MODERATELY_SHALLOWER: ABSORPTION_INFLUENCED_CANDIDATE, MARKEDLY_SHALLOWER: ABSORPTION_INFLUENCED_CANDIDATE, readings_differ_over_qualified_pairs: UNRESOLVED, no_qualified_window_or_reference: NOT_ASSESSABLE, other_ev_or_literature_iv: INDIRECT_COMPARATOR}
+  flip_flop_not_evidence_against: [UNRESOLVED, NOT_ASSESSABLE, INDIRECT_COMPARATOR]
+  f_status: [WINDOW_BASED_ESTIMATE, OBSERVED_WINDOW_RATIO, SOURCE_REPORTED, NOT_ESTIMABLE]   # with f_status_reason (alias f_reason in older output)
+  coverage: [APPLIES, CONDITIONAL, OUTSIDE, NOT_STATED]
+  rank_group: [REFERENCE, SUPPORTED, INDIRECT_SUPPORT, UNTESTED, CONTRARY_EVIDENCE]
+  answer_display: {ANSWERABLE: Answerable, PARTLY_ANSWERABLE: Partly answerable, NOT_ANSWERABLE_YET: Insufficient evidence, NOT_APPLICABLE: Not applicable}
+  cmax_screen_result: [CMAX_D_LOW_AUC_KEPT, CMAX_D_HIGH_AUC_KEPT, NOT_MET, NOT_APPLICABLE]
+  baseline_status: [REPORTED_ZERO_PREDOSE, PREDOSE_OBSERVED, DESIGN_ZERO]   # M8 item 5: values the card prints
+  baseline_status_r43: {ZERO_OR_BLQ: "REPORTED_ZERO_PREDOSE when every predose value is a source-reported zero, else PREDOSE_OBSERVED", DESIGN_ZERO: DESIGN_ZERO,
+                        WASHOUT_ZERO: "not distinguished: PREDOSE_OBSERVED with a predose sample, else DESIGN_ZERO; dosing history from single_dose and dosing_regimen",
+                        RESIDUAL_FROM_PRIOR_DOSE: "not distinguished (as WASHOUT_ZERO)", ENDOGENOUS: "not distinguished; origin on the card", MIXED: "not distinguished; origin on the card",
+                        UNEXPLAINED: "not distinguished: PREDOSE_OBSERVED", NOT_ASSESSABLE: "not distinguished: DESIGN_ZERO"}
+
+ownership:
+  flip_flop_thresholds: absorption   # decided 2026-11-24; Distribution passes its IV candidate late interval only and carries no flip-flop flag
+
+# ---------------------------------------------------------------- candidate input patterns (guide table, 16 rows)
+# t1 = guide Q4 (concentration/time since dosing never rises); t2 = guide Q2 (no within-animal trough)
+# APPLIES: prediction holds under the stated disposition, baseline and measurement assumptions; CONDITIONAL: only under `when`;
+# OUTSIDE: the check cannot challenge the pattern; NOT_STATED: name the eligible check for the complete model or stay descriptive
+# hyp = options of the code hypothesis layer (HYP_AXES); [] = outside the machine-readable r4.3 list
+# look / mistaken_for: short discriminating signs (guide "How to sort a profile"); fuller descriptions, simulated profiles and
+#   published examples are in Appendix A, not here
+input_patterns:
+  - {id: immediate_first_order, hyp: [shape.first_order], t1: APPLIES, t2: APPLIES, group: A,
+     look: "quantified at first sample; rise steepest at dosing; rounded peak; C/t falls from first sample; straight semilog decline",
+     mistaken_for: [parallel_common_start, weibull, finite_zero_order]}
+  - {id: finite_zero_order, hyp: [shape.zero_order], t1: APPLIES, t2: APPLIES, group: A,
+     look: "near-linear rise; corner peak at end of input; higher, narrower peak; C/t falls throughout",
+     mistaken_for: [finite_absorption_window, capacity_limited_uptake]}
+  - {id: fixed_lag, hyp: [onset.fixed_lag], t1: OUTSIDE, t2: CONDITIONAL, when: {t2: "follows the chosen input; a time shift preserves a single peak"}, group: B,
+     look: "zero through the lag, then abrupt rise steepest just after the lag; C/t zero then rising",
+     mistaken_for: [transit_gamma], caution: "one early below-limit sample cannot establish a lag"}
+  - {id: transit_gamma, hyp: [onset.transit], t1: CONDITIONAL, t2: CONDITIONAL, when: {t1: "gamma shape 0 < a <= 1", t2: "shape a >= 1 (log-concave)"}, group: B,
+     look: "near zero early; S-shaped rise; C/t rises to about the mean input time; peak higher and narrower than first-order",
+     mistaken_for: [fixed_lag, weibull, inverse_gaussian, other_smooth_arrival]}
+  - {id: zero_release_first_uptake, hyp: [shape.zero_then_first], t1: OUTSIDE, t2: APPLIES, group: B,
+     look: "slow start; steepest at end of release, where the curve bends; C/t rises",
+     mistaken_for: [transit_gamma, weibull, sequential_two_fractions]}
+  - {id: parallel_common_start, hyp: [shape.parallel_first, shape.parallel_zero_first], t1: APPLIES, t2: CONDITIONAL, when: {t2: "a single-peak argument for the particular mixture"}, group: A,
+     look: "fast early rise, earlier peak; late semilog decline slightly shallower while the slow fraction enters; C/t falls throughout",
+     mistaken_for: [weibull], also_confused_with: ["distribution phase after fast input", "flip-flop when the slow fraction is large"]}
+  - {id: staggered_pulsed, hyp: [second.two_inputs], t1: OUTSIDE, t2: OUTSIDE, group: C,
+     look: "two peaks in the same animal; trough then second rise; C/t rises again after the second onset",
+     mistaken_for: [], also_confused_with: ["enterohepatic recirculation", "interrupted gastric emptying", "mean across animals with different peak times"]}
+  - {id: sequential_two_fractions, hyp: [], t1: CONDITIONAL, t2: NOT_STATED, when: {t1: "no upward jump at the switch: w/T >= (1 - w)*ka on the same fractional basis"}, group: C,
+     look: "one peak; upward bend at the switch; small C/t rise that sparse sampling can miss",
+     mistaken_for: [zero_release_first_uptake, time_dependent_uptake]}
+  - {id: weibull, hyp: [shape.weibull_front, shape.weibull_sigmoid], t1: CONDITIONAL, t2: CONDITIONAL, when: {t1: "no lag and shape 0 < beta <= 1", t2: "shape beta >= 1"}, group: "A (beta <= 1) or B (beta > 1)",
+     look: "beta < 1: fast early rise, earlier peak, slightly shallower late decline, C/t falls; beta > 1: slow start, S-shaped rise, C/t rises",
+     mistaken_for: [parallel_common_start, transit_gamma]}
+  - {id: inverse_gaussian, hyp: [shape.inverse_gaussian], t1: OUTSIDE, t2: CONDITIONAL, when: {t2: "one-compartment disposition; multicompartment needs a separate argument"}, group: B,
+     look: "near zero at first; early steep rise; C/t rises; peak lower and broader than transit input",
+     mistaken_for: [other_smooth_arrival, transit_gamma, weibull]}
+  - {id: distributed_release_uptake, hyp: [], t1: NOT_STATED, t2: NOT_STATED, group: B,
+     look: "like inverse Gaussian with a slightly later rise; plasma alone does not separate release from uptake",
+     mistaken_for: [inverse_gaussian, transit_gamma]}
+  - {id: other_smooth_arrival, hyp: [], t1: NOT_STATED, t2: NOT_STATED, group: B, forms: [lognormal, log_logistic],
+     look: "S-shaped rise close to inverse Gaussian; late input makes the late decline marginally shallower",
+     mistaken_for: [inverse_gaussian, transit_gamma], use: "sensitivity comparison", caution: "log-logistic mean arrival time is finite only for h > 1"}
+  - {id: finite_absorption_window, hyp: [], t1: NOT_STATED, t2: NOT_STATED, group: A,
+     look: "first-order rise stops at the cutoff and leaves a corner at the peak; C/t falls; unabsorbed drug lowers exposure",
+     mistaken_for: [finite_zero_order], also_confused_with: ["low bioavailability from first-pass loss"],
+     caution: "the last quantifiable plasma sample cannot locate the cutoff"}
+  - {id: time_dependent_uptake, hyp: [], t1: CONDITIONAL, t2: NOT_STATED, when: {t1: "the total rate ka(t)*A(t) is non-increasing over the full window"}, group: C,
+     look: "slow start; upward bend when the rate constant increases; C/t falls to the switch, then rises",
+     mistaken_for: [fixed_lag, staggered_pulsed]}
+  - {id: capacity_limited_uptake, hyp: [dose.saturable_rate], t1: CONDITIONAL, t2: NOT_STATED, when: {t1: "site concentration only falls within that dose"}, group: D,
+     look: "within a dose like an immediate input; across doses the peak moves later and peak/dose falls while complete area/dose stays",
+     mistaken_for: [finite_zero_order], also_confused_with: ["dose-dependent bioavailability or clearance, which change area/dose"]}
+  - {id: flexible_input, hyp: [], t1: NOT_STATED, t2: NOT_STATED, group: E,
+     look: "no fixed shape; with 1-cmt disposition and an IV elimination rate, cumulative fraction absorbed vs time: straight = constant rate, steadily flattening = first-order",
+     mistaken_for: [], where: Modeling, caution: "error can create an apparent second pulse; check across grids and smoothing"}
+terminal_phase:
+  flip_flop: {hyp: tail.absorption, look: "late, low, broad peak; semilog decline much shallower than IV; apparent half-life still drifting toward the absorption value",
+              mistaken_for: ["slow disposition phase the IV sampling did not reach", "sustained second input"], question: 5}
+sorting:   # first pass: route record, then early samples; guide paragraph "How to sort a profile"
+  - {if: "quantified at first sample, rise slows steadily, C/t never rises", compare: [immediate_first_order, finite_zero_order, parallel_common_start, "weibull beta <= 1", finite_absorption_window, capacity_limited_uptake], split_by: [corner at peak, near-linear rise, peak moving with dose, slightly shallower late decline]}
+  - {if: "early concentrations near zero, S-shaped rise, C/t rises", compare: [fixed_lag, transit_gamma, "weibull beta > 1", inverse_gaussian, distributed_release_uptake, other_smooth_arrival], split_by: ["abrupt start after input-free samples favors a lag", "several samples in the rise are needed to separate the gradual inputs", "closely spaced early samples in one animal separate a gradual start from averaging over animals with different lags"]}
+  - {if: "trough and second rise in one animal, or upward bend after the start", compare: [staggered_pulsed, sequential_two_fractions, time_dependent_uptake, recirculation], first: "confirm within an animal (a mean over different peak times can show two peaks); then dose and meal timing, release evidence, any second rise after IV"}
+  - {if: "late broad peak and decline shallower than IV", go_to: [question 5, routes]}
+  - {if: "profile changes with dose or study condition", go_to: [question 7, question 9], note: "separate input speed from systemic availability or clearance; IV data at the same doses identify clearance changes"}
+coverage_rule: "coverage follows from the complete model; a change in onset, a second input, local loss or a different disposition can change the prediction"
+
+# ---------------------------------------------------------------- figures and tables (guide numbers -> code panels / json)
+figures:
+  "1a": {x: "actual time h, last predose or dose to first sample after the peak", y: "measured concentration, linear", show: [predose, below_limit, first_quantification, observed_peak_or_flat_top], panels: [A1, A1ind]}
+  "1b": {x: "actual time after dose h, full profile", y: "same concentration, log", show: [within_animal_trough, terminal_fit_over_selected_window], inset_optional: "window start vs apparent half-life", panels: [B1, B1ind, T2], inset_panels: [B2]}
+  "2": {x: "actual time after dose h, strictly positive", y: "concentration / elapsed time, linear", show: [allowed_interval_per_time, pair_with_largest_supported_increase], inset_optional: "rate of rise per early interval", panels: [A2], inset_panels: [A3]}
+  "3a": {x: "h after dose, common clock", y: "concentration / dose, linear", show: [common_exposure_window, iv_bolus_or_infusion_times], inset_optional: "concentration / common-window area", panels: [C1, D2, E1], inset_panels: [E3]}
+  "3b": {x: "same clock, full profile", y: "concentration / dose, log", show: [qualified_terminal_segments], reuse: "matching IV observations and eligible fit from Distribution", panels: [C1, D1, D1a, D1d, E1]}
+  "4a": {x: "prespecified common times h", y: "ln ratio of dose-normalized concentrations, equality 0", show: [pointwise_intervals, multiplicity_adjusted_decisions], panels: [C3, C3d]}
+  "4b": {x: "prespecified common times h, same dosing clock", y: "raw EV/IV concentration ratio, log, equality 1", show: [largest_supported_decrease, zero_or_one_sided_bounds_apart], panels: [D1, D1a]}
+  "4c": {x: "prespecified common times h", y: "test/reference ratio on the stated dose basis, log, equality 1", show: [range_of_compatible_multipliers], panels: [E2]}
+  "5": {x: "administered dose, log2 for a positive series", y: "one parameter and unit per panel", show: [individual_points, group_summaries, window], panels: [C2, C2T3, F, A4]}
+plotting: "filled = quantified; open symbol at the limit = below limit; open diamond at zero = assumed drug-free start; join only within a verified animal and occasion; break at missing or censored samples; destructive samples as separate points"
+reuse: "one result per terminal fit, window area and matched-time ratio with the same definition; each question keeps its own assumptions and criteria"
+tables:
+  "1": {title: "Study data and sampling design", json: [datasets.card, datasets.series.metrics]}
+  "2": {title: "Terminal decline and exposure by route", json: [ev_iv.tail, ev_iv.q, ev_iv.f_status]}
+  "3": {title: "Pharmacokinetic measurements by dose and source", json: [dose_series.rows, reported_parameters.params]}
+  "4": {title: "Comparison of study conditions", json: [conditions]}
+
+# ---------------------------------------------------------------- the nine questions (status_boards.questions, q = guide number)
+start: "questions 1-4 for measured EV profiles; 5 and 6 with a qualified comparator; 8 needs comparable IV observations with verified input; 7 and 9 with a dose or condition contrast; Figure 5 and Table 3 for parameter-only studies"
+questions:
+  - q: 1
+    ask: "By when had drug appeared, and did sampling capture the peak?"
+    figure: "1a"
+    rule: "first quantified sample = upper bound on time of appearance, if dosing time reliable, drug-free at dosing, assay specific"
+    lag_lower_bound_needs: [input_free_interval, concave_subsequent_rise, concentration_and_time_bounds]
+    report: [first_quantified_time, observed_peak, peak_time_or_flat_top, n_quantified_before_peak]
+    limit: "fewer than 2 quantified samples before the peak: absorption rate poorly informed; an earlier below-limit sample could already contain drug"
+    code: [metrics.first_t, metrics.onset_status, metrics.tmax, metrics.cmax, metrics.n_before_peak]
+  - q: 2
+    ask: "Did the same animal's concentration fall and rise again?"
+    figure: "1b"
+    check: T2
+    unit: "serially sampled animal, single dose, supported drug-free baseline; never a group mean or destructive sampling (group mean: DESCRIPTIVE_ONLY + T2_NOT_APPLICABLE_TO_GROUP_MEANS)"
+    statistic: "over every ordered triple: trough resolved if middle upper bound < both outer lower bounds; per triple take the smaller supported drop or rise; mark the largest"
+    report: [m_drop, m_rise, animals_sampled_both_sides, animals_showing_it]
+    challenges: "one log-concave input rate on a continuous interval, central input and observation, linear time-invariant unimodal disposition"
+    still_open: [separate_releases, recirculation]
+    code: [series.t2.t2_label, series.t2.t2_margin, series.t2.m_drop, series.t2.m_rise, series.t2.valley, series.t2.robust, series.t2.t2_flags]
+  - q: 3
+    ask: "How much does the apparent half-life depend on the samples used?"
+    figure: "1b"
+    windows: "fix the last quantified sample; move the start back one eligible observation at a time; >= 3 consecutive quantified samples strictly after the observed peak; negative slope; span >= span_min_half_lives of that window; adjusted R2 >= adj_r2_min"
+    select: "longest window whose adjusted R2 is within adj_r2_tie of the highest"
+    report: [fitted_segment, apparent_half_life, range_over_qualified_windows]
+    none: "leave the apparent half-life unestimated"
+    code: [metrics.terminal_windows, metrics.terminal_selected, metrics.terminal_n_qualified, metrics.terminal_thalf_range, metrics.terminal_status, metrics.terminal_rule]
+  - q: 4
+    ask: "Is the early rise compatible with input that starts immediately and never speeds up?"
+    figure: "2"
+    check: T1
+    assumes: [single_dose, drug_free_start, "immediate non-increasing nonnegative input into the central compartment", "linear time-invariant disposition with reversible central-peripheral exchange", central_parent_measurement]
+    statistic: "lower bound / latest plausible time vs upper bound / earliest plausible time; every definitely ordered pair in the prespecified full window incl. after the peak; largest later-lower minus earlier-upper"
+    report: [margin, units, the_two_times, n_pairs]
+    challenges: [immediate_first_order, finite_zero_order, "weibull without lag, beta <= 1"]
+    group_curve: "fixed animals and weights, or justified common target population with consistent below-limit handling; else describe only"
+    similar_early_rise: [fixed_lag, transit_gamma, "weibull beta > 1", zero_release_first_uptake]
+    code: [metrics.t1_label, metrics.mt1, metrics.mt1_witness, metrics.t1_flags, metrics.increments]
+  - q: 5
+    ask: "Does the terminal decline suggest flip-flop kinetics?"
+    figure: "3b"
+    statistic: "EV apparent half-life / IV apparent half-life over comparable windows; repeat for other credible window pairs"
+    inputs: "EV windows from question 3; IV candidate interval from Distribution question 3"
+    grade: "by half_life_ratio_cuts over every qualified window pair; UNRESOLVED only when the readings differ; report the ratio range and the number of qualified pairs"
+    reading: {parallel: "compatible with a common terminal process", shallower: "compare continuing absorption with dose-dependent disposition or an early window", steeper: "check intervals, distribution phase, arm differences, data quality"}
+    indirect: "ratio >= 1.25 against another EV route or a reported IV reference is indirect evidence only"
+    no_comparator: "flip_flop_reading NOT_ASSESSABLE with missing_side; an indirect comparator is listed with source and limits (INDIRECT_COMPARATOR); neither is evidence against flip-flop"
+    code: [ev_iv.tail.ratio, ev_iv.tail.terminal_difference_grade, ev_iv.tail.ratio_range, ev_iv.tail.n_window_pairs, ev_iv.tail.grades_over_window_pairs, ev_iv.tail.readings_over_window_pairs, ev_iv.tail.flip_flop_reading, ev_iv.tail.missing_side, ev_iv.tail.reading_text, ev_iv.tail.iv_window, ev_iv.comparison_basis]
+  - q: 6
+    ask: "How much parent drug reached the circulation?"
+    figure: "3a"
+    table: "2"
+    statistic: "(AUC_EV / dose_EV) / (AUC_IV / dose_IV) over the same interval"
+    tail_fraction: "per route at the common endpoint: (C_end / terminal rate) / (observed area + C_end / terminal rate), only where the qualified rate applies"
+    window_based_estimate_if: [same_study_comparison, justified_early_coverage, "tail fraction <= tail_fraction_max for each route"]
+    otherwise: "report the observed window ratio; a directional bound needs justified directions for all material errors"
+    watch: ["missing early IV bolus exposure inflates the ratio", "infusion: examine exposure during delivery", "retain results above 100% with uncertainty; review dose basis and IV exposure"]
+    code: [ev_iv.f_status, ev_iv.f_status_reason, ev_iv.window_auc_ratio, ev_iv.ev_tail_share, ev_iv.iv_tail_share, ev_iv.early_coverage_justified, ev_iv.f_above_100pct, ev_iv.window_ratio_status]
+  - q: 7
+    ask: "Do the curves scale with dose?"
+    figure: ["3a", "3b", "4a", "5"]
+    checks: [T3, T3p]
+    matched_times: "ln ratio of higher to reference dose-normalized concentration at prespecified shared times; strict proportionality = 0; pointwise 95% CI; Holm across the family"
+    exposure: "high/reference ratio of dose-normalized common-window areas with a design-appropriate 95% CI; proportionality = 1; equivalence needs the whole CI inside the prespecified range"
+    figure5: [individual_peak_time, peak_per_dose, apparent_half_life, common_window_area_per_dose]
+    reading: "constant offset suggests scaling; changing ratio suggests a shape difference; input, bioavailability or clearance can each cause a difference"
+    code: [dose_series.t3_label, dose_series.t3_flags, dose_series.t3_data_level, dose_series.R_window, dose_series.t3p.t3p_label, dose_series.t3p.t3p_ln_ratio_ci, dose_series.t3p.t3p_p_holm, dose_series.rows]
+  - q: 8
+    ask: "Can the two routes share one-compartment disposition?"
+    figure: "4b"
+    check: T4
+    assumes: ["IV bolus or verified end of infusion", "shared linear time-invariant one-compartment disposition", zero_initial_drug, central_measurement, nonnegative_ev_input]
+    statistic: "raw EV/IV ratio at matched times; each earlier lower bound vs each later upper bound; mark the largest supported decrease; IV denominator lower bound > 0"
+    cannot_assess: [unknown_iv_input_history, visibly_multiexponential_iv_decline]
+    group_means: "justify a common elimination rate or a population argument (flag CONDITIONAL_ON_COMMON_K)"
+    note: "runs without a qualified terminal fit; a different question from question 5"
+    code: [ev_iv.q, ev_iv.mt4, ev_iv.mt4_pair, ev_iv.t4_label, ev_iv.t4_flags]
+  - q: 9
+    ask: "Could one multiplier explain the difference between conditions?"
+    figure: "4c"
+    table: "4"
+    check: T5
+    statistic: "intersection over matched times of the multipliers mapping reference to test within bounds; empty intersection = no common multiplier"
+    needs: ">= min_samples_per_arm_T5 quantified samples per arm in the common window"
+    challenges: ["a change in bioavailability alone under shared input shape and disposition", "proportional changes of clearances and volumes that preserve rate constants"]
+    speed_only: "compare complete dose-normalized exposures after bounding missing areas in both arms"
+    repeat_dose: "a supported decrease vs the first drug-free interval challenges identical input per dose with time-invariant linear disposition"
+    code: [conditions.c_lower, conditions.c_upper, conditions.intervals, conditions.t5_label, conditions.t5_flags, conditions.rate_only_label]
+row_fields: [q, label, question, status, status_code, observed, basis, reach, text, missing, primary, views, evidence, legacy_q, parts]
+legacy_rows: {guide_1: [1, 2], guide_2: [4, 9], guide_3: [5], guide_4: [3], guide_5: [5], guide_6: [6], guide_7: [7], guide_8: [5], guide_9: [8]}   # r4.3 rows kept in status_boards.rows_r43
+
+# ---------------------------------------------------------------- uncertainty, removal, sanity
+uncertainty:   # decided 2026-11-24, same sentence in Distribution and Elimination
+  formal_result_needs: ["justified joint bounds or a statistical procedure covering the full search", "must survive supported timing uncertainty and prespecified widening"]
+  counts_as_justified_joint_bounds: ["matched source assay CV converted to joint bounds over every searched observation (Bonferroni)", "replicate-based bounds with stated coverage"]
+  sensitivity_only: [pointwise_intervals, unconverted_assay_precision, assay_acceptance_criterion, assumed_project_tolerance]
+  with_assumed_error: "report margin, direction and decisive samples as a sensitivity result"
+  code_state: "no source-CV path for the shape checks yet: every T1, T2, T4, T5 interval uses tol_rel, so they return CANNOT_ASSESS + SENSITIVITY_ONLY and no formal exclusion is issued; T3 and T3p use group SD and n (shared S1)"
+  admission: shared precision   # eda_common.precision_admission (shared S8)
+outcome:   # shared decision_order (S10): apply in order, stop at the first that decides
+  - {step: 1, if: "premises fail or sampling insufficient", then: CANNOT_ASSESS, keep: reason}
+  - {step: 2, if: "no justified joint basis (S1, S4, S8)", then: CANNOT_ASSESS, flag: SENSITIVITY_ONLY, sensitivity_record: [direction, margin, decisive_samples, removal]}
+  - {step: 3, if: "assessable, no contradiction", then: NOT_EXCLUDED}
+  - {step: 4, if: "contradiction lost in a valid removal rerun", then: NOT_EXCLUDED, flag: SINGLE_POINT_SUPPORT}
+  - {step: 4, if: "no removable unit or a required rerun not assessable", then: NOT_EXCLUDED, flag: LOO_NOT_ASSESSABLE}
+  - {step: 5, if: "contradiction lost under a prespecified justified widening", then: NOT_EXCLUDED, flag: BORDERLINE}
+  - {step: 6, if: "contradiction survives every gate", then: EXCLUDED_UNDER_STATED_ASSUMPTIONS}
+removal:   # decided 2026-11-24
+  rule: "for each formal check, remove every eligible observation in turn and repeat the full calculation on the rest"
+  per_check: {T1: "rescan all concentration/time pairs", T2: "rescan all triples", T4: "remove the matched time from both arms", T5: "recompute the intersection of multipliers", T3: "recalculate the exposure contrast and interval", T3p: "repeat Holm over the remaining times"}
+  keep: "the primary result, the removal unit and the original window definition"
+  report: [contradiction_persisted, disappeared_in_assessable_rerun, could_no_longer_be_tested]   # SINGLE_POINT_SUPPORT for the second, LOO_NOT_ASSESSABLE for the third or for no removable unit
+  minimums: {T3: "original window kept; a rerun that cannot compute it is not assessable", T3p: "removing the only matched time -> LOO_NOT_ASSESSABLE"}
+  withhold_formal_exclusion_if: ["a required rerun is not assessable or no unit is removable (LOO_NOT_ASSESSABLE)", "the contradiction disappears in a valid rerun (SINGLE_POINT_SUPPORT)", "a prespecified justified widening removes the contradiction (BORDERLINE)"]
+  code: _removal_outcome
+sanity:
+  unknown_route_or_signal: "trace source, animal, dose, units, times, occasion, formulation, analyte, matrix; unknown route: defer; mixed endogenous signal: show observations and review baseline; inhaled/intratracheal: keep pulmonary and swallowed input in view"
+  predose_or_limit: "quantified predose on a first dose: investigate; after prior dosing predose <= predose_negligible of the peak is negligible for peak and exposure only; residual drug leaves onset unresolved; all below limit: unassessable; peak above the upper limit: lower bound, propagate"
+  gaps_duplicates_exposure: "resolve duplicates against the source; keep censoring limits; common actual endpoints; linear trapezoid on rising or flat, log trapezoid on positive falling segments; end at the last quantified sample before terminal below-limit values"
+  unexpected_point: "check identity, another dose, times, assay flags, digitization; keep a plausible value; correct verified transcription errors; exclude a confirmed invalid measurement only from the affected calculation; record original value and effect"
+  repeated_measures: "exposure per animal for serial data; pair crossover records within animal; destructive sampling needs a matching uncertainty estimator"
+
+# ---------------------------------------------------------------- answer and hand-off to Modeling
+answer:
+  report_separately: [timing, extent, model_conclusion, half_life_comparison, route_ratio_check, exposure_estimate]
+  conclusions:
+    contradicts: "name full input, disposition, initial state, measured signal, animal or group, window, decisive samples, margin or interval and its uncertainty basis; applies only to combinations covered by the prediction"
+    remains_possible: "say whether compatible throughout, or whether widening or omitting a unit changed the decision"
+    cannot_decide: "name the missing comparison, assumption or uncertainty estimate; give direction and size of any sensitivity result; retain the model"
+ranked_hypotheses:   # per study and species; status_boards.ranked_candidates
+  order: [REFERENCE, SUPPORTED, INDIRECT_SUPPORT, UNTESTED, CONTRARY_EVIDENCE]
+  reference: "immediate first-order, single-input, dose-linear, disposition-controlled; fitted first; if formally contradicted keep it as the benchmark and record the exclusion"
+  supported: "reproducible individual feature, or a relevant comparison with justified uncertainty"
+  ties: "tie candidates the data cannot distinguish; model simplicity decides which tied candidate to fit first"
+  sensitivity_rule: "a contradiction supported only at sensitivity level keeps the candidate in its group and is marked; it moves the candidate below another of the same group only when the same observation supports that one"   # shared S5; same rule in Distribution
+  formal_unit: "CONTRARY_EVIDENCE with required_n, assessable_m, formal_k, directions and correction; board-level exclusion only when every required unit is excluded in one direction"
+  excluded: "record formally excluded complete combinations separately, with assumptions and evidence"
+  same_measurements: "estimates derived from the same measurements are one source of evidence"
+  per_candidate: [supporting_observations, opposing_observations, figure_or_source, analysis_unit, time_window, uncertainty, next_distinguishing_observation_or_fit]
+  code_fields: [candidate, label, group, position, tie, supported_by, indirect, sensitivity_contradiction, sensitivity_source, demoted, moved_below, added_parameters, not_testable, independent_sources, direct_sources, untested_state, formally_contradicted_by, contradicted_combinations, board_excluded, note]
+  demoted: "true only after a within-group move (moved_below names the candidate it moved below)"
+  board_fields: [board_exclusions]
+space:   # code HYP_AXES; first level of each axis is the reference
+  onset: [immediate, fixed_lag, transit, variable_lag]
+  shape: [first_order, zero_order, zero_then_first, parallel_first, parallel_zero_first, weibull_front, weibull_sigmoid, inverse_gaussian]
+  second: [none, two_inputs, recirculation]
+  tail: [disposition, absorption]
+  dose: [linear, saturable_rate, extent_down, extent_up]
+  other: [none, saturable_elimination, multicompartment, binding]
+model_comparison:
+  two_waves: "compare a delayed second fraction with the best single-input fit on the same records; check both fractions and timing across starting values; a fraction near zero makes timing unidentifiable and a chi-square likelihood-ratio test may be miscalibrated"
+  between_animals: "continuous variation in lag or rate vs an explicit population mixture, only when individual records can distinguish them"
+  flexible_input: "compare predictions across smoothing choices and, where available, in animals or occasions held out from estimation"
+
+# ---------------------------------------------------------------- other evidence
+routes:   # guide table "How does the route change the candidates?": look = what it looks like, compare = models to compare, needs = measurements that distinguish them
+  oral: {look: "usually one peak; food or variable gastric emptying can delay the rise, flatten the peak or split it; an absorption window leaves a corner at the peak",
+         compare: [single_depot, intermittent_gastric_emptying, absorptive_window, physiological_transit_model], needs: [meal_and_dose_times, imaging_or_regional_delivery, dissolution, permeability, iv_reference_for_first_pass]}
+  buccal_sublingual: {look: "faster rise and earlier peak than oral; small late swallowed component; total exposure below a fully absorbed dose",
+                      compare: [direct_mucosal, mucosal_plus_swallowed], needs: [technique, time_in_mouth, swallowed_dose_reference, early_serial_samples], if_unidentified: "report aggregate exposure"}
+  sc_im: {look: "early burst peak, then a decline set by slow release: one long apparent half-life across late windows, longer than IV; without IV it looks like slow disposition",
+          compare: [fast_fraction_plus_sustained_depot, release_limited_single_depot, lymphatic_transport_for_proteins], needs: [early_and_late_samples, release_or_injection_site_data, iv_reference, lymph_measurements]}
+  inhaled_intratracheal: {look: "early lung peak, then a broad shoulder or later peak from the delayed swallowed fraction; terminal slope unchanged; a lung peak between samples resembles one slow oral input",
+                          compare: [pulmonary_only, pulmonary_plus_swallowed], needs: [nominal_emitted_or_deposited_dose, matched_oral_or_iv_reference, deposition_measure, charcoal_block_of_swallowed_fraction]}
+  transdermal_or_finite_delivery: {look: "slow rise that can continue until removal; C/t rises for hours; after removal the decline is slower than elimination",
+                                   compare: [known_delivery_schedule, skin_depot_or_diffusion, site_retention_for_pumps_or_timed_injections], needs: [application_and_removal_times, dose_delivered, flux_or_residual, post_removal_decline_vs_iv],
+                                   note: "keep the original dosing clock; apply question 4 only when input from dosing meets its assumptions"}
+  intraperitoneal: {look: "like a fast oral input; exposure can fall below IV after hepatic first pass; terminal slope equals IV (can be mistaken for an IV bolus with a late first sample)",
+                    compare: [portal_uptake_with_hepatic_first_pass, direct_systemic_uptake], needs: [route_specific_parent_exposure_vs_iv, portal_measurements, pathway_evidence_in_species]}
+  second_rise: {look: "trough then second peak, often near a meal or gallbladder emptying; terminal slope unchanged; a second rise after IV points to recycling",
+                compare: [delayed_fraction_of_dose, biliary_excretion_with_reabsorption], needs: [serial_iv_profile, bile_or_conjugate_data, meal_timing],
+                note: "record recycled drug separately from first entry when defining FD and G(t); a trough alone leaves both open"}
+assay: "absolute parent bioavailability needs the same parent analyte and IV parent; prodrug: active-moiety availability only under shared linear clearance and a molar dose basis; metabolite ratio alone leaves parent bioavailability unresolved"
+dose_evidence: "saturable rate with unchanged extent: lower peak/dose, later peak, same complete exposure/dose; falling exposure/dose: lower bioavailability or higher clearance; rising: higher bioavailability or saturable elimination; the dose trend alone cannot separate absorption from clearance"
+repeat_dose: "verify route, formulation, dose, interval, history; at steady state exposure over one interval equals complete first-dose exposure at the same dose"
+parameters_only: "Table 3 for isolated values, Figure 5 for a comparable series; give definition, method, units, window, n, variability; a reported half-life supports an indirect terminal comparison only if phase and window are defined"
+
+appendix_A:   # examples kept out of the machine rules (decided 2026-11-24)
+  file: EDA_absorption_appendix_A_examples_20261124.md
+  figures: [input_pattern_examples_20261124/input_pattern_signatures.png, input_pattern_examples_20261124/route_pattern_signatures.png]
+  values: [input_pattern_examples_20261124/input_pattern_signatures.json, input_pattern_examples_20261124/route_pattern_signatures.json]
+  use: "optional lookup of what a pattern or route looks like; simulated or published, never evidence for the study under review; do not quote its numbers as expectations"
+
+# ---------------------------------------------------------------- code alignment
+json_root: [version, guide, rules, datasets, ev_iv, dose_series, conditions, reported_parameters, iv_references, status_boards]
+row_fields_m5: [qid, guide_q, also_guide_q, legacy_q, display_number, display_ref]   # shared question_ids
+open_differences:   # the code is stricter or narrower than the guide; none changes a guide rule
+  - "no source assay CV path for the shape checks: T1, T2, T4, T5 are SENSITIVITY_ONLY (see uncertainty.code_state)"
+  - "ranked_candidates carries group, position and supporting signal ids; figure, window and next-observation text per candidate still sit in the hypothesis text and model ladder"
+  - "patterns with hyp: [] are registered (guide.input_patterns) but not fitted or ranked as separate options"
+  - "the timing flag of shared S3 is not emitted (name open)"
+known_differences:   # M8: the eight r4.3 rule-vs-code differences of 2026-11-23, rechecked for r4.4
+  1: {topic: question order, state: resolved, basis: "rows follow guide numbers 1-9 with legacy_q; M5 fields"}
+  2: {topic: flip-flop reading, state: resolved, basis: "shared S9; FLIP_RATIO = half_life_ratio_cuts[1]; the slope t-test stays the secondary description ev_iv.tail.class"}
+  3: {topic: f_status values, state: resolved, basis: "labels.f_status; f_status_reason in every branch"}
+  4: {topic: tail share basis, state: resolved, basis: "tail fraction at the common endpoint; *_tail_share_own_last kept"}
+  5: {topic: baseline_status values, state: remains, handling: "labels.baseline_status and baseline_status_r43 map the r4.3 names to the three printed values", acceptance: "L1 tests"}
+  6: {topic: terminal window choice, state: resolved, basis: "const.adj_r2_tie"}
+  7: {topic: code-only thresholds, state: remains, handling: "const share_min, trend_ratio, tail_alpha, cmax_screen; signals are INDIRECT_SUPPORT (HINT) at most", acceptance: "regression: a screen without SD and n cannot raise an absorption-rate candidate to SUPPORTED"}
+  8: {topic: output field names, state: remains, handling: "fields_r43 maps each r4.3 output name to the code key or '-' (not emitted under that name)", acceptance: "every mapped key occurs in the code"}
+fields_r43:   # M8 item 8: r4.3 output name -> code key; '-' = no key of that name (known renames mapped, others unmapped)
+  16: {onset_status: "onset_status", t1_label: "t1_label", t1_margin: "mt1", observation_interval_h: "-", first_sample_upper_bound_h: "-", conditional_hard_lag_lower_bound_h: "-", bound_assumptions: "-", dose_time_basis: "dose_time_basis", evidence_rows: "evidence", first_sample_h: "-", observed_tmax_h: "tmax", caveats: "caveats", not_assessable_reason: "not_assessable_reason", handoff_candidates: "-"}
+  17: {rise_shape: "rise_shape", rise_shape_alt: "-", rising_limb_n: "-", increments: "increments", t1_label: "t1_label", t1_margin: "mt1", excluded_combinations: "-", retained_candidates: "-", individual_distribution: "-", evidence_rows: "evidence", caveats: "caveats", not_assessable_reason: "not_assessable_reason"}
+  18: {t4_label: "t4_label", t4_margin: "mt4", t4_points: "mt4_pair", flip_flop_reading: "flip_flop_reading", terminal_difference_grade: "terminal_difference_grade", grade_range: "ratio_range", thalf_ratio_by_window_pair: "grades_over_window_pairs", comparison_basis: "comparison_basis", profiles_compared: "-", terminal_windows_h: "terminal_windows", evidence_rows: "evidence", caveats: "caveats", unresolved_reason: "reading_text"}
+  19: {t3_label: "t3_label", t3_ratio: "-", t3_ci: "-", t3_ci_level: "ci_level", t3_window_h: "-", t3_dose_pair_or_contrast: "-", t3p_label: "t3p_label", t3p_dose_pair: "t3p_dose_pair", t3p_times: "t3p_times", t3p_ln_ratio_ci: "t3p_ln_ratio_ci", t3p_p_holm: "t3p_p_holm", t3p_data_level: "t3p_data_level", t3_data_level: "t3_data_level", basis_of_judgement: "-", iv_t3_label: "-", descriptive_signs: "-", mixed: "-", doses: "doses", tmax_by_dose: "-", cmax_per_dose: "-", auc_per_dose: "-", evidence_rows: "evidence", caveats: "caveats"}
+  20: {pattern_description: "-", analysis_unit_status: "-", t2_label: "t2_label", t2_margins: "m_drop, m_rise", t2_points: "-", excluded_combinations: "-", explanations_kept: "-", pending_dme: "-", peak_times_h: "-", increment_sign_sequence: "-", consistency: "-", evidence_rows: "evidence", caveats: "caveats"}
+  21: {baseline_status: "baseline_status", baseline_size: "-", origin: "origin", baseline_behavior: "-", assay_specificity: "assay_specificity", predose_value: "-", predose_to_cmax: "-", dosing_occasion: "-", evidence_rows: "evidence", caveats: "caveats"}
+  22: {f_status: "f_status", f_window: "-", f_window_min_iv_compensation: "-", f_bias_list: "-", window_h: "window_h", iv_profile: "-", iv_mode: "iv_mode", infusion_duration_h: "-", analyte_role: "analyte_role", iv_reference_compound: "-", dose_basis: "dose_basis", comparison_basis: "comparison_basis", ev_tail_share: "ev_tail_share", iv_tail_share: "iv_tail_share", iv_early_lower_bound_share: "-", fa_fg_fh_note: "-", evidence_rows: "evidence", caveats: "caveats"}
+  23: {condition_of_interest: "-", reference_profile: "-", differing_attributes: "differing_attributes", design: "design", t5_label: "t5_label", rate_only_label: "rate_only_label", disposition_assumption: "-", basis_of_judgement: "-", tmax_pair: "-", cmax_auc_ratio: "-", early_share_ratio: "-", window_auc_d_ratio: "auc_window_d_ratio", thalf_ratio: "-", window_h: "window_h", band_used: "-", evidence_rows: "evidence", caveats: "caveats", time_dependence: "-"}
+tests_required:
+  - "nine guide rows per board, in guide order, each with legacy_q"
+  - "half-life grades at 0.80, 1.25 and 2.0, lower bound inclusive; UNRESOLVED only when qualified window pairs give different readings; NOT_ASSESSABLE names the missing side"
+  - "selected terminal window = longest qualified window within adj_r2_tie of the best adjusted R2"
+  - "WINDOW_BASED_ESTIMATE only with same study, justified early coverage and both tail fractions <= tail_fraction_max"
+  - "T2 never runs on group means or destructive sampling; T4 never sets the flip-flop reading"
+  - "SENSITIVITY_ONLY, BORDERLINE, SINGLE_POINT_SUPPORT and LOO_NOT_ASSESSABLE never give EXCLUDED; a formal CANNOT_ASSESS keeps removal flags in <test>_sensitivity_flags"
+  - "removal reruns the whole search for every eligible observation"
+  - "ranking keeps every option; a sensitivity-level contradiction keeps a candidate in its group (shared S5)"
+  - "a screen without SD and n cannot raise an absorption-rate candidate to SUPPORTED"
+  - "rules_manifest output_version, this file meta.version and the section json version agree"
+  - "input_patterns has 16 entries whose t1/t2 coverage matches this file"
+  - "this file and the code carry no example studies or simulated values; those stay in Appendix A"

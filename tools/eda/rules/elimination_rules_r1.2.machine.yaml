@@ -1,0 +1,213 @@
+# Elimination and metabolism EDA r1.2 - machine rules (concise), 2026-11-24
+# Human rules: EDA_elimination_metabolism_rules_r1.2_rules_only_20261124.md (Part 2 amendments over the verbatim r1.1 text)
+# Shared rules: shared_rules_s1.0.machine.yaml (decision order, flags, family, rank groups, statuses, precision)
+# Human guide: EDA_elimination_rules_r1.1_reviewed_20261123.md, version of 2026-11-24 (eight questions; its numbers are the page numbers)
+# Code: tools/eda/eda_elimination.py; the output version comes from rules_manifest.json (output_version). The dated technical
+#   specification governs study reports. The field inventory at the end describes the implementation.
+
+meta: {section: elimination, version: r1.2, date: 2026-11-24, supersedes: r1.1, shared_rules: s1.0, items: [29, 30, 31, 32, 33, 34, 35, 36], technical_spec: EDA_elimination_metabolism_r1.1_technical_20261123.md, engine_spec_date: 2026-11-10, reuses: [absorption r4.4 A0.3-A0.6 A0.9 A0.11 items 18 19 21 23, distribution r1.6 D0.2-D0.10 items 24-28]}
+question: "How is the parent drug eliminated in this species, and what do the measurements reveal about its metabolism?"
+shared_rules: {file: shared_rules_s1.0.machine.yaml, version: s1.0}
+revision:   # r1.2 against r1.1; reasons in Part 1 of the human rules
+  - {id: decision_order, decisions: [R2, R3, R10], change: "formal checks follow shared decision_order; removal flags of a CANNOT_ASSESS go to <test>_sensitivity_flags; the T10 parts are deferred (deferred_t10)"}
+  - {id: answer_status, decisions: [R6, M7], change: "results judged first, then combined; Q1 with extravascular data only and a reliable window AUC is ANSWERABLE"}
+  - {id: code_only_checks, decisions: [R7], change: "renal sign test DESCRIBED (p in the audit detail only); source-reported IV CL re-comparison registered, PARTLY_ANSWERABLE at most alone"}
+  - {id: hypothesis, decisions: [R5], change: "the working hypothesis states evidence_level and contradictions"}
+  - {id: auc_record, decisions: [M2], change: "item 29 consumes the upstream AUC record; AUC/Dose with its reason"}
+  - {id: question_ids, decisions: [M5, L3], change: "guide numbering (eight questions); stable question_id in the hand-off; absorption:T5 and distribution:T9 cited separately"}
+  - {id: labels, decisions: [M4], change: "codes the rules define but the code does not emit moved to labels.not_implemented; one retired recovery label leaves this file (named in the change note)"}
+  - {id: urine_below_assay_limit, decisions: [review_2026-11-24_round2], change: "item 33: interval_status per printed interval (COLLECTED_QUANTIFIED, COLLECTED_BELOW_LLOQ, MISSING); recovery_bounds lower/upper (QUANTIFIED, QUANTIFIED_PLUS_BELOW_LLOQ, UPPER_LIMIT_ONLY); all intervals below the limit -> upper limit, PARTLY_ANSWERABLE, urinary recovery status PARENT_BELOW_ASSAY_LIMIT; the last-increment share of a below-limit interval is an upper share"}
+  - {id: urine_limit_unit_and_total, decisions: [review_2026-11-24_round3], change: "item 33: a printed limit is an upper value only in % of the administered dose (else CENSOR_LIMIT_NOT_PERCENT_OF_DOSE, lower value only); a printed total over intervals with below-limit ones must lie in [quantified sum, quantified sum + limits] +/- 0.1, else SOURCE_CONFLICT with both kept as printed"}
+  - {id: administered_dose, decisions: [review_2026-11-24_round3], change: "item 29: CL bounds and AUC/D divide by the animal's administered dose when the input states it (s1.0 S11)"}
+  - {id: excreta_structured_fields, decisions: [review_2026-11-24_round3_addendum], change: "E0.8/item 33: without a header-named layout an excreta table is read from structured fields (AMOUNT_ROWS: value unit in % of dose, record amount_basis and interval_start_h/interval_end_h; WINDOW_NOT_REPORTED, AMOUNT_BASIS_NOT_STATED); record level from record_category first; no window -> no CLR, reason says so"}
+  - {id: assay_reader, decisions: [review_2026-11-24_round3_addendum], change: "E0.2 gate 3: one assay reader for field and prose in every section; IMMUNOASSAY kept apart (not selective); a method named only as absent is not the method; field and prose disagreeing -> CONFLICT (not selective); run configuration first"}
+deferred_t10:   # George 2026-11-24: "T10 问题可以先放一放" (coordinated with the other thread); r1.1 behaviour kept until the code follows
+  - {rule: shared S2, now: "no removable plasma sample -> the formal exclusion is kept after zero reruns; removal units not named separately; valid reruns counted as removal.reruns", target: "LOO_NOT_ASSESSABLE; units 'remove urine collection interval' and 'remove plasma sample inside the interval'"}
+  - {rule: shared S3, now: "margin to the decision boundary not reported", target: "margin always reported"}
+  - {rule: shared S4, now: "family m counts plasma samples and urine amounts", target: "fu and GFR enter m when they carry statistical intervals"}
+  - {rule: shared S8, now: "single GFR and fu values used as given", target: "justified physiological bounds or statistical intervals"}
+  - {rule: pairing, now: "animal_pair_verified recorded, not read by T10", target: "a formal T10 needs a verified same-animal pair"}
+
+const:   # elimination_config.json; absent setting -> only the classification is omitted, the measurement is still shown
+  late_increment_share: 0.05           # adopted; label only
+  recovery_review_tolerance_pp: null   # proposal 5; null = tolerance unknown
+  gfr_unit: "1 mL/min/kg = 0.06 L/h/kg; gfr_ml_min_kg distinct from absolute or BSA-indexed GFR"
+  retired: {clr_band: "[0.75, 1.50] not drawn or reported", human_recovery_thresholds: "90 %, 1 %/day, 80 % identified: not settings"}
+  no_defaults: "GFR, fu,p, B/P, MW, body weight: sourced per comparison, never from memory"
+
+labels:
+  test: [EXCLUDED_UNDER_STATED_ASSUMPTIONS, NOT_EXCLUDED, CANNOT_ASSESS]           # A0.3
+  test_flags: [SENSITIVITY_ONLY, BORDERLINE, SINGLE_POINT_SUPPORT, LOO_NOT_ASSESSABLE]   # <test>_flags and <test>_sensitivity_flags (shared sensitivity_record)
+  bound_kind: [STATISTICAL_BOUND, SENSITIVITY_ONLY, WINDOW_PROXY]
+  output_kind: [observed, directional_bound, formal_test, data_check]
+  answer_status: [ANSWERABLE, PARTLY_ANSWERABLE, NOT_ANSWERABLE_YET, NOT_APPLICABLE]   # shared S6; NOT_ANSWERABLE_YET shown as Insufficient evidence
+  renal_comparison_status: [DESCRIBED]   # shared S7: per-animal filtration comparison is a description; T10 is the formal check
+  clr_kind: [INTERVAL_ESTIMATE, WINDOW_PROXY, CLR_NO_DIRECTION]
+  comparability: [comparable, descriptive_only, incompatible]
+  excretum: [URINE, FAECES, BILE, CAGEWASH, EXPIRED_AIR, CARCASS, TISSUE_RESIDUE, OTHER]
+  analyte: [PARENT, NAMED_COMPONENT, UNRESOLVED_COMPONENT, TOTAL_RADIOACTIVITY, ACTIVE_MATERIAL]
+  assay: [SPECIFIC, MICROBIOLOGICAL, RADIOACTIVITY, NOT_REPORTED]
+  excreta_card: {amount_basis: [INTERVAL, CUMULATIVE, TOTAL], value_form: [AMOUNT, PERCENT_OF_DOSE, PERCENT_OF_EXCRETUM, PERCENT_OF_CHROMATOGRAM],
+                 cagewash: [ALLOCATED, SEPARATE, NOT_REPORTED], animals: [INTACT, BILE_CANNULATED], pairing: [SAME_ANIMAL, PARALLEL_COHORT_SAME_STUDY, OTHER_STUDY, NOT_REPORTED],
+                 sample_loss_to_container: [ADDRESSED, RISK_SOURCED, NOT_REPORTED], also: "interval start/end, gaps, overlaps, bladder_emptying, collection_complete, pooling, label position, stability"}
+  in_vitro_card: "system, species, tissue, dilution, substrate, start conc, time, temperature, normalization, cofactors, controls, readout, units, source"
+  flags: [WINDOW_PROXY, PARTIAL_WINDOW, CONDITIONAL_AREA, CONDITIONAL_TAIL, REPORTED_CL_ABOVE_WINDOW, GROUP_CURVE_RATIO, EV_OVER_F,
+          SINGLE_DOSE_ONLY, EV_INPUT_CONFOUNDED, NO_UNCERTAINTY, CONFOUNDED, TWO_OCCASIONS_ONLY, REGIMEN_CHANGED, CARRYOVER_POSSIBLE, SCOPE_REVIEW,
+          TR_NOT_PARENT, ACTIVE_MATERIAL_ASSAY, BELOW_LLOQ_UPPER_LIMIT, SOURCE_CONFLICT, COLLECTION_GAP,
+          CAGEWASH_UNASSIGNED, ADMIN_DOSE_FRACTION, LATE_INCREMENT_SMALL, FILTRATION_REFERENCE_UNMATCHED, RATIO_OF_MEANS,
+          UNPROFILED_FRACTION, PRODUCT_ORIGIN_OPEN, REPORTED_PARAMETER]
+  upstream_flags: [GROUP_MEAN, DESTRUCTIVE_SAMPLING, DIGITIZED, ENDOGENOUS_REVIEW_REQUIRED, CONFOUNDED, OCCASION_CONFOUNDED, INFUSION_TIMING_UNKNOWN, LOCAL_ROUTE, RATIO_OF_MEANS]   # definitions unchanged
+  not_implemented:   # M4: defined by the rules, not emitted by the code (r1.2); the rule text that uses them still applies
+    JUSTIFIED_BOUND: "bound_kind for a justified (non-statistical) bound"
+    CLR_UPPER_ONLY: "item 33 one-sided CLR from a plasma subset"
+    CLR_LOWER_ONLY: "item 33 one-sided CLR from incomplete urine"
+    CONCENTRATION_AND_VOLUME: "excreta value_form"
+    DOSE_SPECIFIC_RATIO: "item 29/30 flag"
+    SAMPLE_STABILITY_RISK: "handling gate"
+    SAMPLE_ADSORPTION_RISK: "handling gate"
+    OVERLAPPING_TOTALS: "item 34 flag"
+    ROUTE_DETECTED_NOT_QUANTIFIED: "item 34 status"
+    RANK_NOT_ELIGIBLE: "item 35 flag"
+    TIME_DEPENDENCE_SUSPECTED: "upstream flag"
+    MEAN_OF_RATIOS: "upstream flag"
+
+order:   # E0.1; execution by data layer, a later layer never blocks an earlier one; q = guide question (M5), engine_row = json q
+  layers:
+  - {layer: plasma, items: [29, 30, 31], q: [1, 2, 3], evidence: "existing DIS/absorption panels + EM-1a row"}
+  - {layer: urine, items: [33], q: [4], engine_row: 5, evidence: ["Figure 4A cumulative recovery", "Figure 4B optional interval rate", "Figure 4C interval clearance"]}
+  - {layer: recovery, items: [34], q: [6], engine_row: 6, evidence: "Table 2: recovery by route and mass balance"}
+  - {layer: components_in_vitro, items: [35], q: [5], engine_row: 7, evidence: ["Table 3 components", "Figure 5 or Table 4 assays"]}
+  - {layer: project, items: [36], q: [5], engine_row: 7, evidence: "EM-8a columns of DIS-6b"}
+  reserved: {item: 32, test: T11, question: "engine row 4 (no guide question)", action: "inventory plasma metabolite/TR series, SCOPE_REVIEW, compute nothing"}
+  absent_dependency: "blocks only the conclusion that needs it; never recreated from a plot"
+
+data:
+  card: "A0.11 + D0.11 fields + E0.8 excreta/in vitro/supporting fields + analysis unit + upstream results with versions; missing = 'not reported' -> question 'missing'"
+  gates:   # E0.2; failure -> item outcome with reason
+    dose: "actual dose/time, parent-equivalent basis, route, mode, infusion start/end, history; nothing invented; LOCAL_ROUTE no systemic CL; INFUSION_TIMING_UNKNOWN blocks shape tests"
+    baseline: "absorption item 21; ENDOGENOUS_REVIEW_REQUIRED blocks every dose-attributed plasma result"
+    signal: "unreported assay -> retain source label, specificity unknown, no parent-specific inference without evidence; parent / named / unresolved / TR kept apart; mixture -> dose of assayed component; MICROBIOLOGICAL -> ACTIVE_MATERIAL_ASSAY, separate trace, never numerator for recovery, fe, CLR, T10"
+    collection: "'-' or missing != 0; no amount from concentration alone; no subtraction across mismatched animals/windows/bases; disputed header -> SOURCE_CONFLICT"
+    handling: "documented instability -> SAMPLE_STABILITY_RISK; sourced adsorption in low-protein matrix -> SAMPLE_ADSORPTION_RISK (lower limit stays lower, upper-limit claims withheld); unbounded reversing loss -> withhold"
+    supporting: "unmatched GFR or fu,p = sensitivity context; missing kidney comparison never suppresses recovery"
+    upstream: "endogenous gate, D0.8 matrix/basis, target_binding_declared NOT_STATED -> no TMDD candidate"
+  uncertainty: "record unit (individual/destructive/group mean/pool/reported), mean type, SD/SE/CI, n; SD = SE*sqrt(n) only with both; missing SD != 0; ratio N/A ends [N_low/A_high, N_high/A_low]; pointwise CIs != band"
+  status:   # E0.5
+    missing_excreta: "not zero; keep other intervals"
+    conc_without_volume: "display only"
+    blq_interval: "known volume -> censoring threshold LLOQ*volume (BELOW_LLOQ_UPPER_LIMIT); gives no upper limit on ultimate recovery"
+    predose_zero_iv: "not C0, not an area start"
+    plasma_gap: "interior BLQ or unexplained gap not bridged for a formal result"
+    cumulative_cohorts: "no differencing of changing-cohort means"
+    total_and_increments: "use one, reconcile, never add"
+    printed_conflict: "SOURCE_CONFLICT; keep all; quarantine only derivatives"
+    detected_no_amount: "ROUTE_DETECTED_NOT_QUANTIFIED; in no split or total"
+  auc: "A0.6 linear-up/log-down, actual times, no extrapolation; late first sample -> AUC(a,b) PARTIAL_WINDOW; trapezoid is not a lower area limit"
+  corrections: "correct only from source; keep original, locator, reason, effect; never delete for being unusual"
+  allowed: "E0.7 with dated exposure decision: observed-window AUC and AUC/dose, justified/conditional area limits, last-chord tail (29, truncated in 33), fu,p or B/P division, excreted sums, r_U, late share, interval rates, CLR, fu*GFR, CLnr limit, route totals, component shares, matched in vitro comparison, unit conversions"
+  not_computed: [fitted terminal slope or half-life, AUC_inf, excretion asymptote, sigma-minus plot, formation/elimination rate constant, IVIVE, allometry, model selection, metabolite/parent ratio, TR-derived CL]
+  wording: {no_difference: "did not clearly differ over [range, window]; never 'linear' or 'absent'", arrows: "down only for supported upper, up only for supported lower"}
+
+display:   # E0.11; reuse upstream panel by ID+version, no re-plot, add own sentence; new plots only below
+  caption: "A0.11 four lines; unmet conditions -> one missing-data sentence, no empty panel; plain English, codes in JSON"
+  review_guide:   # Descriptive views in the bilingual guide; labels are local panel names, not additional tests or renderer IDs.
+    figure_set: ["1 reused parent concentration-time", "2 reused matched-time ratios", "3 reused exposure or parameters by dose", "4 urinary recovery, rate and clearance", "5 in vitro parent loss or comparable endpoints"]
+    table_set: ["1 study, binding and parameters", "2 route recovery and mass balance", "3 excreta components", "4 assays and species"]
+    binding: "Table 1: total concentration, plasma fraction unbound, assay and reported uncertainty. Cite an existing Distribution binding plot only if its range covers the observed concentrations and the trend affects interpretation."
+    urinary_intervals: "Reuse the cumulative and interval-clearance panels on the same clock. Add interval rates only for a complete bin with known boundaries, duration and amount or dose fraction, when unequal collections or a change hidden by cumulative recovery make rates informative."
+    assay_time_course: "Plot measured serial parent and matched controls once. When species are comparable, mark their common endpoint here. Use the project endpoint plot only for matched endpoint-only data with at least two species. An eligible serial study can supply the time course for one species."
+  EM-1a: {plot: false, under: "DIS-1a (IV) or B1 (EV)", row: "observed AUC(a,b) and AUC(a,b)/Dose (exposure), units, actual window, signal, assay, individual or group-curve level", never: ["Dose/AUC(a,b)", "a CL label", "limits of groups on one axis"]}
+  Q2: {panels: "EV C2,C3; IV DIS-2a,DIS-2b", adds: "item 30 reading; urine by dose"}
+  Q3: {panels: "EV E1,E2; DIS-4c", adds: "T9/item 23 result; urine by occasion"}
+  EM-5a: {x: "collection end h", y: "cumulative % of stated denominator", when: ">=2 distinct collection ends, same dose basis; else sentence/table", marks: [points at observed ends, no join across gaps, grey gaps, "0-t | sum over collected intervals", separate parent/active material/TR traces, small last increment, both printed total and sum if they differ]}
+  EM-5c: {x: "urine interval h", y: "CLR mL/min/kg", when: ">=2 eligible intervals or sourced filtration range; lone value -> table", marks: [filled estimate, open proxy + plasma coverage, arrows for one-sided limits, "filtration range only if fu,p and GFR sourced; unmatched = sensitivity context", T10 result], never: "other bands"}
+  EM-6a: {plot: false, primary: "Table 2: animal/cohort, occasion, interval, route, assayed quantity, amount or percentage, denominator, dispersion and collection coverage; totals have their own rows", comparability: "quantified non-overlapping routes, same animal/cohort, occasion, conserved quantity, interval and denominator; external bile collection for a bile route", never: "sum overlapping totals or count qualitative detections"}
+  EM-7a: {plot: false, table: "animal/cohort/pool and summary level, matrix, window, label, assay and coverage, component and recovery source cells, share and denominator, eligible dose share, identified/unidentified/unprofiled shares and sum check; largest component and largest identified product"}
+  EM-7b: {x: "actual incubation time or species", y: "parent concentration or percent remaining over time, or same endpoint in its own units", when: "Figure 5: supported serial observations with matched controls OR endpoint-only results from at least two species in matched systems, substrate, starting concentration, conditions, endpoint time where relevant, units and normalization", marks: ["independent incubations and technical replicates", "controls and dispersion", "one shared endpoint on an existing time course", "excluded rows with reason"]}
+  EM-8a: {plot: false, where: "columns of DIS-6b", rule: "one column per quantity with evidence kind; missing cells visible; no common clearance axis"}
+  EM-R: {when: "E0.12 reported parameters", never: "silent substitute for EM-1a/EM-5a; repeat of F or DIS-R values"}
+  retired_ids: [EM-1b, EM-2a, EM-2b, EM-3a, EM-3b, EM-4, EM-5b, EM-6b, EM-7c]
+
+items:
+  29: {scope: "isolated known dose, >=3 quantified postdose points in a supported continuous window, positive area", default: "observed AUC(a,b) and AUC/Dose from upstream A0.6 record; exposure only, no Dose/AUC(a,b); CL and CL/F left to Modeling",
+       folded: {justified: "D_high/L bounds the complete dose/exposure ratio; CL or CL/F only if constant-clearance interpretation applies", conditional_area: "IV after input, non-rising assumption printed (CONDITIONAL_AREA)", tail: "needs upstream T7 NOT_EXCLUDED, central IV, s<0; area >= C_last/(-s) (CONDITIONAL_TAIL)", unbound_blood: "divide by supported lower fu,p or B/P"},
+       reported_cl: "shown separately; for a unique linked estimate (reported_clearance_links) compare compatible directly reported full AUC or full exposure inferred from individual CL/CL/F or clearance explicitly derived from the same group exposure and dose. Never invert mean individual clearance for mean AUC. Flag an implied full exposure below observed AUC as a source check", group_curve: "GROUP_CURVE_RATIO, not individual exposure", cannot_order: "two window AUCs with different windows, or two upper limits"}
+  30: {scope: ">=2 comparable doses else SINGLE_DOSE_ONLY", computes: "nothing new; printed AUC/dose within one table allowed (Q2)", reading: "upstream T3/T3p as is; IV rise -> saturable elimination one candidate among timing, distribution, binding, analytics; EV -> EV_INPUT_CONFOUNDED; unreplicated dose allocation -> CONFOUNDED",
+       urine_by_dose: "require matched intervals, check raw urinary amounts and jointly propagate the shared AUC error in estimated mean concentration and clearance; check binding, physiology and collection. If a trend persists, CLR falls with C -> saturable secretion candidate; rises -> saturable reabsorption candidate; no transporter"}
+  31: {scope: "same regimen, matched times; else REGIMEN_CHANGED", reading: "rise = accumulation compatible; robust decrease challenges linear time-invariant identical input; TWO_OCCASIONS_ONLY",
+       uncovered_occasions: "run upstream T9 once under D0.10, store with version", applies: "documented repeat-dose PK regimen even with first-dose data only (Q3)", urine: "per interval dose; CARRYOVER_POSSIBLE"}
+  33: {numerator: "unchanged parent, specific assay, valid amounts, no double counting", r_U: "observed recovery on its named basis; a justified lower amount and upper dose bound ultimate recovery from below; >=50 % lower limit -> 'at least half'; 'minor' needs an upper limit", ev: ADMIN_DOSE_FRACTION,
+       late_increment: ">=2 contiguous bins, last >= previous length, share < const -> LATE_INCREMENT_SMALL (descriptive)",
+       clr: {full: "dAe/AUC interval estimate on supported matched interval", plasma_subset: "proxy, both windows; CLR_UPPER_ONLY requires upper full urinary amount and a justified positive lower area for the contained plasma segment", urine_incomplete: "CLR_LOWER_ONLY requires credible lower urinary amount and finite positive upper full-interval AUC; point AUC alone gives no lower limit", both_incomplete: "CLR_NO_DIRECTION unless independent numerator and denominator bounds apply to the same target interval; otherwise report separate measurements", needs: "specific assays, aligned collections, boundary voids, supported recovery and delay for the direction used; SAME_ANIMAL or documented compatible parallel cohort (RATIO_OF_MEANS)"},
+       clnr: "CLnr <= U*(1-L_f) same target and unit; never EV CL/F, never 'hepatic'"}
+  34: {route_entry: "a direct route measurement is eligible without tracer or mass balance; concentration or detection needs a collected amount or compatible volume for quantitative recovery", conserved: "administered radiolabel or source-defined parent-equivalent total", totals: [urine_faeces, all_excreta, accounted], recycling: "bile diversion can alter initial oral absorption; matched IV or controlled donor-bile transfer with recipient evidence helps assess return", no: [completeness class, apportioning unaccounted, recycling from faeces/bile/secondary peak]}
+  35: {dose_share: "component % of all recovered excretum label * excretum % of administered label / 100, within animals before averaging or use compatible pooled amounts with cancelling denominators; do not multiply separately averaged percentages. Match cohort or pool, window, label and quantitative basis; peak-area conversion requires supported detector response and extraction/profiling coverage", identity: "retain source name, identification method, locator and confirmed, tentative or unresolved status; only confirmed products enter identified-product ranking", aggregate: "weight compatible collections by recovered amount; cross-molecule parent equivalents require sourced molecular weights and stoichiometry", origin: PRODUCT_ORIGIN_OPEN, in_vitro: "matched assays and controls only; Vmax/Km check against inputs -> SOURCE_CONFLICT", in_vivo: "table; like-direction bounds alone -> RANK_NOT_ELIGIBLE"}
+  36: {rows: "species x study x condition; every species", contrasts: "same quantity, basis, dose, route, occasion, interval; no time rescaling, bridging, zero-imputation", summary: "observation, alternative, discriminator"}
+
+tests:   # E0.10; formal exclusions only from T10 and reused T3, T3p, T7, T9; multiple windows need prespecification or simultaneous coverage
+  T10: {combination: "free filtration, no secretion/reabsorption/renal loss, negligible urinary delay, constant matched GFR and joint uncertainty", compare: "total plasma: CLR vs fu,p*GFR requires stable, matched fu,p; directly measured unbound plasma: dAe vs GFR*AUCu in amount units over the same interval, without a separate fu,p requirement", unit: "same-animal pairs; matched parallel cohorts give a group ratio. Total-plasma group prediction requires exposure-weighted fu,p*GFR; unbound group amount requires mean of GFR_i*AUCu_i with matched weights. Require a supported common factor or joint inputs/bounds, not just marginal means; unrelated studies excluded"}
+  outcome:   # In the unbound branch the same inequalities apply to measured and predicted AMOUNTS.
+    - {if: "CLR_L > F_U and A0.3 gates pass", then: EXCLUDED_UNDER_STATED_ASSUMPTIONS, direction: above, read: "compatible with net secretion"}
+    - {if: "CLR_U < F_L and gates pass", then: EXCLUDED_UNDER_STATED_ASSUMPTIONS, direction: below, read: "reabsorption, renal loss, collection/handling"}
+    - {if: "two-sided ranges overlap", then: NOT_EXCLUDED}
+    - {if: "wrong-side limit, missing matched physiology required for the selected branch, unresolved loss, or unsupported uncertainty", then: CANNOT_ASSESS, reason: "record the actual missing premise or limit; FILTRATION_REFERENCE_UNMATCHED only for an unmatched physiological reference"}
+  T12: "data check on comparable cumulative series: decline, negative, overlap, > dose, subtotal mismatch; point / above tolerance / beyond uncertainty; 100 % cap not on later-day % of that day's dose; never excludes a model"
+  formal_threshold: "survive supported timing uncertainty and prespecified widening; justified joint bounds or a procedure covering the full search. Joint bounds = matched source assay CV converted over every searched observation (Bonferroni) or replicate bounds with stated coverage. Pointwise intervals, unconverted assay precision, project tolerance -> SENSITIVITY_ONLY"
+  removal_set: "each formal check: remove every eligible observation in turn, repeat the full calculation on the rest; report persists / disappears (assessable) / unassessable. T10 code: removes each interior plasma sample; window-end samples and the urine amount define the interval and numerator and are kept; a lost exclusion -> NOT_EXCLUDED + SINGLE_POINT_SUPPORT"
+  reused: {T3_T3p: "item 30 via absorption 19 / DIS-2 (test ids absorption:T3, absorption:T3p)", T7: "opens tails in 29 and 33", T5_T9: "item 31 cites absorption:T5 (item 23) and distribution:T9 (D0.10) separately, each with its own question and result"}
+  renal_sign_test: "per-animal ratios, median, range, paired window, GFR and fu sources; status DESCRIBED; p in the audit detail only (shared S7)"
+  reported_iv_cl: "re-comparison of source-reported individual IV CL beside T3/T3p with ratio, interval, pairing and source table; family per shared S4; alone PARTLY_ANSWERABLE at most"
+
+reported:   # E0.12 + amendments
+  rule: "REPORTED_PARAMETER; keep definition, value, units, method, matrix, window, route, n, dispersion, phase; at most PARTLY_ANSWERABLE"
+  dose: "bind only a compatible row dose or single PK dose; one estimate across doses -> dose field empty, range as context"
+  phase_matrix: "keep half-life phase; tissue-fluid half-lives go to Distribution"
+
+questions:   # E0.11 rows; Q2/Q3 status from upstream, never upgraded; numbers are the guide's (M5), engine_row = json q
+  always: [Q1, Q2, Q4, Q5]
+  conditional: {Q3: repeat dosing, Q6: measured route or recovery design}
+  rows: {1: {qid: observed_exposure, guide_q: 1}, 2: {qid: dose, guide_q: 2}, 3: {qid: repeated_dosing, guide_q: 3}, 5: {qid: urine, guide_q: 4}, 7: {qid: components_in_vitro_species, guide_q: 5}, 6: {qid: recovery, guide_q: 6}}   # engine row -> guide
+  no_row: {7: "binding: read in Distribution (unbound plasma exposure)", 8: "bile return: not assessed by the engine"}   # board guide_coverage
+  page_order: [1, 2, 3, 5, 7, 6]   # engine rows in guide order
+  combine: "judge each result first, then combine into the status; independent of row order (shared S6)"
+  rules: ["single dose: Q2 unassessable, Q3 NOT_APPLICABLE", "no urine: Q4 NOT_ANSWERABLE_YET", "eligible IV or EV parent profile: Q1 observed window exposure ANSWERABLE on either route; unknown F limits interpretation of systemic CL", "report-only or conditional evidence for mechanism: at most PARTLY_ANSWERABLE"]
+  row: [status, conclusion_sentence, primary_evidence, missing]
+
+handoff:   # E0.9
+  question_id: "stable id section:qid (e.g. elimination:urine) with guide_question and legacy_question_id"
+  record: [item_id, question_id, guide_question, legacy_question_id, analysis_unit, analyte, matrix, route, dose_basis, time_window, quantity, value_or_limits, units, estimate_or_bound, limit_direction, evidence_kind, answer_status, test_id_and_status, source_refs, caveats, missing, next_step]
+  pending_dme: "update saturable elimination, nonlinear binding, time dependence, recycling with observation and test; upstream not rewritten"
+  hypothesis: "observation + one consistent alternative + one next test; joint plasma/urine source IDs and shared observations; evidence_level and contradictions stated (shared S5); rests_on names rows as elimination:board_id:qid"
+  bounds: "as bounds with direction, window, basis, kind; proxies as proxies"
+  sensitivity_contradiction: "moves a candidate below the other candidates with the same support level, ahead of the next level; never excludes it"
+
+fields:   # Legacy engine output inventory for traceability. Do not use these names to choose calculations in the study-review edition.
+  board: [guide_coverage, item29, item30, item31, urine, clr, renal_filtration_comparison, recovery, components, in_vitro, em7b, questions, hypothesis, handoff]
+  item29: [auc_record, auc_per_dose, auc_per_dose_unit, auc_per_dose_reason, auc_truncation_reason, auc_window, window_proxy, auc_window_h, auc_method, auc_source, dose_exposure_target, bound_kind, sensitivity_rows, cl_upper_window, cl_upper_conditional_area, cl_upper_tail, cl_u_upper, cl_u_window_proxy, cl_blood_upper, reported_cl_check, caveats, not_assessable_reason]   # Legacy output name in the code inventory. Current reader exposure per dose is AUC(a,b)/dose.
+  item30: [dose_range, doses, "upstream[]: test_ids, upstream_question, route, doses, window_h, auc_ratio, t3, t3p, exposure, pattern, panel_id", reported_auc, urine_by_dose, alternatives, next_discriminator, caveats, not_assessable_reason]
+  item31: [occasions, "upstream[]: test_id, asks, result, upstream_question, first, later, t9 (alias of result), flags", repeat_regimens, reported_by_occasion, reported_accumulation, urine_by_occasion, direction, alternatives, caveats, applies]
+  urine: [trace, analyte, assay, denominator, intervals, cumulative, gaps, printed_totals, r_u, collection_end_h, window_label, recovery_lower, fe_lower, late_increment, flags]
+  clr: [kind, urine_interval, plasma_window, plasma_coverage, clr, clr_ml_min_kg, limits, joint_bounds, bound_direction, pairing, "t10: status, direction, filtration_range_l_h_kg, matched, removal", t10_sensitivity, caveats]   # T10 fields per eda_elimination.py (r1.2; T10 parts deferred, see deferred_t10)
+  recovery: [conserved_quantity, denominator, routes, source_totals, recovery_urine_faeces, recovery_all_excreta, recovery_accounted, route_split, collection_ends, t12_checks, t12, unaccounted_candidates, caveats]
+  components: [excretum, reported_basis, excretum_recovery_pct_dose, conversion_blocked, components, sum_check, identified_share, unidentified_share, unprofiled_share, largest, largest_product]
+  project: ["species_table: species_rows, contrast_rows, species_summaries, missing_by_species", item32_inventory, modeling_index, handoff]
+
+tests_required:
+  - "microbiological urine -> active material trace; no r_U, fe, CLR or T10"
+  - "missing interval not zero; COLLECTION_GAP label 'sum over collected intervals'"
+  - "printed total + increments never added; conflict keeps both"
+  - "partial plasma -> WINDOW_PROXY with both windows; disjoint data without independent directional support -> report separately"
+  - "incomplete urine plus a point estimate of AUC alone gives no clearance lower bound"
+  - "matched cohort marginal means alone do not identify the group filtration prediction"
+  - "mean individual clearance cannot be inverted to check mean AUC"
+  - "separately averaged component and recovery percentages cannot be multiplied without aggregation support"
+  - "one unlabelled bile-parent measurement enters Table 2 or its qualitative note without a whole-body mass balance"
+  - "T10 unmatched GFR -> CANNOT_ASSESS, FILTRATION_REFERENCE_UNMATCHED, even when the ranges overlap"
+  - "extravascular data only with a reliable window AUC: Q1 ANSWERABLE"
+  - "renal sign comparison status DESCRIBED; no direction inferred"
+  - "item 31 cites absorption:T5 and distribution:T9 by test id, each with its own question"
+  - "every code token in this file is emitted by the code or listed in labels.not_implemented"
+  - "rules_manifest output_version, this file meta.version and the section json version agree"
+  - "T12 > 100 % kept as printed; later-day % of day dose not capped"
+  - "Q2/Q3 status copied from upstream, no re-plot"
+  - "single-dose design: Q3 NOT_APPLICABLE; reported-only answer <= PARTLY_ANSWERABLE"

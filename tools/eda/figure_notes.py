@@ -112,13 +112,32 @@ def auc_notes(result):
 
 def pointwise_note(result):
     test = result.get("t3p") or {}
-    rows = [[fmt(ci["t"]), fmt(ci["ln_ratio"]), interval(ci["ci95"]), p_value(ci["p_raw"]), p_value(adj)]
-            for ci, adj in zip(test.get("t3p_ln_ratio_ci", []), test.get("t3p_p_holm", []))]
-    if not rows:
+    cis = list(zip(test.get("t3p_ln_ratio_ci", []), test.get("t3p_p_holm", [])))
+    if not cis:
         return ""
-    return block("Dose effects at matched sampling times", "Welch’s approximation compares dose-normalized concentrations at each matched time. A log ratio of zero indicates equal exposure at that time. Holm adjustment accounts for testing multiple times.",
+    # 2026-11-24 review: both actual sampling times are shown when the doses were sampled at different times
+    offset = any(not ci.get("aligned", True) for ci, _ in cis)
+    rows = [[fmt(ci["t"]) if not offset else f"{fmt(ci.get('t_low', ci['t']))} / {fmt(ci.get('t_high', ci['t']))}", fmt(ci["ln_ratio"]),
+             interval(ci["ci95"]), p_value(ci["p_raw"]), p_value(adj)] for ci, adj in cis]
+    method = ("Welch’s approximation compares dose-normalized concentrations at each matched time. A log ratio of zero indicates equal exposure at that time. "
+              "The interval is a pointwise 95% CI without multiplicity adjustment; Holm adjustment accounts for testing multiple times.")
+    if offset:
+        method += (" Where the two doses were sampled at different times, the time difference alone could shift the log ratio by up to a bound "
+                   "computed from the neighbouring samples; such a time is tested for a log ratio beyond that bound.")
+    return block("Dose effects at matched sampling times", method,
                  f"{sum(bool(s) for s in test.get('significant', []))} of {len(rows)} time points met the adjusted significance criterion.",
-                 ["Time (h)", "Log ratio", "Pointwise 95% CI", "Raw p", "Holm-adjusted p"], rows, statistical=True)
+                 ["Time (h)" if not offset else "Time (h), low / high dose", "Log ratio", "Pointwise 95% CI (unadjusted)", "Raw p", "Holm-adjusted p"], rows, statistical=True)
+
+
+def _row_primary(board, legacy_q):
+    """The primary figure of one r4.3 row. Review-guide boards merge rows: the row is then a part of a guide question."""
+    for q in board.get("questions", []):
+        for part in q.get("parts", []):
+            if part.get("legacy_q") == legacy_q:
+                return part.get("primary") or {}
+        if q.get("legacy_q") == [legacy_q] or ("legacy_q" not in q and q.get("q") == legacy_q):
+            return q.get("primary") or {}
+    return {}
 
 
 def absorption_notes(data, add):
@@ -127,18 +146,17 @@ def absorption_notes(data, add):
         for s in d["series"]:
             m = s["metrics"]
             if s.get("A2") and m.get("mt1") is not None:
-                excluded = m.get("t1_label") == "EXCLUDED_UNDER_STATED_ASSUMPTIONS"
-                result = ("The curve excludes this input pattern under the stated assumptions." if excluded else
-                          "The input pattern remains compatible with the observations after the tolerance and point-deletion checks.")
+                result = ("C/t rose beyond the assumed tolerance." if m["mt1"] > 0 else
+                          "No C/t rise exceeded the assumed tolerance.")
+                result += " A study-supported uncertainty bound is needed to exclude this input pattern."
                 add("absorption", s["A2"], block("Absorption input shape", "With linear disposition and a nonincreasing input rate, concentration divided by time should not rise. "
                     "The check compares earlier and later samples using the reading tolerance at each point.", result,
                     ["Times of maximum departure", "Largest difference after tolerance (concentration units/h)"],
                     [[time_window(m["mt1_witness"]), fmt(m["mt1"])]]))
             t2 = s.get("t2") or {}
             if s.get("T2") and t2.get("valley"):
-                excluded = t2.get("t2_label") == "EXCLUDED_UNDER_STATED_ASSUMPTIONS"
                 add("absorption", s["T2"], block("Single-peak check", "The concentrations bracketing the trough quantify the fall and subsequent rise. The check uses the reading tolerance and assesses sensitivity to removing a point.",
-                    ("The observations exclude a single peak at the stated tolerance." if excluded else "A single peak remains compatible with the observations."),
+                    ("The dip survives single-sample deletion at the assumed tolerance." if t2.get("robust") else "The dip depends on one sample at the assumed tolerance."),
                     ["Before / at / after trough (h)", "Fall margin", "Rise margin"],
                     [[" / ".join(f"{v:g}" for v in t2["valley"]), fmt(t2.get("m_drop")), fmt(t2.get("m_rise"))]]))
     by_pair = {}
@@ -151,8 +169,9 @@ def absorption_notes(data, add):
         if pair.get("D1"):
             add("absorption", pair["D1"], note)
             if pair.get("q"):
-                finding = ("The ratio fell beyond the allowed tolerance and contradicts this assumption." if pair.get("t4_label") == "EXCLUDED_UNDER_STATED_ASSUMPTIONS"
-                           else "The observations do not rule out the assumption at this tolerance.")
+                finding = ("The ratio fell beyond the assumed tolerance." if (pair.get("mt4") or 0) > 0
+                           else "The ratio showed no fall beyond the assumed tolerance.")
+                finding += " Formal exclusion requires a study-supported error bound."
                 add("absorption", pair["D1"], block("Concentration ratios at matched times",
                     "With shared linear one-compartment disposition, the extravascular-to-IV concentration ratio should not fall. This shape check allows for the reading tolerance.",
                     finding, ["Matched time (h)", "Extravascular/IV concentration ratio"],
@@ -210,8 +229,9 @@ def absorption_notes(data, add):
                          ["Animal", "Quantifiable samples", "Pre-peak samples", "Peak time (h)", f"Peak concentration ({d['card'].get('unit', '')})"], rows)
             for key in ("A1ind", "B1ind"):
                 add("absorption", d.get(key), note)
-            if len(individuals) == 1 and "A1ind" in primary.get(9, {}).get("panels", []):
-                add("absorption", primary[9].get("file"), note)
+            layer = _row_primary(board, 9)   # r4.3 row 9 (individuals or averaging) is the second part of guide question 2
+            if len(individuals) == 1 and "A1ind" in layer.get("panels", []):
+                add("absorption", layer.get("file"), note)
     return by_pair
 
 
@@ -267,11 +287,12 @@ def elimination_notes(data, add):
                                 f"The source table gives a total of {fmt(rec['printed'])}%.")
             add("elimination", file, block("Observed urinary recovery", description, finding.strip(), ["Collection end (h)", "Cumulative recovery (%)"], rows))
         test = b.get("renal_filtration_comparison") or {}
-        if test.get("status") == "TESTED":
+        if test.get("status") == "DESCRIBED":
+            # R7 item 1: numbers as observed; the sign test p is kept in the audit record, not in the reading
             add("elimination", b["figs"].get("EM5c|board"), block("Renal clearance relative to filtration",
-                f"Over {time_window(test['interval_h'])}, each animal’s renal clearance was divided by its unbound fraction × glomerular filtration rate. A two-sided exact sign test compared the population median ratio with 1.",
-                f"Median ratio {fmt(test['median_ratio'])} across {test['n_animals']} animals. Ratios above / below / equal to 1: "
-                f"{test['above']} / {test['below']} / {test['ties']}, p = {p_value(test['p'])}.", statistical=True))
+                f"Over {time_window(test['interval_h'])}, each animal’s renal clearance was divided by its unbound fraction × glomerular filtration rate.",
+                f"Median ratio {fmt(test['median_ratio'])} (range {fmt(test['range'][0])}–{fmt(test['range'][1])}) across {test['n_animals']} animals. "
+                f"Ratios above / below / equal to 1: {test['above']} / {test['below']} / {test['ties']}. The formal filtration judgement is T10."))
 
 
 def figure_readings(root):

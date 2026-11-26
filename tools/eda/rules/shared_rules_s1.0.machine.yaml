@@ -1,0 +1,219 @@
+# EDA shared rules s1.0 - machine rules (concise), common to Absorption r4.4, Distribution r1.6 and Elimination r1.2
+# Human rules: EDA_shared_rules_s1.0_20261124.md (rule decisions R1-R10 of 2026-11-24; Sn = Rn)
+# Code: tools/eda/eda_common.py (names given as code: below). Rules and constants are fixed per round.
+# A module YAML refers to this file for the topics below and states only its own premises, minimum data and removal units.
+
+meta: {version: s1.0, date: 2026-11-24, decisions: [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10], additions: [S11, S12, S13],
+       applies_to: {absorption: r4.4, distribution: r1.6, elimination: r1.2}}
+
+formal_labels: [EXCLUDED_UNDER_STATED_ASSUMPTIONS, NOT_EXCLUDED, CANNOT_ASSESS]
+
+# ---------------------------------------------------------------- S10 (R10): one ordered table for every formal check
+decision_order:   # apply in order and stop at the first step that decides
+  - {step: 1, id: premises, fails: CANNOT_ASSESS, record: reason_for_this_step_only,
+     example: "T10 with an unmatched GFR stops here even when the numeric ranges overlap"}
+  - {step: 2, id: interval_or_test_basis, rules: [S1, S4, S8], fails: CANNOT_ASSESS, record: reason_for_this_step_only,
+     flag_when_conditional_calculation_possible: SENSITIVITY_ONLY}
+  - {step: 3, id: full_data, no_contradiction: NOT_EXCLUDED, contradiction_keeps: [direction, margin, decisive_observations]}
+  - {step: 4, id: removal, rule: S2,
+     contradiction_lost_in_valid_rerun: {label: NOT_EXCLUDED, flag: SINGLE_POINT_SUPPORT},
+     no_removable_unit_or_rerun_not_assessable: {label: NOT_EXCLUDED, flag: LOO_NOT_ASSESSABLE},
+     both: "both flags are recorded; either defers the formal exclusion"}
+  - {step: 5, id: timing_and_widening, rule: S3,
+     timing_assessable_but_unstable: {label: NOT_EXCLUDED, flag: "timing-sensitive (name open, proposed TIMING_SENSITIVE)"},
+     timing_range_invalidates_check: CANNOT_ASSESS,
+     prespecified_justified_widening_removes_contradiction: {label: NOT_EXCLUDED, flag: BORDERLINE}}
+  - {step: 6, id: exclusion, all_applicable_steps_passed: EXCLUDED_UNDER_STATED_ASSUMPTIONS, scope: "the tested model combination and window"}
+
+sensitivity_record:   # S10: the formal result and the sensitivity calculation are recorded separately
+  formal_flags_key: "<test>_flags"
+  sensitivity_flags_key: "<test>_sensitivity_flags"
+  moved_when_formal_is_CANNOT_ASSESS: [SINGLE_POINT_SUPPORT, LOO_NOT_ASSESSABLE, BORDERLINE]   # code: SENSITIVITY_RECORD_FLAGS
+  consumer_rule: "a reader that checks a flag reads both keys"                                  # code: test_flags(record, test)
+  code: separate_sensitivity_flags
+
+limiting_flags:   # S6: a result with any of these flags is passed on with direction, reason and scope; PARTLY_ANSWERABLE at most
+  [SENSITIVITY_ONLY, BORDERLINE, SINGLE_POINT_SUPPORT, LOO_NOT_ASSESSABLE, CONDITIONAL_ON_LABEL_IDENTITY, CONDITIONAL_ON_FIXED_COHORT]   # code: LIMITING_FLAGS
+
+# ---------------------------------------------------------------- S1 (R1): group-level data
+group_level:
+  allowed: "formal conclusions bound to a group-level target; one evidence threshold across modules; each check keeps its own conditions"
+  needs: [analysis_unit_target_and_design_agree, valid_joint_interval_or_calibrated_test_over_searched_range, mean_type_checked,
+          population_per_time_point_checked, dependence_requirements_checked]
+  cannot_assess_when: [only_default_tolerance, group_composition_not_identifiable, dependence_information_missing]
+  T6: "geometric-mean path for a fixed cohort only with SD or SE on the ln C scale (or a convertible interval); no single-line exclusion from arithmetic means, also for destructive cohorts; a changing n alone is not a veto"
+  T3: "formal only for independent destructive sampling; missing metadata is not independence; small-sample t quantile (Satterthwaite df) instead of 1.96; conclusion worded as unequal dose-normalised exposure over the window"
+  T10: "group level is not formal (unchanged default)"
+  basis_record: "the formal interval basis is recorded separately from the noise tier; tier 3 (DEFAULT) gives CANNOT_ASSESS with SENSITIVITY_ONLY"
+
+# ---------------------------------------------------------------- S2 (R2): removal rerun
+removal:
+  rule: "after a full-data contradiction remove each predefined unit in turn and recalculate with the original estimation target and eligibility"
+  passed_only_when: "every required rerun is assessable and keeps the contradiction"
+  keep: [full_data_direction, margin, decisive_observations, every_rerun_result]
+  minimums: {T6: "three qualified distinct time points", T3p: "removing the only matched time -> LOO_NOT_ASSESSABLE",
+             T3: "the original window is kept", T10: "units 'remove urine collection interval' and 'remove plasma sample inside the interval', with the number of valid reruns"}
+
+# ---------------------------------------------------------------- S3 (R3): widening, BORDERLINE and timing
+widening:
+  generic_fixed_widening: "not part of the formal decision in any module; the margin is always reported"
+  BORDERLINE: "only when the study prespecified a justified widening scheme and that recheck removes the contradiction; record size and target"
+  T3p_default_5pct: "not on the formal path"
+timing:
+  rule: "source-supported timing uncertainty is its own check; recheck keeping the dependence between times"
+  outcomes: [gate_passed, "NOT_EXCLUDED, timing-sensitive, nominal result kept", "CANNOT_ASSESS (SENSITIVITY_ONLY when a conditional calculation is possible)"]
+  flag_name: open   # proposed TIMING_SENSITIVE; not emitted by the code until George decides
+
+# ---------------------------------------------------------------- S4 (R4): test family and level
+family:
+  alpha: 0.05
+  sided: two
+  follows: "the conclusion that is published; declared before the results"
+  record: [scope, analysis_unit, family_members, correction_method, m]
+  m_counts: "distinct underlying intervals covered together (T7 by concentration interval; a reused plasma observation once; fu and GFR when they carry statistical intervals)"
+  T3p_family: "dose pairs actually included x matched time contrasts (Holm)"
+  board_combination: {at_least_one_unit: "study-level control (Holm over valid unit tests, or a study-wide joint interval)",
+                      all_required_units: "intersection-union test, same direction, denominator not shrunk",
+                      at_least_k: "own calibration"}
+  selected_after_results: "the family covers every unit that took part in the selection"
+
+# ---------------------------------------------------------------- S5 (R5): rank groups
+rank:
+  groups: [REFERENCE, SUPPORTED, INDIRECT_SUPPORT, UNTESTED, CONTRARY_EVIDENCE]
+  contradiction_levels:
+    sensitivity: "candidate stays in its group; order of two changes only when the same observation distinguishes the pair and supports the other one of the same group; otherwise keep or tie, and mark"
+    formal_unit_board_threshold_not_met: "CONTRARY_EVIDENCE; report required n, assessable m, formal contradictions k, direction and unit-level correction; k = n with mixed directions stays here"
+    every_required_unit_same_direction: "board-level exclusion by the intersection-union rule (S4), recorded separately; may remain a fit comparator"
+  denominator: "fixed per candidate and check before the results; a planned unit that cannot be assessed stays in it; a unit outside the scope of the check is not counted"
+  within_group_order: [independent_evidence_sources_traced_to_original_observations, model_simplicity]
+  ties: "candidates the data cannot distinguish are tied"
+  ids: "stable candidate and unit ids"
+
+# ---------------------------------------------------------------- S6 (R6): answer statuses
+answer_status:
+  - {code: ANSWERABLE, en: Answerable, zh: 可回答, condition: "every prespecified required unit reaches the evidence level the question asks for"}
+  - {code: PARTLY_ANSWERABLE, en: Partly answerable, zh: 部分可回答, condition: "a usable result covers only some required units or sub-questions, or a conditional conclusion"}
+  - {code: NOT_ANSWERABLE_YET, en: Insufficient evidence, zh: 证据不足, condition: "the question applies and no usable result answers it yet"}
+  - {code: NOT_APPLICABLE, en: Not applicable, zh: 不适用, condition: "the known study design makes the question void"}
+status_rules:
+  meaning: "how far the question is answered, not the direction of the answer"
+  combine: "judge each result first, then combine into the question status; independent of row order"
+  board: "short label, the finding and one sentence on the limit; codes and flags stay in the structured result and audit detail"
+
+# ---------------------------------------------------------------- S7 (R7): checks that existed only in code
+code_only_checks:
+  principle: "report numbers as they are; an inference needs a rule; a registered descriptive screen gives INDIRECT_SUPPORT at most"
+  registered:
+    renal_sign_test: {module: elimination, status: DESCRIBED, keeps: [per_animal_ratios, median, range, paired_window, gfr_source, fu_source], p_value: audit_only, formal_check: T10}
+    source_reported_iv_cl: {module: elimination, name: "re-comparison of source-reported individual IV CL", max_status_alone: PARTLY_ANSWERABLE, family: S4}
+    cmax_d_screen: {module: absorption, check: CMAX_D_SCREEN, cmax_d_limits: [0.5, 2.0], auc_d_band: [0.80, 1.25], window_share_min: 0.8,
+                    needs: [peak_bracketed_by_samples, comparable_exposure_windows], max_support: INDIRECT_SUPPORT}
+    dose_patterns: {module: distribution, labels: "observable shapes", confounded: "contrast and reason only; no candidate, no dose_nonlinear, no Elimination mechanism nomination"}
+    fold_grading_1_5: {module: distribution, status: deleted, keeps: "comparable window and paired numbers with numerator and denominator"}
+    t3p_reuse_iv_group_means: {module: distribution, shared_result: [dose_pair, matched_times, family, status, limits], conclusion: "dose-normalised concentration at matched times"}
+
+# ---------------------------------------------------------------- S8 (R8): precision admission for a formal interval
+precision:
+  code: precision_admission
+  kinds: [ASSAY_CV, REPLICATES, GROUP_SAMPLING, PROJECT_DEFAULT]
+  record: [kind, source, scope_match, df, coverage, components, missing, formal_ok, short_label]
+  assay_cv_match: [source, method, analyte, matrix, range_covered, run, cv_kind]   # code: CV_MATCH_KEYS
+  acceptance_limit_is_not_observed_cv: true
+  digitized_reading_bases: [AXIS_TICKS, RESOLUTION, POINT_OVERLAP, SOURCE_TABLE_CHECK]   # code: READING_BASES
+  default_reading_pct: 5.0   # code: DEFAULT_READING_PCT; sensitivity only
+  no_double_counting: "a group SD already holds assay variation"
+  replicate_factor_examples: {m: 10, known_sigma: 2.813, df_1: 127.321}   # known_sigma as the code computes it: t quantile with df 1000 (normal quantile 2.807)
+  gfr_fu: "source and physiology match animals, dosing state and window; single values and nominal fu = 1 are not zero error"
+  missing_key_component: CANNOT_ASSESS
+  noise_tier: {1: SOURCE_ASSAY, 2: SOURCE_REPLICATES, 3: DEFAULT}   # code: NOISE_TIER_LABEL; record key tier_label
+
+# ---------------------------------------------------------------- S9 (R9): flip-flop reading (owned by Absorption)
+flip_flop:
+  ratio: "EV/IV apparent terminal half-life over qualified window pairs"
+  cuts: [0.80, 1.25, 2.0]
+  lower_bound_inclusive: true
+  grades: {STEEPER: "r < 0.80", APPROXIMATELY_PARALLEL: "0.80 <= r < 1.25", MODERATELY_SHALLOWER: "1.25 <= r < 2.0", MARKEDLY_SHALLOWER: "r >= 2.0"}
+  readings: {STEEPER: EV_STEEPER_REVIEW, APPROXIMATELY_PARALLEL: COMMON_TERMINAL_COMPATIBLE,
+             MODERATELY_SHALLOWER: ABSORPTION_INFLUENCED_CANDIDATE, MARKEDLY_SHALLOWER: ABSORPTION_INFLUENCED_CANDIDATE}
+  UNRESOLVED: "qualified window pairs give different readings"
+  NOT_ASSESSABLE: "either route lacks a qualified window, or no reference; name the missing side"
+  INDIRECT_COMPARATOR: "another EV curve or a literature IV terminal value, with source and limits; indirect support at most"
+  not_evidence_against_flip_flop: [UNRESOLVED, NOT_ASSESSABLE, INDIRECT_COMPARATOR]
+  report: [ratio_range, n_window_pairs, readings_over_window_pairs]
+  same_reading_for: [board, candidate_ranking, modeling_handoff]
+
+# ---------------------------------------------------------------- shared records from M1, M5 and L1/L6
+iv_window:   # M1: one IV post-distribution window for Distribution and Absorption
+  name: iv_post_distribution_window   # code: IV_WINDOW_NAME
+  code: [iv_window_samples, iv_window, time_origin]
+  time_basis: "time after the end of dosing; no second shift when the source clock starts at the end of input"
+  record: [name, time_basis, shift_applied_h, precision_basis, status, start_h, end_h, sample_times_h, sample_ids, n, slope_per_h, rate_per_h, thalf_h, reason]
+  slope: "refitted on the samples the record lists"
+  status: [DETERMINED, NOT_DETERMINED]
+  reasons: [TOO_FEW_POINTS, LOW_POWER, SLOWING_IN_EVERY_SUFFIX, NO_NULL_SUFFIX, PROFILE_STEEPENING, SCREEN_NOT_ASSESSABLE]
+early_mixing: {window_h: 0.08333333333333333, definition: "within 5 minutes after the end of dosing", inclusive: true}   # L6
+predose_zero: {status: REPORTED_ZERO_PREDOSE, quantified: false, area_anchor: "where the section justifies it"}   # L1; code: PREDOSE_ZERO
+question_ids:   # M5
+  row_fields: [qid, guide_q, also_guide_q, legacy_q, display_number, display_ref]
+  key: ["section:qid", "section:board_id:qid"]   # code: question_key
+  coverage: [ROW, SHOWN_IN_ROW, NO_ENGINE_ROW]   # board field guide_coverage
+  hypothesis_rests_on: "section:board_id:qid"
+  upstream_tests:   # code: UPSTREAM_TESTS
+    "absorption:T3": "Does dose-normalized exposure over the common window differ between doses?"
+    "absorption:T3p": "Does the dose-normalized concentration differ at any matched time (Holm over the times)?"
+    "absorption:T5": "Can one multiplier map one occasion's profile onto the other over the common window?"
+    "distribution:T9": "Are later-dose concentrations no lower than first-dose concentrations at matched times?"
+
+# ---------------------------------------------------------------- third review round of 2026-11-24 (George: structure first)
+input_contract:   # S11; code: iv_dosing, time_origin_record, subject_dosing, dose_given, input_nominal, input_contract
+  order: [run_configuration, column, table_metadata, prose_fallback]
+  prose_source_label: "source text (fallback)"
+  table_metadata: {dose_level: dose_mg_kg, input_duration_h: infusion_h, clock: time_origin}
+  subject_column: {requires: subject_id, administered_dose: dose_mg_kg, input_duration_h: infusion_h, dose_level: dose_level_mg_kg}
+  clocks: {start: [START_OF_DOSING, START_OF_INPUT, START_OF_INFUSION, START_OF_INJECTION], end: [END_OF_INFUSION, END_OF_DOSING, END_OF_INPUT, END_OF_INJECTION]}
+  grouping_uses: [dose_level, table_input_duration]
+  division_uses: administered_dose
+  issues: [IV_INPUT_FROM_TEXT, IV_INPUT_DURATION_NOT_STATED, TIME_ORIGIN_NOT_STATED, TIME_ORIGIN_CONFLICT, TIME_ORIGIN_FROM_TEXT,
+           SUBJECT_DOSES_ONLY_IN_TEXT, SUBJECT_DURATIONS_ONLY_IN_TEXT, SUBJECT_DOSE_PARTIAL, DOSE_LEVEL_NOT_STATED]
+  clock_not_stated_with_input: {result: SENSITIVITY_ONLY, caveat: TIME_ORIGIN_NOT_STATED}
+  number_reader: {code: [normalize_numeric_text, to_float, mean_dispersion, printed_assay_bound],
+                  normalised: [unicode_minus, superscript_power_of_ten, fullwidth_digits, thin_spaces],
+                  incomplete_number: not_read, limit_with_number_left_over: not_read,
+                  unbracketed_power_after_dispersion: not_read}
+premise_gate:   # S12; code: formal_premises, summary_type
+  members: all
+  on_failure: {label: CANNOT_ASSESS, flags: [SENSITIVITY_ONLY, "<premise code>"]}
+  premises: [SUMMARY_TYPE_CONFLICT, SUMMARY_TYPE_MIXED, GEOMETRIC_MEAN_LINEAR_SD, SUMMARY_TYPE_NOT_STATED_ACROSS_SOURCES,
+             UNIT_NOT_CONVERTIBLE, UNIT_MISMATCH, TIME_NOT_ALIGNED, SAMPLING_DEPENDENCE_UNRESOLVED]
+  untestable_premise_bounds: illustration_only
+# ---------------------------------------------------------------- 2026-11-25 (George: figure review)
+plot_rules:   # S13; display only, never changes a computed value. code: eda_absorption TIME_AXIS, input_band, label_close_times
+  time_axis: "Time after start of dosing (h)"
+  allowed_other_time_axes: ["Reported time (h), input end unknown", "Reported time during ongoing IV input (h)"]
+  one_axis_name_per_figure: true
+  iv_input_band: {from_h: 0, to: infusion_h, drawn: under_data, legend: "IV infusion 0–<h> h", several_lengths: one_band_to_longest_labelled_with_range,
+                  bolus: none, unknown_length: none}
+  free_text_forbidden: ["infusion stop"]
+  observations: {all_drawn: true, same_symbol: true, below_limit: open_circle_at_limit, count_split_marks: none}
+  point_notes: on_the_data
+  close_times: {status: withdrawn_2026_11_25, replaced_by: figure_titles}
+  window_lines: legend_names_window
+  dose_normalised_axis: names_unit
+  later_doses: {basis: column_dose_events, dose_lines: dashed, legend: "later doses at <h> h", samples_after_second_dose: open_symbol_in_animal_colour, group_overview: whole_course_per_animal, per_animal_figures: first_interval_only,
+                analysed_by_absorption: first_dose_interval_only}
+  figure_text: {wording: plain_pk, internal_codes_in_figures: none, code_in_brackets: traceability_only,
+                numbers_better_as_table: table, vc_bounds_item25: table}
+  text_clock: {all_times: after_start_of_dosing, after_end_of_infusion: in_brackets}
+  figure_titles: {title: "<Species> · <route> · <profile or group> (<dose>[, <input>]) — <quantity> vs time, <linear|semi-log>",
+                  title_forbids: [panel_codes, test_names, questions], subtitle: question_answered, caption: reading_max_2_sentences,
+                  markers: [observed_points, infusion_band, later_dose_lines, tmax_cmax, last_quantified, blq, terminal_fit_line],
+                  test_construction_figures: none, missing_inputs: "Not supplied in this package"}
+  plain_words: {applies_to: [question_answers, working_hypothesis, overview_paragraphs, model_context_plain_lines, modeling_facts_plain_lines],
+                form: [what_the_plot_shows, pk_modelling_suggestion], sentences: 2, animal_counts: allowed,
+                other_numbers_max: 1, other_number_only_if: changes_a_modelling_choice,
+                forbids: [codes, test_names, ratios, z, tolerances, noise_settings, not_a_formal_test_boilerplate],
+                details: "Numbers behind this (collapsed) and the JSON", source: tool_results_only,
+                visible_text_forbids: [rule_ids, item_numbers, internal_codes, method_boilerplate], empty_section: plain_reason_not_zero_count,
+                deletion_checks: one_sentence_naming_dependent_animals, hypothesis_model: recommended_first_simpler_as_baseline,
+                elimination_figures: [terminal_phase_per_animal, plasma_profiles_repeated]}
+open: ["S3 timing flag name (proposed TIMING_SENSITIVE)", "S6 whether the code NOT_ANSWERABLE_YET stays (assumed yes)"]

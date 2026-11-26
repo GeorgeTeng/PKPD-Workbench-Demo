@@ -53,6 +53,17 @@ ITEM_MAP = {
     "distribution": {1: [24], 2: [25], 3: [24], 4: [24], 5: [26], 6: [27], 7: [28]},
     "elimination": {1: [29], 2: [30], 3: [31], 5: [33], 6: [34], 7: [35, 36]},
 }
+ABSORPTION_GUIDE_ITEMS = {
+    "onset_and_peak_sampling": [16, 17, 21],
+    "within_animal_trough": [20],
+    "half_life_and_window_choice": ["A0.7"],
+    "immediate_non_increasing_input": [16, 17, "A0.10"],
+    "flip_flop_kinetics": [18],
+    "systemic_bioavailability": [22, "A0.12"],
+    "dose_proportionality": [19],
+    "shared_one_compartment_disposition": [18, "A0.10"],
+    "one_multiplier_between_conditions": [23],
+}
 SHARED_SECTION = {"absorption": "A0", "distribution": "D0", "elimination": "E0"}
 
 
@@ -96,7 +107,7 @@ def _row(section, board, q, key, project=None):
     qn = q.get("q")
     shown = q.get("shown", True)
     return {"row_id": f"{section}:{key}:Q{qn}", "kind": "question", "section": section, "board": key, "study": board.get("study"),
-            "species": _species(board), "species_text": board.get("species_text") or board.get("species"), "q": qn, "label": q.get("label"), "question": q.get("question"), "status_code": q.get("status_code"),
+            "species": _species(board), "species_text": board.get("species_text") or board.get("species"), "q": qn, "qid": q.get("qid"), "label": q.get("label"), "question": q.get("question"), "status_code": q.get("status_code"),
             "observed": q.get("observed"), "basis": q.get("basis"), "reach": q.get("reach"), "missing": q.get("missing") or [],
             "figures": _figs(q), "value_table": _row_table(q), "evidence": _evidence_tables(q), "shown": shown,
             "datasets": q.get("dataset_ids", board.get("datasets") or []),
@@ -216,7 +227,8 @@ def rule_passages(text):
     """Split a rules markdown file into passages keyed by item number ('29') or shared heading ('E0.6')."""
     out, cur, buf = {}, None, []
     for line in text.splitlines():
-        m = re.match(r"^###\s+(\w+)\s*\|", line) or re.match(r"^####\s+([A-Z]\d+\.\d+)\b", line)
+        m = (re.match(r"^###\s+(\w+)\s*\|", line) or re.match(r"^####\s+([A-Z]\d+\.\d+)\b", line)
+             or re.match(r"^##\s+(S\d+)\.", line))
         end = re.match(r"^#{2,3}\s", line) and not m       # any other heading closes the passage (sections B, C ...)
         if m or end:
             if cur:
@@ -229,12 +241,13 @@ def rule_passages(text):
     return out
 
 
-def passages_for(section, q, passages, item_map=None):
+def passages_for(section, q, passages, item_map=None, *, items=None):
     """The rule items behind a question, the shared definitions they cite, and the shared answer-status rules.
 
     Shared passages are sent whole: the answer-status definitions sit at the end of E0.11 / D0.11 / A0.11, and a
     shortened passage would leave the reviewer without the rule it is asked to apply."""
-    items = (item_map or ITEM_MAP).get(section, {}).get(q, [])
+    if items is None:
+        items = (item_map or ITEM_MAP).get(section, {}).get(q, [])
     prefix = SHARED_SECTION[section][0]
     keep = {}
     for it in items:
@@ -343,9 +356,18 @@ def err_requests(root, rows, rules_text_by_section, item_map=None, max_images=MA
                     # Earlier boards number the last five absorption endpoints differently.
                     legacy = {"Long tail and flip-flop": 6, "Extent of absorption (F)": 7, "Dose dependence": 8,
                               "Comparison across conditions": 9, "Individuals or averaging": 5}
-                    question = legacy.get(r["label"], r["q"]) if sec == "absorption" and not item_map else r["q"]
-                    requirements[r["row_id"]] = [str(k) for k in (item_map or ITEM_MAP).get(sec, {}).get(question, [])]
-                    rules.update(passages_for(sec, question, passages.get(sec, {}), item_map))
+                    question = r["q"]
+                    items = None
+                    if sec == "absorption" and not item_map:
+                        items = ABSORPTION_GUIDE_ITEMS.get(r.get("qid"))
+                        question = legacy.get(r["label"], question)
+                    if items is None:
+                        items = (item_map or ITEM_MAP).get(sec, {}).get(question, [])
+                    requirements[r["row_id"]] = [str(k) for k in items]
+                    rules.update(passages_for(sec, question, passages.get(sec, {}), items=items))
+            shared = passages.get("shared", {})
+            cited = {key for passage in rules.values() for key in re.findall(r"\bS(?:1[0-3]|[1-9])\b", passage)}
+            rules.update({key: shared[key] for key in shared if key in cited})
             for p in im:
                 figure = (Path(root) / p).resolve()
                 if not figure.is_relative_to(Path(root).resolve()) or figure.suffix.lower() != ".png":
@@ -571,7 +593,10 @@ def run(root, generate=None, rules_paths=None, out_dir=None, write_requests=Fals
     truth = None
     if inject:      # measurement run: planted errors, the summary is skipped and the page says so
         rows, truth = inject_errors(rows, n=inject, seed=seed)
-    rules_paths = rules_paths or run_rules(root)
+    frozen_rules = run_rules(root)
+    rules_paths = dict(rules_paths or frozen_rules)
+    if "shared" in frozen_rules:
+        rules_paths.setdefault("shared", frozen_rules["shared"])
     raw_rules = {s: Path(p).read_bytes() for s, p in rules_paths.items() if p and Path(p).is_file()}
     rules = {s: raw.decode("utf-8-sig") for s, raw in raw_rules.items()}
     hashes = {s: hashlib.sha256(raw).hexdigest() for s, raw in raw_rules.items()}
@@ -922,9 +947,10 @@ def rule_problems(root, required, hashes):
         if not isinstance(bindings, dict):
             problems.append(f"{path.name}: missing {key} bindings")
             continue
-        for s in sorted(required & hashes.keys()):
+        bound_sections = required | ({"shared"} if required and "shared" in bindings else set())
+        for s in sorted(bound_sections):
             entry = bindings.get(s)
-            if not isinstance(entry, dict) or entry.get("sha256") != hashes[s]:
+            if s not in hashes or not isinstance(entry, dict) or entry.get("sha256") != hashes[s]:
                 problems.append(f"{s}: missing or mismatched hash in {path.name}")
     return problems
 

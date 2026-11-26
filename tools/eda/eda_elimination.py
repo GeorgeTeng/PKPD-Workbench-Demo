@@ -10,7 +10,7 @@ present; optional ``elimination_config.json``) and writes ``<root>/elimination/`
 
 Reuse rule (E0.11, B.9). Plasma questions read the absorption and distribution records by ID and version. The window AUC
 of item 29 is the upstream A0.6 value when absorption holds it for the same profile; otherwise the same A0.6 routine
-(``eda_absorption.auc``) is applied to the observed points. Upstream panels (B1, C2, E1, DIS-1a, DIS-2b, DIS-4c ...)
+(``eda_absorption.auc``) is applied to the observed points. Upstream panels (B1, C2, E1, DIS-1a/1b, DIS-2b, DIS-3c ...)
 are linked, never redrawn. Q2 and Q3 take their test status from the upstream record.
 
 Not computed (E0.7): terminal slope or half-life fits, AUC to infinity, excretion asymptotes, sigma-minus plots,
@@ -20,7 +20,6 @@ T10 and the reused T3, T3p, T7, T9. T11 and item 32 are reserved. T12 is a data 
 from __future__ import annotations
 
 import hashlib
-import html
 import json
 import math
 import re
@@ -56,8 +55,9 @@ def _eda_common():
 RULES = _eda_common().rules_entry("elimination")  # the one rules version for this section: rules/rules_manifest.json
 RULES_VERSION = RULES["version"]
 FIT_NOTE = _eda_common().FIT_NOTE
+COMMON = _eda_common()
 
-VERSION = "EDA_ELIMINATION_ANIMAL_CONTRASTS_20261111"
+VERSION = RULES.get("output_version") or "unrecorded"   # M3/L7: one version source, rules/rules_manifest.json (r1.2: EDA_ELIMINATION_R1_2_20261124)
 Q1_AMENDMENT = "EDA_elimination_Q1_observed_AUC.md"
 Q2_AMENDMENT = "EDA_elimination_Q2_dose_proportionality.md"
 Q3_AMENDMENT = "EDA_elimination_Q3_reported_occasions.md"
@@ -72,13 +72,13 @@ TOL = dist.TOL                 # A0.4 project-set relative error for values with
 H_PER_MIN = 1 / 60.0
 ML_MIN_KG_PER_L_H_KG = 1000 / 60.0   # 1 L/h/kg = 16.667 mL/min/kg (E0.8: 1 mL/min/kg = 0.06 L/h/kg)
 
-ST_YES, ST_PART, ST_NO, ST_NA = ab.ST_YES, ab.ST_PART, ab.ST_NO, ab.ST_NA
-ST_CODE = ab.ST_CODE
+ST_YES, ST_PART, ST_NO, ST_NA = COMMON.ST_YES, COMMON.ST_PART, COMMON.ST_NO, COMMON.ST_NA
+ST_CODE = COMMON.ST_CODE
 INK, INK2, MUTED, SURF = ab.INK, ab.INK2, ab.MUTED, ab.SURF
 BLUE, ORANGE, GREEN, PURPLE = ab.BLUE, ab.ORANGE, ab.GREEN, ab.PURPLE
 GRAY = "#8a9aa6"
 CAT = dist.CAT
-_e, _f, _slug, _wb = ab._e, ab._f, ab._slug, ab._wb
+_e, _f, _slug, _wb = COMMON._e, COMMON._f, COMMON.page_slug, COMMON._wb
 _num = dist._num
 
 DEFAULT_CONFIG = {
@@ -103,26 +103,13 @@ DEFAULT_CONFIG = {
     "collection": {"_example_T0004": {"bladder_emptying": "", "collection_complete": "YES or NO", "cagewash": "ALLOCATED, SEPARATE or NOT_REPORTED",
                                       "animals": "INTACT or BILE_CANNULATED", "pairing": "SAME_ANIMAL, PARALLEL_COHORT_SAME_STUDY, OTHER_STUDY or NOT_REPORTED",
                                       "cohort_id": "", "stability": "", "sample_loss_to_container": "ADDRESSED, RISK_SOURCED or NOT_REPORTED", "source": ""}},
-    "excreta_layout": {"_example_T0099": {"layout": "INTERVAL_COLUMNS, SAMPLE_ROWS, COMPONENT_ROWS or QUANTITY_ROWS_BY_ANIMAL", "source": ""}},
+    "excreta_layout": {"_example_T0099": {"layout": "INTERVAL_COLUMNS, SAMPLE_ROWS, COMPONENT_ROWS, QUANTITY_ROWS_BY_ANIMAL or AMOUNT_ROWS", "source": ""}},
     "show_sensitivity_rows": False,
 }
 
 
 def load_config(root):
-    p = Path(root) / "elimination_config.json"
-    cfg = json.loads(json.dumps(DEFAULT_CONFIG))
-    for k in list(cfg):
-        if isinstance(cfg[k], dict):
-            cfg[k] = {kk: vv for kk, vv in cfg[k].items() if not str(kk).startswith("_example")}
-    if p.exists():
-        user = json.loads(p.read_text(encoding="utf-8-sig"))
-        for k, v in user.items():
-            if isinstance(v, dict) and isinstance(cfg.get(k), dict):
-                cfg[k].update({kk: vv for kk, vv in v.items() if not str(kk).startswith("_example")})
-            else:
-                cfg[k] = v
-        cfg["_loaded_from"] = p.name
-    return cfg
+    return COMMON.load_section_config(root, "elimination_config.json", DEFAULT_CONFIG)
 
 
 # ---------------------------------------------------------------- parsing helpers
@@ -131,7 +118,6 @@ _DASH = re.compile(r"^\s*[—–\-−]+\s*$")
 _FOOT = re.compile(r"\s*(?:\b([a-z])\)|\*+)\s*$")
 _ND = re.compile(r"^\s*(?:n\.?\s*d\.?|not detected|nd|<\s*ll?oq|blq|below)", re.I)
 _NUMBER = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
-_CENSOR_VALUE = re.compile(rf"^(<=|>=|<|>|≤|≥)\s*({_NUMBER})\s*(.*?)$")
 _INTERVAL = re.compile(r"(\d+(?:\.\d+)?)\s*(?:[-–~]|to)\s*(\d+(?:\.\d+)?)\s*(h|hr|hrs|hours?|min|mins|minutes?|d|days?)\b", re.I)
 _UNIT_H = {"h": 1.0, "hr": 1.0, "hrs": 1.0, "hour": 1.0, "hours": 1.0, "min": H_PER_MIN, "mins": H_PER_MIN, "minute": H_PER_MIN,
            "minutes": H_PER_MIN, "d": 24.0, "day": 24.0, "days": 24.0}
@@ -140,25 +126,27 @@ _UNIT_H = {"h": 1.0, "hr": 1.0, "hrs": 1.0, "hour": 1.0, "hours": 1.0, "min": H_
 def parse_cell(raw, status=None):
     """Read a source cell, keeping printed censoring limits separate from quantified values."""
     out = {"value": None, "sd": None, "state": "MISSING", "foot": None, "raw": raw}
-    status = str(status or "").strip().upper()
-    if status.startswith(("MISSING", "EMPTY_SLOT", "NOT_SAMPLED", "NOT_APPLICABLE", "NOT_COLLECTED", "QUARANTINED")):
+    qualifier = COMMON.assay_qualifier(status, raw)
+    if qualifier == "MISSING":
         return out
-    if status in {"BLQ", "BQL", "BELOW_LLOQ", "NOT_DETECTED", "CENSORED"}:
-        out["state"] = "CENSORED" if status == "CENSORED" else "NOT_DETECTED"
+    if qualifier:
+        out["state"] = qualifier
     if raw is None or (isinstance(raw, str) and not raw.strip()):
         return out
     if isinstance(raw, (int, float)) and not isinstance(raw, bool) and out["state"] == "MISSING":
+        if not math.isfinite(float(raw)):   # E10c: NaN or infinity is not a reading
+            out["state"] = "MISSING"
+            return out
         out.update(value=float(raw), state="QUANTIFIED")
         return out
-    txt = str(raw).replace("，", ",").replace("。", ".").strip()
+    txt = COMMON.normalize_numeric_text(str(raw).replace("，", ",").replace("。", ".")).strip()
     feet = re.findall(r"\b([a-z])\)", txt)
     out["foot"] = feet[-1] if feet else None
     core = re.sub(r"\b[a-z]\)", "", txt).replace("*", "").strip()
-    limit = _CENSOR_VALUE.fullmatch(core)
+    limit = COMMON.printed_assay_bound(core)
     if limit:
-        relation, number, unit = limit.groups()
-        out["state"] = "NOT_DETECTED" if out["state"] == "NOT_DETECTED" and relation in ("<", "<=", "≤") else "CENSORED"
-        out["censoring"] = {"relation": relation, "threshold": float(number), "unit_as_printed": unit or None}
+        out["state"] = qualifier or "CENSORED"
+        out["censoring"] = limit
         return out
     if out["state"] != "MISSING":
         return out  # a numeric placeholder without a printed inequality provides no assay threshold
@@ -168,9 +156,9 @@ def parse_cell(raw, status=None):
     if _ND.match(core):
         out["state"] = "NOT_DETECTED"
         return out
-    m = re.match(r"^\s*([-+]?\d+(?:\.\d+)?)\s*(?:±|\+/-|\+-)\s*(\d+(?:\.\d+)?)", core.replace(",", ""))
-    if m:
-        out.update(value=float(m.group(1)), sd=float(m.group(2)), state="QUANTIFIED")
+    pm = COMMON.mean_dispersion(core.replace(",", ""))   # 2026-11-24 review: whole numbers, exponent included
+    if pm:
+        out.update(value=pm[0], sd=pm[1], state="QUANTIFIED")
         return out
     m = re.match(rf"^\s*(?:about|approx\.?|~)?\s*({_NUMBER})", core.replace(",", ""), re.I)
     if m:
@@ -181,7 +169,7 @@ def parse_cell(raw, status=None):
 
 
 def _record_cell(record, column):
-    status = (record.get("value_status") or {}).get(column)
+    status = COMMON.cell_status(record, column)
     raw = (record.get("source_raw_values") or {}).get(column, record.get(column))
     return parse_cell(raw, status)
 
@@ -239,10 +227,8 @@ def _declared_dispersion(entry, header="", marked_note=""):
 
 
 def n_from(text):
-    m = re.search(r"\(\s*n\s*=\s*(\d+)\s*\)|\bn\s*=\s*(\d+)|\bof\s+(\d+)\s+(?:rats|mice|dogs|monkeys|animals|rabbits)|\((\d+)\)\s*$", str(text or ""), re.I)
-    if not m:
-        return None
-    return int(next(g for g in m.groups() if g))
+    """L2 (2026-11-24): the shared sample-size reader and range policy; a group label may end in '(n)'."""
+    return COMMON.sample_size(text, header_suffix=True)[0]
 
 
 def species_of(text):
@@ -303,6 +289,9 @@ def analyte_kind(text, drug=""):
     return "NAMED_COMPONENT"
 
 
+assay_class = COMMON.assay_class   # round 3 addendum: one assay reader, shared with Distribution
+
+
 def assay_of(e, cfg, matrix_word="urine"):
     """E0.2 gate 3. Returns (assay, note). A study note that names a bioassay only for plasma does not set the urine assay."""
     over = (cfg.get("assay_by_dataset") or {}).get(e["dataset_id"])
@@ -315,14 +304,28 @@ def assay_of(e, cfg, matrix_word="urine"):
                for key, value in binding.items()):
             return over["assay"].upper(), f"declared in the run configuration ({over['source']})"
     # Process fields separately: the title's matrix cannot qualify an unrelated method in the notes.
+    prose = None
     for field in ("notes", "title", "experimental_unit"):
         for clause in re.split(r"[;\n]|(?<=\.)\s+", e.get(field) or ""):
             if matrix_word not in clause.lower() and re.search(r"plasma|serum|blood|tissue|homogenate|urine", clause, re.I):
                 continue
-            if re.search(r"bioassay|microbiolog|agar diffusion|disc[- ]plate|cup[- ]plate", clause, re.I):
-                return "MICROBIOLOGICAL", f"source note: '{clause.strip()[:160]}'"
-            if re.search(r"\bhplc\b|lc[-/]ms|chromatograph|radioimmunoassay|\bria\b", clause, re.I):
-                return "SPECIFIC", f"source note: '{clause.strip()[:160]}'"
+            cls = assay_class(clause)
+            if cls in ("MICROBIOLOGICAL", "IMMUNOASSAY", "SPECIFIC"):
+                prose = (cls, f"source note: '{clause.strip()[:160]}'")
+                break
+        if prose:
+            break
+    # S11 (round 3 addendum): the table's own structured assay field describes this table's matrix and comes before prose.
+    # A plasma series built by Distribution carries the same field as its own "assay" key. When the field and an explicit
+    # method in the prose disagree, neither is taken (fail closed, S12): the label is CONFLICT, which no gate reads as selective.
+    meta_assay = str((e.get("metadata") or {}).get("assay") or e.get("assay") or "").strip()
+    field = assay_class(meta_assay) if meta_assay.upper() not in ("", "NOT_REPORTED", "NOT_FOUND", "UNKNOWN", "NONE") else None
+    if field:
+        if prose and prose[0] != field:
+            return "CONFLICT", f"metadata.assay '{meta_assay[:120]}' and {prose[1]} name different methods"
+        return field, f"metadata.assay: '{meta_assay[:160]}'"
+    if prose:
+        return prose
     if re.search(r"14\s*c|radioactiv", _entry_text(e), re.I):
         return "RADIOACTIVITY", "radiolabel study"
     return "NOT_REPORTED", "assay not stated in the table record"
@@ -345,7 +348,15 @@ def _collection(e, cfg):
 
 
 def _level_of(e):
+    # S11 (round 3 addendum): the structured record category comes first; prose is the fallback.
+    cat = str((e.get("metadata") or {}).get("record_category") or "").strip().upper()
+    if cat in ("GROUP_SUMMARY", "GROUP_MEAN"):
+        return "GROUP_MEAN"
+    if cat in ("INDIVIDUAL", "INDIVIDUAL_OBSERVATION", "INDIVIDUAL_OBSERVATIONS"):
+        return "INDIVIDUAL"
     s = (str(e.get("experimental_unit") or "") + " " + str(e.get("metadata", {}).get("record_level") or "")).lower()
+    # "individual values not reported" says that no individual values are given, not that some are
+    s = re.sub(r"individual\s+(?:\w+\s+){0,3}(?:values?\s+)?(?:are\s+|were\s+)?not\s+(?:reported|given|available|shown)", " ", s)
     if "individual" in s and "mean" in s:
         return "MIXED"
     if "individual" in s:
@@ -359,11 +370,6 @@ def _level_of(e):
 
 def _cols(e):
     return e.get("columns", [])
-
-
-def _first_col(e):
-    cs = _cols(e)
-    return cs[0] if cs else None
 
 
 def detect_layout(e, cfg):
@@ -382,7 +388,30 @@ def detect_layout(e, cfg):
         return "SAMPLE_ROWS", "one row per excretum"
     if any(parse_interval(c.get("header")) for c in cs[1:]):
         return "INTERVAL_COLUMNS", "one column per collection interval"
+    if _amount_columns(e):
+        return "AMOUNT_ROWS", "structured fields: value column unit in percent of dose, one amount per record (S11)"
     return None, "layout not recognized; declare it under excreta_layout in elimination_config.json"
+
+
+_AMOUNT_MEANINGS = {"AMOUNT_EXCRETED", "FRACTION_EXCRETED", "PERCENT_OF_DOSE", "EXCRETED_AMOUNT"}
+
+
+def _amount_columns(e):
+    """S11 (round 3 addendum): value columns whose own structured fields say they hold an excreted amount: a unit in percent of
+    the dose (or of the administered radioactivity), or an amount meaning. Header prose is not read here."""
+    out = []
+    for c in _cols(e):
+        unit = COMMON.normalize_numeric_text(str(c.get("unit") or "")).strip()
+        if (c.get("meaning") or "").upper() in _AMOUNT_MEANINGS or (
+                unit and (COMMON.PERCENT_UNIT.match(unit) and unit != "%"
+                          or re.fullmatch(r"%\s*of\s+(?:the\s+)?administered\s+(?:radioactivity|radiolabel|14\s*c)", unit, re.I))):
+            out.append(c)
+    return out
+
+
+def _record_hours(value):
+    v = COMMON.to_float(value) if value is not None else None
+    return float(v) if v is not None else None
 
 
 def _table_context(e, cfg):
@@ -406,7 +435,9 @@ def _table_context(e, cfg):
             "dispersion": _declared_dispersion(e),
             "footnotes": feet, "conflicts": _conflict_reasons(e), "restrictions": _restrictions(e),
             "radiolabel": bool(re.search(r"14\s*c|\[14c\]|radiolab", text, re.I)), "notes": e.get("notes") or "",
-            "repeat": bool(re.search(r"/\s*day|daily|\bdays?\s+\d+\s+and\s+\d+|repeated", text, re.I))}
+            "repeat": bool(re.search(r"/\s*day|daily|\bdays?\s+\d+\s+and\s+\d+|repeated", text, re.I)),
+            "noise_source": {k: meta.get(k) for k in ("assay_cv", "assay_cv_pct", "assay_precision_cv", "assay_precision_source",
+                                                      "replicate_sigma_ln", "replicate_source") if meta.get(k) not in (None, "")}}
 
 
 def _obs(ctx, rec, **kw):
@@ -665,8 +696,57 @@ def _layout_quantity_rows(e, ctx):
     return out
 
 
+def _layout_amount_rows(e, ctx):
+    """S11 (round 3 addendum): one amount per record and value column, read from structured fields only.
+    Collection window: the record's interval_start_h / interval_end_h when both are given, else not reported.
+    Basis: the record's amount_basis (CUMULATIVE, INTERVAL or TOTAL). A cumulative or total amount without a window is a
+    total over an unreported collection (interval None), the same reading INTERVAL_COLUMNS gives a 'total' column without one;
+    an INTERVAL amount without a window cannot be placed and is kept with the flag WINDOW_NOT_REPORTED."""
+    cs = _cols(e)
+    gcol = next((c["id"] for c in cs if (c.get("meaning") or "").upper() in ("GROUP_OR_TREATMENT", "GROUP", "TREATMENT")), None)
+    vcols = _amount_columns(e)
+    out = []
+    for rec in e.get("records", []):
+        g = rec.get(gcol) if gcol else None
+        group = str(g) if g not in (None, "") else None
+        a, b = _record_hours(rec.get("interval_start_h")), _record_hours(rec.get("interval_end_h"))
+        iv = (a, b) if a is not None and b is not None and b > a else None
+        stated = str(rec.get("amount_basis") or "").strip().upper()
+        stated = stated if stated in ("CUMULATIVE", "INTERVAL", "TOTAL") else None
+        for c in vcols:
+            hdr = str(c.get("header", ""))
+            cell = _record_cell(rec, c["id"])
+            flags = []
+            if stated == "INTERVAL" and iv is None:
+                basis, text = "INTERVAL", "window not reported"
+                flags.append("WINDOW_NOT_REPORTED")
+            elif iv is not None:
+                basis, text = stated or "INTERVAL", f"{_f(iv[0])}–{_f(iv[1])} h"
+            else:
+                basis, text = "TOTAL", "total (collection interval not reported)"
+                if stated is None:
+                    flags.append("AMOUNT_BASIS_NOT_STATED")
+            o = _obs(ctx, rec, col=c["id"], group=group, species=species_of(group) or ctx["table_species"], n=n_from(e.get("experimental_unit")),
+                     interval=list(iv) if iv else None, interval_text=text, amount_basis=basis, basis_declared=stated is not None,
+                     value=cell["value"], sd=cell["sd"], state=cell["state"], raw=cell["raw"], censoring=cell.get("censoring"),
+                     analyte=analyte_kind(ctx["title"] + " " + ctx["analyte_text"], ctx["drug"]), flags=flags)
+            form, denom, unit = _basis_of(ctx, f"{hdr} {c.get('unit') or ''}")
+            o["dose_denominator_verified"] = form == "PERCENT_OF_DOSE" and denom == "administered dose"
+            if form != "NOT_STATED":
+                o.update(value_form=form, denominator=denom, unit=unit)
+            if o["analyte"] == "TOTAL_RADIOACTIVITY" and o["denominator"] == "administered dose":
+                o.update(denominator="administered radioactivity", unit="% of administered radioactivity")
+            if cell["state"] == "MISSING":
+                o["note"] = (o["note"] or "printed as a dash: missing, not zero (E0.5)")
+            o["dispersion"] = _declared_dispersion(e, hdr, "")
+            o["layout_source"] = "structured fields (S11)"
+            out.append(o)
+    return out
+
+
 LAYOUTS = {"INTERVAL_COLUMNS": _layout_interval_columns, "SAMPLE_ROWS": _layout_sample_rows,
-           "COMPONENT_ROWS": _layout_component_rows, "QUANTITY_ROWS_BY_ANIMAL": _layout_quantity_rows}
+           "COMPONENT_ROWS": _layout_component_rows, "QUANTITY_ROWS_BY_ANIMAL": _layout_quantity_rows,
+           "AMOUNT_ROWS": _layout_amount_rows}
 
 
 def excreta_dataset(e, cfg):
@@ -694,7 +774,7 @@ def excreta_dataset(e, cfg):
             o["species"] = ctx["table_species"] or "Species not stated"
         if ctx["repeat"] and o["occasion"] != "FIRST_DOSE" and "CARRYOVER_POSSIBLE" not in o["flags"] and o["occasion"] not in ("DAY_1",):
             o["flags"].append("CARRYOVER_POSSIBLE")
-        if o["state"] in ("NOT_DETECTED", "CENSORED"):
+        if o["state"] in COMMON.ASSAY_LABELS:
             o["flags"].append("ASSAY_CENSORED")
         if ctx["collection"]["cagewash"] == "SEPARATE" and o["excretum"] == "CAGEWASH":
             o["flags"].append("CAGEWASH_UNASSIGNED")
@@ -767,8 +847,8 @@ def in_vitro_dataset(e):
                 flags.append("COMPARATOR_DRUG"); why.append(f"comparator drug ({drug})")
             if ambiguous and not explicit:
                 flags.append("HEADER_AMBIGUOUS"); why.append("the header does not state the quantity or unit (source restriction)")
-            if cell["state"] == "NOT_DETECTED":
-                why.append("not detected" + (f" ({card['footnotes'].get(cell['foot'])})" if cell["foot"] in card["footnotes"] else ""))
+            if cell["state"] in COMMON.ASSAY_LABELS:
+                why.append(COMMON.ASSAY_LABELS[cell["state"]] + (f" ({card['footnotes'].get(cell['foot'])})" if cell["foot"] in card["footnotes"] else ""))
             rows.append({"row_id": f"{e['dataset_id']}:{rec.get('record_id')}:{c['id']}", "dataset_id": e["dataset_id"], "record_id": rec.get("record_id"),
                          "study": card["study"], "species": species_of(label) or (label.strip() or "not stated"), "row_label": label, "system": card["system"],
                          "drug": drug, "readout": kind, "time_min": tmin, "header": hdr, "unit": unit, "value": cell["value"], "raw": cell["raw"],
@@ -1262,6 +1342,9 @@ def absorption_index(a):
         cards[card.get("dataset_id")] = dict(card, _ind=x.get("B1ind") or x.get("A1ind"))
         for s in x.get("series", []) or []:
             by[(card.get("dataset_id"), s.get("series_id"))] = {"metrics": s.get("metrics") or {}, "B1": s.get("B1"), "A1": s.get("A1"), "card": card}
+        if x.get("series_id") and x.get("metrics"):          # M2: an IV reference is one series with its own AUC record
+            by.setdefault((card.get("source_dataset_id") or card.get("dataset_id"), x["series_id"]),
+                          {"metrics": x["metrics"], "B1": None, "A1": None, "card": card})
     return by, cards
 
 
@@ -1272,8 +1355,11 @@ def _upfile(section, f):
 # ---------------------------------------------------------------- item 29: observed-window exposure and window clearance
 
 def _pts(s):
-    return sorted([p for p in s["points"] if p["status"] == "QUANTIFIED" and p["c"] is not None and p["c"] >= 0 and p["t"] is not None
-                   and (p["t"] > 0 or (p["t"] == 0 and p["c"] == 0 and s.get("route_class") == "EV"))],
+    # L1: a zero at the dosing time anchors an EV area; it may be printed as a quantified 0 (older input) or carry the
+    # source-reported predose status
+    return sorted([p for p in s["points"] if p["status"] in ("QUANTIFIED", COMMON.PREDOSE_ZERO) and p["c"] is not None and p["c"] >= 0
+                   and p["t"] is not None
+                   and ((p["t"] > 0 and p["status"] == "QUANTIFIED") or (p["t"] == 0 and p["c"] == 0 and s.get("route_class") == "EV"))],
                   key=lambda p: p["t"])
 
 
@@ -1313,6 +1399,18 @@ def _clearance_compatibility(profile, parameter):
     value = parameter.get("value_l_per_h_kg")
     if value is None or not math.isfinite(value) or value <= 0 or parameter.get("as_printed_only"):
         issues.append("A positive clearance in L/h/kg is unavailable.")
+    # E12g: a mean of individual clearances is never inverted to check the dose over a mean-curve AUC (rules items.29.reported_cl);
+    # one animal's curve is compared only with that animal's estimate
+    pu, cu = str(parameter.get("analysis_unit") or "").upper(), str(profile.get("analysis_unit") or "").upper()
+    label = norm(parameter.get("label"))
+    from_mean_curve = bool(re.search(r"mean curve|mean profile|naive pooled|naïve pooled|pooled data", label))
+    of_individuals = (not from_mean_curve and (pu in ("GROUP_SUMMARY", "GROUP_MEAN", "SUMMARY") or parameter.get("sd") is not None
+                                               or "individual" in label or "±" in str(parameter.get("raw") or "")))
+    if (cu.startswith("GROUP") or cu == "MIXED") and of_individuals:
+        issues.append("The reported clearance summarises individual estimates; it is not compared with the dose over a mean-curve AUC "
+                      "(analysis units differ).")
+    elif cu == "INDIVIDUAL" and pu != "INDIVIDUAL":
+        issues.append("Analysis units differ: one animal's curve against a group summary.")
     return issues
 
 
@@ -1401,6 +1499,7 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
     sid_col = s["sid"].split(":", 1)[1] if ":" in s["sid"] else s["sid"]
     r = {"item_id": 29, "sid": s["sid"], "label": s["label"], "dataset_id": s["dataset_id"], "study": s["study"], "species": s["species"],
          "route": s["route_class"], "route_detail": s["route_detail"], "iv_mode": s.get("iv_mode"), "dose_mg_per_kg": s["dose"],
+         "dose_given_mg_per_kg": COMMON.dose_given(s), "dose_given_basis": "recorded per-animal dose" if s.get("dose_given_from") == "column" else "dose level",
          "dose_basis": s["dose_basis"], "matrix": s["matrix_class"], "analysis_unit": s["level"], "assay": _assay_plasma(s),
          "dose_exposure_target": None, "auc_window": None, "auc_window_h": None, "auc_method": "linear-up/log-down (A0.6)", "auc_source": None,
          "window_proxy": None, "window_quantity": None, "cl_upper_window": None, "cl_upper_tail": None, "cl_upper_conditional_area": None,
@@ -1420,6 +1519,10 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
         r["measurement_basis"] = "antimicrobial activity (bioassay)"
     elif r["assay"] == "SPECIFIC":
         r["measurement_basis"] = f"{named or 'parent drug'} (selective assay)"
+    elif r["assay"] == "IMMUNOASSAY":
+        r["measurement_basis"] = f"reported {named or 'drug'} concentration (immunoassay; selectivity for the parent not shown)"
+    elif r["assay"] == "CONFLICT":
+        r["measurement_basis"] = f"reported {named or 'drug'} concentration (the assay field and the source note name different methods)"
     else:
         r["measurement_basis"] = (f"reported {named} concentration (assay unreported)" if named
                                   else "reported concentration (parent identity unverified)")
@@ -1480,18 +1583,37 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
         r["upstream_panel"] = {"section": "absorption", "panel": "B1", "file": _upfile("absorption", up["B1"])}
     # window AUC: upstream A0.6 record first
     m = up["metrics"] if up else {}
+    rec = m.get("auc_record")
+    if rec:
+        # M2 (2026-11-24): the upstream record is consumed directly; a withheld or uncomputed area keeps its upstream reason
+        if rec.get("status") != "OBSERVED_WINDOW" or not rec.get("value"):
+            r["not_assessable_reason"] = (f"the absorption record {'withholds' if str(rec.get('status')).startswith('WITHHELD') else 'has no'} "
+                                          f"window AUC for this profile ({rec.get('status')}: {rec.get('reason')}); it is not recomputed here")
+            r["auc_record"] = rec
+            return r
+        r["n_points"] = len(rec["grid_h"])
+        r["auc_record_ids"] = [x for x in rec["sample_ids"] if x]
+        r["auc_window"] = rec["value"] * s["uf"]
+        r["auc_window_h"] = [rec["start_h"], rec["end_h"]]
+        r["auc_method"] = rec["method"]
+        r["auc_source"] = f"absorption record {abs_meta.get('version')} · {s['dataset_id']}/{sid_col} ({rec['status']})"
+        r["auc_record"] = rec
+        if rec.get("truncation_reason") and "INTERIOR_BLQ_NOT_BRIDGED" not in cav:
+            cav.append("INTERIOR_BLQ_NOT_BRIDGED")
+            r["auc_truncation_reason"] = rec["truncation_reason"]
     if str(m.get("auc_status", "")).startswith("WITHHELD"):
         r["not_assessable_reason"] = f"the absorption record withholds the window AUC for this profile ({m['auc_status']}); it is not recomputed here"
         return r
     t = [p["t"] for p in q]
     postdose_n = len({time for time in t if time > 0})
-    if postdose_n < 3 or len(set(t)) != len(t):
+    if r["auc_window"] is None and (postdose_n < 3 or len(set(t)) != len(t)):
         r["not_assessable_reason"] = (f"fewer than 3 quantified post-dose times ({postdose_n})" if postdose_n < 3 else
                                       "duplicate times in this profile; resolve the analysis unit before integration")
         return r
-    r["n_points"] = len(q)
-    r["auc_record_ids"] = [p["record_id"] for p in q if p.get("record_id")]
-    if (m.get("auc_observed") is not None and [m.get("auc_window_start_h"), m.get("auc_window_end_h")] == [t[0], t[-1]]
+    if r["auc_window"] is None:
+        r["n_points"] = len(q)
+        r["auc_record_ids"] = [p["record_id"] for p in q if p.get("record_id")]
+    if r["auc_window"] is None and (m.get("auc_observed") is not None and [m.get("auc_window_start_h"), m.get("auc_window_end_h")] == [t[0], t[-1]]
             and m.get("auc_grid_h") == t and m.get("auc_record_ids") == r["auc_record_ids"]
             and str(m.get("auc_method")).lower().startswith("linear-up/log-down")):
         r["auc_window"] = m["auc_observed"] * s["uf"]
@@ -1500,7 +1622,7 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
         r["auc_method"] = m["auc_method"]
     if r["auc_window"] is None:
         c = [p["c"] * s["uf"] for p in q]
-        r["auc_window"] = ab.auc(t, c)
+        r["auc_window"] = COMMON.auc(t, c)
         r["auc_window_h"] = [t[0], t[-1]]
         r["auc_source"] = "computed from the observed points with the shared A0.6 routine; no reusable upstream area on this grid"
     if not r["auc_window"] or r["auc_window"] <= 0:
@@ -1510,11 +1632,17 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
     if a and a > 0:
         cav.append("PARTIAL_WINDOW")
     cav.append("WINDOW_PROXY")
-    r["window_proxy"] = s["dose"] / r["auc_window"]
+    r["window_proxy"] = COMMON.dose_given(s) / r["auc_window"]   # round 3: the administered dose
     r["window_units"] = "L/h/kg"
     r["window_ml_min_kg"] = r["window_proxy"] * ML_MIN_KG_PER_L_H_KG
-    r["value_row"] = (f"{r['dataset_id']} ({r['label']}, {_lvl(r['analysis_unit'])}): the dose-to-observed-AUC ratio "
-                      f"was {_f(r['window_proxy'])} L/h/kg over {_f(a)}–{_f(b)} h, based on {r['measurement_basis']}.")
+    # M2 (2026-11-24): Q1 reports the window AUC itself and AUC/dose where the dose denominator is justified (dose basis stated)
+    r["auc_per_dose"] = r["auc_window"] / COMMON.dose_given(s) if "DOSE_BASIS_NOT_STATED" not in cav else None
+    r["auc_per_dose_unit"] = "h·kg/L"
+    r["auc_per_dose_reason"] = None if r["auc_per_dose"] is not None else "dose basis not stated"
+    r["value_row"] = (f"{r['dataset_id']} ({r['label']}, {_lvl(r['analysis_unit'])}): the observed AUC over {_f(a)}–{_f(b)} h was "
+                      f"{_f(r['auc_window'])} mg·h/L"
+                      + (f" (AUC/dose {_f(r['auc_per_dose'])} h·kg/L)" if r["auc_per_dose"] is not None else " (AUC/dose not formed: dose basis not stated)")
+                      + f"; the dose-to-observed-AUC ratio was {_f(r['window_proxy'])} L/h/kg, based on {r['measurement_basis']}.")
     r["direction_note"] = ("Leaving out the area before and after the window puts this value on the high side of D/AUC(0,∞) when the trapezoid "
                            "is accurate. Integration error is not bounded here, so the net direction for this profile is unresolved (E0.6).")
     _compare_reported_clearance(r, reported, source, cfg)
@@ -1531,7 +1659,7 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
         rising = any(post[j]["c"] * (1 - TOL) > post[i]["c"] * (1 + TOL) for i in range(len(post)) for j in range(i + 1, len(post)))
         if len(post) >= 2 and not rising:
             L = sum(post[i + 1]["c"] * s["uf"] * (1 - TOL) * (post[i + 1]["t"] - post[i]["t"]) for i in range(len(post) - 1))
-            r["cl_upper_conditional_area"] = s["dose"] / L if L > 0 else None
+            r["cl_upper_conditional_area"] = COMMON.dose_given(s) / L if L > 0 else None
             r["sensitivity_rows"].append({"kind": "CONDITIONAL_AREA", "bound_kind": "SENSITIVITY_ONLY", "quantity": "CL",
                                           "value": r["cl_upper_conditional_area"], "L_cond": L, "window": [post[0]["t"], post[-1]["t"]],
                                           "assumption": "the concentration does not rise over the window (stated, not tested); lower concentration at the "
@@ -1540,22 +1668,49 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
                                                   f"{_f(post[0]['t'])}–{_f(post[-1]['t'])} h (conditional area limit)"})
             # conditional tail: only with an eligible upstream T7 NOT_EXCLUDED (item 24)
             t7 = (d24 or {}).get("t7_label")
-            t7_ok = t7 == "NOT_EXCLUDED" and "SENSITIVITY_ONLY" not in ((d24 or {}).get("t7_flags") or [])
+            t7_flags = set((d24 or {}).get("t7_flags") or [])
+            t7_sens = (d24 or {}).get("t7_sensitivity_label")
+            # R6 (T7 hand-off): only a clean NOT_EXCLUDED opens the tail. A full-data contradiction whose removal rerun could not
+            # be assessed (or that one point carries) keeps the tail closed. An assumption-based reading is allowed only when the
+            # sole gap is assay-error information (project tolerance), the sensitivity reading is NOT_EXCLUDED and nothing else limits it.
+            formal_ok = t7 == "NOT_EXCLUDED" and not LIMITED_TEST_FLAGS.intersection(t7_flags)
+            assay_only = (t7 == "CANNOT_ASSESS" and t7_flags == {"SENSITIVITY_ONLY"} and t7_sens == "NOT_EXCLUDED"
+                          and ((d24 or {}).get("interval_basis") or []) == ["PROJECT_TOLERANCE"])
+            t7_ok = formal_ok or assay_only
+            contradicted = t7_sens == "EXCLUDED_UNDER_STATED_ASSUMPTIONS" or bool({"SINGLE_POINT_SUPPORT", "LOO_NOT_ASSESSABLE"} & t7_flags)
+            r["t7_handoff"] = {"t7": t7, "flags": sorted(t7_flags), "sensitivity": t7_sens,
+                               "tail": "OPEN" if formal_ok else "OPEN_ASSAY_ERROR_ASSUMED" if assay_only else "CLOSED",
+                               "direction": "late steepening (ln C not convex)" if contradicted else None,
+                               "reason": (d24 or {}).get("t7_reason"),
+                               "scope": {"window_h": (d24 or {}).get("t7_window"), "points_h": (d24 or {}).get("t7_points"),
+                                         "combination": (d24 or {}).get("t7_combination")}}
             if (t7_ok and len(post) >= 2 and post[-1]["c"] > 0
                     and post[-1]["c"] * (1 + TOL) < post[-2]["c"] * (1 - TOL)):
                 p1, p2 = post[-2], post[-1]
                 s_neg = (math.log(p2["c"] * (1 - TOL)) - math.log(p1["c"] * (1 + TOL))) / (p2["t"] - p1["t"])
                 if s_neg < 0:
                     tail = p2["c"] * s["uf"] * (1 - TOL) / (-s_neg)
-                    r["cl_upper_tail"] = s["dose"] / (L + tail)
+                    r["cl_upper_tail"] = COMMON.dose_given(s) / (L + tail)
                     r["sensitivity_rows"].append({"kind": "CONDITIONAL_TAIL", "bound_kind": "SENSITIVITY_ONLY", "quantity": "CL", "value": r["cl_upper_tail"],
                                                   "tail_low": tail, "slope": s_neg, "t7": t7,
-                                                  "assumption": "positive exponential sum, completed central IV input, zero initial state; ln C stays convex after the last sample",
+                                                  "assumption": "positive exponential sum, completed central IV input, zero initial state; ln C stays convex after the last sample"
+                                                                + ("; upstream T7 rests on the project tolerance only (assay error not sourced)" if assay_only else ""),
                                                   "text": f"CL ≤ {_f(r['cl_upper_tail'])} L/h/kg with the last-chord tail (conditional tail limit)"})
                     cav.append("CONDITIONAL_TAIL")
             else:
-                r["tail_omitted"] = (f"upstream T7 is {t7 or 'missing'}; the conditional tail needs an eligible NOT_EXCLUDED"
-                                     if not t7_ok else "the last positive log-chord is not strictly negative throughout the allowed intervals")
+                if t7_ok:
+                    r["tail_omitted"] = "the last positive log-chord is not strictly negative throughout the allowed intervals"
+                elif contradicted:
+                    w = (d24 or {}).get("t7_window")
+                    r["tail_omitted"] = (f"upstream T7 found late steepening in the full data"
+                                         + (f" over {_f(w[0])}–{_f(w[1])} h" if w else "")
+                                         + (" that one point carries" if "SINGLE_POINT_SUPPORT" in t7_flags else "")
+                                         + (" whose removal rerun could not be assessed" if "LOO_NOT_ASSESSABLE" in t7_flags else "")
+                                         + "; the conditional tail stays closed")
+                else:
+                    r["tail_omitted"] = (f"upstream T7 is {(t7 or 'missing').replace('_', ' ').lower()}"
+                                         + (f" ({_words(sorted(t7_flags))})" if t7_flags else "")
+                                         + "; the conditional tail needs a NOT_EXCLUDED without limiting flags")
             if r["cl_upper_conditional_area"]:
                 cav.append("CONDITIONAL_AREA")
                 r["bound_kind"] = "SENSITIVITY_ONLY"
@@ -1589,7 +1744,7 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
 # ---------------------------------------------------------------- items 30 and 31: read the upstream results
 
 FORMAL_RESULTS = {"NOT_EXCLUDED", "EXCLUDED_UNDER_STATED_ASSUMPTIONS"}
-LIMITED_TEST_FLAGS = {"SENSITIVITY_ONLY", "BORDERLINE", "SINGLE_POINT_SUPPORT", "CONDITIONAL_ON_LABEL_IDENTITY"}
+LIMITED_TEST_FLAGS = set(COMMON.LIMITING_FLAGS)   # R6: the shared list
 
 
 def _has_dose_test(row):
@@ -1745,43 +1900,87 @@ def _reported_iv_clearance_contrasts(board, reported, specifications, kind):
             method = 'Welch t test of independent individual log clearance'
         if not se or not math.isfinite(se) or not df or df <= 0:
             reject('Sampling variance is not estimable; no artificial variance floor or p-value is used.'); continue
-        half = ab.t_ppf(0.975, df) * se
+        half = COMMON.t_ppf(0.975, df) * se
         try:
             ratio, ci = math.exp(effect), [math.exp(effect - half), math.exp(effect + half)]
         except OverflowError:
             reject('The uncertainty interval is numerically unbounded.'); continue
         if not all(positive(v) for v in [ratio, *ci]):
             reject('The uncertainty interval is numerically unbounded.'); continue
-        pvalue = ab._p_t(effect / se, df)
+        pvalue = COMMON._p_t(effect / se, df)
         out.update(status='ASSESSED', method=method, n=[len(g) for g in groups], arms=arms,
                    geometric_mean_clearance_l_h_kg=[math.exp(mean(v)) for v in logs],
                    ratio_b_over_a=ratio, ci95=ci, p=pvalue, df=df, log_ratio=effect, log_ratio_se=se,
                    source_cells=[p['source_cell'] for p in ps],
-                   reading='DIFFERENCE_DETECTED' if pvalue < 0.05 else 'NO_DIFFERENCE_DETECTED',
-                   multiplicity='Nominal per prespecified contrast; no multiplicity correction across contrasts.',
-                   scope='Two-sided exploratory comparison of measured clearance; not equivalence, a mechanism test, or proof of dose proportionality/time invariance.')
+                   p_source='recomputed by this code from the source-reported individual values',
+                   scope='Two-sided comparison of measured clearance; not equivalence, a mechanism test, or proof of dose proportionality/time invariance.')
+        if isinstance(spec.get('author_test'), dict):
+            # R7: an author's own test is quoted with the author's correction scope, apart from the recomputed p
+            out['author_test'] = dict(spec['author_test'])
+    # R7 item 2 / R4: one family per board and kind. Every prespecified contrast of this kind can trigger the same
+    # conclusion, so all of them count, including those that could not be assessed (the denominator is fixed before results).
+    members = [r['id'] for r in results]
+    m = len(results)
+    assessed = sorted((r for r in results if r['status'] == 'ASSESSED'), key=lambda r: (r['p'], str(r['id'])))
+    running = 0.0
+    for i, r in enumerate(assessed):
+        running = max(running, min(1.0, (m - i) * r['p']))
+        r['p_holm'] = running
+    for r in results:
+        r['check'] = 'REPORTED_IV_CL_RECOMPARISON'
+        r['check_label'] = 'Recomparison of source-reported individual IV CL'
+        r['family'] = dict(scope=f"{board['study']} / {board['species']}: prespecified recomparisons of reported individual IV CL by "
+                                 + ('dose' if kind == 'DOSE' else 'occasion'),
+                           analysis_unit='animal', members=members, m=m, method='Holm (p); Bonferroni-adjusted interval',
+                           family_alpha=0.05)
+        if r['status'] != 'ASSESSED':
+            continue
+        q = COMMON.t_ppf(1 - 0.025 / m, r['df'])
+        try:
+            r['ci_family'] = [math.exp(r['log_ratio'] - q * r['log_ratio_se']), math.exp(r['log_ratio'] + q * r['log_ratio_se'])]
+        except OverflowError:
+            r['ci_family'] = None
+        r['ci_family_level'] = 1 - 0.05 / m
+        r['reading'] = 'DIFFERENCE_DETECTED' if r['p_holm'] < 0.05 else 'NO_DIFFERENCE_DETECTED'
+        r['multiplicity'] = (f"Holm-adjusted over the {m} prespecified contrast{'s' if m > 1 else ''} of this kind on this board; "
+                             "the 95% interval is per contrast and the family interval is Bonferroni-adjusted.")
     return results
 
 
-def _clearance_contrast_question(qn, contrasts):
-    """Render direct clearance measurements separately from upstream exposure patterns."""
+def _clearance_contrast_block(qn, contrasts):
+    """R7 item 2: the recomparison of source-reported individual IV CL is a named check shown beside the upstream T3/T3p or
+    occasion result. It never replaces that row, and on its own it supports at most a partly answerable question."""
     assessed = [r for r in contrasts if r.get('status') == 'ASSESSED']
     if not assessed:
         return None
     rows = [[r['id'], ', '.join(map(str, r['n'])), _f(r['ratio_b_over_a'], 4),
-             ' to '.join(_f(x, 4) for x in r['ci95']), _f(r['p'], 4), r['reading']] for r in assessed]
-    primary = _rowprim(qn, ['Contrast', 'Animals A, B', 'Geometric CL ratio B/A', '95% CI', 'Two-sided p', 'Reading'],
-                       rows, 'Source-reported individual true IV clearance', 'Individual animals')
-    evidence = [{'rule': r['method'] + '. ' + r['scope'], 'data': r['source_cells'],
+             ' to '.join(_f(x, 4) for x in r['ci95']), _f(r['p'], 4), _f(r.get('p_holm'), 4), r['reading']] for r in assessed]
+    head = ['Contrast', 'Animals A, B', 'Geometric CL ratio B/A', '95% CI', 'p (recomputed)', 'p (Holm, family)', 'Reading']
+    caption = 'Recomparison of source-reported individual IV CL'
+    evidence = [{'rule': r.get('check_label', 'Recomparison of source-reported individual IV CL') + ': ' + r['method'] + ', '
+                         + r.get('p_source', 'recomputed by this code') + '. ' + r['scope'] + ' ' + r.get('multiplicity', '')
+                 + (f" Author's test as published: {r['author_test'].get('text') or r['author_test']}." if r.get('author_test') else ''),
+                 'data': r['source_cells'],
                  'tables': [{'caption': 'Source-reviewed design', 'head': ['Contrast', 'Design', 'Source'],
                              'rows': [[r['id'], r['design'], r['design_source']]]}]} for r in assessed]
-    first = assessed[0]
-    return _qrow(qn, ST_YES,
-        f"Source-reported individual true IV clearance: geometric ratio B/A {first['ratio_b_over_a']:.3g} "
-        f"(95% CI {first['ci95'][0]:.3g}–{first['ci95'][1]:.3g}; two-sided p={first['p']:.3g}).",
-        first['method'] + '; source-reviewed animal design and compatible measurements.',
-        'A comparison of measured clearance does not establish a mechanism. A nonsignificant result does not establish equivalence, dose proportionality or time invariance. P-values and 95% intervals are nominal per prespecified contrast; no multiplicity adjustment across contrasts.',
-        primary=primary, evidence=evidence)
+    evidence.append({'rule': caption + '.', 'data': [], 'tables': [{'caption': caption, 'head': head, 'rows': rows}]})
+    parts = [f"{r['id']}: geometric ratio B/A {r['ratio_b_over_a']:.3g} (95% CI {r['ci95'][0]:.3g}–{r['ci95'][1]:.3g}; "
+             f"recomputed p={r['p']:.3g}" + (f", Holm p={r['p_holm']:.3g} over {r['family']['m']})" if r.get('p_holm') is not None else ")")
+             for r in sorted(assessed, key=lambda r: str(r['id']))]
+    sentence = caption + ": " + "; ".join(parts) + "."
+    limit = ('A comparison of measured clearance does not establish a mechanism. A nonsignificant result does not establish equivalence, '
+             'dose proportionality or time invariance.')
+    return {'sentence': sentence, 'limit': limit, 'head': head, 'rows': rows, 'caption': caption, 'evidence': evidence}
+
+
+def _clearance_contrast_question(qn, contrasts):
+    """The recomparison alone (no upstream result): shown as its own row, at most partly answerable (R7 item 2)."""
+    blk = _clearance_contrast_block(qn, contrasts)
+    if not blk:
+        return None
+    primary = _rowprim(qn, blk['head'], blk['rows'], blk['caption'], 'Individual animals')
+    return _qrow(qn, ST_PART, blk['sentence'], 'Source-reviewed animal design and compatible measurements; no upstream concentration-profile result for this question.',
+                 blk['limit'], ['an upstream concentration-profile comparison'], primary=primary, evidence=blk['evidence'])
 
 
 def item30(board, plasma, dist_board, abs_data, reported, urine_obs, reported_auc=(), clearance_contrasts=()):
@@ -1795,7 +1994,7 @@ def item30(board, plasma, dist_board, abs_data, reported, urine_obs, reported_au
                                 "panel": q8.get("figure"), "panel_id": "C2" if q8["route"] == "EV" else "C1",
                                 "caveats": q8.get("caveats", [])})
     for d in (dist_board or {}).get("dose_patterns", []):
-        out["upstream"].append({"source": "distribution item 24 (DIS-2)", "route": "IV", "key": d.get("key"), "doses": d.get("doses"), "window_h": None,
+        out["upstream"].append({"source": "distribution item 24 (DIS-2a/2b)", "route": "IV", "key": d.get("key"), "doses": d.get("doses"), "window_h": None,
                                 "auc_ratio": None, "t3": "—", "t3p": (d.get("t3p") or {}).get("label", "CANNOT_ASSESS"), "pattern": d.get("dose_pattern"),
                                 "panel": _upfile("distribution", (dist_board.get("figs") or {}).get(f"DIS2|{d.get('key')}")), "panel_id": "DIS-2b",
                                 "caveats": list((d.get("t3p") or {}).get("flags") or []) + (["CONFOUNDED"] if d.get("confounded") else []),
@@ -1818,6 +2017,12 @@ def item30(board, plasma, dist_board, abs_data, reported, urine_obs, reported_au
                                 "t3": d.get("t3_label") or "CANNOT_ASSESS", "t3p": (d.get("t3p") or {}).get("t3p_label") or "CANNOT_ASSESS",
                                 "exposure": _curve_exposure(d, abs_data),
                                 "panel": _upfile("absorption", d.get("C2")), "panel_id": "C2", "caveats": list(map(str, d.get("t3_flags") or []))})
+    for u in out["upstream"]:
+        # M5: stable ids of the tests and of the question row that shows them. T3 and T3p are defined in Absorption; IV dose
+        # series run the same pointwise test in Distribution and are shown under its systemic-shape row (guide Q2).
+        u["test_ids"] = {"T3": "absorption:T3", "T3p": "absorption:T3p"}
+        u["upstream_question"] = ("distribution:systemic_shape_evidence" if u["source"].startswith("distribution item 24")
+                                  else "absorption:dose_proportionality")
     out["reported_by_dose"] = [p for p in reported if p["study"] == board["study"] and p["species"] == board["species"] and p["param"] in ("CL", "CL_F", "THALF")
                                and p.get("dose") is not None and len({x["dose"] for x in reported if x["dataset_id"] == p["dataset_id"] and x["species"] == p["species"] and x.get("dose") is not None}) >= 2]
     ub = {}
@@ -1839,7 +2044,7 @@ def item30(board, plasma, dist_board, abs_data, reported, urine_obs, reported_au
             out["caveats"].append("SINGLE_DOSE_ONLY")
             out["not_assessable_reason"] = "the retained systemic profiles cover one dose in this comparison"
         else:
-            out["not_assessable_reason"] = "no matched upstream dose comparison for these profiles (absorption item 19, DIS-2)"
+            out["not_assessable_reason"] = "no matched upstream dose comparison for these profiles (absorption item 19, DIS-2a/2b)"
     elif not tested:
         out["caveats"].append("NO_UNCERTAINTY")
     if any(u["route"] == "EV" for u in out["upstream"]):
@@ -1947,12 +2152,17 @@ def item31(board, plasma, dist_data, abs_data, reported, urine_obs, regimens=(),
     sids = {s["sid"] for s in plasma}
     for x in (dist_data or {}).get("repeat_dosing", []):
         if x.get("first_sid") in sids:
-            out["upstream"].append({"source": f"distribution T9 ({dist_data.get('version')})", "first": x["first_sid"], "later": x["later_sid"],
+            # M5: each upstream test keeps its own id, question and result; "t9" stays as the old alias of "result"
+            out["upstream"].append({"source": f"distribution T9 ({dist_data.get('version')})", "test_id": "distribution:T9",
+                                    "asks": COMMON.UPSTREAM_TESTS["distribution:T9"], "upstream_question": "distribution:tissue_exposure",
+                                    "result": x.get("t9_label"), "first": x["first_sid"], "later": x["later_sid"],
                                     "t9": x.get("t9_label"), "flags": x.get("t9_flags"), "rows": x.get("rows")})
     ds_ids = {s["dataset_id"] for s in plasma}
     for c in (abs_data or {}).get("conditions", []):
         if {c.get("a"), c.get("b")} & ds_ids and "occasion" in " ".join(c.get("differing_attributes") or []):
-            out["upstream"].append({"source": f"absorption item 23 ({abs_data.get('version')})", "first": c.get("b"), "later": c.get("a"),
+            out["upstream"].append({"source": f"absorption T5, item 23 ({abs_data.get('version')})", "test_id": "absorption:T5",
+                                    "asks": COMMON.UPSTREAM_TESTS["absorption:T5"], "upstream_question": "absorption:one_multiplier_between_conditions",
+                                    "result": c.get("t5_label"), "first": c.get("b"), "later": c.get("a"),
                                     "t9": c.get("t5_label"), "flags": c.get("t5_flags") or [], "panel": _upfile("absorption", c.get("E1")), "panel2": _upfile("absorption", c.get("E2"))})
     local = [p for p in reported if p["study"] == board["study"] and p["species"] == board["species"]]
     regimens_by_ds = {r["dataset_id"]: r for r in regimens}
@@ -1978,7 +2188,8 @@ def item31(board, plasma, dist_data, abs_data, reported, urine_obs, regimens=(),
     if out["urine_by_occasion"]:
         out["caveats"].append("CARRYOVER_POSSIBLE")
     if not out["upstream"] and out["applies"]:
-        out["not_assessable_reason"] = "no upstream plasma occasion contrast (absorption item 23, T9) for these data; reported values and urine are listed"
+        out["not_assessable_reason"] = ("no upstream occasion contrast for these data (neither Absorption T5, item 23, nor Distribution T9); "
+                                        "reported values and urine are listed")
     if out["urine_by_occasion"] and not out["upstream"]:
         out["alternatives"] = ["carryover from earlier doses", "differences in urinary recovery or collection"]
     elif out["upstream"] or out["reported_by_occasion"]:
@@ -2014,7 +2225,7 @@ def _lower_mean(v, sd, n, kind):
     if v is None or sd is None or not n or n < 2 or kind not in ("SD", "SE"):
         return None
     se = sd / math.sqrt(n) if kind == "SD" else sd
-    return v - ab.t_ppf(0.95, n - 1) * se
+    return v - COMMON.t_ppf(0.95, n - 1) * se
 
 
 def urine_series(obs, cards_by_ds, cfg):
@@ -2044,13 +2255,53 @@ def urine_series(obs, cards_by_ds, cfg):
              "flags": sorted({f for o in os_ for f in o["flags"]}), "gaps": [], "cumulative": [], "notes": []}
         if sum(k[:5] == (dsid, sp, grp, analyte, occ) for k in groups) > 1:
             s["key"] += "-" + hashlib.sha256(repr((denom, cohort, animal)).encode()).hexdigest()[:10]
-        s.update({k: card.get(k) for k in ("drug", "dose_basis", "regimen", "condition", "route_detail", "matching_identity", "source_item")})
+        s.update({k: card.get(k) for k in ("drug", "dose_basis", "regimen", "condition", "route_detail", "matching_identity", "source_item", "noise_source")})
         s["dose_denominator_verified"] = all(o.get("dose_denominator_verified",
             o["value_form"] == "PERCENT_OF_DOSE" and o["denominator"] == "administered dose") for o in os_)
         # cumulative from contiguous quantified increments starting at the first collected interval
         run, end, contiguous_from_zero = 0.0, None, None
-        prev_dur = None
+        # E10a: two increment cells for the same interval with different values are a source conflict; the sum is withheld
+        by_interval = {}
         for i in inc:
+            if i["state"] == "QUANTIFIED":
+                by_interval.setdefault(tuple(i["interval"]), set()).add(i["value"])
+        dup_conflict = [list(k) for k, v in by_interval.items() if len(v) > 1]
+        if dup_conflict:
+            s["flags"].append("SOURCE_CONFLICT")
+            s["notes"].append("conflicting increments for " + ", ".join(f"{_f(a)}–{_f(b)} h" for a, b in dup_conflict)
+                              + "; all source cells retained, no recovery sum is formed")
+        seen_dup = set()
+        censored_upper, censored_unbounded = 0.0, False
+        for i in inc:
+            below = _urine_below(i)
+            if i["state"] == "QUANTIFIED" and tuple(i["interval"]) in by_interval and len(by_interval[tuple(i["interval"])]) == 1:
+                if tuple(i["interval"]) in seen_dup:
+                    s["notes"].append(f"interval {_f(i['interval'][0])}–{_f(i['interval'][1])} h is printed twice with the same value; counted once")
+                    continue
+                seen_dup.add(tuple(i["interval"]))
+            if below and i["interval"][1] > i["interval"][0]:
+                # E10b: a collected interval below the assay limit is collected, not a gap; its threshold is an upper limit
+                a, b = i["interval"]
+                if end is not None and a > end + 1e-9:
+                    s["gaps"].append({"interval": [end, a], "why": "not collected"})
+                if end is not None and a < end - 1e-9:
+                    s["notes"].append(f"interval {_f(a)}–{_f(b)} h overlaps the previous one; not summed")
+                    continue
+                if end is None:
+                    contiguous_from_zero = a == 0
+                th, why = _censor_pct(i)
+                if th is None:
+                    censored_unbounded = True
+                    if why:
+                        s["flags"].append("CENSOR_LIMIT_NOT_PERCENT_OF_DOSE")
+                        s["notes"].append(f"interval {_f(a)}–{_f(b)} h: {why}; no upper limit is formed for it")
+                else:
+                    censored_upper += th
+                end = b
+                s["flags"].append("BELOW_LLOQ_UPPER_LIMIT")
+                s["cumulative"].append({"t": b, "value": run, "basis": "sum of increments; this interval below the assay limit",
+                                        "dur": b - a, "censored_upper_pct": th})
+                continue
             if i["state"] != "QUANTIFIED":
                 s["gaps"].append({"interval": i["interval"], "why": i["note"] or "missing, not zero"})
                 continue
@@ -2074,6 +2325,12 @@ def urine_series(obs, cards_by_ds, cfg):
             s["cumulative"].append({"t": b, "value": run,
                                     "basis": "printed cumulative plus increments" if s["cumulative"] and s["cumulative"][0]["basis"] == "printed total" else "sum of increments",
                                     "dur": b - a})
+        all_below = bool(s["cumulative"]) and all("censored_upper_pct" in c for c in s["cumulative"])
+        if all_below:
+            # every collected interval is below the assay limit: no recovery value is formed, only its upper limit
+            s["cumulative"] = []
+            s["r_u_upper"] = None if censored_unbounded else censored_upper
+            s["r_u_kind"] = "ALL_COLLECTED_INTERVALS_BELOW_ASSAY_LIMIT"
         if s["gaps"] and any(g["interval"][0] < (end or 0) - 1e-9 and g["interval"][1] <= (end or 0) + 1e-9 for g in s["gaps"]):
             s["flags"].append("COLLECTION_GAP")
         # Reconcile every printed window only with an exact contiguous partition.
@@ -2087,6 +2344,29 @@ def urine_series(obs, cards_by_ds, cfg):
                     and all(a["interval"][1] == b["interval"][0] for a, b in zip(bins, bins[1:])))
             anchored = next((c for c in s["cumulative"] if iv and iv[0] == 0 and c["t"] == iv[1]
                              and c["basis"] == "printed cumulative plus increments" and "COLLECTION_GAP" not in s["flags"]), None)
+            censored_partition = (bins and not full_partition and all(o["state"] == "QUANTIFIED" or _urine_below(o) for o in bins)
+                                  and bins[0]["interval"][0] == iv[0] and bins[-1]["interval"][1] == iv[1]
+                                  and all(a["interval"][1] == b["interval"][0] for a, b in zip(bins, bins[1:])))
+            if censored_partition:
+                # round 3: a printed total over intervals that include ones below the assay limit must lie within the bounds the
+                # intervals give: the quantified sum below, plus each interval's limit (in % of dose) above
+                low = sum(o["value"] for o in bins if o["state"] == "QUANTIFIED")
+                lims = [_censor_pct(o)[0] for o in bins if _urine_below(o)]
+                high = None if any(x is None for x in lims) else low + sum(lims)
+                outside = t["value"] < low - 0.1 - 1e-9 or (high is not None and t["value"] > high + 0.1 + 1e-9)
+                rec = {"interval": list(iv), "printed": t["value"], "interval_lower": low, "interval_upper": high,
+                       "calculation_basis": "quantified increments plus the printed limits of the intervals below the assay limit",
+                       "source_ref": t.get("obs_id") or t["record_id"],
+                       "status": ("does not reconcile: printed total outside the bounds from the intervals; both kept as printed"
+                                  if outside else "consistent with the bounds from the intervals")}
+                s["reconciliations"].append(rec)
+                if not str((s.get("reconcile") or {}).get("status", "")).startswith("does not"):
+                    s["reconcile"] = rec
+                if outside:
+                    s["flags"].append("SOURCE_CONFLICT")
+                    s["notes"].append(f"printed total {_f(t['value'])} % for {_f(iv[0])}–{_f(iv[1])} h lies outside "
+                                      + (f"{_f(low)}–{_f(high)} %" if high is not None else f"≥ {_f(low)} %")
+                                      + ", the range the collected intervals allow")
             if full_partition or anchored:
                 summed = sum(o["value"] for o in bins) if full_partition else anchored["value"]
                 diff = t["value"] - summed
@@ -2095,7 +2375,9 @@ def urine_series(obs, cards_by_ds, cfg):
                        "source_ref": t.get("obs_id") or t["record_id"],
                        "status": "reconciled within rounding" if abs(diff) <= 0.1 + 1e-9 else "does not reconcile; both kept as printed"}
                 s["reconciliations"].append(rec)
-                s["reconcile"] = rec
+                # E9b: keep the first printed window that does not reconcile (later windows never overwrite it)
+                if not str((s.get("reconcile") or {}).get("status", "")).startswith("does not"):
+                    s["reconcile"] = rec
                 if abs(diff) > 0.1 + 1e-9:
                     s["flags"].append("SOURCE_CONFLICT")
             # Do not replace increment-derived points; retain their discrepancy above.
@@ -2121,8 +2403,14 @@ def urine_series(obs, cards_by_ds, cfg):
             windows = {tuple(t["interval"] or ()) for t in matching}
             ambiguous = len(values) > 1 or len(windows) > 1
             matching_total = matching[0] if matching and not ambiguous else None
-            s["r_u"] = None if ambiguous else (matching_total["value"] if matching_total else last["value"])
+            s["r_u"] = None if ambiguous or dup_conflict else (matching_total["value"] if matching_total else last["value"])
             s["collection_end_h"] = last["t"]
+            if "BELOW_LLOQ_UPPER_LIMIT" in s["flags"] and not matching_total and s["r_u"] is not None:
+                # the summed recovery is a lower value; the censored intervals add at most their printed limits
+                s["r_u_upper"] = None if censored_unbounded else s["r_u"] + censored_upper
+                s["r_u_kind"] = "SUM_OF_QUANTIFIED_INCREMENTS_LOWER_VALUE"
+            if matching_total and s.get("r_u_kind") == "ALL_COLLECTED_INTERVALS_BELOW_ASSAY_LIMIT":
+                s.pop("r_u_upper", None); s.pop("r_u_kind", None)   # a printed quantified total is the reading; the limits stay in the intervals
             if matching_total:
                 iv = matching_total["interval"]
                 s["window_label"] = f"{_f(iv[0])}–{_f(iv[1])} h" if iv else "collection window not stated"
@@ -2139,17 +2427,26 @@ def urine_series(obs, cards_by_ds, cfg):
             s["fe_lower_reason"] = None if lo is not None else (
                 "dispersion type not identified (SD or SE): no lower limit is formed" if s["dispersion"] == "UNKNOWN" else "n or dispersion not reported")
             # late increment (step 8)
-            q = [i for i in inc if i["state"] == "QUANTIFIED"]
             if (share_cut is not None and len(s["cumulative"]) >= 2 and not {"COLLECTION_GAP", "SOURCE_CONFLICT"}.intersection(s["flags"])
                     and last["value"] > 0):
                 d_last, d_prev = s["cumulative"][-1]["dur"], s["cumulative"][-2]["dur"]
                 inc_last = s["cumulative"][-1]["value"] - s["cumulative"][-2]["value"]
+                th_last = s["cumulative"][-1].get("censored_upper_pct")
                 if d_last is not None and d_prev is not None and d_last >= d_prev - 1e-9:
-                    share = inc_last / last["value"]
-                    s["late_increment"] = {"amount_pct_dose": inc_last, "duration_h": d_last, "share": share, "setting": share_cut,
-                                           "small": share < share_cut}
-                    if share < share_cut:
-                        s["flags"].append("LATE_INCREMENT_SMALL")
+                    if "censored_upper_pct" in s["cumulative"][-1]:
+                        # E10b: the last interval is below the assay limit; its share is at most limit / (sum + limit)
+                        share_hi = (th_last / (last["value"] + th_last)) if th_last is not None and last["value"] + th_last > 0 else None
+                        s["late_increment"] = {"amount_pct_dose_upper": th_last, "duration_h": d_last, "share_upper": share_hi,
+                                               "setting": share_cut, "small": True if share_hi is not None and share_hi < share_cut else None,
+                                               "basis": "last interval below the assay limit; the printed limit bounds the increment"}
+                        if share_hi is not None and share_hi < share_cut:
+                            s["flags"].append("LATE_INCREMENT_SMALL")
+                    else:
+                        share = inc_last / last["value"]
+                        s["late_increment"] = {"amount_pct_dose": inc_last, "duration_h": d_last, "share": share, "setting": share_cut,
+                                               "small": share < share_cut}
+                        if share < share_cut:
+                            s["flags"].append("LATE_INCREMENT_SMALL")
             if s["route"] == "EV":
                 s["flags"].append("ADMIN_DOSE_FRACTION")
             if s["level"] in ("GROUP_MEAN", "MIXED"):
@@ -2158,10 +2455,120 @@ def urine_series(obs, cards_by_ds, cfg):
             if s["analyte"] == "PARENT" and lo is not None and lo >= 50:
                 wording = "a majority" if lo > 50 else "at least half"
             s["wording"] = wording
+        elif s.get("r_u_kind") == "ALL_COLLECTED_INTERVALS_BELOW_ASSAY_LIMIT":
+            # 2026-11-24 review (Q5): collected, nothing quantified; the series keeps its window so the report can show the upper limit
+            s["r_u"] = None
+            s["collection_end_h"] = end
+            s["window_label"] = (f"0–{_f(end)} h" if contiguous_from_zero and "COLLECTION_GAP" not in s["flags"] else "sum over collected intervals")
+            s["recovery_lower"] = s["fe_lower"] = None
+            s["fe_lower_reason"] = "every collected interval is below the assay limit: only an upper limit exists"
+            if s["route"] == "EV":
+                s["flags"].append("ADMIN_DOSE_FRACTION")
+            if s["level"] in ("GROUP_MEAN", "MIXED"):
+                s["flags"].append("GROUP_MEAN")
+        # 2026-11-24 review (Q5): each printed interval keeps its status (collected and quantified, collected below the assay
+        # limit, or missing), and the recovery is carried as lower and upper values on the same basis
+        status = []
+        for i in inc:
+            if _urine_below(i):
+                th, why = _censor_pct(i)
+                status.append({"interval": list(i["interval"]), "status": "COLLECTED_BELOW_LLOQ", "value": None,
+                               "upper": th, "raw": i["raw"]} | ({"upper_reason": why} if why else {}))
+            elif i["state"] == "QUANTIFIED":
+                status.append({"interval": list(i["interval"]), "status": "COLLECTED_QUANTIFIED", "value": i["value"], "upper": i["value"], "raw": i["raw"]})
+            else:
+                status.append({"interval": list(i["interval"]), "status": "MISSING", "value": None, "upper": None, "raw": i["raw"],
+                               "why": i["note"] or "value missing, not zero"})
+        printed = {tuple(x["interval"]) for x in status}
+        for g in s["gaps"]:
+            if g["why"] == "not collected" and tuple(g["interval"]) not in printed:
+                status.append({"interval": list(g["interval"]), "status": "MISSING", "value": None, "upper": None, "raw": None,
+                               "why": "no collection interval printed"})
+        s["interval_status"] = sorted(status, key=lambda x: (x["interval"][0], x["interval"][1]))
+        n_below = sum(x["status"] == "COLLECTED_BELOW_LLOQ" for x in status)
+        n_missing = sum(x["status"] == "MISSING" for x in status)
+        if s.get("r_u_kind") == "ALL_COLLECTED_INTERVALS_BELOW_ASSAY_LIMIT":
+            s["recovery_bounds"] = {"lower": 0.0, "upper": s.get("r_u_upper"), "kind": "UPPER_LIMIT_ONLY",
+                                    "basis": "every collected interval below the assay limit; the printed limits are summed",
+                                    "n_below_lloq": n_below, "n_missing": n_missing}
+        elif s.get("r_u") is not None:
+            bounded = s.get("r_u_kind") == "SUM_OF_QUANTIFIED_INCREMENTS_LOWER_VALUE"
+            s["recovery_bounds"] = {"lower": s["r_u"], "upper": s.get("r_u_upper") if bounded else s["r_u"],
+                                    "kind": "QUANTIFIED_PLUS_BELOW_LLOQ" if bounded else "QUANTIFIED",
+                                    "basis": ("quantified increments as the lower value; each interval below the assay limit adds at most its printed limit"
+                                              if bounded else "collected amount as reported or summed"),
+                                    "n_below_lloq": n_below, "n_missing": n_missing}
+        conflict = next((r for r in s.get("reconciliations") or [] if str(r.get("status", "")).startswith("does not")), None)
+        if conflict and s.get("recovery_bounds"):
+            s["recovery_bounds"]["source_conflict"] = {k: conflict.get(k) for k in (
+                "interval", "printed", "sum_of_increments", "interval_lower", "interval_upper", "status") if k in conflict}
         s["flags"] = list(dict.fromkeys(s["flags"]))
         if s["cumulative"] or s["intervals"]:
             out.append(s)
     return out
+
+
+def _censor_pct(i):
+    """Round 3: (limit in % of dose, reason) for a urine interval below the assay limit. The printed limit bounds the interval
+    only when it is on the column's own basis (% of the administered dose): a limit printed in another unit (a concentration
+    such as '<2 ng/mL') gives (None, reason). An unreadable or missing limit gives (None, None)."""
+    c = i.get("censoring") or {}
+    th = _num(c.get("threshold"))
+    if th is None or not math.isfinite(th) or th < 0:
+        return None, None
+    if COMMON.bound_unit_class(c) == "OTHER":
+        return None, f"the printed limit is in {c.get('unit_as_printed')}, not % of dose"
+    return th, None
+
+
+def _urine_below(i):
+    """A printed urine interval below the assay limit (BLQ, not detected or a printed '<' limit)."""
+    return i["state"] in ("BLQ", "NOT_DETECTED") or (i["state"] == "CENSORED" and
+                                                      str((i.get("censoring") or {}).get("relation", "")) in ("<", "<=", "≤"))
+
+
+def urine_reading(u):
+    """2026-11-24 review (Q5): a urine series the report can state: a quantified recovery, or an upper limit when every
+    collected interval is below the assay limit."""
+    return u.get("r_u") is not None or u.get("r_u_kind") == "ALL_COLLECTED_INTERVALS_BELOW_ASSAY_LIMIT"
+
+
+def ru_value_text(u, unit="%"):
+    """Recovery as observed: '10–12 %' when an interval is below the assay limit, '< 5 %' when every interval is."""
+    b = u.get("recovery_bounds") or {}
+    if b.get("kind") == "UPPER_LIMIT_ONLY":
+        return f"< {_f(b['upper'])}{unit}" if b.get("upper") is not None else "below the assay limit (limit not printed)"
+    if b.get("kind") == "QUANTIFIED_PLUS_BELOW_LLOQ":
+        return f"{_f(b['lower'])}–{_f(b['upper'])}{unit}" if b.get("upper") is not None else f"≥ {_f(b['lower'])}{unit}"
+    c = b.get("source_conflict")
+    if c and c.get("interval_lower") is not None:
+        rng = f"{_f(c['interval_lower'])}–{_f(c['interval_upper'])}{unit}" if c.get("interval_upper") is not None else f"≥ {_f(c['interval_lower'])}{unit}"
+        return f"{_f(u['r_u'])}{unit} (printed total, in conflict with the intervals, which give {rng})"
+    if c and c.get("sum_of_increments") is not None:
+        return f"{_f(u['r_u'])}{unit} (printed total, in conflict with the increments, which sum to {_f(c['sum_of_increments'])}{unit})"
+    return f"{_f(u['r_u'])}{unit}"
+
+
+def _row_value_text(u):
+    """Species-row urinary value: the bound kind travels with the value (2026-11-24 review)."""
+    if u.get("bound_kind") == "QUANTIFIED_PLUS_BELOW_LLOQ":
+        return f"{_f(u['value'])}–{_f(u['upper'])}" if u.get("upper") is not None else f"≥ {_f(u['value'])}"
+    return _f(u["value"])
+
+
+def interval_status_text(u):
+    """'0–4 h quantified (10); 4–8 h below the assay limit (< 2); 8–12 h missing'."""
+    out = []
+    for x in u.get("interval_status") or []:
+        a, b = x["interval"]
+        w = f"{_f(a)}–{_f(b)} h"
+        if x["status"] == "COLLECTED_QUANTIFIED":
+            out.append(f"{w} quantified ({_f(x['value'])})")
+        elif x["status"] == "COLLECTED_BELOW_LLOQ":
+            out.append(f"{w} below the assay limit" + (f" (< {_f(x['upper'])})" if x.get("upper") is not None else ""))
+        else:
+            out.append(f"{w} missing ({x.get('why') or 'not reported'})")
+    return "; ".join(out)
 
 
 def _plasma_auc_over(s, u, v):
@@ -2170,11 +2577,12 @@ def _plasma_auc_over(s, u, v):
     if len(q) < 2:
         return None, None, False
     t = [p["t"] for p in q]
-    if len(set(t)) != len(t) or any(p.get("t") is not None and t[0] <= p["t"] <= t[-1] and p["status"] != "QUANTIFIED" for p in s["points"]):
+    if len(set(t)) != len(t) or any(p.get("t") is not None and t[0] <= p["t"] <= t[-1] and p["status"] != "QUANTIFIED"
+                                    and not COMMON.is_predose_zero(p) for p in s["points"]):
         return None, None, False
     c = [p["c"] * s["uf"] for p in q]
     full = abs(t[0] - u) < 1e-6 and abs(t[-1] - v) < 1e-6
-    return ab.auc(t, c), [t[0], t[-1]], full
+    return COMMON.auc(t, c), [t[0], t[-1]], full
 
 
 def t10(clr, fu, gfr):
@@ -2231,6 +2639,86 @@ def _same_renal_design(urine, plasma):
             and bool(urine.get("source_item") and (plasma.get("source_item_id") or plasma.get("source_refs"))))
 
 
+T10_SENSITIVITY_SIGMA = 0.15   # project default on ln scale (Distribution r1.5 tier 3); gives a sensitivity reading only
+
+
+def _source_sigma(rec, cfg):
+    """Decision A (2026-11-24): sigma on the ln scale from a matched source assay CV (tier 1) or replicate scatter (tier 2)
+    for an individual-level record. Returns (sigma, tier, basis); (None, 3, reason) when only the project default exists."""
+    override = ((cfg or {}).get("noise_by_dataset") or {}).get(rec.get("dataset_id")) or {}
+    src = dict(rec.get("noise_source") or {}, **override)
+    if rec.get("level") in ("GROUP_MEAN", "MIXED"):
+        return None, 3, "group-level record: assay precision alone does not bound the mean"
+    for key, scale in (("assay_cv", 1.0), ("assay_precision_cv", 1.0), ("assay_cv_pct", 0.01)):
+        v = _num(src.get(key))
+        if v is not None and math.isfinite(v) and v > 0:   # G2: a zero, negative or non-finite CV is not a source precision
+            cv = v * scale
+            if cv > 1.5 and scale == 1.0:
+                cv /= 100
+            return math.sqrt(math.log(1 + cv * cv)), 1, f"source assay CV {100 * cv:.3g}%"
+    rep = _num(src.get("replicate_sigma_ln"))
+    if rep is not None and math.isfinite(rep) and rep > 0:   # G2: only a positive finite replicate log-SD counts
+        return rep, 2, "source replicate measurements"
+    return None, 3, "no matched source assay CV or replicates"
+
+
+def _t10_joint(rows, us, cfg, fu, filtration):
+    """Decision A and C for T10 (2026-11-24).
+    A: CLR limits come from joint bounds: each searched observation (every plasma sample inside each searched urine interval,
+       plus each urine amount) gets +/- z*sigma on ln scale with z Bonferroni over all of them. Only tier 1 or 2 sigma for BOTH
+       urine and plasma can give a formal result; otherwise the same calculation with the project default is a sensitivity reading.
+       AUC (linear-up/log-down) is increasing in every concentration, so the joint AUC bounds are AUC*exp(-/+ z*sigma_p).
+    C: a formal exclusion is rerun with every removable observation left out in turn (interior plasma samples; the two samples at
+       the interval ends define the window and the urine amount is the numerator, so neither is removable). If any rerun loses
+       the contradiction: NOT_EXCLUDED + SINGLE_POINT_SUPPORT."""
+    est = [r for r in rows if r.get("kind") == "INTERVAL_ESTIMATE" and r.get("clr") is not None]
+    if not est:
+        return
+    m = sum(len(r["_plasma_t"]) + 1 for r in est)            # every searched observation in this urine series
+    z = COMMON.t_ppf(1 - 0.025 / m, 1000)
+    su, tu, bu = _source_sigma(us, cfg)
+    for r in est:
+        sp, tp, bp = _source_sigma(r["_plasma_rec"], cfg)
+        formal = su is not None and sp is not None
+        sig_u, sig_p = (su, sp) if formal else (T10_SENSITIVITY_SIGMA, T10_SENSITIVITY_SIGMA)
+        w = z * (sig_u + sig_p)
+        lim = (r["clr"] * math.exp(-w), r["clr"] * math.exp(w))
+        r["joint_bounds"] = {"family_size": m, "z": z, "sigma_urine": sig_u, "sigma_plasma": sig_p,
+                             "tier_urine": tu, "tier_plasma": tp, "basis_urine": bu, "basis_plasma": bp, "formal_eligible": formal}
+        if formal:
+            r["limits"], r["bound_direction"] = lim, "two-sided"
+            res = t10(r, fu, filtration)
+            res["flags"] = []
+            if res["status"] == "EXCLUDED_UNDER_STATED_ASSUMPTIONS":
+                ts, cs = r["_plasma_t"], r["_plasma_c"]
+                lost, reruns = [], 0
+                for k in range(1, len(ts) - 1):
+                    t2, c2 = ts[:k] + ts[k + 1:], cs[:k] + cs[k + 1:]
+                    a2 = COMMON.auc(t2, c2)
+                    if not a2 or a2 <= 0:
+                        continue
+                    reruns += 1
+                    c_alt = r["ae_mg_per_kg"] / a2
+                    alt = t10(dict(r, limits=(c_alt * math.exp(-w), c_alt * math.exp(w))), fu, filtration)
+                    if alt["status"] != "EXCLUDED_UNDER_STATED_ASSUMPTIONS":
+                        lost.append(ts[k])
+                res["removal"] = {"removable": len(ts) - 2, "reruns": reruns, "lost_without_h": lost,
+                                  "rule": "interior plasma samples removed in turn; window ends and urine amount kept"}
+                if lost:
+                    res = res | {"status": "NOT_EXCLUDED", "flags": ["SINGLE_POINT_SUPPORT"],
+                                 "reason": res["reason"] + f"; lost after removing the plasma sample at {', '.join(_f(x) for x in lost)} h"}
+            r["t10"] = res
+        else:
+            sens = t10(dict(r, limits=lim), fu, filtration)
+            r["t10_sensitivity"] = {"status": sens["status"], "direction": sens.get("direction"), "limits": lim,
+                                    "basis": f"project default sigma {T10_SENSITIVITY_SIGMA} on ln C and ln Ae, Bonferroni over {m} observations"}
+            base = r.get("t10") or {}
+            if base.get("status") == "CANNOT_ASSESS" and "no supported CLR limit" in str(base.get("reason")):
+                r["t10"] = base | {"reason": "no matched source assay CV or replicates for both urine and plasma; the project-default "
+                                             f"reading is {sens['status'].replace('_', ' ').lower()} (sensitivity only)",
+                                   "flags": ["SENSITIVITY_ONLY"]}
+
+
 def item33_clr(us, plasma, cards_by_ds, cfg, fu_rec):
     """Interval CLR or partial-window proxy for each urine interval of unchanged parent (EM-5c)."""
     rows = []
@@ -2251,6 +2739,28 @@ def item33_clr(us, plasma, cards_by_ds, cfg, fu_rec):
                                                (study_key in references or gfr.get("study") == us["study"]))}
     fu = fu_rec if fu_rec and fu_rec.get("source") and fu_rec.get("constant_over_exposure") is True else None
     pairing = us["collection"]["pairing"]
+
+    def _ids(s):
+        identity = s.get("matching_identity") or {}
+        return {str(v).strip() for v in (s.get("animal"), identity.get("animal_id"), identity.get("individual_id"),
+                                         identity.get("subject_id")) if v is not None and str(v).strip()}
+    if pairing == "SAME_ANIMAL" and us["level"] == "INDIVIDUAL":
+        # E8: under same-animal pairing a urine animal is compared only with its own plasma series; other animals' series
+        # are not paired at all (no cross-animal rows). If none matches, one row says so.
+        own = {str(us.get("animal") or us["group"]).strip()}
+        matched = [s for s in cand if s["level"] == "INDIVIDUAL" and _ids(s) == own]
+        if cand and not matched:
+            unnamed = any(s["level"] == "INDIVIDUAL" and not _ids(s) for s in cand)
+            why = ("the plasma records carry no animal identifier" if unnamed else
+                   "no plasma series of the same animal at this dose, route and occasion")
+            rows.append({"urine_key": us["key"], "sid": None, "plasma_label": "—", "urine_interval": [], "plasma_window": None,
+                         "ae_mg_per_kg": None, "auc_mg_h_l": None, "pairing": pairing, "caveats": [], "plasma_level": None,
+                         "urine_level": us["level"], "urine_source_ref": None, "route": us["route"], "dose_mg_per_kg": us["dose"],
+                         "plasma_source_refs": [], "limits": None, "bound_direction": "none", "kind": "CLR_NO_DIRECTION", "clr": None,
+                         "text": f"Urine and plasma are reported separately: {why}.",
+                         "t10": {"status": "CANNOT_ASSESS", "direction": None, "reason": why}})
+            return rows
+        cand = matched
     for i in us["intervals"]:
         if i["state"] != "QUANTIFIED" or i["interval"][1] <= i["interval"][0]:
             continue
@@ -2312,15 +2822,25 @@ def item33_clr(us, plasma, cards_by_ds, cfg, fu_rec):
                 row.update(animal_id=next(iter(plasma_ids)), urine_dataset=us.get("dataset_id"),
                            plasma_dataset=s.get("dataset_id"), denominator=us.get("denominator"),
                            animal_pair_verified=bool(us.get("animal") and us.get("dose_denominator_verified") and _same_renal_design(us, s)))
+            q_in = [p for p in _pts(s) if u - 1e-9 <= p["t"] <= v + 1e-9]
+            row["_plasma_t"], row["_plasma_c"], row["_plasma_rec"] = [p["t"] for p in q_in], [p["c"] * s["uf"] for p in q_in], s
             row["t10"] = t10(row, fu, filtration)
             rows.append(row)
+    _t10_joint(rows, us, cfg, fu, filtration)
+    for row in rows:
+        for k in ("_plasma_t", "_plasma_c", "_plasma_rec"):
+            row.pop(k, None)
     return rows
 
 
 def renal_filtration_comparison(board, plan):
-    """One prespecified interval per animal, renal clearance divided by that animal's fu × GFR."""
-    out = {"status": "CANNOT_ASSESS", "method": "two-sided exact sign test for the median animal ratio",
-           "null_median": 1.0, "experimental_unit": "independent animal", "p": None}
+    """One prespecified interval per animal, renal clearance divided by that animal's fu × GFR.
+
+    R7 item 1: this comparison is not in the rule set, so the numbers are reported as they are (per-animal ratios, median,
+    range, the matched window and the GFR and fu sources) with status DESCRIBED. No direction is inferred from it; the sign
+    test p stays in the audit record only. T10 keeps the formal filtration judgement."""
+    out = {"status": "CANNOT_ASSESS", "method": "per-animal renal clearance divided by fu × GFR, reported as observed",
+           "experimental_unit": "independent animal"}
     if plan is None:
         if not board["urine"]:
             reason = "No interval urine data for this study."
@@ -2387,11 +2907,16 @@ def renal_filtration_comparison(board, plan):
         if tail > .025:
             break
         ci, coverage = [ratios[k], ratios[n - k - 1]], 1 - 2 * tail
-    direction = ("above" if above > below else "below") if p < .05 else "unresolved"
-    return out | {"status": "TESTED", "n_animals": n, "above": above, "below": below, "ties": n - above - below,
-                  "median_ratio": ratios[(n - 1) // 2] / 2 + ratios[n // 2] / 2, "median_ci": ci,
-                  "ci_coverage_at_least": coverage, "p": p, "direction": direction,
-                  "scope": "One study and interval. Uncertainty comes from independent animals; assay and integration bias can shift the ratios."}
+    return out | {"status": "DESCRIBED", "n_animals": n, "above": above, "below": below, "ties": n - above - below,
+                  "median_ratio": ratios[(n - 1) // 2] / 2 + ratios[n // 2] / 2, "range": [ratios[0], ratios[-1]],
+                  "gfr_sources": sorted({a["gfr_source"] for a in out["animals"]}),
+                  "fu_sources": sorted({a["fu_source"] for a in out["animals"]}),
+                  "scope": "One study and interval, numbers as observed. Assay and integration bias and a common GFR bias can shift every ratio; "
+                           "the formal filtration judgement is T10.",
+                  "audit": {"sign_test_p": p, "median_ci": ci, "ci_coverage_at_least": coverage,
+                            "method": "two-sided exact sign test for the median animal ratio (not a registered check)",
+                            "note": "The p reflects how consistently the animals fall on one side of 1. With fewer than 6 animals off 1 the smallest "
+                                    "two-sided p is 0.0625, and 0.03125 when 6 agree. It cannot correct a common GFR bias."}}
 
 
 # ---------------------------------------------------------------- item 34: recovery
@@ -2488,6 +3013,22 @@ def recovery_sets(obs, cards_by_ds, cfg):
                 check("recovery above the dose", status, x, lvl, v)
             else:
                 check("recovery above the dose", "NO_DISCREPANCY", x, "on the reported denominator", v)
+        # E11: the derived route sums face the same ceiling as each row (a sum above the dose is a data discrepancy)
+        ceiling_all = all(x["denominator"] != "that day's dose" for x in routes) or occ in ("FIRST_DOSE", "DAY_1")
+        for key in ("recovery_urine_faeces", "recovery_all_excreta", "recovery_accounted"):
+            v = rs.get(key)
+            if v is None or not math.isfinite(v) or not routes:
+                continue
+            pseudo = {"record_id": key, "source_ref": "sum of " + ", ".join(sorted(by_route))}
+            if not ceiling_all:
+                check(f"{key.replace('_', ' ')} above the dose", "NOT_APPLICABLE", pseudo, "a later day can include carryover", v)
+            elif v > 100:
+                status = "ABOVE_REVIEW_TOLERANCE" if tol is not None and v - 100 > tol else "POINT_DISCREPANCY"
+                check(f"{key.replace('_', ' ')} above the dose", status, pseudo,
+                      "tolerance unknown" if tol is None else ("above the configured review tolerance" if v - 100 > tol else
+                                                               "within the configured review tolerance"), v)
+            else:
+                check(f"{key.replace('_', ' ')} above the dose", "NO_DISCREPANCY", pseudo, "on the reported denominator", v)
         for t in totals:
             if (t["kind"] == "SOURCE_REPORTED_TOTAL" and rs["recovery_accounted"] is not None
                     and set(by_route) >= {"URINE", "FAECES"} and t["interval"]
@@ -2587,7 +3128,7 @@ def component_profiles(obs, cards_by_ds):
     return out
 
 
-# ---------------------------------------------------------------- item 36: project species table (columns added to DIS-6b)
+# ---------------------------------------------------------------- item 36: project species table (columns added to the Distribution species table: Table 3 and DIS-5)
 
 def _urine_windows(series):
     """Keep both the source interval measurements and any directly printed totals."""
@@ -2691,7 +3232,8 @@ def species_columns(boards, dist_data):
                                     "source_restrictions": r.get("source_restrictions", [])} for r in i29],
                      "reported_cl": [{"label": p["label"], "as_printed": _reported_value_text(p), "value_l_per_h_kg": p.get("value_l_per_h_kg"), "dose": p.get("dose"), "dose_context": p.get("dose_context", {}),
                                       "dataset_id": p["dataset_id"], "kind": "source-reported"} for p in b["reported"] if p["param"] in ("CL", "CL_F")],
-                     "urinary_recovery": [{"trace": u["trace"], "value": u["r_u"], "end_h": u["collection_end_h"], "window": u["window_label"], "group": u["group"],
+                     "urinary_recovery": [{"trace": u["trace"], "value": u["r_u"], "upper": (u.get("recovery_bounds") or {}).get("upper"),
+                                           "bound_kind": (u.get("recovery_bounds") or {}).get("kind"), "end_h": u["collection_end_h"], "window": u["window_label"], "group": u["group"],
                                            "occasion": u["occasion"], "denominator": u["denominator"], "dataset_id": u["dataset_id"],
                                            "flags": u["flags"], "kind": "observed collection"} for u in urine],
                      "clr": [{"kind": c["kind"], "value": c.get("clr"), "urine": c["urine_interval"], "plasma": c["plasma_window"],
@@ -2785,7 +3327,8 @@ def pEM5a(urine):
     dens = {u["denominator"] for u in urine}
     if len(dens) != 1 or not any(len({c["t"] for c in u["cumulative"] if c["t"] is not None}) >= 2 for u in urine):
         return None
-    p = Panel("EM-5a · cumulative urinary recovery", "Collection end (h)", "Cumulative recovery (% of " + (dens.pop().replace("administered ", "") if len(dens) == 1 else "dose") + ")")
+    sp = sorted({str(u.get("species") or "") for u in urine} - {""})
+    p = Panel((" · ".join(sp) + " — " if sp else "") + "cumulative urinary recovery vs end of collection", "End of collection (h after start of dosing)", "Cumulative recovery (% of " + (dens.pop().replace("administered ", "") if len(dens) == 1 else "dose") + ")")
     ymax, xmax, n, banded = 0.0, 0.0, 0, False
     traces = {u["trace"] for u in urine}
     for i, u in enumerate(urine):
@@ -2820,8 +3363,9 @@ def pEM5a(urine):
         if rec.get("difference") is not None and abs(rec["difference"]) > 1e-8:
             note.append(f"{u['group']}: intervals sum to {_f(rec['sum_of_increments'])}%; printed total {_f(rec['printed'])}%.")
     if note:
-        p.text(0.98, 0.04, "\n".join(note), hjust=1, vjust=0, size=2.6, npc=True)
-    p.set(ylim=[0, max(ymax * 1.25, 5)], xlim=[0, xmax * 1.08 if xmax else 1], legend="top_left")
+        p.set(caption=" ".join(x.rstrip(".") + "." for x in note[:2]))
+    p.set(ylim=[0, max(ymax * 1.25, 5)], xlim=[0, xmax * 1.08 if xmax else 1], legend="top_left",
+          subtitle="How much of the dose is recovered unchanged in urine, and by when?")
     return p
 
 
@@ -2831,7 +3375,8 @@ def pEM5c(rows):
     reference = any((r.get("t10") or {}).get("filtration_range_l_h_kg") for r in ok)
     if not ok or (len({tuple(r["urine_interval"]) for r in ok}) < 2 and not reference):
         return None
-    p = Panel("EM-5c · interval renal clearance", "", "CLR (mL/min/kg)")
+    p = Panel("Renal clearance by urine collection interval", "Urine collection interval", "Renal clearance (mL/min/kg)")
+    p.set(subtitle="Does renal clearance change between collection intervals?")
     labs = list(dict.fromkeys(f"{_f(r['urine_interval'][0])}–{_f(r['urine_interval'][1])} h" for r in ok))
     plabs = list(dict.fromkeys(r["plasma_label"] for r in ok))
     ys = [r["clr_ml_min_kg"] for r in ok]
@@ -2912,7 +3457,8 @@ def pEM6a(rs):
     first = next(iter(units.values()))
     row = next(iter(first.values()))
     start, end = row["interval"]
-    p = Panel(f"EM-6a · excretion by route, {_f(start)}–{_f(end)} h", "", f"% of {row['denominator']}")
+    p = Panel(f"Excretion by route, {_f(start)}–{_f(end)} h after start of dosing", "", f"% of {row['denominator']}")
+    p.set(subtitle="Through which routes is the dose excreted?")
     routes = [rt for rt in ROUTE_ORDER if rt in first]
     for index, route in enumerate(routes):
         offset = (index - (len(routes) - 1) / 2) * 0.12
@@ -2932,7 +3478,9 @@ def _wrapw(x, n=14):
 def pEM7b(g):
     rows = sorted(g["rows"], key=lambda r: r["species"])
     unit = "unit not stated" if g["unit"] in (None, "not stated", "NOT_FOUND") else g["unit"]
-    p = Panel(f"EM-7b · {READOUT_WORD[g['readout']]}" + (f" at {_f(g['time_min'])} min" if g["time_min"] else ""), "", f"{READOUT_WORD[g['readout']]} ({unit})")
+    p = Panel(f"{READOUT_WORD[g['readout']][:1].upper() + READOUT_WORD[g['readout']][1:]}" + (f" at {_f(g['time_min'])} min" if g["time_min"] else "") + " by species",
+              "", f"{READOUT_WORD[g['readout']]} ({unit})")
+    p.set(subtitle="How does the in vitro result differ between species?")
     xs = list(range(1, len(rows) + 1))
     p.points(xs, [r["value"] for r in rows], color=BLUE, size=3.0)
     for x, r in zip(xs, rows):
@@ -2947,10 +3495,70 @@ def pEM7b(g):
     return p
 
 
+def _route_word(s):
+    return "IV" if s.get("route_class") == "IV" else (str(s.get("route_detail") or "").strip() or "EV")
+
+
+def terminal_phase(s):
+    """The terminal window of one first-dose plasma profile, chosen by the shared Absorption rule A0.7 (longest log-linear window
+    after the peak with adjusted R² >= 0.80 and a span of at least two half-lives). Time is after the start of dosing."""
+    pts = [p for p in s.get("points") or [] if p.get("status") == "QUANTIFIED" and isinstance(p.get("c"), (int, float)) and p["c"] > 0]
+    if len(pts) < 3:
+        return {"sid": s["sid"], "label": s.get("label"), "status": "TOO_FEW_POINTS", "thalf_h": None, "window_times_h": []}
+    try:
+        m = COMMON.curve_metrics(s["points"], "INDIVIDUAL" if str(s.get("level") or "").startswith("INDIVIDUAL") else s.get("level") or "INDIVIDUAL")
+    except Exception:  # noqa: BLE001 - a profile the shared rule cannot read gets no terminal phase
+        return {"sid": s["sid"], "label": s.get("label"), "status": "NOT_ASSESSABLE", "thalf_h": None, "window_times_h": []}
+    sel = m.get("terminal_selected")
+    tq = sorted(p["t"] for p in pts)
+    win = [t for t in tq if sel and t >= sel["start"] - 1e-9][-sel["n"]:] if sel else []
+    return {"sid": s["sid"], "label": s.get("label"), "route": _route_word(s), "status": "SELECTED" if sel else "NOT_SELECTED",
+            "thalf_h": sel["thalf"] if sel else None, "slope_per_h": sel["slope"] if sel else None, "intercept": sel["intercept"] if sel else None,
+            "adj_r2": sel["adjR2"] if sel else None, "span_ratio": sel["span_ratio"] if sel else None, "window_times_h": win,
+            "rule": "Absorption A0.7 terminal window (shared)"}
+
+
+def pEMT(s, tp, species):
+    """S13 rule 9 per-animal terminal phase: all observed points, the samples used for the terminal phase filled, the fitted line."""
+    pts = [p for p in s.get("points") or [] if p.get("status") == "QUANTIFIED" and isinstance(p.get("c"), (int, float)) and p["c"] > 0]
+    if len(pts) < 3:
+        return None
+    iv = s.get("route_class") == "IV"
+    title = COMMON.std_title(species, _route_word(s), s.get("label"), s.get("dose_given") or s.get("dose"),
+                             COMMON.input_text(s.get("iv_mode"), s.get("infusion_h")) if iv else "", what="plasma concentration", scale="semi-log")
+    p = Panel(title, "Time after the start of dosing (h)", f"Concentration ({s.get('unit') or 'as reported'})", ylog=True)
+    win = set(tp["window_times_h"])
+    rest = [q for q in pts if q["t"] not in win]
+    if rest:
+        p.points([q["t"] for q in rest], [q["c"] for q in rest], color=GRAY, shape="open", size=2.4, label="observed")
+    if win:
+        used = [q for q in pts if q["t"] in win]
+        p.points([q["t"] for q in used], [q["c"] for q in used], color=BLUE, shape="circle", size=2.6, label="used for the terminal phase")
+        x0, x1 = min(win), max(win)
+        xs = [x0 + (x1 - x0) * i / 20 for i in range(21)]
+        p.line(xs, [math.exp(tp["intercept"] + tp["slope_per_h"] * x) for x in xs], color=ORANGE, lw=0.8, label="terminal fit")
+        p.set(subtitle=f"Terminal half-life about {COMMON._pl_g2(tp['thalf_h'])} h",
+              caption="Filled points are the samples used for the terminal phase; the line is a straight-line fit on the semi-log scale.")
+    else:
+        p.set(subtitle="No terminal half-life read",
+              caption="The late points do not fall on a straight line long enough to read a half-life.")
+    p.set(legend="top_right", xlim=[0, max(q["t"] for q in pts) * 1.05])
+    return p
+
+
 def figures(boards, out, assay_groups=()):
     for b in boards:
         figs = b["figs"]
         key = b["key"]
+        b["terminal"] = []
+        for s in b.get("plasma") or []:   # one terminal-phase figure per first-dose plasma profile (George 2026-11-25)
+            if s.get("route_class") not in ("IV", "EV") or s.get("occasion") != "FIRST_DOSE":
+                continue
+            tp = terminal_phase(s)
+            b["terminal"].append(tp)
+            pnl = pEMT(s, tp, b["species"])
+            if pnl:
+                tp["file"] = figs[f"EMT|{s['sid']}"] = _figure(f"EMT_{key}-{_slug(s['sid'])}.png", [pnl], 6.0, 4.0)
         by_ds = {}
         for u in b["urine"]:
             by_ds.setdefault(u["dataset_id"], []).append(u)
@@ -2975,7 +3583,10 @@ def figures(boards, out, assay_groups=()):
     return comparisons
 
 
-# ---------------------------------------------------------------- question rows (E0.11): Q1, Q2, Q3, Q5, Q6, Q7; Q4 reserved, no row
+# ---------------------------------------------------------------- question rows (E0.11): engine rows 1, 2, 3, 5, 6, 7 (4 reserved, no row)
+# M5 (2026-11-24): pages print the guide numbers of the eight-question review guide: engine 1, 2, 3 -> Q1, Q2, Q3; engine 5
+# (urine) -> Q4; engine 7 (products, in vitro, species) -> Q5; engine 6 (recovery, routes) -> Q6. Guide Q7 (binding) and Q8
+# (return of biliary drug) have no row and are recorded in guide_coverage. `q` stays the engine id.
 
 READING_MAP = [
     ("EM-1a (value row)", "Dose divided by observed AUC for the named measurement and profile",
@@ -2983,7 +3594,7 @@ READING_MAP = [
      "A window-specific starting value. Missing exposure tends to raise the ratio if the numerical area is accurate. Check quadrature and definitions when a source-reported clearance lies above it"),
     ("Q2 (upstream C2 / DIS-2b)", "The upstream dose panel with its T3 / T3p result; urine by dose from EM-5a",
      "The reading table of item 30: which candidates remain and which measurement separates them", "Saturable elimination, F or input change (EV), binding, timing; candidates only"),
-    ("Q3 (upstream E1, E2 / DIS-4c)", "The upstream occasion panel with the T9 or item 23 result; urine by occasion from EM-5a",
+    ("Q3 (upstream E1, E2 / DIS-3c)", "The upstream occasion panel with the T9 or item 23 result; urine by occasion from EM-5a",
      "The measured change kept apart from its cause", "Increased clearance or reduced input (EV); carryover in urine"),
     ("EM-5a", "Cumulative unchanged parent at each collection end, by dose and occasion where measured; gaps; the last increment",
      "r_U with its lower limit; 'small last increment' when configured",
@@ -2997,7 +3608,7 @@ READING_MAP = [
     ("Component table", "Largest measured component in each excretum and window; unassigned and unprofiled parts", "Component share (of dose when the excretum recovery matches); identified share",
      "A product was observed. Its origin (enzymatic, chemical in vivo, after collection) stays open until controls and stability separate them"),
     ("EM-7b", "Ranking within matched systems only; controls", "More or less loss on one assay basis", "A species or system difference in loss on that basis. Not a pathway and not a scaled clearance"),
-    ("EM-8a (columns of DIS-6b)", "Which cells are filled and which contrasts are comparable", "comparable / descriptive_only / incompatible, each with the reason",
+    ("EM-8a (columns of the Distribution species table)", "Which cells are filled and which contrasts are comparable", "comparable / descriptive_only / incompatible, each with the reason",
      "Per species: one observation, its principal unresolved alternative and one feasible discriminator"),
 ]
 
@@ -3012,29 +3623,33 @@ QD = {
     7: ("Components, in vitro, species", "What products, systems and species can be compared?", "measured component shares and matched in vitro readouts",
         "a pathway, the origin of a product, or a scaled clearance"),
 }
-STATUS_FROM = {"ANSWERABLE": ST_YES, "PARTLY_ANSWERABLE": ST_PART, "NOT_ANSWERABLE_YET": ST_NO, "NOT_APPLICABLE": ST_NA}
 
 
 def _qrow(qn, status, observed, basis="", reach="", missing=(), primary=None, views=(), evidence=(), shown=True):
-    return {"q": qn, "display_number": qn, "label": QD[qn][0], "question": QD[qn][1], "status": status, "status_code": ST_CODE[status],
+    return {"q": qn, "label": QD[qn][0], "question": QD[qn][1], "status": status, "status_code": ST_CODE[status],
             "observed": observed, "basis": basis, "reach": reach, "text": " ".join(x for x in (observed, basis, reach) if x),
-            "missing": [m for m in dict.fromkeys(missing) if m], "primary": primary, "views": list(views), "evidence": list(evidence), "shown": shown}
+            "missing": [m for m in dict.fromkeys(missing) if m], "primary": primary, "views": list(views), "evidence": list(evidence), "shown": shown,
+            **COMMON.guide_fields("elimination", qn), "legacy_q": [qn]}
+
+
+def _ref(qn):
+    """M5: the guide number an engine row is printed with."""
+    return COMMON.display_ref("elimination", qn)
 
 
 def _prim(file, panel, qn, label_line, level):
     if not file:
         return None
     return {"kind": "panel", "file": file, "panels": [panel],
-            "lines": [f"Q{qn} · {QD[qn][0]}", label_line, "Shows " + QD[qn][2], "Cannot show: " + QD[qn][3]], "level": level}
+            "lines": [f"{_ref(qn)} · {QD[qn][0]}", label_line, "Shows " + QD[qn][2], "Cannot show: " + QD[qn][3]], "level": level}
 
 
 def _rowprim(qn, head, rows, label_line, level):
     return {"kind": "row", "head": list(head), "rows": [list(r) for r in rows],
-            "lines": [f"Q{qn} · {QD[qn][0]}", label_line, "Shows " + QD[qn][2], "Cannot show: " + QD[qn][3]], "level": level}
+            "lines": [f"{_ref(qn)} · {QD[qn][0]}", label_line, "Shows " + QD[qn][2], "Cannot show: " + QD[qn][3]], "level": level}
 
 
-def _view(panel, file, label, tier=1):
-    return {"panel": panel, "file": file, "label": label, "tier": tier}
+_view = COMMON.panel_view
 
 
 def _lvl(level):
@@ -3110,8 +3725,11 @@ def q1_row(b):
     if ok:
         iv = [r for r in ok if r["route"] == "IV"]
         parent_iv = [r for r in iv if r["assay"] != "MICROBIOLOGICAL" and "PARENT_IDENTITY_UNVERIFIED" not in r["caveats"]]
-        r0 = (parent_iv or iv or ok)[0]
-        st = ST_YES if parent_iv else ST_PART
+        parent_ok = [r for r in ok if r["assay"] != "MICROBIOLOGICAL" and "PARENT_IDENTITY_UNVERIFIED" not in r["caveats"]]
+        r0 = (parent_iv or parent_ok or iv or ok)[0]
+        # R6: the question asks for dose over observed exposure; a parent-specific window value answers it on either route.
+        # Unknown F limits the systemic-clearance reading of an extravascular value, not the window value itself.
+        st = ST_YES if parent_ok else ST_PART
         more = len(ok) - 1
         observed = r0["value_row"] + (f" See the evidence table for {more} additional profile{'s' if more > 1 else ''}." if more else "")
         basis = r0["direction_note"]
@@ -3132,7 +3750,7 @@ def q1_row(b):
                          [[r["sid"], r["measurement_basis"], _lvl(r["analysis_unit"]), " – ".join(_f(x) for x in r["auc_window_h"]), _f(r["window_proxy"])]
                           for r in ok], "EM-1a value rows", level))
         if not f0:
-            missing.append("upstream DIS-1a or B1 panel for this profile (mismatch recorded; value row shown)")
+            missing.append("upstream DIS-1a/1b or B1 panel for this profile (mismatch recorded; value row shown)")
         missing += ["plasma area outside the observed window"] + ([] if iv else ["an IV reference for CL"])
         if r0.get("unbound_reason"):
             missing.append(r0["unbound_reason"])
@@ -3189,12 +3807,27 @@ def _dose_reading(series, *, reported=False):
     return text
 
 
+CONFOUNDING_FLAGS = {"CONFOUNDED", "OCCASION_CONFOUNDED", "REGIMEN_CHANGED"}
+
+
+def _up_result(u):
+    """M5: the result of one upstream occasion test, read from `result` (the old records have it only under "t9")."""
+    return u.get("result", u.get("t9"))
+
+
+def _formal_unlimited(result, flags):
+    """R6 / E8: one upstream result is complete when it is formal and carries no limiting or confounding flag."""
+    return result in FORMAL_RESULTS and not (LIMITED_TEST_FLAGS | CONFOUNDING_FLAGS).intersection(flags or [])
+
+
+def _q2_complete(u):
+    return u["route"] == "IV" and _has_dose_test(u) and not (LIMITED_TEST_FLAGS | CONFOUNDING_FLAGS).intersection(u.get("caveats") or [])
+
+
 def q2_row(b):
     i30 = b["item30"]
-    direct = _clearance_contrast_question(2, i30.get("clearance_contrasts", []))
-    if direct:
-        return direct
-    level = "; ".join(sorted({_lvl(r["analysis_unit"]) for r in b["item29"]})) or "—"
+    blk = _clearance_contrast_block(2, i30.get("clearance_contrasts", []))
+    level = "; ".join(sorted({_lvl(r["analysis_unit"]) for r in b.get("item29", [])})) or "—"
     up = i30["upstream"]
     ev = [{"rule": "Individual true IV clearance contrast was not run: " + "; ".join(r["reasons"]),
            "data": [], "tables": [{"caption": "Prespecified clearance contrast", "head": ["ID", "Status", "Design source"],
@@ -3215,14 +3848,21 @@ def q2_row(b):
                    "tables": [{"caption": "Reported by dose", "head": REP_HEAD, "rows": _rep_rows(i30["reported_by_dose"])}]})
     reach = ("Remaining candidates: " + ", ".join(i30["alternatives"]) + f". Next: {i30['next_discriminator']}.") if i30["alternatives"] else (
         f"Next: {i30['next_discriminator']}." if i30["next_discriminator"] else "")
+    if blk and not up:
+        row = _clearance_contrast_question(2, i30.get("clearance_contrasts", []))
+        row["evidence"] = ev + row["evidence"]
+        return row
     if up:
+        # R6 / E8: judge each upstream result first, then combine; a stable order makes the deciding row independent of input order
+        up = sorted(up, key=lambda u: (str(u.get("route")), str(u.get("key")), str(u.get("source"))))
         ev.append({"rule": "Read from the upstream record by ID and version; elimination repeats no figure and no test and does not upgrade the status.", "data": [],
                    "tables": [{"caption": "Upstream dose results", "head": ["Source", "Route", "Doses (mg/kg)", "Window (h)", "AUC ratio", "T3", "T3p", "Pattern"],
                                "rows": [[u["source"], u["route"], ", ".join(_f(d) for d in (u["doses"] or [])), u.get("window_h") or "—", _f(u.get("auc_ratio")),
                                          u["t3"], u["t3p"], u.get("pattern") or "—"] for u in up]}]})
-        u0 = next((u for u in up if u.get("exposure")), next((u for u in up if u.get("panel")), up[0]))
-        tested = [u for u in up if _has_dose_test(u)]
-        st = ST_YES if len(tested) == len(up) and all(u["route"] == "IV" and not (LIMITED_TEST_FLAGS | {"CONFOUNDED"}).intersection(u["caveats"]) for u in up) else ST_PART
+        complete = [u for u in up if _q2_complete(u)]
+        st = ST_YES if len(complete) == len(up) else ST_PART
+        pick = [u for u in up if u not in complete] or up
+        u0 = next((u for u in pick if u.get("exposure")), next((u for u in pick if u.get("panel")), pick[0]))
         observed = (_dose_reading(u0["exposure"]) if u0.get("exposure") else
                     f"{u0['source']}: doses {', '.join(_f(d) for d in (u0['doses'] or []))} mg/kg. "
                     + (f"The upstream profile pattern was {u0['pattern'].replace('_', ' ').lower()}." if u0.get("pattern")
@@ -3238,6 +3878,13 @@ def q2_row(b):
             basis += " T3 is a " + reason.rstrip(".") + ". With so few dose groups only a large departure from proportionality could be excluded."
         if u0.get("caveats"):
             basis += " Comparison limits: " + _words(u0["caveats"]) + "."
+        if len(up) > 1 or st == ST_PART:
+            basis += (f" {len(complete)} of {len(up)} upstream dose comparison{'s' if len(up) > 1 else ''} "
+                      f"{'are' if len(complete) != 1 else 'is'} a formal IV result without limiting or confounding flags.")
+        if blk:
+            observed += " " + blk["sentence"]
+            reach = (reach + " " + blk["limit"]).strip()
+            ev += blk["evidence"]
         views = [_view(u["panel_id"], u["panel"], f"{u['key']}") for u in up if u.get("panel") and u is not u0]
         prim = _prim(u0.get("panel"), u0["panel_id"], 2, f"Upstream {u0['panel_id']} · {u0['source']}", level)
         return _qrow(2, st, observed, basis, reach, ["matched IV doses" if any(u["route"] == "EV" for u in up) else ""], prim, views, ev)
@@ -3283,9 +3930,9 @@ def _occasion_table(item):
 
 def q3_row(b):
     i31 = b["item31"]
-    direct = _clearance_contrast_question(3, i31.get("clearance_contrasts", []))
-    if direct:
-        return direct
+    blk = _clearance_contrast_block(3, i31.get("clearance_contrasts", []))
+    if blk and not (i31["upstream"] or i31["reported_by_occasion"] or i31["urine_by_occasion"]):
+        return _clearance_contrast_question(3, i31.get("clearance_contrasts", []))
     if not i31["applies"]:
         return _qrow(3, ST_NA, "No repeat-dose regimen was identified for this study and species.", shown=False)
     ev = [{"rule": "Individual true IV clearance contrast was not run: " + "; ".join(r["reasons"]),
@@ -3314,13 +3961,32 @@ def q3_row(b):
                    "tables": [{"caption": "Reported by occasion", "head": head, "rows": rows}] if i31["upstream"] else []})
     reach = ("The measured change is kept apart from its cause: " + " or ".join(i31["alternatives"]) + ".") if i31["alternatives"] else ""
     up = i31["upstream"]
+    if blk and not up:
+        row = _clearance_contrast_question(3, i31.get("clearance_contrasts", []))
+        row["evidence"] = ev + row["evidence"]
+        return row
     if up:
-        u0 = up[0]
-        tested = [u for u in up if u.get("t9") in FORMAL_RESULTS]
-        st = ST_YES if tested and all(not LIMITED_TEST_FLAGS.intersection(u.get("flags") or []) for u in tested) else ST_PART
-        prim = _prim(u0.get("panel"), "E1" if "absorption" in u0["source"] else "DIS-4c", 3, f"Upstream · {u0['source']}", "—")
-        return _qrow(3, st, f"Upstream occasion comparison ({u0['source']}): {str(u0.get('t9') or 'not assessed').replace('_', ' ').lower()}.", "", reach,
-                     [], prim, [_view("E2", u0["panel2"], "E2")] if u0.get("panel2") else [], ev)
+        # R6 / E8: every upstream occasion result is judged on its own; the question is answerable only when all are formal
+        # without limiting or confounding flags, and the sentence comes from the deciding row, not from the first in the input
+        up = sorted(up, key=lambda u: (str(u.get("source")), str(u.get("first")), str(u.get("later"))))
+        complete = [u for u in up if _formal_unlimited(_up_result(u), u.get("flags"))]
+        st = ST_YES if len(complete) == len(up) else ST_PART
+        u0 = next((u for u in up if u not in complete), up[0])
+        observed = (f"Upstream occasion comparison ({u0['source']}"
+                    + (f"; it asks: {u0['asks'][0].lower() + u0['asks'][1:-1]}" if u0.get("asks") else "")
+                    + f"): {str(_up_result(u0) or 'not assessed').replace('_', ' ').lower()}.")
+        basis = ("Limits: " + _words(u0["flags"]) + ".") if u0.get("flags") else ""
+        if len(up) > 1 or st == ST_PART:
+            basis = (basis + f" {len(complete)} of {len(up)} upstream occasion comparison{'s' if len(up) > 1 else ''} "
+                     f"{'are' if len(complete) != 1 else 'is'} formal without limiting or confounding flags.").strip()
+        if blk:
+            observed += " " + blk["sentence"]
+            reach = (reach + " " + blk["limit"]).strip()
+            ev += blk["evidence"]
+        panel_row = u0 if u0.get("panel") else next((u for u in up if u.get("panel")), u0)
+        prim = _prim(panel_row.get("panel"), "E1" if "absorption" in panel_row["source"] else "DIS-3c", 3, f"Upstream · {panel_row['source']}", "—")
+        return _qrow(3, st, observed, basis, reach,
+                     [], prim, [_view("E2", panel_row["panel2"], "E2")] if panel_row.get("panel2") else [], ev)
     if i31["reported_by_occasion"]:
         obs = "The source reports plasma parameters by dosing day." if all(
             p["matrix"].lower() in ("plasma", "serum", "blood") for p in i31["reported_by_occasion"]) else "The source reports parameters by dosing day."
@@ -3384,13 +4050,28 @@ def q3_row(b):
 def _ru_text(u):
     occ = u["occasion"].replace("_", " ").lower()
     occ = "" if u["occasion"] == "FIRST_DOSE" or occ in str(u["group"]).lower() else f", {occ}"
-    head = f"{_f(u['r_u'])}%"
+    head = ru_value_text(u)
     den = ("the " if u["denominator"].startswith("administered") else "") + u["denominator"]
-    return f"{_short(u['group'], 28)}{occ}, {u['window_label']}: {head} of {den} recovered as {u['trace']}"
+    bounds = u.get("recovery_bounds") or {}
+    tail = ""
+    if bounds.get("n_below_lloq") or bounds.get("n_missing"):
+        tail = " (" + interval_status_text(u) + ")"   # 2026-11-24 review: collected, below the assay limit and missing stay apart
+    return f"{_short(u['group'], 28)}{occ}, {u['window_label']}: {head} of {den} recovered as {u['trace']}{tail}"
+
+
+def _late_text(u):
+    li = u.get("late_increment")
+    if not li:
+        return "—"
+    if "share" in li:
+        return f"{_f(100 * li['share'])} % of total"
+    if li.get("share_upper") is not None:   # the last interval is below the assay limit: only an upper share exists
+        return f"≤ {_f(100 * li['share_upper'])} % of total (below the assay limit)"
+    return "below the assay limit (limit not printed)"
 
 
 def _q5_observations(b):
-    urine = [u for u in b["urine"] if u.get("r_u") is not None]
+    urine = [u for u in b["urine"] if urine_reading(u)]
     parent = [u for u in urine if u["analyte"] == "PARENT"]
     other = [u for u in urine if u["analyte"] != "PARENT"]
     rep = [p for p in b["reported"] if p["param"] in ("FE", "CLR", "CLNR")]
@@ -3400,16 +4081,15 @@ def _q5_observations(b):
     if urine:
         ev.append({"rule": "Item 33: cumulative amount from contiguous quantified increments; a printed total is reconciled, never added; missing intervals stay missing.",
                    "data": sorted({u["dataset_id"] for u in urine}),
-                   "tables": [{"caption": "Urine series", "head": ["Group", "Trace", "Occasion", "Collected (h)", "r_U (% of dose)", "Lower limit", "Last increment", "Assay", "Flags"],
-                               "rows": [[u["group"], u["trace"], u["occasion"].replace("_", " ").lower(), u["window_label"], _f(u["r_u"]),
+                   "tables": [{"caption": "Urine series", "head": ["Group", "Trace", "Occasion", "Collected (h)", "r_U (% of dose)", "Lower limit", "Last increment", "Assay", "Flags", "Intervals"],
+                               "rows": [[u["group"], u["trace"], u["occasion"].replace("_", " ").lower(), u["window_label"], ru_value_text(u, ""),
                                          _f(u["recovery_lower"]) if u.get("recovery_lower") is not None else (u.get("fe_lower_reason") or "—"),
-                                         (f"{_f(100 * u['late_increment']['share'])} % of total" if u.get("late_increment") else "—"),
-                                         u["assay"].replace("_", " ").lower(), _words(u["flags"])] for u in urine]}]})
-    clr = [c for c in b["clr"]]
+                                         _late_text(u), u["assay"].replace("_", " ").lower(), _words(u["flags"]), interval_status_text(u) or "—"] for u in urine]}]})
+    clr = sorted(b["clr"], key=lambda c: (str(c.get("animal_id") or c["plasma_label"]), tuple(c["urine_interval"] or ())))
     if clr:
         ev.append({"rule": "Interval CLR = ΔAe/ÂUC over the same interval from matched plasma; a partial plasma window is a labelled proxy. T10 needs a sourced GFR and fu,p.",
-                   "data": [], "tables": [{"caption": "EM-5c rows", "head": ["Urine interval (h)", "Plasma", "Plasma window (h)", "CLR (mL/min/kg)", "Kind", "T10", "Caveats"],
-                                           "rows": [[" – ".join(_f(x) for x in c["urine_interval"]), c["plasma_label"], " – ".join(_f(x) for x in (c["plasma_window"] or [])) or "—",
+                   "data": [], "tables": [{"caption": "EM-5c rows", "head": ["Animal", "Urine interval (h)", "Plasma", "Plasma window (h)", "CLR (mL/min/kg)", "Kind", "T10", "Caveats"],
+                                           "rows": [[c.get("animal_id") or "—", " – ".join(_f(x) for x in c["urine_interval"]) or "—", c["plasma_label"], " – ".join(_f(x) for x in (c["plasma_window"] or [])) or "—",
                                                      _f(c.get("clr_ml_min_kg")), c["kind"].replace("_", " ").lower(), ((c.get("t10") or {}).get("status") or "—").replace("_", " ").lower(),
                                                      _words(c["caveats"])] for c in clr]}]})
     if rep:
@@ -3429,7 +4109,7 @@ def _q5_observations(b):
             prim = _prim(file, "EM-5a", 5, "EM-5a · " + _ru_text(plotted), level)
     elif urine:
         prim = _rowprim(5, ["Group or occasion", "Measured material", "Collection", "Recovery (%)", "Denominator"],
-                        [[u["group"], u["trace"], u["window_label"], _f(u["r_u"]), u["denominator"]] for u in urine],
+                        [[u["group"], u["trace"], u["window_label"], ru_value_text(u, ""), u["denominator"]] for u in urine],
                         "Observed urinary recovery", level)
     if parent:
         txt = "; ".join(_ru_text(u) for u in parent[:3]) + ("; more groups in the evidence" if len(parent) > 3 else "")
@@ -3439,23 +4119,54 @@ def _q5_observations(b):
             basis += f" The source gives conflicting values for {', '.join(_short(u['group'], 20) for u in conf)}; the table value is shown and flagged."
         if any("LATE_INCREMENT_SMALL" in u["flags"] for u in parent):
             basis += " The final interval contributed a small fraction of the collected amount."
-        cl = [c for c in clr if c.get("clr") is not None and c["kind"] in ("INTERVAL_ESTIMATE", "WINDOW_PROXY")]
-        if cl:
-            c0 = next((c for c in cl if c["kind"] == "INTERVAL_ESTIMATE"), cl[0])
+        kinds = {(u.get("recovery_bounds") or {}).get("kind") for u in parent}
+        if "QUANTIFIED_PLUS_BELOW_LLOQ" in kinds:
+            # 2026-11-24 review: an interval below the assay limit is collected; its printed limit bounds the amount from above
+            basis += (" Intervals below the assay limit were collected: the quantified amounts give the lower value and each printed limit "
+                      "adds at most that limit to the upper value.")
+        if "UPPER_LIMIT_ONLY" in kinds:
+            basis += " Every collected interval was below the assay limit, so only an upper limit (the sum of the printed limits) exists."
+        # E8 / R6: CLR is reported for every matched animal (or group) and interval, in a stable order, never from the first row alone
+        cl = sorted([c for c in clr if c.get("clr") is not None and c["kind"] in ("INTERVAL_ESTIMATE", "WINDOW_PROXY") and _clr_same_unit(c)],
+                    key=lambda c: (str(c.get("animal_id") or c["plasma_label"]), tuple(c["urine_interval"] or ())))
+        if len(cl) == 1:
+            c0 = cl[0]
             t10_result = c0["t10"]
             reach = c0["text"]
             if t10_result.get("filtration_range_l_h_kg") or t10_result["status"] in FORMAL_RESULTS:
                 reach += f" Filtration comparison: {t10_result['status'].replace('_', ' ').lower()}. {t10_result['reason']}."
             if t10_result["status"] == "CANNOT_ASSESS":
                 missing.append(t10_result["reason"])
+        elif cl:
+            est = [c for c in cl if c["kind"] == "INTERVAL_ESTIMATE"]
+            animals = sorted({c["animal_id"] for c in cl if c.get("animal_id")})
+            unit = f"{len(animals)} animal{'s' if len(animals) != 1 else ''}" if animals else "the matched groups"
+            vals = [c["clr_ml_min_kg"] for c in cl]
+            reach = (f"Interval CLR for {len(cl)} matched urine–plasma intervals in {unit} ({len(est)} full-interval estimate{'s' if len(est) != 1 else ''}, "
+                     f"{len(cl) - len(est)} partial-window prox{'ies' if len(cl) - len(est) != 1 else 'y'}): {_f(min(vals))}–{_f(max(vals))} mL/min/kg. "
+                     "Each animal and interval is listed in the evidence table.")
+            counts = {}
+            for c in cl:
+                counts[c["t10"]["status"]] = counts.get(c["t10"]["status"], 0) + 1
+            if any(c["t10"].get("filtration_range_l_h_kg") or c["t10"]["status"] in FORMAL_RESULTS for c in cl):
+                reach += " Filtration comparison: " + ", ".join(f"{n} {k.replace('_', ' ').lower()}" for k, n in sorted(counts.items())) + "."
+            missing += [c["t10"]["reason"] for c in cl if c["t10"]["status"] == "CANNOT_ASSESS"]
         elif clr:
             reach = "CLR: " + clr[0]["text"]
             missing.append(clr[0]["text"])
+        elif all(u.get("r_u") is None for u in parent):
+            reach = "CLR not formed: every collected urine interval is below the assay limit, so no excreted amount is quantified."
+            missing.append("quantified urinary amounts of unchanged drug")
+        elif all(not u.get("intervals") and u.get("collection_end_h") is None for u in parent):
+            # round 3 addendum: amounts without a collection window cannot be set against any plasma window
+            reach = ("CLR not formed: the urine collection window is not stated, so the excreted amount cannot be matched to a plasma "
+                     "window (a fraction of the dose over an unknown collection is not fe over the full profile).")
+            missing.append("the urine collection window")
         else:
             reach = "CLR not formed: no matched plasma profile at the same dose, route and occasion."
             missing.append("matched plasma for the urine intervals")
         missing += (["bladder emptying at interval ends"] if any(u["collection"]["bladder_emptying"] == "not reported" for u in parent) else []) + \
-                   (["SD or SE for the recovery"] if any(u["dispersion"] == "UNKNOWN" for u in parent) else []) + ["recovery after the last collection"]
+                   (["SD or SE for the recovery"] if any(u["dispersion"] == "UNKNOWN" and u.get("r_u") is not None for u in parent) else []) + ["recovery after the last collection"]
         return _qrow(5, ST_PART, txt + ".", basis.strip(), reach, missing, prim, views, ev)
     derived = [(c, r) for c in b["components"] if c["excretum"] == "URINE"
                for r in c["components"] if r["kind"] == "PARENT" and r["dose_share"] is not None]
@@ -3466,7 +4177,7 @@ def _q5_observations(b):
                           for c, r in derived], "Urinary parent recovery from component data", "Source-reported groups")
         return _qrow(5, ST_PART,
                      f"{c['group']} ({c['interval_text']}): the component table gives {_f(r['dose_share'])}% of dose as urinary parent.",
-                     "The table lists groups with a compatible dose denominator. Q7 gives the component measurements.",
+                     f"The table lists groups with a compatible dose denominator. {_ref(7)} gives the component measurements.",
                      "Interval renal clearance requires matching plasma exposure.", ["matched parent plasma exposure"], table, [], ev)
     if other:
         txt = "; ".join(_ru_text(u) for u in other[:3])
@@ -3481,9 +4192,19 @@ def _q5_observations(b):
     return _qrow(5, ST_NO, "No urine data for this study and species: urinary recovery unknown.", "", "", ["unchanged parent in urine as amounts, or concentration with volume"], None, [], ev)
 
 
+def _clr_same_unit(c):
+    """E8: urine and plasma belong together when they come from the same animal (same-animal pairing) or are group-level
+    data of one parallel cohort. Individual urine and individual plasma of a parallel cohort are different animals."""
+    if c.get("pairing") == "SAME_ANIMAL":
+        return True
+    if c.get("pairing") == "PARALLEL_COHORT_SAME_STUDY":
+        return not (c.get("plasma_level") == c.get("urine_level") == "INDIVIDUAL")
+    return False
+
+
 def q5_row(b):
     row = _q5_observations(b)
-    measured = [u for u in b["urine"] if u.get("r_u") is not None]
+    measured = [u for u in b["urine"] if urine_reading(u)]
     conflicts = [u for u in b["urine"] if "SOURCE_CONFLICT" in u["flags"]]
     if conflicts:
         rows = [[u["dataset_id"], u["group"], kind, " – ".join(_f(x) for x in (m["interval"] or [])) or "not stated",
@@ -3501,8 +4222,10 @@ def q5_row(b):
     parent_components = [c for c in b["components"] if c["excretum"] == "URINE"
                          and any(r["kind"] == "PARENT" and r["dose_share"] is not None for r in c["components"])]
     recovery = "UNAVAILABLE"
-    if any(u["analyte"] == "PARENT" for u in measured):
+    if any(u["analyte"] == "PARENT" and u.get("r_u") is not None for u in measured):
         recovery = "OBSERVED_PARENT"
+    elif any(u["analyte"] == "PARENT" for u in measured):
+        recovery = "PARENT_BELOW_ASSAY_LIMIT"   # 2026-11-24 review: collected, every interval below the assay limit (upper limit only)
     elif parent_components:
         recovery = "DERIVED_PARENT_SHARE"
     elif measured:
@@ -3528,25 +4251,31 @@ def q5_row(b):
     contrast = b.get("renal_filtration_comparison")
     if contrast:
         row["evidence_levels"]["animal_filtration_comparison"] = contrast["status"]
-        if contrast["status"] == "TESTED":
-            ci = contrast["median_ci"]
-            uncertainty = (f"median interval {_f(ci[0])}–{_f(ci[1])}" if ci else
-                           "too few animals for a bounded 95% median interval")
-            reading = (f"Renal clearance divided by matched filtration had a median of {_f(contrast['median_ratio'])} "
-                       f"in {contrast['n_animals']} animals ({uncertainty}, two-sided sign test p = {contrast['p']:.3g}).")
+        if contrast["status"] == "DESCRIBED":
+            # R7 item 1: numbers as observed; no p value and no direction in the answer (the p stays in the audit record)
+            w = contrast["interval_h"]
+            reading = (f"Renal clearance divided by the animal's fu × GFR over {_f(w[0])}–{_f(w[1])} h: median {_f(contrast['median_ratio'])}, "
+                       f"range {_f(contrast['range'][0])}–{_f(contrast['range'][1])} in {contrast['n_animals']} animals "
+                       f"({contrast['above']} above 1, {contrast['below']} below, {contrast['ties']} equal). "
+                       f"GFR source: {'; '.join(contrast['gfr_sources'])}. fu source: {'; '.join(contrast['fu_sources'])}.")
             row["reach"] = (row["reach"] + " " + reading).strip()
             row["text"] = " ".join(row[k] for k in ("observed", "basis", "reach") if row[k])
             row["evidence"].append({"rule": contrast["scope"], "data": [contrast["urine_dataset"], contrast["plasma_dataset"]],
                                     "tables": [{"caption": "Animal-matched renal clearance and filtration",
-                                                "head": ["Animal", "Renal clearance (mL/min/kg)", "GFR (mL/min/kg)", "Free fraction", "Ratio"],
+                                                "head": ["Animal", "Renal clearance (mL/min/kg)", "GFR (mL/min/kg)", "Free fraction", "Ratio", "GFR source", "fu source"],
                                                 "rows": [[a["animal_id"], _f(a["clr_ml_min_kg"]), _f(a["gfr_ml_min_kg"]), _f(a["fu_p"]),
-                                                          _f(a["ratio"])] for a in contrast["animals"]]}]})
+                                                          _f(a["ratio"]), a["gfr_source"], a["fu_source"]] for a in contrast["animals"]]}]})
         else:
             row["evidence"].append({"rule": "Animal-level filtration comparison. " + contrast["reason"], "data": [], "tables": []})
-    if recovery == "OBSERVED_PARENT" and renal == "MATCHED_INTERVAL_ESTIMATE" and all(
-        c["kind"] == "INTERVAL_ESTIMATE" and (c.get("t10") or {}).get("status") in FORMAL_RESULTS for c in b["clr"]
+    # E8 / R6: judge each urine–plasma pair that belongs together; answerable only when every such pair is a full-interval estimate
+    # with a formal T10 result and no limiting flag. Pairs that do not belong together are not judged.
+    eligible = [c for c in b["clr"] if _clr_same_unit(c)]
+    if recovery == "OBSERVED_PARENT" and eligible and all(
+        c["kind"] == "INTERVAL_ESTIMATE" and _formal_unlimited((c.get("t10") or {}).get("status"), (c.get("t10") or {}).get("flags"))
+        for c in eligible
     ):
         row.update(status=ST_YES, status_code=ST_CODE[ST_YES])
+    row["evidence_levels"]["interval_clr"]["pairs_judged"] = len(eligible)
     return row
 
 
@@ -3605,13 +4334,20 @@ def q6_row(b):
     else:
         observed = "Recovery is reported for " + ", ".join(ROUTE_WORD.get(k, str(k).lower()) for k in sorted(routes, key=str)) + "."
     readings = []
+    sum_keys = ("recovery_urine_faeces", "recovery_all_excreta", "recovery_accounted")
     for rs in sets:
-        checks = [c for c in rs["t12_checks"] if c["check"] == "recovery above the dose"]
+        checks = [c for c in rs["t12_checks"] if c["check"].endswith("above the dose")]
         label = rs["occasion"].replace("_", " ").capitalize()
-        if any(c["status"] in ("POINT_DISCREPANCY", "ABOVE_REVIEW_TOLERANCE") for c in checks):
+        bad = [c for c in checks if c["status"] in ("POINT_DISCREPANCY", "ABOVE_REVIEW_TOLERANCE")]
+        if [c for c in bad if c["record"] not in sum_keys]:
             readings.append(f"Reconcile the above-dose recovery on {label.lower()} with the dose and assay records.")
-            if any(c["level"] == "tolerance unknown" for c in checks):
-                readings.append("The review tolerance is unknown.")
+        sums = [c for c in bad if c["record"] in sum_keys]
+        if sums:
+            # E11/R6: a sum above the dose keeps its parts; the denominator, window and double counting need checking
+            readings.append(f"The summed recovery on {label.lower()} ({_f(max(c['value'] for c in sums))}%) exceeds the dose: check the "
+                            "denominator, the collection window and double counting; the printed values are kept.")
+        if bad and any(c["level"] == "tolerance unknown" for c in bad):
+            readings.append("The review tolerance is unknown.")
         if any(c["status"] == "NOT_APPLICABLE" for c in checks):
             readings.append(f"{label} may include earlier doses, so a single-dose ceiling does not apply.")
     if not readings:
@@ -3623,7 +4359,17 @@ def q6_row(b):
     missing = list(dict.fromkeys(n for rs in sets for n in rs["notes"] if not n.startswith("individual animals:")))
     if any("for urine, faeces (records quarantined at intake)" in n for n in missing):
         missing = [n for n in missing if not n.startswith("route values not available")] + ["Urine and faeces records were withheld at intake."]
-    status = ST_YES if all(rs["recovery_urine_faeces"] is not None for rs in sets) else ST_PART
+    # E11/R6: a reliable urine + faeces sum answers the question for its window; an open T12 discrepancy (a row or a sum
+    # above the dose, a negative amount, a printed total that does not match its routes) leaves it partly answered
+    open_t12 = any(rs["t12"] for rs in sets)
+    status = ST_YES if all(rs["recovery_urine_faeces"] is not None for rs in sets) and not open_t12 else ST_PART
+    if status == ST_YES:
+        sums = []
+        for rs in sets:
+            ends = rs.get("collection_ends") or []
+            sums.append(f"{_f(rs['recovery_urine_faeces'])}% in urine and faeces together" + (f" by {_f(ends[-1])} h" if ends else ""))
+        observed += " " + "; ".join(sums) + " (" + str(sets[0]["denominator"]) + ")."
+        readings.append("Where the rest of the dose went, beyond this window and these routes, is not addressed here.")
     return _qrow(6, status, observed, reach=" ".join(dict.fromkeys(readings)), missing=missing,
                  primary=primary, views=views, evidence=evidence)
 
@@ -3698,7 +4444,8 @@ def q7_row(b):
 
 
 def board_questions(b):
-    return [q1_row(b), q2_row(b), q3_row(b), q5_row(b), q6_row(b), q7_row(b)]
+    rows = [q1_row(b), q2_row(b), q3_row(b), q5_row(b), q6_row(b), q7_row(b)]
+    return sorted(rows, key=lambda q: COMMON.guide_order("elimination", q))   # M5: guide order
 
 
 def _plasma_priority(study, profile):
@@ -3717,6 +4464,32 @@ def _plasma_priority(study, profile):
             f"{anchor}: check early and late coverage against the sampling schedule before interpreting the ratio.")
 
 
+def _t10_next_test(clr):
+    """Next test of the working hypothesis once interval CLR exists (2026-11-24): state the T10 outcome instead of asking for it."""
+    est = [c for c in clr if c["kind"] == "INTERVAL_ESTIMATE"]
+    res = [c.get("t10") or {} for c in est]
+    formal = [r for r in res if r.get("status") in FORMAL_RESULTS]
+    excluded = lambda rows, side: sum(r.get("status") == "EXCLUDED_UNDER_STATED_ASSUMPTIONS" and r.get("direction") == side for r in rows)
+    if formal:
+        above, below = excluded(formal, "above"), excluded(formal, "below")
+        kept = len(formal) - above - below
+        single = sum("SINGLE_POINT_SUPPORT" in (r.get("flags") or []) for r in formal)
+        parts = ([f"filtration alone excluded above in {above} (net appearance beyond filtration, compatible with secretion)"] if above else []) \
+            + ([f"excluded below in {below} (less parent in urine than filtration predicts)"] if below else []) \
+            + ([f"not excluded in {kept}" + (f", {single} of them only because removing one plasma sample loses the exclusion (SINGLE_POINT_SUPPORT)"
+                                               if single else "")] if kept else [])
+        return (f"T10 compared renal clearance with filtration (fu,p x GFR) in {len(formal)} of {len(est)} urine intervals on this board: " + "; ".join(parts)
+                + ". The result holds only under the stated assumptions: matched GFR and fu,p, and complete urine collection; confirm them first.")
+    sens = [c["t10_sensitivity"] for c in est if c.get("t10_sensitivity")]
+    if sens:
+        above, below = excluded(sens, "above"), excluded(sens, "below")
+        reading = ", ".join(x for x in ([f"excluded above in {above}"] if above else []) + ([f"excluded below in {below}"] if below else [])
+                            + ([f"not excluded in {len(sens) - above - below}"] if len(sens) - above - below else []))
+        return ("T10 is sensitivity only: a matched source assay CV or replicate measurements for both urine and plasma are needed for a formal "
+                f"comparison with filtration. With the project-default noise the reading is {reading} of {len(sens)} urine intervals (SENSITIVITY_ONLY).")
+    return "Check the joint uncertainty of renal clearance, matched GFR and fu,p before testing filtration."
+
+
 def board_hypothesis(b):
     """Working hypothesis H (E0.9): one observation, one alternative still consistent with it, one next test."""
     urine = [u for u in b["urine"] if u.get("r_u") is not None and u["occasion"] in ("FIRST_DOSE", "DAY_1")]
@@ -3727,26 +4500,33 @@ def board_hypothesis(b):
          "kind": "working hypothesis (review pending)"}
     if parent:
         u = parent[0]
+        board_clr = clr                                  # T10 is per animal; the next test summarises every interval on the board
         clr = [c for c in clr if c["urine_key"] == u["key"]]
         den = ("the " if u["denominator"].startswith("administered") else "") + u["denominator"]
-        h["observation"] = f"{_f(u['r_u'])} % of {den} was collected in urine as {u['trace']} by {_f(u['collection_end_h'])} h ({_short(u['group'], 24)})."
+        by = (f"by {_f(u['collection_end_h'])} h" if u.get("collection_end_h") is not None
+              else "over a collection interval the source does not report")
+        h["observation"] = f"{ru_value_text(u, ' %')} of {den} was collected in urine as {u['trace']} {by} ({_short(u['group'], 24)})."
         h["alternative"] = "The remaining dose could leave by non-renal elimination, later urinary excretion or be lost in collection; the data do not apportion it."
+        h["evidence_basis"] = "parent excreted in urine"
         if clr and any(c["kind"] == "WINDOW_PROXY" for c in clr):
             h["next_test"] = ("Plasma was sampled for only the first part of the urine collection. Matched plasma samples through the end of the collection would allow "
                               "interval renal clearance to be estimated.")
         elif not clr:
             h["next_test"] = "Measure parent plasma exposure across the same urine intervals and verify collection completeness before estimating renal clearance."
         else:
-            h["next_test"] = "Check the joint uncertainty of renal clearance, matched GFR and fu,p before testing filtration."
+            h["next_test"] = _t10_next_test(board_clr)
         h["rests_on"] = f"Rests on: EM-5a ({u['dataset_id']})" + (f" and EM-5c ({len(clr)} interval value{'s' if len(clr) > 1 else ''})" if clr else "") + "."
         h["source_ids"] = sorted({u["dataset_id"]} | {c["sid"] for c in clr})
         if "SOURCE_CONFLICT" in u["flags"]:
             h["check_first"].append("source conflict on the urinary value")
     elif any(u["analyte"] == "ACTIVE_MATERIAL" for u in urine):
         u = next(u for u in urine if u["analyte"] == "ACTIVE_MATERIAL")
-        h["observation"] = f"The urine bioassay measured {_f(u['r_u'])}% of the {u['denominator']} as active material by {_f(u['collection_end_h'])} h."
+        by = (f"by {_f(u['collection_end_h'])} h" if u.get("collection_end_h") is not None
+              else "over a collection interval the source does not report")
+        h["observation"] = f"The urine bioassay measured {ru_value_text(u)} of the {u['denominator']} as active material {by}."
         h["alternative"] = "The assay cannot distinguish intact drug from other material that retains antimicrobial activity."
         h["next_test"] = "Measure intact drug in paired urine and plasma over the same collection interval."
+        h["evidence_basis"] = "active material in urine"
         h["rests_on"] = f"Urine bioassay ({u['dataset_id']}, {u['window_label']})."
         h["source_ids"] = [u["dataset_id"], *[r["source_ref"] for r in u["intervals"] + u["printed_totals"]]]
         if "SOURCE_CONFLICT" in u["flags"]:
@@ -3755,6 +4535,7 @@ def board_hypothesis(b):
         r = next((r for r in ok if r["route"] == "IV"), ok[0])
         h["observation"] = r["value_row"]
         h["alternative"], h["next_test"] = _plasma_priority(b["study"], r)
+        h["evidence_basis"] = "plasma window"
         h["rests_on"] = f"Rests on: EM-1a under {r['upstream_panel']['panel'] if r.get('upstream_panel') else 'the value row'} ({r['dataset_id']})."
         h["source_ids"] = [r["sid"]]
         if "REPORTED_CL_ABOVE_WINDOW" in r["caveats"]:
@@ -3780,6 +4561,7 @@ def board_hypothesis(b):
             h["alternative"] += " Collection or handling losses are also possible."
             h["next_test"] += " Check whether cage rinses or other collection losses were documented."
         h["rests_on"] = f"Q6 recovery table ({r['dataset_id']})."
+        h["evidence_basis"] = "recovery"
         h["source_ids"] = [r["dataset_id"]] + [x["source_ref"] for x in r["source_totals"] + r["routes"]]
     elif b["components"]:
         c = b["components"][0]
@@ -3788,6 +4570,7 @@ def board_hypothesis(b):
         h["alternative"] = "The timing and site of product formation remain open." if c["largest_product"] else "The remaining material may contain unresolved components."
         h["next_test"] = "Stability controls of the collected samples."
         h["rests_on"] = f"Source component table: {c['dataset_id']}."
+        h["evidence_basis"] = "component table"
         h["source_ids"] = [c["dataset_id"], largest["source_ref"]]
     elif b["in_vitro"]:
         eligible = [r for r in b["in_vitro"] if not r["excluded_reason"] and r["value"] is not None]
@@ -3799,6 +4582,7 @@ def board_hypothesis(b):
             h["observation"] = f"The in vitro readout is unavailable for comparison ({r['excluded_reason'] or r['state']})."
         h["next_test"] = "Compare the assay result with matched in vivo exposure and excretion data."
         h["rests_on"] = f"Source assay {r['row_id']}."
+        h["evidence_basis"] = "in vitro" if eligible else None
         h["source_ids"] = [r["row_id"]]
     elif b["reported"]:
         p = b["reported"][0]
@@ -3809,6 +4593,7 @@ def board_hypothesis(b):
         h["alternative"] = "The reported value depends on a method and window that cannot be checked here."
         h["next_test"] = "The underlying concentration-time or urine data."
         h["rests_on"] = f"Rests on: EM-R ({p['dataset_id']})."
+        h["evidence_basis"] = "reported parameter"
         h["source_ids"] = [p["dataset_id"], p["record_id"]]
     elif b["item29"]:
         r = b["item29"][0]
@@ -3827,7 +4612,40 @@ def board_hypothesis(b):
     h["text"] = " ".join(x for x in (h["observation"], ("Alternative: " + h["alternative"]) if h["alternative"] else "", ("Next: " + h["next_test"]) if h["next_test"] else "") if x)
     h["reach"] = "A working hypothesis for review, not a mechanism."
     h["missing"] = [m for q in b["questions"] for m in q["missing"]][:3]
+    _hypothesis_evidence(b, h)
     return h
+
+
+def _hypothesis_evidence(b, h):
+    """Rule decision R5 (2026-11-24): Elimination has one actual candidate, the working hypothesis. It shows its evidence level in the
+    shared terms, the formal contradictions with required n, assessable m and formal k, and the next distinguishing check."""
+    direct = ("parent excreted in urine", "recovery", "plasma window", "component table")
+    basis = h.get("evidence_basis")      # set by the branch of board_hypothesis that wrote the observation
+    level = "SUPPORTED" if basis in direct else "INDIRECT_SUPPORT" if basis else "UNTESTED"
+    contra = []
+    rows = [r for r in b["item29"] if r.get("t7_handoff")]
+    if rows:
+        frm = [r for r in rows if (r["t7_handoff"].get("t7") == "EXCLUDED_UNDER_STATED_ASSUMPTIONS") and not r["t7_handoff"].get("flags")]
+        ass = [r for r in rows if r["t7_handoff"].get("t7") in FORMAL_RESULTS]
+        if frm:
+            contra.append({"against": "linear (first-order) elimination over the plasma window", "test": "T7", "required_n": len(rows),
+                           "assessable_m": len(ass), "formal_k": len(frm), "direction": "late steepening", "units": [r["sid"] for r in frm],
+                           "level": "BOARD" if len(frm) == len(rows) else "FORMAL_UNIT"})
+    est = [c for c in b["clr"] if c.get("kind") == "INTERVAL_ESTIMATE"]
+    t10 = [c for c in est if (c.get("t10") or {}).get("status") == "EXCLUDED_UNDER_STATED_ASSUMPTIONS"]
+    if t10:
+        dirs = sorted({(c.get("t10") or {}).get("direction") or "unstated" for c in t10})
+        contra.append({"against": "renal handling by filtration alone", "test": "T10", "required_n": len(est),
+                       "assessable_m": sum((c.get("t10") or {}).get("status") in FORMAL_RESULTS for c in est), "formal_k": len(t10),
+                       "direction": ", ".join(dirs), "units": [c.get("sid") for c in t10],
+                       "level": "BOARD" if len(t10) == len(est) and len(dirs) == 1 else "FORMAL_UNIT"})
+    if level == "SUPPORTED" and basis == "plasma window" and contra and contra[0]["test"] == "T7":
+        level = "CONTRARY_EVIDENCE"
+    h["evidence_level"] = level
+    h["evidence_basis"] = basis or ("withheld plasma window" if b["item29"] else "no elimination data")
+    h["untested_state"] = None if level != "UNTESTED" else ("assessed but undecided" if b["item29"] else "not assessed")
+    h["contradictions"] = contra
+    h["next_discriminator"] = h["next_test"]
 
 
 def handoff_records(b):
@@ -3836,7 +4654,9 @@ def handoff_records(b):
     statuses = {q["q"]: q["status_code"] for q in b["questions"]}
 
     def rec(item, question, quantity, value, units, refs, **kw):
-        record = {"item_id": item, "question_id": f"Q{question}", "quantity": quantity, "value_or_limits": value, "units": units,
+        # M5: question_id is the stable row id; guide_question is the number the page prints; legacy_question_id the engine row
+        record = {"item_id": item, "question_id": COMMON.question_key("elimination", question), "guide_question": _ref(question),
+                  "legacy_question_id": f"Q{question}", "quantity": quantity, "value_or_limits": value, "units": units,
                   "analysis_unit": None, "analyte": None, "matrix": None, "route": None, "dose_basis": None, "time_window": None,
                   "estimate_or_bound": None, "limit_direction": "none", "evidence_kind": None, "answer_status": statuses.get(question),
                   "test_id_and_status": None, "source_refs": list(dict.fromkeys(x for x in refs if x)), "caveats": [], "missing": [], "next_step": None}
@@ -3859,6 +4679,7 @@ def handoff_records(b):
         rec(29, 1, "dose_over_observed_auc", r["window_proxy"], "L/h/kg", profile_refs, **common,
             time_window=r["auc_window_h"], estimate_or_bound="window proxy" if formed else None, **comparison,
             evidence_kind="observed window (A0.6)" if formed else "withheld", caveats=r["caveats"],
+            t7_handoff=r.get("t7_handoff"), tail_omitted=r.get("tail_omitted"),
             missing=[r["not_assessable_reason"]] if r["not_assessable_reason"] else [],
             next_step=_plasma_priority(b["study"], r)[1] if formed else None)
         for x in r["sensitivity_rows"]:
@@ -3881,7 +4702,8 @@ def handoff_records(b):
     for u in b["item31"]["upstream"]:
         rec(31, 3, "upstream occasion comparison", u.get("rows"), "see upstream record",
             [u["source"], u.get("first"), u.get("later")], evidence_kind="upstream occasion comparison",
-            test_id_and_status=u["t9"], caveats=u.get("flags") or [], candidate_alternatives=b["item31"]["alternatives"])
+            test_id_and_status={u.get("test_id") or "upstream": _up_result(u)}, caveats=u.get("flags") or [],
+            candidate_alternatives=b["item31"]["alternatives"])
     for p in b["reported"]:
         dose_context = p.get("dose_context") or {}
         refs = [p["dataset_id"], p.get("source_cell") or p["record_id"], *dose_context.get("source_refs", []), p.get("dispersion_ref")]
@@ -3910,7 +4732,7 @@ def handoff_records(b):
             caveats=[p["label_flag"]])
 
     for u in b["urine"]:
-        if u.get("r_u") is None:
+        if not urine_reading(u):
             continue
         contributors = u["intervals"] + u["printed_totals"]
         refs = [x.get("source_ref") or x["record_id"] for x in contributors]
@@ -3918,9 +4740,18 @@ def handoff_records(b):
                       dose_mg_per_kg=u["dose"], dose_basis=u["denominator"], occasion=u["occasion"], pairing=u["collection"]["pairing"],
             assay=u["assay"], assay_source=u["assay_note"], time_window=[0, u["collection_end_h"]] if u["window_label"].startswith("0–") else u["window_label"],
                       caveats=u["flags"])
-        rec(33, 5, "cumulative urinary recovery", u["r_u"], "% of " + u["denominator"], refs, **common,
-            estimate_or_bound="observed collected amount", evidence_kind="observed", missing=[u["fe_lower_reason"]] if u.get("fe_lower_reason") else [],
-            next_step="check parent identity by specific assay" if u["analyte"] == "ACTIVE_MATERIAL" else "check collection completeness and duration")
+        bounds = u.get("recovery_bounds") or {}
+        if u.get("r_u") is not None:
+            rec(33, 5, "cumulative urinary recovery", u["r_u"], "% of " + u["denominator"], refs, **common,
+                estimate_or_bound=("lower value: sum of the quantified increments; intervals below the assay limit not added"
+                                   if bounds.get("kind") == "QUANTIFIED_PLUS_BELOW_LLOQ" else "observed collected amount"),
+                evidence_kind="observed", missing=[u["fe_lower_reason"]] if u.get("fe_lower_reason") else [],
+                next_step="check parent identity by specific assay" if u["analyte"] == "ACTIVE_MATERIAL" else "check collection completeness and duration")
+        if bounds.get("kind") in ("QUANTIFIED_PLUS_BELOW_LLOQ", "UPPER_LIMIT_ONLY") and bounds.get("upper") is not None:
+            # 2026-11-24 review: the upper value adds the printed assay limit of every interval below it
+            rec(33, 5, "upper limit on cumulative urinary recovery", bounds["upper"], "% of " + u["denominator"], refs, **common,
+                estimate_or_bound="observed bound: quantified increments plus the printed assay limit of each interval below it",
+                limit_direction="upper", evidence_kind="observed bound")
         if u.get("recovery_lower") is not None:
             rec(33, 5, "lower limit on cumulative urinary recovery", u["recovery_lower"], "% of " + u["denominator"], refs, **common,
                 estimate_or_bound=u["recovery_lower_kind"], limit_direction="lower", evidence_kind="statistical bound")
@@ -3929,14 +4760,18 @@ def handoff_records(b):
         u = urine_by_key[c["urine_key"]]
         matched = [i for i in u["intervals"] if i["interval"] == c["urine_interval"]]
         t10_result = c.get("t10") or {"status": "CANNOT_ASSESS", "reason": c["text"]}
-        rec(33, 5, "CLR", c.get("clr"), "L/h/kg", [c["sid"], *c.get("plasma_source_refs", []), c.get("urine_source_ref"),
-            *[i.get("source_ref") or i["record_id"] for i in matched]],
+        rec(33, 5, "CLR", c.get("clr"), "L/h/kg", [x for x in [c["sid"], *c.get("plasma_source_refs", []), c.get("urine_source_ref"),
+            *[i.get("source_ref") or i["record_id"] for i in matched]] if x],
             analysis_unit="ratio of means" if "RATIO_OF_MEANS" in c["caveats"] else c["plasma_level"], analyte="PARENT", matrix="urine / plasma",
             pairing=c["pairing"], urine_series_key=u["key"], dose_mg_per_kg=u["dose"], route=u["route"], dose_basis=u["denominator"],
             time_window={"urine": c["urine_interval"], "plasma": c["plasma_window"]},
             estimate_or_bound={"INTERVAL_ESTIMATE": "interval estimate", "WINDOW_PROXY": "partial-window proxy"}.get(c["kind"], c["kind"].lower()),
             evidence_kind="observed ratio" if c.get("clr") is not None else "withheld", test_id_and_status="T10 " + t10_result["status"],
-            caveats=c["caveats"], missing=[t10_result["reason"]] if t10_result["status"] == "CANNOT_ASSESS" else [])
+            caveats=c["caveats"], missing=[t10_result["reason"]] if t10_result["status"] == "CANNOT_ASSESS" else [],
+            # E9a: the whole T10 record (direction, flags, filtration range, reason) and its sensitivity reading travel downstream
+            t10={k: v for k, v in t10_result.items() if not str(k).startswith("_")},
+            t10_sensitivity=c.get("t10_sensitivity"), animal_id=c.get("animal_id"),
+            animal_pair_verified=c.get("animal_pair_verified"))
 
     for r in b["recovery"]:
         for obs in r["routes"] + r["source_totals"]:
@@ -3993,13 +4828,13 @@ def species_summaries(rows, contrasts):
         if ur:
             study, u = ur[0]
             source_refs = [u["dataset_id"]]
-            obs = f"{study}, {u['group']}: {_f(u['value'])}% of {u['denominator']} collected as unchanged parent ({u['window']})."
+            obs = f"{study}, {u['group']}: {_row_value_text(u)}% of {u['denominator']} collected as unchanged parent ({u['window']})."
             alt = "Later excretion or non-renal elimination of the rest; not apportioned."
             disc = f"{study} / {u['dataset_id']}: verify parent plasma exposure and urine completeness over {u['window']} before estimating interval renal clearance."
         elif active:
             study, u = active[0]
             source_refs = [u["dataset_id"]]
-            obs = f"{study}: urinary antibacterial activity corresponds to {_f(u['value'])}% of {u['denominator']} ({u['window']})."
+            obs = f"{study}: urinary antibacterial activity corresponds to {_row_value_text(u)}% of {u['denominator']} ({u['window']})."
             alt = "The bioassay measures antimicrobial activity. The unchanged-parent contribution is unresolved."
             disc = f"{study} / {u['dataset_id']}: establish parent-specific urinary recovery over {u['window']} with a selective assay."
         elif cl:
@@ -4028,7 +4863,7 @@ def species_summaries(rows, contrasts):
             disc = f"{study}: check the source for parent plasma after a documented dose or urinary amounts over defined intervals."
         if ur and active:
             other_study, u = active[0]
-            obs += f" Separately, {other_study} reports urinary antibacterial activity of {_f(u['value'])}% of {u['denominator']} ({u['window']})."
+            obs += f" Separately, {other_study} reports urinary antibacterial activity of {_row_value_text(u)}% of {u['denominator']} ({u['window']})."
         out[sp] = {"study": study, "observation": obs, "alternative": alt, "discriminator": disc, "source_refs": source_refs}
     return out
 
@@ -4140,9 +4975,9 @@ def build(root):
                        source=source_tables[s["dataset_id"]])
             f = (db.get("figs") or {}).get(f"DIS1a|{s['sid']}")
             if s["route_class"] == "IV" and f:
-                r["upstream_panel"] = {"section": "distribution", "panel": "DIS-1a", "file": _upfile("distribution", f)}
+                r["upstream_panel"] = {"section": "distribution", "panel": "DIS-1a/1b", "file": _upfile("distribution", f)}
             elif s["route_class"] == "IV":
-                r["upstream_mismatch"] = "no DIS-1a panel for this profile in the distribution record"
+                r["upstream_mismatch"] = "no DIS-1a/1b panel for this profile in the distribution record"
             b["item29"].append(r)
         clearance_contrasts = cfg.get("reported_iv_clearance_contrasts", [])
         b["item30"] = item30(b, bp, db, abs_data, reported, bo, reported_auc, clearance_contrasts)
@@ -4178,6 +5013,17 @@ def build(root):
         b["hypothesis"]["upstream_dme_followup"] = upstream_dme_followup(
             dist_boards.get((b["study"], b["species"])) or {}, b)
         b["handoff"] = handoff_records(b)
+        # George 2026-11-25: the late decline after non-IV dosing (Absorption's group-level reading), so Elimination can say
+        # which route to anchor clearance on
+        b["ev_late"] = [d["group_flip_flop"] for d in (abs_data or {}).get("datasets") or [] if d.get("group_flip_flop")
+                        and (d.get("card") or {}).get("study") == b["study"] and (d.get("card") or {}).get("species") == b["species"]]
+        pl = COMMON.plain_elimination(b)  # shared rule 10
+        for q in b["questions"]:
+            q["plain"] = pl.get(q["q"])
+        b["terminal_plain"] = pl.get("terminal")
+        if pl.get("H"):
+            b["hypothesis"]["plain"] = pl["H"]
+        b["plain_check"] = COMMON.plain_gate("elimination", b)   # translation gate; problems are listed on the main page
     spt = {"species_rows": sp_rows, "contrast_rows": contrasts, "species_summaries": species_summaries(sp_rows, contrasts),
            "assay_comparisons": project_figures,
            "missing_by_species": {sp: sorted({m for b in boards if b["species"] == sp for q in b["questions"] if q["shown"] for m in q["missing"]})[:6]
@@ -4204,9 +5050,10 @@ def build(root):
     result["render"] = dict(_RENDER)
     pages = render_pages(result, boards, spt, out)
     _eda_common().annotate_section("elimination", result, Path(root))
+    _eda_common().separate_sensitivity_flags(result)   # R10: formal CANNOT_ASSESS keeps only its own reason
     (out / "elimination.json").write_text(json.dumps(result, ensure_ascii=False, indent=1, default=float), encoding="utf-8")
     for name, text in pages.items():
-        (out / name).write_text(text, encoding="utf-8")
+        (out / name).write_text(COMMON.reader_text(text), encoding="utf-8")
     for name in previous - current - set(pages):
         if Path(name).name == name and (name.startswith("EM") or name.startswith("species-")):
             (out / name).unlink(missing_ok=True)
@@ -4249,7 +5096,7 @@ def _table(head, rows, cls="res evt", caption=""):
 def _card_html(b):
     rows = []
     for s in b["plasma"]:
-        rows.append([s["dataset_id"], s["label"], "plasma (" + s["matrix_class"].lower() + ")", s["route_class"], f"{s['dose']:g} mg/kg" if s["dose"] else (dist._regimen_text(s) or "dose not found"),
+        rows.append([s["dataset_id"], s["label"], "plasma (" + s["matrix_class"].lower() + ")", s["route_class"], COMMON.dose_text(s) if s["dose"] else (dist._regimen_text(s) or "dose not found"),
                      _lvl(s["level"]), _assay_plasma(s).replace("_", " ").lower(), s["occasion"].replace("_", " ").lower()])
     for c in b["ex_cards"]:
         rows.append([c["dataset_id"], _short(c["title"], 60), c["excretum_default"].lower() + " (excreta)", c["route_class"], f"{c['dose']:g} mg/kg" if c["dose"] else "dose not found",
@@ -4276,14 +5123,23 @@ def _card_html(b):
 
 
 def _chips(b, page=""):
-    chips = [f'<a class="qchip" href="{_e(page)}#step-{_e(b["key"])}-{q["q"]}" title="{_e(q["text"])}">Q{q["q"]} {_e(q["label"])}'
-             f'<span class="st {ab.ST_CLASS[q["status"]]}">{_e(ab.ST_SHORT[q["status"]])}</span></a>' for q in b["questions"] if q["shown"]]
+    chips = [f'<a class="qchip" href="{_e(page)}#step-{_e(b["key"])}-{_e(dist._anchor(q))}" title="{_e(q["text"])}">{_e(_question_ref(q))} {_e(q["label"])}'
+             f'<span class="st {COMMON.ST_CLASS[q["status"]]}">{_e(COMMON.ST_SHORT[q["status"]])}</span></a>' for q in b["questions"] if q["shown"]]
     chips.append(f'<a class="qchip" href="{_e(page)}#h-{_e(b["key"])}">H Working hypothesis<span class="st st-hyp">Pending</span></a>')
     return "".join(chips)
 
 
+def _question_ref(q):
+    if q.get("display_ref") or q.get("display_number"):
+        return dist._qref(q)
+    return _ref(q["q"])
+
+
 def _qrow_html(q, key, base):
-    html_ = dist._qrow_html(dict(q, display_number=q["q"], q=0 if q["q"] == 7 else q["q"]), key, base)
+    row = dict(q, display_ref=_question_ref(q))
+    if q["q"] == 7:
+        row.update(q=0, qid=dist._anchor(q))
+    html_ = dist._qrow_html(row, key, base)
     html_ = html_.replace(f'id="q-{_e(key)}-0"', f'id="q-{_e(key)}-7"')
     if q["q"] in (1, 3, 6) and (q.get("primary") or {}).get("kind") == "row":
         html_ = html_.replace('class="qbody"', 'class="qbody noprim"', 1)
@@ -4301,8 +5157,42 @@ def _hrow_html(b):
     chk = ('<p class="hstab warn"><b>Check first:</b> ' + "; ".join(_e(m) for m in h["check_first"]) + '</p>') if h["check_first"] else ""
     return (f'<article class="qrow hrow" id="h-{_e(b["key"])}"><div class="qhead"><span class="qn">H</span><h3>Working hypothesis</h3>'
             f'<span class="st st-hyp">Review pending</span><p class="q">Taken together, what should a model check next about elimination?</p></div>'
-            f'<div class="qbody noprim"><div class="qtext"><p class="concl">{_e(h["observation"])} <span class="sub">'
-            + (f'Alternative: {_e(h["alternative"])} ' if h["alternative"] else "") + f'Next: {_e(h["next_test"])} {_e(h["rests_on"])}</span></p>{miss}{chk}</div></div></article>')
+            f'<div class="qbody noprim"><div class="qtext">'
+            + (ab._plain_html(h["plain"], [h["observation"], (f'Alternative: {h["alternative"]} ' if h["alternative"] else "") + f'Next: {h["next_test"]} {h["rests_on"]}'])
+               if h.get("plain") else f'<p class="concl">{_e(h["observation"])} <span class="sub">'
+               + (f'Alternative: {_e(h["alternative"])} ' if h["alternative"] else "") + f'Next: {_e(h["next_test"])} {_e(h["rests_on"])}</span></p>')
+            + _hevidence_html(h) + f'{miss}{chk}</div></div></article>')
+
+
+def _figures_html(b):
+    """George 2026-11-25: the Elimination page shows its own figures, the terminal phase of each animal, and repeats the plasma
+    profiles from Distribution and Absorption, so the reader does not have to leave the section."""
+    term = [{"panel": "Terminal phase by animal", "file": f, "label": k.split("|", 1)[1].split(":c_")[-1], "tier": 1}
+            for k, f in b["figs"].items() if k.startswith("EMT|")]
+    plasma = [{"panel": "Plasma profiles (also shown under Distribution and Absorption)", "file": f, "label": k.split("|", 1)[1].split(":c_")[-1], "tier": 1}
+              for k, f in (b.get("dist_panels") or {}).items() if k.startswith("DIS1a|")]
+    if not term and not plasma:
+        return ""
+    p = b.get("terminal_plain")
+    head = ab._plain_html(p, []) if p else ""
+    return ('<article class="qrow" id="figs-' + _e(b["key"]) + '"><div class="qhead"><span class="qn">Fig</span><h3>Terminal phase and plasma profiles</h3>'
+            '<p class="q">Which late points set the terminal half-life in each animal?</p></div>' + head
+            + dist._views_html(term + plasma) + '</article>')
+
+
+def _hevidence_html(h):
+    """R5: the evidence level of the one candidate and its formal contradictions (n required, m assessable, k formal)."""
+    if not h.get("evidence_level"):
+        return ""
+    words = {"SUPPORTED": "supported (direct observation)", "INDIRECT_SUPPORT": "indirect support only", "UNTESTED": "untested",
+             "CONTRARY_EVIDENCE": "contrary evidence"}
+    txt = f'Evidence level: {words.get(h["evidence_level"], h["evidence_level"])} ({h.get("evidence_basis")})'
+    if h.get("untested_state"):
+        txt += f'; {h["untested_state"]}'
+    for c in h.get("contradictions") or []:
+        txt += (f'. {c["test"]} formally contradicts {c["against"]} in {c["formal_k"]} of {c["required_n"]} required units '
+                f'({c["assessable_m"]} assessable; {c["direction"]})' + ("; board level" if c["level"] == "BOARD" else ""))
+    return f'<p class="hstab"><b>Evidence:</b> {_e(txt)}.</p>'
 
 
 def _points_html(b):
@@ -4323,7 +5213,7 @@ def _points_html(b):
         rows = [[u["group"], u["trace"], " – ".join(_f(x) for x in i["interval"]) if i["interval"] else "—", i["raw"], i["state"].lower(), i["record_id"]] for u in os_ for i in u["intervals"]]
         rows += [[u["group"], u["trace"], "printed total", t["raw"], "quantified", t["record_id"]] for u in os_ for t in u["printed_totals"]]
         h.append(f'<details class="pts"{anchor(c["dataset_id"])}><summary>{_e(c["dataset_id"])} · {_e(c["title"])}</summary>'
-                 + (_table(["Group", "Trace", "Interval (h)", "As printed", "State", "Record"], rows) if rows else "<p>Recovery and component rows are in the evidence of Q6 and Q7.</p>")
+                 + (_table(["Group", "Trace", "Interval (h)", "As printed", "State", "Record"], rows) if rows else f"<p>Recovery and component rows are in the evidence of {_ref(7)} and {_ref(6)}.</p>")
                  + (f'<p class="ev notes">Layout: {_e(c["layout"])} ({_e(c["layout_reason"])}). Footnotes: {_e("; ".join(f"{k}) {v}" for k, v in c["footnotes"].items()) or "none")}.</p>')
                  + '</details>')
     for c in b["iv_cards"]:
@@ -4351,8 +5241,8 @@ def _species_card(sp, boards):
     previews = (files + up)[:3]
     studies = [b["study"] for b in boards]
     info = {"species": sp, "page": page_name(sp), "studies": studies, "figures": len(files), "thumbnails": previews,
-            "counts": {ST_CODE[s]: counts[s] for s in ab.ST_ORDER if counts[s]}}
-    chips = " ".join(f'<span class="st {ab.ST_CLASS[s]}">{counts[s]} {_e(ab.ST_SHORT[s].lower())}</span>' for s in ab.ST_ORDER if counts[s])
+            "counts": {ST_CODE[s]: counts[s] for s in COMMON.ST_ORDER if counts[s]}}
+    chips = " ".join(f'<span class="st {COMMON.ST_CLASS[s]}">{counts[s]} {_e(COMMON.ST_SHORT[s].lower())}</span>' for s in COMMON.ST_ORDER if counts[s])
     images = "".join(f'<img src="{_e(f)}" alt="Preview of {_e(f)}" loading="lazy">' for f in previews)
     card = (f'<a class="category" id="sp-{_e(_slug(sp))}" href="{_e(page_name(sp))}"><span class="badge">{len(studies)} {"study" if len(studies) == 1 else "studies"}</span>'
             f'<h3>{_e(sp)}</h3><p class="muted">{len(studies)} {"study" if len(studies) == 1 else "studies"} · {len(files)} new {"panel" if len(files) == 1 else "panels"}</p><p>{chips}</p>'
@@ -4377,13 +5267,13 @@ def _emr_page(res, back):
 
 def _species_page(spt, back):
     h = [back, '<section class="panel" id="species"><h1>Q7 · Species and conditions (project level)</h1>',
-         '<p class="muted">The elimination columns (EM-8a) are added to the project species table DIS-6b; no second table. Different quantities are never put on '
+         '<p class="muted">The elimination columns (EM-8a) are added to the Distribution species table (Table 3 and DIS-5); no second table. Different quantities are never put on '
          'a common clearance axis, and missing cells stay visible.</p>']
     h.append('<nav><a href="#modeling-priorities">Modeling check by species</a>' +
              ('<a href="#common-windows">Measured windows</a>' if spt["contrast_rows"] else '') + '</nav>')
     if spt.get("dis6b"):
-        h.append(f'<figure class="prim" style="max-width:760px"><a href="{_e(spt["dis6b"])}" target="_blank"><img src="{_e(spt["dis6b"])}" alt="DIS-6b"></a>'
-                 '<figcaption><b>DIS-6b</b> · project species table from Distribution (linked, not redrawn)</figcaption></figure>')
+        h.append(f'<figure class="prim" style="max-width:760px"><a href="{_e(spt["dis6b"])}" target="_blank"><img src="{_e(spt["dis6b"])}" alt="Distribution species table"></a>'
+                 '<figcaption><b>Table 3 / DIS-5</b> · project species table from Distribution (linked, not redrawn)</figcaption></figure>')
     for g in spt.get("assay_comparisons", []):
         title = f"{g['system']} · {READOUT_WORD[g['readout']]}"
         if g["time_min"] is not None:
@@ -4398,12 +5288,12 @@ def _species_page(spt, back):
         rows.append([r["species"], r["study"], d.get("phases") or "—",
                      " ".join(c["description"] for c in r["window_cl"]) or "—",
                      "; ".join(p["as_printed"] + (f" @ {_f(p['dose'])} mg/kg" if p.get("dose") else " " + _study_dose_text(p.get("dose_context", {}))) for p in r["reported_cl"][:3]) or "—",
-                     "; ".join(f"{_f(u['value'])} % by {_f(u['end_h'])} h ({u['trace']}{', ' + u['occasion'].replace('_', ' ').lower() if u['occasion'] != 'FIRST_DOSE' else ''})" for u in r["urinary_recovery"][:3]) or "—",
+                     "; ".join(f"{_row_value_text(u)} % {('by ' + _f(u['end_h']) + ' h') if u.get('end_h') is not None else 'over an unreported collection'} ({u['trace']}{', ' + u['occasion'].replace('_', ' ').lower() if u['occasion'] != 'FIRST_DOSE' else ''})" for u in r["urinary_recovery"][:3]) or "—",
                      "; ".join(f"{_f(c['value'] * ML_MIN_KG_PER_L_H_KG)} mL/min/kg ({c['kind'].replace('_', ' ').lower()}, T10 {c['t10'].replace('_', ' ').lower()})" for c in r["clr"][:2]) or "—",
                      "; ".join(", ".join(f"{ROUTE_WORD.get(k, k.lower())} {', '.join(_f(x) for x in v)}" for k, v in x["routes"].items()) + (f"; total {', '.join(_f(t) for t in x['source_totals'])}" if x["source_totals"] else "") for x in r["recovery"][:2]) or "—",
                      "; ".join(f"{c['group']}: {c['component']} {_f(c['share'])} {c['basis']}" for c in r["largest_product"]) or "—",
                      "; ".join(f"{x['readout']} {_f(x['value'])} {x['unit']}" for x in r["in_vitro"] if x["eligible"]) or "—"])
-    h.append(_table(["Species", "Study", "DIS-6b phases", "Dose / observed AUC (L/h/kg)", "Reported CL", "Urinary recovery", "CLR", "Recovery by route (%)", "Largest named product", "In vitro"],
+    h.append(_table(["Species", "Study", "Distribution phases", "Dose / observed AUC (L/h/kg)", "Reported CL", "Urinary recovery", "CLR", "Recovery by route (%)", "Largest named product", "In vitro"],
                     rows, caption="EM-8a columns"))
     if spt["contrast_rows"]:
         h.append('<h2 id="common-windows">Observed windows across species</h2>')
@@ -4455,7 +5345,7 @@ LEGEND = ((ST_YES, "the data answer it under the stated assumptions"),
 
 
 def _legend():
-    return '<div class="legend">' + "".join(f'<span><span class="st {ab.ST_CLASS[s]}">{_e(ab.ST_SHORT[s])}</span>{_e(d)}</span>' for s, d in LEGEND) + '</div>'
+    return '<div class="legend">' + "".join(f'<span><span class="st {COMMON.ST_CLASS[s]}">{_e(COMMON.ST_SHORT[s])}</span>{_e(d)}</span>' for s, d in LEGEND) + '</div>'
 
 
 def _engine(res):
@@ -4465,13 +5355,14 @@ def _engine(res):
 
 
 def _qtab(boards):
-    head = "".join(f'<th title="{_e(QD[q][1])}">Q{q}<br><span class="muted">{_e(QSHORT[q])}</span></th>' for q in (1, 2, 3, 5, 6, 7))
+    order = sorted(QD, key=lambda q: COMMON.guide_order("elimination", q))   # M5: the same order as the board rows
+    head = "".join(f'<th title="{_e(QD[q][1])}">{_e(_ref(q))}<br><span class="muted">{_e(QSHORT[q])}</span></th>' for q in order)
     rows = []
     for b in boards:
         cells = []
         for q in b["questions"]:
             pg = page_name(b["species"])
-            chip = f'<span class="st {ab.ST_CLASS[q["status"]]}">{_e(ab.ST_SHORT[q["status"]])}</span>'
+            chip = f'<span class="st {COMMON.ST_CLASS[q["status"]]}">{_e(COMMON.ST_SHORT[q["status"]])}</span>'
             cells.append(f'<td><a href="{_e(pg)}#q-{_e(b["key"])}-{q["q"]}" title="{_e(q["text"])}">{chip}</a></td>' if q["shown"] else f'<td title="{_e(q["text"])}">{chip}</td>')
         rows.append(f'<tr><td><a href="{_e(page_name(b["species"]))}#study-{_e(b["key"])}">{_e(b["study"])}</a> · {_e(b["species"])}</td>' + "".join(cells)
                     + f'<td><a href="{_e(page_name(b["species"]))}#h-{_e(b["key"])}"><span class="st st-hyp">Pending</span></a></td></tr>')
@@ -4487,19 +5378,19 @@ def _datasets_rows(boards):
                 continue
             seen.add((s["dataset_id"], b["species"]))
             used = "Q1 dose / observed AUC" if any(r["dataset_id"] == s["dataset_id"] and r["window_proxy"] for r in b["item29"]) else "context (not first-dose IV/EV parent)"
-            rows.append([s["dataset_id"], b["species"], b["study"], (f"{s['dose']:g} mg/kg " if s["dose"] else (dist._regimen_text(s) or "dose not found") + " ") + s["route_class"],
+            rows.append([s["dataset_id"], b["species"], b["study"], (COMMON.dose_range_text([x for x in b["plasma"] if x["dataset_id"] == s["dataset_id"]]) + " " if s["dose"] else (dist._regimen_text(s) or "dose not found") + " ") + s["route_class"],
                          "plasma" if s["matrix_class"] == "PLASMA" else s["matrix_class"].lower(), _lvl(s["level"]).capitalize() + (", digitized" if s.get("digitized") else ""), used])
         for c in b["ex_cards"]:
             if (c["dataset_id"], b["species"]) in seen:
                 continue
             seen.add((c["dataset_id"], b["species"]))
             rows.append([c["dataset_id"], b["species"], b["study"], (f"{c['dose']:g} mg/kg " if c["dose"] else "dose not found ") + c["route_class"],
-                         c["excretum_default"].lower() + " (excreta)", _lvl(c["level"]).capitalize(), "Q5 to Q7 excreta" + (f"; assay {c['assay'].lower().replace('_', ' ')}" if c["assay"] != "SPECIFIC" else "")])
+                         c["excretum_default"].lower() + " (excreta)", _lvl(c["level"]).capitalize(), f"{_ref(5)} to {_ref(6)} excreta" + (f"; assay {c['assay'].lower().replace('_', ' ')}" if c["assay"] != "SPECIFIC" else "")])
         for c in b["iv_cards"]:
             if (c["dataset_id"], "iv") in seen:
                 continue
             seen.add((c["dataset_id"], "iv"))
-            rows.append([c["dataset_id"], "several", b["study"], c["start_concentration"], "in vitro: " + _short(c["system"], 40), "As reported", "Q7 in vitro"])
+            rows.append([c["dataset_id"], "several", b["study"], c["start_concentration"], "in vitro: " + _short(c["system"], 40), "As reported", f"{_ref(7)} in vitro"])
         for d in sorted({p["dataset_id"] for p in b["reported"]}):
             if (d, b["species"]) in seen:
                 continue
@@ -4569,7 +5460,7 @@ def _overview_paras(res, boards):
                 oral_groups.setdefault(key, []).append((b, u))
         sentences = []
         for (dose, end, denominator, occasion), group in list(oral_groups.items())[:2]:
-            values = ab._hjoin(f"{_f(u['r_u'])}% in {animals(b['species'])}" for b, u in group)
+            values = COMMON._hjoin(f"{ru_value_text(u)} in {animals(b['species'])}" for b, u in group)
             dose_text = f" {_f(dose)} mg/kg" if dose is not None else ""
             window = f" by {_f(end)} h" if end is not None else " over the reported window"
             timing = "" if occasion == "FIRST_DOSE" else " (" + occasion.lower().replace("_", " ") + ")"
@@ -4584,7 +5475,7 @@ def _overview_paras(res, boards):
                              if other is not None else f"The {route} result in {animals(b['species'])} has an unresolved source conflict.")
         if not sentences:
             b, u = active_urine[0]
-            sentences.append(f"Urine bioassays measured {_f(u['r_u'])}% of {u['denominator']} as active material in {animals(b['species'])}; conditions are on the species page.")
+            sentences.append(f"Urine bioassays measured {ru_value_text(u)} of {u['denominator']} as active material in {animals(b['species'])}; conditions are on the species page.")
         sentences.append("These are collected recoveries, not ultimate excretion fractions. The assay measures antimicrobial activity and cannot identify unchanged drug alone. Other routes and conditions are on the species pages.")
         paras.append(("Urine", " ".join(sentences)))
     elif urine:
@@ -4606,7 +5497,7 @@ def _overview_paras(res, boards):
                 den = u["denominator"].removeprefix("the ")
                 condition = re.search(r"\b(nonfasted|fasted|fed)\b", u.get("group", ""), re.I)
                 condition_text = f", {condition.group(1).lower()}" if condition else ""
-                part = f"{route}{dose}{condition_text}: {_f(u['r_u'])}% of {den} as {label} {window}{timing}"
+                part = f"{route}{dose}{condition_text}: {ru_value_text(u)} of {den} as {label} {window}{timing}"
                 if "SOURCE_CONFLICT" in u.get("flags", []):
                     reconciliation = u.get("reconcile") or {}
                     other = reconciliation.get("sum_of_increments")
@@ -4662,7 +5553,7 @@ def _overview_paras(res, boards):
             else:
                 text += " Each value uses its own observed window."
             if unreported_assay:
-                text += " The assay is unreported for " + ab._hjoin(unreported_assay) + "."
+                text += " The assay is unreported for " + COMMON._hjoin(unreported_assay) + "."
             text += " The unobserved tail is excluded, so these are not full-exposure clearance estimates."
             paras.append(("Observed plasma", text))
         recovery = [(b, r) for b in boards for r in b.get("recovery", [])]
@@ -4707,6 +5598,11 @@ def _overview_paras(res, boards):
 
 def _overview_html(res, boards):
     paras = _overview_paras(res, boards)
+    plain = list(dict.fromkeys(COMMON.plain_text(b["hypothesis"]["plain"]) for b in boards if (b.get("hypothesis") or {}).get("plain")))
+    if plain:   # rule 10: the plain reading first; the numeric summary collapsed under it
+        return ('<div class="hsumtext"><p><b>What the data point to.</b> ' + _e(" ".join(plain)) + '</p></div>'
+                + ('<details class="nums"><summary>Numbers behind this</summary>' + "".join(f'<p class="ev"><b>{_e(k)}.</b> {_e(v)}</p>' for k, v in paras)
+                   + '</details>' if paras else ""))
     return ('<div class="hsumtext">' + "".join(f'<p><b>{_e(k)}.</b> {_e(v)}</p>' for k, v in paras) + '</div>') if paras else ""
 
 
@@ -4728,8 +5624,6 @@ def render_pages(res, boards, spt, out=None):
     back = f'<nav><a href="index.html">← All species</a>{report_nav}</nav>'
     n_fig = len({f for b in boards for f in b["figs"].values()}) + len(spt.get("assay_comparisons", []))
     n_ds = len({r[0] for r in _datasets_rows(boards)})
-    meta = (f'{n_fig} new panels · {len(sps)} species · {len(boards)} study–species groups · {n_ds} datasets · plasma panels linked from Absorption and Distribution · '
-            f'Computed by host code from observed points; {FIT_NOTE} · {_engine(res)} · Human review pending')
     entries = [_species_card(sp, [b for b in boards if b["species"] == sp]) for sp in sps]
     entries.sort(key=lambda p: (-len(p[0]["studies"]), -p[0]["figures"], p[0]["species"]))
     h = [f'<nav>{report_nav}<a href="figure-guide.html">How to read the figures</a>'
@@ -4775,7 +5669,7 @@ def render_pages(res, boards, spt, out=None):
                 f'{_e(_engine(res))} · Human review pending</p>', _legend()]
         for b in bs:
             body.append(f'<section class="panel study" id="study-{_e(b["key"])}"><h2>{_e(b["study"])} · {_e(sp)}</h2><p class="muted">{_e(", ".join(b["datasets"]))}</p>'
-                        + _card_html(b) + f'<div class="qchips">{_chips(b)}</div>' + "".join(_qrow_html(q, b["key"], out) for q in b["questions"] if q["shown"])
+                        + _card_html(b) + f'<div class="qchips">{_chips(b)}</div>' + _figures_html(b) + "".join(_qrow_html(q, b["key"], out) for q in b["questions"] if q["shown"])
                         + _hrow_html(b) + '</section>')
             body.append(_points_html(b))
         pages[page_name(sp)] = _shell(f"Elimination · {sp}", "".join(body))
@@ -4788,14 +5682,16 @@ def render_pages(res, boards, spt, out=None):
 
 def report_section(res, error=None):
     h = ['<section id="elimination"><h2>Elimination and metabolism: how does the drug leave?</h2>',
-         '<p><b>Need to understand:</b> the dose-to-observed-AUC ratio in plasma, unchanged parent in urine and renal clearance, recovery by route, measured products and '
-         f'what can be compared across species (rules {RULES_VERSION} items 29–36). Plasma panels are linked from absorption and distribution.</p>']
+         '<p>How the drug leaves the body: the terminal phase of each animal, clearance from dose and exposure, urine, recovery and metabolites.</p>']
     if error is not None or not res:
         h.append(f'<p><b>Not generated:</b> {_e(error)}. The reason is recorded in elimination/error.json.</p></section>')
         return "".join(h)
     name = dist._board_namer(res["boards"])
+    plain = list(dict.fromkeys(COMMON.plain_text(b["hypothesis"]["plain"]) for b in res["boards"] if (b.get("hypothesis") or {}).get("plain")))
     paragraphs = _overview_paras(res, res["boards"])
-    if paragraphs:
+    if plain:   # rule 10: the plain reading leads; the numbers are on the Elimination pages
+        h.append(f'<p><b>What the data point to.</b> {_e(" ".join(plain))}</p>')
+    elif paragraphs:
         heading, observation = paragraphs[0]
         h.append(f'<p><b>{_e(heading)}.</b> {_e(observation)}</p>')
     h.append('<p><a href="elimination/index.html#hypotheses">Read the full findings</a></p><details><summary>Questions by experiment</summary><ul>')
@@ -4803,9 +5699,9 @@ def report_section(res, error=None):
         by = {}
         for q in b["questions"]:
             if q["shown"]:
-                by.setdefault(q["status"], []).append(f'Q{q["q"]}')
+                by.setdefault(q["status"], []).append(_question_ref(q))
         h.append(f'<li><a href="elimination/{page_name(b["species"])}#study-{_e(b["key"])}">{_e(name(b))}</a>: '
-                 + "; ".join(f'{_e(s.lower())} {", ".join(by[s])}' for s in ab.ST_ORDER if by.get(s)) + '</li>')
+                 + "; ".join(f'{_e(s.lower())} {", ".join(by[s])}' for s in COMMON.ST_ORDER if by.get(s)) + '</li>')
     h.append('</ul></details><p><a href="elimination/index.html">Open the Elimination overview</a></p></section>')
     return "".join(h)
 
@@ -4818,11 +5714,9 @@ def add_to_portal(root):
         res = json.loads((root / "elimination" / "elimination.json").read_text(encoding="utf-8"))
         pres = res.get("presentation", {})
         n = pres.get("figures", 0)
-        thumbs = "".join(f'<img src="elimination/{_e(s)}" alt="Preview of {_e(s)}" loading="lazy">' for s in pres.get("thumbnails", []))
-        sp = ", ".join(f'{x["species"]} ({x["figures"]})' for x in pres.get("species", []))
-        card = ('<!--ELIMINATION-CARD-START--><a class="category" id="ELIMINATION" href="elimination/index.html">'
-                f'<span class="badge">{n} panels</span><h3>Elimination and metabolism</h3><p class="muted">Dose / observed AUC, urine and renal clearance, recovery, '
-                f'products and in vitro. One page per species: {_e(sp)}.</p><div class="thumbs">{thumbs}</div><span class="open">View all {n} panels →</span></a><!--ELIMINATION-CARD-END-->')
+        card = ab.section_card("ELIMINATION", "Elimination", "elimination", "How the drug leaves the body: the terminal phase of each animal, "
+                               "clearance from dose and exposure, urine, recovery and metabolites.", n, pres.get("thumbnails", []), pres.get("species", []),
+                               "No elimination figures: this package has no plasma profile after a known dose; the findings are in the text.")
         done = False
         for name in ("index.html", "human_review.html"):
             p = root / name
@@ -4856,7 +5750,7 @@ def attach(root):
     report = root / "report.html"
     body = report.read_text(encoding="utf-8") if report.exists() else '<html lang="en"><meta charset="utf-8"></html>'
     body = re.sub(r'<!--ELIMINATION-START-->.*?<!--ELIMINATION-END-->', '', body, flags=re.S)
-    block = '<!--ELIMINATION-START-->' + report_section(res, err) + '<!--ELIMINATION-END-->'
+    block = '<!--ELIMINATION-START-->' + COMMON.reader_text(report_section(res, err)) + '<!--ELIMINATION-END-->'
     anchor = '<section><h2>Review issues</h2>'
     if anchor in body:
         body = body.replace(anchor, block + anchor, 1)

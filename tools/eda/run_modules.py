@@ -20,6 +20,7 @@ import hashlib
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 from datetime import datetime,timezone
@@ -43,9 +44,24 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def timestamp():return datetime.now(timezone.utc).isoformat()
 def save(path,doc):path.write_text(json.dumps(doc,indent=2,ensure_ascii=False),encoding="utf8")
 
-def snapshot_stage_config(data, out, name):
-    """Run the statistical design specified by this input, including an absent design."""
-    filename = name + "_config.json"
+AUXILIARY_INPUTS = ("dose_normalization_assessment.json", "reported_parameter_context.json")
+
+
+def optional_sha(path):
+    return sha(path) if path.is_file() else None
+
+
+def copy_rule(source, destination):
+    target = Path(destination)
+    if target.is_file():
+        if sha(Path(source)) == sha(target):
+            return destination
+        # Frozen rules may inherit a read-only bit from their source on Windows.
+        target.chmod(target.stat().st_mode | stat.S_IWRITE)
+    return shutil.copy2(source, destination)
+
+
+def snapshot_optional(data, out, filename):
     source, target = data / filename, out / filename
     if source.is_file():
         if source.resolve() != target.resolve():
@@ -53,6 +69,30 @@ def snapshot_stage_config(data, out, name):
         return sha(target)
     target.unlink(missing_ok=True)
     return None
+
+
+def snapshot_stage_config(data, out, name):
+    return snapshot_optional(data, out, name + "_config.json")
+
+
+def verify_retained_stages(data, out, stages, manifest):
+    engine = out / "_engine"
+    shared = optional_sha(engine / "eda_common.py")
+    if shared != sha(local_engine / "eda_common.py") or shared != manifest.get("common_sha256", shared):
+        raise SystemExit("shared EDA calculations differ from this run; rerun all stages")
+    for name in AUXILIARY_INPUTS:
+        frozen = optional_sha(out / name)
+        if frozen != optional_sha(data / name) or frozen != manifest.get("auxiliary_sha256", {}).get(name, frozen):
+            raise SystemExit(f"{name} changed since this run; rerun all stages")
+    for name in stages:
+        record = manifest.get("stages", {}).get(name, {})
+        config = name + "_config.json"
+        if (record.get("exit_code") != 0 or not record.get("sha256") or not record.get("output_sha256")
+                or optional_sha(engine / f"eda_{name}.py") != record["sha256"]
+                or optional_sha(out / name / f"{name}.json") != record["output_sha256"]
+                or optional_sha(out / config) != record.get("config_sha256")
+                or optional_sha(data / config) != record.get("config_sha256")):
+            raise SystemExit(f"retained {name} results or inputs no longer match; rerun from {name} or earlier")
 
 def run(argv=None):
     ap=argparse.ArgumentParser()
@@ -90,7 +130,9 @@ def run(argv=None):
             raise SystemExit("the rules changed since this run; rerun all stages so every section uses one rules version")
         if eda_common.check_rules(engine/"rules") or eda_common.rules_manifest(engine/"rules")["sections"] != manifest["rules"]:
             raise SystemExit("the frozen rules do not match the run record; rerun all stages in a new directory")
-        stages=stages[stages.index(cfg.start):]
+        start_index = stages.index(cfg.start)
+        verify_retained_stages(data, out, stages[:start_index], manifest)
+        stages=stages[start_index:]
         manifest.setdefault("resumed",[]).append({"from":cfg.start,"utc":timestamp()})
     # A rejected resume must have no filesystem side effects, including directory creation.
     if not (data/"source_tables.json").is_file():
@@ -100,10 +142,12 @@ def run(argv=None):
     for filename in ("modeling_handoff.py", "eda_modeling_rules.json", "eda_common.py"):
         shutil.copy2(local_engine / filename, engine / filename)
     if cfg.start=="absorption":
-        shutil.copytree(local_engine/"rules", engine/"rules", dirs_exist_ok=True)
-        for n in ("source_tables.json","dose_normalization_assessment.json","reported_parameter_context.json"):
-            if (data/n).is_file():shutil.copy2(data/n,out/n)
+        shutil.copytree(local_engine/"rules", engine/"rules", dirs_exist_ok=True, copy_function=copy_rule)
+        if (data/"source_tables.json").resolve() != (out/"source_tables.json").resolve():
+            shutil.copy2(data/"source_tables.json",out/"source_tables.json")
         manifest={"input":str(data),"source_tables_sha256":sha(out/"source_tables.json"),"start_utc":timestamp(),"stages":{}}
+        manifest["auxiliary_sha256"] = {n: snapshot_optional(data, out, n) for n in AUXILIARY_INPUTS}
+    manifest["common_sha256"] = sha(engine/"eda_common.py")
     manifest["rules"]=eda_common.rules_manifest(local_engine/"rules")["sections"]
     manifest["locations"]={"workspace":str(cfg.workspace.resolve()),"python":str(python),"rscript":str(cfg.rscript),
                            "r_lib":str(cfg.r_lib),"elimination_r":str(r_scripts["elimination"])}
@@ -148,6 +192,16 @@ def run(argv=None):
     coverage = eda_common.write_coverage(out)
     manifest["coverage"] = {"path": "coverage.json", "sha256": sha(out / "coverage.json"),
                             "unused_all_sections": coverage["summary"]["unused_all_sections"]}
+    save(manifest_path, manifest)
+    facts_log = out / "modeling_facts.log"
+    with facts_log.open("w", encoding="utf8") as log:
+        facts = subprocess.run([str(python), str(local_engine / "modeling_facts.py"), str(out), "--case", str(data)],
+                               env=env, cwd=cfg.workspace.resolve(), stdout=log, stderr=subprocess.STDOUT)
+    if facts.returncode:
+        save(manifest_path, manifest)
+        raise RuntimeError(f"modeling facts failed; see {facts_log}")
+    manifest["modeling_facts"] = {"json": "modeling_facts.json", "text": "modeling_facts.txt", "figures": "modeling_figures",
+                                  "sha256": sha(out / "modeling_facts.json"), "program_sha256": sha(local_engine / "modeling_facts.py")}
     save(manifest_path, manifest)
     publisher = local_engine / "publish_portal.py"
     subprocess.run([str(python), str(publisher), str(out)], env=env, check=True)

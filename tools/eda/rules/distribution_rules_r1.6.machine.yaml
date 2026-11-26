@@ -1,0 +1,224 @@
+# Distribution EDA r1.6 - machine rules (concise)
+# Human rules: EDA_distribution_rules_r1.6_rules_only_20261124.md (Part 2 amendments over the verbatim r1.5 and r1.3 texts)
+# Shared rules: shared_rules_s1.0.machine.yaml (decision order, flags, family, rank groups, statuses, precision, IV window)
+# Human guide: EDA_distribution_rules_r1.5b_reviewed_20261124.md (figure and question numbers are the guide's)
+# Code: tools/eda/eda_distribution.py; the output version comes from rules_manifest.json (output_version). Rules and constants are fixed per round.
+
+meta: {section: distribution, version: r1.6, date: 2026-11-24, supersedes: r1.3, shared_rules: s1.0, items: [24, 25, 26, 27, 28], decisions_20261124: [A_formal_threshold, B_flip_flop_to_absorption, C_removal_set, D_sensitivity_demotion]}
+question: "Simplest disposition model compatible with the observed parent concentration-time data"
+shared_rules: {file: shared_rules_s1.0.machine.yaml, version: s1.0}
+registers: {r1.5: EDA_distribution_rules_r1.5_rules_only_20261121.md, r1.5b: "decisions A-D of 2026-11-24 (A formal threshold, B flip-flop to Absorption, C removal set, D sensitivity demotion -> shared S5)"}
+revision:   # r1.6 against r1.5b; reasons in Part 1 of the human rules
+  - {id: decision_order, decisions: [R2, R3, R10], change: "T6/T7 follow shared decision_order; reruns need three qualified distinct times (LOO_NOT_ASSESSABLE); removal flags of a CANNOT_ASSESS go to t6/t7_sensitivity_flags"}
+  - {id: group_level, decisions: [R1], change: "T6 geometric-mean path for a fixed cohort only with SD or SE on ln C; no single-line exclusion from arithmetic or unstated means, fixed or destructive"}
+  - {id: family, decisions: [R4], change: "two-sided family-wise 0.05 (family_alpha)"}
+  - {id: rank, decisions: [R5], change: "apod_ordering uses the shared rank groups with fixed required units and board_exclusions; demoted is a list of within-group moves"}
+  - {id: code_only_checks, decisions: [R7], change: "dose patterns named by observable shape; DESCRIPTIVE_CONFOUNDED; the 1.5-fold similar/different grading deleted; T3p reuse registered"}
+  - {id: precision, decisions: [R8, M4], change: "noise tiers from the shared precision admission; tier_label"}
+  - {id: iv_window, decisions: [M1], change: "iv_post_distribution_window written once and read by Absorption"}
+  - {id: question_ids, decisions: [M5, L3], change: "guide numbering of r1.5b; stable qid; guide_coverage gaps"}
+  - {id: vc_bound, decisions: [M6], change: "highest eligible concentration; modeling_constraint with joint lower limit and supported upper dose; residue and mixing keep the limit"}
+  - {id: data_conventions, decisions: [L1, L5, L6], change: "predose zero status; EV post-peak shape per Absorption A0.7 with z = None; mixing within 5 min inclusive"}
+
+candidates:   # names used in apod_ordering.order; linear models are mammillary with elimination from central
+  one-compartment: {c_iv_bolus: "D/V*exp(-k t)", semilog: straight, params: [CL, V]}
+  two-compartment: {c_iv_bolus: "A exp(-alpha t) + B exp(-beta t)", semilog: "one bend, shallower later", params: [CL, Vc, Q, Vp]}
+  three-compartment: {c_iv_bolus: "A exp(-alpha t) + B exp(-beta t) + G exp(-gamma t)", semilog: "two bends", params: [CL, Vc, Q2, V2, Q3, V3]}
+  nonlinear elimination or binding: {semilog: "later steepening or dose-dependent C/D", params: "Vmax, Km or binding"}
+  reading: "visible phases give the minimum number of compartments in the sampled window; EV phases do not count compartments"
+
+const:
+  sigma_default: {individual: 0.15, group: "sqrt(0.05^2*digitized + CV^2/n)", group_no_sd: 0.158}
+  tol_rel: 0.05            # A0.4, values without reported error; descriptive only, never on the formal path (shared S3)
+  split: {R: 1.5, z: 2.0, min_n: 5, borderline_z: 0.5, power_fraction: 0.5}
+  ev_split: {R_hi: 1.25, R_lo: 0.80}
+  lloq_prox: 3.0
+  early_mix_h: 0.08333333333333333   # 5/60 h: within 5 minutes after the end of dosing, bound included (L6)
+  min_test_times: 3        # T6 and T7, also in every removal rerun (shared S2)
+  family_alpha: 0.05       # two-sided family-wise (shared S4)
+  dose_band: {default: [0.80, 1.25], digitized: [0.72, 1.38]}
+
+labels:
+  test: [EXCLUDED_UNDER_STATED_ASSUMPTIONS, NOT_EXCLUDED, CANNOT_ASSESS]
+  test_flags: [SENSITIVITY_ONLY, SINGLE_POINT_SUPPORT, LOO_NOT_ASSESSABLE, BORDERLINE]
+  curvature: [FLATTENING, STEEPENING, NONE_DETECTED, NOT_ASSESSABLE]
+  window_reason: [TOO_FEW_POINTS, LOW_POWER, SLOWING_IN_EVERY_SUFFIX, NO_NULL_SUFFIX, PROFILE_STEEPENING, SCREEN_NOT_ASSESSABLE]   # shared iv_window.reasons
+  noise_tier: {1: SOURCE_ASSAY, 2: SOURCE_REPLICATES, 3: DEFAULT}
+  cause_status: [POSSIBLE, NOT_INDICATED, NOT_CHECKABLE]
+  vc_caveats: [LOOSE_BOUND, RESIDUE_UNRESOLVED, EARLY_MIXING_POSSIBLE, SAMPLING_SITE_EARLY, WHOLE_BLOOD_BASIS, DIGITIZED, GROUP_MEAN]
+  vc_data_check: [PASS, VOLUME_BELOW_PLASMA, NOT_ASSESSABLE]
+  vc_constraint_status: [FORMAL, SENSITIVITY_ONLY]
+  dose_pattern: [RATIO_WITHIN_BAND, RATIO_CONSTANT_OUTSIDE_BAND, RATIO_RISES_LATE_ABOVE_BAND, RATIO_BELOW_BAND, RATIO_ABOVE_BAND_EARLY_THEN_FALLS, RATIO_MIXED, DESCRIPTIVE_CONFOUNDED, NOT_APPLICABLE]
+  rank_group: [REFERENCE, SUPPORTED, INDIRECT_SUPPORT, UNTESTED, CONTRARY_EVIDENCE]   # shared S5
+  answer: [ANSWERABLE, PARTLY_ANSWERABLE, NOT_ANSWERABLE_YET, NOT_APPLICABLE]           # shared S6; NOT_ANSWERABLE_YET shown as Insufficient evidence
+
+data:
+  record: [species, study, arm, subject_id, occasion, dose_amount, dose_basis, iv_mode, input_end_h, sampling_site, matrix, analyte, units, mean_type, n, dispersion, lloq, locator, exclusion_reason]
+  time_zero: {iv: "bolus or verified end of infusion; during-input samples t<0", iv_end_unknown: "axis 'reported time', descriptive only", ev: "administration; mark observed peak"}
+  formal_eligible: "parent; plasma/serum/blood; completed central IV input; zero or accounted baseline"
+  unit: "subject_id x occasion; read occasions of a subject together; pass linkage to Modeling"
+  residue: "quantified predose OR earlier occasion without verified washout -> T6 exclusion and Vc bound SENSITIVITY_ONLY; T7 unchanged"
+  blq: "keep with limit; symbol at LLOQ; slopes/tests use quantified C>0 only; break lines; pass to Modeling"
+  corrections: "correct only from source; exclude an invalid value from affected calculations only; keep original, locator, reason, effect; never delete for being unusual"
+  early_coverage: "note when a long infusion or late first sample may hide a rapid early decline"
+
+display:
+  points: "join only within subject x occasion; destructive cohorts as separate points; group mean shows method, n, uncertainty; LLOQ line; distinct marker for low-confidence digitized values"
+  # labels follow the r1.5b guide figure numbers; code panel keys (file names) are unchanged and listed as key
+  DIS-1a: {x: "time h, linear", y: "C, linear", marks: [administration, input_end, first_quantified, last_quantified, ev_peak], extra: "early linear close-up if crowded", key: DIS1a}
+  DIS-1b: {x: "same clock as 1a", y: "C, log", marks: [early_late_halves, "decisive T6/T7 samples and their bounds (separate panel, key DIS1c)"], dose_series: "raw overlay with the 2a legend (key DIS2)", key: DIS1a}
+  DIS-1c: {x: "interval start-end h, aligned with 1b", y: "(ln C_i - ln C_i+1)/(t_i+1 - t_i), h^-1, zero marked", rule: "one segment per adjacent pair of positive quantified samples after input; gap across missing or BLQ; none -> give reason", key: DIS1a}
+  DIS-2a: {x: "time h, common dosing clock", y: "log C/D", when: ">=2 comparable IV dose levels or matched conditions", reuse: "1b for raw concentrations", key: [DIS2, DIS6a]}
+  DIS-2b: {x: "common quantified times", y: "log (C/D)_high / (C/D)_ref", marks: ["line at 1", "every eligible matched-time ratio"], key: DIS2}
+  DIS-3a: {x: "time h, common clock", y: "tissue and reference, log, native units", inset_optional: "tissue vs reference in time order (key DIS4e)", key: DIS4a}
+  DIS-3b: {x: "common quantified times", y: "tissue/reference ratio, log", when: ">=2 eligible matched times", key: DIS4b}
+  DIS-3c: {x: "matched time after each dose", y: "later/first ratio within each matrix, log, line at 1", key: DIS4c}
+  DIS-4a: {x: "total concentration tested", y: "fu,p 0-1", when: "binding at >=2 comparable concentrations can inform the PK finding", key: DIS5a}
+  DIS-4b: {x: "tissue and matched window or steady state", y: "unbound tissue/plasma exposure ratio, line at 1", band: "0.5-2 for eligible equilibrium comparisons only", key: DIS5b}
+  DIS-5: {x: "dose or named condition", y: "one reported parameter per panel", reuse: "Absorption parameter panel", key: DIS6b}
+  tables: {"Table 2": "profile shape, decisive samples, interval rates, omission results (support panel key DIS1b), IV reference window", "Table 3": "Vc bounds and reported volumes (optional figure key DIS3, config optional_figures.DIS3, default false)", "Table 4": "tissue, reference and binding measurements"}
+  optional: ["organ contributions to recovered parent (key DIS4d)", "tissue vs reference inset in 3a (key DIS4e)"]
+  per_subject: "DIS1animal and DIS1ind (supplementary; not numbered in the guide)"
+
+screen:   # split-half, description only; fn split_half
+  halves: "first and last ceil(n/2) points (shared middle if n odd)"
+  stats: {R: "b_e/b_l", z: "(b_e-b_l)/(sigma*sqrt(u_e^2+u_l^2)), u^2 = 1/Sxx"}
+  rule: {FLATTENING: "R>=1.5 and z>=2", STEEPENING: "R<=1/1.5 and z<=-2", else: NONE_DETECTED, n<5: NOT_ASSESSABLE}
+  borderline: "n odd and | |z|-2 | < 0.5 -> BORDERLINE_SHARED_POINT"
+  omissions: "descriptive screen only: rerun without first, without last, without low-confidence points (3 runs); report persists/changes/not assessable"
+
+alternatives:   # required before naming peripheral exchange; fn slowing_alternatives
+  residue_or_baseline: "predose or residue flag"
+  near_lloq: "last quantified C < 3 x LLOQ"
+  ehc_or_secondary_peak: "rise after first 3 samples"
+  mixing_or_timing: "rise within first 3 samples"
+  metabolite_or_nonspecific: "analyte not parent or specificity unstated"
+  matrix_or_site_change: "source metadata"
+
+tests:   # fn item24_tests, t6_margin, t7_scan
+  T6: {model: "linear 1-cmt", check: "one line, k>=0, through all [ln L_i, ln U_i]", report: "min widening delta (descriptive margin)", units: [individual, "geometric mean of a fixed cohort with SD or SE on ln C or a convertible interval", "destructive cohort with intervals on mean ln C"], not_formal: ["arithmetic or unstated mean, fixed or destructive cohort (no single-line exclusion)", "a changing n is not by itself a veto"]}
+  T7: {model: "linear reversible mammillary", check: "M = ln L_b - [w ln U_a + (1-w) ln U_c] > 0 over all ordered triples", report: [window, n_triples, max_margin, witnesses], units: [individual, "fixed-cohort arithmetic or geometric mean", "destructive cohort with supported uncertainty"]}
+  premises: [parent, completed central IV input, zero or accounted baseline, central observation, ">=3 times"]
+  removal_set: "every eligible observation removed in turn; repeat the full T6 calculation / rescan all T7 triples on the rest (decision C); a rerun with fewer than min_test_times qualified distinct times is not assessable (LOO_NOT_ASSESSABLE)"
+  formal_bounds: "tier 1 (source assay CV -> joint bounds over every searched point, Bonferroni) or tier 2 (replicates, stated coverage) can be formal; tier 3, pointwise or unconverted precision -> SENSITIVITY_ONLY (decision A)"
+  outcome:   # shared decision_order (S10): apply in order, stop at the first that decides
+    - {step: 1, if: "premises fail", then: CANNOT_ASSESS, keep: reason}
+    - {step: 2, if: "noise tier 3 or no supported uncertainty", then: CANNOT_ASSESS, flag: SENSITIVITY_ONLY, sensitivity_record: [margin, witnesses, removal]}
+    - {step: 3, if: "assessable, no contradiction", then: NOT_EXCLUDED}
+    - {step: 4, if: "contradiction lost after removing any single point", then: NOT_EXCLUDED, flag: SINGLE_POINT_SUPPORT}
+    - {step: 4, if: "a removal leaves < 3 qualified distinct times", then: NOT_EXCLUDED, flag: LOO_NOT_ASSESSABLE}
+    - {step: 5, if: "contradiction lost under a prespecified justified widening", then: NOT_EXCLUDED, flag: BORDERLINE}
+    - {step: 6, if: "contradiction survives all", then: EXCLUDED_UNDER_STATED_ASSUMPTIONS}
+  residue_override: "T6 only, see data.residue"
+  timing: "uncertain decisive time: contradiction must hold over the supported range"
+
+noise:   # fn noise_setting; set before any test, never changed after
+  order: ["tier 1: source assay CV, sigma = sqrt(ln(1+CV^2))", "tier 2: source replicates", "tier 3: const.sigma_default (DEFAULT)"]
+  intervals_tier_1_2: "+/- z*sigma on ln C, Bonferroni over points of the unit"
+  override: "distribution_config.json noise_by_dataset"
+
+window_start:   # fn item24_profile -> post_distribution_from_h, post_distribution_reason
+  after_FLATTENING: "earliest t_k whose suffix (>=5 points) reads NONE_DETECTED and 2*sigma*sqrt(u_e^2+u_l^2) <= 0.5*b_l"
+  single_phase: "first sample if the full profile passes the same power check"
+  reasons: {no_suffix_ge_5: TOO_FEW_POINTS, null_suffixes_all_fail_power: LOW_POWER, all_suffixes_flattening: SLOWING_IN_EVERY_SUFFIX}
+  consumer: "Absorption Q5 (paired-route terminal comparison; Absorption owns flip-flop thresholds)"
+  record: "iv_post_distribution_window, written by the shared iv_window function (M1); slope refitted on the listed samples"
+
+ev:   # fn item24_ev
+  T6_T7: CANNOT_ASSESS
+  shape: "post-peak description per Absorption A0.7 with ev_split (z = None, the IV z threshold is not used); a slope ratio only when both segments decline and the early slope differs from zero; label 'absorption and distribution not separable'"
+  iv_reference_window: "same subject's IV window {iv_sid, from_h, to_h, b_late_iv_per_h} passed to Absorption; no flip-flop reading here (decision B)"
+  ev_only: "describe post-peak decline; compartment question unresolved; pass IV window to Absorption when IV exists"
+  vc_over_f: "optional, table only: D/Cmax"
+
+vc_bound:   # fn item25_bound (M6)
+  rule: "Vc <= D/C(t) at the highest quantified C after bolus or end of infusion (every such sample bounds Vc; the earliest is not always the highest)"
+  earliest_sample: "when the earliest sample is not the highest, its bound is reported beside it (earliest_sample_bound_l_per_kg, earliest_sample_time_h)"
+  modeling_constraint: {rule: "Vc <= D_upper / max_i L_i over every candidate sample", L_i: "joint lower limits, Bonferroni family m = number of candidate samples, precision from the shared admission", D_upper: "source dose_upper_mg_per_kg when >= nominal dose, else the nominal dose",
+                        FORMAL_needs: [source precision, supported upper dose, no unresolved residue, limiting sample outside the mixing window], else: SENSITIVITY_ONLY with reasons}
+  residue_or_mixing: "the limit is kept (RESIDUE_UNRESOLVED, EARLY_MIXING_POSSIBLE); the constraint is SENSITIVITY_ONLY"
+  endogenous: "no bound"
+  basis: "mass balance: Vc = D/C0 and C(t) <= C0 (Toutain & Bousquet-Melou 2004)"
+  report: "table: value L/kg, sample time, data level; group arithmetic mean bounds harmonic mean Vc"
+  flags: {late_first_sample: LOOSE_BOUND, residue: RESIDUE_UNRESOLVED, tolerance_only: "modeling_constraint SENSITIVITY_ONLY", below_plasma_volume: "VOLUME_BELOW_PLASMA -> hold for review (data_check)"}
+  apod: "upper limit on fitted Vc"
+
+dose:   # fn dose_pattern
+  when: ">=2 source-defined IV levels with matching route, input, analyte, matrix, basis, assay, population"
+  read: {overlap: "supports shared linear disposition", growing_separation: "dose dependence question; check delivered dose, assay, coverage first", confounded: "description only"}
+  labels: "observable shape of the high/low ratio of dose-normalised concentrations (labels.dose_pattern); no candidate is generated from a label (shared S7)"
+  confounded: "DESCRIPTIVE_CONFOUNDED: the contrast and the reason only; no dose_nonlinear and no Elimination mechanism nomination"
+  t3p_reuse: "Absorption T3p on IV group means at exact shared post-input times; one shared result with dose pair, matched times, family, status and limits"
+
+tissue_binding:
+  tissue: "single time -> table; course -> DIS-3a; matched times -> DIS-3b ratio (undefined if reference BLQ); repeat dosing -> DIS-3c; T8, T9 per r1.3 item 26"
+  d3_hold: "min tissue amount > max delivered dose -> hold tissue comparisons; check dose, units, sampling, dilution"
+  binding: "DIS-4a only when binding can explain a PK finding; pass unbound exposure to PK/PD"
+
+conclusion:
+  report: [simplest_plausible_model, motivating_observations, main_limitation]
+  rules:
+    - {if: "T6 NOT_EXCLUDED", say: "1-cmt compatible in observed window"}
+    - {if: "reliable FLATTENING", say: "test peripheral exchange; list remaining alternatives"}
+    - {if: "robust STEEPENING or formal T7", say: "check input timing and sample identity, then nonlinear elimination or binding"}
+    - {if: "group mean only", say: "1-cmt may still hold in individuals"}
+
+apod:   # fn apod_ordering
+  order_only: true
+  remove: {T6_formal: "linear 1-cmt for that unit and window", T7_formal: "linear compartments as explanation of steepening -> nonlinear candidate"}
+  groups: "shared rank groups; a formal unit-level contradiction gives CONTRARY_EVIDENCE; board-level exclusion only when every required unit is formally excluded in one direction"
+  demote: "a sensitivity-only contradiction keeps the candidate in its group; it moves below another candidate of the same group only when the same observation supports that one (shared S5, replaces decision D); never removed"
+  t6_alone: "a T6 failure alone does not put two compartments ahead of one"
+  bend_count: "group mean bends -> report animals showing the bend / individually sampled animals (guide Q2)"
+  record: [test, unit, window_h, margin]
+  translation: "compare species before imposing shared parameters in a joint model"
+
+questions:   # M5: engine row id -> guide question of the r1.5b guide (shared question_ids)
+  rows:
+    1: {qid: systemic_disposition, guide_q: 1}
+    4: {qid: systemic_shape_evidence, guide_q: 2, also_guide_q: [4]}
+    5: {qid: tissue_exposure, guide_q: 6, also_guide_q: [5, 7]}
+    6: {qid: unbound_plasma_exposure, guide_q: 8}
+    2: {qid: central_volume, display_ref: Vc bound}
+    3: {qid: shared_iv_ev_disposition, display_ref: IV and EV routes}
+    7: {qid: cross_species_transfer, display_ref: Across species, also_guide_q: [4, 9]}
+  no_row: {3: "the iv_reference_window record that Absorption reads", 4: "shown under Q2 and Across species", 5: "shown under Q6", 7: "shown under Q6", 9: "shown under Across species and Table 3"}
+  page_order: [1, 4, 5, 6, 2, 3, 7]
+
+tests_required:  # test_distribution_r15
+  - "crossover without washout: T6 not formal, T7 compatible"
+  - "each subject x occasion tested; per-subject summary"
+  - "sparse IV: LOW_POWER or NOT_DETERMINED"
+  - "EV: T6/T7 CANNOT_ASSESS, label present"
+  - "tier 3 sigma -> SENSITIVITY_ONLY"
+  - "sensitivity-only T6 -> stays in its group, moved only below a same-group candidate the same observation supports; not removed"
+  - "T6/T7 rerun with fewer than three qualified distinct times -> LOO_NOT_ASSESSABLE; formal CANNOT_ASSESS keeps removal flags in t6/t7_sensitivity_flags"
+  - "Vc bound at the highest eligible concentration; modeling_constraint FORMAL only with source precision and a supported upper dose; residue and mixing keep the limit"
+  - "rows in guide order with qid and display_ref; guide_coverage records Q3, Q4, Q5, Q7 and Q9"
+  - "rules_manifest output_version, this file meta.version and the section json version agree"
+  - "EV result has iv_reference_window, no flip_flop"
+  - "bend count among individual animals"
+  - "only formal T6/T7 remove candidates"
+
+fields:   # output names in distribution.json, checked against the pig midazolam run
+  series: [sid, subject_id, occasion, washout_verified, lloq_meta, noise_source]
+  item24:   # one row per IV unit
+    unit: [sid, label, analysis_unit, n_points, earliest_sample_h, lloq, last_quantified_over_lloq]
+    noise: [noise, noise_tier, sigma_used, sigma_basis]   # noise holds tier, tier_label, basis, source, admission
+    interval: [interval_basis, formal_interval_basis, t6_sensitivity_flags, t7_sensitivity_flags]
+    screen: [split, slope_ratio, z, curvature, curvature_support, split_power_ok, robustness_rows, chord_slopes]
+    T6: [t6_label, t6_sensitivity_label, t6_reason, t6_flags, t6_margin, t6_points, t6_lambda, t6_extra_tolerance_pct]
+    T7: [t7_label, t7_sensitivity_label, t7_reason, t7_flags, t7_margin, t7_points, t7_window, t7_triples]
+    residue: [baseline_range, prior_dose_residue_possible]
+    alternatives: [slowing_alternatives]
+    window: [post_distribution_from_h, post_distribution_reason, window_start_screen, late_area_share]
+    candidates: [candidates]
+  item24_ev: [sid, subject_id, occasion, cmax, tmax_h, n_post_peak, curvature, ev_split, slope_ratio, z, separability, t6_label, t7_label, iv_reference_window, vc_over_f_upper_bound_l_per_kg]
+  item25: [sid, vc_upper_bound_l_per_kg, sample_time_h, conservative_l_per_kg, bound_basis, bound_rule, n_candidates, earliest_sample_bound_l_per_kg, earliest_sample_time_h, lower_bound_basis, modeling_constraint, population_meaning, data_check, data_check_reason, caveats, reference_volumes]
+  animal_occasions: [subject_id, occasions, agreement, linkage_verified]
+  apod_ordering: [order, candidates, groups, board_exclusions, removed, removed_for_all_units, required_units, demoted, bend_count, basis, q1_conclusion, rule]
+  apod_candidate: [candidate, group, supported_by, indirect, sensitivity_support, untested_state, independent_sources, contradictions, sensitivity_contradiction, board_excluded, moved_below, position, tie]
+  question_row: [q, qid, guide_q, also_guide_q, legacy_q, legacy_display_number, display_number, display_ref, status, status_code]   # q = engine row id
+  board: [guide_coverage]
+  q1_conclusion: [simplest_plausible_model, motivating_observations, main_limitation, other_limitations]
+  model_context_txt: "section R1.5 HAND-OFF; the per-board status line reads 'questions: Q1 Y, Q2 P, Q6 -, Q8 P, Vc bound N, IV and EV routes -, Across species P' (guide order)"

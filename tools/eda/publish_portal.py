@@ -66,9 +66,11 @@ def publish(root, *, title=None, collection_href=None, owner=NATIVE_OWNER):
         if collection_href is None and (root.parent / 'index.html').is_file():
             collection_href = '../index.html'
         # Freeze the shared renderer before the native portal imports it.
-        source = owner.with_name("figure_notes.py")
-        if not source.is_file():  # legacy installations with no native figure renderer
-            source = Path(__file__).with_name("figure_notes.py")
+        # G8 (2026-11-24): the figure renderer next to this file is the one these modules were reviewed and fixed with;
+        # the portal owner's copy is used only when no local renderer exists
+        source = Path(__file__).resolve().with_name("figure_notes.py")
+        if not source.is_file():
+            source = owner.with_name("figure_notes.py")
         target = engine / source.name
         if source.resolve() != target.resolve():
             shutil.copy2(source, target)
@@ -77,16 +79,16 @@ def publish(root, *, title=None, collection_href=None, owner=NATIVE_OWNER):
         annotated_figures = navigation.get("figures_with_readings")
         if annotated_figures is None:  # older native portal snapshots
             annotated_figures = importlib.import_module(package_name + ".figure_notes").publish(root)
+        page = root / 'index.html'
+        html = page.read_text(encoding='utf-8')
         coverage_path = root / 'coverage.json'
         if coverage_path.is_file():
             # Short "Input coverage" table (unused datasets only) on the drug overview.
             coverage = json.loads(coverage_path.read_text(encoding='utf-8'))
-            page = root / 'index.html'
-            html = page.read_text(encoding='utf-8')
             if 'id="input-coverage"' not in html and '</main>' in html:
                 block = _load_common().coverage_table_html(coverage).replace(
                     '<section id="input-coverage">', '<section class="panel" id="input-coverage">', 1)
-                page.write_text(html.replace('</main>', block + '</main>', 1), encoding='utf-8')
+                html = html.replace('</main>', block + '</main>', 1)
             navigation['input_coverage'] = {'path': 'coverage.json', 'sha256': sha(coverage_path),
                                             'unused_all_sections': coverage['summary']['unused_all_sections']}
         handoff = None
@@ -97,18 +99,20 @@ def publish(root, *, title=None, collection_href=None, owner=NATIVE_OWNER):
                        'generator_sha256': sha(engine / 'modeling_handoff.py'),
                        'rules_sha256': sha(engine / 'eda_modeling_rules.json'), 'species': len(context['species'])}
             navigation['modeling_input'] = handoff
-            (root / 'review_navigation.json').write_text(json.dumps(navigation, indent=2, ensure_ascii=False), encoding='utf-8')
-            for name in ('index.html', 'human_review.html'):
-                page = root / name
-                html = page.read_text(encoding='utf-8')
-                page.write_text(html.replace('</nav>', '<a href="modeling_context.json">Modeling context by species</a></nav>', 1),
-                                encoding='utf-8')
+            html = html.replace('</nav>', '<a href="modeling_context.json">Modeling context by species</a></nav>', 1)
+        (root / 'review_navigation.json').write_text(json.dumps(navigation, indent=2, ensure_ascii=False), encoding='utf-8')
+        page.write_text(html, encoding='utf-8')
+        shutil.copyfile(page, root / 'human_review.html')
     finally:
         sys.dont_write_bytecode = previous_bytecode
         for name in list(sys.modules):
             if name == package_name or name.startswith(package_name + '.'):
                 del sys.modules[name]
         sys.modules.update(old_modules)
+    try:   # George 2026-11-25: plain summary at the top of the main page and of report.html
+        _load_common().add_summary(root)
+    except Exception as exc:  # noqa: BLE001 - the portal is still published; the reason is recorded
+        (root / 'summary_error.json').write_text(json.dumps({'error': repr(exc)}), encoding='utf-8')
     after = {p.relative_to(root).as_posix(): sha(p) for p in scientific}
     if before != after:
         raise RuntimeError('Portal publishing changed scientific JSON')

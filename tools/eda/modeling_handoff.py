@@ -9,6 +9,12 @@ def read(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def all_flags(record, test):
+    """Formal and sensitivity flags of one test (R10, 2026-11-24, keeps removal flags of a formal CANNOT_ASSESS under
+    <test>_sensitivity_flags); a reader that asks whether a result rests on one point reads both."""
+    return list(record.get(test + "_flags") or []) + list(record.get(test + "_sensitivity_flags") or [])
+
+
 def question_figure(board, number):
     question = next((q for q in board["questions"] if q["q"] == number), {})
     return (question.get("primary") or {}).get("file")
@@ -45,6 +51,10 @@ def dose_pattern(board, series, datasets, route_pairs):
     level = "group-mean " if all(c["record_level"] == "GROUP_MEAN" for c in cards) else ""
     observation = (f"At {hi:g} versus {lo:g} mg/kg {routes}{description}, the {level}AUC/dose ratio over 0–{series['window_end_h']:g} h was {series['R_window']:.2f}. "
                    f"The concentration/dose ratio was {peak['ratio']:.2f} at {peak['t']:g} h and {tail['ratio']:.2f} at {tail['t']:g} h.")
+    assumed = sorted({hi, lo}.intersection(series.get("assumed_zero_doses", [])))
+    if assumed:
+        groups = "both doses" if len(assumed) == 2 else f"{assumed[0]:g} mg/kg"
+        observation += f" AUC assumes zero concentration at dosing for {groups}."
     coverage = series.get("dispersion_coverage") or {}
     if coverage.get("with_se", 0) and coverage["with_se"] < coverage["points"]:
         observation += f" SE was available at {coverage['with_se']}/{coverage['points']} concentration points."
@@ -67,7 +77,7 @@ def rebound(board, dataset):
     hits = [s for s in series if (s.get("t2") or {}).get("valley")]
     if not hits:
         return
-    stable = [s for s in hits if s["t2"].get("robust") and s["t2"]["t2_label"].startswith("EXCLUDED")]
+    stable = [s for s in hits if s["t2"].get("robust")]
     example = (stable or hits)[0]
     route = card["route_detail"]
     peaks = [s["metrics"]["tmax"] for s in series if s["metrics"].get("tmax") is not None]
@@ -78,7 +88,7 @@ def rebound(board, dataset):
         onset += f"The apparent terminal half-lives spanned {min(halves):.3g}–{max(halves):.3g} h. "
     elif not halves:
         onset += "No post-peak window qualified for a terminal half-life. "
-    retained = f"{len(stable)} met the within-animal rebound criterion" if stable else "the rises were sensitive to deleting a sample"
+    retained = f"{len(stable)} retained a dip after each single-sample deletion at the assumed tolerance" if stable else "the rises were sensitive to deleting a sample"
     support = onset + f"{len(hits)}/{len(series)} profiles dipped then rose. " + retained.capitalize() + "."
     rival = ("A second input episode or recirculation could produce a reproducible rebound." if stable else
              "A second input episode remains possible; sampling variation around a single input could explain the dip.")
@@ -120,9 +130,24 @@ def terminal_pattern(board, pair, datasets, references, iv_board):
                                 for v in iv_board.get("item24", []))
     if activity:
         support += " The assay measured antimicrobial activity."
-    slower = tail["class"] in ("SLOWER", "SLOWER_NOT_SEPARATED")
+    # R9 (2026-11-24): the hand-off reads the same flip-flop reading as the board and the ranking, not the slope class
+    reading = tail.get("flip_flop_reading")
+    if reading is None:      # a record built before R9
+        reading = "ABSORPTION_INFLUENCED_CANDIDATE" if tail.get("class") in ("SLOWER", "SLOWER_NOT_SEPARATED") else "COMMON_TERMINAL_COMPATIBLE"
     common = tail.get("common_tail") or {}
-    if slower:
+    if reading in ("UNRESOLVED", "NOT_ASSESSABLE", "INDIRECT_COMPARATOR"):
+        priority = "sensitive_shape" if reading == "UNRESOLVED" else "route_reference"
+        support += f" Flip-flop reading: {tail.get('reading_text') or reading.lower().replace('_', ' ')}."
+        rival = ("Slow absorption (flip-flop) and disposition both remain open; this reading is not evidence for or against "
+                 "an absorption-limited tail.")
+        if reading == "NOT_ASSESSABLE":
+            check = ("Obtain a qualified terminal window on the missing side (" + "; ".join(tail.get("missing_side") or ["not stated"])
+                     + ") before reading the extravascular tail against IV.")
+        elif reading == "UNRESOLVED":
+            check = "The qualified window pairs give different readings; compare both slopes over common late windows before fitting a slow-input alternative."
+        else:
+            check = "The comparator is indirect; seek a same-study IV curve before attributing the tail to slow input."
+    elif reading == "ABSORPTION_INFLUENCED_CANDIDATE":
         comparable = bool(pair.get("dose_ev") and pair["dose_ev"] == pair.get("dose_iv") and common.get("corroborates_slower_ev"))
         priority = "separated_route_slopes" if comparable else "sensitive_shape"
         if common.get("window_h") and common["window_h"][0] == common["window_h"][-1]:
@@ -150,6 +175,8 @@ def terminal_pattern(board, pair, datasets, references, iv_board):
     elif "serially sampled cohort" in unit:
         support += " These are means from serially sampled animals."
     plots = figures("absorption", pair.get("D1") or question_figure(board, 5))
+    if pair.get("D1") and (pair.get("mt4") or 0) > 0 and "SINGLE_POINT_SUPPORT" not in all_flags(pair, "t4"):
+        support += " The EV/IV concentration ratio fell beyond the assumed ±5% tolerance."
     if not pair.get("D1") and iv_board:
         plots += figures("distribution", question_figure(iv_board, 1))
     return finding(priority, board, support, rival, check, plots, [pair["ev"], pair["iv"]])
@@ -182,9 +209,14 @@ def iv_pattern(board, rebounds):
         curves = dataset["series"]
         seen = sum(bool((s.get("t2") or {}).get("valley")) for s in curves)
         observation += f" After {dataset['card']['route_detail']} dosing, {seen}/{len(curves)} profiles dipped then rose; none passed the deletion check."
-        rival = "A single delayed input (lag or transit) and a second input remain open for the extravascular profiles."
-        check += " Add a second input only for reproducible within-animal rebounds."
         plots += weak["figures"][-1:]
+        rises = [s for s in curves if (s["metrics"].get("mt1") or 0) > 0 and s.get("A2")
+                 and not {"SINGLE_POINT_SUPPORT", "DRUG_FREE_BASELINE_UNRESOLVED"}.intersection(all_flags(s["metrics"], "t1"))]
+        if rises:
+            observation += f" In {len(rises)} profiles, a C/t rise survived point deletion at the assumed ±5% tolerance."
+            plots += figures("absorption", max(rises, key=lambda s: s["metrics"]["mt1"])["A2"])
+        rival = "Immediate input, lag or transit, and a second input remain open."
+        check += " Compare early oral residuals for immediate and delayed input. Recheck dips before adding a second input."
         ids += weak["source_ids"]
     elif not stable:
         check = "Refit the IV curve with and without the influential endpoints. Add a second compartment only if early and late residual patterns persist."
@@ -197,7 +229,9 @@ def renal_qualification(row, board, series):
     urine = board.get("urine", [])
     conflict = next((u for u in urine if "SOURCE_CONFLICT" in u.get("flags", []) and u.get("reconcile")), None)
     if conflict:
-        rec = conflict["reconcile"]
+        # E9b: quote the first printed window that does not reconcile, not the last one examined
+        rec = next((r for r in conflict.get("reconciliations") or [] if "does not reconcile" in str(r.get("status", ""))),
+                   conflict["reconcile"])
         start, end = rec["interval"]
         note = (f"{conflict['route']} urine recovery at {start:g}–{end:g} h was printed as {rec['printed']:g}% "
                 f"and sums to {rec['sum_of_increments']:g}% by interval. Resolve the discrepancy before using renal recovery.")

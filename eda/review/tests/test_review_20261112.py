@@ -47,6 +47,17 @@ ROW = {"row_id": "elimination:b:Q5", "kind": "question", "label": "Urine", "ques
        "observed": "49.1 % of the dose by 8 h.", "basis": "", "reach": "", "missing": [], "value_table": None, "evidence": []}
 
 
+def test_absorption_guide_question_uses_its_rule_and_cited_shared_rules(tmp_path):
+    row = dict(ROW, row_id="absorption:b:Q6", board="b", section="absorption", q=6,
+               qid="systemic_bioavailability", label="Systemic bioavailability", figures=[])
+    rules = {"absorption": "### 22 | Bioavailability\nCheck common disposition (S12).\n#### A0.12 Reported values\nKeep source precision.",
+             "shared": "## S12. Premise gate\nCheck what the design supports.\n## Appendix\nWorked example."}
+    packet = R.err_requests(tmp_path, [row], rules, inv={})[0]["payload"]
+    assert packet["required_rules"] == {"absorption:b:Q6": ["22", "A0.12"]}
+    assert "Check what the design supports." in packet["rules"]["S12"]
+    assert "Worked example." not in packet["rules"]["S12"]
+
+
 def _req(rows):
     payload = {"board": "b", "rows": rows, "figures": [], "inputs_for_species": [], "project_context": [], "context_rows": []}
     return {"id": "ERR-x", "payload": payload, "schema": {"type": "object"}}

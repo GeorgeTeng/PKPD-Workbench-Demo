@@ -43,6 +43,7 @@ def test_share_is_not_reported_without_two_phases_or_a_cut():
 
 def test_rules_version_comes_from_the_manifest():
     import eda_common
-    assert dist.RULES_VERSION == eda_common.rules_entry("distribution")["version"] == "r1.3"
+    assert dist.RULES_VERSION == eda_common.rules_entry("distribution")["version"] == "r1.6"   # M3: r1.3 superseded
+    assert dist.VERSION == eda_common.rules_entry("distribution")["output_version"]
     assert dist.RULES["sha256"] and not eda_common.check_rules()
-    assert any("late-area share" in row[2] for row in dist.READING_MAP if row[0] == "DIS-1b")
+    assert any("late-area share" in row[2] for row in dist.READING_MAP if row[0] == "DIS-1c, Table 2")

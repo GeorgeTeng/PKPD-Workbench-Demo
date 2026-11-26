@@ -2,6 +2,8 @@
 
 Run from the repository root with Python 3.10 or newer. The first argument is your completed EDA run folder, containing the section JSON files, figures and `source_tables.json`. Use `--out` to choose the review folder on any drive. The default is `<run>/review`. The reviewer checks the frozen rules in `<run>/_engine/rules` against the run record. You can supply the matching files with `--rules`.
 
+For current standalone runs, the reviewer uses the absorption guide's stable question IDs and includes the cited passages from the frozen shared rule document. Use `--write-requests` to inspect the questions, cited rules and figures locally before selecting a model.
+
 ### Use your own model API
 
 Install `jsonschema` in the Python environment you will use for review. Enter the model ID and API base URL provided by your local server or hosted provider. The adapter sends non-streaming Chat Completions requests with the review schema, study evidence and any cited PNGs. The model must return a JSON object and accept image input when a request contains figures. The host checks the response against the schema and the study-specific review rules.

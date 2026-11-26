@@ -1,6 +1,6 @@
-# EDA Distribution figures (r1.2, figures DIS-1a to DIS-6b): draw the plot specs written by research_pipeline/eda_distribution.py.
+# EDA Distribution figures (r1.5b guide numbering DIS-1a to DIS-5; panel keys unchanged): draw the plot specs written by research_pipeline/eda_distribution.py.
 # Usage: Rscript --vanilla distribution_figures.R <plot_specs.json> <out_dir>
-# Same drawing code as absorption_figures.R plus one layer kind, "path" (points joined in time order, used by the DIS-4e phase plot).
+# Same drawing code as absorption_figures.R plus one layer kind, "path" (points joined in time order, used by the DIS-3a inset, tissue against reference in time order).
 # Python computes every plotted value; this script only draws. Requires ggplot2 and jsonlite.
 if (nzchar(Sys.getenv("PKPD_R_LIB"))) .libPaths(c(Sys.getenv("PKPD_R_LIB"), .libPaths()))
 suppressPackageStartupMessages({
@@ -21,6 +21,9 @@ HAS_STYLE <- file.exists(style) && requireNamespace("cowplot", quietly = TRUE)
 if (HAS_STYLE) source(style)
 new_gg <- packageVersion("ggplot2") >= "3.4.0"
 inside_arg <- packageVersion("ggplot2") >= "3.5.0"
+CUR_W <- 6
+HAS_REPEL <- requireNamespace("ggrepel", quietly = TRUE)   # S13 point notes; plain text without it
+HAS_PATCHWORK <- requireNamespace("patchwork", quietly = TRUE)   # S13 aligned panels; grid layout without it
 LW <- if (new_gg) "linewidth" else "size"
 
 num <- function(v) if (length(v) == 0) numeric(0) else vapply(v, function(z) if (is.null(z)) NA_real_ else as.numeric(z), 0)
@@ -75,12 +78,20 @@ build_panel <- function(pn) {
     keys <<- c(keys, lab); kcol <<- c(kcol, col); kshape <<- c(kshape, shape); klty <<- c(klty, lty)
     klw <<- c(klw, lw); ksize <<- c(ksize, size); kfill <<- c(kfill, fill)
   }
+  rep_df <- NULL
+  obst <- do.call(rbind, lapply(pn$layers, function(L) if (identical(L$kind, "points") && length(L$x))
+    data.frame(x = unlist(L$x), y = unlist(L$y)) else NULL))
   for (L in pn$layers) {
     col <- nz(L$color, INK); lab <- L$label
     k <- L$kind
     if (k == "band") {
       ylo <- if (isTRUE(pn$ylog)) 0 else -Inf  # on a log axis 0 maps to the lower edge (-Inf would become NaN)
       g <- g + annotate("rect", xmin = L$xmin, xmax = L$xmax, ymin = ylo, ymax = Inf, fill = col, alpha = L$alpha)
+      if (!is.null(lab)) {  # plot rule P1: a labelled band (the IV input) gets a legend key, a filled square in its colour
+        g <- g + geom_point(data = data.frame(x = NA_real_, y = NA_real_, key = lab), aes(x = x, y = y, colour = key),
+                            shape = 15, size = 4, alpha = min(1, 2.5 * nz(L$alpha, 0.2)), na.rm = TRUE)
+        addkey(lab, grDevices::adjustcolor(col, alpha.f = min(1, 2.5 * nz(L$alpha, 0.2))), shape = 15, size = 4)
+      }
     } else if (k == "area") {
       d <- data.frame(x = num(L$x), y = num(L$y))
       g <- g + geom_ribbon(data = d, aes(x = x, ymin = 0, ymax = y), fill = col, alpha = L$alpha)
@@ -128,7 +139,13 @@ build_panel <- function(pn) {
       } else { a$mapping <- aes(yintercept = y); a$colour <- col }
       g <- g + do.call(geom_hline, a)
     } else if (k == "vline") {
-      g <- g + do.call(geom_vline, with_lw(list(xintercept = L$x, colour = col, linetype = lty_of(L$lty)), L$lw))
+      if (!is.null(lab)) {
+        g <- g + do.call(geom_vline, with_lw(list(data = data.frame(x = L$x, key = lab), mapping = aes(xintercept = x, colour = key),
+                                                  linetype = lty_of(L$lty)), L$lw))
+        addkey(lab, col, lty = lty_of(L$lty), lw = L$lw)
+      } else {
+        g <- g + do.call(geom_vline, with_lw(list(xintercept = L$x, colour = col, linetype = lty_of(L$lty)), L$lw))
+      }
     } else if (k == "bars") {
       g <- g + geom_col(data = data.frame(x = num(L$x), y = num(L$y)), aes(x = x, y = y), fill = col, width = 0.65)
     } else if (k == "text") {
@@ -139,11 +156,24 @@ build_panel <- function(pn) {
         g <- g + layer(geom = GeomPanelNote, stat = "identity", position = "identity",
                        data = data.frame(row = 1L), mapping = NULL, inherit.aes = FALSE,
                        show.legend = FALSE, params = list(note = note))
+      } else if (isTRUE(L$repel) && HAS_REPEL) {
+        # S13 point notes of one panel are placed together (one ggrepel call after the loop), so they avoid each other
+        # and every data point, each with a thin leader line to its point
+        rep_df <- rbind(rep_df, data.frame(x = L$x, y = L$y, label = L$label, size = L$size, colour = nz(L$color, INK2)))
       } else {
         g <- g + annotate("text", x = L$x, y = L$y, label = L$label, hjust = L$hjust, vjust = L$vjust, size = L$size * TXT,
                           colour = nz(L$color, INK2), lineheight = 1.0)
       }
     }
+  }
+  if (!is.null(rep_df) && nrow(rep_df)) {
+    pts <- if (!is.null(obst) && nrow(obst)) data.frame(x = obst$x, y = obst$y, label = "", size = rep_df$size[1], colour = INK2) else NULL
+    all <- rbind(rep_df, pts)
+    all <- all[is.finite(all$x) & is.finite(all$y), , drop = FALSE]
+    g <- g + ggrepel::geom_text_repel(data = all, aes(x = x, y = y, label = label), size = all$size * TXT, colour = all$colour,
+                                      lineheight = 1.0, min.segment.length = 0, segment.colour = MUTED, segment.size = 0.3,
+                                      box.padding = 0.5, point.padding = 0.35, force = 2, seed = 1, max.overlaps = Inf,
+                                      inherit.aes = FALSE, show.legend = FALSE)
   }
   if (length(keys)) {
     keep <- !duplicated(keys)
@@ -167,14 +197,20 @@ build_panel <- function(pn) {
   xlim <- if (is.null(pn$xlim)) NULL else num(pn$xlim)
   ylim <- if (is.null(pn$ylim)) NULL else num(pn$ylim)
   g <- g + coord_cartesian(xlim = xlim, ylim = ylim, clip = "off")
-  g <- g + labs(title = nz(pn$title, ""), x = nz(pn$xlab, ""), y = nz(pn$ylab, "")) + theme_abs()
+  # S13 rule 8: readings of a whole panel go in a caption below it (never over the data); line breaks are kept
+  wrap_keep <- function(x, width) paste(unlist(lapply(strsplit(nz(x, ""), "\n", fixed = TRUE)[[1]],
+                                                      function(l) strwrap(l, width = width))), collapse = "\n")
+  cap <- if (nzchar(nz(pn$caption, ""))) wrap_keep(pn$caption, max(40, floor(CUR_W * 15))) else NULL
+  g <- g + labs(subtitle = if (nzchar(nz(pn$subtitle, ""))) paste(strwrap(pn$subtitle, width = max(30, min(90, floor(CUR_W * 12)))), collapse = "\n") else NULL, title = paste(strwrap(nz(pn$title, ""), width = max(30, min(74, floor(CUR_W * 10)))), collapse = "\n"), x = nz(pn$xlab, ""), y = nz(pn$ylab, ""), caption = cap) + theme_abs() + theme(plot.subtitle = element_text(size = 10, face = "italic", colour = INK2, hjust = 0, margin = margin(b = 6))) +
+    theme(plot.caption = element_text(size = 8.5, colour = INK2, hjust = 0, margin = margin(t = 8)))
   pos <- nz(pn$legend, "none")
   if (pos == "none" || !length(keys)) {
     g <- g + theme(legend.position = "none")
   } else {
-    xy <- legend_pos(pos)
-    if (inside_arg) g <- g + theme(legend.position = "inside", legend.position.inside = xy, legend.justification = xy)
-    else g <- g + theme(legend.position = xy, legend.justification = xy)
+    # S13: the legend sits below the panel, never on the data (the spec's corner is kept for the matplotlib fallback)
+    g <- g + theme(legend.position = "bottom", legend.justification = "left", legend.direction = "vertical",
+                   legend.box.margin = margin(0, 0, 0, 0), legend.margin = margin(2, 0, 0, 0),
+                   legend.background = element_blank(), legend.key = element_blank())
   }
   if (isTRUE(pn$blank)) {
     g <- g + theme(axis.line = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(),
@@ -192,7 +228,23 @@ open_device <- function(path, w, h, dpi) {
 
 for (f in specs$figures) {
   path <- file.path(out_dir, f$file)
-  open_device(path, f$width, f$height, f$dpi)
+  # S13: legends sit below the panels, so the figure grows by the tallest legend of a row instead of shrinking the panels
+  nkey <- vapply(f$panels, function(pn) if (identical(nz(pn$legend, "none"), "none")) 0 else
+    length(unique(unlist(lapply(pn$layers, function(L) L$label)))), numeric(1))
+  ncol0 <- as.integer(nz(f$ncol, length(f$panels)))
+  rows <- split(nkey, (seq_along(nkey) - 1) %/% ncol0)
+  extra <- sum(vapply(rows, function(r) if (max(r) > 0) 0.12 + 0.22 * max(r) else 0, numeric(1)))
+  ncap <- vapply(f$panels, function(pn) if (nzchar(nz(pn$caption, ""))) length(strsplit(pn$caption, "\n", fixed = TRUE)[[1]]) +
+    floor(nchar(pn$caption) / max(40, floor(f$width / max(1, as.integer(nz(f$ncol, length(f$panels)))) * 15))) else 0, numeric(1))
+  extra <- extra + sum(vapply(split(ncap, (seq_along(ncap) - 1) %/% as.integer(nz(f$ncol, length(f$panels)))),
+                              function(r) if (max(r) > 0) 0.1 + 0.17 * max(r) else 0, numeric(1)))
+  # S13 rule 9: the title, subtitle (the question) and caption (the reading) add height instead of squeezing the panel
+  per_w <- f$width / max(1, ncol0)
+  nlines <- function(x, k) if (nzchar(nz(x, ""))) sum(vapply(strsplit(x, "\n", fixed = TRUE)[[1]], function(l) ceiling(max(1, nchar(l)) / max(30, floor(per_w * k))), numeric(1))) else 0
+  txt <- vapply(f$panels, function(pn) 0.24 * max(0, nlines(pn$title, 10) - 1) + 0.22 * nlines(pn$subtitle, 12), numeric(1))
+  extra <- extra + sum(vapply(split(txt, (seq_along(txt) - 1) %/% ncol0), max, numeric(1)))
+  CUR_W <<- f$width / max(1, ncol0)
+  open_device(path, f$width, f$height + extra, f$dpi)
   grid.newpage()
   has_title <- nzchar(nz(f$title, ""))
   th <- if (has_title) unit(0.42, "in") else unit(0, "in")
@@ -206,8 +258,14 @@ for (f in specs$figures) {
     grid.text(f$title, x = unit(0.012, "npc"), hjust = 0, gp = gpar(fontsize = 14, col = INK, fontface = "bold"))
     popViewport()
   }
-  for (i in seq_along(f$panels)) {
-    print(build_panel(f$panels[[i]]), vp = viewport(layout.pos.row = 2 + (i - 1) %/% ncol, layout.pos.col = 1 + (i - 1) %% ncol))
+  if (HAS_PATCHWORK) {
+    # S13: patchwork aligns the panel areas of one figure, so legends below some panels do not shift their axes
+    pw <- patchwork::wrap_plots(lapply(f$panels, build_panel), ncol = ncol, widths = wd)
+    print(pw, vp = viewport(layout.pos.row = 2:(1 + nrow), layout.pos.col = 1:ncol))
+  } else {
+    for (i in seq_along(f$panels)) {
+      print(build_panel(f$panels[[i]]), vp = viewport(layout.pos.row = 2 + (i - 1) %/% ncol, layout.pos.col = 1 + (i - 1) %% ncol))
+    }
   }
   invisible(dev.off())
 }

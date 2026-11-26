@@ -9,6 +9,18 @@ import run_modules
 from run_modules import snapshot_stage_config
 
 
+def test_refresh_of_readonly_frozen_rule(tmp_path):
+    source, frozen = tmp_path / "rule", tmp_path / "frozen"
+    source.write_bytes(b"new")
+    frozen.write_bytes(b"old")
+    frozen.chmod(0o444)
+    run_modules.copy_rule(source, frozen)
+    assert frozen.read_bytes() == b"new"
+    frozen.chmod(0o444)
+    run_modules.copy_rule(source, frozen)
+    assert frozen.read_bytes() == source.read_bytes()
+
+
 def test_removed_input_plan_cannot_reappear_on_rerun(tmp_path):
     case = tmp_path / "case"
     output = tmp_path / "output"
@@ -50,3 +62,38 @@ def test_rejected_resume_preserves_every_file(tmp_path, fault):
     with pytest.raises(SystemExit):
         run_modules.run([str(case), str(output), "--from", "elimination"])
     assert inventory() == before
+
+
+@pytest.mark.parametrize("fault", ["upstream_json", "shared_helper", "upstream_config", "working_input"])
+def test_partial_rerun_validates_inputs_before_writing(tmp_path, monkeypatch, fault):
+    engine = Path(run_modules.__file__).parent
+    case, out = tmp_path / "case", tmp_path / "run"
+    case.mkdir()
+    frozen = out / "_engine"
+    shutil.copytree(engine / "rules", frozen / "rules")
+    shutil.copy2(engine / "eda_common.py", frozen)
+    shutil.copy2(engine / "eda_absorption.py", frozen)
+    (case / "source_tables.json").write_text("[]")
+    shutil.copy2(case / "source_tables.json", out)
+    (out / "absorption").mkdir()
+    product = out / "absorption" / "absorption.json"
+    product.write_text("{}")
+    sha = run_modules.sha
+    manifest = {"source_tables_sha256": sha(case / "source_tables.json"),
+                "rules": run_modules.eda_common.rules_manifest(frozen / "rules")["sections"],
+                "stages": {"absorption": {"exit_code": 0, "sha256": sha(frozen / "eda_absorption.py"),
+                                          "output_sha256": sha(product), "config_sha256": None}}}
+    (out / "run_record.json").write_text(json.dumps(manifest))
+    if fault == "upstream_json":
+        product.write_text('{"edited":true}')
+    elif fault == "shared_helper":
+        (frozen / "eda_common.py").write_text("# different calculations")
+    elif fault == "upstream_config":
+        (case / "absorption_config.json").write_text("{}")
+    else:
+        (out / "dose_normalization_assessment.json").write_text("{}")
+    before = {p: sha(p) for p in out.rglob("*") if p.is_file()}
+    monkeypatch.setattr(run_modules.subprocess, "run", lambda *a, **kw: pytest.fail("dispatched with stale evidence"))
+    with pytest.raises(SystemExit):
+        run_modules.run([str(case), str(out), "--from", "distribution"])
+    assert {p: sha(p) for p in out.rglob("*") if p.is_file()} == before
