@@ -1,6 +1,6 @@
 # DBG03 · Repeated intramuscular and single intravenous dosing in horses
 
-[Download the complete report](DBG03-report.zip?raw=true) and open `index.html` after extracting it. The gallery contains 53 figures.
+[Open the HTML report](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG03/) or [download the complete ZIP](https://raw.githubusercontent.com/GeorgeTeng/PKPD-Workbench-Demo/main/examples/eda-review/DBG03/DBG03-report.zip) and open `index.html` after extracting it. The gallery contains 53 figures.
 
 The same six horses have two occasions. Three IM doses were given about 24 hours apart, with 130 plasma samples. A separate short IV administration provided 66 samples. The input identifies the animals across routes. The interval between occasions and the period order are unavailable.
 

@@ -2,12 +2,12 @@
 
 Both cases start from mapped, blinded `source_tables.json` inputs. The three-section runner completed with R/ggplot2 figures. Human review is pending.
 
-| Case | Study design | EDA gallery | Report archive |
-| --- | --- | ---: | --- |
-| [DBG01](DBG01/README.md) | Six horses, one IV dose per horse, 66 samples | 19 figures | [Download DBG01 report](DBG01/DBG01-report.zip?raw=true) |
-| [DBG03](DBG03/README.md) | The same six horses on two occasions, three IM doses and one IV dose, 196 samples | 53 figures | [Download DBG03 report](DBG03/DBG03-report.zip?raw=true) |
+| Case | Study design | EDA gallery | Online report | Offline archive |
+| --- | --- | ---: | --- | --- |
+| [DBG01](DBG01/README.md) | Six horses, one IV dose per horse, 66 samples | 19 figures | [Open HTML](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG01/) | [Download ZIP](https://raw.githubusercontent.com/GeorgeTeng/PKPD-Workbench-Demo/main/examples/eda-review/DBG01/DBG01-report.zip) |
+| [DBG03](DBG03/README.md) | The same six horses on two occasions, three IM doses and one IV dose, 196 samples | 53 figures | [Open HTML](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG03/) | [Download ZIP](https://raw.githubusercontent.com/GeorgeTeng/PKPD-Workbench-Demo/main/examples/eda-review/DBG03/DBG03-report.zip) |
 
-Extract the selected ZIP and open `index.html`. Use `report.html` for the individual questions and `figures/index.html` to inspect all plots. The archive includes the mapped inputs, section JSON, coverage, frozen rules, and the modeling handoff. `run_record.json` retains source, rule, code and result hashes. Machine-specific paths in the public run and publication metadata were replaced with portable paths or a local-runtime label.
+Open the HTML report to browse online. For offline review, extract the ZIP and open `index.html`. Use `report.html` for the individual questions and `figures/index.html` to inspect all plots. The archive includes the mapped inputs, section JSON, coverage, frozen rules, and the modeling handoff. `run_record.json` retains source, rule, code and result hashes. Machine-specific paths in the public run and publication metadata were replaced with portable paths or a local-runtime label.
 
 ## Study review guides
 

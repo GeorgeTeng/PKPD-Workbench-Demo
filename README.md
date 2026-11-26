@@ -14,8 +14,8 @@ Start with the Study review guides. They explain what to look for in the figures
 
 [Shared rules s1.0](tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md) apply to all three sections.
 
-- [DBG01 · Single IV dose in six horses](examples/eda-review/DBG01/README.md)
-- [DBG03 · Repeated IM and single IV dosing in six horses](examples/eda-review/DBG03/README.md)
+- [DBG01 · Open HTML report](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG01/) · [Case summary](examples/eda-review/DBG01/README.md)
+- [DBG03 · Open HTML report](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG03/) · [Case summary](examples/eda-review/DBG03/README.md)
 
 [Reviewer checklist, full report downloads and rerun instructions](examples/eda-review/README.md)
 

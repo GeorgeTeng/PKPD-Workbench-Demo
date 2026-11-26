@@ -1,6 +1,6 @@
 # DBG01 · Single intravenous dose in horses
 
-[Download the complete report](DBG01-report.zip?raw=true) and open `index.html` after extracting it. The gallery contains 19 figures.
+[Open the HTML report](https://georgeteng.github.io/PKPD-Workbench-Demo/DBG01/) or [download the complete ZIP](https://raw.githubusercontent.com/GeorgeTeng/PKPD-Workbench-Demo/main/examples/eda-review/DBG01/DBG01-report.zip) and open `index.html` after extracting it. The gallery contains 19 figures.
 
 Six horses received one short IV administration each. The mapped input contains 11 plasma concentrations per animal, with dose in mg/kg, time in hours and concentration in µg/mL. Absorption has no applicable extravascular profile.
 
