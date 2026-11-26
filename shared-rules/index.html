@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EDA shared rules s1.0 · Reviewer guide</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.65 system-ui, sans-serif; color: #172638; background: #f6f8fb; }
+    body { margin: 0; }
+    main { max-width: 63rem; margin: 0 auto; padding: clamp(1rem, 4vw, 3rem); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.17; }
+    h2 { line-height: 1.25; margin-top: 2.1rem; scroll-margin-top: 1rem; }
+    article { max-width: 77ch; }
+    a { color: #075997; text-underline-offset: .15em; }
+    a:focus-visible { outline: .15rem solid #895000; outline-offset: .2rem; }
+    nav { padding: .65rem 1rem; background: #fff; border: 1px solid #cbd8e5; border-radius: .45rem; }
+    nav ul { padding-left: 1.4rem; margin: .4rem 0; columns: 20rem 2; }
+    nav li { break-inside: avoid; }
+    article ul, article ol { padding-left: 1.4rem; }
+    article li { margin-block: .3rem; }
+    table { border-collapse: collapse; width: 100%; background: #fff; }
+    th, td { border: 1px solid #cbd8e5; padding: .45rem .7rem; text-align: left; vertical-align: top; }
+    th { background: #edf4fa; }
+    code { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="../">All EDA reports</a> · <a href="https://github.com/GeorgeTeng/PKPD-Workbench-Demo/blob/main/examples/eda-review/guides/EDA_shared_rules_s1.0_reviewer_20261126.md">GitHub Markdown</a></p>
+  <article>
+<h1>EDA shared rules s1.0 · Reviewer guide</h1>
+<nav aria-label="Contents"><strong>Contents</strong><ul>
+<li><a href="#the-checks-named-here">The checks named here</a></li>
+<li><a href="#1-when-group-averages-are-good-enough-for-a-firm-conclusion">1. When group averages are good enough for a firm conclusion</a></li>
+<li><a href="#2-is-the-conflict-carried-by-one-point">2. Is the conflict carried by one point?</a></li>
+<li><a href="#3-is-the-conflict-a-near-miss-or-caused-by-uncertain-times">3. Is the conflict a near miss, or caused by uncertain times?</a></li>
+<li><a href="#4-many-comparisons-at-once">4. Many comparisons at once</a></li>
+<li><a href="#5-ranking-candidate-models">5. Ranking candidate models</a></li>
+<li><a href="#6-how-well-each-question-is-answered">6. How well each question is answered</a></li>
+<li><a href="#7-checks-that-exist-only-in-the-code">7. Checks that exist only in the code</a></li>
+<li><a href="#8-precision-needed-for-a-formal-interval">8. Precision needed for a formal interval</a></li>
+<li><a href="#9-flip-flop-reading">9. Flip-flop reading</a></li>
+<li><a href="#10-order-of-the-formal-decision">10. Order of the formal decision</a></li>
+<li><a href="#11-where-facts-come-from">11. Where facts come from</a></li>
+<li><a href="#12-premises-before-comparing-groups">12. Premises before comparing groups</a></li>
+<li><a href="#13-figures-and-plain-words">13. Figures and plain words</a></li>
+<li><a href="#14-results-shared-between-sections">14. Results shared between sections</a></li>
+<li><a href="#open-points">Open points</a></li>
+</ul></nav>
+<p><strong>Plain-language edition · 26 November 2026.</strong> Review guide for the shared EDA rules used in DBG01 and DBG03. See the <a href="https://github.com/GeorgeTeng/PKPD-Workbench-Demo/blob/main/tools/eda/rules/EDA_shared_rules_s1.0_consolidated_20261125.md">technical rule text</a> and the <a href="https://github.com/GeorgeTeng/PKPD-Workbench-Demo/blob/main/tools/eda/rules/shared_rules_s1.0.machine.yaml">machine rules</a> for exact criteria and implementation references.</p>
+<p>These rules apply to Absorption, Distribution and Elimination. The shared rule takes precedence if a section's rule differs.</p>
+<h2 id="the-checks-named-here">The checks named here</h2>
+<ul>
+<li><strong>Single-exponential check (T6):</strong> does the IV decline follow one straight line on a semi-log plot?</li>
+<li><strong>Speeding-up check (T7):</strong> after input has ended, does the decline ever get steeper? In a linear system with central input
+it can only slow down or stay the same.</li>
+<li><strong>Dose-proportional exposure (T3):</strong> is AUC per dose over a common window the same at every dose?</li>
+<li><strong>Dose-proportional concentration (T3p):</strong> is concentration per dose the same at matched times?</li>
+<li><strong>Filtration check (T10):</strong> can filtration alone (filtration rate × unbound fraction) explain renal clearance?</li>
+</ul>
+<p>Every formal check ends in one of three results: <strong>cannot be judged</strong> (a premise or needed data is missing), <strong>not ruled
+out</strong>, or <strong>ruled out under the stated assumptions</strong> (only for the model and window tested).</p>
+<h2 id="1-when-group-averages-are-good-enough-for-a-firm-conclusion">1. When group averages are good enough for a firm conclusion</h2>
+<p><strong>Guards against:</strong> ruling out a model from averages whose spread or make-up is unknown.</p>
+<p><strong>Needed:</strong> the kind of average, whether the same animals are followed over time, whether samples are independent (when the
+check needs it), a real spread from the source (SD, SE or interval), and a test that covers every comparison looked at (rule 4).</p>
+<p><strong>Result:</strong> anything missing → cannot be judged (the curve and a sensitivity reading are still shown). All known and no
+conflict → not ruled out. All known and a conflict → go on to rules 2 and 3.</p>
+<p>Per check:</p>
+<ul>
+<li>Single-exponential: only geometric means of the same animals, with spread on the log scale. Arithmetic means never rule it
+out. A change in sample count alone does not stop the check if the source still supports the fixed-cohort comparison.</li>
+<li>Dose-proportional exposure: firm only if each time used different animals (not assumed when unstated). Use the
+small-sample t value instead of 1.96.</li>
+<li>Filtration: never firm on group averages.</li>
+<li>Only the project's default noise → cannot be judged; the number is a sensitivity reading.</li>
+</ul>
+<p><em>Example:</em> arithmetic means of 6 horses, no SD, curve looks bent → we say it looks bent; formally &quot;cannot be judged&quot;.</p>
+<h2 id="2-is-the-conflict-carried-by-one-point">2. Is the conflict carried by one point?</h2>
+<p><strong>Guards against:</strong> ruling out a model because of one odd sample (wrong tube, misread, wrong time).</p>
+<p><strong>How:</strong> leave out one sample at a time and rerun the same check.</p>
+<p><strong>Result:</strong> conflict stays every time → it counts. Conflict disappears without one sample → not ruled out, naming that
+sample. Nothing can be left out, or too few data remain → not ruled out, saying why. Keep the full-data result and every rerun.</p>
+<p>Per check: the single-exponential rerun needs 3 time points; dose-proportional concentration with one matched time cannot be
+rerun; dose-proportional exposure keeps its window; the filtration check leaves out a urine interval and a plasma sample
+separately.</p>
+<p><em>Example:</em> 8 IV samples don't fit one exponential; without the 2-h sample they do → &quot;not ruled out; rests on the 2-h sample&quot;.</p>
+<h2 id="3-is-the-conflict-a-near-miss-or-caused-by-uncertain-times">3. Is the conflict a near miss, or caused by uncertain times?</h2>
+<p><strong>Guards against:</strong> a conflict that only just crosses the line, or that depends on sampling times that are not exact.</p>
+<p><strong>Near miss:</strong> always report how far the conflict is from the line. No safety margin of our own; a wider margin only if the
+study set and justified one in advance. Conflict gone with that margin → not ruled out, &quot;borderline&quot;. The 5 % default of the
+dose-proportional concentration check is description only.</p>
+<p><strong>Uncertain times:</strong> if the paper shows the times are uncertain and it could matter, rerun over the possible times, keeping
+their order. Conflict stays → passed. Conflict gone or flips → not ruled out, &quot;sensitive to timing&quot; (stated-time result kept).
+Check no longer makes sense → cannot be judged.</p>
+<p><em>Example:</em> conflict at &quot;about 1 h (0.75–1.25 h)&quot; disappears at 0.75 h → &quot;not ruled out, sensitive to timing&quot;.</p>
+<h2 id="4-many-comparisons-at-once">4. Many comparisons at once</h2>
+<p><strong>Guards against:</strong> finding a &quot;significant&quot; result just because many things were tested.</p>
+<ul>
+<li>Fix in advance: scope, what is analysed, which tests belong together, how they combine, and the level (default 5 %
+two-sided for the whole family).</li>
+<li>The family covers everything that could trigger the published conclusion, including all units considered when one was
+picked after seeing the data. Count each underlying interval once.</li>
+<li>Dose-proportional concentration: family = dose pairs × matched times.</li>
+<li>A study-level &quot;ruled out&quot; needs a rule fixed in advance: &quot;at least one animal&quot; needs study-wide control; &quot;all animals&quot; needs
+every animal to reject in the same direction, none dropped; &quot;at least k&quot; needs its own calibration.</li>
+</ul>
+<h2 id="5-ranking-candidate-models">5. Ranking candidate models</h2>
+<p><strong>Guards against:</strong> dropping or promoting a model on weak or one-sided evidence.</p>
+<p>Each candidate (a full model: input, disposition, starting state, what was measured) goes in one group: <strong>reference</strong>,
+<strong>supported</strong>, <strong>indirect support only</strong>, <strong>not tested</strong>, or <strong>evidence against</strong> (stays on the list).</p>
+<ul>
+<li>Sensitivity-level conflict only → stays in its group; order changes only if the same observation separates the pair.</li>
+<li>Formal conflict in some animals → &quot;evidence against&quot;; report required, assessed and conflicting counts.</li>
+<li>Formal conflict in every required animal, same direction → ruled out for the study. A ruled-out benchmark may still be shown
+as a comparison fit.</li>
+<li>Required animals are fixed in advance; one that cannot be assessed stays in the count; one the check does not apply to is not.</li>
+<li>Direction follows what each model predicts. A reliable fast-then-slow decline can put peripheral exchange first. A late
+steepening argues against both one-compartment and linear multi-compartment models. A failed single-exponential check alone
+does not favour two compartments.</li>
+<li>Within a group: more independent evidence first (one curve counts once), then the simpler model. Indistinguishable → tie.</li>
+</ul>
+<p><em>Example:</em> 3 of 4 animals formally conflict and 1 cannot be assessed → &quot;evidence against&quot;, not ruled out.</p>
+<h2 id="6-how-well-each-question-is-answered">6. How well each question is answered</h2>
+<p>The status says how far the data answer a question, not which way.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Answerable (可回答)</td>
+<td>Every required unit reaches the needed evidence level.</td>
+</tr>
+<tr>
+<td>Partly answerable (部分可回答)</td>
+<td>Only some units or sub-questions, or only a conditional answer.</td>
+</tr>
+<tr>
+<td>Insufficient evidence (证据不足)</td>
+<td>The question applies but nothing answers it yet.</td>
+</tr>
+<tr>
+<td>Not applicable (不适用)</td>
+<td>The study design makes the question void.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Judge each result, then combine; row order does not matter.</li>
+<li>A limitation is attached to the conclusion it limits (unknown bioavailability limits oral clearance, not the window AUC).</li>
+<li>A fragile result (sensitivity only, one-point, removal check not possible, borderline, or conditional on an assumed label or
+cohort) is passed on with its reason and makes the question partly answerable at most.</li>
+<li>If a speeding-up conflict could not be checked for one-point dependence, nothing may assume &quot;no speeding-up&quot; (such as
+extrapolating the tail). Exception: if only assay-error information is missing, the curve's descriptive screen is clean and
+the other premises hold, a separately labelled sensitivity estimate is allowed.</li>
+<li>The page shows a short status, the finding and one sentence on the limit.</li>
+</ul>
+<p><em>Example:</em> urine recovery estimable but renal clearance not → partly answerable.</p>
+<h2 id="7-checks-that-exist-only-in-the-code">7. Checks that exist only in the code</h2>
+<p><strong>Guards against:</strong> conclusions drawn from numbers no rule covers.</p>
+<p>Numbers may be reported and described freely. A mechanism, ranking or formal result needs a named check. A registered
+descriptive screen gives indirect support at most. Registered:</p>
+<ul>
+<li><strong>Renal sign test (Elimination):</strong> description only (per-animal ratios, median, range, sources); never &quot;tested&quot; or
+&quot;suggests secretion&quot;. The filtration check stays the formal one.</li>
+<li><strong>Re-comparing IV clearance reported by the paper (Elimination):</strong> ratio, interval, pairing and source, corrected with the
+other dose comparisons (rule 4); partly answerable at most; always shown next to any dose-proportionality result.</li>
+<li><strong>Peak-per-dose screen (Absorption):</strong> peak per dose below ½ or above 2× while AUC per dose is within 0.80–1.25; needs
+sampling around the peak; indirect support at most.</li>
+<li><strong>Dose patterns (Distribution):</strong> described by shape only. If dose and animal are confounded: show the comparison, name no
+mechanism.</li>
+<li><strong>1.5-fold similar/different grading:</strong> deleted.</li>
+<li><strong>Dose-proportional concentration on IV group means:</strong> one shared result for all sections; check the means and spread
+(rule 1) and that dose groups are independent at each time.</li>
+</ul>
+<h2 id="8-precision-needed-for-a-formal-interval">8. Precision needed for a formal interval</h2>
+<p><strong>Guards against:</strong> a &quot;firm&quot; interval built on an uncertainty we cannot trace.</p>
+<p>Every uncertainty large enough to change the answer needs a source that fits this study. If a key one is missing → cannot be
+judged (a sensitivity reading may be shown).</p>
+<ul>
+<li><strong>Data read from figures:</strong> assay error, group spread and reading error are kept apart; reading error needs a basis in the
+figure. Only the default reading error → sensitivity only.</li>
+<li><strong>Assay CV:</strong> must match method, analyte, matrix and range; a validation limit is not an observed CV; prodrug and active drug
+are separate; do not count assay noise twice.</li>
+<li><strong>Replicates:</strong> record how many and whether precision is for one value or the mean.</li>
+<li><strong>Filtration rate and unbound fraction:</strong> must match the animals and window; a single value, or an unbound fraction of 1, is
+not error-free.</li>
+</ul>
+<h2 id="9-flip-flop-reading">9. Flip-flop reading</h2>
+<p><strong>Guards against:</strong> mistaking slow absorption for slow elimination.</p>
+<p>Compare the terminal half-life after extravascular dosing with IV, for every usable pair of windows:</p>
+<table>
+<thead>
+<tr>
+<th>Ratio (extravascular / IV)</th>
+<th>Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>below 0.80</td>
+<td>Steeper: check windows and group comparability</td>
+</tr>
+<tr>
+<td>0.80 to below 1.25</td>
+<td>Approximately parallel: compatible with a common terminal process</td>
+</tr>
+<tr>
+<td>1.25 to below 2.0</td>
+<td>Moderately shallower: absorption-limited candidate</td>
+</tr>
+<tr>
+<td>2.0 or more</td>
+<td>Markedly shallower: absorption-limited candidate</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Unresolved only when window pairs disagree. No usable window on one side → cannot be assessed (say which side). A literature
+IV value or another oral curve is indirect support at most.</li>
+<li>Unresolved, unassessable or indirect is not evidence against flip-flop.</li>
+<li>Absorption owns this reading; every page and the modelling hand-off use the same one.</li>
+</ul>
+<p><em>Example:</em> ratios 1.20–1.30 span two readings → unresolved.</p>
+<h2 id="10-order-of-the-formal-decision">10. Order of the formal decision</h2>
+<p>Go in order; stop at the first step that decides.</p>
+<ol>
+<li><strong>Premises</strong> not met → cannot be judged (the filtration check stops here if the filtration rate does not fit the animals).</li>
+<li><strong>Basis</strong> for an interval or test missing (rules 1, 4, 8) → cannot be judged; sensitivity reading if possible.</li>
+<li><strong>Full data:</strong> no conflict → not ruled out.</li>
+<li><strong>One point</strong> (rule 2): carried by one point or not checkable → not ruled out.</li>
+<li><strong>Near miss / timing</strong> (rule 3) → not ruled out (borderline or timing-sensitive), or cannot be judged.</li>
+<li><strong>All passed</strong> → ruled out under the stated assumptions.</li>
+</ol>
+<p>Formal and sensitivity results are kept apart.</p>
+<p><strong>Concentration before the dose:</strong> the single-exponential check → cannot be judged if the predose signal is unexplained
+(sensitivity reading allowed). The speeding-up check still works if the residue is from earlier central input into the same
+linear system and we still measure parent drug there. &quot;Input has stopped&quot; alone is not enough: after peripheral input ends, the
+central decline can still be getting steeper.</p>
+<h2 id="11-where-facts-come-from">11. Where facts come from</h2>
+<p><strong>Guards against:</strong> a check silently using a wrong default.</p>
+<p>Order: run settings, per-animal column, table, then paper text (labelled &quot;source text (fallback)&quot;). A missing fact is reported
+and the formal result withheld. Facts: dose level, dose each animal received, IV input length (0 = bolus), and the clock of the
+reported times (start of dosing or end of infusion). A stated duration beats the word &quot;injection&quot;. Known input length but
+unknown clock → results that depend on it are sensitivity only.</p>
+<p>All sections read printed numbers with one reader that tidies minus signs, powers of ten, full-width digits and thin spaces.
+Anything still not a complete number is not read.</p>
+<h2 id="12-premises-before-comparing-groups">12. Premises before comparing groups</h2>
+<p><strong>Guards against:</strong> comparing groups that are not on the same footing.</p>
+<p>Check every group, not only the first: same kind of summary (a geometric mean needs a log-scale spread), convertible units,
+aligned times (or a stated timing bound), and stated sample dependence. Unknown or different → cannot be judged, sensitivity
+only, premise named. A bound resting on an untestable assumption is an illustration only.</p>
+<h2 id="13-figures-and-plain-words">13. Figures and plain words</h2>
+<p>These change what is drawn and written, never what is calculated. Both drawing routes (R and Python) follow them.</p>
+<ol>
+<li>
+<p><strong>One clock.</strong> Time axes read &quot;Time after start of dosing (h)&quot;. Only if the clock cannot be fixed: &quot;Reported time (h), input
+end unknown&quot; or &quot;Reported time during ongoing IV input (h)&quot;. One axis name per figure.</p>
+</li>
+<li>
+<p><strong>IV input band.</strong> A known-length infusion is a light band from 0 to its end, legend &quot;IV infusion 0–X h&quot;; different lengths
+share one band to the longest (&quot;by animal&quot;). No band for a bolus or unknown length.</p>
+</li>
+<li>
+<p><strong>Every sample drawn alike</strong>, used or not. Below-limit samples are open circles at the limit. Never split samples by count
+(no early/late halves).</p>
+</li>
+<li>
+<p><strong>Notes about one sample</strong> sit on that sample; panel corners are for whole-panel readings.</p>
+</li>
+<li>
+<p><em>(Withdrawn 2026-11-25.)</em> No sampling times printed by the points; the first sample after the input is named in the caption
+of the early close-up.</p>
+</li>
+<li>
+<p><strong>Lines and axes say what they are</strong>, e.g. &quot;AUC window 0.25–31 h&quot;, &quot;C / Dose (ug/mL per mg/kg)&quot;.</p>
+</li>
+<li>
+<p><strong>Later doses are shown, not mixed in.</strong> Dashed lines mark them (&quot;later doses at 24, 48 h&quot;). Group overviews: one line per
+animal over all doses, open symbols after the second dose, caption states the regimen. Single-animal figures and absorption
+readings use the first dosing interval only.</p>
+</li>
+<li>
+<p><strong>PK words in figures.</strong> No test names, margins, item numbers or status codes; a short code in brackets only where needed
+for tracing. Results better read as numbers go in a table. Times are after start of dosing (&quot;0.05 h (end of infusion +
+1 min)&quot;).</p>
+</li>
+<li>
+<p><strong>Title, question, reading.</strong></p>
+<ul>
+<li>Title: &quot;Horse · IV · I002 (12.3 mg/kg, 2-min infusion) — plasma concentration vs time, semi-log&quot;. No codes or questions.</li>
+<li>Subtitle: the question, e.g. &quot;Is there a dip followed by a second rise?&quot;.</li>
+<li>Caption: the reading in at most two plain sentences.</li>
+</ul>
+<p>Only standard PK marks are drawn (points, infusion band, later-dose lines, Tmax/Cmax, last measured sample, below-limit
+samples, terminal fit). Test workings are not drawn, and a figure that would only show them is not made. A missing input
+reads &quot;Not supplied in this package: ...&quot;.</p>
+</li>
+<li>
+<p><strong>Plain words first.</strong> Every first-read answer is two sentences: what the plot shows, then the modelling suggestion.
+Animal counts are fine; at most one other number, only if it changes a modelling choice. Codes, ratios and boilerplate go
+in a collapsed &quot;Numbers behind this&quot; block. Wording comes only from the tool's results, never from knowledge of the drug.
+No figures → one sentence why, never &quot;0 figures&quot;. A one-point check is one sentence naming the animal. The recommended
+model comes first. Elimination shows each animal's terminal phase and the plasma profiles.</p>
+<p><em>Example:</em> &quot;All 6 horses show a fast early decline followed by a slower terminal phase. Start with a two-compartment model;
+a one-compartment model does not describe the early points.&quot;</p>
+</li>
+</ol>
+<h2 id="14-results-shared-between-sections">14. Results shared between sections</h2>
+<p>Worked out once, used everywhere:</p>
+<ul>
+<li><strong>IV window after distribution:</strong> found by Distribution, reused by Absorption; times counted from the end of dosing (no
+double shift). Keeps its samples, refitted slope and half-life, or the reason none was found (too few points, too little
+power, slowing in every window, no window passes, steepening, or screen not run).</li>
+<li><strong>Early mixing:</strong> a sample within 5 minutes after the end of dosing (5 included).</li>
+<li><strong>Predose zero reported by the paper:</strong> kept as reported, never a measured value; anchors an area only where the section
+justifies it.</li>
+<li><strong>Question numbering:</strong> stable ids across sections, with guide and old engine numbers; guide questions without their own row
+are recorded.</li>
+</ul>
+<h2 id="open-points">Open points</h2>
+<ul>
+<li>The machine file marks rule 13.5 as replaced by the title rule; this text keeps the caption sentence. One must follow the code.</li>
+<li>To decide with George: the name of the timing-sensitive note (rule 3), and whether &quot;insufficient evidence&quot; keeps its code.</li>
+<li>The code does not yet do the filtration-check parts of rules 2, 3, 4 and 8; until then filtration results behave as in
+Elimination r1.1.</li>
+</ul>
+</article>
+</main>
+</body>
+</html>
