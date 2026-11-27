@@ -21,7 +21,7 @@ Start with the Study review guides. They explain what to look for in the figures
 
 [Shared rules s1.0 · Reviewer guide](guides/EDA_shared_rules_s1.0_reviewer_20261126.md) covers all three sections. [Read online](https://georgeteng.github.io/PKPD-Workbench-Demo/shared-rules/). The [rule manifest](../../tools/eda/rules/rules_manifest.json) records the current bindings and the Git locations of superseded drafts named in the rules.
 
-The updated elimination Q1 shows the semi-log terminal phase in DBG01 and DBG03. Both cases have one dose level per route. [EM-1a and EM-T display rules](../../tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md#e011-data-card-figure-set-and-answer-status)
+The updated elimination Q1 shows the semi-log terminal phase in DBG01 and DBG03. Both cases have one dose level per route.
 
 ## Review checklist
 
