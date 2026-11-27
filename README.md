@@ -9,7 +9,7 @@ A Windows research workbench for file intake, project Context and Rules, and sou
 | Shared rules s1.0 | [Online guide](https://georgeteng.github.io/PKPD-Workbench-Demo/shared-rules/) · [Markdown](examples/eda-review/guides/EDA_shared_rules_s1.0_reviewer_20261126.md) |
 | Absorption r4.3 | [Study review guide](examples/eda-review/guides/EDA_absorption_rules_r4.3_review_guide_20261124.md) |
 | Distribution r1.5b | [Study review guide](examples/eda-review/guides/EDA_distribution_rules_r1.5b_reviewed_20261124.md) |
-| Elimination and metabolism r1.1 | [Study review guide](examples/eda-review/guides/EDA_elimination_rules_r1.1_reviewed_20261123.md) |
+| Elimination and metabolism r1.1 | [Study review guide](examples/eda-review/guides/EDA_elimination_rules_r1.1_reviewed_20261123.md) · [Updated EM-1a rules](tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md#e011-data-card-figure-set-and-answer-status) |
 
 | Case | Study design | Report |
 | --- | --- | --- |
