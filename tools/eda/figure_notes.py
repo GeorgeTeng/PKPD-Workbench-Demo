@@ -274,6 +274,25 @@ def distribution_notes(data, add, tails):
 
 def elimination_notes(data, add):
     for b in data.get("boards", []):
+        for g in b.get("em1a") or []:   # George 2026-11-27: EM-1a, dose-normalized AUC by dose (a reused C2 keeps its absorption note)
+            if not g.get("file"):
+                continue
+            win = g.get("common_window_h")
+            method = ("Each point is the observed AUC divided by the administered dose, "
+                      + (f"over {time_window(win)}, the window every profile shares" if win else "over each profile's own observed window, because no window is shared")
+                      + (". The geometric mean is taken across animals at each dose." if g.get("level") == "INDIVIDUAL" else ". Each point is one group-mean profile.")
+                      + " No tail is extrapolated.")
+            ratio = g.get("ratio_high_low")
+            if ratio is not None:
+                finding = (f"AUC/dose at the highest dose is {fmt(ratio)} times that at the lowest over the shared window. "
+                           "Formal dose comparisons are reported under Q2.")
+            else:
+                finding = ("Different windows prevent a dose comparison." if not win
+                           else "The available profiles do not support one summary per dose.")
+            field = "auc_common_d" if win else "auc_own_d"
+            rows = [[x["sid"], fmt(x["dose"]), time_window(win or x["own_window_h"]), fmt(x[field])] for x in g["points"]]
+            add("elimination", g["file"], block("Dose-normalized AUC by dose", method, finding,
+                                              ["Profile", "Dose (mg/kg)", "Window (h)", "AUC/dose (h·kg/L)"], rows))
         for u in b.get("urine", []):
             file = b["figs"].get("EM5a|" + u["dataset_id"])
             rows = [[fmt(c["t"]), fmt(c["value"])] for c in u["cumulative"]]

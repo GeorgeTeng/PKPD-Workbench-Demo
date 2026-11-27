@@ -1577,6 +1577,8 @@ def item29(s, abs_idx, abs_meta, d24, board_binding, reported, cfg, *, source=No
         cut = min(t for t in blq_t if q[0]["t"] < t < q[-1]["t"])
         q = [p for p in q if p["t"] < cut]
         cav.append("INTERIOR_BLQ_NOT_BRIDGED")
+    # 2026-11-27 (George, EM-1a): the quantified points of the window in mg/L, so EM-1a can form AUC/dose over a common window
+    r["window_points"] = [[p["t"], p["c"] * s["uf"]] for p in q]
     # the upstream panel this row sits under
     up = abs_idx.get((s["dataset_id"], sid_col))
     if ev and up and up.get("B1"):
@@ -2011,12 +2013,15 @@ def item30(board, plasma, dist_board, abs_data, reported, urine_obs, reported_au
                 via_distribution["exposure"] = _curve_exposure(d, abs_data)
             if via_distribution["route"] == "EV" and not via_distribution["panel"]:
                 via_distribution["panel"] = _upfile("absorption", d.get("C2"))
+            if d.get("C2"):
+                via_distribution["c2_panel"] = _upfile("absorption", d.get("C2"))   # EM-1a reuse (2026-11-27)
             continue
         out["upstream"].append({"source": f"absorption item 19 ({abs_data.get('version')})", "route": "EV", "key": d.get("key"), "doses": d.get("doses"),
                                 "window_h": f"{_f(d.get('window_start_h'))} to {_f(d.get('window_end_h'))}", "auc_ratio": d.get("R_window"),
                                 "t3": d.get("t3_label") or "CANNOT_ASSESS", "t3p": (d.get("t3p") or {}).get("t3p_label") or "CANNOT_ASSESS",
                                 "exposure": _curve_exposure(d, abs_data),
-                                "panel": _upfile("absorption", d.get("C2")), "panel_id": "C2", "caveats": list(map(str, d.get("t3_flags") or []))})
+                                "panel": _upfile("absorption", d.get("C2")), "panel_id": "C2", "caveats": list(map(str, d.get("t3_flags") or [])),
+                                "c2_panel": _upfile("absorption", d.get("C2")) if d.get("C2") else None})
     for u in out["upstream"]:
         # M5: stable ids of the tests and of the question row that shows them. T3 and T3p are defined in Absorption; IV dose
         # series run the same pointwise test in Distribution and are shown under its systemic-shape row (guide Q2).
@@ -3546,10 +3551,140 @@ def pEMT(s, tp, species):
     return p
 
 
+def _em1a_auc(r, a, t_end):
+    pts = [(t, c) for t, c in (r.get("window_points") or []) if a - 1e-9 <= t <= t_end + 1e-9]
+    if len(pts) < 2:
+        return None
+    return COMMON.auc([t for t, _ in pts], [c for _, c in pts])
+
+
+def em1a_groups(b):
+    """EM-1a (George 2026-11-27): dose-normalized AUC vs dose, the expert check of linear against saturable clearance. One group per
+    route, input, matrix, record level and measured signal with two or more doses. AUC/dose is formed over the window every profile
+    of the group shares (first and last time sampled in all of them). Without a common window, show each profile separately.
+    The window clearance (dose / observed AUC) is never plotted: it stays a value in the NCA table of Q1."""
+    groups = {}
+    for r in b.get("item29") or []:
+        if not r.get("window_proxy") or r.get("auc_per_dose") is None or not r.get("dose_mg_per_kg"):
+            continue
+        lvl = "INDIVIDUAL" if str(r.get("analysis_unit") or "").startswith("INDIVIDUAL") else str(r.get("analysis_unit"))
+        k = (r["route"], r.get("route_detail"), r.get("iv_mode"), r.get("matrix"), lvl, r.get("measurement_basis"), r.get("dose_basis"))
+        groups.setdefault(k, []).append(r)
+    out = []
+    for k, rows in groups.items():
+        doses = sorted({r["dose_mg_per_kg"] for r in rows})
+        if len(doses) < 2:
+            continue
+        times = [{t for t, _ in r.get("window_points") or []} for r in rows]
+        shared_times = set.intersection(*times)
+        common = len(shared_times) >= 2
+        a, t_end = (min(shared_times), max(shared_times)) if common else (None, None)
+        pts = []
+        for r in rows:
+            w = _em1a_auc(r, a, t_end) if common else None
+            pts.append({"sid": r["sid"], "dose": r["dose_mg_per_kg"], "auc_common_d": w / r["dose_given_mg_per_kg"] if w else None,
+                        "auc_own_d": r["auc_per_dose"], "own_window_h": r["auc_window_h"]})
+        if common and any(x["auc_common_d"] is None for x in pts):
+            common = False
+            for x in pts:
+                x["auc_common_d"] = None
+        use = "auc_common_d" if common else "auc_own_d"
+
+        def gmean(v):
+            v = [x for x in v if x and x > 0]
+            return math.exp(sum(math.log(x) for x in v) / len(v)) if v else None
+        by_dose = []
+        for dose in doses:
+            values = [x[use] for x in pts if x["dose"] == dose]
+            value = gmean(values) if common and (k[4] == "INDIVIDUAL" or len(values) == 1) else None
+            by_dose.append({"dose": dose, "auc_d": value, "n": len(values)})
+        low, high = by_dose[0]["auc_d"], by_dose[-1]["auc_d"]
+        ratio = high / low if high is not None and low is not None else None
+        route = "IV" if k[0] == "IV" else (str(k[1] or "").strip() or "EV")
+        out.append({"key": _slug("-".join(str(x) for x in (b["key"], route, k[2], k[3], k[4])) + "-" + hashlib.sha256(repr(k).encode("utf8")).hexdigest()[:8]),
+                    "route": k[0], "route_word": route, "level": k[4], "measurement_basis": k[5], "doses": doses, "points": pts,
+                    "by_dose": by_dose, "ratio_high_low": ratio, "common_window_h": [a, t_end] if common else None,
+                    "basis": "common observed window" if common else "each profile's own observed window (no window is shared by all profiles)",
+                    "sids": [r["sid"] for r in rows], "file": None, "reused": None})
+    return out
+
+
+def _em1a_reading(g):
+    r = g["ratio_high_low"]
+    if r is None:
+        return "shown by profile without a dose-trend comparison"
+    return "level" if 0.8 <= r <= 1.25 else "rises with dose" if r > 1.25 else "falls with dose"
+
+
+def pEM1a(g, species):
+    d = g["doses"]
+    dose_txt = f"{d[0]:g}–{d[-1]:g} mg/kg"
+    title = COMMON.std_title(species, g["route_word"], None, dose_txt, what="dose-normalized AUC by dose", vs=None)
+    win = g["common_window_h"]
+    p = Panel(title, "Dose (mg/kg)", "AUC / dose (h·kg/L)" if g["route"] == "IV" else "AUC / dose (h·kg/L; includes F)", xlog2=True)
+    p.set(xbreaks=d, subtitle="Does exposure rise in proportion to dose?")
+    use = "auc_common_d" if win else "auc_own_d"
+    indiv = g["level"] == "INDIVIDUAL"
+    has_dose_summary = all(x["auc_d"] is not None for x in g["by_dose"])
+    if indiv or not has_dose_summary:
+        level = "individual profiles" if indiv else "group-mean profiles"
+        window = f"shared window {_f(win[0])}–{_f(win[1])} h" if win else "profile-specific observed windows"
+        p.points([x["dose"] for x in g["points"]], [x[use] for x in g["points"]], color=GRAY, shape="open",
+                 size=2.2, label=f"{level}, {window}")
+    if has_dose_summary:
+        lab = "geometric mean" if indiv else "group mean"
+        values = [x["auc_d"] for x in g["by_dose"]]
+        p.line(d, values, color=BLUE).points(d, values, color=BLUE, size=3.0,
+                                            label=f"{lab}, common window {_f(win[0])}–{_f(win[1])} h")
+        p.hline(values[0], color=GRAY, lty="dashed")
+    own = [x for x in g["points"] if x["auc_own_d"]]
+    if win and not indiv and any(abs(x["auc_own_d"] - x["auc_common_d"]) > 1e-9 * x["auc_own_d"] for x in own):
+        p.points([x["dose"] for x in own], [x["auc_own_d"] for x in own], color=GRAY, shape="open", size=2.4,
+                 label="profile-specific observed windows")
+    ys = [x[use] for x in g["points"] if x[use]] + [x["auc_own_d"] for x in own] + [x["auc_d"] for x in g["by_dose"] if x["auc_d"]]
+    if ys:
+        p.set(ylim=[0, max(ys) * 1.25])   # from zero, so the size of a change with dose is not exaggerated
+    p.set(legend="top_left")
+    r = g["ratio_high_low"]
+    if not win:
+        p.set(caption="Points show AUC/dose over each profile's own observed window. Different windows prevent a dose comparison.")
+    elif r is not None:
+        p.set(caption=f"AUC/dose at {d[-1]:g} mg/kg is {r:.2f} times that at {d[0]:g} mg/kg over the shared window. "
+                      "The dose comparison is descriptive.")
+    return p
+
+
+def _matching_em1a_panel(group, upstream):
+    exposure = upstream.get("exposure") or {}
+    rows = exposure.get("rows") or []
+    return (
+        group["route"] == upstream.get("route") == "EV"
+        and group["common_window_h"] is not None
+        and exposure.get("window") == group["common_window_h"]
+        and sorted(upstream.get("doses") or []) == group["doses"]
+        and {ref for row in rows for ref in row.get("refs", [])} == set(group["sids"])
+        and len(rows) == len(group["by_dose"])
+        and all(row["dose"] == summary["dose"] and row.get("auc_per_dose") is not None
+                and summary["auc_d"] is not None
+                and math.isclose(row["auc_per_dose"], summary["auc_d"], rel_tol=1e-9)
+                for row, summary in zip(rows, group["by_dose"]))
+    )
+
+
 def figures(boards, out, assay_groups=()):
     for b in boards:
         figs = b["figs"]
         key = b["key"]
+        # EM-1a (George 2026-11-27): dose-normalized AUC vs dose for two or more doses; an extravascular group that Absorption already
+        # drew as C2 for the same doses is reused, not drawn again (reuse rule)
+        b["em1a"] = em1a_groups(b)
+        c2 = [u for u in (b.get("item30") or {}).get("upstream") or [] if u.get("c2_panel")]
+        for g in b["em1a"]:
+            up = next((u for u in c2 if _matching_em1a_panel(g, u)), None)
+            if up:
+                g["reused"] = {"section": "absorption", "panel": "C2", "file": up["c2_panel"]}
+            else:
+                g["file"] = figs[f"EM1a|{g['key']}"] = _figure(f"EM1a_{g['key']}.png", [pEM1a(g, b["species"])], 6.0, 4.0)
         b["terminal"] = []
         for s in b.get("plasma") or []:   # one terminal-phase figure per first-dose plasma profile (George 2026-11-25)
             if s.get("route_class") not in ("IV", "EV") or s.get("occasion") != "FIRST_DOSE":
@@ -3589,7 +3724,12 @@ def figures(boards, out, assay_groups=()):
 # (return of biliary drug) have no row and are recorded in guide_coverage. `q` stays the engine id.
 
 READING_MAP = [
-    ("EM-1a (value row)", "Dose divided by observed AUC for the named measurement and profile",
+    ("EM-1a (dose-normalized AUC vs dose)", "Does AUC/dose stay level, rise or fall across the doses, over the window all profiles share",
+     "Level, rises or falls; the high/low ratio of AUC/dose. Descriptive: the test is T3/T3p under Q2",
+     "Level: compatible with a linear reference. A rise motivates checking delivery, binding and assay, and testing saturable clearance if appropriate."),
+    ("EM-T (terminal phase, semi-log)", "The late points used for the terminal slope, the fitted line, the apparent half-life",
+     "Apparent terminal half-life of each profile (display only; enters no calculation)", "One linear elimination phase when the late points fall on one line"),
+    ("NCA table (window clearance)", "Dose divided by observed AUC for the named measurement and profile: a table value, never a plot",
      "Dose / observed AUC(a,b), with the window, assay basis and individual or group-mean level. Conditional limits have their own assumptions.",
      "A window-specific starting value. Missing exposure tends to raise the ratio if the numerical area is accurate. Check quadrature and definitions when a source-reported clearance lies above it"),
     ("Q2 (upstream C2 / DIS-2b)", "The upstream dose panel with its T3 / T3p result; urine by dose from EM-5a",
@@ -3613,8 +3753,9 @@ READING_MAP = [
 ]
 
 QD = {
-    1: ("Dose / observed plasma AUC", "What does the plasma window tell us about clearance?",
-        "the dose over the observed-window AUC from the upstream record, with its window", "CL over all time: no tail is extrapolated and no limit is formed by default"),
+    1: ("Plasma clearance", "What does the plasma window tell us about clearance?",
+        "AUC/dose against dose (two or more doses) or the semi-log terminal phase (one dose); the window clearance (dose / observed AUC) is a value in the NCA table",
+        "CL over all time: no tail is extrapolated and no limit is formed by default"),
     2: ("Dose", "Does exposure scale with dose?", "the upstream dose comparison and its test result", "a cause for a departure from proportionality"),
     3: ("Repeated dosing", "What changes on repeat dosing?", "the upstream occasion comparison and urine by occasion", "whether clearance or input changed"),
     5: ("Urine", "How much parent is in urine, and is CLR consistent with filtration?", "cumulative unchanged parent at the observed collection ends",
@@ -3694,7 +3835,7 @@ def q1_row(b):
         ev.append({"rule": "Item 29: D/ÂUC over the observed window, with the window AUC read from the upstream A0.6 record when it holds the same profile, "
                            "window and method; otherwise the same routine on the quantified points. Not extrapolated; no limit by default (E0.6).",
                    "data": sorted({r["dataset_id"] for r in rows}),
-                   "tables": [{"caption": "EM-1a value rows", "head": ["Source profile", "Measured signal", "Record level", "Route", "Dose (mg/kg)", "Window (h)", "Observed AUC (mg·h/L)", "Dose / observed AUC (L/h/kg)", "AUC source", "Caveats", "Source restrictions"],
+                   "tables": [{"caption": "NCA table: window clearance (a value, not plotted)", "head": ["Source profile", "Measured signal", "Record level", "Route", "Dose (mg/kg)", "Window (h)", "Observed AUC (mg·h/L)", "Dose / observed AUC (L/h/kg)", "AUC source", "Caveats", "Source restrictions"],
                                "rows": [[r["sid"], r["measurement_basis"], _lvl(r["analysis_unit"]), r["route"], _f(r["dose_mg_per_kg"]),
                                          " – ".join(_f(x) for x in (r["auc_window_h"] or [])) or "—", _f(r["auc_window"]), _f(r["window_proxy"]),
                                          r["auc_source"] or r["not_assessable_reason"] or "—", _words(r["caveats"]),
@@ -3740,15 +3881,35 @@ def q1_row(b):
             reach += f" Source restrictions for {r0['sid']}: " + ", ".join(restricted) + "."
         if "REPORTED_CL_ABOVE_WINDOW" in r0["caveats"]:
             reach += f" The reported clearance for {r0['sid']} exceeds its window ratio. Check integration, definitions and dose units."
+        # 2026-11-27 (George): the primary figure is EM-1a, dose-normalized AUC vs dose, when two or more doses are given; with one dose
+        # it is the semi-log terminal phase (EM-T). The window clearance stays a value in the NCA table and is never plotted.
+        em1a = [g for g in b.get("em1a") or [] if g.get("file") or g.get("reused")]
+        g0 = next((g for g in em1a if r0["sid"] in g["sids"]), em1a[0] if em1a else None)
+        emt = {t["sid"]: t["file"] for t in b.get("terminal") or [] if t.get("file")}
+        for g in em1a:
+            f = g["file"] or g["reused"]["file"]
+            if g is not g0:
+                views.append(_view("C2 (reused as EM-1a)" if g["reused"] else "EM-1a", f, f"AUC/dose by dose · {g['route_word']}"))
+        for r in ok:
+            if emt.get(r["sid"]) and not (g0 is None and r is r0):
+                views.append(_view("EM-T", emt[r["sid"]], f"Terminal phase · {r['label']}"))
         for r in ok:
             f = r["upstream_panel"]["file"] if r.get("upstream_panel") else None
-            if f and r is not r0:
+            if f:
                 views.append(_view(r["upstream_panel"]["panel"], f, r["label"]))
         f0 = r0["upstream_panel"]["file"] if r0.get("upstream_panel") else None
-        prim = (_prim(f0, r0["upstream_panel"]["panel"], 1, "EM-1a · " + r0["value_row"], _lvl(r0["analysis_unit"])) if f0 else
-                _rowprim(1, ["Source profile", "Measured signal", "Record level", "Window (h)", "Dose / observed AUC (L/h/kg)"],
-                         [[r["sid"], r["measurement_basis"], _lvl(r["analysis_unit"]), " – ".join(_f(x) for x in r["auc_window_h"]), _f(r["window_proxy"])]
-                          for r in ok], "EM-1a value rows", level))
+        if g0:
+            reading = _em1a_reading(g0)
+            line = (f"EM-1a · AUC/dose {reading} across {g0['doses'][0]:g}–{g0['doses'][-1]:g} mg/kg ({g0['route_word']}"
+                    + (f", ratio high/low {g0['ratio_high_low']:.2f}" if g0["ratio_high_low"] else "") + f"; {g0['basis']})")
+            prim = _prim(g0["file"] or g0["reused"]["file"], "C2" if g0["reused"] else "EM-1a", 1, line, _lvl(r0["analysis_unit"]))
+        elif emt.get(r0["sid"]):
+            prim = _prim(emt[r0["sid"]], "EM-T", 1, f"EM-T · terminal phase of {r0['label']} (dose dependence cannot be read from this profile)",
+                         _lvl(r0["analysis_unit"]))
+        else:
+            prim = _rowprim(1, ["Source profile", "Measured signal", "Record level", "Window (h)", "Dose / observed AUC (L/h/kg)"],
+                            [[r["sid"], r["measurement_basis"], _lvl(r["analysis_unit"]), " – ".join(_f(x) for x in r["auc_window_h"]), _f(r["window_proxy"])]
+                             for r in ok], "NCA table · window clearance", level)
         if not f0:
             missing.append("upstream DIS-1a/1b or B1 panel for this profile (mismatch recorded; value row shown)")
         missing += ["plasma area outside the observed window"] + ([] if iv else ["an IV reference for CL"])
@@ -4536,7 +4697,7 @@ def board_hypothesis(b):
         h["observation"] = r["value_row"]
         h["alternative"], h["next_test"] = _plasma_priority(b["study"], r)
         h["evidence_basis"] = "plasma window"
-        h["rests_on"] = f"Rests on: EM-1a under {r['upstream_panel']['panel'] if r.get('upstream_panel') else 'the value row'} ({r['dataset_id']})."
+        h["rests_on"] = f"Rests on: the window clearance in the Q1 NCA table ({r['dataset_id']})."
         h["source_ids"] = [r["sid"]]
         if "REPORTED_CL_ABOVE_WINDOW" in r["caveats"]:
             h["check_first"].append("source-reported CL above the window value")
@@ -5256,7 +5417,7 @@ def _emr_page(res, back):
     scope = res["item32_inventory"]
     h = [back, '<section class="panel" id="em-r"><h1>EM-R · Source-reported parameters</h1>',
          '<p class="muted">Clearance, renal clearance, fe, rate constants and half-lives as printed, with their definition, units, method and source (E0.12). '
-         'They are never substituted for the window value (EM-1a) or the urine series (EM-5a). Values already shown in absorption F are marked there and not repeated here.</p>',
+         'They are never substituted for the window clearance in the Q1 NCA table or the urine series (EM-5a). Values already shown in absorption F are marked there and not repeated here.</p>',
          _table(["Species", "Study"] + REP_HEAD, [r for p, r in zip(rep, rows) if not p["shown_in_absorption_F"]]) if rep else "<p>No reported elimination parameters.</p>"]
     if scope:
         h.append('<details class="evi"><summary>Item 32 (reserved): metabolite and total-radioactivity entries, listed for scope review only</summary>'

@@ -73,7 +73,7 @@ labels:
 
 order:   # E0.1; execution by data layer, a later layer never blocks an earlier one; q = guide question (M5), engine_row = json q
   layers:
-  - {layer: plasma, items: [29, 30, 31], q: [1, 2, 3], evidence: "existing DIS/absorption panels + EM-1a row"}
+  - {layer: plasma, items: [29, 30, 31], q: [1, 2, 3], evidence: "EM-1a dose-normalized AUC vs dose (reuse matching EV C2) or EM-T terminal phase; NCA table of window clearance; existing DIS/absorption panels"}
   - {layer: urine, items: [33], q: [4], engine_row: 5, evidence: ["Figure 4A cumulative recovery", "Figure 4B optional interval rate", "Figure 4C interval clearance"]}
   - {layer: recovery, items: [34], q: [6], engine_row: 6, evidence: "Table 2: recovery by route and mass balance"}
   - {layer: components_in_vitro, items: [35], q: [5], engine_row: 7, evidence: ["Table 3 components", "Figure 5 or Table 4 assays"]}
@@ -116,7 +116,9 @@ display:   # E0.11; reuse upstream panel by ID+version, no re-plot, add own sent
     binding: "Table 1: total concentration, plasma fraction unbound, assay and reported uncertainty. Cite an existing Distribution binding plot only if its range covers the observed concentrations and the trend affects interpretation."
     urinary_intervals: "Reuse the cumulative and interval-clearance panels on the same clock. Add interval rates only for a complete bin with known boundaries, duration and amount or dose fraction, when unequal collections or a change hidden by cumulative recovery make rates informative."
     assay_time_course: "Plot measured serial parent and matched controls once. When species are comparable, mark their common endpoint here. Use the project endpoint plot only for matched endpoint-only data with at least two species. An eligible serial study can supply the time course for one species."
-  EM-1a: {plot: false, under: "DIS-1a (IV) or B1 (EV)", row: "observed AUC(a,b) and AUC(a,b)/Dose (exposure), units, actual window, signal, assay, individual or group-curve level", never: ["Dose/AUC(a,b)", "a CL label", "limits of groups on one axis"]}
+  EM-1a: {plot: "dose-normalized AUC vs dose", when: "two or more doses in one route, input, matrix, record level and measured signal", x: "dose (mg/kg, log2)", y: "AUC(a,b)/Dose over the window shared by all profiles; points only over profile-specific windows without a shared window", reuse: "EV: absorption C2 for the same profiles, doses, window and values", test: "none on this panel; T3/T3p under Q2", never: ["Dose/AUC(a,b) as a plotted quantity", "a CL label", "limits of groups on one axis"], changed: "2026-11-27 George"}
+  EM-T: {plot: "semi-log concentration-time with the terminal slope", when: "every first-dose systemic plasma profile with >= 3 quantified points", window: "A0.7 terminal-window rule", role: "display only; Q1 primary figure when one dose", source: "s1.0 S13.10"}
+  NCA_table: {plot: false, row: "dose / observed AUC(a,b) (CL or CL/F window value), observed AUC(a,b), AUC/Dose, units, actual window, signal, assay, individual or group-curve level", note: "a value in the NCA table, never a figure (George 2026-11-27)"}
   Q2: {panels: "EV C2,C3; IV DIS-2a,DIS-2b", adds: "item 30 reading; urine by dose"}
   Q3: {panels: "EV E1,E2; DIS-4c", adds: "T9/item 23 result; urine by occasion"}
   EM-5a: {x: "collection end h", y: "cumulative % of stated denominator", when: ">=2 distinct collection ends, same dose basis; else sentence/table", marks: [points at observed ends, no join across gaps, grey gaps, "0-t | sum over collected intervals", separate parent/active material/TR traces, small last increment, both printed total and sum if they differ]}
@@ -125,7 +127,7 @@ display:   # E0.11; reuse upstream panel by ID+version, no re-plot, add own sent
   EM-7a: {plot: false, table: "animal/cohort/pool and summary level, matrix, window, label, assay and coverage, component and recovery source cells, share and denominator, eligible dose share, identified/unidentified/unprofiled shares and sum check; largest component and largest identified product"}
   EM-7b: {x: "actual incubation time or species", y: "parent concentration or percent remaining over time, or same endpoint in its own units", when: "Figure 5: supported serial observations with matched controls OR endpoint-only results from at least two species in matched systems, substrate, starting concentration, conditions, endpoint time where relevant, units and normalization", marks: ["independent incubations and technical replicates", "controls and dispersion", "one shared endpoint on an existing time course", "excluded rows with reason"]}
   EM-8a: {plot: false, where: "columns of DIS-6b", rule: "one column per quantity with evidence kind; missing cells visible; no common clearance axis"}
-  EM-R: {when: "E0.12 reported parameters", never: "silent substitute for EM-1a/EM-5a; repeat of F or DIS-R values"}
+  EM-R: {when: "E0.12 reported parameters", never: "silent substitute for the NCA window clearance/EM-5a; repeat of F or DIS-R values"}
   retired_ids: [EM-1b, EM-2a, EM-2b, EM-3a, EM-3b, EM-4, EM-5b, EM-6b, EM-7c]
 
 items:

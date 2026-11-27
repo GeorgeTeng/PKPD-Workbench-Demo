@@ -1,5 +1,8 @@
 # Elimination and metabolism EDA r1.1 · Study review guide
 
+
+**Current Q1 figure.** EM-1a plots observed-window AUC per dose against dose. Different observed windows are shown as profile-specific points. For a single dose, Q1 displays the semi-log terminal phase when available. The NCA table carries the observed-window dose/AUC. [Implementation rules r1.2](../../../tools/eda/rules/EDA_elimination_metabolism_rules_r1.2_consolidated_20261125.md)
+
 ## Main question
 
 **How is the parent drug eliminated in this species, and what do the measurements reveal about its metabolism?**

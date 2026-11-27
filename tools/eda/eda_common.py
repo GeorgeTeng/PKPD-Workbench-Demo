@@ -2442,7 +2442,33 @@ def _pl_elim_model(b, rows, indiv, qs, tp):
     return {"suggests": sug, "notes": notes}
 
 
+def _pl_em1a(b):
+    """George 2026-11-27: the plain reading of EM-1a (dose-normalized AUC vs dose), or None with one dose."""
+    g = next((g for g in b.get("em1a") or [] if g.get("ratio_high_low") and (g.get("file") or g.get("reused"))), None)
+    if not g:
+        return None
+    r = g["ratio_high_low"]
+    route = "IV" if g.get("route") == "IV" else _PL_ROUTE.get(str(g.get("route_word")).upper(), str(g.get("route_word")))
+    if 0.8 <= r <= 1.25:
+        return (f"After {route} dosing, exposure divided by dose stays about level across the doses over the shared observed window.",
+                "Keep linear clearance as a reference model.")
+    if r > 1.25:
+        return (f"After {route} dosing, exposure divided by dose rises with dose.",
+                "Check delivery, binding and assay before testing saturable clearance against linear clearance." if route == "IV" else
+                "Test a saturable clearance against the linear one; a change in bioavailability with dose could give the same rise.")
+    return (f"After {route} dosing, exposure divided by dose falls with dose.",
+            "Check absorption and protein binding at the higher doses before adding a dose-dependent clearance.")
+
+
 def _pl_e1(q, b, rows, noun):
+    base = _pl_e1_window(q, b, rows, noun)
+    em = _pl_em1a(b)
+    if em:
+        return _pl_pair(em[0], em[1] + (" " + base["suggests"] if base else ""))
+    return base
+
+
+def _pl_e1_window(q, b, rows, noun):
     iv = [r["window_proxy"] for r in rows if str(r.get("route") or "").upper() == "IV"]
     if iv:
         n = len(iv)
@@ -2460,7 +2486,7 @@ def _pl_e2(q, b, rows, noun):
     if q.get("status_code") in ("NOT_APPLICABLE", "NOT_ANSWERABLE_YET"):
         return _pl_pair("Only one dose level is available, so it cannot be checked whether clearance changes with dose.",
                         "Assume clearance does not depend on dose.")
-    return _pl_pair("Dose divided by exposure is compared across the doses given.", "Keep linear clearance unless the comparison shows a clear trend with dose.")
+    return _pl_pair("Exposure divided by dose is compared across the doses given.", "Keep linear clearance unless the comparison shows a clear trend with dose.")
 
 
 def _pl_e3(q, b, rows, noun):
